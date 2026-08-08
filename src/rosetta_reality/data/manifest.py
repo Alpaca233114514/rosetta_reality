@@ -161,7 +161,11 @@ def compute_cache_checksums(root: Path) -> dict[str, str]:
         directory = root / directory_name
         if not directory.exists():
             continue
-        for path in sorted(file for file in directory.rglob("*") if file.is_file()):
+        for path in sorted(
+            file
+            for file in directory.rglob("*")
+            if file.is_file() and not file.name.endswith(".partial")
+        ):
             checksums[path.relative_to(root).as_posix()] = _sha256(path)
     if not checksums:
         raise ValueError(f"No dataset content files found under {root}.")

@@ -22,6 +22,16 @@
   tracked files, documentation, logs, handoffs, or user-facing responses unless the user explicitly
   requests a specific absolute path.
 
+## Shell and runtime boundary
+
+- Windows-side repository editing, Git operations, and non-ML static checks may use PowerShell (`pwsh`).
+- Except for PowerShell, all command-line operations must use Bash; do not substitute `cmd.exe`, another
+  shell, or native Windows Python.
+- All WSL operations must be executed inside WSL Bash. This includes creating or updating Python
+  environments, installing ML or data dependencies, downloading models or datasets, and running ML code.
+- When invoking WSL from PowerShell, call `wsl.exe bash` explicitly and quote Bash variables and paths so
+  PowerShell expansion cannot redirect a command into the Windows-mounted repository unexpectedly.
+
 ## GPU and environment safety
 
 All local machine-learning operations must run inside WSL. This includes creating

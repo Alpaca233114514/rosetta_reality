@@ -219,20 +219,38 @@ __marimo__/
 .streamlit/secrets.toml
 
 # Rosetta Reality project artifacts
+.env
 .env.*
+!.env.example
+!.env.template
+/.secrets/
+/credentials*.json
+/service-account*.json
 /.idea/
 /.vscode/
 /data/
 /datasets/
+/hf_cache/
+/.huggingface/
+/feature_cache/
+/models/
+/model_weights/
 /checkpoints/
+/artifacts/
+/exports/
 /outputs/
 /runs/
 /wandb/
 /logs/
+*.partial
 *.pt
 *.pth
 *.ckpt
 *.safetensors
+*.onnx
+*.gguf
+*.h5
+*.hdf5
 .DS_Store
 Thumbs.db
 

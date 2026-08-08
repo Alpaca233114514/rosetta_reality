@@ -36,7 +36,7 @@ addopts = "-ra"
 markers = [
     "data: requires a locally prepared real dataset cache and never downloads data",
 ]
-pythonpath = ["src"]
+pythonpath = ["src", "."]
 testpaths = ["tests"]
 
 [tool.ruff]

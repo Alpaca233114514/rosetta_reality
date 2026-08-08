@@ -1,4 +1,4 @@
-"""Explicit offline smoke test over the prepared ALOHA episode."""
+"""Explicit offline smoke tests over prepared robot-dataset episodes."""
 
 import math
 from dataclasses import asdict
@@ -10,7 +10,7 @@ from torch.utils.data import DataLoader
 
 from rosetta_reality.data import ActionChunkDataset, collate_rosetta
 from rosetta_reality.data.adapters import LeRobotV3Adapter
-from rosetta_reality.data.config import load_dataset_config
+from rosetta_reality.data.config import load_dataset_config, resolve_dataset_cache_root
 from rosetta_reality.data.manifest import find_dataset_manifests, load_dataset_manifest
 from rosetta_reality.data.normalization import load_dataset_statistics, normalize
 from rosetta_reality.models import ContinuousActionHead, StateEncoder, VLAPolicy
@@ -18,17 +18,22 @@ from rosetta_reality.models.backbones import DummyBackbone
 from rosetta_reality.train import train_step
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
-CONFIG_PATH = REPOSITORY_ROOT / "configs" / "data" / "aloha_sim_insertion.yaml"
+CONFIG_PATHS = (
+    REPOSITORY_ROOT / "configs" / "data" / "aloha_sim_insertion.yaml",
+    REPOSITORY_ROOT / "configs" / "data" / "aloha_sim_transfer_cube_scripted.yaml",
+    REPOSITORY_ROOT / "configs" / "data" / "aloha_mobile_cabinet.yaml",
+    REPOSITORY_ROOT / "configs" / "data" / "libero.yaml",
+)
 
 
 @pytest.mark.data
-def test_prepared_episode_supports_one_cpu_optimizer_step(monkeypatch) -> None:
-    config = load_dataset_config(CONFIG_PATH)
-    cache_root = (
-        config.cache_root
-        if config.cache_root.is_absolute()
-        else REPOSITORY_ROOT / config.cache_root
-    )
+@pytest.mark.parametrize("config_path", CONFIG_PATHS, ids=lambda path: path.stem)
+def test_prepared_episode_supports_one_cpu_optimizer_step(
+    monkeypatch,
+    config_path: Path,
+) -> None:
+    config = load_dataset_config(config_path)
+    cache_root = resolve_dataset_cache_root(config, REPOSITORY_ROOT)
     manifests = find_dataset_manifests(cache_root, config.repo_id)
     expected_fields = asdict(config.fields)
     complete = [
@@ -60,16 +65,25 @@ def test_prepared_episode_supports_one_cpu_optimizer_step(monkeypatch) -> None:
         iter(DataLoader(dataset, batch_size=2, shuffle=False, collate_fn=collate_rosetta))
     )
 
-    assert len(adapter) == 500
-    assert batch.instructions[0] == "Insert the peg into the socket."
-    assert batch.robot_state.shape == (2, 14)
-    assert batch.actions.shape == (2, 8, 14)
-    assert batch.images["top"].shape == (2, 3, 480, 640)
+    if config.expected_frames is not None:
+        assert len(adapter) == config.expected_frames
+    if config.expected_instruction is not None:
+        assert batch.instructions[0] == config.expected_instruction
+    assert batch.robot_state.shape == (2, config.expected_state_dim)
+    assert batch.actions.shape == (2, config.chunk_size, config.expected_action_dim)
+    assert batch.images.keys() == config.cameras.keys()
+    for images in batch.images.values():
+        assert images.ndim == 4
+        assert images.shape[:2] == (2, 3)
+        assert torch.isfinite(images).all()
 
     statistics = load_dataset_statistics(manifest_path.parent / "statistics.json")
     robot_state = normalize(batch.robot_state, statistics.state)
     target_actions = normalize(batch.actions, statistics.action)
-    dummy_features = batch.images["top"].mean(dim=(-2, -1))
+    dummy_features = torch.cat(
+        [images.mean(dim=(-2, -1)) for images in batch.images.values()],
+        dim=-1,
+    )
     policy = VLAPolicy(
         backbone=DummyBackbone(input_dim=dummy_features.shape[-1], hidden_size=32),
         state_encoder=StateEncoder(state_dim=robot_state.shape[-1], hidden_dim=32),
@@ -88,5 +102,9 @@ def test_prepared_episode_supports_one_cpu_optimizer_step(monkeypatch) -> None:
         target_actions,
     )
 
-    assert result.prediction_shape == (2, 8, 14)
+    assert result.prediction_shape == (
+        2,
+        config.chunk_size,
+        config.expected_action_dim,
+    )
     assert math.isfinite(result.loss)

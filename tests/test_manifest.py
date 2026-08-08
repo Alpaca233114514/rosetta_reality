@@ -150,3 +150,15 @@ def test_cache_checksums_detect_changed_content(tmp_path) -> None:
     metadata.write_text('{"version": "changed"}', encoding="utf-8")
     with pytest.raises(ValueError, match="checksum mismatch"):
         validate_cache_checksums(root)
+
+
+def test_cache_checksums_ignore_incomplete_downloads(tmp_path) -> None:
+    root = Path(tmp_path)
+    complete = root / "data" / "file.parquet"
+    complete.parent.mkdir()
+    complete.write_bytes(b"complete")
+    (complete.parent / "next.parquet.partial").write_bytes(b"incomplete")
+
+    checksums = compute_cache_checksums(root)
+
+    assert tuple(checksums) == ("data/file.parquet",)

@@ -67,6 +67,9 @@ def _digest_from_tree_row(row: dict[str, Any]) -> str | None:
     xet_hash = row.get("xetHash")
     if xet_hash:
         return str(xet_hash)
+    oid = row.get("oid")
+    if oid:
+        return str(oid)
     return None
 
 
@@ -151,7 +154,10 @@ def _download_file(
     remote: HubFile,
     root: Path,
     timeout_seconds: float,
+    stream_retries: int = 5,
 ) -> Path:
+    from requests.exceptions import RequestException
+
     target = _safe_target(root, remote.path)
     url = (
         "https://huggingface.co/datasets/"
@@ -159,32 +165,50 @@ def _download_file(
         f"{quote(remote.path, safe='/')}"
     )
     if target.exists():
-        head = session.head(url, allow_redirects=True, timeout=timeout_seconds)
-        head.raise_for_status()
-        _validate_file(target, remote, head.headers.get("etag"))
+        # The immutable Hub tree normally supplies an LFS/Xet digest.  Validate
+        # against that metadata directly so an already complete cache remains
+        # usable when the CDN's redirected HEAD endpoint is temporarily flaky.
+        _validate_file(target, remote)
         return target
     target.parent.mkdir(parents=True, exist_ok=True)
     partial = target.with_name(f"{target.name}.partial")
-    offset = partial.stat().st_size if partial.exists() else 0
-    if offset > remote.size:
-        raise ValueError(f"Partial download is larger than the expected file: {partial}.")
-    headers = {"Range": f"bytes={offset}-"} if offset else {}
-    response = session.get(
-        url,
-        headers=headers,
-        allow_redirects=True,
-        stream=True,
-        timeout=timeout_seconds,
-    )
-    response.raise_for_status()
-    if offset and response.status_code != 206:
-        raise RuntimeError(f"Server did not honor Range resume for {partial}.")
-    mode = "ab" if offset else "xb"
-    with partial.open(mode) as file:
-        for block in response.iter_content(chunk_size=1024 * 1024):
-            if block:
-                file.write(block)
-    _validate_file(partial, remote, response.headers.get("etag"))
+    etag: str | None = None
+    for attempt in range(stream_retries + 1):
+        offset = partial.stat().st_size if partial.exists() else 0
+        if offset > remote.size:
+            raise ValueError(f"Partial download is larger than the expected file: {partial}.")
+        if offset == remote.size:
+            break
+        headers = {"Range": f"bytes={offset}-"} if offset else {}
+        try:
+            with session.get(
+                url,
+                headers=headers,
+                allow_redirects=True,
+                stream=True,
+                timeout=timeout_seconds,
+            ) as response:
+                response.raise_for_status()
+                if offset and response.status_code != 206:
+                    raise RuntimeError(f"Server did not honor Range resume for {partial}.")
+                etag = response.headers.get("etag")
+                mode = "ab" if offset else "xb"
+                with partial.open(mode) as file:
+                    for block in response.iter_content(chunk_size=1024 * 1024):
+                        if block:
+                            file.write(block)
+        except RequestException:
+            if attempt == stream_retries:
+                raise
+            continue
+        received = partial.stat().st_size
+        if received == remote.size:
+            break
+        if attempt == stream_retries:
+            raise RuntimeError(
+                f"Incomplete download for {partial}: expected {remote.size}, received {received}."
+            )
+    _validate_file(partial, remote, etag)
     if target.exists():
         raise FileExistsError(f"Refusing to replace a concurrently created file: {target}.")
     partial.rename(target)

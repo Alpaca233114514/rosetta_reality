@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 import yaml
+
+CACHE_ROOT_ENVIRONMENT_VARIABLE = "ROSETTA_DATA_ROOT"
 
 
 @dataclass(frozen=True, slots=True)
@@ -48,6 +51,22 @@ class DatasetConfig:
             raise ValueError("At least one named camera must be configured.")
         if self.chunk_size <= 0:
             raise ValueError("chunk_size must be positive.")
+
+
+def resolve_dataset_cache_root(config: DatasetConfig, repository_root: Path) -> Path:
+    """Resolve the configured cache root with an optional absolute environment override."""
+
+    override = os.environ.get(CACHE_ROOT_ENVIRONMENT_VARIABLE)
+    if override:
+        root = Path(override).expanduser()
+        if not root.is_absolute():
+            raise ValueError(
+                f"{CACHE_ROOT_ENVIRONMENT_VARIABLE} must be an absolute path."
+            )
+        return root
+    if config.cache_root.is_absolute():
+        return config.cache_root
+    return repository_root / config.cache_root
 
 
 def _required(mapping: dict[str, Any], key: str) -> Any:
