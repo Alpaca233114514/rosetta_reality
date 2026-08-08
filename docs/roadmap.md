@@ -31,20 +31,23 @@ checkpoint/resume, evaluation, artifact-export, and MuJoCo control loop on a
 bounded task before scaling the pipeline. Frozen, LoRA, and full fine-tuning
 remain controlled adaptation choices rather than permanent milestone labels.
 
-## M3 — LoRA
+## M3 — Scale-up VLA
 
-Introduce parameter-efficient backbone adaptation after the frozen-backbone
-pipeline is stable.
+Scale the pipeline proven by M2 to `Qwen3.5-9B-Base`, beginning with a short GPU
+smoke and then a user-approved controlled experiment. Frozen, LoRA, and full
+fine-tuning remain independent adaptation choices with comparable protocols.
 
 ## M4 — Action Chunk Transformer
 
 Replace the MLP action head with a temporal action expert while preserving the
 `[batch, chunk_size, action_dim]` contract.
 
-## M5 — Closed-loop MuJoCo Evaluation
+## M5 — Robust Simulation Evaluation
 
-Evaluate repeated observation-to-action execution in simulation using task
-success, collision, validity, smoothness, and latency metrics.
+Extend M2's mandatory baseline closed-loop MuJoCo evaluation to longer-horizon,
+multi-task, and perturbation testing. Continue tracking task success, collision,
+validity, smoothness, and latency metrics without treating this milestone as the
+first observation-action-observation control gate.
 
 ## M6 — Multi-dataset / Cross-embodiment
 
