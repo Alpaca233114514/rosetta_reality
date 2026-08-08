@@ -7,10 +7,15 @@ import json
 import os
 from dataclasses import asdict
 from pathlib import Path
+from typing import Any
 
 from rosetta_reality.data import ActionChunkDataset
 from rosetta_reality.data.adapters import LeRobotV3Adapter
-from rosetta_reality.data.config import DatasetConfig, load_dataset_config
+from rosetta_reality.data.config import (
+    DatasetConfig,
+    load_dataset_config,
+    resolve_dataset_cache_root,
+)
 from rosetta_reality.data.hub import download_dataset_snapshot
 from rosetta_reality.data.manifest import (
     DatasetManifest,
@@ -35,13 +40,37 @@ DEFAULT_CONFIG = REPOSITORY_ROOT / "configs" / "data" / "aloha_sim_insertion.yam
 
 
 def _cache_root(config: DatasetConfig) -> Path:
-    if config.cache_root.is_absolute():
-        return config.cache_root
-    return REPOSITORY_ROOT / config.cache_root
+    return resolve_dataset_cache_root(config, REPOSITORY_ROOT)
 
 
 def _directory_size(path: Path) -> int:
     return sum(file.stat().st_size for file in path.rglob("*") if file.is_file())
+
+
+def _selected_episode_prefixes(
+    metadata: Any,
+    episodes: tuple[int, ...],
+) -> tuple[str, ...]:
+    paths = {str(metadata.get_data_file_path(episode)) for episode in episodes}
+    paths.update(
+        str(metadata.get_video_file_path(episode, video_key))
+        for episode in episodes
+        for video_key in metadata.video_keys
+    )
+    return tuple(sorted(Path(path).as_posix() for path in paths))
+
+
+def _episode_snapshot_prefixes(
+    *,
+    repo_id: str,
+    revision: str,
+    root: Path,
+    episodes: tuple[int, ...],
+) -> tuple[str, ...]:
+    from lerobot.datasets.lerobot_dataset import LeRobotDatasetMetadata
+
+    metadata = LeRobotDatasetMetadata(repo_id, root, revision)
+    return _selected_episode_prefixes(metadata, episodes)
 
 
 def _validate_expected(config: DatasetConfig, adapter: LeRobotV3Adapter) -> None:
@@ -85,15 +114,27 @@ def prepare(config: DatasetConfig) -> int:
     checksum_path = root / "cache_checksums.json"
     if checksum_path.exists():
         validate_cache_checksums(root)
-    video_prefixes = tuple(f"videos/{source_key}/" for source_key in config.cameras.values())
-    downloaded_paths = download_dataset_snapshot(
+    metadata_paths = download_dataset_snapshot(
         repo_id=config.repo_id,
         revision=resolved_revision,
         root=root,
-        prefixes=("meta/", "data/", *video_prefixes),
+        prefixes=("meta/",),
     )
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["HF_DATASETS_OFFLINE"] = "1"
+    episode_prefixes = _episode_snapshot_prefixes(
+        repo_id=config.repo_id,
+        revision=resolved_revision,
+        root=root,
+        episodes=config.episodes,
+    )
+    episode_paths = download_dataset_snapshot(
+        repo_id=config.repo_id,
+        revision=resolved_revision,
+        root=root,
+        prefixes=episode_prefixes,
+    )
+    downloaded_paths = [*metadata_paths, *episode_paths]
     adapter = LeRobotV3Adapter(
         repo_id=config.repo_id,
         revision=resolved_revision,

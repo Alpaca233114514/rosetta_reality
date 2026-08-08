@@ -7,8 +7,9 @@ it does not provide autonomous robot control.
 
 ## Status
 
-Experimental / early-stage. **M0 — Repository Skeleton** is complete and under
-draft review. The current milestone is **M1 — Dataset Pipeline**.
+Experimental / early-stage. **M0 — Repository Skeleton** and **M1 — Dataset
+Pipeline** are complete for their bounded acceptance scopes. **M2 — Development
+VLA** is next.
 
 ## Goal
 
@@ -104,16 +105,23 @@ features. Real normalized state and action targets pass through
 `DummyBackbone + StateEncoder + ContinuousActionHead` for one CPU optimizer
 step. It does not download model weights or start a full training run.
 
+The bounded M1 acceptance slice is complete for episode 0 of
+`lerobot/aloha_sim_insertion_human`; see [docs/m1-acceptance.md](docs/m1-acceptance.md)
+for the recorded evidence. The additional dataset configurations remain
+preparatory and are not represented as completed M1 caches.
+
 ## Milestones
 
 M0 established stable interfaces and proved that a dummy policy can complete a
 forward pass, Smooth L1 loss, backward pass, and one optimizer step on CPU.
-M1 is currently integrating a revision-pinned, robot-agnostic dataset path.
+M1 closed a revision-pinned, robot-agnostic dataset path for the bounded
+insertion episode. The remaining model, action-contract, and simulation gates
+belong to M2 and later.
 
 ## Planned Roadmap
 
-- M1 — Dataset Pipeline (in progress)
-- M2 — Frozen Backbone + State Encoder + Action Head
+- M1 — Dataset Pipeline (complete for the bounded acceptance slice)
+- M2 — Development VLA
 - M3 — LoRA
 - M4 — Action Chunk Transformer
 - M5 — Closed-loop Simulation
