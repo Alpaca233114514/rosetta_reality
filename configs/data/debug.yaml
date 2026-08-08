@@ -1,0 +1,9 @@
+name: synthetic_debug
+source: generated
+offline: true
+num_samples: 8
+image_shape: [3, 32, 32]
+state_dim: 9
+action_dim: 7
+chunk_size: 8
+

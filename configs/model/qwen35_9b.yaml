@@ -1,0 +1,6 @@
+name: qwen35_9b
+family: qwen35
+role: production_training
+model_id: Qwen/Qwen3.5-9B-Base
+local_files_only: true
+

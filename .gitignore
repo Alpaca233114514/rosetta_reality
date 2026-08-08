@@ -216,3 +216,25 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Rosetta Reality project artifacts
+.env.*
+/.idea/
+/.vscode/
+/data/
+/datasets/
+/checkpoints/
+/outputs/
+/runs/
+/wandb/
+/logs/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+.DS_Store
+Thumbs.db
+
+# Keep the experiments directory while ignoring generated experiment contents.
+/experiments/*
+!/experiments/.gitkeep
