@@ -1,0 +1,23 @@
+name: aloha_mobile_cabinet_episodes_0_6
+source: lerobot_v3
+repo_id: lerobot/aloha_mobile_cabinet
+revision: 7a752b39f7e69de7e38aee485a6bab07528a061a
+episodes: [0, 1, 2, 3, 4, 5, 6]
+cameras:
+  high: observation.images.cam_high
+fields:
+  state: observation.state
+  action: action
+  timestamp: timestamp
+  instruction: task
+  episode_index: episode_index
+  frame_index: frame_index
+embodiment: mobile_aloha
+chunk_size: 8
+cache_root: data/lerobot_clean_10k_mobile
+license: Apache-2.0
+expected:
+  frames: 10500
+  state_dim: 14
+  action_dim: 14
+  instruction: Open the top cabinet, store the pot inside it then close the cabinet.

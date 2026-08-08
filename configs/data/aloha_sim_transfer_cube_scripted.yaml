@@ -1,0 +1,23 @@
+name: aloha_sim_transfer_cube_scripted_episode_0
+source: lerobot_v3
+repo_id: lerobot/aloha_sim_transfer_cube_scripted
+revision: main
+episodes: [0]
+cameras:
+  top: observation.images.top
+fields:
+  state: observation.state
+  action: action
+  timestamp: timestamp
+  instruction: task
+  episode_index: episode_index
+  frame_index: frame_index
+embodiment: aloha
+chunk_size: 8
+cache_root: data/lerobot
+license: Apache-2.0
+expected:
+  frames: 400
+  state_dim: 14
+  action_dim: 14
+  instruction: Pick up the cube with the right arm and transfer it to the left arm.

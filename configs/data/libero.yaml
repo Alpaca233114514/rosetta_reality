@@ -1,0 +1,24 @@
+name: libero_episode_0
+source: lerobot_v3
+repo_id: lerobot/libero
+revision: main
+episodes: [0]
+cameras:
+  primary: observation.images.image
+  secondary: observation.images.image2
+fields:
+  state: observation.state
+  action: action
+  timestamp: timestamp
+  instruction: task
+  episode_index: episode_index
+  frame_index: frame_index
+embodiment: panda
+chunk_size: 8
+cache_root: data/lerobot
+license: Apache-2.0
+expected:
+  frames: 214
+  state_dim: 8
+  action_dim: 7
+  instruction: put the white mug on the left plate and put the yellow and white mug on the right plate

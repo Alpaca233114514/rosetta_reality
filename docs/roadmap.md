@@ -6,7 +6,7 @@ Define the package layout, replaceable backbone interface, runnable dummy
 policy, robot-agnostic sample schema, minimal action-regression training step,
 offline tests, and read-only environment inspection.
 
-## M1 — Dataset Pipeline (current)
+## M1 — Dataset Pipeline (complete; bounded acceptance slice)
 
 Add dataset adapters and normalization workflows while keeping the internal
 schema independent of LeRobot, DROID, BridgeData, Open X-Embodiment, and
@@ -19,12 +19,17 @@ records into `RosettaFrame`, creates episode-safe action chunks as
 `RosettaSample`, and collates them into `RosettaBatch`. State/action population
 statistics are computed online and persisted separately. The M1 acceptance path
 ends after one offline CPU optimizer smoke step; it does not load model weights
-or begin formal training.
+or begin formal training. The acceptance evidence is recorded in
+`docs/m1-acceptance.md`. Additional dataset configurations may remain
+unprepared and are tracked separately from this bounded M1 result.
 
-## M2 — Frozen Qwen + State Encoder + Action Head
+## M2 — Development VLA
 
-Integrate a locally available Qwen checkpoint, freeze the backbone, and train
-only the state encoder and continuous action head on one bounded task.
+Use the locally available `Qwen3.5-0.8B-Base` as the development-scale
+reference model. Complete the reproducible data, training, validation,
+checkpoint/resume, evaluation, artifact-export, and MuJoCo control loop on a
+bounded task before scaling the pipeline. Frozen, LoRA, and full fine-tuning
+remain controlled adaptation choices rather than permanent milestone labels.
 
 ## M3 — LoRA
 

@@ -1,0 +1,139 @@
+schema_version: 1
+reviewed_on: 2026-08-08
+policy:
+  initial_scope: bounded_episode_samples
+  require_immutable_revision_before_training: true
+  require_action_semantics_before_simulation: true
+  prefer_current_format: lerobot_v3
+
+datasets:
+  - name: aloha_sim_insertion_human
+    repo_id: lerobot/aloha_sim_insertion_human
+    url: https://huggingface.co/datasets/lerobot/aloha_sim_insertion_human
+    format: lerobot_v3
+    license: MIT
+    robot: aloha
+    modalities: [rgb_video, robot_state, continuous_action, task]
+    episodes: 50
+    frames: 25000
+    fps: 50
+    state_dim: 14
+    action_dim: 14
+    status: prepared_episode_0
+    config: configs/data/aloha_sim_insertion.yaml
+    action_semantics: physical_control_semantics_pending_gate_2
+
+  - name: aloha_sim_transfer_cube_scripted
+    repo_id: lerobot/aloha_sim_transfer_cube_scripted
+    url: https://huggingface.co/datasets/lerobot/aloha_sim_transfer_cube_scripted
+    format: lerobot_v3
+    license: Apache-2.0
+    robot: aloha
+    modalities: [rgb_video, robot_state, continuous_action, task]
+    episodes: 50
+    frames: 20000
+    fps: 50
+    state_dim: 14
+    action_dim: 14
+    status: prepared_episode_0
+    config: configs/data/aloha_sim_transfer_cube_scripted.yaml
+    prepared_revision: c5467ba9059e4c65f27775ced212076980a173fb
+    action_semantics: physical_control_semantics_pending_gate_2
+
+  - name: aloha_sim_transfer_cube_human
+    repo_id: lerobot/aloha_sim_transfer_cube_human
+    url: https://huggingface.co/datasets/lerobot/aloha_sim_transfer_cube_human
+    format: lerobot_v2
+    license: MIT
+    robot: aloha
+    modalities: [rgb_video, robot_state, continuous_action, task]
+    episodes: 50
+    frames: 20000
+    fps: 50
+    state_dim: 14
+    action_dim: 14
+    status: deferred_format_migration
+    action_semantics: unverified
+
+  - name: aloha_sim_insertion_scripted
+    repo_id: lerobot/aloha_sim_insertion_scripted
+    url: https://huggingface.co/datasets/lerobot/aloha_sim_insertion_scripted
+    format: lerobot_v2
+    license: MIT
+    robot: aloha
+    modalities: [rgb_video, robot_state, continuous_action, task]
+    episodes: 50
+    frames: 20000
+    fps: 50
+    state_dim: 14
+    action_dim: 14
+    status: deferred_format_migration
+    action_semantics: unverified
+
+  - name: aloha_mobile_cabinet
+    repo_id: lerobot/aloha_mobile_cabinet
+    url: https://huggingface.co/datasets/lerobot/aloha_mobile_cabinet
+    format: lerobot_v3
+    license: Apache-2.0
+    robot: aloha
+    modalities: [multi_camera_rgb_video, robot_state, effort, continuous_action, task]
+    episodes: 85
+    frames: 127500
+    fps: 50
+    state_dim: 14
+    action_dim: 14
+    approximate_size: 1.74 GB
+    status: prepared_episode_0
+    config: configs/data/aloha_mobile_cabinet.yaml
+    prepared_revision: 7a752b39f7e69de7e38aee485a6bab07528a061a
+    action_semantics: mobile_base_and_arm_contract_unverified
+
+  - name: libero
+    repo_id: lerobot/libero
+    url: https://huggingface.co/datasets/lerobot/libero
+    format: lerobot_v3
+    license: Apache-2.0
+    robot: panda
+    modalities: [multi_camera_rgb_video, robot_state, continuous_action, task]
+    episodes: 1693
+    frames: 273465
+    tasks: 40
+    fps: 10
+    state_dim: 8
+    action_dim: 7
+    approximate_size: 1.94 GB
+    status: prepared_episode_0
+    config: configs/data/libero.yaml
+    prepared_revision: a1aaacb7f6cd6ee5fb43120f673cebb0cfea7dd4
+    action_semantics: panda_contract_unverified
+
+  - name: droid_1_0_1
+    repo_id: lerobot/droid_1.0.1
+    url: https://huggingface.co/datasets/lerobot/droid_1.0.1
+    format: lerobot_v3
+    license: Apache-2.0
+    robot: franka
+    modalities: [multi_camera_rgb_video, robot_state, continuous_action, language]
+    episodes: 95658
+    frames: 27630375
+    tasks: 49630
+    fps: 15
+    approximate_size: 412 GB
+    status: deferred_scale_and_action_contract
+    action_semantics: multiple_action_representations_require_explicit_selection
+
+  - name: pusht
+    repo_id: lerobot/pusht
+    url: https://huggingface.co/datasets/lerobot/pusht
+    format: lerobot_v2
+    license: MIT
+    robot: planar_pusht
+    modalities: [rgb_video, state, continuous_action, reward, success]
+    episodes: 206
+    frames: 25650
+    fps: 10
+    state_dim: 2
+    action_dim: 2
+    approximate_size: 7.69 MB
+    status: deferred_out_of_m2_embodiment
+    action_semantics: planar_action_not_compatible_with_aloha
