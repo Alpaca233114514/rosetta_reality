@@ -13,7 +13,23 @@
 - Do not commit or push unless the user explicitly requests it.
 - Never commit secrets, access tokens, credentials, private data, or model access keys.
 
+## Path privacy
+
+- Treat the repository root as `.`.
+- Refer to repository files and directories only with paths relative to the repository root, such as
+  `src/rosetta_reality/`, `data/`, or `.venv-wsl/`.
+- Do not place absolute Windows, WSL, UNC, home-directory, username, or machine-specific paths in
+  tracked files, documentation, logs, handoffs, or user-facing responses unless the user explicitly
+  requests a specific absolute path.
+
 ## GPU and environment safety
+
+All local machine-learning operations must run inside WSL. This includes creating
+or updating Python environments, installing ML or data dependencies, downloading
+or preparing datasets, running PyTorch/LeRobot code, ML unit or integration tests,
+smoke training, evaluation, and real experiments. Do not perform these operations
+from native Windows Python or PowerShell. Repository editing, Git operations, and
+non-ML static checks may still run from Windows.
 
 Never install or upgrade system-level PyTorch, CUDA, ROCm, GPU drivers, or simulators automatically.
 Before any real GPU training:
