@@ -26,6 +26,7 @@ from rosetta_reality.data.config import (
     resolve_dataset_cache_root,
 )
 from rosetta_reality.data.manifest import (
+    COMMIT_SHA_PATTERN,
     DatasetManifest,
     find_dataset_manifests,
     load_dataset_manifest,
@@ -76,12 +77,20 @@ def _matching_manifest(config: DatasetConfig, cache_root: Path) -> tuple[Path, D
 
     expected_fields = asdict(config.fields)
     candidates: list[tuple[Path, DatasetManifest]] = []
+    configured_revision = config.revision.lower()
+    revision_is_pinned = bool(COMMIT_SHA_PATTERN.fullmatch(configured_revision))
     for path in find_dataset_manifests(cache_root, config.repo_id):
         manifest = load_dataset_manifest(path)
+        revision_matches = (
+            manifest.resolved_revision == configured_revision
+            if revision_is_pinned
+            else manifest.requested_revision == config.revision
+        )
         if (
             manifest.episodes == config.episodes
             and manifest.cameras == config.cameras
             and manifest.fields == expected_fields
+            and revision_matches
         ):
             candidates.append((path, manifest))
     if not candidates:
@@ -89,7 +98,12 @@ def _matching_manifest(config: DatasetConfig, cache_root: Path) -> tuple[Path, D
             f"No prepared manifest matches {config.repo_id!r}, episodes "
             f"{list(config.episodes)!r}, cameras, and field mapping under {_relative(cache_root)}."
         )
-    return candidates[-1]
+    if len(candidates) > 1:
+        raise ValueError(
+            f"Multiple prepared manifests match mutable revision {config.revision!r}; "
+            "pin the dataset configuration to one resolved commit SHA."
+        )
+    return candidates[0]
 
 
 def _load_task_map(root: Path) -> dict[int, str]:

@@ -35,9 +35,9 @@ datasets:
     fps: 50
     state_dim: 14
     action_dim: 14
-    status: prepared_episode_0
+    status: configured_episode_0_unaccepted
     config: configs/data/aloha_sim_transfer_cube_scripted.yaml
-    prepared_revision: c5467ba9059e4c65f27775ced212076980a173fb
+    candidate_revision: c5467ba9059e4c65f27775ced212076980a173fb
     action_semantics: physical_control_semantics_pending_gate_2
 
   - name: aloha_sim_transfer_cube_human
@@ -83,9 +83,9 @@ datasets:
     state_dim: 14
     action_dim: 14
     approximate_size: 1.74 GB
-    status: prepared_episode_0
+    status: configured_episode_0_unaccepted
     config: configs/data/aloha_mobile_cabinet.yaml
-    prepared_revision: 7a752b39f7e69de7e38aee485a6bab07528a061a
+    candidate_revision: 7a752b39f7e69de7e38aee485a6bab07528a061a
     action_semantics: mobile_base_and_arm_contract_unverified
 
   - name: libero
@@ -102,9 +102,9 @@ datasets:
     state_dim: 8
     action_dim: 7
     approximate_size: 1.94 GB
-    status: prepared_episode_0
+    status: configured_episode_0_unaccepted
     config: configs/data/libero.yaml
-    prepared_revision: a1aaacb7f6cd6ee5fb43120f673cebb0cfea7dd4
+    candidate_revision: a1aaacb7f6cd6ee5fb43120f673cebb0cfea7dd4
     action_semantics: panda_contract_unverified
 
   - name: droid_1_0_1

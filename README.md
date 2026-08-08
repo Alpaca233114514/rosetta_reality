@@ -122,9 +122,9 @@ belong to M2 and later.
 
 - M1 — Dataset Pipeline (complete for the bounded acceptance slice)
 - M2 — Development VLA
-- M3 — LoRA
+- M3 — Scale-up VLA
 - M4 — Action Chunk Transformer
-- M5 — Closed-loop Simulation
+- M5 — Robust Simulation Evaluation beyond the M2 baseline closed loop
 - M6 — Multi-dataset / Cross-embodiment
 - M7 — Diffusion or Flow-Matching Action Expert
 - M8 — Sim-to-real experiments
