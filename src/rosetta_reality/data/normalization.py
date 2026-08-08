@@ -139,13 +139,17 @@ class RunningMoments:
 def normalize(values: Tensor, stats: NormalizationStats) -> Tensor:
     """Apply feature-wise standardization."""
 
-    return (values - stats.mean) / stats.std
+    mean = stats.mean.to(device=values.device, dtype=values.dtype)
+    std = stats.std.to(device=values.device, dtype=values.dtype)
+    return (values - mean) / std
 
 
 def denormalize(values: Tensor, stats: NormalizationStats) -> Tensor:
     """Invert feature-wise standardization."""
 
-    return values * stats.std + stats.mean
+    mean = stats.mean.to(device=values.device, dtype=values.dtype)
+    std = stats.std.to(device=values.device, dtype=values.dtype)
+    return values * std + mean
 
 
 def compute_dataset_statistics(adapter: DatasetAdapter) -> DatasetStatistics:

@@ -1,6 +1,7 @@
 """Explicit offline smoke test over the prepared ALOHA episode."""
 
 import math
+from dataclasses import asdict
 from pathlib import Path
 
 import pytest
@@ -29,16 +30,19 @@ def test_prepared_episode_supports_one_cpu_optimizer_step(monkeypatch) -> None:
         else REPOSITORY_ROOT / config.cache_root
     )
     manifests = find_dataset_manifests(cache_root, config.repo_id)
+    expected_fields = asdict(config.fields)
     complete = [
-        path
+        (path, manifest)
         for path in manifests
-        if (path.parent / "meta" / "info.json").is_file()
+        if (manifest := load_dataset_manifest(path)).fields == expected_fields
+        and (path.parent / "meta" / "info.json").is_file()
         and (path.parent / "statistics.json").is_file()
     ]
     if not complete:
-        pytest.skip("Run 'python scripts/prepare_data.py' in WSL to prepare the real-data cache.")
-    manifest_path = complete[-1]
-    manifest = load_dataset_manifest(manifest_path)
+        pytest.skip(
+            "Run 'python scripts/prepare_data.py' in WSL to prepare the current field mapping."
+        )
+    manifest_path, manifest = complete[-1]
     monkeypatch.setenv("HF_HUB_OFFLINE", "1")
     monkeypatch.setenv("HF_DATASETS_OFFLINE", "1")
     adapter = LeRobotV3Adapter(

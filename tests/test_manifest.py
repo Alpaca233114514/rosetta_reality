@@ -1,5 +1,6 @@
 """Immutable dataset revision and cache manifest tests."""
 
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -17,6 +18,14 @@ from rosetta_reality.data.manifest import (
 )
 
 REVISION = "b" * 40
+FIELDS = {
+    "state": "observation.state",
+    "action": "action",
+    "timestamp": "timestamp",
+    "instruction": "task",
+    "episode_index": "episode_index",
+    "frame_index": "frame_index",
+}
 
 
 class FakeHubApi:
@@ -43,6 +52,7 @@ def test_manifest_round_trip_reuses_identical_file(tmp_path) -> None:
         episodes=(0,),
         cameras={"top": "observation.images.top"},
         license="MIT",
+        fields=FIELDS,
     )
     root = Path(tmp_path) / REVISION
 
@@ -60,7 +70,72 @@ def test_manifest_requires_immutable_revision() -> None:
             episodes=(0,),
             cameras={"top": "observation.images.top"},
             license="MIT",
+            fields=FIELDS,
         )
+
+
+def test_manifest_field_mapping_prevents_reusing_equal_width_statistics(tmp_path) -> None:
+    root = Path(tmp_path) / REVISION
+    original = DatasetManifest(
+        repo_id="lerobot/example",
+        requested_revision="main",
+        resolved_revision=REVISION,
+        episodes=(0,),
+        cameras={"top": "observation.images.top"},
+        license="MIT",
+        fields=FIELDS,
+    )
+    changed_fields = dict(FIELDS)
+    changed_fields["state"] = "observation.alternate_state"
+    changed = DatasetManifest(
+        repo_id=original.repo_id,
+        requested_revision=original.requested_revision,
+        resolved_revision=original.resolved_revision,
+        episodes=original.episodes,
+        cameras=original.cameras,
+        license=original.license,
+        fields=changed_fields,
+    )
+
+    path = save_dataset_manifest(root, original)
+
+    with pytest.raises(FileExistsError, match="different dataset manifest"):
+        save_dataset_manifest(root, changed)
+    assert load_dataset_manifest(path) == original
+
+
+def test_legacy_manifest_is_read_only_and_cannot_match_version_two(tmp_path) -> None:
+    root = Path(tmp_path) / REVISION
+    root.mkdir()
+    path = root / "manifest.json"
+    legacy_payload = {
+        "version": 1,
+        "repo_id": "lerobot/example",
+        "requested_revision": "main",
+        "resolved_revision": REVISION,
+        "episodes": [0],
+        "cameras": {"top": "observation.images.top"},
+        "license": "MIT",
+        "source_format": "lerobot-v3",
+    }
+    path.write_text(json.dumps(legacy_payload), encoding="utf-8")
+
+    legacy = load_dataset_manifest(path)
+    current = DatasetManifest(
+        repo_id=legacy.repo_id,
+        requested_revision=legacy.requested_revision,
+        resolved_revision=legacy.resolved_revision,
+        episodes=legacy.episodes,
+        cameras=legacy.cameras,
+        license=legacy.license,
+        fields=FIELDS,
+    )
+
+    assert legacy.version == 1
+    assert legacy.fields is None
+    with pytest.raises(FileExistsError, match="different dataset manifest"):
+        save_dataset_manifest(root, current)
+    assert json.loads(path.read_text(encoding="utf-8")) == legacy_payload
 
 
 def test_cache_checksums_detect_changed_content(tmp_path) -> None:

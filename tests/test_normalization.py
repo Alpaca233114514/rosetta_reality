@@ -26,6 +26,35 @@ def test_population_statistics_normalization_and_zero_variance() -> None:
     assert torch.allclose(denormalize(normalized, stats), values)
 
 
+def test_normalization_matches_the_input_dtype() -> None:
+    stats = NormalizationStats(
+        mean=torch.tensor([2.0], dtype=torch.float32),
+        std=torch.tensor([1.0], dtype=torch.float32),
+    )
+    values = torch.tensor([[1.0], [3.0]], dtype=torch.float64)
+
+    normalized = normalize(values, stats)
+
+    assert normalized.dtype == torch.float64
+    assert torch.equal(normalized, torch.tensor([[-1.0], [1.0]], dtype=torch.float64))
+    assert torch.equal(denormalize(normalized, stats), values)
+
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="CUDA is not available")
+def test_normalization_moves_cpu_statistics_to_cuda() -> None:
+    stats = NormalizationStats(
+        mean=torch.tensor([2.0], dtype=torch.float32),
+        std=torch.tensor([1.0], dtype=torch.float32),
+    )
+    values = torch.tensor([[1.0], [3.0]], device="cuda", dtype=torch.float16)
+
+    normalized = normalize(values, stats)
+
+    assert normalized.device == values.device
+    assert normalized.dtype == values.dtype
+    assert torch.equal(denormalize(normalized, stats), values)
+
+
 def test_statistics_json_round_trip_is_idempotent(tmp_path) -> None:
     statistics = DatasetStatistics(
         state=NormalizationStats(torch.tensor([1.0]), torch.tensor([2.0])),

@@ -61,25 +61,38 @@ class DatasetManifest:
     episodes: tuple[int, ...]
     cameras: dict[str, str]
     license: str
+    fields: dict[str, str] | None = None
     source_format: str = "lerobot-v3"
-    version: int = 1
+    version: int = 2
 
     def __post_init__(self) -> None:
         require_commit_sha(self.resolved_revision)
+        if self.version not in (1, 2):
+            raise ValueError(f"Unsupported dataset manifest version: {self.version!r}.")
+        if self.version == 2 and self.fields is None:
+            raise ValueError("Dataset manifest version 2 requires a field mapping.")
 
     def to_dict(self) -> dict[str, Any]:
         """Return a stable JSON payload."""
 
         payload = asdict(self)
         payload["episodes"] = list(self.episodes)
+        if self.fields is None:
+            payload.pop("fields")
         return payload
 
     @classmethod
     def from_dict(cls, value: dict[str, Any]) -> DatasetManifest:
         """Restore a supported manifest payload."""
 
-        if value.get("version") != 1:
+        version = value.get("version")
+        if version not in (1, 2):
             raise ValueError(f"Unsupported dataset manifest version: {value.get('version')!r}.")
+        raw_fields = value.get("fields")
+        if raw_fields is not None and not isinstance(raw_fields, dict):
+            raise ValueError("Dataset manifest fields must be a mapping.")
+        if version == 2 and raw_fields is None:
+            raise ValueError("Dataset manifest version 2 requires a field mapping.")
         return cls(
             repo_id=str(value["repo_id"]),
             requested_revision=str(value["requested_revision"]),
@@ -87,8 +100,13 @@ class DatasetManifest:
             episodes=tuple(int(episode) for episode in value["episodes"]),
             cameras={str(name): str(key) for name, key in value["cameras"].items()},
             license=str(value["license"]),
+            fields=(
+                None
+                if raw_fields is None
+                else {str(name): str(key) for name, key in raw_fields.items()}
+            ),
             source_format=str(value["source_format"]),
-            version=int(value["version"]),
+            version=int(version),
         )
 
 

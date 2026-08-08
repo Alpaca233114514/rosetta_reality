@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+from dataclasses import asdict
 from pathlib import Path
 
 from rosetta_reality.data import ActionChunkDataset
@@ -78,6 +79,7 @@ def prepare(config: DatasetConfig) -> int:
         episodes=config.episodes,
         cameras=config.cameras,
         license=config.license,
+        fields=asdict(config.fields),
     )
     manifest_path = save_dataset_manifest(root, manifest)
     checksum_path = root / "cache_checksums.json"
