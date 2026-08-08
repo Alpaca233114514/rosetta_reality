@@ -1,14 +1,14 @@
 # Rosetta Reality
 
 Rosetta Reality is an early-stage research codebase for Vision-Language-Action
-(VLA) and embodied foundation-model experiments. The current implementation is
-a small, CPU-testable repository skeleton; it does not provide autonomous robot
-control.
+(VLA) and embodied foundation-model experiments. The current implementation
+includes a CPU-testable policy skeleton and the first bounded dataset pipeline;
+it does not provide autonomous robot control.
 
 ## Status
 
-Experimental / early-stage. The current milestone is **M0 — Repository
-Skeleton**.
+Experimental / early-stage. **M0 — Repository Skeleton** is complete and under
+draft review. The current milestone is **M1 — Dataset Pipeline**.
 
 ## Goal
 
@@ -40,7 +40,8 @@ or GPU requirements. `Qwen35Backbone` is only a lazy-loading adapter skeleton.
 
 - `configs/`: model, training, data, and simulation configuration examples.
 - `src/rosetta_reality/models/`: replaceable backbones and generic VLA policy components.
-- `src/rosetta_reality/data/`: robot-agnostic sample schema and small utilities.
+- `src/rosetta_reality/data/`: robot-agnostic frames, action chunks, batches,
+  dataset adapters, and online normalization.
 - `src/rosetta_reality/train/`: action loss and minimal training-step helper.
 - `scripts/`: read-only environment inspection and safe M0 entry points.
 - `tests/`: offline, CPU-compatible import and shape tests.
@@ -48,18 +49,23 @@ or GPU requirements. `Qwen35Backbone` is only a lazy-loading adapter skeleton.
 
 ## Quick Start
 
-Use a fresh virtual environment. Installing the editable package does not
-download model weights or datasets.
+All local machine-learning operations run in WSL. Use a WSL-only virtual
+environment; do not reuse a native Windows environment. Installing the editable
+package does not download model weights or datasets.
 
 ```bash
-python -m venv .venv
-# Windows PowerShell: .venv\Scripts\Activate.ps1
-# POSIX shells: source .venv/bin/activate
-python -m pip install -e ".[dev]"
+python3.13 -m venv .venv-wsl
+source .venv-wsl/bin/activate
+python -m pip install --upgrade pip
+python -m pip install \
+  torch==2.11.0 torchvision==0.26.0 \
+  --index-url https://download.pytorch.org/whl/cpu
+python -m pip install -e ".[dev,data]"
 
 python scripts/check_env.py
 pytest
 python scripts/train.py --dry-run
+ruff check .
 ```
 
 The Qwen adapter is optional and deliberately uses local files by default:
@@ -70,14 +76,43 @@ python -m pip install -e ".[qwen]"
 
 Installing the optional dependency still does not fetch any model checkpoint.
 
-## Current Milestone
+## M1 Dataset Preparation
 
-M0 establishes stable interfaces and proves that a dummy policy can complete a
+M1 uses
+[`lerobot/aloha_sim_insertion_human`](https://huggingface.co/datasets/lerobot/aloha_sim_insertion_human),
+an MIT-licensed ALOHA simulation dataset with 50 episodes, 25,000 frames, and
+14-dimensional state/action vectors. The first bounded target is episode 0
+(500 frames), camera `observation.images.top`, and action chunks of length 8.
+
+The preparation command resolves `main` to an immutable Hub commit SHA before
+loading. Each SHA receives its own ignored `data/` cache and manifest. LeRobot
+v3 consolidates multiple episodes into shared Parquet/video files, so selecting
+episode 0 may still cache close to the full dataset size of approximately
+91.3 MB.
+
+Run preparation and the explicit real-data smoke test inside WSL:
+
+```bash
+source .venv-wsl/bin/activate
+python scripts/prepare_data.py
+python scripts/prepare_data.py inspect
+pytest -m data
+```
+
+The smoke test uses RGB channel means as explicit three-dimensional dummy
+features. Real normalized state and action targets pass through
+`DummyBackbone + StateEncoder + ContinuousActionHead` for one CPU optimizer
+step. It does not download model weights or start a full training run.
+
+## Milestones
+
+M0 established stable interfaces and proved that a dummy policy can complete a
 forward pass, Smooth L1 loss, backward pass, and one optimizer step on CPU.
+M1 is currently integrating a revision-pinned, robot-agnostic dataset path.
 
 ## Planned Roadmap
 
-- M1 — Dataset Pipeline
+- M1 — Dataset Pipeline (in progress)
 - M2 — Frozen Backbone + State Encoder + Action Head
 - M3 — LoRA
 - M4 — Action Chunk Transformer
@@ -90,6 +125,6 @@ See [docs/roadmap.md](docs/roadmap.md) for milestone boundaries.
 
 ## Safety / Scope
 
-Rosetta Reality is simulation-first. M0 does not download Qwen weights or robot
-datasets, install simulators, configure CUDA/ROCm, start real training, or issue
-commands to physical robots.
+Rosetta Reality is simulation-first. M1 downloads only the explicitly configured
+dataset cache. It does not download Qwen weights, install simulators, configure
+CUDA/ROCm, start real training, or issue commands to physical robots.

@@ -42,11 +42,37 @@ This deliberately simple fusion establishes tensor contracts without
 prematurely introducing state tokens or cross-attention. Later milestones can
 replace the fusion and action expert while preserving the public policy path.
 
+## M1 data path
+
+```text
+LeRobot v3 record
+       |
+       v
+DatasetAdapter --> RosettaFrame --> episode-safe chunking --> RosettaSample
+                                                               |
+                                                               v
+                                                        RosettaBatch
+                                                               |
+                         +-------------------------------------+------+
+                         |                                            |
+                         v                                            v
+              online state statistics                     online action statistics
+```
+
+The LeRobot adapter owns source field names, immutable Hub revision selection,
+and image conversion. Generic chunking reads only `DatasetAdapter` methods and
+therefore cannot depend on ALOHA, LeRobot, camera names, action dimensions, or
+storage layout. An anchor is valid only when all requested future actions have
+consecutive frame indices inside the same episode; no cross-episode padding is
+introduced.
+
 ## Boundaries
 
 - `models/backbones/` owns model-family-specific loading and input processing.
 - `models/vla.py` owns generic policy composition.
-- `data/` owns the internal sample contract, not third-party dataset formats.
+- `data/adapters/` owns third-party field mapping.
+- `data/schema.py`, `data/dataset.py`, and `data/normalization.py` own generic
+  frame/sample/batch, chunking, and population-statistics contracts.
 - `train/` owns loss and optimization mechanics, not model downloading.
 - `sim/` will provide simulator adapters without coupling the core policy to a
   particular simulator.

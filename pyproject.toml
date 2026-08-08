@@ -20,6 +20,9 @@ dev = [
     "pytest>=8",
     "ruff>=0.9",
 ]
+data = [
+    "lerobot[dataset]==0.6.1",
+]
 qwen = [
     "transformers",
     "peft",
@@ -30,6 +33,9 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 addopts = "-ra"
+markers = [
+    "data: requires a locally prepared real dataset cache and never downloads data",
+]
 pythonpath = ["src"]
 testpaths = ["tests"]
 

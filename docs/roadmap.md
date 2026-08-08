@@ -1,16 +1,25 @@
 # Roadmap
 
-## M0 — Repository Skeleton (current)
+## M0 — Repository Skeleton (complete; draft review)
 
 Define the package layout, replaceable backbone interface, runnable dummy
 policy, robot-agnostic sample schema, minimal action-regression training step,
 offline tests, and read-only environment inspection.
 
-## M1 — Dataset Pipeline
+## M1 — Dataset Pipeline (current)
 
 Add dataset adapters and normalization workflows while keeping the internal
 schema independent of LeRobot, DROID, BridgeData, Open X-Embodiment, and
 simulation sources.
+
+The first slice uses only episode 0 from the MIT-licensed
+`lerobot/aloha_sim_insertion_human` dataset. It resolves the Hub branch to an
+immutable commit, stores revision-scoped ignored cache data, maps LeRobot v3
+records into `RosettaFrame`, creates episode-safe action chunks as
+`RosettaSample`, and collates them into `RosettaBatch`. State/action population
+statistics are computed online and persisted separately. The M1 acceptance path
+ends after one offline CPU optimizer smoke step; it does not load model weights
+or begin formal training.
 
 ## M2 — Frozen Qwen + State Encoder + Action Head
 
