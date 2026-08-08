@@ -1,0 +1,5 @@
+name: mujoco
+enabled: false
+status: planned
+note: M0 does not install or initialize MuJoCo.
+

@@ -1,0 +1,6 @@
+name: qwen35_dev
+family: qwen35
+role: development
+model_id: Qwen/Qwen3.5-0.8B-Base
+local_files_only: true
+
