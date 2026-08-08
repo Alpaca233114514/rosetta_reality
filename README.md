@@ -2,14 +2,15 @@
 
 Rosetta Reality is an early-stage research codebase for Vision-Language-Action
 (VLA) and embodied foundation-model experiments. The current implementation
-includes a CPU-testable policy skeleton and the first bounded dataset pipeline;
-it does not provide autonomous robot control.
+includes a CPU-testable policy skeleton and a revision-pinned, bounded dataset
+pipeline; it does not provide autonomous robot control.
 
 ## Status
 
 Experimental / early-stage. **M0 — Repository Skeleton** and **M1 — Dataset
-Pipeline** are complete for their bounded acceptance scopes. **M2 — Development
-VLA** is next.
+Pipeline** are complete for their bounded acceptance scopes. The accepted M1
+slice is episode 0 of `lerobot/aloha_sim_insertion_human`, verified on
+2026-08-09. **M2 — Development VLA** is next.
 
 ## Goal
 
@@ -40,11 +41,14 @@ or GPU requirements. `Qwen35Backbone` is only a lazy-loading adapter skeleton.
 ## Repository Layout
 
 - `configs/`: model, training, data, and simulation configuration examples.
+- `configs/data/`: dataset registry and bounded preparation configurations;
+  entries without acceptance evidence remain preparatory.
 - `src/rosetta_reality/models/`: replaceable backbones and generic VLA policy components.
 - `src/rosetta_reality/data/`: robot-agnostic frames, action chunks, batches,
   dataset adapters, and online normalization.
 - `src/rosetta_reality/train/`: action loss and minimal training-step helper.
-- `scripts/`: read-only environment inspection and safe M0 entry points.
+- `scripts/`: environment inspection, M0 CPU dry-runs, M1 data preparation and
+  inspection, and conservative cache auditing.
 - `tests/`: offline, CPU-compatible import and shape tests.
 - `docs/`: architecture decisions and staged roadmap.
 
@@ -64,7 +68,7 @@ python -m pip install \
 python -m pip install -e ".[dev,data]"
 
 python scripts/check_env.py
-pytest
+pytest -m "not data"
 python scripts/train.py --dry-run
 ruff check .
 ```
@@ -91,6 +95,10 @@ v3 consolidates multiple episodes into shared Parquet/video files, so selecting
 episode 0 may still cache close to the full dataset size of approximately
 91.3 MB.
 
+`python scripts/prepare_data.py` is the explicit preparation command and may
+download the configured dataset into the ignored cache. `inspect` is read-only,
+does not use the network, and reports the manifest, statistics, and checksums:
+
 Run preparation and the explicit real-data smoke test inside WSL:
 
 ```bash
@@ -99,6 +107,11 @@ python scripts/prepare_data.py
 python scripts/prepare_data.py inspect
 pytest -m data
 ```
+
+For an existing LeRobot v3 cache, the conservative audit can be run with
+`python scripts/clean_data.py --config configs/data/aloha_sim_insertion.yaml`.
+It writes a JSON quality report but never rewrites source Parquet or video
+files; row-level problems require manual review.
 
 The smoke test uses RGB channel means as explicit three-dimensional dummy
 features. Real normalized state and action targets pass through
@@ -109,6 +122,20 @@ The bounded M1 acceptance slice is complete for episode 0 of
 `lerobot/aloha_sim_insertion_human`; see [docs/m1-acceptance.md](docs/m1-acceptance.md)
 for the recorded evidence. The additional dataset configurations remain
 preparatory and are not represented as completed M1 caches.
+
+The latest WSL verification for this slice recorded:
+
+| Check | Result |
+| --- | --- |
+| Environment | Python 3.13.5, PyTorch 2.11.0+cpu, CUDA unavailable |
+| Offline tests | 33 passed, 1 skipped, 4 deselected |
+| CPU dry-run | Prediction shape `(2, 8, 7)`, finite Smooth L1 loss `0.404727` |
+| Cache inspection | Revision `cc571a3c661df81b566dbfde3d5c1e85fcdf7884`, metadata/statistics, 9 checksums |
+| Real-data smoke | 1 passed, 3 skipped for unprepared additional configurations |
+
+These checks validate the M1 data and CPU-smoke boundary only. They do not
+claim model-weight integration, formal training, action semantics, simulator
+control, or physical-robot control.
 
 ## Milestones
 
