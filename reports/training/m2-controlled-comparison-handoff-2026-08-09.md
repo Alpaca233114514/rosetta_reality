@@ -1,6 +1,6 @@
 # Rosetta Reality M2 受控实验工作日志与新任务交接
 
-日期：2026-08-09（Asia/Shanghai）
+日期：2026-08-09（Asia/Shanghai）  
 状态：**M2 未完成；research only；不得用于真机。**
 
 ## 0. 新任务从这里开始
@@ -80,7 +80,7 @@ expert-distribution 上的小误差
 | v005 | 与 v004 相同 | 与 v004 相同 | frozen | 与 v004 相同 | residual from current state | Intel XPU | 完整训练；rejected |
 | v006 | Qwen3.5-0.8B Instruct | native chat template | frozen | final hidden, image spatial 2x2 | absolute | cache: Intel XPU | cache + benchmark only；M2-ineligible |
 
-v004→v005 的唯一研究轴是 `action_expert.prediction_parameterization`。
+v004→v005 的唯一研究轴是 `action_expert.prediction_parameterization`。  
 v004→v006 的唯一研究轴是 backbone checkpoint variant 与其原生 prompt protocol。v006 的数据、
 split、action contract、下游维度、optimizer 配置、seed、batch、epoch、early stopping 和 XPU 资源
 均保持一致。
@@ -377,7 +377,7 @@ verify existing immutable benchmark
     -> Gate 4 only if justified by the predeclared comparison
 ```
 
-建议 run id：`m2-qwen08b-frozen-006-instruct-xpu-001`。
+建议 run id：`m2-qwen08b-frozen-006-instruct-xpu-001`。  
 建议 artifact id：
 `m2-qwen08b-frozen-006-instruct-spatial-xpu-control-instruct-2fc06364`。
 
