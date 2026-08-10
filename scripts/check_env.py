@@ -30,6 +30,8 @@ def main() -> int:
             print("PyTorch version: unavailable")
             print("CUDA available: unavailable")
             print("CUDA device count: unavailable")
+            print("XPU available: unavailable")
+            print("XPU device count: unavailable")
             print("ROCm/HIP version: unavailable")
         else:
             print(f"PyTorch version: {torch.__version__}")
@@ -43,12 +45,25 @@ def main() -> int:
                 except Exception as exc:  # pragma: no cover - hardware-specific defensive path
                     device_name = f"unavailable ({type(exc).__name__})"
                 print(f"CUDA device {device_index}: {device_name}")
+            xpu = getattr(torch, "xpu", None)
+            xpu_available = bool(xpu is not None and xpu.is_available())
+            print(f"XPU available: {xpu_available}")
+            xpu_count = xpu.device_count() if xpu is not None else 0
+            print(f"XPU device count: {xpu_count}")
+            for device_index in range(xpu_count):
+                try:
+                    device_name = xpu.get_device_name(device_index)
+                except Exception as exc:  # pragma: no cover - hardware-specific defensive path
+                    device_name = f"unavailable ({type(exc).__name__})"
+                print(f"XPU device {device_index}: {device_name}")
             rocm_version = getattr(torch.version, "hip", None)
             print(f"ROCm/HIP version: {rocm_version or 'not reported'}")
     else:
         print("PyTorch version: unavailable")
         print("CUDA available: unavailable")
         print("CUDA device count: unavailable")
+        print("XPU available: unavailable")
+        print("XPU device count: unavailable")
         print("ROCm/HIP version: unavailable")
 
     print(f"Transformers available: {module_available('transformers')}")
