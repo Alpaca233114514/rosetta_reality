@@ -1,0 +1,47 @@
+FROM rosetta-reality-m2:local
+
+ARG PYTORCH_VERSION=2.11.0
+ARG TORCHVISION_VERSION=0.26.0
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    MUJOCO_GL=egl
+
+RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' \
+        /etc/apt/sources.list.d/debian.sources \
+    && apt-get -o Acquire::Retries=5 update \
+    && apt-get -o Acquire::Retries=5 install --yes --no-install-recommends \
+        ca-certificates \
+        libegl1 \
+        libgl1 \
+        libgles2 \
+        libglfw3 \
+        libosmesa6 \
+        python3.11 \
+        python3.11-venv \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /opt/rosetta
+COPY pyproject.toml README.md LICENSE ./
+COPY src ./src
+
+RUN python3.11 -m venv /opt/sim-venv \
+    && /opt/sim-venv/bin/python -m pip install --upgrade pip \
+    && /opt/sim-venv/bin/python -m pip install "typing-extensions==4.15.0" \
+    && /opt/sim-venv/bin/python -m pip install \
+        "torch==${PYTORCH_VERSION}" \
+        "torchvision==${TORCHVISION_VERSION}" \
+        --index-url https://download.pytorch.org/whl/cpu \
+    && /opt/sim-venv/bin/python -m pip install ".[dev,qwen,sim]" "pyarrow>=15" \
+    && /opt/sim-venv/bin/python -m pip check
+
+COPY configs ./configs
+COPY scripts ./scripts
+COPY tests ./tests
+
+ENV PATH=/opt/sim-venv/bin:$PATH
+
+CMD ["bash"]

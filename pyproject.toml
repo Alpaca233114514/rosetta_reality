@@ -24,8 +24,11 @@ data = [
     "lerobot[dataset]==0.6.1",
 ]
 qwen = [
-    "transformers",
-    "peft",
+    "transformers>=5.2,<6",
+    "peft>=0.18,<1",
+]
+sim = [
+    "gym-aloha>=0.1.4,<0.2.0",
 ]
 
 [tool.setuptools.packages.find]
