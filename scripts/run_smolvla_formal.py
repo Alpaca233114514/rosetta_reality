@@ -44,7 +44,7 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 def _repository_path(raw: str, *, require_file: bool = True) -> Path:
     relative = Path(raw)
-    if relative.is_absolute() or ".." in relative.parts:
+    if not relative.parts or relative.is_absolute() or ".." in relative.parts:
         raise ValueError("Formal plan paths must be safe repository-relative paths.")
     path = (REPOSITORY_ROOT / relative).resolve()
     if not path.is_relative_to(REPOSITORY_ROOT):
@@ -52,6 +52,14 @@ def _repository_path(raw: str, *, require_file: bool = True) -> Path:
     if require_file and not path.is_file():
         raise FileNotFoundError(relative.as_posix())
     return path
+
+
+def _is_sha256(value: Any) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == 64
+        and all(character in "0123456789abcdef" for character in value)
+    )
 
 
 def _training_coverage(training: dict[str, Any], train_rows: int) -> dict[str, int | float]:
@@ -106,33 +114,38 @@ def _training_coverage(training: dict[str, Any], train_rows: int) -> dict[str, i
 
 
 def _validate_performance_optimization(
-    plan: dict[str, Any], experiment: dict[str, Any], base_path: Path
+    plan: dict[str, Any],
+    experiment: dict[str, Any],
+    base_path: Path,
+    *,
+    require_runtime_evidence: bool,
 ) -> None:
     optimization = plan.get("performance_optimization")
     if not isinstance(optimization, dict):
         raise ValueError("The optimized formal plan has no performance evidence.")
 
     performance_plan_path = _repository_path(str(optimization.get("plan", "")))
-    parity_report_path = _repository_path(str(optimization.get("parity_report", "")))
-    benchmark_report_path = _repository_path(str(optimization.get("benchmark_report", "")))
+    parity_report_path = _repository_path(
+        str(optimization.get("parity_report", "")),
+        require_file=require_runtime_evidence,
+    )
+    benchmark_report_path = _repository_path(
+        str(optimization.get("benchmark_report", "")),
+        require_file=require_runtime_evidence,
+    )
     if (
         file_sha256(performance_plan_path) != optimization.get("plan_sha256")
-        or file_sha256(parity_report_path) != optimization.get("parity_report_sha256")
-        or file_sha256(benchmark_report_path) != optimization.get("benchmark_report_sha256")
+        or not _is_sha256(optimization.get("parity_report_sha256"))
+        or not _is_sha256(optimization.get("benchmark_report_sha256"))
     ):
-        raise ValueError("Optimized formal performance evidence checksum changed.")
+        raise ValueError("Optimized formal performance evidence declaration is invalid.")
 
     performance_plan = _load_yaml(performance_plan_path)
-    parity_report = _load_json(parity_report_path)
-    benchmark_report = _load_json(benchmark_report_path)
     candidate_name = str(optimization.get("selected_candidate", ""))
     candidate = performance_plan.get("candidates", {}).get(candidate_name)
     training = plan.get("training", {})
     policy = training.get("policy", {})
     resources = plan.get("resources", {})
-    metrics = benchmark_report.get("metrics", {})
-    parity_acceptance = parity_report.get("acceptance", {})
-    source_formal = performance_plan.get("formal_plan", {})
     maximum_wall_seconds = optimization.get("maximum_projected_wall_seconds")
     expected_cache_key = f"xpu-{file_sha256(performance_plan_path)[:12]}"
     action_contract = REPOSITORY_ROOT / str(experiment["action_contract"]["derived"])
@@ -140,29 +153,11 @@ def _validate_performance_optimization(
         not isinstance(candidate, dict)
         or performance_plan.get("parent_experiment", {}).get("experiment_id")
         != experiment["experiment_id"]
-        or source_formal.get("sha256") != benchmark_report.get("formal_plan_sha256")
-        or benchmark_report.get("status") != "complete"
-        or benchmark_report.get("stage") != "smolvla_xpu_training_performance_benchmark"
-        or benchmark_report.get("candidate_name") != candidate_name
-        or benchmark_report.get("candidate") != candidate
-        or benchmark_report.get("performance_plan_sha256") != file_sha256(performance_plan_path)
-        or benchmark_report.get("parity_report_sha256") != file_sha256(parity_report_path)
-        or benchmark_report.get("experiment_config_sha256") != file_sha256(base_path)
-        or benchmark_report.get("action_contract_sha256") != file_sha256(action_contract)
-        or benchmark_report.get("normalization_report_sha256")
-        != plan.get("normalization", {}).get("report_sha256")
-        or benchmark_report.get("model_revision") != experiment["model"]["revision"]
-        or benchmark_report.get("dataset_revision") != experiment["dataset"]["revision"]
-        or benchmark_report.get("network_disabled") is not True
-        or benchmark_report.get("hidden_test_loaded") is not False
-        or benchmark_report.get("checkpoint_written") is not False
-        or metrics.get("target_met") is not True
         or not isinstance(maximum_wall_seconds, int | float)
         or isinstance(maximum_wall_seconds, bool)
-        or float(metrics.get("projected_one_pass_wall_seconds", math.inf))
-        > float(maximum_wall_seconds)
-        or int(metrics.get("peak_xpu_allocated_bytes", 2**63))
-        > int(benchmark_report.get("target", {}).get("maximum_peak_xpu_allocated_bytes", 0))
+        or maximum_wall_seconds != performance_plan.get("target", {}).get(
+            "maximum_projected_wall_seconds"
+        )
         or training.get("batch_size") != candidate.get("batch_size")
         or policy.get("empty_cameras") != candidate.get("empty_cameras")
         or policy.get("compile_model") != candidate.get("compile_model")
@@ -174,22 +169,73 @@ def _validate_performance_optimization(
         != performance_plan.get("resources", {}).get("memory_limit")
         or resources.get("memory_swap_limit")
         != performance_plan.get("resources", {}).get("memory_swap_limit")
-        or parity_report.get("status") != "passed"
-        or parity_report.get("stage") != "smolvla_masked_camera_encoder_fixed_forward_parity"
-        or parity_report.get("performance_plan_sha256") != file_sha256(performance_plan_path)
-        or parity_report.get("experiment_config_sha256") != file_sha256(base_path)
-        or parity_report.get("action_contract_sha256") != file_sha256(action_contract)
-        or parity_report.get("normalization_report_sha256")
-        != plan.get("normalization", {}).get("report_sha256")
-        or parity_report.get("maximum_absolute_loss_tensor_difference") != 0.0
-        or parity_report.get("mean_absolute_loss_tensor_difference") != 0.0
-        or parity_acceptance.get("camera_slot_count_unchanged") is not True
-        or parity_acceptance.get("vision_encoder_calls_reduced_from_three_to_one") is not True
-        or parity_acceptance.get("hidden_test_loaded") is not False
-        or parity_acceptance.get("optimizer_created") is not False
-        or parity_acceptance.get("gradients_enabled") is not False
     ):
-        raise ValueError("Optimized formal performance evidence is invalid or incompatible.")
+        raise ValueError("Optimized formal performance declaration is incompatible.")
+
+    if require_runtime_evidence:
+        if (
+            file_sha256(parity_report_path) != optimization.get("parity_report_sha256")
+            or file_sha256(benchmark_report_path)
+            != optimization.get("benchmark_report_sha256")
+        ):
+            raise ValueError("Optimized formal performance evidence checksum changed.")
+        parity_report = _load_json(parity_report_path)
+        benchmark_report = _load_json(benchmark_report_path)
+        metrics = benchmark_report.get("metrics", {})
+        parity_acceptance = parity_report.get("acceptance", {})
+        source_formal = performance_plan.get("formal_plan", {})
+        if (
+            source_formal.get("sha256") != benchmark_report.get("formal_plan_sha256")
+            or benchmark_report.get("status") != "complete"
+            or benchmark_report.get("stage")
+            != "smolvla_xpu_training_performance_benchmark"
+            or benchmark_report.get("candidate_name") != candidate_name
+            or benchmark_report.get("candidate") != candidate
+            or benchmark_report.get("performance_plan_sha256")
+            != file_sha256(performance_plan_path)
+            or benchmark_report.get("parity_report_sha256")
+            != file_sha256(parity_report_path)
+            or benchmark_report.get("experiment_config_sha256") != file_sha256(base_path)
+            or benchmark_report.get("action_contract_sha256")
+            != file_sha256(action_contract)
+            or benchmark_report.get("normalization_report_sha256")
+            != plan.get("normalization", {}).get("report_sha256")
+            or benchmark_report.get("model_revision") != experiment["model"]["revision"]
+            or benchmark_report.get("dataset_revision")
+            != experiment["dataset"]["revision"]
+            or benchmark_report.get("network_disabled") is not True
+            or benchmark_report.get("hidden_test_loaded") is not False
+            or benchmark_report.get("checkpoint_written") is not False
+            or metrics.get("target_met") is not True
+            or float(metrics.get("projected_one_pass_wall_seconds", math.inf))
+            > float(maximum_wall_seconds)
+            or int(metrics.get("peak_xpu_allocated_bytes", 2**63))
+            > int(
+                benchmark_report.get("target", {}).get(
+                    "maximum_peak_xpu_allocated_bytes", 0
+                )
+            )
+            or parity_report.get("status") != "passed"
+            or parity_report.get("stage")
+            != "smolvla_masked_camera_encoder_fixed_forward_parity"
+            or parity_report.get("performance_plan_sha256")
+            != file_sha256(performance_plan_path)
+            or parity_report.get("experiment_config_sha256") != file_sha256(base_path)
+            or parity_report.get("action_contract_sha256") != file_sha256(action_contract)
+            or parity_report.get("normalization_report_sha256")
+            != plan.get("normalization", {}).get("report_sha256")
+            or parity_report.get("maximum_absolute_loss_tensor_difference") != 0.0
+            or parity_report.get("mean_absolute_loss_tensor_difference") != 0.0
+            or parity_acceptance.get("camera_slot_count_unchanged") is not True
+            or parity_acceptance.get("vision_encoder_calls_reduced_from_three_to_one")
+            is not True
+            or parity_acceptance.get("hidden_test_loaded") is not False
+            or parity_acceptance.get("optimizer_created") is not False
+            or parity_acceptance.get("gradients_enabled") is not False
+        ):
+            raise ValueError(
+                "Optimized formal performance evidence is invalid or incompatible."
+            )
 
     implementation = optimization.get("implementation_files")
     if not isinstance(implementation, dict) or not implementation:
@@ -200,7 +246,11 @@ def _validate_performance_optimization(
             raise ValueError(f"Optimized trainer implementation changed: {raw_path}.")
 
 
-def _validate_plan(plan_path: Path) -> tuple[dict[str, Any], Path, dict[str, Any]]:
+def _validate_plan(
+    plan_path: Path,
+    *,
+    require_runtime_evidence: bool = True,
+) -> tuple[dict[str, Any], Path, dict[str, Any]]:
     plan = _load_yaml(plan_path)
     parent = plan.get("parent_experiment", {})
     base_path = _repository_path(str(parent.get("config", "")))
@@ -281,7 +331,12 @@ def _validate_plan(plan_path: Path) -> tuple[dict[str, Any], Path, dict[str, Any
             raise ValueError(
                 "The optimized formal plan must stay within the authorized 8 GB limit."
             )
-        _validate_performance_optimization(plan, experiment, base_path)
+        _validate_performance_optimization(
+            plan,
+            experiment,
+            base_path,
+            require_runtime_evidence=require_runtime_evidence,
+        )
     return plan, base_path, experiment
 
 

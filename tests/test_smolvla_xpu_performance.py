@@ -24,7 +24,10 @@ BASE_CONFIG = REPOSITORY_ROOT / "configs/vla/smolvla_450m_aloha_insertion.yaml"
 
 def test_performance_plan_preserves_identity_split_and_memory_guardrails() -> None:
     plan, _base_path, experiment, _formal_path, _formal_plan = (
-        _validate_performance_plan(PERFORMANCE_PLAN)
+        _validate_performance_plan(
+            PERFORMANCE_PLAN,
+            require_runtime_evidence=False,
+        )
     )
 
     assert plan["protocol"]["episodes"] == experiment["dataset"]["train_episodes"]
@@ -42,6 +45,21 @@ def test_performance_plan_preserves_identity_split_and_memory_guardrails() -> No
         16,
         16,
     ]
+
+
+def test_performance_plan_runtime_validation_still_requires_local_evidence(
+    tmp_path: Path,
+) -> None:
+    plan = yaml.safe_load(PERFORMANCE_PLAN.read_text(encoding="utf-8"))
+    plan["supersedes"]["evidence"][0]["path"] = (
+        "runs/ci-missing/masked-camera-parity.json"
+    )
+    modified = tmp_path / "performance-with-missing-runtime-evidence.yaml"
+    modified.write_text(yaml.safe_dump(plan, sort_keys=False), encoding="utf-8")
+
+    _validate_performance_plan(modified, require_runtime_evidence=False)
+    with pytest.raises(FileNotFoundError, match="masked-camera-parity.json"):
+        _validate_performance_plan(modified)
 
 
 def test_runtime_candidate_changes_only_upstream_performance_levers() -> None:

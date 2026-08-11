@@ -49,18 +49,30 @@ def _load_json(path: Path) -> dict[str, Any]:
     return value
 
 
-def _repository_path(raw: str) -> Path:
+def _repository_path(raw: str, *, require_file: bool = True) -> Path:
     relative = Path(raw)
-    if relative.is_absolute() or ".." in relative.parts:
+    if not relative.parts or relative.is_absolute() or ".." in relative.parts:
         raise ValueError("Performance plan paths must be safe repository-relative paths.")
     path = (REPOSITORY_ROOT / relative).resolve()
-    if not path.is_relative_to(REPOSITORY_ROOT) or not path.is_file():
+    if not path.is_relative_to(REPOSITORY_ROOT):
+        raise ValueError("Performance plan path escaped the repository root.")
+    if require_file and not path.is_file():
         raise FileNotFoundError(relative.as_posix())
     return path
 
 
+def _is_sha256(value: Any) -> bool:
+    return (
+        isinstance(value, str)
+        and len(value) == 64
+        and all(character in "0123456789abcdef" for character in value)
+    )
+
+
 def _validate_performance_plan(
     plan_path: Path,
+    *,
+    require_runtime_evidence: bool = True,
 ) -> tuple[dict[str, Any], Path, dict[str, Any], Path, dict[str, Any]]:
     plan = _load_yaml(plan_path)
     parent = plan.get("parent_experiment", {})
@@ -77,11 +89,13 @@ def _validate_performance_plan(
         raise ValueError("Performance plan predecessor checksum is stale.")
     if supersedes.get("reason") == "per_element_fixed_forward_parity_failed":
         failed_parity = _repository_path(
-            str(supersedes.get("failed_parity_report", ""))
+            str(supersedes.get("failed_parity_report", "")),
+            require_file=require_runtime_evidence,
         )
-        if (
-            file_sha256(failed_parity)
-            != supersedes.get("failed_parity_report_sha256")
+        if not _is_sha256(supersedes.get("failed_parity_report_sha256")):
+            raise ValueError("Performance plan failed parity declaration is invalid.")
+        if require_runtime_evidence and (
+            file_sha256(failed_parity) != supersedes.get("failed_parity_report_sha256")
             or _load_json(failed_parity).get("status") != "failed"
         ):
             raise ValueError("Performance plan lost the failed parity evidence.")
@@ -90,18 +104,30 @@ def _validate_performance_plan(
         if not isinstance(evidence, list) or len(evidence) < 3:
             raise ValueError("The resource follow-up plan has incomplete evidence.")
         for item in evidence:
-            if not isinstance(item, dict):
-                raise ValueError("Performance predecessor evidence must be mappings.")
-            evidence_path = _repository_path(str(item.get("path", "")))
-            report = _load_json(evidence_path)
             if (
-                file_sha256(evidence_path) != item.get("sha256")
-                or report.get("status") != item.get("status")
+                not isinstance(item, dict)
+                or not _is_sha256(item.get("sha256"))
+                or not isinstance(item.get("status"), str)
+                or not item["status"]
             ):
-                raise ValueError("Performance predecessor evidence is stale.")
+                raise ValueError("Performance predecessor evidence must be mappings.")
+            evidence_path = _repository_path(
+                str(item.get("path", "")),
+                require_file=require_runtime_evidence,
+            )
+            if require_runtime_evidence:
+                report = _load_json(evidence_path)
+                if (
+                    file_sha256(evidence_path) != item.get("sha256")
+                    or report.get("status") != item.get("status")
+                ):
+                    raise ValueError("Performance predecessor evidence is stale.")
     else:
         raise ValueError("Performance plan has no approved predecessor reason.")
-    formal_plan, formal_base_path, experiment = formal_runner._validate_plan(formal_path)
+    formal_plan, formal_base_path, experiment = formal_runner._validate_plan(
+        formal_path,
+        require_runtime_evidence=require_runtime_evidence,
+    )
     if formal_base_path != base_path:
         raise ValueError("Performance and formal plans do not share the same experiment.")
 

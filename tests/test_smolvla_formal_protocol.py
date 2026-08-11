@@ -61,7 +61,10 @@ def test_optimized_formal_plan_is_bound_to_measured_xpu_evidence() -> None:
         / "configs/vla/smolvla_450m_aloha_insertion_formal_optimized_001.yaml"
     )
 
-    plan, _base_path, _experiment = _validate_plan(plan_path)
+    plan, _base_path, _experiment = _validate_plan(
+        plan_path,
+        require_runtime_evidence=False,
+    )
     coverage = _training_coverage(plan["training"], 20_000)
 
     assert plan["resources"]["memory_limit"] == "8g"
