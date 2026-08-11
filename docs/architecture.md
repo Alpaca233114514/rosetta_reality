@@ -1,35 +1,42 @@
 # Architecture
 
-Rosetta Reality separates perception and language representation from robot
-state processing and action prediction.
+Rosetta Reality separates low-frequency embodied reasoning, high-frequency
+action generation, and physical execution contracts.
 
 ```text
-Visual input + instruction
+Observation + instruction
            |
            v
-Replaceable VLM backbone -----> pooled hidden representation
-                                      |
-Robot state ---> State Encoder -------+--> simple fusion --> Action Expert
-                                                                |
-                                                                v
-                                                continuous action chunk
+Replaceable ER (Qwen reference)
+           |
+           v
+ActionPlan v1 -- grounded subtask / target / constraints / recovery
+           |
+           v
+Replaceable VLA (SmolVLA 450M reference) + robot state
+           |
+           v
+Rosetta Action Contract -> Simulation Adapter -> next observation
 ```
 
 ## Current technical direction
 
-The planned research stack combines:
+The current research stack combines:
 
-- a Qwen3.5 vision-language backbone;
-- a robot-state encoder;
-- a replaceable action expert;
-- future embodiment adapters;
+- a Qwen3.5 ER reference for reasoning and planning;
+- a revision-pinned SmolVLA 450M VLA reference;
+- a versioned structured ER/VLA interface;
+- existing robot-state, action and embodiment contracts;
 - a robot-agnostic dataset pipeline; and
 - simulation and evaluation infrastructure.
 
-Qwen is the current default backbone, not the Rosetta Reality architecture
-itself. Generic policy components depend only on the `VLABackbone` interface.
-A future Gemma or other VLM adapter should be able to reuse the same state
-encoder, action head, data schema, trainer, and evaluation code.
+Neither Qwen nor SmolVLA is the Rosetta architecture itself. ER and VLA may be
+replaced independently if they continue to satisfy `ActionPlan`, observation,
+action, artifact and evaluation contracts.
+
+Historical Qwen frozen-feature action policies remain in their original paths
+as negative VLA evidence. They do not initialize SmolVLA and are not accepted
+as ER checkpoints.
 
 ## M0 implementation
 
@@ -68,11 +75,17 @@ introduced.
 
 ## Boundaries
 
+- `configs/er/` owns ER-only experiment identity and supervision gates.
+- `configs/vla/` owns SmolVLA experiment identity and phase gates.
+- `integration/schemas/` owns the model-independent ER/VLA wire format.
 - `models/backbones/` owns model-family-specific loading and input processing.
 - `models/vla.py` owns generic policy composition.
 - `data/adapters/` owns third-party field mapping.
 - `data/schema.py`, `data/dataset.py`, and `data/normalization.py` own generic
   frame/sample/batch, chunking, and population-statistics contracts.
 - `train/` owns loss and optimization mechanics, not model downloading.
-- `sim/` will provide simulator adapters without coupling the core policy to a
-  particular simulator.
+- `sim/` owns action semantics and simulator adapters without coupling ER or
+  the core policy to a particular simulator.
+
+See [`er-vla-pipeline.md`](er-vla-pipeline.md) for the pinned first experiment,
+reuse matrix and execution gates.

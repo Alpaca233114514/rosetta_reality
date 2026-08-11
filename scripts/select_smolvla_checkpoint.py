@@ -1,0 +1,318 @@
+"""Select the preregistered SmolVLA formal checkpoint from fixed validation only."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import math
+import os
+import sqlite3
+import sys
+from pathlib import Path
+from typing import Any
+
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+SOURCE_ROOT = REPOSITORY_ROOT / "src"
+SCRIPTS_ROOT = REPOSITORY_ROOT / "scripts"
+DEFAULT_PLAN = REPOSITORY_ROOT / "configs/vla/smolvla_450m_aloha_insertion_formal_001.yaml"
+for root in (SOURCE_ROOT, SCRIPTS_ROOT):
+    if str(root) not in sys.path:
+        sys.path.insert(0, str(root))
+
+import run_smolvla_formal as formal_runner  # noqa: E402
+import run_smolvla_phase as phase_runner  # noqa: E402
+
+from rosetta_reality.experiment import file_sha256, workspace_code_identity  # noqa: E402
+from rosetta_reality.features import create_json  # noqa: E402
+
+
+def _validation_report(
+    path: Path,
+    *,
+    plan: dict[str, Any],
+    experiment: dict[str, Any],
+    base_path: Path,
+    contract_sha256: str,
+    normalization_sha256: str,
+    expected_source: str | int,
+) -> dict[str, Any]:
+    report = formal_runner._load_json(path)
+    validation = plan["validation"]
+    source = report.get("model_source", {})
+    expected_kind = "base" if expected_source == "base" else "checkpoint"
+    expected_step = None if expected_source == "base" else int(expected_source)
+    metrics = report.get("metrics", {})
+    metric_names = {
+        "action_mae",
+        "action_rmse",
+        "first_action_mae",
+        "fixed_flow_loss",
+        "invalid_action_rate",
+        "joint_limit_violation_rate",
+        "action_smoothness_mean_abs_delta",
+    }
+    if (
+        report.get("status") != "complete"
+        or report.get("stage") != "smolvla_fixed_validation"
+        or report.get("experiment_id") != experiment["experiment_id"]
+        or report.get("formal_plan_sha256") != file_sha256(DEFAULT_PLAN)
+        or report.get("experiment_config_sha256") != file_sha256(base_path)
+        or report.get("action_contract_sha256") != contract_sha256
+        or report.get("normalization_report_sha256") != normalization_sha256
+        or report.get("validation_episodes") != validation["episodes"]
+        or report.get("frame_offsets") != validation["frame_offsets"]
+        or report.get("materialized_episodes") != sorted(validation["episodes"])
+        or report.get("sample_count") != validation["total_samples"]
+        or report.get("hidden_test_loaded") is not False
+        or report.get("gradients_enabled") is not False
+        or report.get("optimizer_created") is not False
+        or source.get("kind") != expected_kind
+        or source.get("step") != expected_step
+        or not isinstance(metrics, dict)
+        or not metric_names <= set(metrics)
+        or any(
+            not isinstance(metrics[name], int | float)
+            or isinstance(metrics[name], bool)
+            or not math.isfinite(float(metrics[name]))
+            for name in metric_names
+        )
+    ):
+        raise ValueError(f"Invalid formal validation report: {path.name}.")
+    if expected_kind == "checkpoint" and not report.get("processor_statistics"):
+        raise ValueError("A checkpoint validation did not verify saved processor statistics.")
+    return report
+
+
+def _training_metrics(database: Path, run_name: str, steps: int) -> dict[str, Any]:
+    if not database.is_file():
+        raise FileNotFoundError("The durable Trackio database is missing.")
+    connection = sqlite3.connect(f"file:{database}?mode=ro", uri=True)
+    try:
+        rows = connection.execute(
+            "SELECT run_id, step, metrics FROM metrics WHERE run_name=? ORDER BY id",
+            (run_name,),
+        ).fetchall()
+        configs = connection.execute(
+            "SELECT run_id, config FROM configs WHERE run_name=? ORDER BY id",
+            (run_name,),
+        ).fetchall()
+    finally:
+        connection.close()
+    if not rows or len({str(row[0]) for row in rows}) != 1 or len(configs) != 1:
+        raise ValueError("Trackio formal run identity is missing or ambiguous.")
+    config = json.loads(configs[0][1])
+    if (
+        config.get("phase") != "formal"
+        or config.get("steps") != steps
+        or config.get("test_split_loaded") is not False
+        or config.get("normalization_source_split") != "train"
+        or config.get("formal_plan_sha256") != file_sha256(DEFAULT_PLAN)
+    ):
+        raise ValueError("Trackio formal configuration differs from the registered plan.")
+    train_rows: dict[int, dict[str, Any]] = {}
+    checkpoint_steps: list[int] = []
+    for _, step, raw_metrics in rows:
+        metrics = json.loads(raw_metrics)
+        numeric = [
+            value
+            for value in metrics.values()
+            if isinstance(value, int | float) and not isinstance(value, bool)
+        ]
+        if len(numeric) != len(metrics) or not all(
+            math.isfinite(float(value)) for value in numeric
+        ):
+            raise FloatingPointError("Trackio contains a non-finite or non-numeric metric.")
+        if "train/loss" in metrics:
+            if step in train_rows:
+                raise ValueError("Trackio contains duplicate formal training steps.")
+            if "train/grad_norm" not in metrics:
+                raise ValueError("Trackio formal training step has no gradient norm.")
+            train_rows[int(step)] = metrics
+        if metrics.get("system/checkpoint_saved") == 1:
+            checkpoint_steps.append(int(step))
+    if sorted(train_rows) != list(range(1, steps + 1)):
+        raise ValueError("Trackio formal training steps are incomplete.")
+    losses = [float(train_rows[step]["train/loss"]) for step in sorted(train_rows)]
+    gradients = [float(train_rows[step]["train/grad_norm"]) for step in sorted(train_rows)]
+    return {
+        "run_id": str(rows[0][0]),
+        "logged_training_steps": len(train_rows),
+        "checkpoint_steps": sorted(checkpoint_steps),
+        "initial_loss": losses[0],
+        "final_loss": losses[-1],
+        "minimum_loss": min(losses),
+        "maximum_loss": max(losses),
+        "maximum_gradient_norm": max(gradients),
+        "all_losses_and_gradients_finite": True,
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--plan", type=Path, default=DEFAULT_PLAN)
+    parser.add_argument("--trackio-sync-report", type=Path, required=True)
+    args = parser.parse_args()
+    plan_path = args.plan.resolve()
+    plan, base_path, experiment = formal_runner._validate_plan(plan_path)
+    contract_path = REPOSITORY_ROOT / str(experiment["action_contract"]["derived"])
+    contract_sha256 = file_sha256(contract_path)
+    normalization_path, _, _ = formal_runner._validate_normalization(
+        plan, experiment, base_path, contract_sha256
+    )
+    normalization_sha256 = file_sha256(normalization_path)
+    launch_path = (
+        phase_runner._absolute_root("ROSETTA_RUN_ROOT")
+        / str(experiment["experiment_id"])
+        / "launch"
+        / f"{plan['run_name']}.json"
+    )
+    launch = formal_runner._load_json(launch_path)
+    if (
+        launch.get("status") != "preregistered"
+        or launch.get("mode") != "train"
+        or launch.get("formal_plan_sha256") != file_sha256(plan_path)
+        or launch.get("hidden_test_loaded") is not False
+    ):
+        raise ValueError("The formal training launch manifest is invalid.")
+    sync = formal_runner._load_json(args.trackio_sync_report.resolve())
+    if (
+        sync.get("status") != "complete"
+        or sync.get("contains_sensitive_data") is not False
+        or sync.get("media_uploaded") is not False
+        or sync.get("test_split_loaded") is not False
+        or sync.get("space_id") != experiment["tracking"]["space_id"]
+    ):
+        raise ValueError("The final public Trackio sync report is invalid.")
+
+    validation_root = (
+        phase_runner._absolute_root("ROSETTA_RUN_ROOT")
+        / str(experiment["experiment_id"])
+        / "validation"
+    )
+    expected_sources: list[str | int] = list(plan["validation"]["checkpoints"])
+    reports: dict[str | int, tuple[Path, dict[str, Any]]] = {}
+    for source in expected_sources:
+        suffix = "base" if source == "base" else f"step-{int(source):06d}"
+        path = validation_root / f"{plan['validation']['run_name_prefix']}-{suffix}.json"
+        reports[source] = (
+            path,
+            _validation_report(
+                path,
+                plan=plan,
+                experiment=experiment,
+                base_path=base_path,
+                contract_sha256=contract_sha256,
+                normalization_sha256=normalization_sha256,
+                expected_source=source,
+            ),
+        )
+
+    checkpoint_root = phase_runner._absolute_root("ROSETTA_CHECKPOINT_ROOT")
+    checkpoint_summaries: list[dict[str, Any]] = []
+    for source in expected_sources[1:]:
+        step = int(source)
+        path, report = reports[source]
+        step_dir = (
+            checkpoint_root
+            / str(experiment["experiment_id"])
+            / "formal"
+            / str(plan["run_name"])
+            / "checkpoints"
+            / f"{step:06d}"
+        )
+        training_step = formal_runner._load_json(step_dir / "training_state/training_step.json")
+        model_path = step_dir / "pretrained_model/model.safetensors"
+        if training_step.get("step") != step or file_sha256(model_path) != report[
+            "model_source"
+        ]["model_safetensors_sha256"]:
+            raise ValueError("A formal checkpoint differs from its validation report.")
+        checkpoint_summaries.append(
+            {
+                "step": step,
+                "validation_report_sha256": file_sha256(path),
+                "model_safetensors_sha256": file_sha256(model_path),
+                "metrics": report["metrics"],
+                "processor_statistics": report["processor_statistics"],
+            }
+        )
+
+    primary = str(plan["validation"]["primary_selection_metric"])
+    secondary = str(plan["validation"]["secondary_selection_metric"])
+    selected = min(
+        checkpoint_summaries,
+        key=lambda item: (
+            float(item["metrics"][primary]),
+            float(item["metrics"][secondary]),
+            int(item["step"]),
+        ),
+    )
+    base_path_report, base_report = reports["base"]
+    base_value = float(base_report["metrics"][primary])
+    selected_value = float(selected["metrics"][primary])
+    expected_checkpoint_steps = [int(value) for value in expected_sources[1:]]
+    trackio_root = Path(os.environ.get("TRACKIO_DIR", ""))
+    if not trackio_root.is_absolute():
+        raise ValueError("TRACKIO_DIR must identify the durable Trackio root.")
+    training_metrics = _training_metrics(
+        trackio_root / f"{experiment['tracking']['project']}.db",
+        str(plan["run_name"]),
+        int(plan["training"]["steps"]),
+    )
+    acceptance = {
+        "all_logged_losses_and_gradients_are_finite": training_metrics[
+            "all_losses_and_gradients_finite"
+        ],
+        "all_registered_checkpoints_saved": training_metrics["checkpoint_steps"]
+        == expected_checkpoint_steps,
+        "checkpoint_reload_and_processor_statistics_match": all(
+            bool(item["processor_statistics"]) for item in checkpoint_summaries
+        ),
+        "validation_action_mae_improves_over_base": selected_value < base_value,
+        "hidden_test_not_loaded": True,
+    }
+    passed = all(acceptance.values())
+    report = {
+        "schema_version": 1,
+        "status": "passed" if passed else "rejected",
+        "stage": "smolvla_formal_checkpoint_selection",
+        "experiment_id": experiment["experiment_id"],
+        "formal_plan_sha256": file_sha256(plan_path),
+        "experiment_config_sha256": file_sha256(base_path),
+        "action_contract_sha256": contract_sha256,
+        "normalization_report_sha256": normalization_sha256,
+        "launch_manifest_sha256": file_sha256(launch_path),
+        "trackio_sync_report_sha256": file_sha256(args.trackio_sync_report.resolve()),
+        "training_metrics": training_metrics,
+        "selection_protocol": {
+            "split": "validation",
+            "primary_metric": primary,
+            "secondary_metric": secondary,
+            "tie_breaker": "earlier_checkpoint_step",
+            "hidden_test_loaded": False,
+        },
+        "base": {
+            "validation_report_sha256": file_sha256(base_path_report),
+            "metrics": base_report["metrics"],
+        },
+        "checkpoints": checkpoint_summaries,
+        "selected": selected,
+        "primary_improvement": base_value - selected_value,
+        "primary_relative_improvement": (base_value - selected_value) / base_value,
+        "acceptance": acceptance,
+        "hidden_test_loaded": False,
+        "code_identity": workspace_code_identity(REPOSITORY_ROOT),
+    }
+    destination = (
+        phase_runner._absolute_root("ROSETTA_RUN_ROOT")
+        / str(experiment["experiment_id"])
+        / "selection"
+        / "m2-smolvla450m-formal-selection-002.json"
+    )
+    create_json(destination, report)
+    print(json.dumps(report, indent=2, sort_keys=True))
+    print(f"Report: {destination.relative_to(REPOSITORY_ROOT).as_posix()}")
+    return 0 if passed else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

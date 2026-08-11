@@ -41,6 +41,7 @@ from rosetta_reality.experiment import (  # noqa: E402
     file_sha256,
     load_experiment_config,
     stable_hash,
+    validate_frozen_artifact_recipe,
     workspace_code_identity,
 )
 from rosetta_reality.features import create_json  # noqa: E402
@@ -808,6 +809,11 @@ def _load_online_artifact(
         raise ValueError("Artifact manifest experiment differs from the rollout config.")
     if artifact_config.get("experiment_id") != experiment["experiment_id"]:
         raise ValueError("Artifact config experiment differs from the rollout config.")
+    validate_frozen_artifact_recipe(
+        experiment,
+        artifact_config,
+        context="Online rollout artifact",
+    )
     artifact_contract = _read_json_object(artifact_root / "action_contract.json")
     contract = load_action_contract(REPOSITORY_ROOT / experiment["action_contract"])
     canonical_contract = json.loads(json.dumps(asdict(contract), allow_nan=False))
@@ -1161,18 +1167,11 @@ def _validated_trace_artifact(
 
     artifact_config = _read_json_object(artifact_root / "config.json")
     backbone = experiment["backbone"]
-    expected_config = {
-        "experiment_id": experiment["experiment_id"],
-        "adaptation": backbone["adaptation"],
-        "base_model": backbone["identifier"],
-        "feature_layer": backbone["feature_layer"],
-        "pooling": backbone["pooling"],
-        "processor": backbone["processor"],
-        "action_expert": experiment["action_expert"],
-    }
-    for name, expected in expected_config.items():
-        if artifact_config.get(name) != expected:
-            raise ValueError(f"Trajectory artifact config differs at {name}.")
+    validate_frozen_artifact_recipe(
+        experiment,
+        artifact_config,
+        context="Trajectory artifact",
+    )
     model_contract = artifact_config.get("model_contract", {})
     if (
         model_contract.get("state_dim") != contract.dimension

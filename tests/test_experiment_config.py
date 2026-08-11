@@ -8,8 +8,10 @@ import yaml
 
 from rosetta_reality.experiment import (
     _branch_from_git_reference,
+    frozen_artifact_recipe,
     load_experiment_config,
     stable_hash,
+    validate_frozen_artifact_recipe,
 )
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -331,6 +333,18 @@ def test_experiment_rejects_instruct_control_claiming_m2_eligibility(tmp_path: P
 
 def test_stable_hash_ignores_mapping_order() -> None:
     assert stable_hash({"a": 1, "b": 2}) == stable_hash({"b": 2, "a": 1})
+
+
+def test_frozen_artifact_recipe_rejects_processor_drift() -> None:
+    experiment = load_experiment_config(CONFIG_PATH, REPOSITORY_ROOT)
+    artifact_config = frozen_artifact_recipe(experiment)
+
+    validate_frozen_artifact_recipe(experiment, artifact_config)
+    artifact_config = copy.deepcopy(artifact_config)
+    artifact_config["processor"]["prompt"] = "A different feature recipe"
+
+    with pytest.raises(ValueError, match="differs at processor"):
+        validate_frozen_artifact_recipe(experiment, artifact_config)
 
 
 def test_git_reference_preserves_feature_branch_prefix() -> None:

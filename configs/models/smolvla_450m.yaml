@@ -1,0 +1,41 @@
+schema_version: 1
+source: huggingface
+repo_id: lerobot/smolvla_base
+revision: c83c3163b8ca9b7e67c509fffd9121e66cb96205
+cache_root: models
+manifest: model_manifest.json
+dependency_manifest: vlm_dependency_manifest.json
+dependencies:
+  vlm:
+    repo_id: HuggingFaceTB/SmolVLM2-500M-Video-Instruct
+    revision: 7b375e1b73b11138ff12fe22c8f2822d8fe03467
+    license: apache-2.0
+    files:
+      - README.md
+      - added_tokens.json
+      - chat_template.json
+      - config.json
+      - generation_config.json
+      - merges.txt
+      - preprocessor_config.json
+      - processor_config.json
+      - special_tokens_map.json
+      - tokenizer.json
+      - tokenizer_config.json
+      - vocab.json
+expected:
+  files:
+    - README.md
+    - config.json
+    - model.safetensors
+    - policy_preprocessor.json
+    - policy_preprocessor_step_5_normalizer_processor.safetensors
+    - policy_postprocessor.json
+    - policy_postprocessor_step_0_unnormalizer_processor.safetensors
+  config:
+    type: smolvla
+    chunk_size: 50
+    n_action_steps: 50
+    max_state_dim: 32
+    max_action_dim: 32
+    vlm_model_name: HuggingFaceTB/SmolVLM2-500M-Video-Instruct

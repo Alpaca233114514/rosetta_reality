@@ -8,7 +8,11 @@ import pytest
 import torch
 
 from rosetta_reality.data.normalization import DatasetStatistics, NormalizationStats
-from rosetta_reality.experiment import file_sha256
+from rosetta_reality.experiment import (
+    file_sha256,
+    frozen_artifact_recipe,
+    load_experiment_config,
+)
 from rosetta_reality.sim import load_action_contract
 from scripts import sim_gate
 from scripts.sim_gate import (
@@ -22,6 +26,27 @@ from scripts.sim_gate import (
 )
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
+EXPERIMENT_CONFIG = (
+    REPOSITORY_ROOT / "configs" / "experiments" / "m2_qwen08b_frozen_001.yaml"
+)
+
+
+def test_online_artifact_rejects_same_id_with_processor_drift(tmp_path: Path) -> None:
+    experiment = load_experiment_config(EXPERIMENT_CONFIG, REPOSITORY_ROOT)
+    artifact_config = frozen_artifact_recipe(experiment)
+    artifact_config["processor"] = dict(artifact_config["processor"])
+    artifact_config["processor"]["prompt_mode"] = "drifted"
+    config_path = tmp_path / "config.json"
+    config_path.write_text(json.dumps(artifact_config), encoding="utf-8")
+    manifest = {
+        "status": "verified",
+        "experiment_id": experiment["experiment_id"],
+        "files": {"config.json": file_sha256(config_path)},
+    }
+    (tmp_path / "manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="differs at processor"):
+        sim_gate._load_online_artifact(EXPERIMENT_CONFIG, tmp_path)
 
 
 @pytest.mark.parametrize(

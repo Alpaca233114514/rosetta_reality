@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from copy import deepcopy
 from pathlib import Path
 from types import SimpleNamespace
@@ -48,6 +49,59 @@ def _identity(
         "normalization_sha256": stable_hash(normalization),
         "action_contract_sha256": "action-contract",
     }
+
+
+def test_model_identity_hashes_every_manifest_declared_file(tmp_path: Path) -> None:
+    configured = {
+        "family": "qwen35",
+        "identifier": "Qwen/Qwen3.5-0.8B-Base",
+        "scale": "0.8B",
+        "adaptation": "frozen",
+        "manifest": "model_manifest.json",
+    }
+    files = {
+        "config.json": json.dumps({"text_config": {"hidden_size": 2}}).encode(),
+        "model.safetensors": b"weights",
+        "chat_template.jinja": b"{{ messages }}",
+    }
+    for name, value in files.items():
+        (tmp_path / name).write_bytes(value)
+    records = {
+        name: {"bytes": len(value), "sha256": file_sha256(tmp_path / name)}
+        for name, value in files.items()
+    }
+    manifest = {
+        "schema_version": 1,
+        "status": "validated",
+        "source": "huggingface",
+        "repo_id": configured["identifier"],
+        "revision": "a" * 40,
+        "model_contract": {"hidden_size": 2},
+        "files": records,
+    }
+    (tmp_path / "model_manifest.json").write_text(
+        json.dumps(manifest), encoding="utf-8"
+    )
+
+    identity = cache_features._model_identity(tmp_path, configured)
+
+    assert set(identity["files"]) == set(files)
+    (tmp_path / "chat_template.jinja").write_text("changed", encoding="utf-8")
+    with pytest.raises(ValueError, match="chat_template.jinja"):
+        cache_features._model_identity(tmp_path, configured)
+
+
+def test_feature_cache_rejects_source_overshoot_above_contract_tolerance() -> None:
+    contract = load_action_contract(
+        REPOSITORY_ROOT / "configs" / "sim" / "aloha_insertion.yaml"
+    )
+    within = contract.source_overshoot_tolerances.clone()
+    cache_features._validate_source_overshoot(contract, within, context="test frame")
+    beyond = within.clone()
+    beyond[0] = 0.01
+
+    with pytest.raises(ValueError, match="left_waist"):
+        cache_features._validate_source_overshoot(contract, beyond, context="test frame")
 
 
 def _source_cache(

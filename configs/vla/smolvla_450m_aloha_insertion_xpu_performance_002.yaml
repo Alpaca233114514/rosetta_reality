@@ -1,0 +1,171 @@
+schema_version: 1
+role: vla
+stage: m2_xpu_training_performance
+status: preregistered
+plan_id: m2-smolvla450m-xpu-performance-002
+supersedes:
+  plan: configs/vla/smolvla_450m_aloha_insertion_xpu_performance_001.yaml
+  sha256: b81df6ea59ad4991a0e9a9d4e7ccf0976b0df44790c1ce405b459f2715e7648a
+  failed_parity_report: runs/m2-smolvla450m-aloha-insertion-001/performance/empty-camera-parity-b81df6ea59ad.json
+  failed_parity_report_sha256: 81c0fef97b99f378717af67a56b32eea362dcefff41a921b96e788d4f154dcb4
+  failed_candidate: empty_cameras_2_to_0
+  reason: per_element_fixed_forward_parity_failed
+hypothesis: >-
+  The trainer is update-bound. A larger real batch amortizes the frozen
+  350M-class VLM prefix over more samples. Keeping all three camera token slots
+  but replacing only the two fully masked placeholder image encodes with
+  same-shape zero embeddings removes two redundant frozen vision-encoder calls
+  per optimizer step without changing sequence geometry or valid tokens.
+parent_experiment:
+  config: configs/vla/smolvla_450m_aloha_insertion.yaml
+  sha256: 7306014717eb3fe5a5997a92406ec18cb251f1c17cc9d46ed74d75ac71d8b19f
+  experiment_id: m2-smolvla450m-aloha-insertion-001
+formal_plan:
+  config: configs/vla/smolvla_450m_aloha_insertion_formal_001.yaml
+  sha256: 5fb1c2e03a10dd97191d51f715ce02cd075893316f5005eac18b9deb747b0327
+normalization:
+  report: runs/m2-smolvla450m-aloha-insertion-001/normalization/train-only-aa4e671eac73c303.json
+  sha256: df7ffa354c790a6d7fbdef912b628b17a8531b5a956d87eda3adcca51a4fdb51
+preflight:
+  report: runs/m2-smolvla450m-aloha-insertion-001/preflight/m2-smolvla450m-formal-preflight-004.json
+  sha256: 7c5a5c0309a8694564f9742a281d41588869eddd2766b47a91cee7d31b6647ad
+baseline:
+  trackio_database: runs/trackio/rosetta-reality-vla.db
+  run_id: a96d8669a94a4307966c0190e45dc16e
+  batch_size: 1
+  empty_cameras: 2
+  compile_model: false
+  skip_fully_masked_camera_encoding: false
+  logged_steps: 1000
+  discard_warmup_steps: 5
+  mean_step_seconds: 0.9493815969557787
+  mean_update_seconds: 0.9079840195959792
+  mean_dataloading_seconds: 0.036352298409043735
+  mean_preprocessing_seconds: 0.003775444021104233
+  mean_samples_per_second: 1.0753865719241151
+target:
+  train_rows: 20000
+  minimum_dataset_passes: 1.0
+  maximum_projected_wall_seconds: 7200
+  minimum_steady_state_samples_per_second: 2.7777777777777777
+  maximum_peak_xpu_allocated_bytes: 4294967296
+  checkpoint_allowance_seconds: 60
+parity:
+  kind: masked_camera_encoder_skip
+  batch_size: 1
+  noise_seed: 20260809
+  flow_time: 0.5
+  reference_empty_cameras: 2
+  candidate_empty_cameras: 2
+  expected_camera_slots: 3
+  expected_vision_encoder_calls_reference: 3
+  expected_vision_encoder_calls_candidate: 1
+  maximum_absolute_loss_tensor_difference: 0.001
+  maximum_mean_absolute_loss_tensor_difference: 0.00001
+  maximum_relative_scalar_loss_difference: 0.00001
+protocol:
+  episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  steps: 30
+  discard_warmup_steps: 5
+  log_freq: 1
+  save_checkpoint: false
+  save_freq: 1000000
+  num_workers: 0
+  persistent_workers: false
+  validation_gradients: false
+  hidden_test_loaded: false
+  optimizer_created_only_after_baseline_and_parity: true
+  candidate_order:
+    - eager-b2-control-v2
+    - eager-b2-skip-v2
+    - eager-b4-skip-v2
+    - eager-b8-skip-v2
+    - compile-b8-skip-v2
+    - compile-b4-skip-v2
+candidates:
+  eager-b2-control-v2:
+    run_name: m2-smolvla450m-perf-eager-b2-control-002
+    batch_size: 2
+    empty_cameras: 2
+    compile_model: false
+    skip_fully_masked_camera_encoding: false
+  eager-b2-skip-v2:
+    run_name: m2-smolvla450m-perf-eager-b2-skip-002
+    batch_size: 2
+    empty_cameras: 2
+    compile_model: false
+    skip_fully_masked_camera_encoding: true
+    requires_masked_camera_parity: true
+  eager-b4-skip-v2:
+    run_name: m2-smolvla450m-perf-eager-b4-skip-002
+    batch_size: 4
+    empty_cameras: 2
+    compile_model: false
+    skip_fully_masked_camera_encoding: true
+    requires_masked_camera_parity: true
+  eager-b8-skip-v2:
+    run_name: m2-smolvla450m-perf-eager-b8-skip-002
+    batch_size: 8
+    empty_cameras: 2
+    compile_model: false
+    skip_fully_masked_camera_encoding: true
+    requires_masked_camera_parity: true
+  compile-b8-skip-v2:
+    run_name: m2-smolvla450m-perf-compile-b8-skip-002
+    batch_size: 8
+    empty_cameras: 2
+    compile_model: true
+    compile_mode: reduce-overhead
+    skip_fully_masked_camera_encoding: true
+    requires_masked_camera_parity: true
+  compile-b4-skip-v2:
+    run_name: m2-smolvla450m-perf-compile-b4-skip-002
+    batch_size: 4
+    empty_cameras: 2
+    compile_model: true
+    compile_mode: reduce-overhead
+    skip_fully_masked_camera_encoding: true
+    requires_masked_camera_parity: true
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  mixed_precision: bf16
+  memory_limit: 6g
+  memory_swap_limit: 6g
+  cpu_limit: 2
+decision_policy:
+  select_fastest_candidate_if:
+    - masked_camera_fixed_forward_parity_passed_when_skip_is_enabled
+    - all_post_warmup_losses_gradients_and_timings_are_finite
+    - peak_xpu_allocated_bytes_within_registered_limit
+    - projected_one_pass_wall_seconds_at_or_below_target
+  stop_candidate_if:
+    - out_of_memory
+    - nonfinite_loss_gradient_or_timing
+    - unsupported_accelerator_compile_or_kernel_operation
+    - hidden_test_episode_materialized_or_loaded
+  stop_search_if: >-
+    the next candidate exceeds the memory guardrail, produces non-finite values,
+    or is slower after including its one-time compilation cost
+triton_fused_norm:
+  status: conditional_after_compiled_candidate_and_profile
+  package_required: triton
+  minimum_total_step_time_fraction_in_norm_ops: 0.05
+  require_forward_and_backward_parity: true
+  minimum_end_to_end_step_speedup_fraction: 0.05
+  maximum_peak_xpu_allocated_bytes: 4294967296
+  do_not_integrate_if_inductor_already_fuses_equivalent_norm_sequence: true
+reuse_boundary:
+  allowed:
+    - immutable_model_and_dataset_snapshots
+    - train_only_normalization
+    - upstream_train_expert_only_path
+    - upstream_compile_model_configuration
+    - upstream_empty_camera_mask_and_sequence_contract
+    - local_trackio_store
+  prohibited:
+    - old_qwen_feature_cache
+    - hidden_test_data
+    - stale_prefix_cache_after_state_projection_updates
+    - activation_checkpointing_for_speed
+    - unbounded_host_or_xpu_cache

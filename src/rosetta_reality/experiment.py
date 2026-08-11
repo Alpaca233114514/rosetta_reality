@@ -32,6 +32,41 @@ def file_sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def frozen_artifact_recipe(experiment: dict[str, Any]) -> dict[str, Any]:
+    """Return the frozen-backbone inference recipe that an artifact must preserve."""
+
+    backbone = _mapping(_required(experiment, "backbone", "Experiment config"), "backbone")
+    return {
+        "experiment_id": _required(experiment, "experiment_id", "Experiment config"),
+        "base_model": _required(backbone, "identifier", "backbone"),
+        "base_model_family": _required(backbone, "family", "backbone"),
+        "base_model_scale": _required(backbone, "scale", "backbone"),
+        "adaptation": _required(backbone, "adaptation", "backbone"),
+        "backbone_dtype": _required(backbone, "dtype", "backbone"),
+        "processor": _mapping(_required(backbone, "processor", "backbone"), "processor"),
+        "feature_layer": _required(backbone, "feature_layer", "backbone"),
+        "pooling": _required(backbone, "pooling", "backbone"),
+        "action_expert": _mapping(
+            _required(experiment, "action_expert", "Experiment config"),
+            "action_expert",
+        ),
+    }
+
+
+def validate_frozen_artifact_recipe(
+    experiment: dict[str, Any],
+    artifact_config: dict[str, Any],
+    *,
+    context: str = "Artifact",
+) -> None:
+    """Reject same-ID artifacts whose feature or policy recipe drifted."""
+
+    expected = frozen_artifact_recipe(experiment)
+    for name, value in expected.items():
+        if artifact_config.get(name) != value:
+            raise ValueError(f"{context} config differs at {name}.")
+
+
 def _branch_from_git_reference(reference: str) -> str:
     prefix = "refs/heads/"
     return reference[len(prefix) :] if reference.startswith(prefix) else reference

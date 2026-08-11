@@ -23,6 +23,7 @@ if str(SOURCE_ROOT) not in sys.path:
 from rosetta_reality.data.normalization import DatasetStatistics  # noqa: E402
 from rosetta_reality.experiment import (  # noqa: E402
     file_sha256,
+    frozen_artifact_recipe,
     load_experiment_config,
     workspace_code_identity,
 )
@@ -137,16 +138,10 @@ def export(
     )
     artifact_config = {
         "schema_version": 1,
-        "experiment_id": experiment["experiment_id"],
-        "base_model": experiment["backbone"]["identifier"],
+        **frozen_artifact_recipe(experiment),
         "base_model_revision": feature_manifest["identity"]["model"]["revision"],
         "base_model_file_hashes": feature_manifest["identity"]["model"]["files"],
         "base_model_included": False,
-        "adaptation": "frozen",
-        "processor": experiment["backbone"]["processor"],
-        "feature_layer": experiment["backbone"]["feature_layer"],
-        "pooling": experiment["backbone"]["pooling"],
-        "action_expert": experiment["action_expert"],
         "state_pairing": training_manifest.get("state_pairing"),
         "action_loss_protocol": training_manifest.get("action_loss_protocol"),
         "model_contract": model_contract,

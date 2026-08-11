@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://rosetta-reality.invalid/schemas/action_plan.v1.schema.json",
+  "title": "Rosetta ActionPlan v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "subtask",
+    "object",
+    "target",
+    "motion_hint",
+    "constraints",
+    "success_condition",
+    "replan_condition"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "subtask": {"type": "string", "minLength": 1},
+    "object": {"type": ["string", "null"]},
+    "target": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "values", "reference_frame", "unit"],
+          "properties": {
+            "kind": {"enum": ["pixel", "point_3d", "region", "joint"]},
+            "values": {
+              "type": "array",
+              "items": {"type": "number"},
+              "minItems": 1
+            },
+            "reference_frame": {"type": "string", "minLength": 1},
+            "unit": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
+    "motion_hint": {"type": ["string", "null"]},
+    "constraints": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "success_condition": {"type": "string", "minLength": 1},
+    "replan_condition": {"type": "string", "minLength": 1}
+  }
+}

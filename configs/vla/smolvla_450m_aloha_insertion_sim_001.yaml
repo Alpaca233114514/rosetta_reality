@@ -1,0 +1,42 @@
+schema_version: 1
+role: vla
+stage: m2_closed_loop_simulation
+status: preregistered
+plan_id: m2-smolvla450m-sim-001
+experiment_id: m2-smolvla450m-aloha-insertion-001
+artifact_id: m2-smolvla450m-formal-step1000-001
+selection:
+  report: runs/m2-smolvla450m-aloha-insertion-001/selection/m2-smolvla450m-formal-selection-002.json
+  report_sha256: df2528eb6e2eb8f10b63af8113fc5b379f50ea6cc3047b56b60a92f330fd7f7c
+  checkpoint_step: 1000
+  model_safetensors_sha256: 2ea6dbd7821574e3473c886e196a06503664d85c978a59e28045f6a512857825
+action_contract:
+  path: configs/sim/aloha_insertion_smolvla.yaml
+  sha256: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+inference:
+  observation_camera: top
+  policy_camera: observation.images.camera1
+  instruction: Insert the peg into the socket.
+  noise: zeros
+  mixed_precision: bf16
+  chunk_execution: receding_horizon_first_action
+  chunk_execution_steps: 1
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  memory_limit: 6g
+  memory_swap_limit: 6g
+gate3:
+  seed: 20260809
+  maximum_steps: 20
+  require_finite_actions: true
+  require_raw_actions_within_contract: true
+  require_executed_actions_within_contract: true
+  maximum_unexpected_collisions: 0
+gate4:
+  seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+  minimum_task_success_rate: 0.2
+  maximum_unexpected_collisions: 0
+  require_gate3_passed: true
+hidden_test_loaded: false

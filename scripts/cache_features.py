@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import math
 import os
 import sys
 import time
@@ -75,19 +76,25 @@ def _torch_device() -> torch.device:
     return device
 
 
-def _selected_model_files(root: Path) -> list[Path]:
-    names = (
-        "config.json",
-        "generation_config.json",
-        "preprocessor_config.json",
-        "processor_config.json",
-        "tokenizer.json",
-        "tokenizer_config.json",
-    )
-    paths = [root / name for name in names if (root / name).is_file()]
-    paths.extend(sorted(root.glob("*.safetensors")))
-    if not paths or not any(path.name == "config.json" for path in paths):
-        raise FileNotFoundError("Local model root is missing config or weight files.")
+def _selected_model_files(root: Path, manifest_files: dict[str, Any]) -> list[Path]:
+    """Resolve every manifest-declared file that can contribute to model identity."""
+
+    paths: list[Path] = []
+    for relative_text in sorted(manifest_files):
+        relative = Path(relative_text)
+        if (
+            relative.is_absolute()
+            or ".." in relative.parts
+            or relative.as_posix() != relative_text
+        ):
+            raise ValueError(f"Local Base-model manifest path is unsafe: {relative_text!r}.")
+        path = root / relative
+        if not path.is_file():
+            raise FileNotFoundError(f"Manifest-declared model file is missing: {relative_text}.")
+        paths.append(path)
+    names = set(manifest_files)
+    if "config.json" not in names or not any(name.endswith(".safetensors") for name in names):
+        raise FileNotFoundError("Local model manifest is missing config or weight files.")
     return paths
 
 
@@ -106,19 +113,24 @@ def _model_identity(root: Path, configured: dict[str, Any]) -> dict[str, Any]:
         or manifest.get("repo_id") != configured["identifier"]
     ):
         raise ValueError("Local model manifest does not identify the configured Base model.")
-    files = _selected_model_files(root)
     config = json.loads((root / "config.json").read_text(encoding="utf-8"))
     text_config = config.get("text_config", config)
     manifest_files = manifest.get("files")
-    if not isinstance(manifest_files, dict):
+    if not isinstance(manifest_files, dict) or not manifest_files:
         raise ValueError("Local model manifest does not contain file checksums.")
+    files = _selected_model_files(root, manifest_files)
     file_hashes: dict[str, str] = {}
     for path in files:
-        record = manifest_files.get(path.name)
+        relative = path.relative_to(root).as_posix()
+        record = manifest_files.get(relative)
         digest = file_sha256(path)
-        if not isinstance(record, dict) or record.get("sha256") != digest:
-            raise ValueError(f"Local Base-model manifest checksum mismatch: {path.name}.")
-        file_hashes[path.name] = digest
+        if (
+            not isinstance(record, dict)
+            or record.get("sha256") != digest
+            or record.get("bytes") != path.stat().st_size
+        ):
+            raise ValueError(f"Local Base-model manifest checksum mismatch: {relative}.")
+        file_hashes[relative] = digest
     if int(manifest.get("model_contract", {}).get("hidden_size", -1)) != int(
         text_config["hidden_size"]
     ):
@@ -176,6 +188,11 @@ def _train_statistics(
             maximum_source_overshoot,
             (source_action - clipped_action).abs(),
         )
+        _validate_source_overshoot(
+            contract,
+            maximum_source_overshoot,
+            context=f"train episode {reference.episode_id} frame {reference.frame_index}",
+        )
         action.update(clipped_action)
     if state.count == 0 or action.count == 0:
         raise ValueError("Training split produced no normalization observations.")
@@ -190,6 +207,31 @@ def _train_statistics(
         clipped_by_dimension,
         maximum_source_overshoot,
         source_vectors=action.count,
+    )
+
+
+def _validate_source_overshoot(
+    contract: ActionContract,
+    maximum_source_overshoot: torch.Tensor,
+    *,
+    context: str,
+) -> None:
+    """Reject source actions whose clipping exceeds the physical import tolerance."""
+
+    received = maximum_source_overshoot.detach().to(dtype=torch.float32, device="cpu")
+    if received.shape != (contract.dimension,) or not bool(torch.isfinite(received).all()):
+        raise ValueError("Source-action overshoot must be one finite value per dimension.")
+    allowed = contract.source_overshoot_tolerances.to(dtype=torch.float32, device="cpu")
+    violation = received > allowed + 1e-6
+    if not bool(violation.any()):
+        return
+    details = ", ".join(
+        f"{contract.dimension_names[index]}={float(received[index]):.8g}>"
+        f"{float(allowed[index]):.8g}"
+        for index in violation.nonzero(as_tuple=False).flatten().tolist()
+    )
+    raise ValueError(
+        f"Source action exceeds the declared overshoot tolerance at {context}: {details}."
     )
 
 
@@ -213,6 +255,9 @@ def _action_transform_report(
             name: {
                 "clipped": int(clipped_by_dimension[index]),
                 "maximum_source_overshoot": float(maximum_source_overshoot[index]),
+                "allowed_source_overshoot": float(
+                    contract.source_overshoot_tolerances[index]
+                ),
             }
             for index, name in enumerate(contract.dimension_names)
         },
@@ -508,6 +553,23 @@ def _existing_shard(
         "clip_to_rosetta_contract_v1"
     ):
         raise ValueError(f"Existing feature shard lacks action-transform provenance: {path}.")
+    dimensions = transform.get("dimensions")
+    if not isinstance(dimensions, dict) or set(dimensions) != set(contract.dimension_names):
+        raise ValueError(f"Existing feature shard has incomplete action-transform data: {path}.")
+    maximum_source_overshoot = torch.tensor(
+        [
+            float(dimensions[name].get("maximum_source_overshoot", math.inf))
+            if isinstance(dimensions[name], dict)
+            else math.inf
+            for name in contract.dimension_names
+        ],
+        dtype=torch.float32,
+    )
+    _validate_source_overshoot(
+        contract,
+        maximum_source_overshoot,
+        context=f"existing shard {path.name}",
+    )
     return count, transform
 
 
@@ -636,6 +698,13 @@ def _build_cache(context: dict[str, Any]) -> int:
                 maximum_source_overshoot = torch.maximum(
                     maximum_source_overshoot,
                     (sample.actions - clipped_actions).abs().max(dim=0).values,
+                )
+                _validate_source_overshoot(
+                    context["contract"],
+                    maximum_source_overshoot,
+                    context=(
+                        f"{split} episode {episode} frame {sample.frame_index}"
+                    ),
                 )
                 source_action_vectors += sample.actions.shape[0]
                 actions.append(clipped_actions.to(torch.float32).cpu())

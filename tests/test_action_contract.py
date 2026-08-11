@@ -1,12 +1,14 @@
 from __future__ import annotations
 
-from dataclasses import replace
+import json
+from dataclasses import asdict, replace
 from pathlib import Path
 
 import pytest
 import torch
 
 from rosetta_reality.sim import load_action_contract
+from scripts import eval as evaluate_script
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_PATH = REPOSITORY_ROOT / "configs" / "sim" / "aloha_insertion.yaml"
@@ -67,3 +69,20 @@ def test_action_contract_rejects_execution_longer_than_chunk() -> None:
 
     with pytest.raises(ValueError, match="within the chunk length"):
         replace(contract, chunk_execution_steps=contract.chunk_length + 1)
+
+
+def test_evaluation_rejects_exported_action_contract_drift(tmp_path: Path) -> None:
+    experiment = {"action_contract": "configs/sim/aloha_insertion.yaml"}
+    contract = load_action_contract(CONTRACT_PATH)
+    payload = json.loads(json.dumps(asdict(contract), allow_nan=False))
+    contract_path = tmp_path / "action_contract.json"
+    contract_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    matched = evaluate_script._matching_action_contract(experiment, tmp_path)
+    assert matched.dimension_names == contract.dimension_names
+    assert torch.equal(matched.lower_bounds, contract.lower_bounds)
+    payload["dimensions"][0]["maximum"] -= 0.1
+    contract_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="differs from the evaluation config"):
+        evaluate_script._matching_action_contract(experiment, tmp_path)

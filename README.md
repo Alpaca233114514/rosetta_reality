@@ -1,45 +1,53 @@
 # Rosetta Reality
 
-Rosetta Reality is an early-stage research codebase for Vision-Language-Action
-(VLA) and embodied foundation-model experiments. The current implementation
-includes a CPU-testable policy skeleton and the first bounded dataset pipeline;
-it does not provide autonomous robot control.
+Rosetta Reality is an early-stage monorepo for Embodied Reasoning (ER),
+Vision-Language-Action (VLA), and their structured integration. It includes a
+revision-pinned robot dataset pipeline, action/simulation contracts, and
+reproducible training/evaluation foundations; it does not provide autonomous
+physical-robot control.
 
 ## Status
 
 Experimental / early-stage. **M0 — Repository Skeleton** and **M1 — Dataset
-Pipeline** are complete for their bounded acceptance scopes. **M2 — Development
-VLA** is next.
+Pipeline** are complete for their bounded acceptance scopes. The earlier frozen
+Qwen action-policy experiments did not pass closed-loop M2 selection. The next
+M2 reference is revision-pinned **SmolVLA 450M**.
 
 ## Goal
 
-Build a backbone-agnostic research pipeline that can combine visual and
-language context with robot state to predict configurable chunks of continuous
-actions. Qwen3.5 is the current default backbone family, but the policy, data,
-training, evaluation, and simulation layers are intentionally not Qwen-specific.
+Build a replaceable two-system stack: Qwen ER performs low-frequency embodied
+reasoning and emits a versioned `ActionPlan`; SmolVLA performs high-frequency
+continuous control. Data, action semantics, simulation, evaluation and
+provenance remain model-agnostic.
 
 ## Architecture
 
 ```text
-Image / Video ---------+
-                       |
-Language Instruction --+--> Replaceable VLM Backbone --+
-                                                        |
-Robot State ----------------> State Encoder -------------+--> Fusion
-                                                               |
-                                                               v
-                                                         Action Head
-                                                               |
-                                                               v
-                                                         Action Chunk
+Observation + Instruction
+          |
+          v
+Qwen ER / System 2
+          |
+          v
+ActionPlan v1
+          |
+          v
+SmolVLA 450M / System 1
+          |
+          v
+Action Contract -> Simulation Adapter -> Robot Motion
 ```
 
-The runnable M0 path uses `DummyBackbone`, which has no network, model-weight,
-or GPU requirements. `Qwen35Backbone` is only a lazy-loading adapter skeleton.
+The runnable M0 path remains available for offline contract tests. Existing
+Qwen action-head code and artifacts are retained as historical VLA evidence;
+new Qwen work belongs to the independent ER track.
 
 ## Repository Layout
 
-- `configs/`: model, training, data, and simulation configuration examples.
+- `configs/er/`: Qwen ER-only identities and gates.
+- `configs/vla/`: SmolVLA identities and phase gates.
+- `configs/experiments/`: legacy Qwen-as-VLA experiments retained as evidence.
+- `integration/schemas/`: versioned ER-to-VLA wire contracts.
 - `src/rosetta_reality/models/`: replaceable backbones and generic VLA policy components.
 - `src/rosetta_reality/data/`: robot-agnostic frames, action chunks, batches,
   dataset adapters, and online normalization.
@@ -50,32 +58,23 @@ or GPU requirements. `Qwen35Backbone` is only a lazy-loading adapter skeleton.
 
 ## Quick Start
 
-All local machine-learning operations run in WSL. Use a WSL-only virtual
-environment; do not reuse a native Windows environment. Installing the editable
-package does not download model weights or datasets.
+Run machine-learning commands in Linux Docker containers launched from WSL
+Bash. Windows is limited to editing, Git, and non-ML static checks. The existing
+offline baseline can be checked without downloading model weights or data:
 
 ```bash
-python3.13 -m venv .venv-wsl
-source .venv-wsl/bin/activate
-python -m pip install --upgrade pip
-python -m pip install \
-  torch==2.11.0 torchvision==0.26.0 \
-  --index-url https://download.pytorch.org/whl/cpu
-python -m pip install -e ".[dev,data]"
-
-python scripts/check_env.py
-pytest
-python scripts/train.py --dry-run
-ruff check .
+scripts/run_m2_container.sh build-ml
+scripts/run_m2_container.sh ml python scripts/check_env.py
+scripts/run_m2_container.sh ml python -m pytest -q
+scripts/run_m2_container.sh ml python scripts/train.py --dry-run
+scripts/run_m2_container.sh ml ruff check .
 ```
 
-The Qwen adapter is optional and deliberately uses local files by default:
-
-```bash
-python -m pip install -e ".[qwen]"
-```
-
-Installing the optional dependency still does not fetch any model checkpoint.
+The SmolVLA and Trackio image/runner is governed by
+[`docs/er-vla-pipeline.md`](docs/er-vla-pipeline.md). Formal training remains
+blocked until its Space, dataset, action contract, tiny smoke, and overfit gates
+pass. The same document records the bounded XPU benchmark and the preregistered
+sub-two-hour training plan without treating a projection as a completed run.
 
 ## M1 Dataset Preparation
 
@@ -91,13 +90,12 @@ v3 consolidates multiple episodes into shared Parquet/video files, so selecting
 episode 0 may still cache close to the full dataset size of approximately
 91.3 MB.
 
-Run preparation and the explicit real-data smoke test inside WSL:
+Run preparation and the explicit real-data smoke test through Docker from WSL:
 
 ```bash
-source .venv-wsl/bin/activate
-python scripts/prepare_data.py
-python scripts/prepare_data.py inspect
-pytest -m data
+scripts/run_m2_container.sh data python scripts/prepare_data.py
+scripts/run_m2_container.sh ml python scripts/prepare_data.py inspect
+scripts/run_m2_container.sh ml python -m pytest -m data
 ```
 
 The smoke test uses RGB channel means as explicit three-dimensional dummy
@@ -112,27 +110,27 @@ preparatory and are not represented as completed M1 caches.
 
 ## Milestones
 
-M0 established stable interfaces and proved that a dummy policy can complete a
-forward pass, Smooth L1 loss, backward pass, and one optimizer step on CPU.
-M1 closed a revision-pinned, robot-agnostic dataset path for the bounded
-insertion episode. The remaining model, action-contract, and simulation gates
-belong to M2 and later.
+M0 established stable interfaces and an offline optimizer path. M1 closed a
+revision-pinned, robot-agnostic dataset path. Historical Qwen VLA experiments
+extended the training and simulation tooling but did not pass M2 closed-loop
+acceptance. Their reusable infrastructure now feeds the SmolVLA M2 path.
 
 ## Planned Roadmap
 
 - M1 — Dataset Pipeline (complete for the bounded acceptance slice)
-- M2 — Development VLA
-- M3 — Scale-up VLA
-- M4 — Action Chunk Transformer
-- M5 — Robust Simulation Evaluation beyond the M2 baseline closed loop
-- M6 — Multi-dataset / Cross-embodiment
-- M7 — Diffusion or Flow-Matching Action Expert
+- M2 — SmolVLA 450M Development VLA
+- M3 — Qwen ER and structured ER/VLA integration
+- M4 — Robust ER/VLA evaluation
+- M5 — Multi-dataset / Cross-embodiment
+- M6 — Controlled action-expert research
+- M7 — Controlled ER/VLA scale-up
 - M8 — Sim-to-real experiments
 
 See [docs/roadmap.md](docs/roadmap.md) for milestone boundaries.
 
 ## Safety / Scope
 
-Rosetta Reality is simulation-first. M1 downloads only the explicitly configured
-dataset cache. It does not download Qwen weights, install simulators, configure
-CUDA/ROCm, start real training, or issue commands to physical robots.
+Rosetta Reality is simulation-first. Model/data downloads, Hub writes and real
+training require explicit authorization and execute through the Docker/WSL
+boundary. No workflow issues commands to a physical robot unless separately
+authorized and validated.

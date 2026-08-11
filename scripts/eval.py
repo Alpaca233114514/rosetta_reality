@@ -6,6 +6,7 @@ import argparse
 import json
 import os
 import sys
+from dataclasses import asdict
 from pathlib import Path
 
 import torch
@@ -21,7 +22,11 @@ if str(SOURCE_ROOT) not in sys.path:
 
 from rosetta_reality.data.normalization import DatasetStatistics  # noqa: E402
 from rosetta_reality.eval import action_metrics  # noqa: E402
-from rosetta_reality.experiment import file_sha256, load_experiment_config  # noqa: E402
+from rosetta_reality.experiment import (  # noqa: E402
+    file_sha256,
+    load_experiment_config,
+    validate_frozen_artifact_recipe,
+)
 from rosetta_reality.features import (  # noqa: E402
     CachedFeatureDataset,
     create_json,
@@ -34,6 +39,19 @@ from rosetta_reality.train.m2 import build_cached_policy, predict_denormalized  
 def _run_root() -> Path:
     value = os.environ.get("ROSETTA_RUN_ROOT")
     return Path(value) if value else REPOSITORY_ROOT / "runs"
+
+
+def _matching_action_contract(experiment: dict, artifact_root: Path):
+    """Load the configured contract only when it exactly matches the artifact."""
+
+    artifact_contract = json.loads(
+        (artifact_root / "action_contract.json").read_text(encoding="utf-8")
+    )
+    contract = load_action_contract(REPOSITORY_ROOT / experiment["action_contract"])
+    canonical_contract = json.loads(json.dumps(asdict(contract), allow_nan=False))
+    if artifact_contract != canonical_contract:
+        raise ValueError("Exported Action Contract differs from the evaluation config.")
+    return contract
 
 
 def evaluate(
@@ -55,10 +73,16 @@ def evaluate(
         if file_sha256(artifact_root / name) != expected:
             raise ValueError(f"Artifact checksum mismatch: {name}.")
     artifact_config = json.loads((artifact_root / "config.json").read_text(encoding="utf-8"))
+    if artifact_manifest.get("experiment_id") != experiment["experiment_id"]:
+        raise ValueError("Artifact manifest and experiment identifiers differ.")
     if artifact_config["feature_cache_identity"] != feature_manifest["identity_hash"]:
         raise ValueError("Artifact and feature-cache identities differ.")
-    if artifact_config["experiment_id"] != experiment["experiment_id"]:
-        raise ValueError("Artifact and experiment identifiers differ.")
+    validate_frozen_artifact_recipe(
+        experiment,
+        artifact_config,
+        context="Evaluation artifact",
+    )
+    contract = _matching_action_contract(experiment, artifact_root)
     normalization = json.loads((artifact_root / "normalization.json").read_text(encoding="utf-8"))
     if normalization.get("source_split") != "train":
         raise ValueError("Artifact normalization did not originate from train only.")
@@ -80,7 +104,6 @@ def evaluate(
         batch_size=int(experiment["training"]["batch_size"]),
         shuffle=False,
     )
-    contract = load_action_contract(REPOSITORY_ROOT / experiment["action_contract"])
     predicted, target, raw_predicted = predict_denormalized(
         model,
         loader,
