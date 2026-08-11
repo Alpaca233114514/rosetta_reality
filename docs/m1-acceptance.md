@@ -13,7 +13,7 @@ All model and data checks below were run in WSL from the repository root:
 
 - `python scripts/check_env.py` — Python 3.13.5, PyTorch 2.11.0+cpu, CUDA not
   available; the environment check completed successfully.
-- `pytest -m "not data"` — 31 passed, 1 skipped, 4 deselected.
+- `pytest -m "not data"` — 33 passed, 1 skipped, 4 deselected.
 - `python scripts/train.py --dry-run` — CPU dry-run succeeded with prediction
   shape `(2, 8, 7)` and finite Smooth L1 loss `0.404727`.
 - `python scripts/prepare_data.py inspect` — read-only inspection succeeded
