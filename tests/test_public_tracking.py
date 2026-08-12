@@ -1,6 +1,10 @@
+import sqlite3
+from pathlib import Path
+
 import pytest
 
 from rosetta_reality.tracking import sanitize_metrics, validate_public_payload
+from scripts.sync_trackio import _scan_database, _snapshot_project
 
 
 def test_public_payload_accepts_revision_identity_and_metrics() -> None:
@@ -44,3 +48,26 @@ def test_public_metrics_reject_nonfinite_values_and_sensitive_keys() -> None:
         sanitize_metrics({"loss": float("nan")}, mode="train")
     with pytest.raises(ValueError, match="sensitive"):
         sanitize_metrics({"api_token": 1.0}, mode="train")
+
+
+def test_trackio_scan_and_sync_use_one_immutable_database_snapshot(
+    tmp_path: Path,
+) -> None:
+    source_root = tmp_path / "source"
+    snapshot_root = tmp_path / "snapshot"
+    source_root.mkdir()
+    snapshot_root.mkdir()
+    source = source_root / "approved.db"
+    with sqlite3.connect(source) as connection:
+        connection.execute("CREATE TABLE metrics (value TEXT)")
+        connection.execute("INSERT INTO metrics VALUES (?)", ('{"loss": 0.5}',))
+
+    snapshot = _snapshot_project(source_root, snapshot_root, "approved")
+    scan = _scan_database(snapshot)
+    with sqlite3.connect(source) as connection:
+        connection.execute("INSERT INTO metrics VALUES (?)", ("hf_secret",))
+    with sqlite3.connect(snapshot) as connection:
+        rows = connection.execute("SELECT value FROM metrics").fetchall()
+
+    assert scan == {"tables": 1, "rows": 1, "text_values": 1}
+    assert rows == [('{"loss": 0.5}',)]

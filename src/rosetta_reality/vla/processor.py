@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -285,6 +285,9 @@ class PiAlohaPostprocessorStep(ProcessorStep):
     upstream_revision: str
     action_representation_adapter: str = PI_ALOHA_ACTION_ADAPTER
     stage: str = "after_unnormalization"
+    last_unclipped_action: torch.Tensor | None = field(
+        default=None, init=False, repr=False, compare=False
+    )
 
     def __post_init__(self) -> None:
         if (
@@ -313,6 +316,7 @@ class PiAlohaPostprocessorStep(ProcessorStep):
         standard = model_action_to_standard(
             action, self.action_representation_adapter
         )
+        self.last_unclipped_action = standard.detach().clone()
         lower = torch.as_tensor(
             self.lower_bounds, device=standard.device, dtype=standard.dtype
         )

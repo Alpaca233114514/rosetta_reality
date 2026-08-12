@@ -296,7 +296,7 @@ def _validate_monitoring(plan: dict[str, Any]) -> dict[str, Any] | None:
         or monitoring.get("blocking_command") != "sleep"
         or not isinstance(monitoring.get("sleep_poll_seconds"), int)
         or isinstance(monitoring.get("sleep_poll_seconds"), bool)
-        or not 15 <= int(monitoring["sleep_poll_seconds"]) <= 60
+        or int(monitoring["sleep_poll_seconds"]) != 300
         or not isinstance(monitoring.get("estimated_total_minutes"), int | float)
         or isinstance(monitoring.get("estimated_total_minutes"), bool)
         or not math.isfinite(float(monitoring["estimated_total_minutes"]))

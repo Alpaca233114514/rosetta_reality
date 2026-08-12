@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 import torch
+from lerobot.lerobot_types import TransitionKey
 
 from rosetta_reality.eval.diagnostics import action_dimension_diagnostics
 from rosetta_reality.experiment import file_sha256
@@ -22,6 +23,7 @@ from rosetta_reality.vla.processor import (
     PI_ALOHA_PREPROCESSOR_REGISTRY_NAME,
     REGISTRY_NAME,
     ActionContractProjectionProcessorStep,
+    PiAlohaPostprocessorStep,
     bounded_sine_action_to_standard,
     ensure_action_contract_projection,
     ensure_smolvla_action_boundary,
@@ -244,6 +246,26 @@ def test_pi_aloha_action_adapter_round_trip_uses_independent_tensors() -> None:
     assert torch.equal(action, original)
     assert torch.allclose(internal, upstream, atol=1e-12, rtol=0.0)
     assert torch.allclose(decoded, original, atol=1e-12, rtol=0.0)
+
+
+def test_pi_aloha_postprocessor_retains_preclip_action_for_diagnostics() -> None:
+    contract = load_action_contract(CONTRACT_PATH)
+    standard = torch.zeros(1, contract.chunk_length, contract.dimension)
+    standard[..., 0] = float(contract.upper_bounds[0]) + 0.5
+    internal = standard_aloha_action_to_pi(standard)
+    step = PiAlohaPostprocessorStep(
+        lower_bounds=[float(value) for value in contract.lower_bounds],
+        upper_bounds=[float(value) for value in contract.upper_bounds],
+        dimension_names=list(contract.dimension_names),
+        upstream_revision="a" * 40,
+    )
+
+    result = step({TransitionKey.ACTION: internal})[TransitionKey.ACTION]
+
+    assert step.last_unclipped_action is not None
+    assert torch.equal(step.last_unclipped_action, standard)
+    assert torch.all(result[..., 0] == contract.upper_bounds[0])
+    assert torch.any(step.last_unclipped_action[..., 0] > result[..., 0])
 
 
 def test_pi_aloha_state_adapter_supports_observation_history() -> None:

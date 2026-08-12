@@ -160,7 +160,9 @@ class _OnlineSmolVLA:
         self._noise_mode = mode
         self._noise_seed = seed
 
-    def predict(self, observation: dict[str, Any], instruction: str) -> torch.Tensor:
+    def predict(
+        self, observation: dict[str, Any], instruction: str
+    ) -> tuple[torch.Tensor, torch.Tensor]:
         images = observation.get("images")
         state = observation.get("robot_state")
         if not isinstance(images, dict) or "top" not in images:
@@ -201,7 +203,18 @@ class _OnlineSmolVLA:
         action = self.postprocessor(action)
         if not isinstance(action, torch.Tensor) or tuple(action.shape) != (1, 50, 14):
             raise ValueError("SmolVLA simulator output differs from the Action Contract.")
-        return action[0].detach().cpu()
+        adapter_steps = [
+            step
+            for step in self.postprocessor.steps
+            if getattr(step.__class__, "_registry_name", None)
+            == "rosetta_pi_aloha_postprocessor"
+        ]
+        if len(adapter_steps) != 1:
+            raise ValueError("SmolVLA simulator has no unique action decoder boundary.")
+        raw = getattr(adapter_steps[0], "last_unclipped_action", None)
+        if not isinstance(raw, torch.Tensor) or tuple(raw.shape) != (1, 50, 14):
+            raise ValueError("SmolVLA simulator did not retain the pre-clipping action.")
+        return raw[0].detach().cpu(), action[0].detach().cpu()
 
 
 def _load_artifact(plan_path: Path) -> tuple[dict[str, Any], Path, dict[str, Any], Any, Any]:
@@ -376,13 +389,21 @@ def _rollout(
         reset_contacts = environment.contact_pairs()
         while len(executed) < maximum_steps:
             started = time.perf_counter()
-            raw_chunk = policy.predict(observation, instruction)[: contract.chunk_execution_steps]
+            prediction = policy.predict(observation, instruction)
+            if isinstance(prediction, tuple):
+                raw_prediction, processed_prediction = prediction
+            else:
+                raw_prediction = processed_prediction = prediction
+            raw_chunk = raw_prediction[: contract.chunk_execution_steps]
+            processed_chunk = processed_prediction[: contract.chunk_execution_steps]
             inference_latencies.append(time.perf_counter() - started)
             if not bool(torch.isfinite(raw_chunk).all()):
                 invalid_actions += 1
                 break
             done = False
-            for raw_action in raw_chunk:
+            for raw_action, processed_action in zip(
+                raw_chunk, processed_chunk, strict=True
+            ):
                 clipped_raw, raw_mask = contract.clip(raw_action)
                 raw_limit_violations += int(raw_mask.sum().item())
                 raw_dimension_violations += raw_mask.to(torch.int64)
@@ -393,7 +414,9 @@ def _rollout(
                 raw_maximum = torch.maximum(raw_maximum, raw64)
                 overshoot = torch.maximum(lower - raw64, raw64 - upper).clamp_min(0)
                 raw_maximum_overshoot = torch.maximum(raw_maximum_overshoot, overshoot)
-                policy_action = clipped_raw if project_policy_output else raw_action
+                policy_action = (
+                    clipped_raw if project_policy_output else processed_action
+                )
                 clipped, policy_mask = contract.clip(policy_action)
                 policy_output_limit_violations += int(policy_mask.sum().item())
                 started = time.perf_counter()

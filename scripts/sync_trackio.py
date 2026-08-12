@@ -7,6 +7,7 @@ import json
 import os
 import sqlite3
 import sys
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -98,6 +99,23 @@ def _reject_media(root: Path) -> None:
         raise ValueError("Trackio public sync refuses media files.")
 
 
+def _snapshot_project(source_root: Path, snapshot_root: Path, project: str) -> Path:
+    """Create one transactionally consistent SQLite snapshot for scan and sync."""
+
+    source = source_root / f"{project}.db"
+    if not source.is_file():
+        raise FileNotFoundError(f"Trackio project database is missing: {source.name}.")
+    destination = snapshot_root / source.name
+    source_connection = sqlite3.connect(f"file:{source}?mode=ro", uri=True)
+    destination_connection = sqlite3.connect(destination)
+    try:
+        source_connection.backup(destination_connection)
+    finally:
+        destination_connection.close()
+        source_connection.close()
+    return destination
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
@@ -109,22 +127,34 @@ def main() -> int:
     tracking = experiment["tracking"]
     root = _trackio_root()
     project = str(tracking["project"])
-    scan = _scan_database(root / f"{project}.db")
     _reject_media(root)
 
-    import trackio
     from huggingface_hub import HfApi
 
     identity = HfApi().whoami()
     if identity.get("name") != str(tracking["space_id"]).split("/", maxsplit=1)[0]:
         raise PermissionError("The active Hub identity does not own the approved Trackio Space.")
-    synced_space = trackio.sync(
-        project=project,
-        space_id=tracking["space_id"],
-        sdk="static",
-        force=True,
-        run_in_background=False,
-    )
+    with tempfile.TemporaryDirectory(prefix="rosetta-trackio-sync-") as temporary:
+        snapshot_root = Path(temporary)
+        snapshot_database = _snapshot_project(root, snapshot_root, project)
+        scan = _scan_database(snapshot_database)
+        previous_trackio_dir = os.environ.get("TRACKIO_DIR")
+        os.environ["TRACKIO_DIR"] = str(snapshot_root)
+        try:
+            import trackio
+
+            synced_space = trackio.sync(
+                project=project,
+                space_id=tracking["space_id"],
+                sdk="static",
+                force=True,
+                run_in_background=False,
+            )
+        finally:
+            if previous_trackio_dir is None:
+                os.environ.pop("TRACKIO_DIR", None)
+            else:
+                os.environ["TRACKIO_DIR"] = previous_trackio_dir
     info = HfApi().space_info(repo_id=tracking["space_id"])
     if info.sdk != "static" or info.private:
         raise RuntimeError(

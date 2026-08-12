@@ -7,6 +7,7 @@ import gc
 import hashlib
 import json
 import os
+import re
 import shutil
 import sys
 from dataclasses import asdict
@@ -33,6 +34,14 @@ import run_smolvla_phase as phase_runner  # noqa: E402
 from rosetta_reality.experiment import file_sha256, workspace_code_identity  # noqa: E402
 from rosetta_reality.features import create_json  # noqa: E402
 from rosetta_reality.sim import load_action_contract  # noqa: E402
+
+ARTIFACT_ID_PATTERN = re.compile(r"[a-z0-9][a-z0-9._-]{2,79}")
+
+
+def _validated_artifact_id(value: str) -> str:
+    if ARTIFACT_ID_PATTERN.fullmatch(value) is None:
+        raise ValueError("--artifact-id must be one path-safe component.")
+    return value
 
 
 def _tensor_sha256(value: torch.Tensor) -> str:
@@ -155,6 +164,7 @@ def main() -> int:
     parser.add_argument("--selection-report", type=Path, required=True)
     parser.add_argument("--artifact-id", required=True)
     args = parser.parse_args()
+    artifact_id = _validated_artifact_id(args.artifact_id)
     if os.environ.get("HF_HUB_OFFLINE") != "1" or os.environ.get("HF_DATASETS_OFFLINE") != "1":
         raise RuntimeError("SmolVLA export must run with networking disabled.")
 
@@ -193,7 +203,7 @@ def main() -> int:
         raise ValueError("Selected checkpoint model hash changed before export.")
 
     artifact_root = phase_runner._absolute_root("ROSETTA_ARTIFACT_ROOT")
-    destination = artifact_root / str(experiment["experiment_id"]) / args.artifact_id
+    destination = artifact_root / str(experiment["experiment_id"]) / artifact_id
     if destination.exists():
         raise FileExistsError("The SmolVLA artifact is create-only.")
     policy, preprocessor, postprocessor, dataset, _, _ = evaluator._load_policy_and_dataset(

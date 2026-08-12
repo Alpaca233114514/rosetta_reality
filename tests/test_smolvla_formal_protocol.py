@@ -10,12 +10,14 @@ import yaml
 from rosetta_reality.sim import load_action_contract
 from scripts import smolvla_sim_gate
 from scripts.evaluate_smolvla_validation import _percentile, _validation_indices
+from scripts.export_smolvla import _validated_artifact_id
 from scripts.inspect_smolvla_quarter import _expected_learning_rate
 from scripts.run_smolvla_formal import (
     _load_formal_plan,
     _optimizer_arguments,
     _optimizer_contract,
     _training_coverage,
+    _validate_monitoring,
     _validate_plan,
     _validate_saved_optimizer_contract,
 )
@@ -33,6 +35,37 @@ def test_training_coverage_counts_sample_exposures_as_dataset_passes() -> None:
 
     assert coverage["sample_exposures"] == 20_000
     assert coverage["dataset_passes"] == 1.0
+
+
+def test_formal_monitoring_requires_exact_five_minute_sleep() -> None:
+    plan = {
+        "training": {"steps": 400, "checkpoint_steps": [100, 200, 300, 400]},
+        "monitoring": {
+            "policy": "sleep_between_quarter_checkpoints",
+            "wake_fractions": [0.25, 0.5, 0.75, 1.0],
+            "wake_steps": [100, 200, 300, 400],
+            "blocking_command": "sleep",
+            "sleep_poll_seconds": 300,
+            "estimated_total_minutes": 60,
+            "hidden_test_loaded": False,
+        },
+    }
+
+    assert _validate_monitoring(plan)["sleep_poll_seconds"] == 300
+    plan["monitoring"]["sleep_poll_seconds"] = 60
+    with pytest.raises(ValueError, match="quarter-only sleep policy"):
+        _validate_monitoring(plan)
+
+
+@pytest.mark.parametrize("value", ["../escape", "/tmp/escape", "a/b", "ab"])
+def test_export_artifact_id_rejects_path_escape(value: str) -> None:
+    with pytest.raises(ValueError, match="path-safe component"):
+        _validated_artifact_id(value)
+
+
+def test_export_artifact_id_accepts_registered_component() -> None:
+    value = "m2-smolvla450m-faust-b8-step1875-001"
+    assert _validated_artifact_id(value) == value
 
 
 def test_training_coverage_rejects_a_registered_partial_pass() -> None:
@@ -255,7 +288,9 @@ def test_simulation_plan_preserves_gate_order_and_sealed_test() -> None:
     assert projected["hidden_test_loaded"] is False
 
 
-def test_registered_projection_keeps_decoder_violation_as_diagnostic(monkeypatch) -> None:
+def test_postprocessed_execution_keeps_decoder_violation_as_diagnostic(
+    monkeypatch,
+) -> None:
     contract = load_action_contract(
         REPOSITORY_ROOT / "configs/sim/aloha_insertion_smolvla.yaml"
     )
@@ -294,7 +329,7 @@ def test_registered_projection_keeps_decoder_violation_as_diagnostic(monkeypatch
         def predict(self, _observation, _instruction):
             action = torch.zeros(contract.chunk_length, contract.dimension)
             action[0, 0] = contract.upper_bounds[0] + 1
-            return action
+            return action, contract.clip(action)[0]
 
     monkeypatch.setattr(smolvla_sim_gate, "GymAlohaEnvironment", FakeEnvironment)
     policy = FakePolicy()
@@ -304,7 +339,7 @@ def test_registered_projection_keeps_decoder_violation_as_diagnostic(monkeypatch
         "instruction",
         seed=7,
         maximum_steps=1,
-        project_policy_output=True,
+        project_policy_output=False,
         noise_mode="seeded_standard_normal",
         policy_noise_seed=19,
     )
