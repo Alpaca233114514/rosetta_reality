@@ -30,10 +30,21 @@ if str(SCRIPTS_ROOT) not in sys.path:
 
 import run_smolvla_formal as formal_runner  # noqa: E402
 import run_smolvla_phase as phase_runner  # noqa: E402
+from autodl_doctor import _validate_recorded_files  # noqa: E402
 
 from rosetta_reality.experiment import file_sha256, workspace_code_identity  # noqa: E402
 from rosetta_reality.features import create_json  # noqa: E402
 from rosetta_reality.tracking import sanitize_metrics, validate_public_payload  # noqa: E402
+
+
+def _tokenizer_hashes(source_dir: Path) -> dict[str, str]:
+    tokenizer = source_dir / "tokenizer"
+    files = [path for path in sorted(tokenizer.rglob("*")) if path.is_file()]
+    if not files:
+        raise FileNotFoundError("Policy tokenizer is missing or empty.")
+    return {
+        path.relative_to(tokenizer).as_posix(): file_sha256(path) for path in files
+    }
 
 
 def _autocast_dtype(name: str) -> torch.dtype | None:
@@ -199,12 +210,18 @@ def _load_policy_and_dataset(
 
     if checkpoint_step is None:
         source_dir = phase_runner._model_root(experiment)
+        _validate_recorded_files(
+            source_dir,
+            source_dir / "model_manifest.json",
+            label="base model",
+        )
         source_identity = {
             "kind": "base",
             "model_id": experiment["model"]["identifier"],
             "model_revision": experiment["model"]["revision"],
             "model_manifest_sha256": file_sha256(source_dir / "model_manifest.json"),
             "model_safetensors_sha256": file_sha256(source_dir / "model.safetensors"),
+            "tokenizer_files_sha256": _tokenizer_hashes(source_dir),
         }
         processor_hashes: dict[str, str] = {}
         revision: str | None = experiment["model"]["revision"]
@@ -216,6 +233,7 @@ def _load_policy_and_dataset(
             formal_runner._repository_path(plan["normalization"]["report"])
         )
         processor_hashes = _validate_checkpoint_statistics(source_dir, normalization)
+        source_identity["tokenizer_files_sha256"] = _tokenizer_hashes(source_dir)
         revision = None
 
     policy_cfg = SmolVLAConfig.from_pretrained(

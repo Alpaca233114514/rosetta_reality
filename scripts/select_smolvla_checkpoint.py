@@ -109,7 +109,12 @@ def _validated_checkpoint_hashes(
         if actual != expected:
             raise ValueError(f"Validated checkpoint file changed: {path.name}.")
         hashes[name] = actual
-    hashes["tokenizer_files_sha256"] = _tokenizer_hashes(pretrained_dir)
+    tokenizer_hashes = _tokenizer_hashes(pretrained_dir)
+    if tokenizer_hashes != report.get("model_source", {}).get(
+        "tokenizer_files_sha256"
+    ):
+        raise ValueError("Validated checkpoint tokenizer changed.")
+    hashes["tokenizer_files_sha256"] = tokenizer_hashes
     return hashes
 
 

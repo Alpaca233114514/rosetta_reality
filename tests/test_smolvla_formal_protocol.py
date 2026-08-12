@@ -140,6 +140,9 @@ def test_checkpoint_selection_binds_all_validated_processor_files(
             if name.endswith("statistics_sha256")
         },
     }
+    report["model_source"]["tokenizer_files_sha256"] = {
+        "tokenizer.json": file_sha256(tokenizer / "tokenizer.json")
+    }
 
     hashes = _validated_checkpoint_hashes(tmp_path, report)
     assert set(hashes) == {*files, "tokenizer_files_sha256"}
