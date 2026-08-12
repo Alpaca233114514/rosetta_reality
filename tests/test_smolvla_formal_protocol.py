@@ -119,6 +119,9 @@ def test_checkpoint_selection_binds_all_validated_processor_files(
             )
         elif not (tmp_path / filename).exists():
             (tmp_path / filename).write_bytes(filename.encode())
+    tokenizer = tmp_path / "tokenizer"
+    tokenizer.mkdir()
+    (tokenizer / "tokenizer.json").write_text("{}", encoding="utf-8")
     report = {
         "model_source": {
             name: file_sha256(tmp_path / filename)
@@ -138,7 +141,11 @@ def test_checkpoint_selection_binds_all_validated_processor_files(
         },
     }
 
-    assert set(_validated_checkpoint_hashes(tmp_path, report)) == set(files)
+    hashes = _validated_checkpoint_hashes(tmp_path, report)
+    assert set(hashes) == {*files, "tokenizer_files_sha256"}
+    assert hashes["tokenizer_files_sha256"] == {
+        "tokenizer.json": file_sha256(tokenizer / "tokenizer.json")
+    }
     (tmp_path / files["preprocessor_statistics_sha256"]).write_bytes(b"tampered")
     with pytest.raises(ValueError, match="checkpoint file changed"):
         _validated_checkpoint_hashes(tmp_path, report)
