@@ -26,6 +26,30 @@ from rosetta_reality.experiment import file_sha256, workspace_code_identity  # n
 from rosetta_reality.features import create_json  # noqa: E402
 
 
+def _processor_state_file(
+    pretrained_dir: Path, config_name: str, registry_name: str
+) -> Path:
+    config = formal_runner._load_json(pretrained_dir / config_name)
+    steps = config.get("steps")
+    if not isinstance(steps, list):
+        raise ValueError(f"{config_name} has no processor steps.")
+    matches = [
+        step.get("state_file")
+        for step in steps
+        if isinstance(step, dict) and step.get("registry_name") == registry_name
+    ]
+    if len(matches) != 1 or not isinstance(matches[0], str):
+        raise ValueError(f"{config_name} has no unique {registry_name} state file.")
+    relative = Path(matches[0])
+    if (
+        relative.is_absolute()
+        or ".." in relative.parts
+        or relative.as_posix() != matches[0]
+    ):
+        raise ValueError(f"{config_name} contains an unsafe processor state path.")
+    return pretrained_dir / relative
+
+
 def _validated_checkpoint_hashes(
     pretrained_dir: Path, report: dict[str, Any]
 ) -> dict[str, str]:
@@ -47,15 +71,21 @@ def _validated_checkpoint_hashes(
             report.get("model_source", {}).get("postprocessor_config_sha256"),
         ),
         "preprocessor_statistics_sha256": (
-            pretrained_dir
-            / "policy_preprocessor_step_5_normalizer_processor.safetensors",
+            _processor_state_file(
+                pretrained_dir,
+                "policy_preprocessor.json",
+                "normalizer_processor",
+            ),
             report.get("processor_statistics", {}).get(
                 "preprocessor_statistics_sha256"
             ),
         ),
         "postprocessor_statistics_sha256": (
-            pretrained_dir
-            / "policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+            _processor_state_file(
+                pretrained_dir,
+                "policy_postprocessor.json",
+                "unnormalizer_processor",
+            ),
             report.get("processor_statistics", {}).get(
                 "postprocessor_statistics_sha256"
             ),

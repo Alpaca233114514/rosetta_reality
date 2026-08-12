@@ -79,15 +79,42 @@ def test_checkpoint_selection_binds_all_validated_processor_files(
         "policy_config_sha256": "config.json",
         "preprocessor_config_sha256": "policy_preprocessor.json",
         "postprocessor_config_sha256": "policy_postprocessor.json",
-        "preprocessor_statistics_sha256": (
-            "policy_preprocessor_step_5_normalizer_processor.safetensors"
-        ),
+        "preprocessor_statistics_sha256": "custom_step_7_normalizer.safetensors",
         "postprocessor_statistics_sha256": (
             "policy_postprocessor_step_0_unnormalizer_processor.safetensors"
         ),
     }
-    for filename in files.values():
-        (tmp_path / filename).write_bytes(filename.encode())
+    for name, filename in files.items():
+        if name == "preprocessor_config_sha256":
+            (tmp_path / filename).write_text(
+                json.dumps(
+                    {
+                        "steps": [
+                            {
+                                "registry_name": "normalizer_processor",
+                                "state_file": files["preprocessor_statistics_sha256"],
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+        elif name == "postprocessor_config_sha256":
+            (tmp_path / filename).write_text(
+                json.dumps(
+                    {
+                        "steps": [
+                            {
+                                "registry_name": "unnormalizer_processor",
+                                "state_file": files["postprocessor_statistics_sha256"],
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+        elif not (tmp_path / filename).exists():
+            (tmp_path / filename).write_bytes(filename.encode())
     report = {
         "model_source": {
             name: file_sha256(tmp_path / filename)
@@ -108,7 +135,7 @@ def test_checkpoint_selection_binds_all_validated_processor_files(
     }
 
     assert set(_validated_checkpoint_hashes(tmp_path, report)) == set(files)
-    (tmp_path / "policy_preprocessor.json").write_bytes(b"tampered")
+    (tmp_path / files["preprocessor_statistics_sha256"]).write_bytes(b"tampered")
     with pytest.raises(ValueError, match="checkpoint file changed"):
         _validated_checkpoint_hashes(tmp_path, report)
 
@@ -132,9 +159,10 @@ def test_simulation_policy_shape_follows_versioned_action_contract() -> None:
     policy_config = SimpleNamespace(
         chunk_size=12,
         output_features={"action": SimpleNamespace(shape=(7,))},
+        input_features={"observation.state": SimpleNamespace(shape=(5,))},
     )
 
-    smolvla_sim_gate._validate_policy_contract_shape(policy_config, contract)
+    assert smolvla_sim_gate._validate_policy_contract_shape(policy_config, contract) == 5
     policy_config.chunk_size = 50
     with pytest.raises(ValueError, match="policy dimensions"):
         smolvla_sim_gate._validate_policy_contract_shape(policy_config, contract)

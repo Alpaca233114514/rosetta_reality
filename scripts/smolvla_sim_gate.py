@@ -100,7 +100,9 @@ class _ArtifactMetadata:
         self.stats = _convert_statistics(combined)
 
 
-def _validate_policy_contract_shape(policy_config: Any, contract: ActionContract) -> None:
+def _validate_policy_contract_shape(
+    policy_config: Any, contract: ActionContract
+) -> int:
     output_feature = policy_config.output_features.get("action")
     output_shape = getattr(output_feature, "shape", None)
     if (
@@ -109,6 +111,17 @@ def _validate_policy_contract_shape(policy_config: Any, contract: ActionContract
         or tuple(output_shape) != (contract.dimension,)
     ):
         raise ValueError("Artifact policy dimensions differ from the Action Contract.")
+    state_feature = policy_config.input_features.get("observation.state")
+    state_shape = getattr(state_feature, "shape", None)
+    if (
+        not isinstance(state_shape, tuple | list)
+        or len(state_shape) != 1
+        or isinstance(state_shape[0], bool)
+        or not isinstance(state_shape[0], int)
+        or state_shape[0] <= 0
+    ):
+        raise ValueError("Artifact policy has no one-dimensional robot-state contract.")
+    return int(state_shape[0])
 
 
 class _OnlineSmolVLA:
@@ -138,7 +151,9 @@ class _OnlineSmolVLA:
             ds_meta=metadata,
             rename_map=config["rename_map"],
         )
-        _validate_policy_contract_shape(self.policy.config, contract)
+        self.state_dimension = _validate_policy_contract_shape(
+            self.policy.config, contract
+        )
         self.action_dimension = contract.dimension
         self.chunk_length = contract.chunk_length
         self.preprocessor, self.postprocessor = make_pre_post_processors(
@@ -192,7 +207,7 @@ class _OnlineSmolVLA:
         if not isinstance(images, dict) or "top" not in images:
             raise ValueError("Simulator observation has no registered top camera.")
         if not isinstance(state, torch.Tensor) or tuple(state.shape) != (
-            self.action_dimension,
+            self.state_dimension,
         ):
             raise ValueError("Simulator observation has an invalid ALOHA state.")
         sample = {
