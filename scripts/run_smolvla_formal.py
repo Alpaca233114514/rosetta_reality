@@ -996,7 +996,7 @@ def main() -> int:
         "lerobot-train",
         *training_arguments,
     ]
-    print(f"Launch manifest: {launch_manifest.relative_to(REPOSITORY_ROOT).as_posix()}")
+    print(f"Launch manifest: {launch_manifest.name}")
     if args.mode == "preflight":
         from smolvla_forward_check import main as preflight_main
 

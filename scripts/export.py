@@ -77,8 +77,21 @@ def export(
     experiment = load_experiment_config(config_path, REPOSITORY_ROOT)
     feature_manifest = load_feature_manifest(feature_manifest_path)
     training_manifest = json.loads(training_manifest_path.read_text(encoding="utf-8"))
+    experiment_id = experiment["experiment_id"]
+    config_sha256 = file_sha256(config_path)
+    feature_identity = feature_manifest.get("identity", {})
+    if (
+        feature_identity.get("experiment_id") != experiment_id
+        or feature_identity.get("experiment_config_sha256") != config_sha256
+    ):
+        raise ValueError("Feature cache does not belong to the requested experiment.")
     if training_manifest.get("status") != "complete":
         raise ValueError("Only an accepted complete training run may be exported.")
+    if (
+        training_manifest.get("experiment_id") != experiment_id
+        or training_manifest.get("experiment_config_sha256") != config_sha256
+    ):
+        raise ValueError("Training manifest does not belong to the requested experiment.")
     if training_manifest.get("feature_cache_identity") != feature_manifest["identity_hash"]:
         raise ValueError("Training and feature-cache identities differ.")
     if checkpoint_path.name != training_manifest.get("best_checkpoint"):
@@ -87,6 +100,11 @@ def export(
     if file_sha256(checkpoint_path) != expected_checkpoint_hash:
         raise ValueError("Best checkpoint checksum differs from the training manifest.")
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
+    if (
+        checkpoint.get("experiment_id") != experiment_id
+        or checkpoint.get("experiment_config_sha256") != config_sha256
+    ):
+        raise ValueError("Checkpoint does not belong to the requested experiment.")
     if checkpoint.get("feature_cache_identity") != feature_manifest["identity_hash"]:
         raise ValueError("Checkpoint and feature-cache identities differ.")
     if checkpoint.get("state_pairing") != training_manifest.get("state_pairing"):

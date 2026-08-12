@@ -1312,8 +1312,14 @@ def train(
     invalid_tolerance = float(
         context["experiment"]["evaluation"]["invalid_action_tolerance"]
     )
+    best_checkpoint = torch.load(
+        checkpoint_root / f"epoch-{best_epoch:03d}.pt",
+        map_location="cpu",
+        weights_only=False,
+    )
+    best_validation_metrics = best_checkpoint["validation_metrics"]
     action_contract_accepted = (
-        float(validation_metrics["invalid_action_rate"]) <= invalid_tolerance
+        float(best_validation_metrics["raw_invalid_action_rate"]) <= invalid_tolerance
     )
     beat_baseline = best_value < baseline_value
     accepted = beat_baseline and action_contract_accepted
