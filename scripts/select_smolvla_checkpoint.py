@@ -296,6 +296,13 @@ def _training_metrics(
     losses = [float(train_rows[step]["train/loss"]) for step in sorted(train_rows)]
     gradients = [float(train_rows[step]["train/grad_norm"]) for step in sorted(train_rows)]
     learning_rates = [float(train_rows[step]["train/lr"]) for step in sorted(train_rows)]
+    xpu_allocations = [
+        float(train_rows[step]["train/xpu_max_allocated_bytes"])
+        for step in sorted(train_rows)
+        if "train/xpu_max_allocated_bytes" in train_rows[step]
+    ]
+    if len(xpu_allocations) != len(train_rows):
+        raise ValueError("Trackio formal training steps lack XPU allocation evidence.")
     return {
         "run_id": str(rows[0][0]),
         "logged_training_steps": len(train_rows),
@@ -309,6 +316,7 @@ def _training_metrics(
         "final_learning_rate": learning_rates[-1],
         "minimum_learning_rate": min(learning_rates),
         "maximum_learning_rate": max(learning_rates),
+        "maximum_xpu_allocated_bytes": int(max(xpu_allocations)),
         "optimizer_contract": optimizer_contract,
         "all_losses_and_gradients_finite": True,
     }
@@ -439,6 +447,14 @@ def main() -> int:
             bool(item["processor_statistics"]) for item in checkpoint_summaries
         ),
         "validation_action_mae_improves_over_base": selected_value < base_value,
+        "standard_space_gripper_violation_rate_is_zero": float(
+            selected["metrics"]["joint_limit_violation_rate"]
+        )
+        == 0.0,
+        "measured_peak_xpu_allocation_is_within_registered_guard": training_metrics[
+            "maximum_xpu_allocated_bytes"
+        ]
+        <= int(plan["resources"]["maximum_peak_xpu_allocated_bytes"]),
         "hidden_test_not_loaded": True,
     }
     passed = all(acceptance.values())

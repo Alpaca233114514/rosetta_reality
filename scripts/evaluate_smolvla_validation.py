@@ -452,6 +452,10 @@ def main() -> int:
     losses: list[float] = []
     latencies: list[float] = []
     materialized_episodes: set[int] = set()
+    internal_gripper_values: dict[str, list[torch.Tensor]] = {
+        "left_gripper": [],
+        "right_gripper": [],
+    }
 
     for expected_episode, _, relative_index in indices:
         sample = dataset[relative_index]
@@ -511,6 +515,16 @@ def main() -> int:
         _sync(device)
         latencies.append(time.perf_counter() - inference_started)
         predicted = postprocessor(predicted)
+        for step in getattr(postprocessor, "steps", []):
+            model_action = getattr(step, "last_model_action", None)
+            if isinstance(model_action, torch.Tensor):
+                internal_gripper_values["left_gripper"].append(
+                    model_action[..., 6].detach().cpu().to(torch.float64)
+                )
+                internal_gripper_values["right_gripper"].append(
+                    model_action[..., 13].detach().cpu().to(torch.float64)
+                )
+                break
         if not isinstance(predicted, torch.Tensor) or list(predicted.shape) != [
             1,
             chunk_length,
@@ -555,6 +569,18 @@ def main() -> int:
     }
     if not all(math.isfinite(float(value)) for value in metrics.values()):
         raise FloatingPointError("Formal validation metrics contain a non-finite value.")
+    internal_support: dict[str, dict[str, Any]] = {}
+    for name, pieces in internal_gripper_values.items():
+        if not pieces:
+            raise ValueError("Postprocessor did not expose model-internal gripper actions.")
+        values = torch.cat([piece.reshape(-1) for piece in pieces])
+        outside = (values < -math.pi / 2) | (values > math.pi / 2)
+        internal_support[name] = {
+            "minimum": float(values.min()),
+            "maximum": float(values.max()),
+            "outside_training_support_rate": float(outside.to(torch.float64).mean()),
+            "training_support": [-math.pi / 2, math.pi / 2],
+        }
     source_step = int(args.checkpoint_step or 0)
     _log_validation(
         experiment,
@@ -604,6 +630,7 @@ def main() -> int:
             "flow_time": float(validation["flow_time"]),
         },
         "metrics": metrics,
+        "model_internal_gripper_support": internal_support,
         "device": device.type,
         "mixed_precision": mixed_precision,
         "accelerator_memory": accelerator_memory,

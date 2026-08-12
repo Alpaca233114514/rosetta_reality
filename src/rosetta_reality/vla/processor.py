@@ -288,6 +288,9 @@ class PiAlohaPostprocessorStep(ProcessorStep):
     last_unclipped_action: torch.Tensor | None = field(
         default=None, init=False, repr=False, compare=False
     )
+    last_model_action: torch.Tensor | None = field(
+        default=None, init=False, repr=False, compare=False
+    )
 
     def __post_init__(self) -> None:
         if (
@@ -313,6 +316,7 @@ class PiAlohaPostprocessorStep(ProcessorStep):
             return new_transition
         if not isinstance(action, torch.Tensor):
             raise ValueError("pi-Aloha postprocessing requires a tensor action.")
+        self.last_model_action = action.detach().clone()
         standard = model_action_to_standard(
             action, self.action_representation_adapter
         )
