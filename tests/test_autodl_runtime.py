@@ -6,6 +6,7 @@ import pytest
 import yaml
 
 from scripts.autodl_doctor import _validate_recorded_files
+from scripts.smolvla_forward_check import _report_display_path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 PROFILE_PATH = REPOSITORY_ROOT / "configs/runtime/autodl_rtx4090.yaml"
@@ -134,3 +135,10 @@ def test_autodl_doctor_recomputes_manifest_file_records(tmp_path: Path) -> None:
     content.write_bytes(b"tampered!")
     with pytest.raises(ValueError, match="identity changed"):
         _validate_recorded_files(tmp_path, manifest, label="test")
+
+
+def test_autodl_preflight_report_uses_durable_run_root(tmp_path: Path) -> None:
+    run_root = tmp_path / "autodl-tmp" / "data" / "runs"
+    report = run_root / "experiment" / "preflight" / "cuda.json"
+
+    assert _report_display_path(report, run_root) == "experiment/preflight/cuda.json"

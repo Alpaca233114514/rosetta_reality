@@ -30,6 +30,10 @@ from rosetta_reality.vla import (  # noqa: E402
 from rosetta_reality.vla.processor import ensure_smolvla_action_boundary  # noqa: E402
 
 
+def _report_display_path(report_path: Path, run_root: Path) -> str:
+    return report_path.relative_to(run_root).as_posix()
+
+
 @parser.wrap()
 def _parse_config(cfg: TrainPipelineConfig) -> TrainPipelineConfig:
     return cfg
@@ -371,7 +375,8 @@ def main() -> int:
     run_root_raw = os.environ.get("ROSETTA_RUN_ROOT")
     if not run_root_raw:
         raise ValueError("ROSETTA_RUN_ROOT must be set by the Docker runner.")
-    preflight_root = Path(run_root_raw) / str(experiment["experiment_id"]) / "preflight"
+    run_root = Path(run_root_raw)
+    preflight_root = run_root / str(experiment["experiment_id"]) / "preflight"
     report_path = preflight_root / f"{run_name}.json"
     model_root = Path(cfg.policy.pretrained_path)
     dataset_root = Path(cfg.dataset.root)
@@ -433,7 +438,7 @@ def main() -> int:
     json.dumps(report, allow_nan=False)
     create_json(report_path, report)
     print(json.dumps(report, indent=2, sort_keys=True))
-    print(f"Report: {report_path.relative_to(REPOSITORY_ROOT).as_posix()}")
+    print(f"Report: {_report_display_path(report_path, run_root)}")
     return 0
 
 

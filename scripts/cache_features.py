@@ -1408,16 +1408,100 @@ def _validated_visible_controlled_change(
         or controlled.get("feature_derivation") != "verified_identity_rebind_v1"
     ):
         raise ValueError("Visible derivation controlled-change identity is invalid.")
-    if changed_axis.startswith("training."):
-        return controlled
-    if changed_axis != "action_expert.fusion_dim":
+    if not changed_axis.startswith("training.") and changed_axis != "action_expert.fusion_dim":
         raise ValueError(
             "Visible derivation only supports training axes or the exact "
             "action_expert.fusion_dim axis."
         )
 
+    expected_reference_sha = source["identity"].get("experiment_config_sha256")
+    raw_reference = controlled.get("reference_config")
+    if raw_reference is None:
+        matches = [
+            path
+            for path in sorted((REPOSITORY_ROOT / "configs/experiments").glob("*.yaml"))
+            if file_sha256(path) == expected_reference_sha
+        ]
+        if len(matches) != 1:
+            raise ValueError(
+                "Visible derivation cannot uniquely resolve its reference config identity."
+            )
+        reference_path = matches[0].resolve()
+    else:
+        raw_reference_path = Path(str(raw_reference))
+        if (
+            not raw_reference_path.parts
+            or raw_reference_path.is_absolute()
+            or ".." in raw_reference_path.parts
+        ):
+            raise ValueError(
+                "Visible derivation reference_config must be repository-relative."
+            )
+        reference_path = (REPOSITORY_ROOT / raw_reference_path).resolve()
+    try:
+        reference_path.relative_to(REPOSITORY_ROOT.resolve())
+    except ValueError as exc:
+        raise ValueError("Visible derivation reference_config escapes the repository.") from exc
+    if file_sha256(reference_path) != expected_reference_sha:
+        raise ValueError("Visible derivation reference config SHA does not match source.")
+    reference = load_experiment_config(reference_path, REPOSITORY_ROOT)
+    if reference.get("experiment_id") != controlled["reference_experiment"]:
+        raise ValueError("Visible derivation reference experiment identity differs.")
+
     reference_value = controlled.get("reference_value")
     candidate_value = controlled.get("candidate_value")
+    if changed_axis.startswith("training."):
+        path = changed_axis.split(".")[1:]
+        if not path or any(not part for part in path):
+            raise ValueError("Visible derivation training axis is invalid.")
+        reference_training = copy.deepcopy(reference.get("training"))
+        candidate_training = copy.deepcopy(experiment.get("training"))
+        if not isinstance(reference_training, dict) or not isinstance(
+            candidate_training, dict
+        ):
+            raise ValueError("Visible derivation training configs must be mappings.")
+
+        def remove_axis(config: dict[str, Any]) -> tuple[bool, Any]:
+            parent = config
+            for part in path[:-1]:
+                child = parent.get(part)
+                if not isinstance(child, dict):
+                    return False, None
+                parent = child
+            if path[-1] not in parent:
+                return False, None
+            return True, parent.pop(path[-1])
+
+        reference_present, actual_reference = remove_axis(reference_training)
+        candidate_present, actual_candidate = remove_axis(candidate_training)
+        if (
+            not reference_present
+            or actual_reference != reference_value
+            or not candidate_present
+            or actual_candidate != candidate_value
+        ):
+            raise ValueError(
+                "Visible derivation declared training values differ from their configs."
+            )
+        if candidate_training != reference_training:
+            raise ValueError("Visible derivation changes another training axis.")
+        for key in (
+            "backbone",
+            "dataset",
+            "action_contract",
+            "action_expert",
+            "benchmark",
+            "evaluation",
+            "simulation",
+            "resources",
+            "m2_completion_eligible",
+        ):
+            if experiment.get(key) != reference.get(key):
+                raise ValueError(
+                    f"Visible derivation changes the additional {key} axis."
+                )
+        return controlled
+
     if (
         isinstance(reference_value, bool)
         or not isinstance(reference_value, int)
@@ -1427,27 +1511,6 @@ def _validated_visible_controlled_change(
         or candidate_value <= 0
     ):
         raise ValueError("Fusion dimensions must be positive integers.")
-    raw_reference_path = Path(str(controlled.get("reference_config", "")))
-    if (
-        not raw_reference_path.parts
-        or raw_reference_path.is_absolute()
-        or ".." in raw_reference_path.parts
-    ):
-        raise ValueError("Fusion derivation reference_config must be repository-relative.")
-    reference_path = (REPOSITORY_ROOT / raw_reference_path).resolve()
-    try:
-        reference_path.relative_to(REPOSITORY_ROOT.resolve())
-    except ValueError as exc:
-        raise ValueError(
-            "Fusion derivation reference_config escapes the repository."
-        ) from exc
-    if file_sha256(reference_path) != source["identity"].get(
-        "experiment_config_sha256"
-    ):
-        raise ValueError("Fusion derivation reference config SHA does not match source.")
-    reference = load_experiment_config(reference_path, REPOSITORY_ROOT)
-    if reference.get("experiment_id") != controlled["reference_experiment"]:
-        raise ValueError("Fusion derivation reference experiment identity differs.")
     for key in (
         "backbone",
         "dataset",

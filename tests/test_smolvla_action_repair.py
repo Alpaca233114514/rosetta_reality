@@ -33,6 +33,7 @@ from rosetta_reality.vla.processor import (
     standard_aloha_state_to_pi,
 )
 from scripts.run_smolvla_action_repair_phase import _validate_dataset_view_inventory
+from scripts.verify_smolvla_resume import _processor_state_paths
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 REPAIR_CONFIG = (
@@ -385,3 +386,27 @@ def test_repair_dataset_view_inventory_rejects_mutated_content(tmp_path: Path) -
     content.write_bytes(b"tampered")
     with pytest.raises(ValueError, match="checksum"):
         _validate_dataset_view_inventory(view_root, manifest, normalization)
+
+
+def test_resume_processor_states_must_exist_and_be_path_safe(tmp_path: Path) -> None:
+    state = tmp_path / "normalizer.safetensors"
+    state.write_bytes(b"state")
+    (tmp_path / "policy_preprocessor.json").write_text(
+        json.dumps({"steps": [{"state_file": state.name}]}),
+        encoding="utf-8",
+    )
+    (tmp_path / "policy_postprocessor.json").write_text(
+        json.dumps({"steps": [{}]}),
+        encoding="utf-8",
+    )
+
+    assert _processor_state_paths(tmp_path) == {state.name: state}
+    state.unlink()
+    with pytest.raises(FileNotFoundError, match="processor state is missing"):
+        _processor_state_paths(tmp_path)
+    (tmp_path / "policy_preprocessor.json").write_text(
+        json.dumps({"steps": [{"state_file": "../escape.safetensors"}]}),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="unsafe state_file"):
+        _processor_state_paths(tmp_path)

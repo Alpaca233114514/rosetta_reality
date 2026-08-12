@@ -62,6 +62,36 @@ def _finite_number(value: Any, label: str) -> float:
     return result
 
 
+def _processor_state_paths(pretrained_dir: Path) -> dict[str, Path]:
+    states: dict[str, Path] = {}
+    for config_name in ("policy_preprocessor.json", "policy_postprocessor.json"):
+        config = _load_json(pretrained_dir / config_name)
+        steps = config.get("steps")
+        if not isinstance(steps, list):
+            raise ValueError(f"{config_name} has no processor step list.")
+        for step in steps:
+            if not isinstance(step, dict):
+                raise ValueError(f"{config_name} contains an invalid processor step.")
+            state_file = step.get("state_file")
+            if state_file is None:
+                continue
+            if not isinstance(state_file, str):
+                raise ValueError(f"{config_name} contains an invalid state_file.")
+            relative = Path(state_file)
+            if (
+                relative.is_absolute()
+                or ".." in relative.parts
+                or relative.as_posix() != state_file
+                or state_file in states
+            ):
+                raise ValueError(f"{config_name} contains an unsafe state_file.")
+            path = pretrained_dir / relative
+            if not path.is_file() or path.stat().st_size <= 0:
+                raise FileNotFoundError(f"Referenced processor state is missing: {state_file}.")
+            states[state_file] = path
+    return states
+
+
 def _resumed_checkpoint(
     checkpoint: Path,
     experiment: dict[str, Any],
@@ -103,6 +133,7 @@ def _resumed_checkpoint(
     ]
     if any(not path.is_file() or path.stat().st_size <= 0 for path in required):
         raise FileNotFoundError("The resumed checkpoint is incomplete.")
+    required.extend(_processor_state_paths(pretrained_dir).values())
     files = [path.relative_to(step_dir).as_posix() for path in required]
     return step_dir, pretrained_dir, training_state_dir, files
 
@@ -220,6 +251,19 @@ def _validate_state_progression(
         if source_hash != resumed_hash:
             raise ValueError(f"{name} changed across a same-contract resume.")
         hashes[name] = {"source_sha256": source_hash, "resumed_sha256": resumed_hash}
+    source_states = _processor_state_paths(source_pretrained_dir)
+    resumed_states = _processor_state_paths(resumed_pretrained_dir)
+    if set(source_states) != set(resumed_states):
+        raise ValueError("Processor state inventory changed across a same-contract resume.")
+    for relative in sorted(source_states):
+        source_hash = file_sha256(source_states[relative])
+        resumed_hash = file_sha256(resumed_states[relative])
+        if source_hash != resumed_hash:
+            raise ValueError(f"Processor state changed across resume: {relative}.")
+        hashes[f"processor_state:{relative}"] = {
+            "source_sha256": source_hash,
+            "resumed_sha256": resumed_hash,
+        }
     return hashes
 
 

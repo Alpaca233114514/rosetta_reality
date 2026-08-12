@@ -208,6 +208,8 @@ def _visible_derivation_case(
     source_path.write_text("{}\n", encoding="utf-8")
     config_path = tmp_path / "target.yaml"
     config_path.write_text("target\n", encoding="utf-8")
+    reference_path = tmp_path / "reference.yaml"
+    reference_path.write_text("reference\n", encoding="utf-8")
     contract_path = tmp_path / "contract.yaml"
     contract_path.write_text("contract\n", encoding="utf-8")
     processor = {"prompt": "Act: {instruction}"}
@@ -302,10 +304,19 @@ def _visible_derivation_case(
         "controlled_change": {
             "changed_axis": "training.first_action_loss_weight",
             "reference_experiment": "source-visible",
+            "reference_config": reference_path.name,
+            "reference_value": 0.0,
+            "candidate_value": 1.0,
             "feature_derivation": "verified_identity_rebind_v1",
             "feature_source_manifest": str(source_path.resolve()),
         },
+        "training": {"batch_size": 64, "first_action_loss_weight": 1.0},
     }
+    reference = deepcopy(experiment)
+    reference["experiment_id"] = "source-visible"
+    reference["training"]["first_action_loss_weight"] = 0.0
+    source["identity"]["experiment_config_sha256"] = file_sha256(reference_path)
+    source["reference"] = reference
     dataset_config = SimpleNamespace(
         repo_id="dataset",
         revision="revision",
@@ -443,8 +454,17 @@ def test_visible_derivation_allows_only_tensor_invariant_axis_families(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     experiment, source, _, config_path = _visible_derivation_case(tmp_path)
+    monkeypatch.setattr(cache_features, "REPOSITORY_ROOT", tmp_path)
     experiment["controlled_change"]["changed_axis"] = changed_axis
-    monkeypatch.setattr(cache_features, "load_experiment_config", lambda *_: experiment)
+    monkeypatch.setattr(
+        cache_features,
+        "load_experiment_config",
+        lambda path, *_: (
+            source["reference"]
+            if Path(path).name == experiment["controlled_change"]["reference_config"]
+            else experiment
+        ),
+    )
     monkeypatch.setattr(cache_features, "_validated_source_manifest", lambda _: source)
     if allowed:
         monkeypatch.setattr(
@@ -462,6 +482,40 @@ def test_visible_derivation_allows_only_tensor_invariant_axis_families(
         )
         with pytest.raises(ValueError, match="only supports training axes"):
             cache_features.derive_visible(config_path, [source["path"]])
+
+
+def test_visible_training_derivation_rejects_an_additional_axis(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    experiment, source, _, _ = _visible_derivation_case(tmp_path)
+    monkeypatch.setattr(cache_features, "REPOSITORY_ROOT", tmp_path)
+    experiment["training"]["batch_size"] = 32
+    monkeypatch.setattr(
+        cache_features,
+        "load_experiment_config",
+        lambda *_: source["reference"],
+    )
+
+    with pytest.raises(ValueError, match="another training axis"):
+        cache_features._validated_visible_controlled_change(experiment, source)
+
+
+def test_visible_training_derivation_rejects_forged_declared_value(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    experiment, source, _, _ = _visible_derivation_case(tmp_path)
+    monkeypatch.setattr(cache_features, "REPOSITORY_ROOT", tmp_path)
+    experiment["controlled_change"]["candidate_value"] = 2.0
+    monkeypatch.setattr(
+        cache_features,
+        "load_experiment_config",
+        lambda *_: source["reference"],
+    )
+
+    with pytest.raises(ValueError, match="declared training values"):
+        cache_features._validated_visible_controlled_change(experiment, source)
 
 
 def test_visible_derivation_accepts_exact_single_fusion_width_axis() -> None:
@@ -538,7 +592,16 @@ def test_visible_derivation_rejects_hidden_source_before_target_write(
         source["identity"]["materialization"]["hidden_test_loaded"] = True
     target_root = tmp_path / "target-cache"
     writes: list[str] = []
-    monkeypatch.setattr(cache_features, "load_experiment_config", lambda *_: experiment)
+    monkeypatch.setattr(cache_features, "REPOSITORY_ROOT", tmp_path)
+    monkeypatch.setattr(
+        cache_features,
+        "load_experiment_config",
+        lambda path, *_: (
+            source["reference"]
+            if Path(path).name == experiment["controlled_change"]["reference_config"]
+            else experiment
+        ),
+    )
     monkeypatch.setattr(cache_features, "_validated_source_manifest", lambda _: source)
     monkeypatch.setattr(cache_features, "_feature_root", lambda: target_root)
     monkeypatch.setattr(
@@ -582,7 +645,16 @@ def test_visible_derivation_preflights_all_source_shards_before_target_write(
     target_root = tmp_path / "target-cache"
     calls: list[tuple[str, int]] = []
     writes: list[str] = []
-    monkeypatch.setattr(cache_features, "load_experiment_config", lambda *_: experiment)
+    monkeypatch.setattr(cache_features, "REPOSITORY_ROOT", tmp_path)
+    monkeypatch.setattr(
+        cache_features,
+        "load_experiment_config",
+        lambda path, *_: (
+            source["reference"]
+            if Path(path).name == experiment["controlled_change"]["reference_config"]
+            else experiment
+        ),
+    )
     monkeypatch.setattr(cache_features, "_validated_source_manifest", lambda _: source)
     monkeypatch.setattr(cache_features, "load_dataset_config", lambda *_: dataset_config)
     monkeypatch.setattr(cache_features, "load_action_contract", lambda *_: object())
@@ -629,7 +701,16 @@ def test_visible_derivation_emits_only_train_validation_identity_copy(
     experiment, source, dataset_config, config_path = _visible_derivation_case(tmp_path)
     target_root = tmp_path / "target-cache"
     calls: list[tuple[str, int]] = []
-    monkeypatch.setattr(cache_features, "load_experiment_config", lambda *_: experiment)
+    monkeypatch.setattr(cache_features, "REPOSITORY_ROOT", tmp_path)
+    monkeypatch.setattr(
+        cache_features,
+        "load_experiment_config",
+        lambda path, *_: (
+            source["reference"]
+            if Path(path).name == experiment["controlled_change"]["reference_config"]
+            else experiment
+        ),
+    )
     monkeypatch.setattr(cache_features, "_validated_source_manifest", lambda _: source)
     monkeypatch.setattr(cache_features, "load_dataset_config", lambda *_: dataset_config)
     monkeypatch.setattr(cache_features, "load_action_contract", lambda *_: object())
