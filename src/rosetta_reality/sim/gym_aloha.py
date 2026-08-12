@@ -81,6 +81,26 @@ class GymAlohaEnvironment(SimulationEnvironment):
             for first, second in self.contact_pairs()
         )
 
+    def state_limit_violation_count(self) -> int:
+        """Count limited MuJoCo joints outside their adapter-owned physical ranges."""
+
+        unwrapped = getattr(self._environment, "unwrapped", self._environment)
+        control_environment = getattr(unwrapped, "_env", None)
+        physics = getattr(control_environment, "physics", None)
+        if physics is None:
+            return 0
+        model = physics.model
+        data = physics.data
+        violations = 0
+        for joint_id in range(int(model.njnt)):
+            if not bool(model.jnt_limited[joint_id]):
+                continue
+            qpos_address = int(model.jnt_qposadr[joint_id])
+            lower, upper = model.jnt_range[joint_id]
+            value = float(data.qpos[qpos_address])
+            violations += int(value < float(lower) - 1e-5 or value > float(upper) + 1e-5)
+        return violations
+
     @staticmethod
     def is_unexpected_collision_pair(first: str, second: str) -> bool:
         """Classify one MuJoCo geom pair without hiding cross-arm gripper collisions."""

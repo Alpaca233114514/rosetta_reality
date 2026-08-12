@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import uuid
 from pathlib import Path
 from typing import Any
@@ -39,9 +40,12 @@ def save_tensor_shard(path: Path, payload: dict[str, Any]) -> Path:
     with temporary.open("xb") as file:
         torch.save(payload, file)
         file.flush()
-    if path.exists():
-        raise FileExistsError(f"Feature shard appeared concurrently: {path}.")
-    temporary.rename(path)
+    try:
+        os.link(temporary, path)
+    except FileExistsError as error:
+        raise FileExistsError(f"Feature shard appeared concurrently: {path}.") from error
+    finally:
+        temporary.unlink(missing_ok=True)
     return path
 
 

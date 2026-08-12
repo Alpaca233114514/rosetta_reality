@@ -465,12 +465,13 @@ def _rollout(
                 executed.append(clipped)
                 rewards.append(reward)
                 executed_limit_violations += int(environment.last_clip_mask.sum().item())
-                state = observation["robot_state"]
-                joint_limit_violations += int(
-                    (
-                        (state < contract.lower_bounds - 1e-5)
-                        | (state > contract.upper_bounds + 1e-5)
-                    ).sum()
+                state_violation_counter = getattr(
+                    environment, "state_limit_violation_count", None
+                )
+                joint_limit_violations += (
+                    int(state_violation_counter())
+                    if callable(state_violation_counter)
+                    else int(info.get("joint_limit_violations", 0))
                 )
                 for first, second in environment.contact_pairs():
                     if environment.is_unexpected_collision_pair(first, second):

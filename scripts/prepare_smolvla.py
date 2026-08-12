@@ -215,7 +215,7 @@ def prepare_dependency(root: Path, config: dict[str, Any], attempts: int) -> dic
             resolved = Path(
                 snapshot_download(
                     repo_id=dependency["repo_id"],
-                    revision="main",
+                    revision=dependency["revision"],
                     cache_dir=_hf_home(config) / "hub",
                     allow_patterns=[str(value) for value in dependency["files"]],
                     max_workers=1,
