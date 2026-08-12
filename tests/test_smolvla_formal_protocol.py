@@ -1,3 +1,4 @@
+import math
 from dataclasses import replace
 from pathlib import Path
 
@@ -8,7 +9,14 @@ import yaml
 from rosetta_reality.sim import load_action_contract
 from scripts import smolvla_sim_gate
 from scripts.evaluate_smolvla_validation import _percentile, _validation_indices
-from scripts.run_smolvla_formal import _training_coverage, _validate_plan
+from scripts.inspect_smolvla_quarter import _expected_learning_rate
+from scripts.run_smolvla_formal import (
+    _optimizer_arguments,
+    _optimizer_contract,
+    _training_coverage,
+    _validate_plan,
+    _validate_saved_optimizer_contract,
+)
 from scripts.train_smolvla_trackio import _convert_statistics
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -93,6 +101,122 @@ def test_optimized_formal_plan_rejects_more_than_eight_gigabytes(tmp_path: Path)
 
     with pytest.raises(ValueError, match="authorized 8 GB"):
         _validate_plan(modified)
+
+
+def test_three_furnace_program_is_exactly_ordered_and_bounded() -> None:
+    registry = yaml.safe_load(
+        (
+            REPOSITORY_ROOT
+            / "configs/vla/smolvla_450m_aloha_insertion_three_furnace_001.yaml"
+        ).read_text(encoding="utf-8")
+    )
+
+    assert registry["maximum_formal_runs"] == 3
+    assert registry["execution"] == "strictly_sequential"
+    assert registry["codenames_in_order"] == ["Odyssey", "Don Quixote", "Moby Dick"]
+    assert len(registry["runs"]) == 3
+    assert [run["ordinal"] for run in registry["runs"]] == [1, 2, 3]
+    assert [run["codename"] for run in registry["runs"]] == registry[
+        "codenames_in_order"
+    ]
+
+
+@pytest.mark.parametrize(
+    ("filename", "codename", "ordinal", "peak_lr", "decay_lr"),
+    [
+        ("smolvla_450m_aloha_insertion_odyssey_001.yaml", "Odyssey", 1, 1.0e-4, 2.5e-6),
+        (
+            "smolvla_450m_aloha_insertion_don_quixote_001.yaml",
+            "Don Quixote",
+            2,
+            7.5e-5,
+            1.875e-6,
+        ),
+        (
+            "smolvla_450m_aloha_insertion_moby_dick_001.yaml",
+            "Moby Dick",
+            3,
+            1.25e-4,
+            3.125e-6,
+        ),
+    ],
+)
+def test_furnace_plans_preregister_explicit_optimizer_and_quarter_wakes(
+    filename: str,
+    codename: str,
+    ordinal: int,
+    peak_lr: float,
+    decay_lr: float,
+) -> None:
+    plan, _base, _experiment = _validate_plan(
+        REPOSITORY_ROOT / "configs/vla" / filename,
+        require_runtime_evidence=False,
+    )
+    contract = _optimizer_contract(plan["training"])
+
+    assert plan["furnace_program"]["codename"] == codename
+    assert plan["furnace_program"]["ordinal"] == ordinal
+    assert plan["furnace_program"]["maximum_formal_runs"] == 3
+    assert plan["monitoring"]["wake_steps"] == [420, 840, 1260, 1680]
+    assert plan["monitoring"]["blocking_command"] == "sleep"
+    assert contract is not None
+    assert contract["optimizer"]["lr"] == peak_lr
+    assert contract["scheduler"]["peak_lr"] == peak_lr
+    assert contract["scheduler"]["decay_lr"] == decay_lr
+    assert contract["scheduler"]["num_warmup_steps"] == 56
+    assert contract["scheduler"]["num_decay_steps"] == 1680
+
+
+def test_optimizer_contract_drives_cli_saved_config_and_expected_lr() -> None:
+    training = {
+        "steps": 1680,
+        "optimizer": {
+            "type": "adamw",
+            "lr": 1.0e-4,
+            "betas": [0.9, 0.95],
+            "eps": 1.0e-8,
+            "weight_decay": 1.0e-10,
+            "grad_clip_norm": 10.0,
+        },
+        "scheduler": {
+            "type": "cosine_decay_with_warmup",
+            "num_warmup_steps": 56,
+            "num_decay_steps": 1680,
+            "peak_lr": 1.0e-4,
+            "decay_lr": 2.5e-6,
+        },
+    }
+    contract = _optimizer_contract(training)
+    assert contract is not None
+    arguments = _optimizer_arguments(training)
+    assert "--policy.optimizer_lr=0.0001" in arguments
+    assert "--policy.scheduler_warmup_steps=56" in arguments
+    assert "--policy.scheduler_decay_steps=1680" in arguments
+    assert "--policy.scheduler_decay_lr=2.5e-06" in arguments
+
+    saved = {
+        "optimizer": contract["optimizer"],
+        "scheduler": contract["scheduler"],
+        "policy": {
+            "optimizer_lr": 1.0e-4,
+            "optimizer_betas": [0.9, 0.95],
+            "optimizer_eps": 1.0e-8,
+            "optimizer_weight_decay": 1.0e-10,
+            "optimizer_grad_clip_norm": 10.0,
+            "scheduler_warmup_steps": 56,
+            "scheduler_decay_steps": 1680,
+            "scheduler_decay_lr": 2.5e-6,
+        },
+    }
+    assert _validate_saved_optimizer_contract(saved, training) == contract
+    expected_at_warmup_boundary = 1.0e-4 * (
+        (1.0 - 0.025) * 0.5 * (1.0 + math.cos(math.pi * 56 / 1680)) + 0.025
+    )
+    assert _expected_learning_rate(contract, 0) == pytest.approx(1.0e-4 / 57)
+    assert _expected_learning_rate(contract, 56) == pytest.approx(
+        expected_at_warmup_boundary
+    )
+    assert _expected_learning_rate(contract, 1680) == pytest.approx(2.5e-6)
 
 
 def test_simulation_plan_preserves_gate_order_and_sealed_test() -> None:

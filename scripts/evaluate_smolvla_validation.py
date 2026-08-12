@@ -104,6 +104,7 @@ def _checkpoint_source(
         or policy.get("load_vlm_weights") is not False
     ):
         raise ValueError("Formal checkpoint identity differs from the preregistered run.")
+    formal_runner._validate_saved_optimizer_contract(train_config, training)
     return pretrained_dir, {
         "kind": "checkpoint",
         "step": step,

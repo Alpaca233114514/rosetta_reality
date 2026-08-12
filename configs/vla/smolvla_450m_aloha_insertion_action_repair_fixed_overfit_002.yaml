@@ -1,0 +1,65 @@
+extends:
+  config: configs/vla/smolvla_450m_aloha_insertion.yaml
+  sha256: 7306014717eb3fe5a5997a92406ec18cb251f1c17cc9d46ed74d75ac71d8b19f
+schema_version: 1
+role: vla
+experiment_id: m2-smolvla450m-aloha-insertion-action-repair-fixed-overfit-002
+status: preregistered_action_repair_smoke_and_overfit
+hypothesis: >-
+  The explicit raw-feature action boundary is learnable when the bounded
+  overfit gate repeatedly visits a small, immutable set of frames spanning
+  both grippers' open, close and transition phases. A fresh two-step smoke and
+  a 100-step fixed-frame run must improve deterministic teacher-forced loss
+  and right-gripper MAE before the separately registered Faust run is allowed.
+model:
+  policy:
+    adapt_to_pi_aloha: false
+  action_space:
+    schema_version: 1
+    dataset_space: standard_aloha_joint_position
+    normalization: train_only_mean_std_after_representation_adapter
+    target_projection: action_contract_clip
+    target_projection_stage: before_normalization
+    reject_source_beyond_contract_tolerance: true
+    representation_adapter: rosetta_pi_aloha
+    representation_adapter_stage: after_target_projection_before_normalization
+    model_internal_space: normalized_pi_aloha
+repair_protocol:
+  historical_checkpoints_are_initialization: false
+  historical_reports_are_read_only: true
+  optimizer_authorized: true
+  authorized_phases: [smoke, overfit]
+  hidden_test_loaded: false
+  fixed_sample_overfit:
+    schema_version: 1
+    episode: 49
+    frame_indices: [0, 50, 100, 190, 220, 250, 400, 450]
+    phases: [smoke, overfit, overfit_resume]
+    sampler: deterministic_epoch_permutation
+    hidden_test_loaded: false
+  historical_diagnostic:
+    experiment_id: m2-smolvla450m-aloha-insertion-001
+    checkpoint_step: 1260
+    report: runs/m2-smolvla450m-aloha-insertion-001/diagnostics/teacher-forced-modalities-step001260-d54229e9b3c4a230.json
+    sha256: 4cb0e8d2fb04f7419fd7c6e3b029463aff44d9d6ed78ce9aa73243197206778c
+  required_before_any_optimizer:
+    - pre_training_benchmark_created
+    - gate1_scripted_action_passed
+    - gate2_dataset_replay_passed
+    - action_adapter_round_trip_passed
+    - train_only_projected_statistics_created
+    - no_optimizer_forward_passed
+    - fixed_sample_identity_created
+    - teacher_forced_per_dimension_metrics_created
+    - image_shuffle_and_state_shuffle_diagnostics_created
+  required_before_overfit:
+    - optimizer_smoke_accepted
+    - independent_checkpoint_reload_repeated
+  stop_if:
+    - action_adapter_identity_mismatch
+    - source_action_beyond_registered_tolerance
+    - fixed_sample_identity_mismatch
+    - nonfinite_loss_gradient_or_action
+    - checkpoint_or_reload_failure
+    - right_gripper_teacher_forced_regression
+    - hidden_test_episode_materialized_or_loaded

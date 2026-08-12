@@ -1,0 +1,195 @@
+schema_version: 1
+role: vla
+stage: m2_action_repair_development_training
+status: preregistered
+plan_id: m2-smolvla450m-faust-001
+run_name: m2-smolvla450m-faust-001
+hypothesis: >-
+  A fresh revision-pinned SmolVLA base trained for exactly one complete pass over
+  the 20,000-row train-only view with the accepted bounded-sine gripper boundary
+  will improve fixed validation action metrics without producing a standard-space
+  gripper violation. The run is inspected only at its four registered quarter
+  checkpoints and is not initialized from any repaired overfit checkpoint.
+furnace_program:
+  program_id: m2-smolvla450m-action-repair-faust-001
+  ordinal: 1
+  codename: Faust
+  maximum_formal_runs: 1
+parent_experiment:
+  config: configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml
+  sha256: 0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210
+  experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+initialization:
+  source: revision_pinned_base
+  reason: isolate full-dataset learning from all diagnostic and overfit checkpoints
+  model_id: lerobot/smolvla_base
+  model_revision: c83c3163b8ca9b7e67c509fffd9121e66cb96205
+  overfit_checkpoint_used: false
+action_space:
+  adapt_to_pi_aloha: false
+  dataset_space: standard_aloha_joint_position
+  explicit: true
+  model_internal_space: normalized_pi_aloha_arms_bounded_sine_grippers
+  normalization: train_only_mean_std_after_representation_adapter
+  reject_source_beyond_contract_tolerance: true
+  representation_adapter: rosetta_pi_aloha_arms_bounded_sine_grippers
+  representation_adapter_stage: after_target_projection_before_normalization
+  schema_version: 1
+  target_projection: action_contract_clip
+  target_projection_stage: before_normalization
+normalization:
+  source_split: train
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/normalization/train-only-3e3c6b9d347e5e71.json
+  report_sha256: 263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988
+  dataset_view_manifest: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/dataset_views/train-only-3e3c6b9d347e5e71/view_manifest.json
+  dataset_view_manifest_sha256: 9853c191ae87016379fc1a16ebfbb87e05ab5147cd8a03d82f9c2a894c9b531e
+  validation_episodes_loaded: false
+  hidden_test_loaded: false
+prerequisites:
+  benchmark:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/benchmark/pre-training-af690cf13969cd22.json
+    sha256: 2b0e6fc36bd165a97b5273cb5de054764798a697fde8841876e2d131ca305502
+  gate1:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate1-e41df36c5d90.json
+    sha256: 858f6d3ce43484de5b7b50d0e68f5267d4b3fdb2ebf26e099c3adb3602d00c81
+  gate2:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate2-10fb9a9a364a.json
+    sha256: 26f373a63becbcfa879505ecb1a82a1fc13d724ce0638e43cdc1e3455b75b0d6
+  action_space:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/action-space-8a56bf3b42087938.json
+    sha256: d5718be9051c69663291e0eb449ba331971a1343668688e8c26ee40d5e7e90da
+  smoke_acceptance:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/acceptance/repair-bounded-smoke-xpu-003.json
+    sha256: 0e0ed861007989ccf7f4c1a903e12a4d42f2865c92e41388a59ab4b19f1f176f
+  overfit_acceptance:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/acceptance/repair-bounded-overfit-xpu-003.json
+    sha256: 085ad2750711fce0539117f34588cab7c229a302541525c223d61b62a90743df
+  trackio_sync:
+    path: runs/m2-smolvla450m-aloha-insertion-001/tracking/space-sync-db38f79f1bb0b42a.json
+    sha256: 117867389d1670a72e2035e040978be7425a5fbf3481372a4cac42cabf5ad765
+preflight:
+  run_name: m2-smolvla450m-faust-preflight-001
+  episodes: [49]
+  batch_size: 1
+  optimizer_created: false
+training:
+  episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  batch_size: 1
+  steps: 20000
+  minimum_dataset_passes: 1.0
+  save_freq: 5000
+  save_checkpoint: true
+  log_freq: 10
+  num_workers: 0
+  persistent_workers: false
+  checkpoint_steps: [5000, 10000, 15000, 20000]
+  eval_split: 0.0
+  validation_gradients: false
+  hidden_test_loaded: false
+  optimizer:
+    type: adamw
+    lr: 1.0e-4
+    betas: [0.9, 0.95]
+    eps: 1.0e-8
+    weight_decay: 1.0e-10
+    grad_clip_norm: 10.0
+  scheduler:
+    type: cosine_decay_with_warmup
+    num_warmup_steps: 1000
+    num_decay_steps: 20000
+    peak_lr: 1.0e-4
+    decay_lr: 2.5e-6
+  policy:
+    empty_cameras: 2
+    compile_model: false
+    skip_fully_masked_camera_encoding: false
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  mixed_precision: bf16
+  memory_limit: 6g
+  memory_swap_limit: 6g
+  cpu_limit: 2
+  maximum_peak_xpu_allocated_bytes: 4294967296
+  expected_wall_time_minutes: 360
+  maximum_wall_time_minutes: 480
+  checkpoint_memory_trim: true
+monitoring:
+  policy: sleep_between_quarter_checkpoints
+  estimated_total_minutes: 360
+  wake_fractions: [0.25, 0.5, 0.75, 1.0]
+  wake_steps: [5000, 10000, 15000, 20000]
+  blocking_command: sleep
+  sleep_poll_seconds: 60
+  hidden_test_loaded: false
+tracking:
+  project: rosetta-reality-vla
+  space_id: LAlpaca/rosetta-reality-trackio
+  delivery: local_durable_then_checkpoint_sync
+  public_payload_only: true
+validation:
+  run_name_prefix: m2-smolvla450m-faust-validation-001
+  episodes: [22, 13, 7, 33, 45]
+  frame_offsets: [0, 125, 250, 375]
+  samples_per_episode: 4
+  total_samples: 20
+  batch_size: 1
+  noise: zeros
+  flow_time: 0.5
+  checkpoints: [base, 5000, 10000, 15000, 20000]
+  primary_selection_metric: action_mae
+  secondary_selection_metric: fixed_flow_loss
+  hidden_test_loaded: false
+decision_policy:
+  select_checkpoint_on: validation_only
+  accept_candidate_if:
+    - all_logged_losses_and_gradients_are_finite
+    - checkpoint_reload_and_processor_statistics_match
+    - validation_action_mae_improves_over_base
+    - standard_space_gripper_violation_rate_is_zero
+    - measured_peak_xpu_allocation_is_within_registered_guard
+  reject_candidate_if:
+    - hidden_test_boundary_is_crossed
+    - resource_limit_is_violated
+    - optimizer_or_scheduler_contract_changes
+    - validation_action_mae_does_not_improve_over_base
+  extension_policy: >-
+    Do not extend beyond 20,000 optimizer steps and do not automatically launch
+    a second full-dataset run.
+risk_register:
+  - >-
+    The sine decoder guarantees standard gripper bounds but is periodic for
+    arbitrary internal values. Quarter and validation evidence must therefore
+    retain internal-support diagnostics instead of treating bounded output as
+    proof that the learned internal angle stayed in-distribution.
+stop_conditions:
+  - nonfinite_loss_gradient_or_action
+  - out_of_memory
+  - peak_xpu_allocation_above_4294967296_bytes
+  - optimizer_or_scheduler_state_divergence
+  - unsupported_accelerator_operation
+  - checkpoint_failure
+  - trackio_local_durability_failure
+  - implementation_checksum_mismatch
+  - normalization_identity_mismatch
+  - standard_space_gripper_output_violation
+  - validation_or_hidden_test_episode_used_for_gradients
+  - hidden_test_episode_materialized_or_loaded
+implementation_files:
+  scripts/run_smolvla_action_repair_formal.py: d7abf0c555175844915a297b1e0530c011401566ab60ea7ba84d0f71cd85bd1a
+  scripts/train_smolvla_action_repair_formal.py: 0a8d8aeb7fef67df1e0b6456e8e5339e592944e25c17562ebad927d71bfa1732
+  scripts/evaluate_smolvla_action_repair_validation.py: 0755a90c472c89230029b6bb7202a8c1d578de48cc05589eda9aef022951cb4c
+  scripts/inspect_smolvla_faust_quarter.py: 9f7cec8f1401c0f1420fff0401bafed28dced4605a4f76fcff8aab8f2eb1f9da
+  scripts/train_smolvla_action_repair.py: 97d0bd13af9dcd0a78e712d8eaf335fb036075c4c80c7dd9053e4c2827334b19
+  scripts/run_smolvla_action_repair_phase.py: 8f5138b38038827663df84e1143a29740b55f42445ad17b7b73de17014cd9456
+  scripts/train_smolvla_trackio.py: 20d8449fc67f6ef7911532b14b3644e4dc16835b407bf0c120981137fae717ef
+  scripts/run_smolvla_formal.py: a428e3e5ea3a7ed5bd222032591f7f4854e4f48ecce3d3963bae67eda00c6018
+  scripts/run_smolvla_phase.py: e9dc08dfdfbd1065b70ee1223110be39665c3fdfaf56d7d079e2b2d725f4cedb
+  scripts/smolvla_forward_check.py: ef585b3940acba34c87bd11ba4dde5176948e673bdbe7de6d2dd351e3dc82a33
+  src/rosetta_reality/vla/__init__.py: bd22446fe35e43b0bad6f6f84d7556adc12170dbd3c97b0f01128267bbf02cb5
+  src/rosetta_reality/vla/action_space.py: 4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb
+  src/rosetta_reality/vla/checkpoint_memory.py: 381a611c7a3902318ddd099cdfc6c14aa45cf94c207f29ca9bdeb6cfeceb33ca
+  src/rosetta_reality/vla/fixed_samples.py: 1627cb54f4c352a8832f7fa4abb2ded76d3d960799dccec8460cdd0be82a954a
+  src/rosetta_reality/vla/processor.py: 96734ec28238b59c43f3c1b4b2388241e9b3408e053fe9ced548ddeef6be3e0b
+  src/rosetta_reality/tracking/trackio_lerobot.py: 009cd1041e4a6b4c1ba1860bfba20b6166c24bdb593c7b7efb23fe02d3b02bbd
+hidden_test_loaded: false

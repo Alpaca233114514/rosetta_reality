@@ -30,6 +30,8 @@ def _experiment_config() -> dict[str, Any]:
 
 def _public_config(cfg: Any, experiment: dict[str, Any], phase: str) -> dict[str, Any]:
     policy = cfg.policy
+    optimizer = cfg.optimizer
+    scheduler = cfg.scheduler
     dataset = experiment["dataset"]
     model = experiment["model"]
     upstream = experiment["upstream"]
@@ -81,6 +83,31 @@ def _public_config(cfg: Any, experiment: dict[str, Any], phase: str) -> dict[str
         "freeze_vision_encoder": policy.freeze_vision_encoder,
         "train_expert_only": policy.train_expert_only,
         "train_state_proj": policy.train_state_proj,
+        "optimizer_type": None if optimizer is None else optimizer.type,
+        "optimizer_lr": None if optimizer is None else optimizer.lr,
+        "optimizer_betas": None
+        if optimizer is None
+        else list(getattr(optimizer, "betas", ())),
+        "optimizer_eps": None if optimizer is None else getattr(optimizer, "eps", None),
+        "optimizer_weight_decay": None
+        if optimizer is None
+        else optimizer.weight_decay,
+        "optimizer_grad_clip_norm": None
+        if optimizer is None
+        else optimizer.grad_clip_norm,
+        "scheduler_type": None if scheduler is None else scheduler.type,
+        "scheduler_warmup_steps": None
+        if scheduler is None
+        else scheduler.num_warmup_steps,
+        "scheduler_decay_steps": None
+        if scheduler is None
+        else getattr(scheduler, "num_decay_steps", None),
+        "scheduler_peak_lr": None
+        if scheduler is None
+        else getattr(scheduler, "peak_lr", None),
+        "scheduler_decay_lr": None
+        if scheduler is None
+        else getattr(scheduler, "decay_lr", None),
         "train_episode_count": len(cfg.dataset.episodes or []),
         "eval_split": cfg.dataset.eval_split,
         "accelerator": resources["accelerator"],
@@ -158,7 +185,7 @@ class TrackioLogger:
         if step is None or isinstance(step, bool) or step < 0:
             raise ValueError("Trackio metrics require a non-negative integer step.")
         public_values = dict(values)
-        if os.environ.get("ROSETTA_VLA_PHASE") == "performance_benchmark":
+        if os.environ.get("ROSETTA_VLA_PHASE") in {"performance_benchmark", "formal"}:
             import torch
 
             if torch.xpu.is_available():

@@ -143,6 +143,21 @@ revision-pinned, robot-agnostic dataset path. Historical Qwen VLA experiments
 extended the training and simulation tooling but did not pass M2 closed-loop
 acceptance. Their reusable infrastructure now feeds the SmolVLA M2 path.
 
+For the temporary AutoDL RTX 4090 worker, the platform container itself replaces
+the local nested-Docker wrapper. The offline, benchmark-first staging and CUDA
+preflight procedure is documented in
+[`docs/autodl-rtx4090.md`](docs/autodl-rtx4090.md); formal CUDA training remains
+locked until live doctor, benchmark and two-step smoke evidence are registered.
+
+The completed Faust run, Gate 4 failure, trainer/optimizer findings, evidence
+identities and AI repair order are recorded in
+[`reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md`](reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md),
+with a machine-readable
+[`JSON companion`](reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.json).
+The initial no-optimizer diagnosis is
+preserved in
+[`reports/training/m2-smolvla-action-repair-handoff-2026-08-12.md`](reports/training/m2-smolvla-action-repair-handoff-2026-08-12.md).
+
 ## Planned Roadmap
 
 - M1 — Dataset Pipeline (complete for the bounded acceptance slice)

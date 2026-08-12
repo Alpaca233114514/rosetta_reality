@@ -42,6 +42,16 @@ def _load_json(path: Path) -> dict[str, Any]:
     return value
 
 
+def _deep_merge(base: dict[str, Any], overrides: dict[str, Any]) -> dict[str, Any]:
+    merged = copy.deepcopy(base)
+    for key, value in overrides.items():
+        if isinstance(value, dict) and isinstance(merged.get(key), dict):
+            merged[key] = _deep_merge(merged[key], value)
+        else:
+            merged[key] = copy.deepcopy(value)
+    return merged
+
+
 def _repository_path(raw: str, *, require_file: bool = True) -> Path:
     relative = Path(raw)
     if not relative.parts or relative.is_absolute() or ".." in relative.parts:
@@ -60,6 +70,27 @@ def _is_sha256(value: Any) -> bool:
         and len(value) == 64
         and all(character in "0123456789abcdef" for character in value)
     )
+
+
+def _load_formal_plan(path: Path) -> dict[str, Any]:
+    value = _load_yaml(path)
+    inheritance = value.pop("extends", None)
+    if inheritance is None:
+        return value
+    if not isinstance(inheritance, dict):
+        raise ValueError("Formal plan inheritance must be a mapping.")
+    base_path = _repository_path(str(inheritance.get("config", "")))
+    if file_sha256(base_path) != inheritance.get("sha256"):
+        raise ValueError("Inherited formal plan checksum changed.")
+    base = _load_yaml(base_path)
+    if "extends" in base:
+        raise ValueError("Nested formal plan inheritance is not supported.")
+    merged = _deep_merge(base, value)
+    merged["plan_inheritance"] = {
+        "config": base_path.relative_to(REPOSITORY_ROOT).as_posix(),
+        "sha256": file_sha256(base_path),
+    }
+    return merged
 
 
 def _training_coverage(training: dict[str, Any], train_rows: int) -> dict[str, int | float]:
@@ -110,6 +141,229 @@ def _training_coverage(training: dict[str, Any], train_rows: int) -> dict[str, i
         "minimum_dataset_passes": (
             0.0 if minimum_passes is None else float(minimum_passes)
         ),
+    }
+
+
+def _optimizer_contract(training: dict[str, Any]) -> dict[str, Any] | None:
+    """Validate an explicitly registered SmolVLA optimizer and LR schedule."""
+
+    optimizer = training.get("optimizer")
+    scheduler = training.get("scheduler")
+    if optimizer is None and scheduler is None:
+        return None
+    if not isinstance(optimizer, dict) or not isinstance(scheduler, dict):
+        raise ValueError("Optimizer and scheduler contracts must both be mappings.")
+
+    betas = optimizer.get("betas")
+    numeric_optimizer = {
+        "lr": optimizer.get("lr"),
+        "eps": optimizer.get("eps"),
+        "weight_decay": optimizer.get("weight_decay"),
+        "grad_clip_norm": optimizer.get("grad_clip_norm"),
+    }
+    if (
+        optimizer.get("type") != "adamw"
+        or not isinstance(betas, list)
+        or len(betas) != 2
+        or any(
+            not isinstance(value, int | float)
+            or isinstance(value, bool)
+            or not math.isfinite(float(value))
+            or not 0.0 < float(value) < 1.0
+            for value in betas
+        )
+        or any(
+            not isinstance(value, int | float)
+            or isinstance(value, bool)
+            or not math.isfinite(float(value))
+            for value in numeric_optimizer.values()
+        )
+        or float(numeric_optimizer["lr"]) <= 0.0
+        or float(numeric_optimizer["eps"]) <= 0.0
+        or float(numeric_optimizer["weight_decay"]) < 0.0
+        or float(numeric_optimizer["grad_clip_norm"]) <= 0.0
+    ):
+        raise ValueError("The formal AdamW optimizer contract is invalid.")
+
+    steps = training.get("steps")
+    warmup_steps = scheduler.get("num_warmup_steps")
+    decay_steps = scheduler.get("num_decay_steps")
+    peak_lr = scheduler.get("peak_lr")
+    decay_lr = scheduler.get("decay_lr")
+    if (
+        scheduler.get("type") != "cosine_decay_with_warmup"
+        or not isinstance(steps, int)
+        or isinstance(steps, bool)
+        or not isinstance(warmup_steps, int)
+        or isinstance(warmup_steps, bool)
+        or not isinstance(decay_steps, int)
+        or isinstance(decay_steps, bool)
+        or not isinstance(peak_lr, int | float)
+        or isinstance(peak_lr, bool)
+        or not isinstance(decay_lr, int | float)
+        or isinstance(decay_lr, bool)
+        or not math.isfinite(float(peak_lr))
+        or not math.isfinite(float(decay_lr))
+        or not 0 <= warmup_steps < steps
+        or decay_steps != steps
+        or float(peak_lr) != float(numeric_optimizer["lr"])
+        or not 0.0 < float(decay_lr) < float(peak_lr)
+    ):
+        raise ValueError("The formal cosine LR schedule is invalid or not step-matched.")
+
+    return {
+        "optimizer": {
+            "type": "adamw",
+            "lr": float(numeric_optimizer["lr"]),
+            "weight_decay": float(numeric_optimizer["weight_decay"]),
+            "grad_clip_norm": float(numeric_optimizer["grad_clip_norm"]),
+            "betas": [float(value) for value in betas],
+            "eps": float(numeric_optimizer["eps"]),
+        },
+        "scheduler": {
+            "type": "cosine_decay_with_warmup",
+            "num_warmup_steps": warmup_steps,
+            "num_decay_steps": decay_steps,
+            "peak_lr": float(peak_lr),
+            "decay_lr": float(decay_lr),
+        },
+    }
+
+
+def _optimizer_arguments(training: dict[str, Any]) -> list[str]:
+    contract = _optimizer_contract(training)
+    if contract is None:
+        return []
+    optimizer = contract["optimizer"]
+    scheduler = contract["scheduler"]
+    return [
+        f"--policy.optimizer_lr={optimizer['lr']}",
+        f"--policy.optimizer_betas={json.dumps(optimizer['betas'], separators=(',', ':'))}",
+        f"--policy.optimizer_eps={optimizer['eps']}",
+        f"--policy.optimizer_weight_decay={optimizer['weight_decay']}",
+        f"--policy.optimizer_grad_clip_norm={optimizer['grad_clip_norm']}",
+        f"--policy.scheduler_warmup_steps={scheduler['num_warmup_steps']}",
+        f"--policy.scheduler_decay_steps={scheduler['num_decay_steps']}",
+        f"--policy.scheduler_decay_lr={scheduler['decay_lr']}",
+    ]
+
+
+def _validate_saved_optimizer_contract(
+    train_config: dict[str, Any], training: dict[str, Any]
+) -> dict[str, Any] | None:
+    contract = _optimizer_contract(training)
+    if contract is None:
+        return None
+    policy = train_config.get("policy", {})
+    optimizer = contract["optimizer"]
+    scheduler = contract["scheduler"]
+    if (
+        train_config.get("optimizer") != optimizer
+        or train_config.get("scheduler") != scheduler
+        or policy.get("optimizer_lr") != optimizer["lr"]
+        or policy.get("optimizer_betas") != optimizer["betas"]
+        or policy.get("optimizer_eps") != optimizer["eps"]
+        or policy.get("optimizer_weight_decay") != optimizer["weight_decay"]
+        or policy.get("optimizer_grad_clip_norm") != optimizer["grad_clip_norm"]
+        or policy.get("scheduler_warmup_steps") != scheduler["num_warmup_steps"]
+        or policy.get("scheduler_decay_steps") != scheduler["num_decay_steps"]
+        or policy.get("scheduler_decay_lr") != scheduler["decay_lr"]
+    ):
+        raise ValueError("Saved optimizer or scheduler differs from the formal plan.")
+    return contract
+
+
+def _validate_monitoring(plan: dict[str, Any]) -> dict[str, Any] | None:
+    """Require formal runs to expose only the four registered wake checkpoints."""
+
+    monitoring = plan.get("monitoring")
+    if monitoring is None:
+        return None
+    if not isinstance(monitoring, dict):
+        raise ValueError("Formal monitoring must be a mapping.")
+    training = plan.get("training", {})
+    steps = training.get("steps")
+    if not isinstance(steps, int) or isinstance(steps, bool) or steps <= 0 or steps % 4:
+        raise ValueError(
+            "Quarter-only monitoring requires a positive step count divisible by four."
+        )
+    expected_steps = [steps * fraction // 4 for fraction in range(1, 5)]
+    if (
+        monitoring.get("policy") != "sleep_between_quarter_checkpoints"
+        or monitoring.get("wake_fractions") != [0.25, 0.5, 0.75, 1.0]
+        or monitoring.get("wake_steps") != expected_steps
+        or monitoring.get("wake_steps") != training.get("checkpoint_steps")
+        or monitoring.get("blocking_command") != "sleep"
+        or not isinstance(monitoring.get("sleep_poll_seconds"), int)
+        or isinstance(monitoring.get("sleep_poll_seconds"), bool)
+        or not 15 <= int(monitoring["sleep_poll_seconds"]) <= 60
+        or not isinstance(monitoring.get("estimated_total_minutes"), int | float)
+        or isinstance(monitoring.get("estimated_total_minutes"), bool)
+        or not math.isfinite(float(monitoring["estimated_total_minutes"]))
+        or float(monitoring["estimated_total_minutes"]) <= 0.0
+        or monitoring.get("hidden_test_loaded") is not False
+    ):
+        raise ValueError("Formal monitoring differs from the quarter-only sleep policy.")
+    return {
+        "policy": monitoring["policy"],
+        "wake_fractions": monitoring["wake_fractions"],
+        "wake_steps": monitoring["wake_steps"],
+        "blocking_command": monitoring["blocking_command"],
+        "sleep_poll_seconds": monitoring["sleep_poll_seconds"],
+        "estimated_total_minutes": float(monitoring["estimated_total_minutes"]),
+        "hidden_test_loaded": False,
+    }
+
+
+def _validate_furnace_program(
+    plan: dict[str, Any], plan_path: Path
+) -> dict[str, Any] | None:
+    """Bind a formal plan to the exactly-three-run furnace registry."""
+
+    furnace = plan.get("furnace_program")
+    if furnace is None:
+        return None
+    if not isinstance(furnace, dict):
+        raise ValueError("Formal furnace registration must be a mapping.")
+    registry_path = _repository_path(str(furnace.get("registry", "")))
+    if file_sha256(registry_path) != furnace.get("registry_sha256"):
+        raise ValueError("The formal furnace registry checksum changed.")
+    registry = _load_yaml(registry_path)
+    runs = registry.get("runs")
+    codenames = ["Odyssey", "Don Quixote", "Moby Dick"]
+    ordinal = furnace.get("ordinal")
+    relative_plan = plan_path.resolve().relative_to(REPOSITORY_ROOT).as_posix()
+    if (
+        registry.get("schema_version") != 1
+        or registry.get("status") != "preregistered"
+        or registry.get("maximum_formal_runs") != 3
+        or registry.get("execution") != "strictly_sequential"
+        or registry.get("codenames_in_order") != codenames
+        or not isinstance(runs, list)
+        or len(runs) != 3
+        or [item.get("ordinal") for item in runs if isinstance(item, dict)] != [1, 2, 3]
+        or [item.get("codename") for item in runs if isinstance(item, dict)] != codenames
+        or not isinstance(ordinal, int)
+        or isinstance(ordinal, bool)
+        or not 1 <= ordinal <= 3
+        or furnace.get("program_id") != registry.get("program_id")
+        or furnace.get("maximum_formal_runs") != 3
+    ):
+        raise ValueError("The formal furnace registry is not exactly the registered three runs.")
+    registered = runs[ordinal - 1]
+    if (
+        not isinstance(registered, dict)
+        or registered.get("plan") != relative_plan
+        or registered.get("codename") != furnace.get("codename")
+        or registered.get("run_name") != plan.get("run_name")
+    ):
+        raise ValueError("The formal plan differs from its furnace registry entry.")
+    return {
+        "program_id": furnace["program_id"],
+        "ordinal": ordinal,
+        "codename": furnace["codename"],
+        "maximum_formal_runs": 3,
+        "registry_sha256": furnace["registry_sha256"],
     }
 
 
@@ -251,7 +505,7 @@ def _validate_plan(
     *,
     require_runtime_evidence: bool = True,
 ) -> tuple[dict[str, Any], Path, dict[str, Any]]:
-    plan = _load_yaml(plan_path)
+    plan = _load_formal_plan(plan_path)
     parent = plan.get("parent_experiment", {})
     base_path = _repository_path(str(parent.get("config", "")))
     if file_sha256(base_path) != parent.get("sha256"):
@@ -276,6 +530,9 @@ def _validate_plan(
         if int(training.get("save_freq", 0)) > 0
         else []
     )
+    optimizer_contract = _optimizer_contract(training)
+    monitoring = _validate_monitoring(plan)
+    furnace_program = _validate_furnace_program(plan, plan_path)
     if (
         plan.get("schema_version") != 1
         or plan.get("role") != "vla"
@@ -313,6 +570,12 @@ def _validate_plan(
         or resources.get("mixed_precision") != experiment["resources"]["mixed_precision"]
         or resources.get("cpu_limit") != experiment["resources"]["cpu_limit"]
         or plan.get("tracking", {}).get("space_id") != experiment["tracking"]["space_id"]
+        or (
+            plan.get("optimizer_contract_required") is True
+            and optimizer_contract is None
+        )
+        or (plan.get("monitoring_required") is True and monitoring is None)
+        or (plan.get("furnace_program_required") is True and furnace_program is None)
     ):
         raise ValueError(
             "Formal plan differs from the registered split, model, or resource contract."
@@ -556,6 +819,7 @@ def _validate_base_validation(
 def _write_launch_manifest(
     mode: str,
     run_name: str,
+    plan: dict[str, Any],
     plan_path: Path,
     base_path: Path,
     experiment: dict[str, Any],
@@ -589,6 +853,10 @@ def _write_launch_manifest(
         "code_identity": code_identity,
         "hidden_test_loaded": False,
         "performance_optimization": performance_optimization,
+        "optimizer_contract": _optimizer_contract(plan["training"]),
+        "monitoring": _validate_monitoring(plan),
+        "furnace_program": _validate_furnace_program(plan, plan_path),
+        "plan_inheritance": plan.get("plan_inheritance"),
     }
     destination = run_root / str(experiment["experiment_id"]) / "launch" / f"{run_name}.json"
     create_json(destination, report)
@@ -658,6 +926,7 @@ def main() -> int:
     launch_manifest = _write_launch_manifest(
         args.mode,
         str(run_name),
+        plan,
         plan_path,
         base_path,
         experiment,
@@ -706,16 +975,18 @@ def main() -> int:
         )
     else:
         os.environ["ROSETTA_VLA_SKIP_FULLY_MASKED_CAMERA_ENCODING"] = "0"
+    training_arguments = phase_runner._phase_arguments(
+        runtime_experiment,
+        phase,
+        str(run_name),
+        model_root,
+        dataset_root,
+        output_dir,
+    )
+    training_arguments.extend(_optimizer_arguments(plan["training"]))
     sys.argv = [
         "lerobot-train",
-        *phase_runner._phase_arguments(
-            runtime_experiment,
-            phase,
-            str(run_name),
-            model_root,
-            dataset_root,
-            output_dir,
-        ),
+        *training_arguments,
     ]
     print(f"Launch manifest: {launch_manifest.relative_to(REPOSITORY_ROOT).as_posix()}")
     if args.mode == "preflight":

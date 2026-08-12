@@ -1,0 +1,66 @@
+schema_version: 1
+role: vla
+stage: m2_closed_loop_simulation
+status: preregistered
+plan_id: m2-smolvla450m-moby-dick-sim-005
+experiment_id: m2-smolvla450m-aloha-insertion-001
+artifact_id: m2-smolvla450m-moby-dick-step1260-001
+hypothesis: >-
+  The validation-selected Moby Dick checkpoint will test whether the strongest
+  fixed-validation action MAE among the three preregistered furnaces translates
+  into improved closed-loop task execution. Environment seeds, policy-noise
+  seeds, task threshold, Action Contract, output safety projection, simulator
+  physics, and hidden-test isolation remain unchanged; another zero-success
+  result will trigger simulation-protocol isolation rather than a fourth run.
+prior_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-001/gates/gate3-smolvla-sim-001.json
+  report_sha256: 5df3b887984d1c8fd47084c3315a71e3894eac18cc80b1eb08b2120583ed26ed
+  failed_criterion: raw_actions_within_contract
+prior_task_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-001/gates/gate4-smolvla-sim-004.json
+  report_sha256: a5bd2dd1d1ae5e6e8c0fc8b62449c2c3a64903c258c90cfedc27aa136064fdaf
+  failed_criterion: minimum_task_success_rate
+selection:
+  report: runs/m2-smolvla450m-aloha-insertion-001/selection/m2-smolvla450m-moby-dick-selection-001.json
+  report_sha256: 428c5fff412fd17ff0872275cc05fba10a2922bef8ea7fe9c715d87a331b64ab
+  checkpoint_step: 1260
+  model_safetensors_sha256: b9cecf6b0cd4cf189ea6a534228700b1bb5c96aa28de06364756b97be65f0fb0
+action_contract:
+  path: configs/sim/aloha_insertion_smolvla.yaml
+  sha256: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+inference:
+  observation_camera: top
+  policy_camera: observation.images.camera1
+  instruction: Insert the peg into the socket.
+  noise: seeded_standard_normal
+  noise_source: pinned_lerobot_default_standard_normal
+  mixed_precision: bf16
+  chunk_execution: receding_horizon_first_action
+  chunk_execution_steps: 1
+  policy_output_projection: action_contract_clip
+  projection_location: vla_output_boundary_before_simulation_adapter
+  unprojected_decoder_action_role: non_gating_diagnostic
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  container_image_id: sha256:f4a71c4020cd54d2a878f01628d591af9572f0784458f4c821008f8aea30393c
+  memory_limit: 6g
+  memory_swap_limit: 6g
+gate3:
+  seed: 20260809
+  policy_noise_seed: 20260809
+  maximum_steps: 20
+  require_finite_actions: true
+  require_projected_policy_actions_within_contract: true
+  require_adapter_no_additional_clipping: true
+  maximum_unexpected_collisions: 0
+  report_suffix: "005"
+gate4:
+  seeds: [1000, 1001, 1002, 1003, 1004]
+  policy_noise_seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+  minimum_task_success_rate: 0.2
+  maximum_unexpected_collisions: 0
+  require_gate3_passed: true
+  report_suffix: "005"
+hidden_test_loaded: false

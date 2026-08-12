@@ -22,6 +22,10 @@ if str(SOURCE_ROOT) not in sys.path:
 from rosetta_reality.experiment import file_sha256  # noqa: E402
 from rosetta_reality.features import create_json  # noqa: E402
 from rosetta_reality.tracking import validate_public_payload  # noqa: E402
+from rosetta_reality.vla import (  # noqa: E402
+    load_smolvla_action_space,
+    load_smolvla_experiment,
+)
 
 
 def _load_yaml(path: Path) -> dict[str, Any]:
@@ -94,6 +98,7 @@ def _validate_prerequisites(
     preflight = _load_json(preflight_path)
     dataset = experiment["dataset"]
     tracking = experiment["tracking"]
+    action_space = load_smolvla_action_space(experiment)
     if (
         benchmark.get("status") != "complete"
         or benchmark.get("stage") != "pre_training"
@@ -108,12 +113,14 @@ def _validate_prerequisites(
     if (
         gate1.get("status") != "passed"
         or gate1.get("gate") != "m2_gate_1_scripted_action"
+        or gate1.get("experiment_id") != experiment["experiment_id"]
         or gate1.get("action_contract_sha256") != contract_sha256
     ):
         raise ValueError("Gate 1 evidence is invalid.")
     if (
         gate2.get("status") != "passed"
         or gate2.get("gate") != "m2_gate_2_dataset_action_replay"
+        or gate2.get("experiment_id") != experiment["experiment_id"]
         or gate2.get("action_contract_sha256") != contract_sha256
         or gate2.get("dataset_revision") != dataset["revision"]
         or gate2.get("acceptance_criteria", {}).get("timestamp_alignment") is not True
@@ -145,6 +152,7 @@ def _validate_prerequisites(
         or preflight.get("optimizer_created") is not False
         or preflight.get("gradients_enabled") is not False
         or preflight.get("mixed_precision") != experiment["resources"]["mixed_precision"]
+        or preflight.get("action_space") != action_space.as_dict()
         or str(preflight.get("device")) not in str(experiment["resources"]["accelerator"])
     ):
         raise ValueError("The real SmolVLA preflight evidence is invalid.")
@@ -248,6 +256,7 @@ def _validate_reloads(
     expected_contract_sha256 = file_sha256(contract_path)
     action_spec = _load_yaml(contract_path)["action"]
     smoke = experiment["phases"]["smoke"]
+    action_space = load_smolvla_action_space(experiment)
     reports = [_load_json(path) for path in reload_paths]
     for report in reports:
         if (
@@ -263,10 +272,25 @@ def _validate_reloads(
             or report.get("checkpoint_step") != smoke["steps"]
             or report.get("action_dimension") != action_spec["dimension"]
             or report.get("chunk_length") != action_spec["chunk_length"]
+            or report.get("action_space") != action_space.as_dict()
             or report.get("hidden_test_loaded") is not False
             or report.get("network_disabled") is not True
         ):
             raise ValueError("An independent checkpoint reload report is invalid.")
+        boundary = report.get("serialized_action_boundary", {})
+        diagnostics = report.get("raw_standard_action_diagnostics")
+        if action_space.explicit and (
+            boundary.get("explicit") is not True
+            or boundary.get("projection_before_representation_before_normalization")
+            is not True
+            or boundary.get("unnormalization_before_inverse_and_clamp") is not True
+            or not isinstance(diagnostics, dict)
+            or not isinstance(
+                diagnostics.get("dimensions", {}).get("right_gripper", {}).get("mae"),
+                int | float,
+            )
+        ):
+            raise ValueError("Reloaded repair checkpoint did not preserve diagnostics boundary.")
         _finite_number(report.get("fixed_input_loss"), "fixed-input reload loss")
     reference = reports[0]
     comparable_fields = (
@@ -278,6 +302,8 @@ def _validate_reloads(
         "fixed_input_loss",
         "loss_details",
         "action_chunk",
+        "serialized_action_boundary",
+        "raw_standard_action_diagnostics",
     )
     for report in reports[1:]:
         for field in comparable_fields:
@@ -311,7 +337,7 @@ def main() -> int:
         raise RuntimeError("The observed smoke container did not exit cleanly within budget.")
 
     config_path = args.config.resolve()
-    experiment = _load_yaml(config_path)
+    experiment = load_smolvla_experiment(config_path, REPOSITORY_ROOT)
     contract_path = REPOSITORY_ROOT / str(experiment["action_contract"]["derived"])
     run_root = _absolute_root("ROSETTA_RUN_ROOT")
     evidence_paths = [

@@ -1,0 +1,25 @@
+extends:
+  config: configs/vla/smolvla_450m_aloha_insertion_odyssey_001.yaml
+  sha256: 10e033b4f6182aa3d1523b283712f530fb432f6a4c6bea658d8ab205dd9aff88
+schema_version: 1
+plan_id: m2-smolvla450m-moby-dick-001
+run_name: m2-smolvla450m-moby-dick-001
+hypothesis: >-
+  With every data, model, seed, batch, schedule-shape, and systems variable held
+  fixed, a bounded 1.25e-4 AdamW peak may learn faster within one dataset pass
+  while the registered clipping and quarter checks contain instability risk.
+furnace_program:
+  ordinal: 3
+  codename: Moby Dick
+preflight:
+  run_name: m2-smolvla450m-moby-dick-preflight-001
+training:
+  optimizer:
+    lr: 1.25e-4
+  scheduler:
+    peak_lr: 1.25e-4
+    decay_lr: 3.125e-6
+validation:
+  run_name_prefix: m2-smolvla450m-moby-dick-validation-001
+selection:
+  report_name: m2-smolvla450m-moby-dick-selection-001.json

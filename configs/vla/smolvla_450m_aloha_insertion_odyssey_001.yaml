@@ -1,0 +1,184 @@
+schema_version: 1
+role: vla
+stage: m2_development_training_optimizer_comparison
+status: preregistered
+plan_id: m2-smolvla450m-odyssey-001
+run_name: m2-smolvla450m-odyssey-001
+optimizer_contract_required: true
+monitoring_required: true
+furnace_program_required: true
+hypothesis: >-
+  With the measured batch-12 XPU path held fixed, the upstream SmolVLA AdamW
+  peak learning rate of 1e-4 and an explicit 56-step warmup provide the control
+  trajectory for a one-pass development run without relying on implicit
+  scheduler rescaling.
+furnace_program:
+  registry: configs/vla/smolvla_450m_aloha_insertion_three_furnace_001.yaml
+  registry_sha256: 992ae6a7e43674d20fff3c0db5d2a6d6f6ce44caad39a05e5878fe9ac12bf03c
+  program_id: m2-smolvla450m-three-furnace-001
+  ordinal: 1
+  codename: Odyssey
+  maximum_formal_runs: 3
+parent_experiment:
+  config: configs/vla/smolvla_450m_aloha_insertion.yaml
+  sha256: 7306014717eb3fe5a5997a92406ec18cb251f1c17cc9d46ed74d75ac71d8b19f
+  experiment_id: m2-smolvla450m-aloha-insertion-001
+initialization:
+  source: revision_pinned_base
+  reason: keep all three optimizer comparisons independent of prior checkpoints
+  model_id: lerobot/smolvla_base
+  model_revision: c83c3163b8ca9b7e67c509fffd9121e66cb96205
+  overfit_checkpoint_used: false
+normalization:
+  source_split: train
+  report: runs/m2-smolvla450m-aloha-insertion-001/normalization/train-only-aa4e671eac73c303.json
+  report_sha256: df7ffa354c790a6d7fbdef912b628b17a8531b5a956d87eda3adcca51a4fdb51
+  dataset_view_manifest: runs/m2-smolvla450m-aloha-insertion-001/dataset_views/train-only-aa4e671eac73c303/view_manifest.json
+  dataset_view_manifest_sha256: 61b054ff47a3fe68119b880eae737fa6b560b8c1f27b9ad70d075876609118ef
+  validation_episodes_loaded: false
+  hidden_test_loaded: false
+prerequisites:
+  benchmark:
+    path: runs/m2-smolvla450m-aloha-insertion-001/benchmark/pre-training-ccc20014281be82f.json
+    sha256: 1a213b640b2ba33ba9996723bac107b1b8914014d52c7c1961a2e37f205d8431
+  gate1:
+    path: runs/m2-smolvla450m-aloha-insertion-001/gates/gate1-dc86afbf240a.json
+    sha256: b50f046c891a8b84738130190febb784a157b156bfdb6afd4a0a92b2694f6378
+  gate2:
+    path: runs/m2-smolvla450m-aloha-insertion-001/gates/gate2-ec83a68f1cc1.json
+    sha256: 07491fc4eea0cdad5099b8b538dfa73f8c2760dc6a44ecb5ca8754cf79bb09e0
+  smoke_acceptance:
+    path: runs/m2-smolvla450m-aloha-insertion-001/acceptance/m2-smolvla450m-smoke-003.json
+    sha256: af3e49ab3110b2d383f3d2eb6765d82d958d064af579de3fb62c9c25a062b695
+  overfit_acceptance:
+    path: runs/m2-smolvla450m-aloha-insertion-001/acceptance/m2-smolvla450m-overfit-001.json
+    sha256: 6ac982b178b074326109c7afccd0f2dbb4372e2f38aae694ce926b2f3df576bb
+  trackio_sync:
+    path: runs/m2-smolvla450m-aloha-insertion-001/tracking/space-sync-a70b21ceac196c12.json
+    sha256: 8be7eacb4455de40353652128c1fcc025b6e659fabeb69c2a14e3d250d6f69ad
+performance_optimization:
+  plan: configs/vla/smolvla_450m_aloha_insertion_xpu_performance_003.yaml
+  plan_sha256: 5b1ad3513dfb498ec44ead3591f6fdd22b6584bd536d4351fc1be30ce3f5d2aa
+  parity_report: runs/m2-smolvla450m-aloha-insertion-001/performance/masked-camera-parity-5b1ad3513dfb.json
+  parity_report_sha256: 9ab4548d5729d27bd4f93c4e4d28b04cf069e658c06c86159764e973a7ca660a
+  benchmark_report: runs/m2-smolvla450m-aloha-insertion-001/performance/m2-smolvla450m-perf-compile-b12-skip-003.json
+  benchmark_report_sha256: ceb841e1259ca49dcb8c5b5803e046b9754f838676ccd9c95edc01f278c3947d
+  selected_candidate: compile-b12-skip-v3
+  maximum_projected_wall_seconds: 7200
+  compiler_cache_key: xpu-5b1ad3513dfb
+  implementation_files:
+    scripts/run_smolvla_phase.py: e9dc08dfdfbd1065b70ee1223110be39665c3fdfaf56d7d079e2b2d725f4cedb
+    scripts/train_smolvla_trackio.py: 20d8449fc67f6ef7911532b14b3644e4dc16835b407bf0c120981137fae717ef
+    scripts/run_smolvla_formal.py: a428e3e5ea3a7ed5bd222032591f7f4854e4f48ecce3d3963bae67eda00c6018
+    scripts/evaluate_smolvla_validation.py: 4aff5c8c23d8194a1b4997316c904a63498a47e94f9ba695683fe41a01f7d07c
+    scripts/select_smolvla_checkpoint.py: 1bf87da02f3fd1ab437e31c5d0b2ff3f47fd431840fa61871d697c92cedd275e
+    scripts/inspect_smolvla_quarter.py: 6a0090420299bac96b511afc0b84fb80b4a47a38073701f6c9190600f909a4e7
+    scripts/export_smolvla.py: 2025b25bffd0f839519458e5255ec05bece9ef1fa4606f69648a42f1119f5271
+    src/rosetta_reality/tracking/trackio_lerobot.py: 009cd1041e4a6b4c1ba1860bfba20b6166c24bdb593c7b7efb23fe02d3b02bbd
+preflight:
+  run_name: m2-smolvla450m-odyssey-preflight-001
+  episodes: [49]
+  batch_size: 1
+  optimizer_created: false
+training:
+  episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  batch_size: 12
+  steps: 1680
+  minimum_dataset_passes: 1.0
+  save_freq: 420
+  save_checkpoint: true
+  log_freq: 10
+  num_workers: 0
+  persistent_workers: false
+  checkpoint_steps: [420, 840, 1260, 1680]
+  eval_split: 0.0
+  validation_gradients: false
+  hidden_test_loaded: false
+  optimizer:
+    type: adamw
+    lr: 1.0e-4
+    betas: [0.9, 0.95]
+    eps: 1.0e-8
+    weight_decay: 1.0e-10
+    grad_clip_norm: 10.0
+  scheduler:
+    type: cosine_decay_with_warmup
+    num_warmup_steps: 56
+    num_decay_steps: 1680
+    peak_lr: 1.0e-4
+    decay_lr: 2.5e-6
+  policy:
+    empty_cameras: 2
+    compile_model: true
+    compile_mode: reduce-overhead
+    skip_fully_masked_camera_encoding: true
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  mixed_precision: bf16
+  memory_limit: 8g
+  memory_swap_limit: 8g
+  cpu_limit: 2
+  measured_peak_xpu_allocated_bytes: 4304140800
+  maximum_peak_xpu_allocated_bytes: 7516192768
+  measured_projected_wall_time_minutes: 83.47573709306822
+  expected_wall_time_minutes: 90
+  maximum_wall_time_minutes: 120
+  cold_compile_and_checkpoint_allowance_included: true
+monitoring:
+  policy: sleep_between_quarter_checkpoints
+  estimated_total_minutes: 90
+  wake_fractions: [0.25, 0.5, 0.75, 1.0]
+  wake_steps: [420, 840, 1260, 1680]
+  blocking_command: sleep
+  sleep_poll_seconds: 60
+  hidden_test_loaded: false
+tracking:
+  project: rosetta-reality-vla
+  space_id: LAlpaca/rosetta-reality-trackio
+  delivery: local_durable_then_checkpoint_sync
+  public_payload_only: true
+validation:
+  run_name_prefix: m2-smolvla450m-odyssey-validation-001
+  episodes: [22, 13, 7, 33, 45]
+  frame_offsets: [0, 125, 250, 375]
+  samples_per_episode: 4
+  total_samples: 20
+  batch_size: 1
+  noise: zeros
+  flow_time: 0.5
+  checkpoints: [base, 420, 840, 1260, 1680]
+  primary_selection_metric: action_mae
+  secondary_selection_metric: fixed_flow_loss
+  hidden_test_loaded: false
+selection:
+  report_name: m2-smolvla450m-odyssey-selection-001.json
+decision_policy:
+  select_checkpoint_on: validation_only
+  accept_candidate_if:
+    - all_logged_losses_and_gradients_are_finite
+    - checkpoint_reload_and_processor_statistics_match
+    - validation_action_mae_improves_over_base
+    - measured_wall_time_is_within_two_hours
+    - measured_peak_xpu_allocation_is_within_registered_guard
+  reject_candidate_if:
+    - hidden_test_boundary_is_crossed
+    - resource_limit_is_violated
+    - optimizer_or_scheduler_contract_changes
+    - validation_action_mae_does_not_improve_over_base
+  extension_policy: >-
+    Do not extend beyond 1680 steps. This program permits exactly three fresh
+    runs and no automatic continuation or fourth run.
+stop_conditions:
+  - nonfinite_loss_gradient_or_action
+  - out_of_memory
+  - peak_xpu_allocation_above_7516192768_bytes
+  - optimizer_or_scheduler_state_divergence
+  - unsupported_accelerator_operation
+  - checkpoint_failure
+  - trackio_local_durability_failure
+  - performance_evidence_or_implementation_checksum_mismatch
+  - normalization_identity_mismatch
+  - validation_or_hidden_test_episode_used_for_gradients
+  - hidden_test_episode_materialized_or_loaded
+hidden_test_loaded: false

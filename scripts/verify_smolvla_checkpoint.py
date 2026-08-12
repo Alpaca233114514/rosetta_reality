@@ -19,7 +19,7 @@ from lerobot.configs.train import TrainPipelineConfig
 from lerobot.datasets.factory import make_dataset
 from lerobot.policies.factory import make_policy, make_pre_post_processors
 from lerobot.policies.smolvla.configuration_smolvla import SmolVLAConfig  # noqa: F401
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Subset
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 SOURCE_ROOT = REPOSITORY_ROOT / "src"
@@ -28,8 +28,27 @@ RUN_NAME_PATTERN = re.compile(r"[a-z0-9][a-z0-9._-]{2,79}")
 if str(SOURCE_ROOT) not in sys.path:
     sys.path.insert(0, str(SOURCE_ROOT))
 
+from rosetta_reality.eval.diagnostics import action_dimension_diagnostics  # noqa: E402
 from rosetta_reality.experiment import file_sha256  # noqa: E402
 from rosetta_reality.features import create_json  # noqa: E402
+from rosetta_reality.sim import load_action_contract as load_physical_contract  # noqa: E402
+from rosetta_reality.vla import (  # noqa: E402
+    load_smolvla_action_space,
+    load_smolvla_experiment,
+)
+from rosetta_reality.vla.fixed_samples import (  # noqa: E402
+    load_fixed_frame_protocol,
+    resolve_fixed_dataset_indices,
+)
+from rosetta_reality.vla.processor import (  # noqa: E402
+    BOUNDED_SINE_ACTION_ADAPTER,
+    PI_ALOHA_POSTPROCESSOR_REGISTRY_NAME,
+    PI_ALOHA_PREPROCESSOR_REGISTRY_NAME,
+    REGISTRY_NAME,
+    ensure_smolvla_action_boundary,
+    model_action_to_standard,
+    processor_state_path,
+)
 
 
 def _load_yaml(path: Path) -> dict[str, Any]:
@@ -123,13 +142,23 @@ def _checkpoint_paths(
 
 
 def _validate_checkpoint_files(pretrained_dir: Path, training_state_dir: Path) -> list[str]:
+    preprocessor_state = processor_state_path(
+        pretrained_dir,
+        pipeline_config_filename="policy_preprocessor.json",
+        registry_name="normalizer_processor",
+    )
+    postprocessor_state = processor_state_path(
+        pretrained_dir,
+        pipeline_config_filename="policy_postprocessor.json",
+        registry_name="unnormalizer_processor",
+    )
     required = [
         pretrained_dir / "config.json",
         pretrained_dir / "model.safetensors",
         pretrained_dir / "policy_preprocessor.json",
         pretrained_dir / "policy_postprocessor.json",
-        pretrained_dir / "policy_preprocessor_step_5_normalizer_processor.safetensors",
-        pretrained_dir / "policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+        preprocessor_state,
+        postprocessor_state,
         pretrained_dir / "tokenizer/tokenizer.json",
         pretrained_dir / "tokenizer/tokenizer_config.json",
         pretrained_dir / "train_config.json",
@@ -158,6 +187,7 @@ def _validate_saved_identity(
 ) -> int:
     dataset = train_config.get("dataset", {})
     policy = train_config.get("policy", {})
+    action_space = load_smolvla_action_space(experiment)
     phase_config = experiment["phases"][phase]
     step = training_step.get("step")
     if (
@@ -174,6 +204,9 @@ def _validate_saved_identity(
         or policy.get("chunk_size") != chunk_length
         or policy.get("n_action_steps") != experiment["model"]["policy"]["n_action_steps"]
         or policy.get("load_vlm_weights") is not False
+        or bool(policy.get("adapt_to_pi_aloha", False)) != action_space.adapt_to_pi_aloha
+        or bool(policy_config.get("adapt_to_pi_aloha", False))
+        != action_space.adapt_to_pi_aloha
         or policy_config.get("output_features", {}).get("action", {}).get("shape")
         != [action_dimension]
         or int(policy_config.get("max_action_dim", 0)) < action_dimension
@@ -237,6 +270,12 @@ def main() -> int:
     parser.add_argument("--phase", choices=("smoke", "overfit"), required=True)
     parser.add_argument("--expected-step", type=int)
     parser.add_argument("--run-name", required=True)
+    parser.add_argument(
+        "--fixed-sample-scope",
+        choices=("first", "all"),
+        default="first",
+        help="Evaluate the first registered anchor or the complete fixed set.",
+    )
     args = parser.parse_args()
     if not RUN_NAME_PATTERN.fullmatch(args.run_name):
         raise ValueError("--run-name must be a lower-case path-safe identifier.")
@@ -244,8 +283,10 @@ def main() -> int:
         raise RuntimeError("Checkpoint verification must run with networking disabled.")
 
     config_path = args.config.resolve()
-    experiment = _load_yaml(config_path)
+    experiment = load_smolvla_experiment(config_path, REPOSITORY_ROOT)
+    action_space = load_smolvla_action_space(experiment)
     contract_path, action_contract = _load_action_contract(experiment)
+    physical_contract = load_physical_contract(contract_path)
     action_spec = action_contract["action"]
     action_dimension = int(action_spec["dimension"])
     chunk_length = int(action_spec["chunk_length"])
@@ -295,7 +336,8 @@ def main() -> int:
     cfg.policy.pretrained_path = pretrained_dir
     cfg.policy.pretrained_revision = None
     dataset = make_dataset(cfg)
-    batch_size = int(phase_config["batch_size"])
+    registered_batch_size = int(phase_config["batch_size"])
+    evaluation_batch_size = registered_batch_size
     state_dimension = _feature_dimension(dataset, "observation.state")
     dataset_action_dimension = _feature_dimension(dataset, "action")
     if dataset_action_dimension != action_dimension:
@@ -304,8 +346,52 @@ def main() -> int:
         raise ValueError("Policy chunk size differs from the Action Contract.")
     if cfg.policy.max_state_dim < state_dimension:
         raise ValueError("Policy max state dimension cannot contain the dataset state.")
-    loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0)
+    fixed_sample_context: dict[str, Any] | None = None
+    fixed_sample_raw = experiment.get("repair_protocol", {}).get(
+        "fixed_sample_overfit"
+    )
+    verification_dataset: Any = dataset
+    if isinstance(fixed_sample_raw, dict):
+        protocol = load_fixed_frame_protocol(experiment, args.phase)
+        fixed_indices = resolve_fixed_dataset_indices(
+            protocol,
+            dataset.meta.episodes["dataset_from_index"],
+            dataset.meta.episodes["dataset_to_index"],
+            dataset.episodes,
+            dataset.absolute_to_relative_idx,
+        )
+        if registered_batch_size > len(fixed_indices):
+            raise ValueError("Verification batch exceeds the registered fixed sample set.")
+        selected_indices = (
+            fixed_indices
+            if args.fixed_sample_scope == "all"
+            else fixed_indices[:registered_batch_size]
+        )
+        evaluation_batch_size = len(selected_indices)
+        verification_dataset = Subset(dataset, selected_indices)
+        fixed_sample_context = {
+            "protocol": protocol.as_dict(),
+            "scope": args.fixed_sample_scope,
+            "selected_dataset_indices": selected_indices,
+            "selected_frame_indices": (
+                list(protocol.frame_indices)
+                if args.fixed_sample_scope == "all"
+                else list(protocol.frame_indices[:registered_batch_size])
+            ),
+        }
+    elif args.fixed_sample_scope != "first":
+        raise ValueError("All-anchor verification requires a fixed-sample experiment.")
+    loader = DataLoader(
+        verification_dataset,
+        batch_size=evaluation_batch_size,
+        shuffle=False,
+        num_workers=0,
+    )
     batch = next(iter(loader))
+    raw_target = batch.get("action")
+    if not isinstance(raw_target, torch.Tensor):
+        raise ValueError("Checkpoint verification batch has no raw target action tensor.")
+    raw_target = raw_target.clone()
     episodes_loaded = _episode_indices(batch)
     if episodes_loaded != phase_config["episodes"]:
         raise ValueError("Checkpoint verification loaded an unregistered episode.")
@@ -318,6 +404,44 @@ def main() -> int:
         pretrained_path=pretrained_dir,
         preprocessor_overrides={"device_processor": {"device": device.type}},
     )
+    processor_contract: dict[str, Any] = {"explicit": action_space.explicit}
+    if action_space.explicit:
+        ensure_smolvla_action_boundary(
+            preprocessor,
+            postprocessor,
+            physical_contract,
+            action_space,
+            action_contract_sha256=file_sha256(contract_path),
+            upstream_revision=str(experiment["upstream"]["revision"]),
+        )
+        preprocessor_steps = [
+            getattr(step.__class__, "_registry_name", None)
+            for step in preprocessor.steps
+        ]
+        postprocessor_steps = [
+            getattr(step.__class__, "_registry_name", None)
+            for step in postprocessor.steps
+        ]
+        projection_index = preprocessor_steps.index(REGISTRY_NAME)
+        representation_index = preprocessor_steps.index(
+            PI_ALOHA_PREPROCESSOR_REGISTRY_NAME
+        )
+        normalizer_index = preprocessor_steps.index("normalizer_processor")
+        unnormalizer_index = postprocessor_steps.index("unnormalizer_processor")
+        inverse_index = postprocessor_steps.index(PI_ALOHA_POSTPROCESSOR_REGISTRY_NAME)
+        if not (
+            projection_index + 1 == representation_index
+            and representation_index + 1 == normalizer_index
+            and unnormalizer_index + 1 == inverse_index
+        ):
+            raise ValueError("Reloaded action-boundary processor ordering is invalid.")
+        processor_contract = {
+            "explicit": True,
+            "preprocessor_steps": preprocessor_steps,
+            "postprocessor_steps": postprocessor_steps,
+            "projection_before_representation_before_normalization": True,
+            "unnormalization_before_inverse_and_clamp": True,
+        }
     for camera_key in dataset.meta.camera_keys:
         if camera_key in batch and batch[camera_key].dtype == torch.uint8:
             maximum = torch.iinfo(batch[camera_key].dtype).max
@@ -329,19 +453,25 @@ def main() -> int:
 
     action = batch.get("action")
     state = batch.get("observation.state")
-    expected_action_shape = [batch_size, chunk_length, action_dimension]
-    expected_state_shape = [batch_size, cfg.policy.n_obs_steps, state_dimension]
+    expected_action_shape = [evaluation_batch_size, chunk_length, action_dimension]
+    expected_state_shape = [
+        evaluation_batch_size,
+        cfg.policy.n_obs_steps,
+        state_dimension,
+    ]
     if not isinstance(action, torch.Tensor) or list(action.shape) != expected_action_shape:
         raise ValueError("Reloaded checkpoint action input differs from the Action Contract.")
     if not isinstance(state, torch.Tensor) or list(state.shape) != expected_state_shape:
         raise ValueError("Reloaded checkpoint state input differs from dataset metadata.")
 
     noise = torch.zeros(
-        (batch_size, chunk_length, cfg.policy.max_action_dim),
+        (evaluation_batch_size, chunk_length, cfg.policy.max_action_dim),
         device=device,
         dtype=action.dtype,
     )
-    flow_time = torch.full((batch_size,), 0.5, device=device, dtype=action.dtype)
+    flow_time = torch.full(
+        (evaluation_batch_size,), 0.5, device=device, dtype=action.dtype
+    )
     mixed_precision = str(experiment["resources"]["mixed_precision"])
     autocast_dtype = _autocast_dtype(mixed_precision)
     autocast_enabled = autocast_dtype is not None
@@ -355,9 +485,74 @@ def main() -> int:
             enabled=autocast_enabled,
         ),
     ):
-        action_chunk = policy.predict_action_chunk(batch, noise=noise)
+        normalized_action_chunk = policy.predict_action_chunk(batch, noise=noise)
         loss, loss_details = policy(batch, noise=noise, time=flow_time)
-    action_chunk = postprocessor(action_chunk)
+    raw_action_diagnostics: dict[str, Any] | None = None
+    if action_space.explicit:
+        unnormalizers = [
+            step
+            for step in postprocessor.steps
+            if getattr(step.__class__, "_registry_name", None)
+            == "unnormalizer_processor"
+        ]
+        if len(unnormalizers) != 1:
+            raise ValueError("Reloaded action boundary has an ambiguous unnormalizer.")
+        unnormalized = unnormalizers[0]({"action": normalized_action_chunk})
+        raw_pi_action = unnormalized.get("action")
+        if not isinstance(raw_pi_action, torch.Tensor):
+            raise ValueError("Reloaded unnormalizer did not produce a tensor action.")
+        raw_standard_action = model_action_to_standard(
+            raw_pi_action, action_space.representation_adapter
+        )
+        lower = physical_contract.lower_bounds.to(raw_target).view(1, 1, -1)
+        upper = physical_contract.upper_bounds.to(raw_target).view(1, 1, -1)
+        projected_target = torch.maximum(torch.minimum(raw_target, upper), lower)
+        raw_action_diagnostics = action_dimension_diagnostics(
+            raw_standard_action.detach().cpu(),
+            projected_target.detach().cpu(),
+            physical_contract.lower_bounds,
+            physical_contract.upper_bounds,
+            physical_contract.dimension_names,
+        )
+        raw_action_diagnostics["source_target_projection_rate"] = float(
+            projected_target.ne(raw_target).to(torch.float64).mean()
+        )
+        if action_space.representation_adapter == BOUNDED_SINE_ACTION_ADAPTER:
+            support_lower = -math.pi / 2
+            support_upper = math.pi / 2
+            support: dict[str, Any] = {}
+            for name, index in (("left_gripper", 6), ("right_gripper", 13)):
+                values = raw_pi_action[..., index].detach().to(torch.float64).cpu()
+                outside = (values < support_lower) | (values > support_upper)
+                support[name] = {
+                    "minimum": float(values.min()),
+                    "maximum": float(values.max()),
+                    "outside_training_support_rate": float(outside.to(torch.float64).mean()),
+                    "training_support": [support_lower, support_upper],
+                }
+            raw_action_diagnostics["model_internal_gripper_support"] = support
+        if fixed_sample_context is not None and args.fixed_sample_scope == "all":
+            per_anchor: list[dict[str, Any]] = []
+            for position, frame_index in enumerate(
+                fixed_sample_context["selected_frame_indices"]
+            ):
+                diagnostics = action_dimension_diagnostics(
+                    raw_standard_action[position : position + 1].detach().cpu(),
+                    projected_target[position : position + 1].detach().cpu(),
+                    physical_contract.lower_bounds,
+                    physical_contract.upper_bounds,
+                    physical_contract.dimension_names,
+                )
+                per_anchor.append(
+                    {
+                        "episode_index": episodes_loaded[0],
+                        "frame_index": frame_index,
+                        "left_gripper": diagnostics["dimensions"]["left_gripper"],
+                        "right_gripper": diagnostics["dimensions"]["right_gripper"],
+                    }
+                )
+            raw_action_diagnostics["fixed_sample_per_anchor"] = per_anchor
+    action_chunk = postprocessor(normalized_action_chunk)
     if (
         not isinstance(action_chunk, torch.Tensor)
         or list(action_chunk.shape) != expected_action_shape
@@ -397,6 +592,8 @@ def main() -> int:
         "experiment_config_sha256": file_sha256(config_path),
         "verification_script_sha256": file_sha256(Path(__file__)),
         "action_contract_sha256": file_sha256(contract_path),
+        "action_space": action_space.as_dict(),
+        "serialized_action_boundary": processor_contract,
         "action_dimension": action_dimension,
         "chunk_length": chunk_length,
         "state_dimension": state_dimension,
@@ -418,6 +615,9 @@ def main() -> int:
         "model_revision": experiment["model"]["revision"],
         "dataset_revision": experiment["dataset"]["revision"],
         "episodes_loaded": episodes_loaded,
+        "registered_training_batch_size": registered_batch_size,
+        "evaluation_batch_size": evaluation_batch_size,
+        "fixed_sample_context": fixed_sample_context,
         "hidden_test_loaded": False,
         "network_disabled": True,
         "device": device.type,
@@ -432,6 +632,7 @@ def main() -> int:
             "sha256": _tensor_sha256(action_chunk),
             **_summary(action_chunk),
         },
+        "raw_standard_action_diagnostics": raw_action_diagnostics,
         "parameters": {
             "total": sum(parameter.numel() for parameter in policy.parameters()),
             "trainable": sum(

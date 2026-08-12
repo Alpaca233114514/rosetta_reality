@@ -249,6 +249,134 @@ def action_error_summary(predicted: Tensor, target: Tensor) -> dict[str, float]:
     }
 
 
+def action_dimension_diagnostics(
+    predicted: Tensor,
+    target: Tensor,
+    lower_bounds: Tensor,
+    upper_bounds: Tensor,
+    dimension_names: Sequence[str],
+) -> dict[str, object]:
+    """Expose per-dimension and arm/gripper errors hidden by aggregate MAE."""
+
+    if predicted.shape != target.shape or predicted.ndim != 3:
+        raise ValueError("Action dimension diagnostics require matching rank-three tensors.")
+    dimension = predicted.shape[-1]
+    if (
+        lower_bounds.shape != (dimension,)
+        or upper_bounds.shape != (dimension,)
+        or len(dimension_names) != dimension
+        or len(set(dimension_names)) != dimension
+    ):
+        raise ValueError("Action dimension diagnostics received an invalid contract.")
+    predicted = predicted.detach().to(torch.float64)
+    target = target.detach().to(torch.float64)
+    lower = lower_bounds.detach().to(torch.float64).view(1, 1, -1)
+    upper = upper_bounds.detach().to(torch.float64).view(1, 1, -1)
+    if not bool(
+        torch.isfinite(predicted).all()
+        and torch.isfinite(target).all()
+        and torch.isfinite(lower).all()
+        and torch.isfinite(upper).all()
+    ):
+        raise FloatingPointError("Action dimension diagnostics contain NaN or Inf.")
+    if not bool((lower < upper).all()):
+        raise ValueError("Action dimension diagnostics received invalid limits.")
+
+    projected_target = torch.maximum(torch.minimum(target, upper), lower)
+    prediction_violation = (predicted < lower) | (predicted > upper)
+    target_projection = projected_target.ne(target)
+    raw_error = predicted - target
+    projected_error = predicted - projected_target
+    midpoint = (lower + upper) / 2
+    dimensions: dict[str, dict[str, float | int]] = {}
+    for index, raw_name in enumerate(dimension_names):
+        name = str(raw_name)
+        predicted_dimension = predicted[..., index]
+        target_dimension = target[..., index]
+        raw_dimension_error = raw_error[..., index]
+        projected_dimension_error = projected_error[..., index]
+        entry: dict[str, float | int] = {
+            "mae": float(raw_dimension_error.abs().mean()),
+            "rmse": float(raw_dimension_error.square().mean().sqrt()),
+            "contract_projected_target_mae": float(projected_dimension_error.abs().mean()),
+            "first_action_mae": float(raw_dimension_error[:, 0].abs().mean()),
+            "predicted_minimum": float(predicted_dimension.min()),
+            "predicted_maximum": float(predicted_dimension.max()),
+            "predicted_mean": float(predicted_dimension.mean()),
+            "target_minimum": float(target_dimension.min()),
+            "target_maximum": float(target_dimension.max()),
+            "target_mean": float(target_dimension.mean()),
+            "prediction_strict_violation_rate": float(
+                prediction_violation[..., index].to(torch.float64).mean()
+            ),
+            "target_projection_rate": float(
+                target_projection[..., index].to(torch.float64).mean()
+            ),
+        }
+        if "gripper" in name:
+            predicted_open = predicted_dimension >= midpoint[..., index]
+            target_open = projected_target[..., index] >= midpoint[..., index]
+            entry.update(
+                {
+                    "open_close_accuracy": float(
+                        predicted_open.eq(target_open).to(torch.float64).mean()
+                    ),
+                    "predicted_open_rate": float(predicted_open.to(torch.float64).mean()),
+                    "target_open_rate": float(target_open.to(torch.float64).mean()),
+                    "predicted_below_minimum_rate": float(
+                        predicted_dimension.lt(lower[..., index]).to(torch.float64).mean()
+                    ),
+                    "predicted_above_maximum_rate": float(
+                        predicted_dimension.gt(upper[..., index]).to(torch.float64).mean()
+                    ),
+                }
+            )
+        dimensions[name] = entry
+
+    groups: dict[str, list[int]] = {
+        "left_arm": [
+            index
+            for index, name in enumerate(dimension_names)
+            if str(name).startswith("left_") and "gripper" not in str(name)
+        ],
+        "left_gripper": [
+            index
+            for index, name in enumerate(dimension_names)
+            if str(name) == "left_gripper"
+        ],
+        "right_arm": [
+            index
+            for index, name in enumerate(dimension_names)
+            if str(name).startswith("right_") and "gripper" not in str(name)
+        ],
+        "right_gripper": [
+            index
+            for index, name in enumerate(dimension_names)
+            if str(name) == "right_gripper"
+        ],
+    }
+    if any(not indices for indices in groups.values()):
+        raise ValueError("Action dimension names do not expose both ALOHA arms and grippers.")
+    group_diagnostics = {
+        name: {
+            "dimensions": [str(dimension_names[index]) for index in indices],
+            "mae": float(raw_error[..., indices].abs().mean()),
+            "contract_projected_target_mae": float(
+                projected_error[..., indices].abs().mean()
+            ),
+            "first_action_mae": float(raw_error[:, 0, indices].abs().mean()),
+        }
+        for name, indices in groups.items()
+    }
+    return {
+        "sample_count": int(predicted.shape[0]),
+        "chunk_length": int(predicted.shape[1]),
+        "action_dimension": int(dimension),
+        "dimensions": dimensions,
+        "groups": group_diagnostics,
+    }
+
+
 def phase_labels(frame_indices: Tensor, boundaries: Sequence[int]) -> list[str]:
     """Assign deterministic half-open phase labels to frame indices."""
 

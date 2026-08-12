@@ -1,0 +1,48 @@
+schema_version: 1
+profile_id: autodl-rtx4090-cuda-001
+platform: autodl_container_instance
+runtime_boundary: platform_linux_container
+nested_docker_supported: false
+accelerator:
+  torch_device: cuda
+  required_name_pattern: '(?i)rtx\s*4090'
+  minimum_total_memory_bytes: 24696061952
+  mixed_precision: bf16
+python:
+  minimum_version: '3.10'
+packages:
+  lerobot: 0.6.2
+  lerobot_revision: c903b114a90e703b3f7d0c46cb38727c328c55ff
+  trackio: 0.28.0
+storage:
+  platform_data_root_environment: AUTODL_TMP
+  default_platform_data_root: /root/autodl-tmp
+  rosetta_subdirectory: rosetta
+  require_data_disk: true
+network_policy:
+  bootstrap: enabled
+  data_and_model_transfer: user_initiated_only
+  benchmark: disabled
+  preflight: disabled
+  optimizer: disabled
+agent_monitoring:
+  blocking_shell: bash
+  blocking_command: sleep 300
+  blocking_seconds: 300
+  fixed_interval: true
+  full_audit_wake_fractions: [0.25, 0.5, 0.75, 1.0]
+  short_polling_allowed: false
+gates:
+  - environment_doctor
+  - immutable_cache_identity
+  - pre_training_benchmark
+  - no_optimizer_cuda_forward
+  - two_step_cuda_optimizer_smoke
+  - independent_checkpoint_reload
+  - separately_preregistered_formal_plan
+formal_training:
+  enabled_by_profile: false
+  reason: >-
+    A CUDA benchmark and two-step optimizer smoke must be recorded before a
+    formal plan can register batch size, memory, timing and stop conditions.
+hidden_test_loaded: false

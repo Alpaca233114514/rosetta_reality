@@ -171,7 +171,10 @@ def _validate_overfit_trackio(
         if metrics.get("system/checkpoint_saved") == 1:
             checkpoint_steps.add(step)
     expected_steps = set(range(1, int(overfit["steps"]) + 1))
-    expected_checkpoints = {int(overfit["save_freq"]), int(overfit["steps"])}
+    save_freq = int(overfit["save_freq"])
+    total_steps = int(overfit["steps"])
+    expected_checkpoints = set(range(save_freq, total_steps + 1, save_freq))
+    expected_checkpoints.add(total_steps)
     if set(train_by_step) != expected_steps or checkpoint_steps != expected_checkpoints:
         raise ValueError("Trackio does not contain the complete registered overfit trajectory.")
     initial_loss = train_by_step[1]

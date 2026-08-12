@@ -256,6 +256,7 @@ def main() -> int:
         "selected_checkpoint_step": step,
         "adaptation": experiment["model"]["adaptation"],
         "policy": experiment["model"]["policy"],
+        "optimizer_contract": formal_runner._optimizer_contract(plan["training"]),
         "mixed_precision": experiment["resources"]["mixed_precision"],
         "inference_noise": "zeros",
         "formal_plan_sha256": file_sha256(plan_path),

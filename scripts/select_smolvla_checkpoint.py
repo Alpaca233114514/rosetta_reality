@@ -34,6 +34,7 @@ def _validation_report(
     base_path: Path,
     contract_sha256: str,
     normalization_sha256: str,
+    plan_sha256: str,
     expected_source: str | int,
 ) -> dict[str, Any]:
     report = formal_runner._load_json(path)
@@ -55,7 +56,7 @@ def _validation_report(
         report.get("status") != "complete"
         or report.get("stage") != "smolvla_fixed_validation"
         or report.get("experiment_id") != experiment["experiment_id"]
-        or report.get("formal_plan_sha256") != file_sha256(DEFAULT_PLAN)
+        or report.get("formal_plan_sha256") != plan_sha256
         or report.get("experiment_config_sha256") != file_sha256(base_path)
         or report.get("action_contract_sha256") != contract_sha256
         or report.get("normalization_report_sha256") != normalization_sha256
@@ -83,7 +84,12 @@ def _validation_report(
     return report
 
 
-def _training_metrics(database: Path, run_name: str, steps: int) -> dict[str, Any]:
+def _training_metrics(
+    database: Path,
+    run_name: str,
+    training: dict[str, Any],
+    plan_sha256: str,
+) -> dict[str, Any]:
     if not database.is_file():
         raise FileNotFoundError("The durable Trackio database is missing.")
     connection = sqlite3.connect(f"file:{database}?mode=ro", uri=True)
@@ -101,12 +107,33 @@ def _training_metrics(database: Path, run_name: str, steps: int) -> dict[str, An
     if not rows or len({str(row[0]) for row in rows}) != 1 or len(configs) != 1:
         raise ValueError("Trackio formal run identity is missing or ambiguous.")
     config = json.loads(configs[0][1])
+    optimizer_contract = formal_runner._optimizer_contract(training)
+    expected_optimizer_config: dict[str, Any] = {}
+    if optimizer_contract is not None:
+        optimizer = optimizer_contract["optimizer"]
+        scheduler = optimizer_contract["scheduler"]
+        expected_optimizer_config = {
+            "optimizer_type": optimizer["type"],
+            "optimizer_lr": optimizer["lr"],
+            "optimizer_betas": optimizer["betas"],
+            "optimizer_eps": optimizer["eps"],
+            "optimizer_weight_decay": optimizer["weight_decay"],
+            "optimizer_grad_clip_norm": optimizer["grad_clip_norm"],
+            "scheduler_type": scheduler["type"],
+            "scheduler_warmup_steps": scheduler["num_warmup_steps"],
+            "scheduler_decay_steps": scheduler["num_decay_steps"],
+            "scheduler_peak_lr": scheduler["peak_lr"],
+            "scheduler_decay_lr": scheduler["decay_lr"],
+        }
+    steps = int(training["steps"])
+    log_freq = int(training["log_freq"])
     if (
         config.get("phase") != "formal"
         or config.get("steps") != steps
         or config.get("test_split_loaded") is not False
         or config.get("normalization_source_split") != "train"
-        or config.get("formal_plan_sha256") != file_sha256(DEFAULT_PLAN)
+        or config.get("formal_plan_sha256") != plan_sha256
+        or any(config.get(key) != value for key, value in expected_optimizer_config.items())
     ):
         raise ValueError("Trackio formal configuration differs from the registered plan.")
     train_rows: dict[int, dict[str, Any]] = {}
@@ -125,15 +152,17 @@ def _training_metrics(database: Path, run_name: str, steps: int) -> dict[str, An
         if "train/loss" in metrics:
             if step in train_rows:
                 raise ValueError("Trackio contains duplicate formal training steps.")
-            if "train/grad_norm" not in metrics:
-                raise ValueError("Trackio formal training step has no gradient norm.")
+            if "train/grad_norm" not in metrics or "train/lr" not in metrics:
+                raise ValueError("Trackio formal training step lacks gradient or LR evidence.")
             train_rows[int(step)] = metrics
         if metrics.get("system/checkpoint_saved") == 1:
             checkpoint_steps.append(int(step))
-    if sorted(train_rows) != list(range(1, steps + 1)):
+    expected_logged_steps = list(range(log_freq, steps + 1, log_freq))
+    if sorted(train_rows) != expected_logged_steps:
         raise ValueError("Trackio formal training steps are incomplete.")
     losses = [float(train_rows[step]["train/loss"]) for step in sorted(train_rows)]
     gradients = [float(train_rows[step]["train/grad_norm"]) for step in sorted(train_rows)]
+    learning_rates = [float(train_rows[step]["train/lr"]) for step in sorted(train_rows)]
     return {
         "run_id": str(rows[0][0]),
         "logged_training_steps": len(train_rows),
@@ -143,6 +172,11 @@ def _training_metrics(database: Path, run_name: str, steps: int) -> dict[str, An
         "minimum_loss": min(losses),
         "maximum_loss": max(losses),
         "maximum_gradient_norm": max(gradients),
+        "initial_learning_rate": learning_rates[0],
+        "final_learning_rate": learning_rates[-1],
+        "minimum_learning_rate": min(learning_rates),
+        "maximum_learning_rate": max(learning_rates),
+        "optimizer_contract": optimizer_contract,
         "all_losses_and_gradients_finite": True,
     }
 
@@ -203,6 +237,7 @@ def main() -> int:
                 base_path=base_path,
                 contract_sha256=contract_sha256,
                 normalization_sha256=normalization_sha256,
+                plan_sha256=file_sha256(plan_path),
                 expected_source=source,
             ),
         )
@@ -256,7 +291,8 @@ def main() -> int:
     training_metrics = _training_metrics(
         trackio_root / f"{experiment['tracking']['project']}.db",
         str(plan["run_name"]),
-        int(plan["training"]["steps"]),
+        plan["training"],
+        file_sha256(plan_path),
     )
     acceptance = {
         "all_logged_losses_and_gradients_are_finite": training_metrics[
@@ -302,11 +338,18 @@ def main() -> int:
         "hidden_test_loaded": False,
         "code_identity": workspace_code_identity(REPOSITORY_ROOT),
     }
+    selection_name = str(
+        plan.get("selection", {}).get(
+            "report_name", f"{plan['run_name']}-selection.json"
+        )
+    )
+    if Path(selection_name).name != selection_name or not selection_name.endswith(".json"):
+        raise ValueError("Formal selection report name must be a safe JSON filename.")
     destination = (
         phase_runner._absolute_root("ROSETTA_RUN_ROOT")
         / str(experiment["experiment_id"])
         / "selection"
-        / "m2-smolvla450m-formal-selection-002.json"
+        / selection_name
     )
     create_json(destination, report)
     print(json.dumps(report, indent=2, sort_keys=True))

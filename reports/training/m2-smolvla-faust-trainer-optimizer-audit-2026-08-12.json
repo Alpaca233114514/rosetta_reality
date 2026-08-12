@@ -1,0 +1,417 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-faust-trainer-optimizer-audit-2026-08-12",
+  "status": "complete_with_gate4_failure",
+  "authority": {
+    "human_readable_report": "reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md",
+    "historical_handoff": "reports/training/m2-smolvla-action-repair-handoff-2026-08-12.md",
+    "repository_rules": "AGENTS.md",
+    "hidden_test_episodes": [31, 6, 1, 24, 5],
+    "hidden_test_loaded": false,
+    "artifact_mutation_allowed": false
+  },
+  "experiment": {
+    "codename": "Faust",
+    "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+    "run_name": "m2-smolvla450m-faust-b8-002",
+    "initialization": "revision_pinned_original_lerobot_smolvla_base",
+    "experiment_config": "configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml",
+    "experiment_config_sha256": "0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210",
+    "formal_plan": "configs/vla/smolvla_450m_aloha_insertion_faust_batch8_002.yaml",
+    "formal_plan_sha256": "7f8215b23c21b1b5685cbcc86ee74c9bd691ebf26214e562204bfa135d592c46",
+    "simulation_plan": "configs/vla/smolvla_450m_aloha_insertion_faust_sim_001.yaml",
+    "simulation_plan_sha256": "20386f7ad5dda19d9d5ffa1668bfa45df5ae3f6441d94f45661eb9f10fa442f3",
+    "runtime": {
+      "launcher": "wsl_bash_to_linux_docker",
+      "accelerator": "xpu",
+      "mixed_precision": "bf16",
+      "batch_size": 8,
+      "optimizer_steps": 2500,
+      "sample_exposures": 20000,
+      "dataset_passes": 1.0,
+      "gradient_accumulation_steps": 1,
+      "peak_xpu_allocated_bytes": 3428736512,
+      "xpu_guardrail_bytes": 7516192768
+    }
+  },
+  "training": {
+    "status": "complete",
+    "checkpoint_steps": [625, 1250, 1875, 2500],
+    "all_losses_and_gradients_finite": true,
+    "initial_logged_loss": 2.9496352553367613,
+    "final_logged_loss": 0.09752205349504947,
+    "minimum_logged_loss": 0.07100448235869408,
+    "maximum_logged_preclip_gradient_norm": 21.938720417022704,
+    "final_learning_rate": 0.0000025010969987626253,
+    "maximum_logged_learning_rate": 0.00009929468010996538,
+    "optimizer": {
+      "type": "adamw",
+      "lr": 0.0001,
+      "betas": [0.9, 0.95],
+      "eps": 1e-8,
+      "weight_decay": 1e-10,
+      "global_grad_clip_norm": 10.0
+    },
+    "scheduler": {
+      "type": "cosine_decay_with_warmup",
+      "num_warmup_steps": 125,
+      "num_decay_steps": 2500,
+      "nominal_peak_lr": 0.0001,
+      "decay_lr": 0.0000025
+    },
+    "prior_batch1_attempt": {
+      "run_name": "m2-smolvla450m-faust-001",
+      "status": "interrupted_by_user",
+      "last_observed_optimizer_step": 3071,
+      "planned_optimizer_steps": 20000,
+      "batch_size": 1,
+      "exit_code": 143,
+      "signal": "SIGTERM",
+      "oom_killed": false,
+      "evidence": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/orchestration/m2-smolvla450m-faust-001-interrupted.json"
+    }
+  },
+  "validation": {
+    "selection_status": "passed",
+    "selection_split": "validation",
+    "selection_noise": "zeros",
+    "selection_flow_time": 0.5,
+    "hidden_test_loaded": false,
+    "base_action_mae": 0.17051533310541916,
+    "selected_step": 1875,
+    "selected_model_safetensors_sha256": "b1ec752c8ec78689a737624454bd01578a3d92c19ddbc899420af02a602bbb73",
+    "selected_action_mae": 0.04465636135261074,
+    "selected_first_action_mae": 0.027562587232595043,
+    "selected_fixed_flow_loss": 0.11213726177811623,
+    "relative_action_mae_improvement": 0.7381094090523668,
+    "checkpoint_metrics": [
+      {
+        "step": 625,
+        "action_mae": 0.06827670037393026,
+        "first_action_mae": 0.05012882259907201,
+        "fixed_flow_loss": 0.1770816532894969
+      },
+      {
+        "step": 1250,
+        "action_mae": 0.04869219545312392,
+        "first_action_mae": 0.030732499025595772,
+        "fixed_flow_loss": 0.12605575369670988
+      },
+      {
+        "step": 1875,
+        "action_mae": 0.04465636135261074,
+        "first_action_mae": 0.027562587232595043,
+        "fixed_flow_loss": 0.11213726177811623
+      },
+      {
+        "step": 2500,
+        "action_mae": 0.04472016550829202,
+        "first_action_mae": 0.027345079704121287,
+        "fixed_flow_loss": 0.11101718042045831
+      }
+    ],
+    "evidence": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-faust-b8-002-selection.json"
+  },
+  "export": {
+    "status": "passed",
+    "artifact_id": "m2-smolvla450m-faust-b8-step1875-001",
+    "artifact_path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-faust-b8-step1875-001",
+    "artifact_manifest_sha256": "39409420eab02f7fbb7d4c27644392496e1a7e10a7e6eeb0311e5a090279f137",
+    "reload_max_abs_action_diff": 0.0,
+    "bounded_gripper_decoder": true
+  },
+  "simulation": {
+    "gate3": {
+      "status": "passed",
+      "rollout_steps": 20,
+      "noise_mode": "seeded_standard_normal",
+      "raw_limit_violation_rate": 0.0,
+      "projected_limit_violation_rate": 0.0,
+      "executed_limit_violation_rate": 0.0,
+      "invalid_action_rate": 0.0,
+      "joint_limit_violations": 0,
+      "unexpected_collisions": 0,
+      "maximum_reward": 0.0,
+      "report_sha256": "ded31186c6b198c6c002b299ae42a8900370f0021a86770a69049979ee082a92",
+      "evidence": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate3-smolvla-sim-002.json"
+    },
+    "gate4": {
+      "status": "failed",
+      "episodes": 5,
+      "steps_per_episode": 500,
+      "seeds": [1000, 1001, 1002, 1003, 1004],
+      "task_success_rate": 0.0,
+      "maximum_rewards": {
+        "1000": 0.0,
+        "1001": 0.0,
+        "1002": 0.0,
+        "1003": 2.0,
+        "1004": 0.0
+      },
+      "raw_limit_violation_rate": 0.0,
+      "projected_limit_violation_rate": 0.0,
+      "executed_limit_violation_rate": 0.0,
+      "invalid_action_rate": 0.0,
+      "joint_limit_violations": 0,
+      "unexpected_collisions": 0,
+      "mean_action_smoothness_l2": 0.14410673975944518,
+      "mean_policy_inference_seconds": 0.6984747183943953,
+      "mean_simulation_step_seconds": 0.16681235501760092,
+      "report_sha256": "af7c75dfb5c8bd975d65c6db559812b25b8725e35ce33c9e7448c12f766b7e00",
+      "evidence": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-002.json"
+    },
+    "m2_accepted": false
+  },
+  "modality_audit": {
+    "status": "complete_non_gating",
+    "checkpoint_step": 1875,
+    "teacher_forced": true,
+    "normal_chunk_mae": 0.044690459966659546,
+    "image_shuffle_chunk_mae": 0.05812578648328781,
+    "image_shuffle_relative_increase": 0.3006307504252906,
+    "image_zero_chunk_mae": 0.06889522075653076,
+    "image_zero_relative_increase": 0.5416091221242455,
+    "state_shuffle_chunk_mae": 0.10253405570983887,
+    "state_shuffle_relative_increase": 1.2943164108476937,
+    "conclusion": "images_are_present_and_used_but_policy_is_state_dominant",
+    "evidence": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/teacher-forced-modalities-step001875-32f1c4b80472280b.json"
+  },
+  "repaired_engineering_bugs": [
+    {
+      "id": "F1",
+      "name": "bounded_action_representation",
+      "status": "fixed_and_gate_verified",
+      "summary": "Registered bounded-sine gripper boundary keeps raw decoder standard-space output in [0,1]."
+    },
+    {
+      "id": "F2",
+      "name": "checkpoint_resume_transient_memory",
+      "status": "fixed_and_resume_verified",
+      "summary": "GC, XPU cache release and allocator trim protect save/load boundaries."
+    },
+    {
+      "id": "F3",
+      "name": "compiler_cache_noexec",
+      "status": "fixed",
+      "summary": "Triton and Inductor use a run-scoped executable cache."
+    },
+    {
+      "id": "F4",
+      "name": "export_processor_boundary_loss",
+      "status": "fixed_and_exact_reload_verified",
+      "summary": "Export copies serialized processor states and restores the repaired action boundary."
+    },
+    {
+      "id": "F5",
+      "name": "simulation_reload_boundary_loss",
+      "status": "fixed_and_gate3_verified",
+      "summary": "Simulation reads the source Action Contract and repaired processor boundary."
+    },
+    {
+      "id": "F6",
+      "name": "quarter_checkpoint_metric_lookup",
+      "status": "workaround_implemented_root_contract_remains",
+      "summary": "Window inspection handles quarter checkpoints without an exact metric row; see T9."
+    }
+  ],
+  "trainer_findings": [
+    {
+      "id": "T1",
+      "priority": "P1",
+      "status": "confirmed_contract_mismatch",
+      "causal_confidence_for_gate4": "strong_hypothesis_not_isolated",
+      "problem": "Uniform flow MSE over all valid 50x14 chunk elements does not match receding-horizon execution of only the first action.",
+      "required_fix": "Expose unreduced loss, register early-horizon or first-action weighting as a controlled experiment, and log horizon plus arm/gripper decompositions.",
+      "acceptance": "Deployment-aligned validation and fixed-seed Gate4 improvement."
+    },
+    {
+      "id": "T2",
+      "priority": "P1",
+      "status": "confirmed_training_regime",
+      "causal_confidence_for_gate4": "strongly_consistent_not_isolated",
+      "problem": "One-pass expert-only BC has no recovery distribution while closed-loop observations are policy-induced.",
+      "required_fix": "Add revisioned recovery data or DAgger with a state-conditioned oracle; never label deviated states with time-indexed expert actions.",
+      "acceptance": "Recovery candidate outperforms the expert-only control on fixed reachable seeds."
+    },
+    {
+      "id": "T3",
+      "priority": "P1",
+      "status": "confirmed_protocol_mismatch",
+      "problem": "Checkpoint selection uses zero noise and fixed flow time while deployment uses seeded standard-normal inference noise.",
+      "required_fix": "Select or at least rank checkpoints with a preregistered Gaussian noise-seed ensemble and retain zero-noise results separately.",
+      "acceptance": "Validation noise contract matches simulator inference and is reproducible."
+    },
+    {
+      "id": "T4",
+      "priority": "P1",
+      "status": "confirmed_diagnostic",
+      "problem": "Images are used, but state shuffling hurts MAE far more than image shuffling; n_obs_steps=1, image transforms disabled, vision frozen, state projection trainable.",
+      "required_fix": "Add per-module gradients, controlled augmentation and history ablations, then recovery data; keep backbone adaptation a separate axis.",
+      "acceptance": "Visual and state sensitivity are reported and closed-loop gains persist under controlled perturbations."
+    },
+    {
+      "id": "T5",
+      "priority": "P2",
+      "status": "confirmed_confound",
+      "problem": "Batch1 to batch8 preserved 20000 exposures but reduced planned updates from 20000 to 2500 and changed the LR path; batch1 did not complete.",
+      "required_fix": "Compare equal-exposure and equal-update small runs before claiming batch equivalence.",
+      "acceptance": "Batch conclusion is supported by a completed controlled comparison."
+    },
+    {
+      "id": "T6",
+      "priority": "P1",
+      "status": "confirmed_representation_risk",
+      "problem": "Bounded-sine decoding is many-to-one; fixed overfit had 0.3325 right-gripper internal outside-support rate despite legal standard output.",
+      "required_fix": "Test an internal-support penalty or dedicated bounded gripper head with explicit endpoint coverage.",
+      "acceptance": "Legal outputs plus low internal outside-support rate and no gripper regression."
+    },
+    {
+      "id": "T7",
+      "priority": "P1",
+      "status": "confirmed_protocol_gap",
+      "problem": "Formal action-repair runner has preflight, smoke and train modes but no tested formal batch8 resume path.",
+      "required_fix": "Add create-only resume with exact model, optimizer, scheduler, RNG, dataset-view and next-batch identity checks.",
+      "acceptance": "Interrupted/resumed run matches uninterrupted control at the same final step."
+    },
+    {
+      "id": "T8",
+      "priority": "P2",
+      "status": "intentional_protocol_limitation",
+      "problem": "eval_steps=0 and env_eval_freq=0; validation is post-hoc only at quarter checkpoints.",
+      "required_fix": "Add a small deterministic validation slice transactionally at registered checkpoint boundaries.",
+      "acceptance": "Every checkpoint carries an exact validation summary without hot-loop simulation."
+    },
+    {
+      "id": "T9",
+      "priority": "P2",
+      "status": "confirmed_instrumentation_defect",
+      "problem": "save_freq=625 is not divisible by log_freq=10, so steps 625 and 1875 have no exact training metric row.",
+      "required_fix": "Enforce aligned frequencies or save exact metrics and resources with each checkpoint.",
+      "acceptance": "Every checkpoint has an exact same-step metric snapshot."
+    },
+    {
+      "id": "T10",
+      "priority": "P2",
+      "status": "confirmed_evidence_gap",
+      "problem": "Gate4 lacks first reward step, object/EEF poses, first-deviation window and compact raw internal gripper traces.",
+      "required_fix": "Add non-gating trajectory traces and first-deviation extraction before another long furnace.",
+      "acceptance": "Every failed rollout has a bounded provenance-rich diagnostic window."
+    }
+  ],
+  "optimizer_findings": [
+    {
+      "id": "O1",
+      "priority": "healthy",
+      "status": "stable_in_completed_run",
+      "finding": "AdamW, BF16 and XPU stayed finite; checkpoints and final scheduler endpoint were valid.",
+      "action": "Do not attribute Gate4 failure to an optimizer crash."
+    },
+    {
+      "id": "O2",
+      "priority": "P1",
+      "status": "confirmed_instrumentation_gap",
+      "finding": "Logged grad_norm is the total norm returned by clipping and is preclip evidence; 21.93872 above threshold 10 does not prove clipping failure.",
+      "action": "Log preclip and postclip norms, clipping coefficient/fraction, nonfinite counts, per-module norms and update ratios."
+    },
+    {
+      "id": "O3",
+      "priority": "P2",
+      "status": "confirmed_scheduler_contract_defect_low_magnitude",
+      "finding": "Warmup excludes its endpoint and cosine uses absolute current_step, so nominal peak 1e-4 is not reached; maximum logged LR was 9.929468e-5.",
+      "action": "Define nominal scale explicitly or shift cosine progress after warmup; add exact transition tests."
+    },
+    {
+      "id": "O4",
+      "priority": "P2",
+      "status": "confirmed_observability_gap_not_proven_hyperparameter_bug",
+      "finding": "One AdamW parameter group applies the same LR and decay to expert and projections, with no module-wise update evidence.",
+      "action": "Instrument named modules before testing differential learning rates."
+    },
+    {
+      "id": "O5",
+      "priority": "experiment_only",
+      "status": "not_proven_faulty",
+      "finding": "weight_decay=1e-10 is effectively no regularization.",
+      "action": "Record it explicitly; test stronger decay only as a separate controlled axis after T1-T4."
+    },
+    {
+      "id": "O6",
+      "priority": "experiment_only",
+      "status": "not_proven_faulty",
+      "finding": "EMA is disabled.",
+      "action": "Treat EMA as a separate candidate experiment, not a repair."
+    },
+    {
+      "id": "O7",
+      "priority": "future_risk",
+      "status": "not_exercised_by_faust",
+      "finding": "Pinned trainer calls scheduler step per microbatch; Faust accumulation was 1.",
+      "action": "Before accumulation greater than one, prove LR advances only on real optimizer updates and not on skipped mixed-precision steps."
+    }
+  ],
+  "recommended_repair_order": [
+    "optimizer_and_checkpoint_instrumentation",
+    "formal_resume_parity",
+    "deployment_noise_validation",
+    "first_deviation_trajectory_trace",
+    "controlled_executed_horizon_loss_experiment",
+    "bounded_gripper_internal_support_experiment",
+    "state_conditioned_recovery_data",
+    "history_augmentation_and_module_lr_experiments_one_axis_at_a_time"
+  ],
+  "forbidden_inferences": [
+    "gate4_failure_is_an_adamw_crash",
+    "offline_mae_proves_closed_loop_success",
+    "bounded_output_proves_internal_latent_is_in_distribution",
+    "preclip_gradient_norm_above_threshold_proves_clipping_failed",
+    "batch8_is_equivalent_to_batch1",
+    "image_usage_is_sufficient_visual_grounding",
+    "multiple_training_axes_should_be_changed_in_one_run"
+  ],
+  "evidence_hashes": {
+    "selection_report": "bcb7eccd9e90facd4758f18bb33c712bc40acd989380061563792445f0cefaf4",
+    "modality_report": "f8a1735b18a517a96e34bfae0ba053f99f34b58c5009765a31d5ad833b1c5587",
+    "gate3_report": "ded31186c6b198c6c002b299ae42a8900370f0021a86770a69049979ee082a92",
+    "gate4_report": "af7c75dfb5c8bd975d65c6db559812b25b8725e35ce33c9e7448c12f766b7e00",
+    "artifact_manifest": "39409420eab02f7fbb7d4c27644392496e1a7e10a7e6eeb0311e5a090279f137",
+    "fixed_overfit_acceptance": "085ad2750711fce0539117f34588cab7c229a302541525c223d61b62a90743df",
+    "batch8_smoke_acceptance": "aa07779b73ac910119c5fcf9cdede58a06523ab0cd2503c64efd1c5133eb4ccf",
+    "batch8_preflight": "534f022550840b4de4f4f413f85cdd548726bf902b8f3079428d3408a2f9542f"
+  },
+  "primary_references": [
+    {
+      "name": "SmolVLA paper",
+      "url": "https://arxiv.org/abs/2506.01844"
+    },
+    {
+      "name": "Pinned SmolVLA model and loss source",
+      "url": "https://github.com/huggingface/lerobot/blob/c903b114a90e703b3f7d0c46cb38727c328c55ff/src/lerobot/policies/smolvla/modeling_smolvla.py"
+    },
+    {
+      "name": "Pinned LeRobot trainer source",
+      "url": "https://github.com/huggingface/lerobot/blob/c903b114a90e703b3f7d0c46cb38727c328c55ff/src/lerobot/scripts/lerobot_train.py"
+    },
+    {
+      "name": "Pinned LeRobot scheduler source",
+      "url": "https://github.com/huggingface/lerobot/blob/c903b114a90e703b3f7d0c46cb38727c328c55ff/src/lerobot/optim/schedulers.py"
+    },
+    {
+      "name": "Pinned LeRobot optimizer source",
+      "url": "https://github.com/huggingface/lerobot/blob/c903b114a90e703b3f7d0c46cb38727c328c55ff/src/lerobot/optim/optimizers.py"
+    },
+    {
+      "name": "Accelerate gradient clipping API",
+      "url": "https://huggingface.co/docs/accelerate/main/en/package_reference/accelerator#accelerate.Accelerator.clip_grad_norm_"
+    },
+    {
+      "name": "ACT paper",
+      "url": "https://arxiv.org/abs/2304.13705"
+    },
+    {
+      "name": "DAgger paper",
+      "url": "https://proceedings.mlr.press/v15/ross11a.html"
+    }
+  ],
+  "next_run_authorized": false,
+  "external_write_authorized": false
+}

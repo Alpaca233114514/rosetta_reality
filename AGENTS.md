@@ -34,6 +34,12 @@
 - 正式的数据、模型、训练、评估和仿真命令必须从 WSL Bash 启动，并在 Linux Docker 容器中
   执行。WSL 主机只负责只读检查、依赖源码检出、容器编排和受控的 Hub 控制面操作；不得把
   主机 Python 环境当作训练环境。
+- AutoDL 容器实例是上述规则的唯一已登记远端例外：平台实例本身作为 Linux 容器边界，禁止
+  尝试嵌套 Docker。必须使用 `configs/runtime/autodl_rtx4090.yaml` 与
+  `scripts/run_autodl.sh` 记录 `nested_docker_used=false`，先通过远端 doctor、immutable cache
+  identity、pre-training benchmark、no-optimizer CUDA forward 和两步 CUDA optimizer smoke，
+  再由单独 preregistered formal plan 授权正式训练。不得把 AutoDL shell、WSL 主机 Python 或
+  未经身份核验的云端环境当作等价容器证据。
 - 可以从 WSL 使用已经登录的 Hugging Face CLI 创建或检查 Space、模型仓库和数据仓库；模型
   或数据内容的准备与训练仍须在容器中完成。不得读取、打印、写入配置文件或通过命令行参数
   暴露 Hugging Face token。
@@ -58,6 +64,86 @@ Before any real GPU training:
 6. Only then launch a real experiment.
 
 Do not download model weights or datasets unless the user explicitly requests it.
+
+## AutoDL 远程炼丹炉强制工作流
+
+AutoDL 是临时 CUDA worker，本地 Codex、仓库和 WSL 是 control plane。除非用户明确改变方案，
+所有 AutoDL 训练必须固定遵守以下流程：
+
+```text
+Local control plane
+  edit / inspect / benchmark plan / freeze identities
+        |
+        | immutable Git revision or versioned workspace bundle
+        v
+AutoDL CUDA worker
+  doctor -> benchmark -> no-optimizer forward -> two-step smoke
+        |
+        v
+  tmux guarded train -> validate -> select -> export
+        |
+        | selected artifact + manifests + reports
+        v
+Local control plane
+  independent reload -> shut down paid GPU -> local Gate 3 / Gate 4
+        |
+        v
+  diagnose -> preregister the next single-variable run
+```
+
+### 本地控制面与远端 worker 边界
+
+- 本地负责阅读文档、修改和审计代码、比较实验、冻结假设与变量、生成计划、核验 Git/workspace
+  identity、分析 Gate 结果以及决定下一炉。不得把 Codex 配置、长期开发状态或决策过程迁移到
+  AutoDL，也不得在计费 GPU 上临时探索研究方向。
+- 开机前必须在本地冻结：实验假设、唯一 run name、代码身份、config/plan checksum、dataset/model/
+  processor revision、Action Contract、optimizer/scheduler、batch/steps、benchmark 命令、smoke 命令、
+  输出目录、验收指标、停止条件和预计时长。上述任一项未冻结，不得开启正式 GPU 训练。
+- 代码传输优先使用已推送的普通功能分支 commit；用户尚未授权 commit/push 时，只能使用
+  `scripts/stage_autodl_from_wsl.sh` 创建新的 versioned、content-addressed workspace。禁止手工复制
+  若干 `.py` 文件、覆盖既有远端 workspace、在 run 启动后编辑远端代码，或让同一 run 跨两个
+  workspace identity。
+- 数据、模型、VLM dependency 与 processor cache 必须位于远端 durable data root，保留原有
+  revision-scoped 目录和 manifest；传输不得使用 `--delete`，不得覆盖不同身份缓存，不得因远端
+  缺少缓存而自行下载。doctor 必须在不加载模型权重和数据行的情况下先验证所有 manifest。
+- AutoDL GPU 只承担经过授权的 CUDA doctor/benchmark/smoke、昂贵训练、必要 validation、selection、
+  export 和 independent reload。固定等待、长时间 Gate 3/4、实验分析、代码调试、文档整理与下一炉
+  设计默认回到本地执行，不得让计费 GPU 空转等待。
+
+### 启动、守护与固定五分钟阻塞
+
+- 任何长于短 smoke 的远端进程必须在 `tmux` 或等价守护会话中运行，stdout/stderr 同时写入
+  durable run log；SSH 连接只负责控制，绝不能承担训练进程生命周期。SSH 或本地 Codex 断开后，
+  训练必须继续，重新连接后只能通过已记录的 session/run identity 恢复观察。
+- 启动后先检查进程、GPU、首批 step、finite loss/gradient、显存、Trackio 和 checkpoint 目录；
+  一旦确认进入稳定训练，负责监控训练的 agent 必须使用**固定五分钟阻塞**：每次等待只能执行
+  Bash `sleep 300`，不得改成其他秒数，不得使用短轮询、连续 `tail -f`、高频 GPU 查询、忙等或
+  无阻塞反复检查。`sleep 300` 结束后只做一次有界状态采样，再继续下一次 `sleep 300`。
+- 固定五分钟阻塞不改变已登记的 quarter/checkpoint wake gate：只有在启动健康检查、失败信号、
+  预登记 checkpoint/25%/50%/75%/100% 边界或训练完成时才做完整审计；其余五分钟唤醒只允许读取
+  最小状态，不得据此修改超参数、重启进程或开启另一炉。
+- `sleep 300` 阻塞的是监控 agent/控制 shell，不得注入训练 dataloader、optimizer、scheduler、
+  simulator step、checkpoint writer 或训练进程本身；不得因阻塞丢失日志、心跳、异常退出状态或
+  durable metrics。训练进程退出后必须立即停止新的 sleep 周期并进入结果核验。
+
+### 训练完成、回传与关机
+
+- 每个远端 run 必须形成黑匣子，至少包含 resolved config/plan、Git revision 或 workspace tree hash、
+  dataset/model/processor revisions、Action Contract、完整 optimizer/scheduler contract、环境与 GPU
+  身份、train log、Trackio identity、metrics、checkpoint manifest、selection report、export manifest、
+  人工介入和退出状态。不得只留下 `model.safetensors` 或口头结果。
+- 完成顺序固定为：训练退出并保存状态 -> validation-only selection -> export -> remote independent
+  reload -> 回传 selected deploy artifact、manifest、metrics 与必要报告 -> 本地 checksum/reload 核验
+  -> 在用户已授权的运行边界内关闭计费 GPU -> 本地 Gate 3 -> 本地 Gate 4 -> 结果分析。任一步失败
+  都不得假装完成、删除远端状态或直接启动下一炉。
+- 完整 optimizer/scheduler checkpoint 默认保留在远端用于显式 resume；selected deploy artifact 与
+  provenance 必须拉回本地。若实例可能释放、迁移或不再保留，必须在关机/释放前把需要复现或恢复
+  的完整 checkpoint 备份到用户批准的可靠位置。AutoDL 本地盘不构成唯一可靠副本。
+- Gate 3/4 默认在本地通过独立 reload 的 deploy artifact 运行。固定 Gate 4 等待期间不得保持
+  AutoDL GPU 开机；不得用远端更快的离线 loss、一次 positive reward 或一次偶然 success 替代本地
+  registered Gate 结果。
+- 下一炉只能在本地分析当前 run 后，重新提出单一受控假设并生成新的 identity/plan；禁止在远端
+  原地改参数续跑、复用不匹配 optimizer state、无计划批量开炉，或把 AutoDL 变成常驻开发机。
 
 ## Architecture
 

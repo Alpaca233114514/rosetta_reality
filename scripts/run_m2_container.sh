@@ -63,6 +63,7 @@ Environment:
   ROSETTA_XPU_DEVICE_PATH WSL GPU bridge device (default: /dev/dxg).
   ROSETTA_WSL_LIB_ROOT    WSL host-library root (default: /usr/lib/wsl).
   ROSETTA_CONTAINER_NAME  Optional explicit Docker container name for monitoring.
+  ROSETTA_VLA_CONTAINER_USER Optional numeric uid:gid for VLA artifact filesystem ownership.
 EOF
 }
 
@@ -351,6 +352,11 @@ run_vla_container() {
     while IFS= read -r -d '' argument; do
         args+=("$argument")
     done < <(base_run_args "$network" "$VLA_MEMORY_LIMIT" "$VLA_MEMORY_LIMIT")
+    if [[ -n "${ROSETTA_VLA_CONTAINER_USER:-}" ]]; then
+        [[ "$ROSETTA_VLA_CONTAINER_USER" =~ ^[0-9]+:[0-9]+$ ]] \
+            || die "ROSETTA_VLA_CONTAINER_USER must be a numeric uid:gid"
+        args+=(--user="$ROSETTA_VLA_CONTAINER_USER")
+    fi
     args+=(
         --volume="$data_host:/workspace/data:ro"
         --volume="$models_host:/workspace/models:ro"

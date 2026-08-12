@@ -22,6 +22,12 @@ if str(SOURCE_ROOT) not in sys.path:
 
 from rosetta_reality.experiment import file_sha256  # noqa: E402
 from rosetta_reality.features import create_json  # noqa: E402
+from rosetta_reality.sim import load_action_contract  # noqa: E402
+from rosetta_reality.vla import (  # noqa: E402
+    load_smolvla_action_space,
+    load_smolvla_experiment,
+)
+from rosetta_reality.vla.processor import ensure_smolvla_action_boundary  # noqa: E402
 
 
 @parser.wrap()
@@ -36,11 +42,7 @@ def _load_experiment() -> tuple[Path, dict[str, Any]]:
     path = Path(raw)
     if not path.is_absolute():
         raise ValueError("The experiment config path must be absolute inside the container.")
-    import yaml
-
-    value = yaml.safe_load(path.read_text(encoding="utf-8"))
-    if not isinstance(value, dict):
-        raise ValueError("The experiment config must contain a mapping.")
+    value = load_smolvla_experiment(path, REPOSITORY_ROOT)
     return path, value
 
 
@@ -126,13 +128,15 @@ def _validate_train_only_statistics(dataset: Any) -> dict[str, Any] | None:
     path = Path(raw_path)
     report = json.loads(path.read_text(encoding="utf-8"))
     expected = report.get("effective_stats", {})
+    formal_identity = os.environ.get("ROSETTA_VLA_FORMAL_PLAN_SHA256")
+    repair_identity = os.environ.get("ROSETTA_VLA_REPAIR_PROTOCOL_SHA256")
     if (
         not path.is_absolute()
         or report.get("status") != "complete"
         or report.get("stage") != "smolvla_train_only_normalization"
         or report.get("source_split") != "train"
         or os.environ.get("ROSETTA_VLA_NORMALIZATION_SHA256") != file_sha256(path)
-        or not os.environ.get("ROSETTA_VLA_FORMAL_PLAN_SHA256")
+        or bool(formal_identity) == bool(repair_identity)
         or report.get("validation_episodes_loaded") is not False
         or report.get("hidden_test_loaded") is not False
         or report.get("visual_statistics_policy") != "imagenet_constants"
@@ -230,6 +234,8 @@ def _make_processors(
 def main() -> int:
     config_path, experiment = _load_experiment()
     contract_path, action_contract = _load_action_contract(experiment)
+    contract = load_action_contract(contract_path)
+    action_space = load_smolvla_action_space(experiment)
     action_spec = action_contract["action"]
     action_dimension = int(action_spec["dimension"])
     chunk_length = int(action_spec["chunk_length"])
@@ -269,6 +275,8 @@ def main() -> int:
         raise ValueError("Dataset action dimension differs from the Action Contract.")
     if cfg.policy.chunk_size != chunk_length:
         raise ValueError("Policy chunk size differs from the Action Contract.")
+    if bool(cfg.policy.adapt_to_pi_aloha) != action_space.adapt_to_pi_aloha:
+        raise ValueError("Policy ALOHA adaptation differs from the action-space contract.")
     allowed_episodes = {int(value) for value in experiment["phases"]["smoke"]["episodes"]}
     hidden_test = {int(value) for value in experiment["dataset"]["test_episodes"]}
     if allowed_episodes & hidden_test:
@@ -294,7 +302,15 @@ def main() -> int:
         )
 
     policy = make_policy(cfg=cfg.policy, ds_meta=dataset.meta, rename_map=cfg.rename_map)
-    preprocessor, _ = _make_processors(cfg, policy, dataset, device)
+    preprocessor, postprocessor = _make_processors(cfg, policy, dataset, device)
+    ensure_smolvla_action_boundary(
+        preprocessor,
+        postprocessor,
+        contract,
+        action_space,
+        action_contract_sha256=file_sha256(contract_path),
+        upstream_revision=str(experiment["upstream"]["revision"]),
+    )
     for camera_key in dataset.meta.camera_keys:
         if camera_key in batch and batch[camera_key].dtype == torch.uint8:
             maximum = torch.iinfo(batch[camera_key].dtype).max
@@ -372,7 +388,9 @@ def main() -> int:
         "run_name": run_name,
         "experiment_config_sha256": file_sha256(config_path),
         "formal_plan_sha256": os.environ.get("ROSETTA_VLA_FORMAL_PLAN_SHA256"),
+        "repair_protocol_sha256": os.environ.get("ROSETTA_VLA_REPAIR_PROTOCOL_SHA256"),
         "action_contract_sha256": file_sha256(contract_path),
+        "action_space": action_space.as_dict(),
         "action_dimension": action_dimension,
         "chunk_length": chunk_length,
         "state_dimension": state_dimension,

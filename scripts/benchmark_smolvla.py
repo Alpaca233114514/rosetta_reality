@@ -22,6 +22,10 @@ if str(SOURCE_ROOT) not in sys.path:
 from rosetta_reality.experiment import file_sha256, stable_hash  # noqa: E402
 from rosetta_reality.features import create_json  # noqa: E402
 from rosetta_reality.sim import load_action_contract  # noqa: E402
+from rosetta_reality.vla import (  # noqa: E402
+    load_smolvla_action_space,
+    load_smolvla_experiment,
+)
 
 
 def _load_yaml(path: Path) -> dict[str, Any]:
@@ -66,10 +70,39 @@ def _chunks(values: np.ndarray, episode_ids: np.ndarray, chunk_size: int) -> np.
     return np.stack(pieces)
 
 
+def _project_actions(
+    actions: np.ndarray,
+    *,
+    lower: np.ndarray,
+    upper: np.ndarray,
+    tolerances: np.ndarray,
+) -> tuple[np.ndarray, dict[str, Any]]:
+    """Apply the registered source-tolerance check and physical target projection."""
+
+    overshoot = np.maximum(np.maximum(lower - actions, actions - upper), 0.0)
+    if np.any(overshoot > tolerances + 1e-6):
+        index = np.unravel_index(int(np.argmax(overshoot - tolerances)), actions.shape)
+        raise ValueError(
+            "Benchmark action exceeds the registered source overshoot tolerance "
+            f"at row {index[0]}, dimension {index[1]}."
+        )
+    projected = np.clip(actions, lower, upper)
+    changed = projected != actions
+    return projected, {
+        "mode": "action_contract_clip",
+        "stage": "before_baseline_statistics_and_metrics",
+        "projected_elements": int(changed.sum()),
+        "total_elements": int(changed.size),
+        "projection_rate": float(changed.mean()),
+        "maximum_source_overshoot": float(overshoot.max(initial=0.0)),
+    }
+
+
 def benchmark(config_path: Path) -> Path:
     import pyarrow.dataset as arrow_dataset
 
-    experiment = _load_yaml(config_path)
+    experiment = load_smolvla_experiment(config_path, REPOSITORY_ROOT)
+    action_space = load_smolvla_action_space(experiment)
     dataset_config = _load_yaml(REPOSITORY_ROOT / experiment["dataset"]["config"])
     action_contract_path = REPOSITORY_ROOT / experiment["action_contract"]["derived"]
     contract = load_action_contract(action_contract_path)
@@ -118,12 +151,33 @@ def benchmark(config_path: Path) -> Path:
 
     train_mask = np.isin(episode_ids, train_episodes)
     validation_mask = np.isin(episode_ids, validation_episodes)
+    target_projection: dict[str, Any] = {
+        "mode": "none",
+        "stage": "none",
+        "projected_elements": 0,
+        "total_elements": int(actions.size),
+        "projection_rate": 0.0,
+        "maximum_source_overshoot": 0.0,
+    }
+    if action_space.target_projection == "action_contract_clip":
+        actions, target_projection = _project_actions(
+            actions,
+            lower=contract.lower_bounds.numpy(),
+            upper=contract.upper_bounds.numpy(),
+            tolerances=contract.source_overshoot_tolerances.numpy(),
+        )
     train_mean = actions[train_mask].mean(axis=0)
     target = _chunks(actions[validation_mask], episode_ids[validation_mask], contract.chunk_length)
     validation_states = states[validation_mask]
     if len(validation_states) != len(target):
         raise RuntimeError("Validation state and chunk counts differ.")
     train_mean_prediction = np.broadcast_to(train_mean, target.shape)
+    if action_space.explicit:
+        validation_states = np.clip(
+            validation_states,
+            contract.lower_bounds.numpy(),
+            contract.upper_bounds.numpy(),
+        )
     state_prediction = np.broadcast_to(validation_states[:, None, :], target.shape)
     metrics = {
         "train_action_mean": _metric(train_mean_prediction, target),
@@ -144,6 +198,8 @@ def benchmark(config_path: Path) -> Path:
         "dataset_revision": experiment["dataset"]["revision"],
         "dataset_manifest_sha256": file_sha256(manifest_path),
         "action_contract_sha256": file_sha256(action_contract_path),
+        "action_space": action_space.as_dict(),
+        "target_projection": target_projection,
         "normalization_source_split": "train",
         "evaluated_split": "validation",
         "train_episodes": train_episodes,
