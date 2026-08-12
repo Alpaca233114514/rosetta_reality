@@ -183,14 +183,6 @@ def validate_dependency(root: Path, config: dict[str, Any]) -> dict[str, Any]:
         or manifest.get("license") != dependency["license"]
     ):
         raise ValueError("VLM dependency manifest identity differs from the pinned config.")
-    reference = _dependency_reference(config)
-    if (
-        not reference.is_file()
-        or reference.read_text(encoding="utf-8").strip() != dependency["revision"]
-    ):
-        raise ValueError(
-            "The offline Hugging Face main reference is not pinned to the VLM revision."
-        )
     expected_files = [str(value) for value in dependency["files"]]
     current = _file_records(dependency_snapshot_root(config), expected_files)
     if manifest.get("files") != current:

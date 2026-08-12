@@ -35,8 +35,9 @@ class _ActionRepairOnlineSmolVLA(simulator._OnlineSmolVLA):
         artifact: Path,
         config: dict[str, Any],
         normalization: dict[str, Any],
+        contract: Any,
     ) -> None:
-        super().__init__(artifact, config, normalization)
+        super().__init__(artifact, config, normalization, contract)
         raw_action_space = config.get("action_space")
         if not isinstance(raw_action_space, dict):
             raise ValueError("Faust artifact has no explicit action-space identity.")
