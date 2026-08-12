@@ -3,6 +3,7 @@
   "report_id": "m2-smolvla-faust-trainer-optimizer-audit-2026-08-12",
   "status": "complete_with_gate4_failure",
   "authority": {
+    "stable_architecture": "docs/m2-smolvla-architecture.md",
     "human_readable_report": "reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md",
     "historical_handoff": "reports/training/m2-smolvla-action-repair-handoff-2026-08-12.md",
     "repository_rules": "AGENTS.md",

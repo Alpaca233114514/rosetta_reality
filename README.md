@@ -75,11 +75,13 @@ scripts/run_m2_container.sh ml python scripts/train.py --dry-run
 scripts/run_m2_container.sh ml ruff check .
 ```
 
-The SmolVLA and Trackio image/runner is governed by
-[`docs/er-vla-pipeline.md`](docs/er-vla-pipeline.md). Formal training remains
-blocked until its Space, dataset, action contract, tiny smoke, and overfit gates
-pass. The same document records the bounded XPU benchmark and the preregistered
-sub-two-hour training plan without treating a projection as a completed run.
+The stable current M2 component, training, export, closed-loop and evidence map
+is [`docs/m2-smolvla-architecture.md`](docs/m2-smolvla-architecture.md).
+[`docs/er-vla-pipeline.md`](docs/er-vla-pipeline.md) retains the original role,
+reuse and gate design. Faust formal training has completed, but M2 remains
+blocked because its development Gate 4 failed; the architecture map routes to
+the current audit instead of treating the earlier projected plan as current
+status.
 
 ## M1 Dataset Preparation
 

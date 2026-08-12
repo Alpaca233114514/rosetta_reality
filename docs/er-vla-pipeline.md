@@ -1,5 +1,10 @@
 # ER / VLA Pipeline
 
+> Current M2 implementation and status navigation lives in
+> [`m2-smolvla-architecture.md`](m2-smolvla-architecture.md). This document
+> retains the role, reuse and gate design; plan-era statements below are not
+> evidence that the current formal run is still pending or that M2 passed.
+
 This document is the canonical role and execution map for the next Rosetta
 Reality development cycle. It supersedes the earlier assumption that a frozen
 Qwen backbone plus a small action head is the project VLA reference.

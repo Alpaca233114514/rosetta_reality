@@ -11,12 +11,13 @@ that document as the initial diagnosis boundary.
 An AI resuming this work should read, in order:
 
 1. `AGENTS.md`;
-2. this document;
-3. `reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.json`;
-4. `configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml`;
-5. `configs/vla/smolvla_450m_aloha_insertion_faust_batch8_002.yaml`;
-6. `configs/vla/smolvla_450m_aloha_insertion_faust_sim_001.yaml`;
-7. the immutable evidence files in section 11.
+2. `docs/m2-smolvla-architecture.md` for the stable component and control-flow map;
+3. this document;
+4. `reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.json`;
+5. `configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml`;
+6. `configs/vla/smolvla_450m_aloha_insertion_faust_batch8_002.yaml`;
+7. `configs/vla/smolvla_450m_aloha_insertion_faust_sim_001.yaml`;
+8. the immutable evidence files in section 11.
 
 Do not edit the hash-bound Faust plans or reinterpret Gate 4 failure as M2
 acceptance. New fixes need new IDs, new configs and controlled comparisons.

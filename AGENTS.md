@@ -147,6 +147,31 @@ Local control plane
 
 ## Architecture
 
+### Current M2 navigation (mandatory)
+
+- Any task that touches SmolVLA data, `configs/vla/`, `src/rosetta_reality/vla/`,
+  the SmolVLA trainer/loss/optimizer/scheduler, checkpoint/resume, export,
+  validation, Gate 3 or Gate 4 must first read
+  `docs/m2-smolvla-architecture.md` completely. It is the stable component and
+  control-flow map; do not reconstruct the architecture from chat history.
+- After the architecture map, read
+  `reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md`
+  and its JSON companion for current evidence, findings and repair order. The
+  earlier `docs/er-vla-pipeline.md` and action-repair handoff remain context and
+  provenance, not current completed-result authority.
+- Current boundary: Faust batch-8 training completed, export/reload and Gate 3
+  passed, but Gate 4 failed `0/5`; therefore M2 is not complete. No agent may
+  infer acceptance from offline MAE or start another full furnace without a new
+  single-axis registered plan and the required authorization/gates.
+- If architecture prose conflicts with a hash-bound config, Action Contract,
+  executable assertion or immutable evidence, stop and reconcile the mismatch.
+  Never silently choose one or edit historical evidence to match prose.
+- When component ownership, entry points, the current evidence source, processor
+  boundary, trainer/optimizer architecture, closed-loop flow or Gate 4 status
+  changes, update `docs/m2-smolvla-architecture.md` in the same change. If its
+  stable path changes, update this section, `README.md` and
+  `docs/architecture.md` together.
+
 - Rosetta Reality 是一个 **Embodied Reasoning + Vision-Language-Action monorepo**。ER、VLA 与
   integration 在逻辑上分离，但共享一次 Git revision、数据合同、仿真适配器和评估协议。
 - `Qwen3.5` 只属于 ER / System-2 路线，负责低频场景理解、任务分解、进度判断和失败恢复；

@@ -1,6 +1,6 @@
 # M2 SmolVLA action-repair reference — 2026-08-12
 
-> Current completion source of truth: read
+> Current navigation source: read `docs/m2-smolvla-architecture.md`, then
 > `reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md`
 > and its JSON companion before using this historical handoff. Sections 2, 7,
 > 8 and 9 below describe the initial no-optimizer boundary and are intentionally

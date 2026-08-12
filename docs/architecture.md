@@ -89,3 +89,10 @@ introduced.
 
 See [`er-vla-pipeline.md`](er-vla-pipeline.md) for the pinned first experiment,
 reuse matrix and execution gates.
+
+For current M2 SmolVLA component ownership, repaired action processing,
+trainer/optimizer boundaries, export/reload, closed-loop flow, evidence routing
+and the next repair stage, start with
+[`m2-smolvla-architecture.md`](m2-smolvla-architecture.md). That stable map
+points to the dated empirical audit; this general architecture document does
+not carry furnace status.
