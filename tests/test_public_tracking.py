@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 
 from rosetta_reality.tracking import sanitize_metrics, validate_public_payload
-from scripts.sync_trackio import _scan_database, _snapshot_project
+from scripts.sync_trackio import _run_snapshots, _scan_database, _snapshot_project
 
 
 def test_public_payload_accepts_revision_identity_and_metrics() -> None:
@@ -71,3 +71,38 @@ def test_trackio_scan_and_sync_use_one_immutable_database_snapshot(
 
     assert scan == {"tables": 1, "rows": 1, "text_values": 1}
     assert rows == [('{"loss": 0.5}',)]
+
+
+def test_trackio_snapshot_binds_formal_run_and_final_step(tmp_path: Path) -> None:
+    database = tmp_path / "project.db"
+    with sqlite3.connect(database) as connection:
+        connection.execute(
+            "CREATE TABLE configs (run_id TEXT, run_name TEXT, config TEXT)"
+        )
+        connection.execute(
+            "CREATE TABLE metrics (run_id TEXT, run_name TEXT, step INTEGER)"
+        )
+        connection.execute(
+            "INSERT INTO configs VALUES (?, ?, ?)",
+            (
+                "run-1",
+                "formal-001",
+                '{"experiment_id":"experiment-001","phase":"formal",'
+                '"formal_plan_sha256":"' + "a" * 64 + '"}',
+            ),
+        )
+        connection.executemany(
+            "INSERT INTO metrics VALUES (?, ?, ?)",
+            [("run-1", "formal-001", 10), ("run-1", "formal-001", 20)],
+        )
+
+    assert _run_snapshots(database) == [
+        {
+            "run_id": "run-1",
+            "run_name": "formal-001",
+            "experiment_id": "experiment-001",
+            "phase": "formal",
+            "formal_plan_sha256": "a" * 64,
+            "maximum_logged_step": 20,
+        }
+    ]

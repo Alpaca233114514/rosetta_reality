@@ -19,7 +19,7 @@ DEFAULT_CONFIG = REPOSITORY_ROOT / "configs/vla/smolvla_450m_aloha_insertion.yam
 if str(SOURCE_ROOT) not in sys.path:
     sys.path.insert(0, str(SOURCE_ROOT))
 
-from rosetta_reality.experiment import stable_hash  # noqa: E402
+from rosetta_reality.experiment import file_sha256, stable_hash  # noqa: E402
 from rosetta_reality.features import create_json  # noqa: E402
 from rosetta_reality.tracking import validate_public_payload  # noqa: E402
 
@@ -116,6 +116,37 @@ def _snapshot_project(source_root: Path, snapshot_root: Path, project: str) -> P
     return destination
 
 
+def _run_snapshots(path: Path) -> list[dict[str, Any]]:
+    """Bind the public database snapshot to each exact logged run."""
+
+    connection = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+    try:
+        rows = connection.execute(
+            "SELECT c.run_id, c.run_name, c.config, MAX(m.step) "
+            "FROM configs AS c LEFT JOIN metrics AS m "
+            "ON m.run_id = c.run_id AND m.run_name = c.run_name "
+            "GROUP BY c.run_id, c.run_name, c.config ORDER BY c.run_name, c.run_id"
+        ).fetchall()
+    finally:
+        connection.close()
+    snapshots: list[dict[str, Any]] = []
+    for run_id, run_name, raw_config, maximum_step in rows:
+        config = json.loads(raw_config)
+        if not isinstance(config, dict):
+            raise ValueError("Trackio run config is not a public object.")
+        snapshot = {
+            "run_id": str(run_id),
+            "run_name": str(run_name),
+            "experiment_id": config.get("experiment_id"),
+            "phase": config.get("phase"),
+            "formal_plan_sha256": config.get("formal_plan_sha256"),
+            "maximum_logged_step": int(maximum_step) if maximum_step is not None else None,
+        }
+        validate_public_payload(snapshot, context="trackio_run_snapshot")
+        snapshots.append(snapshot)
+    return snapshots
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
@@ -138,6 +169,8 @@ def main() -> int:
         snapshot_root = Path(temporary)
         snapshot_database = _snapshot_project(root, snapshot_root, project)
         scan = _scan_database(snapshot_database)
+        run_snapshots = _run_snapshots(snapshot_database)
+        snapshot_sha256 = file_sha256(snapshot_database)
         previous_trackio_dir = os.environ.get("TRACKIO_DIR")
         os.environ["TRACKIO_DIR"] = str(snapshot_root)
         try:
@@ -169,6 +202,8 @@ def main() -> int:
         "space_sdk": info.sdk,
         "visibility": "public",
         "public_payload_scan": scan,
+        "project_snapshot_sha256": snapshot_sha256,
+        "run_snapshots": run_snapshots,
         "contains_sensitive_data": False,
         "media_uploaded": False,
         "test_split_loaded": False,

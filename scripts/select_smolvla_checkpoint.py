@@ -22,7 +22,7 @@ for root in (SOURCE_ROOT, SCRIPTS_ROOT):
 import run_smolvla_formal as formal_runner  # noqa: E402
 import run_smolvla_phase as phase_runner  # noqa: E402
 
-from rosetta_reality.experiment import file_sha256, workspace_code_identity  # noqa: E402
+from rosetta_reality.experiment import file_sha256  # noqa: E402
 from rosetta_reality.features import create_json  # noqa: E402
 
 
@@ -160,6 +160,47 @@ def _validation_report(
     return report
 
 
+def _validate_workspace_identities(
+    launch: dict[str, Any], reports: dict[str | int, tuple[Path, dict[str, Any]]]
+) -> dict[str, Any]:
+    expected = launch.get("code_identity")
+    if not isinstance(expected, dict) or not expected:
+        raise ValueError("The formal launch has no workspace code identity.")
+    for path, report in reports.values():
+        if report.get("code_identity") != expected:
+            raise ValueError(
+                f"Validation report workspace differs from the launch: {path.name}."
+            )
+    return expected
+
+
+def _validate_sync_run_snapshot(
+    sync: dict[str, Any], plan: dict[str, Any], experiment: dict[str, Any]
+) -> dict[str, Any]:
+    snapshots = sync.get("run_snapshots")
+    matches = [
+        snapshot
+        for snapshot in snapshots if isinstance(snapshot, dict)
+    ] if isinstance(snapshots, list) else []
+    matches = [
+        snapshot
+        for snapshot in matches
+        if snapshot.get("run_name") == plan["run_name"]
+        and snapshot.get("experiment_id") == experiment["experiment_id"]
+        and snapshot.get("phase") == "formal"
+        and snapshot.get("formal_plan_sha256") == plan["formal_plan_sha256"]
+        and snapshot.get("maximum_logged_step") == plan["training"]["steps"]
+    ]
+    if (
+        sync.get("project") != plan["tracking"]["project"]
+        or not isinstance(sync.get("project_snapshot_sha256"), str)
+        or len(sync["project_snapshot_sha256"]) != 64
+        or len(matches) != 1
+    ):
+        raise ValueError("The Trackio sync snapshot does not contain the selected formal run.")
+    return matches[0]
+
+
 def _training_metrics(
     database: Path,
     run_name: str,
@@ -293,6 +334,8 @@ def main() -> int:
         or sync.get("space_id") != experiment["tracking"]["space_id"]
     ):
         raise ValueError("The final public Trackio sync report is invalid.")
+    plan_with_identity = {**plan, "formal_plan_sha256": file_sha256(plan_path)}
+    synced_run = _validate_sync_run_snapshot(sync, plan_with_identity, experiment)
 
     validation_root = (
         phase_runner._absolute_root("ROSETTA_RUN_ROOT")
@@ -317,6 +360,7 @@ def main() -> int:
                 expected_source=source,
             ),
         )
+    selection_code_identity = _validate_workspace_identities(launch, reports)
 
     checkpoint_root = phase_runner._absolute_root("ROSETTA_CHECKPOINT_ROOT")
     checkpoint_summaries: list[dict[str, Any]] = []
@@ -393,6 +437,9 @@ def main() -> int:
         "normalization_report_sha256": normalization_sha256,
         "launch_manifest_sha256": file_sha256(launch_path),
         "trackio_sync_report_sha256": file_sha256(args.trackio_sync_report.resolve()),
+        "trackio_project_snapshot_sha256": sync["project_snapshot_sha256"],
+        "trackio_synced_run": synced_run,
+        "code_identity": selection_code_identity,
         "training_metrics": training_metrics,
         "selection_protocol": {
             "split": "validation",
@@ -411,7 +458,6 @@ def main() -> int:
         "primary_relative_improvement": (base_value - selected_value) / base_value,
         "acceptance": acceptance,
         "hidden_test_loaded": False,
-        "code_identity": workspace_code_identity(REPOSITORY_ROOT),
     }
     selection_name = str(
         plan.get("selection", {}).get(

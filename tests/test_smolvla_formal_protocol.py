@@ -24,7 +24,11 @@ from scripts.run_smolvla_formal import (
     _validate_saved_optimizer_contract,
 )
 from scripts.run_smolvla_phase import _validate_gate
-from scripts.select_smolvla_checkpoint import _validated_checkpoint_hashes
+from scripts.select_smolvla_checkpoint import (
+    _validate_sync_run_snapshot,
+    _validate_workspace_identities,
+    _validated_checkpoint_hashes,
+)
 from scripts.train_smolvla_trackio import _convert_statistics
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -166,6 +170,50 @@ def test_simulation_policy_shape_follows_versioned_action_contract() -> None:
     policy_config.chunk_size = 50
     with pytest.raises(ValueError, match="policy dimensions"):
         smolvla_sim_gate._validate_policy_contract_shape(policy_config, contract)
+
+
+def test_selection_rejects_cross_workspace_validation() -> None:
+    launch = {"code_identity": {"revision": "a" * 40, "workspace_tree_sha256": "b" * 64}}
+    reports = {
+        "base": (
+            Path("base.json"),
+            {"code_identity": {"revision": "a" * 40, "workspace_tree_sha256": "c" * 64}},
+        )
+    }
+
+    with pytest.raises(ValueError, match="workspace differs"):
+        _validate_workspace_identities(launch, reports)
+
+
+def test_selection_requires_synced_formal_run_final_step() -> None:
+    plan_sha256 = "a" * 64
+    plan = {
+        "run_name": "formal-001",
+        "formal_plan_sha256": plan_sha256,
+        "training": {"steps": 20},
+        "tracking": {"project": "project"},
+    }
+    experiment = {"experiment_id": "experiment-001"}
+    sync = {
+        "project": "project",
+        "project_snapshot_sha256": "b" * 64,
+        "run_snapshots": [
+            {
+                "run_name": "formal-001",
+                "experiment_id": "experiment-001",
+                "phase": "formal",
+                "formal_plan_sha256": plan_sha256,
+                "maximum_logged_step": 20,
+            }
+        ],
+    }
+
+    assert _validate_sync_run_snapshot(sync, plan, experiment)[
+        "maximum_logged_step"
+    ] == 20
+    sync["run_snapshots"][0]["maximum_logged_step"] = 10
+    with pytest.raises(ValueError, match="does not contain"):
+        _validate_sync_run_snapshot(sync, plan, experiment)
 
 
 def test_training_coverage_rejects_a_registered_partial_pass() -> None:
