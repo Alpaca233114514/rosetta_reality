@@ -21,6 +21,16 @@ from rosetta_reality.sim import load_action_contract  # noqa: E402
 from rosetta_reality.vla import load_smolvla_action_space  # noqa: E402
 from rosetta_reality.vla.processor import ensure_smolvla_action_boundary  # noqa: E402
 
+DELEGATED_EVALUATOR_SHA256 = (
+    "4aff5c8c23d8194a1b4997316c904a63498a47e94f9ba695683fe41a01f7d07c"
+)
+
+
+def _validate_delegated_evaluator() -> None:
+    path = SCRIPTS_ROOT / "evaluate_smolvla_validation.py"
+    if file_sha256(path) != DELEGATED_EVALUATOR_SHA256:
+        raise ValueError("Delegated SmolVLA evaluator changed; register a new validation plan.")
+
 
 def _checkpoint_source(
     plan: dict[str, Any],
@@ -116,6 +126,7 @@ def _validate_checkpoint_statistics(
 
 
 def main() -> int:
+    _validate_delegated_evaluator()
     evaluator.formal_runner = formal_runner
     evaluator._checkpoint_source = _checkpoint_source
     evaluator._validate_checkpoint_statistics = _validate_checkpoint_statistics

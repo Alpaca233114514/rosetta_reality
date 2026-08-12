@@ -614,11 +614,13 @@ def gate4(plan_path: Path, gate3_report: Path) -> int:
     plan, artifact, manifest, config, normalization = _load_artifact(plan_path)
     gate3_report = gate3_report.resolve()
     prior = _load_json(gate3_report)
+    code_identity = workspace_code_identity(REPOSITORY_ROOT)
     if (
         prior.get("status") != "passed"
         or prior.get("gate") != "m2_gate_3_small_policy_rollout"
         or prior.get("artifact_manifest_sha256") != file_sha256(artifact / "manifest.json")
         or prior.get("simulation_plan_sha256") != file_sha256(plan_path)
+        or prior.get("code_identity") != code_identity
         or prior.get("hidden_test_loaded") is not False
     ):
         raise ValueError("Gate 4 requires the matching passed Gate 3 report.")
@@ -629,7 +631,6 @@ def gate4(plan_path: Path, gate3_report: Path) -> int:
     plan_sha256 = file_sha256(plan_path)
     artifact_sha256 = file_sha256(artifact / "manifest.json")
     gate3_sha256 = file_sha256(gate3_report)
-    code_identity = workspace_code_identity(REPOSITORY_ROOT)
     episode_root = (
         _absolute_root("ROSETTA_RUN_ROOT")
         / str(plan["experiment_id"])

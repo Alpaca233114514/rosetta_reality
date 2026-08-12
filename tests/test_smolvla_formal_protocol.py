@@ -1,3 +1,4 @@
+import json
 import math
 from dataclasses import replace
 from pathlib import Path
@@ -11,12 +12,14 @@ from scripts import smolvla_sim_gate
 from scripts.evaluate_smolvla_validation import _percentile, _validation_indices
 from scripts.inspect_smolvla_quarter import _expected_learning_rate
 from scripts.run_smolvla_formal import (
+    _load_formal_plan,
     _optimizer_arguments,
     _optimizer_contract,
     _training_coverage,
     _validate_plan,
     _validate_saved_optimizer_contract,
 )
+from scripts.run_smolvla_phase import _validate_gate
 from scripts.train_smolvla_trackio import _convert_statistics
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -69,10 +72,7 @@ def test_optimized_formal_plan_is_bound_to_measured_xpu_evidence() -> None:
         / "configs/vla/smolvla_450m_aloha_insertion_formal_optimized_001.yaml"
     )
 
-    plan, _base_path, _experiment = _validate_plan(
-        plan_path,
-        require_runtime_evidence=False,
-    )
+    plan = yaml.safe_load(plan_path.read_text(encoding="utf-8"))
     coverage = _training_coverage(plan["training"], 20_000)
 
     assert plan["resources"]["memory_limit"] == "8g"
@@ -121,6 +121,15 @@ def test_three_furnace_program_is_exactly_ordered_and_bounded() -> None:
     ]
 
 
+def test_historical_formal_plan_rejects_current_security_hardened_runtime() -> None:
+    with pytest.raises(ValueError, match="implementation changed"):
+        _validate_plan(
+            REPOSITORY_ROOT
+            / "configs/vla/smolvla_450m_aloha_insertion_formal_optimized_001.yaml",
+            require_runtime_evidence=False,
+        )
+
+
 @pytest.mark.parametrize(
     ("filename", "codename", "ordinal", "peak_lr", "decay_lr"),
     [
@@ -148,10 +157,7 @@ def test_furnace_plans_preregister_explicit_optimizer_and_quarter_wakes(
     peak_lr: float,
     decay_lr: float,
 ) -> None:
-    plan, _base, _experiment = _validate_plan(
-        REPOSITORY_ROOT / "configs/vla" / filename,
-        require_runtime_evidence=False,
-    )
+    plan = _load_formal_plan(REPOSITORY_ROOT / "configs/vla" / filename)
     contract = _optimizer_contract(plan["training"])
 
     assert plan["furnace_program"]["codename"] == codename
@@ -430,3 +436,31 @@ def test_validation_indices_preserve_registered_episode_and_offset_order() -> No
 
 def test_validation_latency_percentile_uses_nearest_rank() -> None:
     assert _percentile([0.4, 0.1, 0.3, 0.2], 0.95) == 0.4
+
+
+def test_gate2_replay_rejects_sealed_episode(tmp_path: Path) -> None:
+    report = tmp_path / "gate2.json"
+    report.write_text(
+        json.dumps(
+            {
+                "status": "passed",
+                "gate": "m2_gate_2_dataset_action_replay",
+                "experiment_id": "experiment",
+                "action_contract_sha256": "a" * 64,
+                "dataset_revision": "b" * 40,
+                "episode": 31,
+                "acceptance_criteria": {"timestamp_alignment": True},
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="Gate 2 dataset identity"):
+        _validate_gate(
+            report,
+            expected_gate="m2_gate_2_dataset_action_replay",
+            experiment_id="experiment",
+            contract_sha256="a" * 64,
+            dataset_revision="b" * 40,
+            allowed_replay_episodes=[2, 7, 22],
+        )

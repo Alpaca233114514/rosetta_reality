@@ -298,6 +298,10 @@ def main() -> int:
             experiment_id=str(experiment["experiment_id"]),
             contract_sha256=contract_sha256,
             dataset_revision=str(experiment["dataset"]["revision"]),
+            allowed_replay_episodes=[
+                *experiment["dataset"]["train_episodes"],
+                *experiment["dataset"]["validation_episodes"],
+            ],
         )
         phase_runner._validate_gate(
             gate2_path,
@@ -305,6 +309,10 @@ def main() -> int:
             experiment_id=str(experiment["experiment_id"]),
             contract_sha256=contract_sha256,
             dataset_revision=str(experiment["dataset"]["revision"]),
+            allowed_replay_episodes=[
+                *experiment["dataset"]["train_episodes"],
+                *experiment["dataset"]["validation_episodes"],
+            ],
         )
         _validate_tracking_reuse(tracking_path, experiment)
         _validate_historical_diagnostic(experiment, modality_path, contract_sha256)

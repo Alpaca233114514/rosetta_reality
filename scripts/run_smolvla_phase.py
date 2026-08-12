@@ -75,6 +75,7 @@ def _validate_gate(
     experiment_id: str,
     contract_sha256: str,
     dataset_revision: str,
+    allowed_replay_episodes: list[int],
 ) -> None:
     report = _load_json(path)
     if (
@@ -86,6 +87,7 @@ def _validate_gate(
         raise ValueError(f"{expected_gate} report is not bound to this SmolVLA contract.")
     if expected_gate == "m2_gate_2_dataset_action_replay" and (
         report.get("dataset_revision") != dataset_revision
+        or report.get("episode") not in allowed_replay_episodes
         or report.get("acceptance_criteria", {}).get("timestamp_alignment") is not True
     ):
         raise ValueError("Gate 2 dataset identity or timestamp alignment is invalid.")
@@ -320,6 +322,10 @@ def main() -> int:
         experiment_id=experiment["experiment_id"],
         contract_sha256=contract_sha256,
         dataset_revision=experiment["dataset"]["revision"],
+        allowed_replay_episodes=[
+            *experiment["dataset"]["train_episodes"],
+            *experiment["dataset"]["validation_episodes"],
+        ],
     )
     _validate_gate(
         args.gate2_report.resolve(),
@@ -327,6 +333,10 @@ def main() -> int:
         experiment_id=experiment["experiment_id"],
         contract_sha256=contract_sha256,
         dataset_revision=experiment["dataset"]["revision"],
+        allowed_replay_episodes=[
+            *experiment["dataset"]["train_episodes"],
+            *experiment["dataset"]["validation_episodes"],
+        ],
     )
     _validate_tracking(args.trackio_report.resolve(), experiment)
     if args.phase != "preflight":

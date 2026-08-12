@@ -222,6 +222,10 @@ def _validate_prerequisites(
             experiment_id=str(experiment["experiment_id"]),
             contract_sha256=contract_sha256,
             dataset_revision=str(experiment["dataset"]["revision"]),
+            allowed_replay_episodes=[
+                *experiment["dataset"]["train_episodes"],
+                *experiment["dataset"]["validation_episodes"],
+            ],
         )
     phase_runner._validate_smoke_acceptance(
         paths["smoke_acceptance"], experiment, base_path, contract_sha256

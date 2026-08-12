@@ -84,6 +84,10 @@ def main() -> int:
         experiment_id=str(experiment["experiment_id"]),
         contract_sha256=contract_sha256,
         dataset_revision=str(experiment["dataset"]["revision"]),
+        allowed_replay_episodes=[
+            *experiment["dataset"]["train_episodes"],
+            *experiment["dataset"]["validation_episodes"],
+        ],
     )
     phase_runner._validate_gate(
         args.gate2_report.resolve(),
@@ -91,6 +95,10 @@ def main() -> int:
         experiment_id=str(experiment["experiment_id"]),
         contract_sha256=contract_sha256,
         dataset_revision=str(experiment["dataset"]["revision"]),
+        allowed_replay_episodes=[
+            *experiment["dataset"]["train_episodes"],
+            *experiment["dataset"]["validation_episodes"],
+        ],
     )
     repair_runner._validate_tracking_reuse(args.trackio_report.resolve(), experiment)
     repair_runner._validate_historical_diagnostic(

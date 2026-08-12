@@ -3,6 +3,10 @@ from pathlib import Path
 import yaml
 
 from rosetta_reality.vla import load_smolvla_experiment
+from scripts.evaluate_smolvla_action_repair_validation import (
+    DELEGATED_EVALUATOR_SHA256,
+    _validate_delegated_evaluator,
+)
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 PLAN_PATH = (
@@ -135,6 +139,11 @@ def test_faust_hash_inventory_covers_runtime_boundary() -> None:
         "src/rosetta_reality/tracking/trackio_lerobot.py",
     } <= files
     assert all(len(value) == 64 for value in plan["implementation_files"].values())
+
+
+def test_faust_validation_pins_its_delegated_evaluator() -> None:
+    assert len(DELEGATED_EVALUATOR_SHA256) == 64
+    _validate_delegated_evaluator()
 
 
 def test_faust_batch8_restart_is_one_pass_and_quarter_only() -> None:

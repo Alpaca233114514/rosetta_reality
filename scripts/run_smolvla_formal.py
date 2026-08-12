@@ -631,6 +631,10 @@ def _validate_prerequisites(
         experiment_id=experiment["experiment_id"],
         contract_sha256=contract_sha256,
         dataset_revision=experiment["dataset"]["revision"],
+        allowed_replay_episodes=[
+            *experiment["dataset"]["train_episodes"],
+            *experiment["dataset"]["validation_episodes"],
+        ],
     )
     phase_runner._validate_gate(
         paths["gate2"],
@@ -638,6 +642,10 @@ def _validate_prerequisites(
         experiment_id=experiment["experiment_id"],
         contract_sha256=contract_sha256,
         dataset_revision=experiment["dataset"]["revision"],
+        allowed_replay_episodes=[
+            *experiment["dataset"]["train_episodes"],
+            *experiment["dataset"]["validation_episodes"],
+        ],
     )
     phase_runner._validate_tracking(paths["trackio_sync"], experiment)
     phase_runner._validate_smoke_acceptance(

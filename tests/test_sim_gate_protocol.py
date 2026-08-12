@@ -14,7 +14,7 @@ from rosetta_reality.experiment import (
     load_experiment_config,
 )
 from rosetta_reality.sim import load_action_contract
-from scripts import sim_gate
+from scripts import sim_gate, smolvla_sim_gate
 from scripts.sim_gate import (
     _cache_stride_matched_frames,
     _report_experiment_id,
@@ -39,6 +39,11 @@ def test_gate4_episode_workspace_identity_must_match_current_workspace() -> None
     stale = {"git_commit": "a" * 40, "workspace_tree_sha256": "c" * 64}
     assert not _gate4_episode_workspace_matches({"code_identity": stale}, current)
     assert not _gate4_episode_workspace_matches({}, current)
+
+
+def test_gate4_requires_gate3_workspace_identity_in_prerequisite_check() -> None:
+    source = Path(smolvla_sim_gate.__file__).read_text(encoding="utf-8")
+    assert 'prior.get("code_identity") != code_identity' in source
 
 
 def test_online_artifact_rejects_same_id_with_processor_drift(tmp_path: Path) -> None:
