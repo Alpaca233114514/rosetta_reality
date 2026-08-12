@@ -51,6 +51,38 @@ def _required_path(value: Path | None, flag: str) -> Path:
     return path
 
 
+def _validate_dataset_view_inventory(
+    dataset_root: Path, manifest_path: Path, normalization_path: Path
+) -> None:
+    manifest = _load_json(manifest_path)
+    files = manifest.get("files")
+    if (
+        manifest.get("schema_version") != 1
+        or manifest.get("status") != "complete"
+        or manifest.get("stage") != "smolvla_train_only_dataset_view"
+        or manifest.get("normalization_report_sha256")
+        != file_sha256(normalization_path)
+        or manifest.get("validation_episodes_loaded") is not False
+        or manifest.get("hidden_test_loaded") is not False
+        or not isinstance(files, dict)
+        or not files
+    ):
+        raise ValueError("Repair dataset view manifest identity is invalid.")
+    dataset_root = dataset_root.resolve()
+    for raw_relative, expected_sha256 in files.items():
+        relative = Path(str(raw_relative))
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError("Repair dataset view manifest contains an unsafe path.")
+        path = (dataset_root / relative).resolve()
+        if (
+            not path.is_relative_to(dataset_root)
+            or not path.is_file()
+            or not isinstance(expected_sha256, str)
+            or file_sha256(path) != expected_sha256
+        ):
+            raise ValueError("Repair dataset view file checksum is invalid.")
+
+
 def _validate_repair_evidence(
     experiment: dict[str, Any],
     config_path: Path,
@@ -98,6 +130,17 @@ def _validate_repair_evidence(
     dataset_root = (run_root / relative_view).resolve()
     if not dataset_root.is_relative_to(run_root) or not dataset_root.is_dir():
         raise ValueError("Repair dataset view is missing or outside the run root.")
+    relative_manifest = Path(str(normalization.get("dataset_view_manifest", "")))
+    if relative_manifest.is_absolute() or ".." in relative_manifest.parts:
+        raise ValueError("Repair dataset view manifest path is unsafe.")
+    manifest_path = (run_root / relative_manifest).resolve()
+    if (
+        not manifest_path.is_relative_to(run_root)
+        or manifest_path != dataset_root / "view_manifest.json"
+        or not manifest_path.is_file()
+    ):
+        raise ValueError("Repair dataset view manifest is missing or mismatched.")
+    _validate_dataset_view_inventory(dataset_root, manifest_path, normalization_path)
     return dataset_root
 
 

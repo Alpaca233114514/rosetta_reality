@@ -604,6 +604,12 @@ def gate3(plan_path: Path) -> int:
     return 0 if passed else 1
 
 
+def _gate4_episode_workspace_matches(
+    episode_report: dict[str, Any], current_code_identity: dict[str, Any]
+) -> bool:
+    return episode_report.get("code_identity") == current_code_identity
+
+
 def gate4(plan_path: Path, gate3_report: Path) -> int:
     plan, artifact, manifest, config, normalization = _load_artifact(plan_path)
     gate3_report = gate3_report.resolve()
@@ -623,6 +629,7 @@ def gate4(plan_path: Path, gate3_report: Path) -> int:
     plan_sha256 = file_sha256(plan_path)
     artifact_sha256 = file_sha256(artifact / "manifest.json")
     gate3_sha256 = file_sha256(gate3_report)
+    code_identity = workspace_code_identity(REPOSITORY_ROOT)
     episode_root = (
         _absolute_root("ROSETTA_RUN_ROOT")
         / str(plan["experiment_id"])
@@ -662,6 +669,7 @@ def gate4(plan_path: Path, gate3_report: Path) -> int:
                 or episode_report.get("simulation_plan_sha256") != plan_sha256
                 or episode_report.get("artifact_manifest_sha256") != artifact_sha256
                 or episode_report.get("gate3_report_sha256") != gate3_sha256
+                or not _gate4_episode_workspace_matches(episode_report, code_identity)
                 or episode_report.get("hidden_test_loaded") is not False
                 or not isinstance(episode_report.get("metrics"), dict)
             ):
@@ -697,7 +705,7 @@ def gate4(plan_path: Path, gate3_report: Path) -> int:
             "metrics": metrics,
             "runtime": _runtime(),
             "hidden_test_loaded": False,
-            "code_identity": workspace_code_identity(REPOSITORY_ROOT),
+            "code_identity": code_identity,
         }
         create_json(path, episode_report)
         episodes.append(metrics)
@@ -803,7 +811,7 @@ def gate4(plan_path: Path, gate3_report: Path) -> int:
         "episodes": episodes,
         "runtime": _runtime(),
         "hidden_test_loaded": False,
-        "code_identity": workspace_code_identity(REPOSITORY_ROOT),
+        "code_identity": code_identity,
     }
     destination = (
         _absolute_root("ROSETTA_RUN_ROOT")

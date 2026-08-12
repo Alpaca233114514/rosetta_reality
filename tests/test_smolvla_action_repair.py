@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 import pytest
@@ -29,6 +30,7 @@ from rosetta_reality.vla.processor import (
     standard_aloha_action_to_pi,
     standard_aloha_state_to_pi,
 )
+from scripts.run_smolvla_action_repair_phase import _validate_dataset_view_inventory
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 REPAIR_CONFIG = (
@@ -332,3 +334,32 @@ def test_per_dimension_diagnostics_expose_right_gripper_failure() -> None:
     assert right["predicted_below_minimum_rate"] == 1.0
     assert result["groups"]["right_gripper"]["mae"] == pytest.approx(0.2)
     assert result["groups"]["left_gripper"]["mae"] == 0.0
+
+
+def test_repair_dataset_view_inventory_rejects_mutated_content(tmp_path: Path) -> None:
+    normalization = tmp_path / "normalization.json"
+    normalization.write_text("{}\n", encoding="utf-8")
+    view_root = tmp_path / "view"
+    content = view_root / "data" / "sample.parquet"
+    content.parent.mkdir(parents=True)
+    content.write_bytes(b"immutable")
+    manifest = view_root / "view_manifest.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "status": "complete",
+                "stage": "smolvla_train_only_dataset_view",
+                "normalization_report_sha256": file_sha256(normalization),
+                "files": {"data/sample.parquet": file_sha256(content)},
+                "validation_episodes_loaded": False,
+                "hidden_test_loaded": False,
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    _validate_dataset_view_inventory(view_root, manifest, normalization)
+    content.write_bytes(b"tampered")
+    with pytest.raises(ValueError, match="checksum"):
+        _validate_dataset_view_inventory(view_root, manifest, normalization)

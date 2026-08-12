@@ -24,6 +24,7 @@ for root in (SOURCE_ROOT, SCRIPTS_ROOT):
 
 import run_smolvla_phase as phase_runner  # noqa: E402
 
+from rosetta_reality.data.manifest import validate_cache_checksums  # noqa: E402
 from rosetta_reality.experiment import (  # noqa: E402
     file_sha256,
     stable_hash,
@@ -44,6 +45,45 @@ def _load_mapping(path: Path) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError(f"Expected a mapping: {path.name}.")
     return value
+
+
+def _load_json_mapping(path: Path) -> dict[str, Any]:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError(f"Expected a JSON object: {path.name}.")
+    return value
+
+
+def _validate_recorded_files(root: Path, manifest_path: Path, *, label: str) -> int:
+    """Recompute every immutable file record without loading model or dataset content."""
+
+    root = root.resolve()
+    manifest = _load_json_mapping(manifest_path)
+    files = manifest.get("files")
+    if not isinstance(files, dict) or not files:
+        raise ValueError(f"{label} manifest contains no file inventory.")
+    for raw_relative, raw_record in files.items():
+        relative = Path(str(raw_relative))
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError(f"{label} manifest contains an unsafe file path.")
+        path = (root / relative).resolve()
+        if not path.is_relative_to(root) or not path.is_file():
+            raise FileNotFoundError(f"{label} cache file is missing: {relative.as_posix()}.")
+        if not isinstance(raw_record, dict):
+            raise ValueError(f"{label} manifest file record is invalid.")
+        expected_bytes = raw_record.get("bytes")
+        expected_sha256 = raw_record.get("sha256")
+        if (
+            not isinstance(expected_bytes, int)
+            or isinstance(expected_bytes, bool)
+            or expected_bytes < 0
+            or not isinstance(expected_sha256, str)
+            or re.fullmatch(r"[0-9a-f]{64}", expected_sha256) is None
+            or path.stat().st_size != expected_bytes
+            or file_sha256(path) != expected_sha256
+        ):
+            raise ValueError(f"{label} cache file identity changed: {relative.as_posix()}.")
+    return len(files)
 
 
 def _absolute_environment_path(name: str) -> Path:
@@ -171,6 +211,29 @@ def doctor(profile_path: Path, config_path: Path) -> Path:
     experiment = load_smolvla_experiment(config_path, REPOSITORY_ROOT)
     model_root = phase_runner._model_root(experiment)
     dataset_root = phase_runner._dataset_root(experiment)
+    model_manifest_path = model_root / "model_manifest.json"
+    dependency_manifest_path = (
+        model_root / experiment["model"]["vlm_dependency"]["manifest"]
+    )
+    dependency_manifest = _load_json_mapping(dependency_manifest_path)
+    dependency_relative = Path(str(dependency_manifest.get("cache_layout", "")))
+    if (
+        not dependency_relative.parts
+        or dependency_relative.is_absolute()
+        or ".." in dependency_relative.parts
+    ):
+        raise ValueError("VLM dependency manifest cache layout is unsafe.")
+    dependency_root = (roots["hf_home"] / dependency_relative).resolve()
+    if not dependency_root.is_relative_to(roots["hf_home"]):
+        raise ValueError("VLM dependency cache escaped HF_HOME.")
+    model_file_count = _validate_recorded_files(
+        model_root, model_manifest_path, label="SmolVLA model"
+    )
+    dependency_file_count = _validate_recorded_files(
+        dependency_root, dependency_manifest_path, label="VLM dependency"
+    )
+    dataset_file_count = validate_cache_checksums(dataset_root)
+    dataset_content_manifest = dataset_root / "cache_checksums.json"
     usage = shutil.disk_usage(roots["durable"])
     report = {
         "schema_version": 1,
@@ -190,11 +253,13 @@ def doctor(profile_path: Path, config_path: Path) -> Path:
             "durable_root_total_bytes": int(usage.total),
         },
         "cache_identity": {
-            "model_manifest_sha256": file_sha256(model_root / "model_manifest.json"),
-            "vlm_dependency_manifest_sha256": file_sha256(
-                model_root / experiment["model"]["vlm_dependency"]["manifest"]
-            ),
+            "model_manifest_sha256": file_sha256(model_manifest_path),
+            "model_verified_file_count": model_file_count,
+            "vlm_dependency_manifest_sha256": file_sha256(dependency_manifest_path),
+            "vlm_dependency_verified_file_count": dependency_file_count,
             "dataset_manifest_sha256": file_sha256(dataset_root / "manifest.json"),
+            "dataset_content_manifest_sha256": file_sha256(dataset_content_manifest),
+            "dataset_verified_file_count": dataset_file_count,
             "model_revision": experiment["model"]["revision"],
             "dataset_revision": experiment["dataset"]["revision"],
         },

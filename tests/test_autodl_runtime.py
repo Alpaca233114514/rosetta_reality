@@ -1,7 +1,11 @@
 import hashlib
+import json
 from pathlib import Path
 
+import pytest
 import yaml
+
+from scripts.autodl_doctor import _validate_recorded_files
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 PROFILE_PATH = REPOSITORY_ROOT / "configs/runtime/autodl_rtx4090.yaml"
@@ -63,8 +67,11 @@ def test_autodl_staging_is_versioned_and_never_deletes_remote_files() -> None:
 
     assert "/root/autodl-tmp/rosetta/workspaces/${release_id}" in staging
     assert "remote release already exists" in staging
+    assert "sha256sum \"$archive_path\"" in staging
+    assert ".rosetta-workspace.sha256" in staging
+    assert "status --porcelain" not in staging
     assert "--delete" not in staging
-    assert "rm -" not in staging
+    assert 'ssh "$host" "rm ' not in staging
 
 
 def test_autodl_resource_exception_is_no_optimizer_preflight_only() -> None:
@@ -77,17 +84,53 @@ def test_autodl_resource_exception_is_no_optimizer_preflight_only() -> None:
     assert '"formal_training_authorized": False' in launcher
 
 
-def test_autodl_files_do_not_change_faust_hash_bound_runtime() -> None:
+def test_autodl_files_preserve_historical_faust_hash_inventory() -> None:
     plan = yaml.safe_load(
         (
             REPOSITORY_ROOT
             / "configs/vla/smolvla_450m_aloha_insertion_faust_batch8_002.yaml"
         ).read_text(encoding="utf-8")
     )
-    for relative in (
-        "scripts/smolvla_forward_check.py",
-        "scripts/run_smolvla_action_repair_phase.py",
-        "src/rosetta_reality/tracking/trackio_lerobot.py",
-    ):
-        digest = hashlib.sha256((REPOSITORY_ROOT / relative).read_bytes()).hexdigest()
-        assert plan["implementation_files"][relative] == digest
+    historical = {
+        "scripts/smolvla_forward_check.py": (
+            "ef585b3940acba34c87bd11ba4dde5176948e673bdbe7de6d2dd351e3dc82a33"
+        ),
+        "scripts/run_smolvla_action_repair_phase.py": (
+            "8f5138b38038827663df84e1143a29740b55f42445ad17b7b73de17014cd9456"
+        ),
+        "src/rosetta_reality/tracking/trackio_lerobot.py": (
+            "009cd1041e4a6b4c1ba1860bfba20b6166c24bdb593c7b7efb23fe02d3b02bbd"
+        ),
+    }
+    assert {
+        relative: plan["implementation_files"][relative] for relative in historical
+    } == historical
+    assert not {
+        "scripts/autodl_doctor.py",
+        "scripts/run_autodl.sh",
+        "scripts/stage_autodl_from_wsl.sh",
+    } & set(plan["implementation_files"])
+
+
+def test_autodl_doctor_recomputes_manifest_file_records(tmp_path: Path) -> None:
+    content = tmp_path / "weights.bin"
+    content.write_bytes(b"immutable")
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "files": {
+                    "weights.bin": {
+                        "bytes": content.stat().st_size,
+                        "sha256": hashlib.sha256(content.read_bytes()).hexdigest(),
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    assert _validate_recorded_files(tmp_path, manifest, label="test") == 1
+    content.write_bytes(b"tampered!")
+    with pytest.raises(ValueError, match="identity changed"):
+        _validate_recorded_files(tmp_path, manifest, label="test")

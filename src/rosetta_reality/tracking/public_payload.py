@@ -10,7 +10,8 @@ from typing import Any
 _KEY_SEGMENT = re.compile(r"[^a-z0-9]+")
 _TOKEN_VALUE = re.compile(r"(?i)\bhf_[a-z0-9]{16,}\b")
 _WINDOWS_PATH = re.compile(r"(?i)(?:^|[\s='\"])[a-z]:[\\/]")
-_HOST_PATH = re.compile(r"(?:^|[\s='\"])(?:/home/|/mnt/[a-z]/|/Users/|\\\\)")
+_POSIX_PATH = re.compile(r"(?:^|[\s='\"(])/(?!/)[^\s'\"?&#]+")
+_UNC_PATH = re.compile(r"(?:^|[\s='\"])\\\\")
 _URL_QUERY = re.compile(r"(?i)https?://[^\s]+\?[^\s]+")
 _SENSITIVE_KEY_SEGMENTS = frozenset(
     {
@@ -46,7 +47,12 @@ def _validate_key(key: Any, context: str) -> str:
 def _validate_string(value: str, context: str) -> None:
     if _TOKEN_VALUE.search(value):
         raise ValueError(f"{context} contains a credential-shaped value.")
-    if _WINDOWS_PATH.search(value) or _HOST_PATH.search(value) or value.startswith("file://"):
+    if (
+        _WINDOWS_PATH.search(value)
+        or _POSIX_PATH.search(value)
+        or _UNC_PATH.search(value)
+        or value.startswith("file://")
+    ):
         raise ValueError(f"{context} contains a machine-specific path.")
     if _URL_QUERY.search(value):
         raise ValueError(f"{context} contains a URL query string.")

@@ -19,7 +19,14 @@ host="${1:-}"
 [[ "$host" =~ ^[A-Za-z0-9._-]+$ ]] || { printf 'error: unsafe SSH host alias\n' >&2; exit 2; }
 
 head="$(git -C "$REPOSITORY_ROOT" rev-parse --short=12 HEAD)"
-tree_hash="$(git -C "$REPOSITORY_ROOT" status --porcelain=v1 | sha256sum | cut -c1-12)"
+archive_path="$(mktemp "${TMPDIR:-/tmp}/rosetta-autodl-workspace.XXXXXX.tar")"
+trap 'rm -f -- "$archive_path"' EXIT
+git -C "$REPOSITORY_ROOT" ls-files --cached --others --exclude-standard -z \
+    | tar --directory="$REPOSITORY_ROOT" --null --files-from=- --sort=name \
+        --mtime='@0' --owner=0 --group=0 --numeric-owner \
+        --create --file="$archive_path"
+workspace_sha256="$(sha256sum "$archive_path" | cut -d' ' -f1)"
+tree_hash="${workspace_sha256:0:12}"
 release_id="${2:-$(date -u +%Y%m%dT%H%M%SZ)-${head}-${tree_hash}}"
 [[ "$release_id" =~ ^[A-Za-z0-9._-]+$ ]] || { printf 'error: unsafe release id\n' >&2; exit 2; }
 remote_root="/root/autodl-tmp/rosetta/workspaces/${release_id}"
@@ -29,9 +36,10 @@ if ssh "$host" "test -e '$remote_root'"; then
     exit 2
 fi
 ssh "$host" "mkdir -p '$remote_root'"
-git -C "$REPOSITORY_ROOT" ls-files --cached --others --exclude-standard -z \
-    | tar --directory="$REPOSITORY_ROOT" --null --files-from=- --create --gzip --file=- \
-    | ssh "$host" "tar --extract --gzip --file=- --directory='$remote_root'"
+ssh "$host" "tar --extract --file=- --directory='$remote_root'" <"$archive_path"
+printf '%s  workspace.tar\n' "$workspace_sha256" \
+    | ssh "$host" "cat > '$remote_root/.rosetta-workspace.sha256'"
 
 printf 'Remote workspace created: %s\n' "$remote_root"
+printf 'Workspace archive SHA-256: %s\n' "$workspace_sha256"
 printf 'Next, transfer only the approved immutable data/model cache roots, then run bootstrap_autodl.sh.\n'

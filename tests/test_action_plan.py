@@ -83,3 +83,12 @@ def test_json_schema_declares_the_same_required_wire_fields() -> None:
 
     assert schema["additionalProperties"] is False
     assert set(schema["required"]) == set(_payload())
+    assert schema["properties"]["subtask"]["pattern"] == "\\S"
+    assert schema["properties"]["object"]["pattern"] == "\\S"
+    assert schema["properties"]["motion_hint"]["pattern"] == "\\S"
+    assert schema["properties"]["constraints"]["items"]["pattern"] == "\\S"
+    assert schema["properties"]["success_condition"]["pattern"] == "\\S"
+    assert schema["properties"]["replan_condition"]["pattern"] == "\\S"
+    target = schema["properties"]["target"]["oneOf"][1]["properties"]
+    assert target["reference_frame"]["pattern"] == "\\S"
+    assert target["unit"]["pattern"] == "\\S"

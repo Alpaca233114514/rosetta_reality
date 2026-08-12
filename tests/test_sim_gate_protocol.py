@@ -24,11 +24,21 @@ from scripts.sim_gate import (
     _task_evaluation_acceptance,
     _validated_initial_alignment,
 )
+from scripts.smolvla_sim_gate import _gate4_episode_workspace_matches
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 EXPERIMENT_CONFIG = (
     REPOSITORY_ROOT / "configs" / "experiments" / "m2_qwen08b_frozen_001.yaml"
 )
+
+
+def test_gate4_episode_workspace_identity_must_match_current_workspace() -> None:
+    current = {"git_commit": "a" * 40, "workspace_tree_sha256": "b" * 64}
+    assert _gate4_episode_workspace_matches({"code_identity": current}, current)
+
+    stale = {"git_commit": "a" * 40, "workspace_tree_sha256": "c" * 64}
+    assert not _gate4_episode_workspace_matches({"code_identity": stale}, current)
+    assert not _gate4_episode_workspace_matches({}, current)
 
 
 def test_online_artifact_rejects_same_id_with_processor_drift(tmp_path: Path) -> None:

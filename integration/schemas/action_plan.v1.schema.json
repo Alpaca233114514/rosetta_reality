@@ -16,8 +16,8 @@
   ],
   "properties": {
     "schema_version": {"const": 1},
-    "subtask": {"type": "string", "minLength": 1},
-    "object": {"type": ["string", "null"]},
+    "subtask": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "object": {"type": ["string", "null"], "pattern": "\\S"},
     "target": {
       "oneOf": [
         {"type": "null"},
@@ -32,19 +32,19 @@
               "items": {"type": "number"},
               "minItems": 1
             },
-            "reference_frame": {"type": "string", "minLength": 1},
-            "unit": {"type": "string", "minLength": 1}
+            "reference_frame": {"type": "string", "minLength": 1, "pattern": "\\S"},
+            "unit": {"type": "string", "minLength": 1, "pattern": "\\S"}
           }
         }
       ]
     },
-    "motion_hint": {"type": ["string", "null"]},
+    "motion_hint": {"type": ["string", "null"], "pattern": "\\S"},
     "constraints": {
       "type": "array",
-      "items": {"type": "string", "minLength": 1},
+      "items": {"type": "string", "minLength": 1, "pattern": "\\S"},
       "uniqueItems": true
     },
-    "success_condition": {"type": "string", "minLength": 1},
-    "replan_condition": {"type": "string", "minLength": 1}
+    "success_condition": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "replan_condition": {"type": "string", "minLength": 1, "pattern": "\\S"}
   }
 }

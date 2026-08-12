@@ -10,6 +10,7 @@ def test_public_payload_accepts_revision_identity_and_metrics() -> None:
         "formal_plan_sha256": "a" * 64,
         "normalization_source_split": "train",
         "workspace_dirty": True,
+        "paper_url": "https://arxiv.org/abs/2506.01844",
         "loss": 0.5,
         "test_split_loaded": False,
     }
@@ -27,6 +28,9 @@ def test_public_payload_accepts_revision_identity_and_metrics() -> None:
         {"value": "hf_" + "abcdefghijklmnopqrstuvwxyz"},
         {"path": "C:" + "\\Users\\person\\model"},
         {"path": "/" + "home/person/model"},
+        {"path": "/" + "root/private/run.log"},
+        {"path": "/" + "workspace/checkpoints/model"},
+        {"message": "artifact at /" + "tmp/home/run.json"},
         {"url": "https://example.invalid/run?write_token=value"},
     ],
 )
