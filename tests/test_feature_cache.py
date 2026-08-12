@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 import torch
 
-from rosetta_reality.experiment import file_sha256
+from rosetta_reality.experiment import file_sha256, stable_hash
 from rosetta_reality.features import CachedFeatureDataset, create_json, save_tensor_shard
 
 
@@ -24,12 +24,15 @@ def _payload(identity: str) -> dict[str, object]:
 
 
 def test_create_only_feature_cache_round_trip(tmp_path: Path) -> None:
+    identity = {"model": "test"}
+    identity_hash = stable_hash(identity)
     shard_path = tmp_path / "shards" / "train" / "episode-001.pt"
-    save_tensor_shard(shard_path, _payload("identity"))
+    save_tensor_shard(shard_path, _payload(identity_hash))
     manifest = {
         "schema_version": 1,
         "status": "complete",
-        "identity_hash": "identity",
+        "identity": identity,
+        "identity_hash": identity_hash,
         "shards": {
             "train": [
                 {

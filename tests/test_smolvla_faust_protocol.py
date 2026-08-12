@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import pytest
 import yaml
 
 from rosetta_reality.vla import load_smolvla_experiment
@@ -141,9 +142,10 @@ def test_faust_hash_inventory_covers_runtime_boundary() -> None:
     assert all(len(value) == 64 for value in plan["implementation_files"].values())
 
 
-def test_faust_validation_pins_its_delegated_evaluator() -> None:
+def test_historical_faust_validation_fails_closed_after_evaluator_change() -> None:
     assert len(DELEGATED_EVALUATOR_SHA256) == 64
-    _validate_delegated_evaluator()
+    with pytest.raises(ValueError, match="register a new validation plan"):
+        _validate_delegated_evaluator()
 
 
 def test_faust_batch8_restart_is_one_pass_and_quarter_only() -> None:
