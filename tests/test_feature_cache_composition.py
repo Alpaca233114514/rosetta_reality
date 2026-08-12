@@ -729,7 +729,7 @@ def test_visible_cache_rejects_test_overlap_before_payload_io(
     ("visible_only", "expected_validate_checksums"),
     [(True, False), (False, True)],
 )
-def test_visible_context_does_not_scan_prepared_payload_checksums(
+def test_visible_context_verifies_only_registered_visible_payload_checksums(
     visible_only: bool,
     expected_validate_checksums: bool,
     monkeypatch: pytest.MonkeyPatch,
@@ -745,8 +745,9 @@ def test_visible_context_does_not_scan_prepared_payload_checksums(
         },
         "action_contract": "unused-contract.yaml",
     }
-    dataset_config = object()
+    dataset_config = SimpleNamespace(cameras={"top": "camera"})
     checksum_modes: list[bool] = []
+    visible_verifications: list[tuple[Path, dict[str, Any], Any]] = []
     monkeypatch.setattr(cache_features, "load_experiment_config", lambda *_: experiment)
     monkeypatch.setattr(cache_features, "load_dataset_config", lambda *_: dataset_config)
 
@@ -763,6 +764,13 @@ def test_visible_context_does_not_scan_prepared_payload_checksums(
     monkeypatch.setattr(cache_features, "resolve_prepared_cache", fake_resolve)
     monkeypatch.setattr(
         cache_features,
+        "_validate_visible_cache_checksums",
+        lambda root, materialization, cameras: visible_verifications.append(
+            (root, materialization, cameras)
+        ),
+    )
+    monkeypatch.setattr(
+        cache_features,
         "load_action_contract",
         lambda *_: (_ for _ in ()).throw(RuntimeError("stop after cache resolution")),
     )
@@ -771,6 +779,82 @@ def test_visible_context_does_not_scan_prepared_payload_checksums(
         cache_features._context(Path("unused.yaml"), visible_only=visible_only)
 
     assert checksum_modes == [expected_validate_checksums]
+    assert len(visible_verifications) == int(visible_only)
+
+
+def test_visible_checksum_verification_ignores_unselected_payloads_and_detects_selected_mutation(
+    tmp_path: Path,
+) -> None:
+    import pyarrow as pa
+    import pyarrow.parquet as pq
+
+    root = tmp_path / "cache"
+    info = root / "meta/info.json"
+    episodes = root / "meta/episodes/chunk-000/file-000.parquet"
+    visible_data = root / "data/chunk-000/file-000.parquet"
+    hidden_data = root / "data/chunk-000/file-001.parquet"
+    visible_video = root / "videos/camera/chunk-000/file-000.mp4"
+    hidden_video = root / "videos/camera/chunk-000/file-001.mp4"
+    for path in (info, episodes, visible_data, hidden_data, visible_video, hidden_video):
+        path.parent.mkdir(parents=True, exist_ok=True)
+    info.write_text(
+        json.dumps(
+            {
+                "data_path": "data/chunk-{chunk_index:03d}/file-{file_index:03d}.parquet",
+                "video_path": (
+                    "videos/{video_key}/chunk-{chunk_index:03d}/file-{file_index:03d}.mp4"
+                ),
+            }
+        ),
+        encoding="utf-8",
+    )
+    pq.write_table(
+        pa.table(
+            {
+                "episode_index": [1, 2, 3],
+                "data/chunk_index": [0, 0, 0],
+                "data/file_index": [0, 0, 1],
+                "videos/camera/chunk_index": [0, 0, 0],
+                "videos/camera/file_index": [0, 0, 1],
+            }
+        ),
+        episodes,
+    )
+    visible_data.write_bytes(b"visible-data")
+    hidden_data.write_bytes(b"hidden-data")
+    visible_video.write_bytes(b"visible-video")
+    hidden_video.write_bytes(b"hidden-video")
+    content = (info, episodes, visible_data, hidden_data, visible_video, hidden_video)
+    (root / "cache_checksums.json").write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "algorithm": "sha256",
+                "files": {
+                    path.relative_to(root).as_posix(): file_sha256(path)
+                    for path in content
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    materialization = cache_features._visible_materialization_scope(
+        {
+            "dataset": {
+                "split": {"train": [1], "validation": [2], "test": [3]}
+            }
+        }
+    )
+
+    hidden_data.write_bytes(b"mutated-hidden-data")
+    assert cache_features._validate_visible_cache_checksums(
+        root, materialization, {"top": "camera"}
+    ) == 4
+    visible_data.write_bytes(b"mutated-visible-data")
+    with pytest.raises(ValueError, match="checksum mismatch"):
+        cache_features._validate_visible_cache_checksums(
+            root, materialization, {"top": "camera"}
+        )
 
 
 def test_visible_cache_rejects_hidden_anchor_before_any_write(

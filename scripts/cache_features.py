@@ -308,6 +308,124 @@ def _visible_materialization_scope(experiment: dict[str, Any]) -> dict[str, Any]
     }
 
 
+def _validated_checksum_inventory(root: Path) -> dict[str, str]:
+    path = root / "cache_checksums.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    files = payload.get("files")
+    if (
+        payload.get("version") != 1
+        or payload.get("algorithm") != "sha256"
+        or not isinstance(files, dict)
+        or not files
+    ):
+        raise ValueError("Prepared-cache checksum inventory is invalid.")
+    inventory: dict[str, str] = {}
+    for relative_text, expected in files.items():
+        if not isinstance(relative_text, str):
+            raise ValueError("Prepared-cache checksum inventory contains an unsafe entry.")
+        relative = Path(relative_text)
+        if (
+            relative.is_absolute()
+            or ".." in relative.parts
+            or relative.as_posix() != relative_text
+            or not isinstance(expected, str)
+            or len(expected) != 64
+            or any(character not in "0123456789abcdef" for character in expected)
+        ):
+            raise ValueError("Prepared-cache checksum inventory contains an unsafe entry.")
+        inventory[relative_text] = expected
+    return inventory
+
+
+def _validate_checksum_paths(
+    root: Path,
+    inventory: dict[str, str],
+    relative_paths: set[str],
+) -> None:
+    for relative_text in sorted(relative_paths):
+        expected = inventory.get(relative_text)
+        if expected is None:
+            raise ValueError(f"Prepared-cache checksum is missing: {relative_text}.")
+        path = root / relative_text
+        if not path.is_file():
+            raise FileNotFoundError(f"Prepared-cache file is missing: {relative_text}.")
+        if file_sha256(path) != expected:
+            raise ValueError(f"Prepared-cache checksum mismatch: {relative_text}.")
+
+
+def _validate_visible_cache_checksums(
+    root: Path,
+    materialization: dict[str, Any],
+    cameras: dict[str, str],
+) -> int:
+    """Verify only metadata and payload files needed by visible episodes."""
+
+    inventory = _validated_checksum_inventory(root)
+    metadata_paths = {
+        relative for relative in inventory if relative.startswith("meta/")
+    }
+    episode_metadata = sorted(
+        relative
+        for relative in metadata_paths
+        if relative.startswith("meta/episodes/") and relative.endswith(".parquet")
+    )
+    if "meta/info.json" not in metadata_paths or not episode_metadata:
+        raise ValueError("Visible cache requires checksummed dataset metadata.")
+    _validate_checksum_paths(root, inventory, metadata_paths)
+
+    info = json.loads((root / "meta/info.json").read_text(encoding="utf-8"))
+    data_template = info.get("data_path")
+    video_template = info.get("video_path")
+    if not isinstance(data_template, str) or not isinstance(video_template, str):
+        raise ValueError("Visible cache dataset paths are not declared.")
+
+    import pyarrow.dataset as arrow_dataset
+
+    selected = {
+        int(episode)
+        for episodes in materialization["materialized_episodes"].values()
+        for episode in episodes
+    }
+    columns = ["episode_index", "data/chunk_index", "data/file_index"]
+    for video_key in cameras.values():
+        columns.extend(
+            [
+                f"videos/{video_key}/chunk_index",
+                f"videos/{video_key}/file_index",
+            ]
+        )
+    dataset = arrow_dataset.dataset(
+        [str(root / relative) for relative in episode_metadata],
+        format="parquet",
+    )
+    rows = dataset.to_table(
+        columns=columns,
+        filter=arrow_dataset.field("episode_index").isin(selected),
+    ).to_pylist()
+    found = [int(row["episode_index"]) for row in rows]
+    if len(found) != len(set(found)) or set(found) != selected:
+        raise ValueError("Visible cache episode metadata differs from the registered split.")
+
+    required_paths = set(metadata_paths)
+    for row in rows:
+        required_paths.add(
+            data_template.format(
+                chunk_index=int(row["data/chunk_index"]),
+                file_index=int(row["data/file_index"]),
+            )
+        )
+        for video_key in cameras.values():
+            required_paths.add(
+                video_template.format(
+                    video_key=video_key,
+                    chunk_index=int(row[f"videos/{video_key}/chunk_index"]),
+                    file_index=int(row[f"videos/{video_key}/file_index"]),
+                )
+            )
+    _validate_checksum_paths(root, inventory, required_paths)
+    return len(required_paths)
+
+
 def _split_lookup(
     experiment: dict[str, Any],
     split_names: tuple[str, ...] = ("train", "validation", "test"),
@@ -351,6 +469,12 @@ def _context(config_path: Path, *, visible_only: bool = False) -> dict[str, Any]
         REPOSITORY_ROOT,
         validate_checksums=not visible_only,
     )
+    if materialization is not None:
+        _validate_visible_cache_checksums(
+            dataset_root,
+            materialization,
+            dataset_config.cameras,
+        )
     contract_path = REPOSITORY_ROOT / experiment["action_contract"]
     contract = load_action_contract(contract_path)
     contract.validate_order(ordered_feature_names(dataset_root, dataset_config.fields.action))
