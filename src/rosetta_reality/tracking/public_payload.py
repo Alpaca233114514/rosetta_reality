@@ -8,7 +8,18 @@ from collections.abc import Mapping, Sequence
 from typing import Any
 
 _KEY_SEGMENT = re.compile(r"[^a-z0-9]+")
-_TOKEN_VALUE = re.compile(r"(?i)\bhf_[a-z0-9]{16,}\b")
+_TOKEN_VALUE = re.compile(
+    r"(?ix)(?:"
+    r"\bhf_[a-z0-9]{16,}\b|"
+    r"\bgh(?:p|o|u|s|r)_[a-z0-9]{20,}\b|"
+    r"\bgithub_pat_[a-z0-9_]{20,}\b|"
+    r"\bsk-[a-z0-9_-]{16,}\b|"
+    r"\bAKIA[A-Z0-9]{16}\b|"
+    r"\bBearer\s+[a-z0-9._~+/-]{16,}={0,2}\b|"
+    r"\beyJ[a-z0-9_-]{8,}\.[a-z0-9_-]{8,}\.[a-z0-9_-]{8,}\b"
+    r")"
+)
+_AUTHENTICATED_URL = re.compile(r"(?i)https?://[^\s/@:]+:[^\s/@]+@")
 _WINDOWS_PATH = re.compile(r"(?i)(?:^|[\s='\"])[a-z]:[\\/]")
 _POSIX_PATH = re.compile(r"(?:^|[\s='\"(])/(?!/)[^\s'\"?&#]+")
 _UNC_PATH = re.compile(r"(?:^|[\s='\"])\\\\")
@@ -45,7 +56,7 @@ def _validate_key(key: Any, context: str) -> str:
 
 
 def _validate_string(value: str, context: str) -> None:
-    if _TOKEN_VALUE.search(value):
+    if _TOKEN_VALUE.search(value) or _AUTHENTICATED_URL.search(value):
         raise ValueError(f"{context} contains a credential-shaped value.")
     if (
         _WINDOWS_PATH.search(value)

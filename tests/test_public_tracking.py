@@ -30,6 +30,10 @@ def test_public_payload_accepts_revision_identity_and_metrics() -> None:
     [
         {"hf_token": "redacted"},
         {"value": "hf_" + "abcdefghijklmnopqrstuvwxyz"},
+        {"value": "ghp_" + "a" * 36},
+        {"value": "sk-proj-" + "a" * 24},
+        {"value": "eyJ" + "a" * 12 + "." + "b" * 12 + "." + "c" * 12},
+        {"url": "https://person:password@example.invalid/run"},
         {"path": "C:" + "\\Users\\person\\model"},
         {"path": "/" + "home/person/model"},
         {"path": "/" + "root/private/run.log"},

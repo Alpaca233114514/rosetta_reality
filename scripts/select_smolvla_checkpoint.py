@@ -50,9 +50,19 @@ def _processor_state_file(
     return pretrained_dir / relative
 
 
+def _tokenizer_hashes(pretrained_dir: Path) -> dict[str, str]:
+    tokenizer = pretrained_dir / "tokenizer"
+    files = [path for path in sorted(tokenizer.rglob("*")) if path.is_file()]
+    if not files:
+        raise FileNotFoundError("Validated checkpoint tokenizer is missing or empty.")
+    return {
+        path.relative_to(tokenizer).as_posix(): file_sha256(path) for path in files
+    }
+
+
 def _validated_checkpoint_hashes(
     pretrained_dir: Path, report: dict[str, Any]
-) -> dict[str, str]:
+) -> dict[str, Any]:
     recorded = {
         "model_safetensors_sha256": (
             pretrained_dir / "model.safetensors",
@@ -99,6 +109,7 @@ def _validated_checkpoint_hashes(
         if actual != expected:
             raise ValueError(f"Validated checkpoint file changed: {path.name}.")
         hashes[name] = actual
+    hashes["tokenizer_files_sha256"] = _tokenizer_hashes(pretrained_dir)
     return hashes
 
 

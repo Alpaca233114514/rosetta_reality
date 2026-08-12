@@ -30,6 +30,7 @@ for root in (SOURCE_ROOT, SCRIPTS_ROOT):
 import evaluate_smolvla_validation as evaluator  # noqa: E402
 import run_smolvla_formal as formal_runner  # noqa: E402
 import run_smolvla_phase as phase_runner  # noqa: E402
+import select_smolvla_checkpoint as selector  # noqa: E402
 
 from rosetta_reality.experiment import file_sha256, workspace_code_identity  # noqa: E402
 from rosetta_reality.features import create_json  # noqa: E402
@@ -197,10 +198,23 @@ def main() -> int:
         / f"{step:06d}"
         / "pretrained_model"
     )
-    if file_sha256(source_dir / "model.safetensors") != selected.get(
-        "model_safetensors_sha256"
-    ):
-        raise ValueError("Selected checkpoint model hash changed before export.")
+    selected_files = {
+        "model_safetensors_sha256": source_dir / "model.safetensors",
+        "policy_config_sha256": source_dir / "config.json",
+        "preprocessor_config_sha256": source_dir / "policy_preprocessor.json",
+        "postprocessor_config_sha256": source_dir / "policy_postprocessor.json",
+        "preprocessor_statistics_sha256": selector._processor_state_file(
+            source_dir, "policy_preprocessor.json", "normalizer_processor"
+        ),
+        "postprocessor_statistics_sha256": selector._processor_state_file(
+            source_dir, "policy_postprocessor.json", "unnormalizer_processor"
+        ),
+    }
+    for hash_name, path in selected_files.items():
+        if not path.is_file() or file_sha256(path) != selected.get(hash_name):
+            raise ValueError(f"Selected checkpoint file changed before export: {path.name}.")
+    if selector._tokenizer_hashes(source_dir) != selected.get("tokenizer_files_sha256"):
+        raise ValueError("Selected checkpoint tokenizer changed before export.")
 
     artifact_root = phase_runner._absolute_root("ROSETTA_ARTIFACT_ROOT")
     destination = artifact_root / str(experiment["experiment_id"]) / artifact_id
