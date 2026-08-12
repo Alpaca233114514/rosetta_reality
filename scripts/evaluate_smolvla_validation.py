@@ -452,6 +452,10 @@ def main() -> int:
             raise ValueError("A fixed validation sample differs from the registered contract.")
         materialized_episodes.add(expected_episode)
         raw_action = raw_action.detach().cpu().to(torch.float64).clone()
+        projected_action = torch.maximum(
+            torch.minimum(raw_action, limits[:, 1].view(1, 1, -1)),
+            limits[:, 0].view(1, 1, -1),
+        )
         for camera_key in dataset.meta.camera_keys:
             if camera_key in batch and batch[camera_key].dtype == torch.uint8:
                 maximum = torch.iinfo(batch[camera_key].dtype).max
@@ -500,7 +504,7 @@ def main() -> int:
         invalid_actions += int((~finite).sum().item())
         if not bool(finite.all().item()):
             raise FloatingPointError("SmolVLA produced a non-finite validation action.")
-        error = predicted - raw_action
+        error = predicted - projected_action
         absolute_error += float(error.abs().sum().item())
         squared_error += float(error.square().sum().item())
         first_action_error += float(error[:, 0].abs().sum().item())

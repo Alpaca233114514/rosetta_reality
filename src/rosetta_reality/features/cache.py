@@ -11,7 +11,7 @@ import torch
 from torch import Tensor
 from torch.utils.data import Dataset
 
-from rosetta_reality.experiment import file_sha256
+from rosetta_reality.experiment import file_sha256, stable_hash
 
 
 def create_json(path: Path, payload: dict[str, Any]) -> Path:
@@ -51,6 +51,11 @@ def load_feature_manifest(path: Path) -> dict[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
     if value.get("schema_version") != 1 or value.get("status") != "complete":
         raise ValueError(f"Feature cache is not a complete schema-v1 cache: {path}.")
+    identity = value.get("identity")
+    if not isinstance(identity, dict) or value.get("identity_hash") != stable_hash(
+        identity
+    ):
+        raise ValueError(f"Feature cache identity hash mismatch: {path}.")
     return value
 
 

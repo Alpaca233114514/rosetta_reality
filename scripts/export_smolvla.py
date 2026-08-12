@@ -344,7 +344,7 @@ validation, no cross-embodiment claim, and task success must be established sepa
     }
     create_json(destination / "manifest.json", manifest)
     print(json.dumps(manifest, indent=2, sort_keys=True))
-    print(f"Artifact: {destination.relative_to(REPOSITORY_ROOT).as_posix()}")
+    print(f"Artifact: {args.artifact_id}")
     return 0
 
 
