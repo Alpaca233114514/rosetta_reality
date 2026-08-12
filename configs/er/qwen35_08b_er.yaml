@@ -1,0 +1,29 @@
+schema_version: 1
+role: er
+status: planned
+experiment_family: qwen35_embodied_reasoning
+model:
+  family: qwen35
+  identifier: Qwen/Qwen3.5-0.8B-Base
+  scale: 0.8B
+  adaptation: unset_until_er_hypothesis_is_preregistered
+output_contract:
+  schema: integration/schemas/action_plan.v1.schema.json
+  schema_version: 1
+responsibilities:
+  - scene_understanding
+  - task_decomposition
+  - grounded_motion_guidance
+  - progress_monitoring
+  - failure_recovery
+forbidden_evidence:
+  - legacy_vla_action_loss
+  - legacy_qwen_action_head_checkpoint
+  - smolvla_checkpoint
+required_before_training:
+  - immutable_model_revision
+  - er_dataset_and_supervision_identity
+  - fixed_er_split
+  - er_metrics_and_acceptance_thresholds
+  - docker_resource_budget
+  - trackio_run_identity

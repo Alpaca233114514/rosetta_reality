@@ -1,0 +1,33 @@
+ARG INTEL_PYTORCH_IMAGE=intel/pytorch@sha256:dda613c2e1ab34d9630626ffac50d530fe5e2ef5576f6fb68de7b2d360b41cd5
+FROM ${INTEL_PYTORCH_IMAGE}
+
+ARG LEROBOT_REVISION=c903b114a90e703b3f7d0c46cb38727c328c55ff
+
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /opt/rosetta
+COPY pyproject.toml README.md LICENSE ./
+COPY src ./src
+
+# LeRobot is installed from an immutable source archive. The Intel base image
+# supplies torch/torchvision with XPU support; those installed wheels satisfy
+# LeRobot's declared version range and must not be replaced by PyPI CPU wheels.
+RUN python -m pip install \
+        "lerobot[training,smolvla] @ https://github.com/huggingface/lerobot/archive/${LEROBOT_REVISION}.zip" \
+        "trackio==0.28.0" \
+        "pytest==9.1.1" \
+        "ruff==0.16.2" \
+    && python -m pip install --no-deps . \
+    && python -m pip check \
+    && python -c "import torch; assert torch.__version__.endswith('+xpu')" \
+    && python -c "from importlib.metadata import version; assert version('lerobot') == '0.6.2'; assert version('trackio') == '0.28.0'"
+
+COPY configs ./configs
+COPY integration ./integration
+COPY scripts ./scripts
+COPY tests ./tests
+
+CMD ["bash"]

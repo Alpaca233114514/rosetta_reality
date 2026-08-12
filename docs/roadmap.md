@@ -23,41 +23,43 @@ or begin formal training. The acceptance evidence is recorded in
 `docs/m1-acceptance.md`. Additional dataset configurations may remain
 unprepared and are tracked separately from this bounded M1 result.
 
-## M2 — Development VLA
+## M2 — SmolVLA 450M Development VLA
 
-Use the locally available `Qwen3.5-0.8B-Base` as the development-scale
-reference model. Complete the reproducible data, training, validation,
-checkpoint/resume, evaluation, artifact-export, and MuJoCo control loop on a
-bounded task before scaling the pipeline. Frozen, LoRA, and full fine-tuning
-remain controlled adaptation choices rather than permanent milestone labels.
+Use revision-pinned `lerobot/smolvla_base` 450M as the development VLA. Reuse
+the accepted ALOHA data/action/simulation infrastructure, then complete tiny
+smoke, small-data overfit, formal training, validation, checkpoint/resume,
+evaluation, export/reload and MuJoCo closed-loop gates. The historical frozen
+Qwen action policies are negative evidence and do not satisfy this milestone.
 
-## M3 — Scale-up VLA
+## M3 — Qwen ER and structured ER/VLA integration
 
-Scale the pipeline proven by M2 to `Qwen3.5-9B-Base`, beginning with a short GPU
-smoke and then a user-approved controlled experiment. Frozen, LoRA, and full
-fine-tuning remain independent adaptation choices with comparable protocols.
+Train and evaluate a Qwen ER model independently, producing `ActionPlan v1`
+rather than continuous actions. Connect a selected ER checkpoint to the M2
+SmolVLA policy and separately measure plan quality, execution quality, recovery
+behavior and end-to-end success.
 
-## M4 — Action Chunk Transformer
+## M4 — Robust ER/VLA evaluation
 
-Replace the MLP action head with a temporal action expert while preserving the
-`[batch, chunk_size, action_dim]` contract.
+Evaluate ER, VLA and their integration under spatial, semantic, temporal and
+recovery perturbations. Avoid treating a single offline loss or benchmark as a
+complete system result.
 
-## M5 — Robust Simulation Evaluation
+## M5 — Multi-dataset / Cross-embodiment
 
-Extend M2's mandatory baseline closed-loop MuJoCo evaluation to longer-horizon,
-multi-task, and perturbation testing. Continue tracking task success, collision,
-validity, smoothness, and latency metrics without treating this milestone as the
-first observation-action-observation control gate.
+Expand the revision-pinned data and adapter matrix only after the first M2/M3
+loop is reproducible. Keep embodiment-specific mappings outside ER, VLA and the
+shared action schema.
 
-## M6 — Multi-dataset / Cross-embodiment
+## M6 — Controlled action-expert research
 
-Train across normalized datasets and embodiments with explicit embodiment
-metadata and adapters.
+Compare action horizons, execution horizons, adaptation choices and alternative
+action experts one axis at a time while preserving fixed data and evaluation.
 
-## M7 — Diffusion / Flow-Matching Action Expert
+## M7 — Controlled ER/VLA scale-up
 
-Investigate richer continuous-action distributions only after deterministic
-action chunking has a trustworthy baseline.
+Scale Qwen ER or the VLA only after the matching development pipeline has passed
+its own gates. A larger model is not a substitute for interface, data or
+closed-loop correctness.
 
 ## M8 — Sim-to-real Experiments
 

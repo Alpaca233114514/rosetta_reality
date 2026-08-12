@@ -1,0 +1,107 @@
+schema_version: 1
+role: vla
+experiment_id: m2-smolvla450m-aloha-insertion-001
+status: preregistered_smoke_only
+seed: 20260809
+hypothesis: >-
+  The revision-pinned SmolVLA 450M base can reuse Rosetta's accepted ALOHA data,
+  physical action semantics, simulator adapter and fixed split while replacing
+  the rejected Qwen frozen-feature action policy. A batch-1 tiny run must first
+  prove processor, action-horizon, gradient, checkpoint, resume and Trackio
+  contracts inside the local Docker/XPU resource budget.
+upstream:
+  repository: huggingface/lerobot
+  revision: c903b114a90e703b3f7d0c46cb38727c328c55ff
+model:
+  identifier: lerobot/smolvla_base
+  revision: c83c3163b8ca9b7e67c509fffd9121e66cb96205
+  parameter_scale: 450M
+  vlm_dependency:
+    identifier: HuggingFaceTB/SmolVLM2-500M-Video-Instruct
+    revision: 7b375e1b73b11138ff12fe22c8f2822d8fe03467
+    license: apache-2.0
+    manifest: vlm_dependency_manifest.json
+  adaptation:
+    freeze_vision_encoder: true
+    train_expert_only: true
+    train_state_proj: true
+  policy:
+    chunk_size: 50
+    n_action_steps: 1
+    empty_cameras: 2
+    load_vlm_weights: false
+dataset:
+  config: configs/data/aloha_sim_insertion_m2.yaml
+  identifier: lerobot/aloha_sim_insertion_human
+  revision: cc571a3c661df81b566dbfde3d5c1e85fcdf7884
+  rename_map:
+    observation.images.top: observation.images.camera1
+  train_episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  validation_episodes: [22, 13, 7, 33, 45]
+  test_episodes: [31, 6, 1, 24, 5]
+  test_policy: sealed_until_validation_selection
+action_contract:
+  base: configs/sim/aloha_insertion.yaml
+  derived: configs/sim/aloha_insertion_smolvla.yaml
+  required_gates: [gate1_scripted_action, gate2_dataset_replay]
+benchmark:
+  required_before_optimizer: true
+  baselines: [train_action_mean, current_state_persistence]
+  normalization_source: train_only
+  evaluated_split: validation
+  hidden_test_loaded: false
+tracking:
+  package: trackio
+  version: 0.28.0
+  project: rosetta-reality-vla
+  space_id: LAlpaca/rosetta-reality-trackio
+  space_sdk: static
+  visibility: public
+  delivery: local_durable_then_checkpoint_sync
+  local_root: runs/trackio
+  storage_mode: sqlite
+  public_payload_policy: metrics_and_sanitized_config_only
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu_then_cpu_fallback_for_diagnostics_only
+  mixed_precision: bf16
+  memory_limit: 6g
+  memory_swap_limit: 6g
+  cpu_limit: 2
+phases:
+  smoke:
+    episodes: [49]
+    batch_size: 1
+    steps: 2
+    save_freq: 1
+    acceptance:
+      - finite_loss_and_gradients
+      - checkpoint_written
+      - checkpoint_reload_contract_matches
+      - trackio_run_readable
+      - no_resource_limit_violation
+  overfit:
+    enabled_after_smoke_only: true
+    episodes: [49]
+    batch_size: 1
+    steps: 100
+    save_freq: 50
+    acceptance:
+      - final_loss_below_initial_loss
+      - explicit_resume_completes
+      - fixed_samples_only
+  formal:
+    enabled_after_resource_review_only: true
+    batch_size: null
+    steps: null
+    stop_until_separately_preregistered: true
+stop_conditions:
+  - model_or_dataset_revision_mismatch
+  - camera_state_action_or_task_contract_mismatch
+  - action_contract_or_chunk_semantics_mismatch
+  - nonfinite_loss_gradient_or_action
+  - out_of_memory
+  - unsupported_accelerator_operation
+  - checkpoint_or_resume_failure
+  - trackio_local_durability_failure
+  - test_episode_materialized_or_loaded

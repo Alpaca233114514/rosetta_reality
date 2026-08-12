@@ -31,6 +31,18 @@
   environments, installing ML or data dependencies, downloading models or datasets, and running ML code.
 - When invoking WSL from PowerShell, call `wsl.exe bash` explicitly and quote Bash variables and paths so
   PowerShell expansion cannot redirect a command into the Windows-mounted repository unexpectedly.
+- 正式的数据、模型、训练、评估和仿真命令必须从 WSL Bash 启动，并在 Linux Docker 容器中
+  执行。WSL 主机只负责只读检查、依赖源码检出、容器编排和受控的 Hub 控制面操作；不得把
+  主机 Python 环境当作训练环境。
+- AutoDL 容器实例是上述规则的唯一已登记远端例外：平台实例本身作为 Linux 容器边界，禁止
+  尝试嵌套 Docker。必须使用 `configs/runtime/autodl_rtx4090.yaml` 与
+  `scripts/run_autodl.sh` 记录 `nested_docker_used=false`，先通过远端 doctor、immutable cache
+  identity、pre-training benchmark、no-optimizer CUDA forward 和两步 CUDA optimizer smoke，
+  再由单独 preregistered formal plan 授权正式训练。不得把 AutoDL shell、WSL 主机 Python 或
+  未经身份核验的云端环境当作等价容器证据。
+- 可以从 WSL 使用已经登录的 Hugging Face CLI 创建或检查 Space、模型仓库和数据仓库；模型
+  或数据内容的准备与训练仍须在容器中完成。不得读取、打印、写入配置文件或通过命令行参数
+  暴露 Hugging Face token。
 
 ## GPU and environment safety
 
@@ -53,11 +65,131 @@ Before any real GPU training:
 
 Do not download model weights or datasets unless the user explicitly requests it.
 
+## AutoDL 远程炼丹炉强制工作流
+
+AutoDL 是临时 CUDA worker，本地 Codex、仓库和 WSL 是 control plane。除非用户明确改变方案，
+所有 AutoDL 训练必须固定遵守以下流程：
+
+```text
+Local control plane
+  edit / inspect / benchmark plan / freeze identities
+        |
+        | immutable Git revision or versioned workspace bundle
+        v
+AutoDL CUDA worker
+  doctor -> benchmark -> no-optimizer forward -> two-step smoke
+        |
+        v
+  tmux guarded train -> validate -> select -> export
+        |
+        | selected artifact + manifests + reports
+        v
+Local control plane
+  independent reload -> shut down paid GPU -> local Gate 3 / Gate 4
+        |
+        v
+  diagnose -> preregister the next single-variable run
+```
+
+### 本地控制面与远端 worker 边界
+
+- 本地负责阅读文档、修改和审计代码、比较实验、冻结假设与变量、生成计划、核验 Git/workspace
+  identity、分析 Gate 结果以及决定下一炉。不得把 Codex 配置、长期开发状态或决策过程迁移到
+  AutoDL，也不得在计费 GPU 上临时探索研究方向。
+- 开机前必须在本地冻结：实验假设、唯一 run name、代码身份、config/plan checksum、dataset/model/
+  processor revision、Action Contract、optimizer/scheduler、batch/steps、benchmark 命令、smoke 命令、
+  输出目录、验收指标、停止条件和预计时长。上述任一项未冻结，不得开启正式 GPU 训练。
+- 代码传输优先使用已推送的普通功能分支 commit；用户尚未授权 commit/push 时，只能使用
+  `scripts/stage_autodl_from_wsl.sh` 创建新的 versioned、content-addressed workspace。禁止手工复制
+  若干 `.py` 文件、覆盖既有远端 workspace、在 run 启动后编辑远端代码，或让同一 run 跨两个
+  workspace identity。
+- 数据、模型、VLM dependency 与 processor cache 必须位于远端 durable data root，保留原有
+  revision-scoped 目录和 manifest；传输不得使用 `--delete`，不得覆盖不同身份缓存，不得因远端
+  缺少缓存而自行下载。doctor 必须在不加载模型权重和数据行的情况下先验证所有 manifest。
+- AutoDL GPU 只承担经过授权的 CUDA doctor/benchmark/smoke、昂贵训练、必要 validation、selection、
+  export 和 independent reload。固定等待、长时间 Gate 3/4、实验分析、代码调试、文档整理与下一炉
+  设计默认回到本地执行，不得让计费 GPU 空转等待。
+
+### 启动、守护与固定五分钟阻塞
+
+- 任何长于短 smoke 的远端进程必须在 `tmux` 或等价守护会话中运行，stdout/stderr 同时写入
+  durable run log；SSH 连接只负责控制，绝不能承担训练进程生命周期。SSH 或本地 Codex 断开后，
+  训练必须继续，重新连接后只能通过已记录的 session/run identity 恢复观察。
+- 启动后先检查进程、GPU、首批 step、finite loss/gradient、显存、Trackio 和 checkpoint 目录；
+  一旦确认进入稳定训练，负责监控训练的 agent 必须使用**固定五分钟阻塞**：每次等待只能执行
+  Bash `sleep 300`，不得改成其他秒数，不得使用短轮询、连续 `tail -f`、高频 GPU 查询、忙等或
+  无阻塞反复检查。`sleep 300` 结束后只做一次有界状态采样，再继续下一次 `sleep 300`。
+- 固定五分钟阻塞不改变已登记的 quarter/checkpoint wake gate：只有在启动健康检查、失败信号、
+  预登记 checkpoint/25%/50%/75%/100% 边界或训练完成时才做完整审计；其余五分钟唤醒只允许读取
+  最小状态，不得据此修改超参数、重启进程或开启另一炉。
+- `sleep 300` 阻塞的是监控 agent/控制 shell，不得注入训练 dataloader、optimizer、scheduler、
+  simulator step、checkpoint writer 或训练进程本身；不得因阻塞丢失日志、心跳、异常退出状态或
+  durable metrics。训练进程退出后必须立即停止新的 sleep 周期并进入结果核验。
+
+### 训练完成、回传与关机
+
+- 每个远端 run 必须形成黑匣子，至少包含 resolved config/plan、Git revision 或 workspace tree hash、
+  dataset/model/processor revisions、Action Contract、完整 optimizer/scheduler contract、环境与 GPU
+  身份、train log、Trackio identity、metrics、checkpoint manifest、selection report、export manifest、
+  人工介入和退出状态。不得只留下 `model.safetensors` 或口头结果。
+- 完成顺序固定为：训练退出并保存状态 -> validation-only selection -> export -> remote independent
+  reload -> 回传 selected deploy artifact、manifest、metrics 与必要报告 -> 本地 checksum/reload 核验
+  -> 在用户已授权的运行边界内关闭计费 GPU -> 本地 Gate 3 -> 本地 Gate 4 -> 结果分析。任一步失败
+  都不得假装完成、删除远端状态或直接启动下一炉。
+- 完整 optimizer/scheduler checkpoint 默认保留在远端用于显式 resume；selected deploy artifact 与
+  provenance 必须拉回本地。若实例可能释放、迁移或不再保留，必须在关机/释放前把需要复现或恢复
+  的完整 checkpoint 备份到用户批准的可靠位置。AutoDL 本地盘不构成唯一可靠副本。
+- Gate 3/4 默认在本地通过独立 reload 的 deploy artifact 运行。固定 Gate 4 等待期间不得保持
+  AutoDL GPU 开机；不得用远端更快的离线 loss、一次 positive reward 或一次偶然 success 替代本地
+  registered Gate 结果。
+- 下一炉只能在本地分析当前 run 后，重新提出单一受控假设并生成新的 identity/plan；禁止在远端
+  原地改参数续跑、复用不匹配 optimizer state、无计划批量开炉，或把 AutoDL 变成常驻开发机。
+
 ## Architecture
 
-- Keep the vision-language backbone replaceable.
+### Current M2 navigation (mandatory)
+
+- Any task that touches SmolVLA data, `configs/vla/`, `src/rosetta_reality/vla/`,
+  the SmolVLA trainer/loss/optimizer/scheduler, checkpoint/resume, export,
+  validation, Gate 3 or Gate 4 must first read
+  `docs/m2-smolvla-architecture.md` completely. It is the stable component and
+  control-flow map; do not reconstruct the architecture from chat history.
+- After the architecture map, read
+  `reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md`
+  and its JSON companion for current evidence, findings and repair order. The
+  earlier `docs/er-vla-pipeline.md` and action-repair handoff remain context and
+  provenance, not current completed-result authority.
+- Current boundary: Faust batch-8 training completed, export/reload and Gate 3
+  passed, but Gate 4 failed `0/5`; therefore M2 is not complete. No agent may
+  infer acceptance from offline MAE or start another full furnace without a new
+  single-axis registered plan and the required authorization/gates.
+- If architecture prose conflicts with a hash-bound config, Action Contract,
+  executable assertion or immutable evidence, stop and reconcile the mismatch.
+  Never silently choose one or edit historical evidence to match prose.
+- When component ownership, entry points, the current evidence source, processor
+  boundary, trainer/optimizer architecture, closed-loop flow or Gate 4 status
+  changes, update `docs/m2-smolvla-architecture.md` in the same change. If its
+  stable path changes, update this section, `README.md` and
+  `docs/architecture.md` together.
+
+- Rosetta Reality 是一个 **Embodied Reasoning + Vision-Language-Action monorepo**。ER、VLA 与
+  integration 在逻辑上分离，但共享一次 Git revision、数据合同、仿真适配器和评估协议。
+- `Qwen3.5` 只属于 ER / System-2 路线，负责低频场景理解、任务分解、进度判断和失败恢复；
+  不得再把 Qwen frozen feature + MLP action head 当作当前 VLA 主模型。
+- `lerobot/smolvla_base` 450M 是当前 VLA / System-1 development model，负责从图像、语言、
+  robot state 产生连续 action chunk。SmolVLA 与 Qwen 的 checkpoint、optimizer、Feature Cache、
+  模型输入和发布 artifact 必须分开管理。
+- 旧的 `configs/experiments/m2_qwen08b_*`、对应报告、checkpoint、Feature Cache 和 run 是不可变
+  历史 VLA 实验及负结果证据。除非另有明确迁移方案，只允许只读复用其数据身份、split、
+  Action Contract、Gate 1/2、仿真适配器、指标和诊断结论，不得复用其模型权重或特征作为
+  SmolVLA 初始化。
+- ER 到 VLA 的唯一正式边界是版本化 structured `ActionPlan`。第一版至少包含 `subtask`、
+  `object`、`target`、`motion_hint`、`constraints`、`success_condition` 和 `replan_condition`；
+  不得把一句无结构自然语言当作完整 ER/VLA 接口。
+- Keep both the ER backbone and VLA policy replaceable.
 - Keep the dataset layer robot- and embodiment-agnostic.
-- Do not leak Qwen-specific behavior into generic VLA policy components.
+- Do not leak Qwen-specific behavior into VLA or integration components, and do not leak SmolVLA-specific
+  behavior into ER or generic simulation/data contracts.
 - Do not hardcode action dimensions, chunk sizes, robot degrees of freedom, devices, or dtypes.
 - Avoid speculative abstractions without an immediate use.
 - Prefer a small working baseline before advanced research features.
@@ -81,86 +213,84 @@ Do not download model weights or datasets unless the user explicitly requests it
   optimizer smoke，以及 revision-pinned 真实数据缓存的检查和 `pytest -m data`。需要创建或
   补全数据缓存时，只有在用户明确批准下载后才能运行 `python scripts/prepare_data.py`；
   `python scripts/prepare_data.py inspect` 必须保持只读。
-- 模型规模、backbone adaptation、Action Expert 和 dataset 是相互独立的实验轴。不得再把
-  Frozen、LoRA 或 Full Fine-tuning 与某个里程碑永久绑定；里程碑表示系统已经获得并验收的
-  能力，而不是本次实验使用的训练技术。
-- **M2 — Development VLA**：把本地已有的 `Qwen3.5-0.8B-Base` 作为正式的
-  development-scale reference model。0.8B 不是一次性 smoke checkpoint；必须先用它完成
-  第一代 Rosetta 的数据、训练、验证、checkpoint / resume、evaluation、artifact export 和
-  可复现闭环，并通过 MuJoCo 基础控制验证。M2 完成时必须已有一个能在明确 action 语义下
-  实际驱动目标仿真机器人的 development checkpoint，而不只是能输出 action tensor。
-- 0.8B 的每种新训练能力仍须从极小样本开始，依次验证图像预处理、instruction / prompt、
-  hidden state、tensor shape、pooling、梯度、机器人状态融合、动作预测和小数据 overfit，
-  然后才能扩大为完整实验。不得为了执行这些步骤自行下载权重或数据。
-- Frozen、LoRA 和 Full Fine-tuning 可以分别在 0.8B 上形成受控实验。是否运行某个适配方法
-  由实验假设、资源和用户授权决定；如需比较方法，应保持 dataset split、evaluation protocol
-  和其他控制变量一致，并优先建立可复现的 Frozen reference。
-- **M3 — Scale-up VLA**：只有 0.8B 完整闭环验收通过后，才能把已验证的 pipeline 扩展到
-  `Qwen3.5-9B-Base`。9B 必须先做短 GPU smoke，再在用户批准的正式 GPU 环境中运行
-  Frozen、LoRA 或 Full Fine-tuning 的 controlled experiment。
-- 16 GB 本地机器不得承担 9B 正式训练。9B 在本地只允许做资源边界明确的冻结推理；LoRA
-  和 Full Fine-tuning 必须在用户批准且经过资源预算验证的 GPU 环境运行。192 GB 等大显存
-  不是跳过 0.8B 闭环、测试门禁、短 GPU smoke 或显存规划的理由。
-- 不得把 Frozen Backbone + Action Head Training 描述为 LoRA、full fine-tuning 或
-  9B 全参数训练。
+- ER 模型、VLA 模型、backbone adaptation、Action Expert、dataset 和 ER/VLA interface 是相互
+  独立的实验轴。不得用其中一条线的成功替代另一条线的验收。
+- **M2 — SmolVLA Development VLA**：使用 revision-pinned `lerobot/smolvla_base` 450M 完成
+  第一代 Rosetta VLA 的数据、训练、验证、checkpoint / resume、evaluation、artifact export、
+  独立 reload 和 MuJoCo 闭环。M2 完成时必须存在能在明确 action 语义下驱动目标仿真机器人的
+  SmolVLA checkpoint，而不只是 finite loss 或 action tensor。
+- M2 首选复用 revision-pinned `lerobot/aloha_sim_insertion_human` 50 episodes、既定 split、
+  Action Contract 与已经通过的 Gate 1/2 证据。复用前仍须在当前容器和当前配置下只读核验
+  manifest、checksum、camera/state/action/task 字段、fps、chunk 语义和 split；不得仅凭 repo_id
+  或 shape 宣称兼容。
+- 每种新的 SmolVLA 训练能力必须从 `batch_size = 1`、极少 step 和固定小样本开始，依次验证
+  processor、camera mapping、instruction、state/action padding、normalization、forward、backward、
+  optimizer、checkpoint、resume、Trackio 和小数据 overfit，再依据实测资源决定是否扩大。
+- **M3 — ER/VLA Integration**：只有 SmolVLA M2 闭环通过，且 Qwen ER 在独立 ER 数据和指标上
+  通过验收后，才能通过版本化 `ActionPlan` 接入。必须分别报告 ER plan quality、VLA execution
+  quality 和 end-to-end success，不能只报告最终成功率。
+- Qwen 0.8B 到 9B 属于 ER scale-up，不是 VLA 里程碑。9B 的 LoRA 或 Full Fine-tuning 只能在
+  用户批准且经过资源预算验证的 GPU 环境运行；本地 16 GB 机器不承担 9B 正式训练。
+- 不得把 SmolVLA 的 `freeze_vision_encoder` / `train_expert_only` 描述为 LoRA 或 full fine-tuning，
+  也不得把旧 Qwen action-head checkpoint 描述为 ER checkpoint。
 
 ### 每次模型工作的执行顺序
 
 每项模型改动或实验必须按以下顺序推进，并在上一步有可检查证据后才进入下一步：
 
-1. 定义一个明确假设、变更范围、数据和模型身份、资源预算、验收指标及停止条件，并分别写明
-   backbone scale、adaptation method、Action Expert 和 dataset，避免混淆实验变量。
-2. 先完成不加载权重和数据的静态检查、配置检查、shape / contract 单元测试。
-3. 在 WSL 中运行 `python scripts/check_env.py`、相关单元测试、dummy forward 和 CPU 或
-   小模型 smoke test。具体测试范围应与风险相称；进入真实 GPU 训练前仍须执行本文件前述
-   完整 GPU 前置检查顺序。
-4. 在正式训练前定义完整的 Rosetta Action Contract 和 Simulation Adapter，并依次通过 M2
-   Gate 1 Scripted Action Smoke Test 与 Gate 2 Dataset Action Replay。
-5. 使用 0.8B 和极小真实样本验证 Online Backbone、选定 adaptation method 和端到端
-   forward / backward 路径。
-6. 使用很小的固定样本集验证模型能够 overfit，并排查 split 泄漏、梯度、checkpoint 保存与
-   resume、日志和 evaluation 实现。
-7. 对 Frozen 实验按本文件的 Feature Cache 流程生成并验证不可变缓存；对 LoRA 或 Full FT
-   使用 Online Backbone，不能把预计算冻结特征冒充为 backbone adaptation。
-8. 在 0.8B 上完成正式 training / validation、checkpoint / resume、evaluation、artifact
-   export 和从导出 artifact 重新加载的全流程，并验证结果可复现。
+1. 定义明确假设、工作线（ER / VLA / integration）、变更范围、不可变数据/模型/上游代码身份、
+   adaptation、资源预算、验收指标和停止条件；不得混淆实验变量。
+2. 先完成不加载权重和数据的静态检查、配置检查、schema / shape / contract 单元测试。
+3. 从 WSL Bash 构建或检查 digest/revision-pinned Docker image，在容器中运行环境检查、相关单测、
+   dummy forward 和 CPU smoke；不得用 Windows Python 或主机 WSL Python 代替容器证据。
+4. 正式 VLA 训练前定义完整 Action Contract 和 Simulation Adapter，并依次通过 M2 Gate 1
+   Scripted Action Smoke Test 与 Gate 2 Dataset Action Replay。
+5. 创建并验证 Trackio Hugging Face Space；正式 run 必须预先固定 project、Space、run name、
+   config identity 和本地持久化目录。动态 Space 不可用时，允许先写本地 durable store，再在
+   checkpoint 边界把经过脱敏检查的指标同步到公开 static Space；不得丢弃 metrics 或假装实时。
+6. 使用 SmolVLA 450M、`batch_size = 1`、极少 step 和极小真实样本验证端到端 forward / backward、
+   峰值内存、step latency、梯度、checkpoint 和 Trackio；非 finite、OOM 或不受支持的 accelerator
+   必须立即停止，不得靠反复 OOM 或 swap 掩盖。
+7. 使用固定小样本集验证 SmolVLA 能够 overfit，并排查 split 泄漏、processor、normalization、
+   checkpoint 保存/恢复、日志和 evaluation。
+8. 资源实测通过后，才完成正式 training / validation、显式 resume、evaluation、artifact export、
+   独立 reload 和可复现性验证。
 9. 依次通过 M2 Gate 3 Small Policy Rollout 与 Gate 4 Development Task Evaluation，证明
-   checkpoint 能经完整 adapter 链路形成基础 observation-action-observation 控制循环。
-10. 0.8B 的训练、artifact 和仿真控制验收全部通过后才进入 scale-up gate。切换到 9B 时保持
-   可比的数据、split、指标和 pipeline，
-   重新生成与 9B 身份匹配的 Feature Cache 或在线训练输入，并完成短 GPU smoke。
-11. 只在短 GPU smoke 通过后运行 9B controlled experiment；不能把首次完整训练留到 9B
-   阶段才调试 checkpoint、resume、evaluation、export 或数据泄漏问题。
-12. 记录配置、结果、失败、人工介入和下一轮假设，再决定是否扩大数据、模型或计算规模。
+   checkpoint 经完整 adapter 链路形成 observation-action-observation 控制循环。
+10. Qwen ER 必须使用独立 ER 配置、监督信号、checkpoint 和 benchmark；旧 VLA action loss 不能
+    作为 ER 训练或 ER 能力证据。
+11. 只有 ER 与 VLA 各自通过后，才接入 `ActionPlan`，依次做 schema round-trip、grounding、单步
+    执行、replan/failure recovery 和端到端评估。
+12. 记录配置、结果、失败、Trackio URL、人工介入和下一轮假设，再决定是否扩大数据、模型或计算。
 
-两级模型工作主路径为：
+主路径为：
 
 ```text
-Dummy / Contract Tests
+Static / Schema / Contract Tests
         |
         v
 M2 Gate 1 Scripted Action + Gate 2 Dataset Replay
         |
         v
-0.8B Tiny-sample Smoke
+Trackio Space + SmolVLA 450M Tiny Smoke
         |
         v
-0.8B Small-data Overfit
+SmolVLA Small-data Overfit
         |
         v
-0.8B Full Train / Validate / Resume / Evaluate / Export
+SmolVLA Train / Validate / Resume / Evaluate / Export
         |
         v
 M2 Gate 3 Small Rollout + Gate 4 Task Evaluation
         |
         v
-Reproducibility and Scale-up Gate
+Qwen ER Independent Training + ER Evaluation
         |
         v
-9B Short GPU Smoke
+ActionPlan Integration Tests
         |
         v
-9B Controlled Experiment
+ER + VLA End-to-end Evaluation
 ```
 
 任何一步失败时，应修复该层并重新验证，不得通过扩大模型、数据、内存、swap 或计算资源
@@ -169,8 +299,8 @@ Reproducibility and Scale-up Gate
 ### M2 — Development VLA 与仿真控制验证
 
 M2 的目标不是仅让模型成功输出动作张量，而是建立第一条从真实多模态 observation 到仿真
-机器人实际运动的完整控制链路。M2 默认使用开发规模 backbone，例如
-`Qwen3.5-0.8B-Base`，完成端到端训练、评估、checkpoint、恢复、导出及仿真控制验证。
+机器人实际运动的完整控制链路。M2 固定使用 revision-pinned `lerobot/smolvla_base` 450M，
+完成端到端训练、评估、checkpoint、恢复、导出及仿真控制验证。Qwen 不参与 M2 VLA checkpoint。
 
 M2 完成后，应存在一个能够实际驱动 MuJoCo 中目标机器人模型的 Rosetta Reality
 development checkpoint。
@@ -369,27 +499,26 @@ M2 的核心判断标准是：**Rosetta 不仅能够预测 action，还能够证
   不得在不同 cache generation 之间静默改变。
 - 训练代码可以提供 Online Backbone 和 Cached Backbone 两条路径；它们对下游暴露的
   representation contract 必须一致，核心 VLA 架构不得依赖某一种缓存实现。
-- 本地不得让 9B 模型长期常驻普通训练循环。需要扩大提取规模时，先缩小 sample / episode、
+- 旧 Qwen frozen Feature Cache 只可用于复现历史 VLA 诊断或新的 Qwen ER 假设，绝不能作为
+  SmolVLA 输入、初始化或 SmolVLA 训练完成证据。SmolVLA 主路径使用其原生 online processor
+  和训练合同；`freeze_vision_encoder` 不等于离线 Qwen Feature Cache。
+- 本地不得让 Qwen 9B 模型长期常驻普通训练循环。需要扩大提取规模时，先缩小 sample / episode、
   batch 和 representation，再考虑经过用户批准的外部 GPU 环境。
 
-### 0.8B 到 9B 的复用边界
+### Qwen ER 0.8B 到 9B 的复用边界
 
-0.8B 的价值是先解决所有能够在 development scale 解决的工程和科研流程问题，而不是把
-0.8B 权重“无缝转换”为 9B。
+本节只适用于 Qwen ER，不适用于 SmolVLA。0.8B 的价值是先解决 ER supervision、prompt、
+structured plan、评估和 integration contract，而不是把 0.8B 权重“无缝转换”为 9B。
 
-- 可以直接复用：Dataset Adapter、Action Space、Normalization、固定 split、instruction
-  构造规则、训练与评估逻辑、日志、artifact schema，以及 State Encoder、Fusion 和 Action
-  Head 的架构合同。
+- 可以直接复用：ER dataset adapter、固定 split、instruction / reasoning supervision 规则、
+  ActionPlan schema、ER 训练与评估逻辑、日志和 artifact schema。
 - 必须为 9B 重新生成：backbone hidden states、Feature Cache 和通常与 hidden size 直接相连的
   Backbone Projector。即使 0.8B 与 9B 输出 tensor shape 相同，也不得认为 representation
   语义兼容。
-- State Encoder 权重可以作为 9B 实验的 warm start 候选；Fusion 和 Action Head 权重只有在
-  contract 一致且实验明确记录时才能尝试 warm start。所有 warm start 都应与从头初始化形成
-  controlled comparison，不能默认其一定更优。
-- 每个 backbone 可以拥有自己的可配置 Projector，但 Projector 输出应遵守统一、可配置的
-  representation contract，使下游组件不依赖 Qwen 型号或原始 hidden size。
+- ER Projector 或 adapter 权重只能在合同一致且实验明确记录时作为 warm start 候选；所有
+  warm start 必须与从头初始化形成 controlled comparison。
 - 从 0.8B 扩展到 9B 时，复用的是经过验证的 pipeline、实验协议和可选择的下游初始化，
-  不是跨 backbone 复用 Feature Cache 或假定模型权重可以零成本迁移。
+  不是跨 backbone 复用 Feature Cache，也不是把任一 Qwen 权重迁移给 SmolVLA。
 
 ### Feature Cache 身份与复用
 
@@ -425,15 +554,21 @@ Rosetta Reality 的模型工作应形成可审计的 AI-directed research loop�
 - 用户批准了哪些下载、昂贵计算或安全边界；
 - 所有人工修改、介入和例外；
 - 结果、失败分析、结论和下一轮假设。
+- Trackio project、Space、run name、run URL、本地存储身份和 sync 状态；token 不属于 provenance，
+  不得写入日志或 manifest。
+- 公开 Trackio Space 只允许同步指标、非敏感超参数、不可变 model/dataset/code revision、资源统计
+  和 run 状态。不得同步 token、环境变量、绝对主机路径、原始样本、私有对话、完整控制台日志、
+  checkpoint、模型权重或未经过明确审查的媒体/artifact。
 
 评估至少同时考虑 train / validation loss、过拟合、预测分布和 action 合法性。M2 仿真评估
 还必须按任务检查成功率、碰撞、动作平滑度、invalid action、joint-limit violation 和延迟。
 除非目标只是显式 smoke test，否则一次 forward、一次 optimizer step、loss finite 或
 tensor shape 正确都不构成模型有效性的充分证据。
 
-### 0.8B 实验模型验收与发布
+### SmolVLA 与 Qwen ER 模型验收和发布
 
-0.8B development model 是正式研究 artifact。进入 9B scale-up 前，至少应证明：
+SmolVLA development model 和 Qwen ER model 是两类独立研究 artifact。任何一类对外发布前，
+至少应证明：
 
 - train / validation split 无已知泄漏，完整训练和评估使用固定 protocol；
 - checkpoint 保存、恢复和继续训练可用；
@@ -446,9 +581,11 @@ tensor shape 正确都不构成模型有效性的充分证据。
 发布到 Hugging Face 或其他外部平台属于外部写操作，必须获得用户对目标仓库和版本的明确
 授权，并在发布前核对基础模型、训练数据和代码许可证：
 
-- Frozen backbone 实验优先只发布 Rosetta Projector、State Encoder、Fusion、Action Head、
-  配置和 Model Card，并使用 `base_model` 指向原始模型；不要重复上传未修改的基础权重。
-- LoRA 实验优先发布 adapter、Rosetta action components、配置和 Model Card。
+- SmolVLA 优先发布实际修改的 policy artifact、processor、训练配置、Action Contract 和 Model
+  Card，并用 `base_model` 指向 immutable `lerobot/smolvla_base` revision；不得重复上传未修改
+  的基础权重。
+- Qwen ER Frozen 实验优先只发布 ER Projector / head、配置和 Model Card；LoRA 实验优先发布
+  adapter。两类 artifact 的 repo_id、tag 和 Model Card 不得混用。
 - Full Fine-tuning 只有在许可证允许、artifact 验证通过且用户明确批准时才能发布完整权重。
 - 发布验收必须包含可从公开 artifact 重新加载的验证；上传成功本身不等于模型可复现。
 

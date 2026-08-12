@@ -40,6 +40,9 @@ def test_action_chunks_do_not_cross_episodes_and_drop_tails() -> None:
     dataset = ActionChunkDataset(adapter, chunk_size=3)
 
     assert len(dataset) == 5
+    assert dataset.anchor_indices == (0, 1, 2, 5, 6)
+    assert dataset.anchor_reference(3).episode_id == "1"
+    assert dataset.anchor_reference(3).frame_index == 0
     assert [dataset[index].episode_id for index in range(len(dataset))] == [
         "0",
         "0",
