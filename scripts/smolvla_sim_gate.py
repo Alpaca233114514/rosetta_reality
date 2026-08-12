@@ -663,7 +663,7 @@ def gate3(plan_path: Path) -> int:
     )
     create_json(destination, report)
     print(json.dumps(report, indent=2, sort_keys=True))
-    print(f"Report: {destination.relative_to(REPOSITORY_ROOT).as_posix()}")
+    print(f"Report: {destination.name}")
     return 0 if passed else 1
 
 
@@ -887,7 +887,7 @@ def gate4(plan_path: Path, gate3_report: Path) -> int:
     )
     create_json(destination, report)
     print(json.dumps(report, indent=2, sort_keys=True))
-    print(f"Report: {destination.relative_to(REPOSITORY_ROOT).as_posix()}")
+    print(f"Report: {destination.name}")
     return 0 if passed else 1
 
 
@@ -1019,7 +1019,7 @@ def execution_strategy_diagnostic(
     )
     create_json(destination, report)
     print(json.dumps(report, indent=2, sort_keys=True))
-    print(f"Report: {destination.relative_to(REPOSITORY_ROOT).as_posix()}")
+    print(f"Report: {destination.name}")
     return 0
 
 

@@ -307,7 +307,7 @@ def prepare(config_path: Path) -> Path:
         raise ValueError("Source dataset checksum manifest is invalid.")
     _create_view(root, view_root, destination, view_stats, source_checksums)
     print(json.dumps(report, indent=2, sort_keys=True))
-    print(f"Report: {destination.relative_to(REPOSITORY_ROOT).as_posix()}")
+    print(f"Report: {destination.name}")
     return destination
 
 

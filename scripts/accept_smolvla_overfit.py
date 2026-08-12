@@ -280,7 +280,7 @@ def main() -> int:
     destination = acceptance_root / f"{overfit['run_name']}.json"
     create_json(destination, report)
     print(json.dumps(report, indent=2, sort_keys=True))
-    print(f"Report: {destination.relative_to(REPOSITORY_ROOT).as_posix()}")
+    print(f"Report: {destination.name}")
     return 0
 
 

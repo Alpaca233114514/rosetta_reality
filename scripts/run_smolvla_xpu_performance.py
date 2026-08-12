@@ -1026,7 +1026,7 @@ def main() -> int:
             experiment=experiment,
             formal_path=formal_path,
         )
-        print(f"Performance report: {destination.relative_to(REPOSITORY_ROOT).as_posix()}")
+        print(f"Performance report: {destination.name}")
         return 0
     contract_path, normalization_report, dataset_root, _ = _validate_prerequisites(
         plan, plan_path, base_path, experiment, formal_path, formal_plan
@@ -1058,7 +1058,7 @@ def main() -> int:
             contract_path=contract_path,
             baseline=baseline,
         )
-    print(f"Performance report: {destination.relative_to(REPOSITORY_ROOT).as_posix()}")
+    print(f"Performance report: {destination.name}")
     return 0
 
 

@@ -233,7 +233,7 @@ def diagnose(config_path: Path, normalization_path: Path) -> Path:
     )
     create_json(destination, report)
     print(json.dumps(report, indent=2, sort_keys=True))
-    print(f"Report: {destination.relative_to(REPOSITORY_ROOT).as_posix()}")
+    print(f"Report: {destination.name}")
     return destination
 
 
