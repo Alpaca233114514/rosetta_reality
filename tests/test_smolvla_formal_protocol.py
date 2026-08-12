@@ -2,12 +2,14 @@ import json
 import math
 from dataclasses import replace
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 import torch
 import yaml
 
-from rosetta_reality.sim import load_action_contract
+from rosetta_reality.experiment import file_sha256
+from rosetta_reality.sim import ActionDimension, load_action_contract
 from scripts import smolvla_sim_gate
 from scripts.evaluate_smolvla_validation import _percentile, _validation_indices
 from scripts.export_smolvla import _validated_artifact_id
@@ -22,6 +24,7 @@ from scripts.run_smolvla_formal import (
     _validate_saved_optimizer_contract,
 )
 from scripts.run_smolvla_phase import _validate_gate
+from scripts.select_smolvla_checkpoint import _validated_checkpoint_hashes
 from scripts.train_smolvla_trackio import _convert_statistics
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -66,6 +69,75 @@ def test_export_artifact_id_rejects_path_escape(value: str) -> None:
 def test_export_artifact_id_accepts_registered_component() -> None:
     value = "m2-smolvla450m-faust-b8-step1875-001"
     assert _validated_artifact_id(value) == value
+
+
+def test_checkpoint_selection_binds_all_validated_processor_files(
+    tmp_path: Path,
+) -> None:
+    files = {
+        "model_safetensors_sha256": "model.safetensors",
+        "policy_config_sha256": "config.json",
+        "preprocessor_config_sha256": "policy_preprocessor.json",
+        "postprocessor_config_sha256": "policy_postprocessor.json",
+        "preprocessor_statistics_sha256": (
+            "policy_preprocessor_step_5_normalizer_processor.safetensors"
+        ),
+        "postprocessor_statistics_sha256": (
+            "policy_postprocessor_step_0_unnormalizer_processor.safetensors"
+        ),
+    }
+    for filename in files.values():
+        (tmp_path / filename).write_bytes(filename.encode())
+    report = {
+        "model_source": {
+            name: file_sha256(tmp_path / filename)
+            for name, filename in files.items()
+            if name
+            in {
+                "model_safetensors_sha256",
+                "policy_config_sha256",
+                "preprocessor_config_sha256",
+                "postprocessor_config_sha256",
+            }
+        },
+        "processor_statistics": {
+            name: file_sha256(tmp_path / filename)
+            for name, filename in files.items()
+            if name.endswith("statistics_sha256")
+        },
+    }
+
+    assert set(_validated_checkpoint_hashes(tmp_path, report)) == set(files)
+    (tmp_path / "policy_preprocessor.json").write_bytes(b"tampered")
+    with pytest.raises(ValueError, match="checkpoint file changed"):
+        _validated_checkpoint_hashes(tmp_path, report)
+
+
+def test_simulation_policy_shape_follows_versioned_action_contract() -> None:
+    contract = replace(
+        load_action_contract(
+            REPOSITORY_ROOT / "configs/sim/aloha_insertion_smolvla.yaml"
+        ),
+        dimensions=tuple(
+            ActionDimension(
+                name=f"action_{index}",
+                unit="normalized",
+                minimum=-1.0,
+                maximum=1.0,
+            )
+            for index in range(7)
+        ),
+        chunk_length=12,
+    )
+    policy_config = SimpleNamespace(
+        chunk_size=12,
+        output_features={"action": SimpleNamespace(shape=(7,))},
+    )
+
+    smolvla_sim_gate._validate_policy_contract_shape(policy_config, contract)
+    policy_config.chunk_size = 50
+    with pytest.raises(ValueError, match="policy dimensions"):
+        smolvla_sim_gate._validate_policy_contract_shape(policy_config, contract)
 
 
 def test_training_coverage_rejects_a_registered_partial_pass() -> None:

@@ -31,7 +31,11 @@ from rosetta_reality.experiment import (  # noqa: E402
     workspace_code_identity,
 )
 from rosetta_reality.features import create_json  # noqa: E402
-from rosetta_reality.sim import GymAlohaEnvironment, load_action_contract  # noqa: E402
+from rosetta_reality.sim import (  # noqa: E402
+    ActionContract,
+    GymAlohaEnvironment,
+    load_action_contract,
+)
 from rosetta_reality.tracking import sanitize_metrics, validate_public_payload  # noqa: E402
 
 
@@ -96,8 +100,25 @@ class _ArtifactMetadata:
         self.stats = _convert_statistics(combined)
 
 
+def _validate_policy_contract_shape(policy_config: Any, contract: ActionContract) -> None:
+    output_feature = policy_config.output_features.get("action")
+    output_shape = getattr(output_feature, "shape", None)
+    if (
+        policy_config.chunk_size != contract.chunk_length
+        or not isinstance(output_shape, tuple | list)
+        or tuple(output_shape) != (contract.dimension,)
+    ):
+        raise ValueError("Artifact policy dimensions differ from the Action Contract.")
+
+
 class _OnlineSmolVLA:
-    def __init__(self, artifact: Path, config: dict[str, Any], normalization: dict[str, Any]):
+    def __init__(
+        self,
+        artifact: Path,
+        config: dict[str, Any],
+        normalization: dict[str, Any],
+        contract: ActionContract,
+    ):
         device_name = os.environ.get("ROSETTA_TORCH_DEVICE")
         if device_name != "xpu" or not torch.xpu.is_available():
             raise RuntimeError("SmolVLA simulation requires the registered XPU runtime.")
@@ -117,6 +138,9 @@ class _OnlineSmolVLA:
             ds_meta=metadata,
             rename_map=config["rename_map"],
         )
+        _validate_policy_contract_shape(self.policy.config, contract)
+        self.action_dimension = contract.dimension
+        self.chunk_length = contract.chunk_length
         self.preprocessor, self.postprocessor = make_pre_post_processors(
             policy_cfg=policy_cfg,
             pretrained_path=pretrained,
@@ -167,7 +191,9 @@ class _OnlineSmolVLA:
         state = observation.get("robot_state")
         if not isinstance(images, dict) or "top" not in images:
             raise ValueError("Simulator observation has no registered top camera.")
-        if not isinstance(state, torch.Tensor) or tuple(state.shape) != (14,):
+        if not isinstance(state, torch.Tensor) or tuple(state.shape) != (
+            self.action_dimension,
+        ):
             raise ValueError("Simulator observation has an invalid ALOHA state.")
         sample = {
             "observation.images.top": images["top"],
@@ -201,7 +227,8 @@ class _OnlineSmolVLA:
             action = self.policy.predict_action_chunk(batch, noise=noise)
         torch.xpu.synchronize()
         action = self.postprocessor(action)
-        if not isinstance(action, torch.Tensor) or tuple(action.shape) != (1, 50, 14):
+        expected_shape = (1, self.chunk_length, self.action_dimension)
+        if not isinstance(action, torch.Tensor) or tuple(action.shape) != expected_shape:
             raise ValueError("SmolVLA simulator output differs from the Action Contract.")
         adapter_steps = [
             step
@@ -212,7 +239,7 @@ class _OnlineSmolVLA:
         if len(adapter_steps) != 1:
             raise ValueError("SmolVLA simulator has no unique action decoder boundary.")
         raw = getattr(adapter_steps[0], "last_unclipped_action", None)
-        if not isinstance(raw, torch.Tensor) or tuple(raw.shape) != (1, 50, 14):
+        if not isinstance(raw, torch.Tensor) or tuple(raw.shape) != expected_shape:
             raise ValueError("SmolVLA simulator did not retain the pre-clipping action.")
         return raw[0].detach().cpu(), action[0].detach().cpu()
 
@@ -256,8 +283,6 @@ def _load_artifact(plan_path: Path) -> tuple[dict[str, Any], Path, dict[str, Any
     if (
         contract.chunk_execution != inference["chunk_execution"]
         or contract.chunk_execution_steps != inference["chunk_execution_steps"]
-        or contract.chunk_length != 50
-        or contract.dimension != 14
         or inference["noise"] not in {"zeros", "seeded_standard_normal"}
         or projection not in {"none", "action_contract_clip"}
     ):
@@ -543,7 +568,7 @@ def _runtime() -> dict[str, Any]:
 def gate3(plan_path: Path) -> int:
     plan, artifact, manifest, config, normalization = _load_artifact(plan_path)
     contract = load_action_contract(_repository_path(plan["action_contract"]["path"]))
-    policy = _OnlineSmolVLA(artifact, config, normalization)
+    policy = _OnlineSmolVLA(artifact, config, normalization, contract)
     registered = plan["gate3"]
     noise_mode = str(plan["inference"]["noise"])
     policy_noise_seed = (
@@ -680,7 +705,9 @@ def gate4(plan_path: Path, gate3_report: Path) -> int:
         if not path.is_file():
             pending = True
     contract = load_action_contract(_repository_path(plan["action_contract"]["path"]))
-    policy = _OnlineSmolVLA(artifact, config, normalization) if pending else None
+    policy = (
+        _OnlineSmolVLA(artifact, config, normalization, contract) if pending else None
+    )
     episodes: list[dict[str, Any]] = []
     for index, seed, policy_noise_seed, path in episode_registrations:
         if path.is_file():
@@ -889,7 +916,7 @@ def execution_strategy_diagnostic(
         ]
     else:
         policy_noise_seeds = [None] * len(seeds)
-    policy = _OnlineSmolVLA(artifact, config, normalization)
+    policy = _OnlineSmolVLA(artifact, config, normalization, diagnostic_contract)
     episodes: list[dict[str, Any]] = []
     started = time.perf_counter()
     for index, (seed, policy_noise_seed) in enumerate(

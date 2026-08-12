@@ -26,6 +26,52 @@ from rosetta_reality.experiment import file_sha256, workspace_code_identity  # n
 from rosetta_reality.features import create_json  # noqa: E402
 
 
+def _validated_checkpoint_hashes(
+    pretrained_dir: Path, report: dict[str, Any]
+) -> dict[str, str]:
+    recorded = {
+        "model_safetensors_sha256": (
+            pretrained_dir / "model.safetensors",
+            report.get("model_source", {}).get("model_safetensors_sha256"),
+        ),
+        "policy_config_sha256": (
+            pretrained_dir / "config.json",
+            report.get("model_source", {}).get("policy_config_sha256"),
+        ),
+        "preprocessor_config_sha256": (
+            pretrained_dir / "policy_preprocessor.json",
+            report.get("model_source", {}).get("preprocessor_config_sha256"),
+        ),
+        "postprocessor_config_sha256": (
+            pretrained_dir / "policy_postprocessor.json",
+            report.get("model_source", {}).get("postprocessor_config_sha256"),
+        ),
+        "preprocessor_statistics_sha256": (
+            pretrained_dir
+            / "policy_preprocessor_step_5_normalizer_processor.safetensors",
+            report.get("processor_statistics", {}).get(
+                "preprocessor_statistics_sha256"
+            ),
+        ),
+        "postprocessor_statistics_sha256": (
+            pretrained_dir
+            / "policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+            report.get("processor_statistics", {}).get(
+                "postprocessor_statistics_sha256"
+            ),
+        ),
+    }
+    hashes: dict[str, str] = {}
+    for name, (path, expected) in recorded.items():
+        if not path.is_file() or path.stat().st_size <= 0:
+            raise FileNotFoundError(f"Validated checkpoint file is missing: {path.name}.")
+        actual = file_sha256(path)
+        if actual != expected:
+            raise ValueError(f"Validated checkpoint file changed: {path.name}.")
+        hashes[name] = actual
+    return hashes
+
+
 def _validation_report(
     path: Path,
     *,
@@ -256,16 +302,15 @@ def main() -> int:
             / f"{step:06d}"
         )
         training_step = formal_runner._load_json(step_dir / "training_state/training_step.json")
-        model_path = step_dir / "pretrained_model/model.safetensors"
-        if training_step.get("step") != step or file_sha256(model_path) != report[
-            "model_source"
-        ]["model_safetensors_sha256"]:
+        pretrained_dir = step_dir / "pretrained_model"
+        checkpoint_hashes = _validated_checkpoint_hashes(pretrained_dir, report)
+        if training_step.get("step") != step:
             raise ValueError("A formal checkpoint differs from its validation report.")
         checkpoint_summaries.append(
             {
                 "step": step,
                 "validation_report_sha256": file_sha256(path),
-                "model_safetensors_sha256": file_sha256(model_path),
+                **checkpoint_hashes,
                 "metrics": report["metrics"],
                 "processor_statistics": report["processor_statistics"],
             }
