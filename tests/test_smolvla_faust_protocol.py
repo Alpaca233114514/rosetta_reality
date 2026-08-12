@@ -2,7 +2,7 @@ from pathlib import Path
 
 import yaml
 
-from scripts.run_smolvla_action_repair_formal import _validate_plan
+from rosetta_reality.vla import load_smolvla_experiment
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 PLAN_PATH = (
@@ -138,7 +138,8 @@ def test_faust_hash_inventory_covers_runtime_boundary() -> None:
 
 
 def test_faust_batch8_restart_is_one_pass_and_quarter_only() -> None:
-    plan, _base, experiment = _validate_plan(BATCH8_PLAN_PATH)
+    plan = yaml.safe_load(BATCH8_PLAN_PATH.read_text(encoding="utf-8"))
+    experiment = load_smolvla_experiment(EXPERIMENT_PATH, REPOSITORY_ROOT)
 
     assert plan["furnace_program"]["codename"] == "Faust"
     assert plan["furnace_program"]["attempt"] == 2
