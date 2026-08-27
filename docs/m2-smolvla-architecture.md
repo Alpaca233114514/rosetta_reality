@@ -107,6 +107,9 @@ and Qwen ER independently passes its own evaluation.
 | `scripts/select_smolvla_action_repair_checkpoint.py` | validation-only checkpoint selection | Gate 4 acceptance |
 | `scripts/export_smolvla_action_repair.py` | deploy artifact and exact independent reload | further training |
 | `scripts/smolvla_action_repair_sim_gate.py` | Gate 3/4 closed-loop execution and reports | training loss |
+| `src/rosetta_reality/vla/training/` | version-2 plan-driven composition layer for the pinned LeRobot trainer: plan schema, ordered feature registry with install/restore and rollback, launch assembly (see `docs/m2-smolvla-training-harness-v2.md`) | the upstream training loop, learning semantics, or mutation of the frozen historical trainer stack |
+| `scripts/run_smolvla_v2.py` | the single version-2 launcher validation chain, launch manifest and mode dispatch | bypassing prerequisite evidence or authorizing a furnace by itself |
+| `scripts/train_smolvla_v2.py` | the single version-2 trainer entry installing plan-declared features on the pinned LeRobot trainer | experiment selection or evaluation semantics |
 | `reports/training/` | human and machine-readable interpretation | mutable checkpoints |
 | ignored `runs/` and `artifacts/` | immutable local runtime evidence and deploy artifacts | tracked source code |
 
@@ -115,6 +118,15 @@ historical Rosetta action losses. Faust does **not** use those functions for its
 SmolVLA flow-matching objective. The active Faust loss, trainer, AdamW builder
 and scheduler come from the pinned LeRobot source. Changing the generic loss
 file alone cannot fix finding T1.
+
+Trainer composition boundary: future SmolVLA training plans use the version-2
+harness (`src/rosetta_reality/vla/training/` plus `scripts/run_smolvla_v2.py`
+and `scripts/train_smolvla_v2.py`), where an ordered, hash-bound `features`
+list is the only way local extensions enter the pinned trainer. The historical
+`train_smolvla_*` / `run_smolvla_*` stack is frozen as provenance for the
+completed Faust, Aster and Way identities and must not be extended or edited.
+The v2 rewrite changes no learning semantics and does not authorize a new
+furnace by itself; see `docs/m2-smolvla-training-harness-v2.md`.
 
 Do not edit a dependency cache in place. A trainer/loss/scheduler experiment
 must be implemented as an explicit local extension or controlled injection,
@@ -378,11 +390,17 @@ scripts/run_m2_container.sh vla-xpu \
   python -m pytest -q \
   tests/test_smolvla_action_repair.py \
   tests/test_smolvla_faust_protocol.py \
-  tests/test_smolvla_formal_protocol.py
+  tests/test_smolvla_formal_protocol.py \
+  tests/test_smolvla_training_plan_schema.py \
+  tests/test_smolvla_training_features.py \
+  tests/test_smolvla_training_launch.py
 
 scripts/run_m2_container.sh vla-xpu \
   python -m ruff check \
   src/rosetta_reality/vla \
+  src/rosetta_reality/vla/training \
+  scripts/run_smolvla_v2.py \
+  scripts/train_smolvla_v2.py \
   scripts/run_smolvla_action_repair_formal.py \
   scripts/train_smolvla_action_repair_formal.py \
   scripts/evaluate_smolvla_action_repair_validation.py \
