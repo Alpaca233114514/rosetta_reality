@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-moveit-joint-path-margin-preregistration-2026-08-15",
+  "status": "train_exact_preregistered_not_executed",
+  "predecessor_plan": "m2-smolvla-aloha-geometry-teacher-025",
+  "predecessor_exact_report_sha256": "bfd55bc72f9f85cc19a8e3de58d2a15a72e65f41ded6818910c353a961acac2e",
+  "predecessor_failure": {
+    "step": 168,
+    "reason": "start_state_out_of_bounds",
+    "joint_name": "right_forearm_roll",
+    "physical_bound_violation_rad": 0.0005873297882081907,
+    "official_rrtconnect_waypoints_executed": 21
+  },
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_026.yaml",
+    "sha256": "7e87a23663cd66af72c8957221e5e87b7b98744efbc68009bb1cb2ceea461a53",
+    "single_axis": "official_moveit_all_path_joint_limit_margin",
+    "joint_path_constraint_type": "moveit_msgs/JointConstraint",
+    "joint_path_constraint_count": 12,
+    "joint_limit_margin_rad": 0.01,
+    "verified_states": [
+      "start",
+      "lma_ik_candidates",
+      "goal",
+      "every_ompl_trajectory_waypoint",
+      "bounded_execution_waypoint"
+    ]
+  },
+  "implementation": {
+    "sidecar_source_sha256": "15b83bd725036b58b1d3b8c05e7f216bc759adf9e2d33bf310c54e4a971684a3",
+    "sidecar_executable_sha256": "e5da00ce9fe665d9d28edbd0bfa075df608418f2e5a471685b94136ff310cc6d",
+    "python_client_sha256": "5ce1bdbb4c06d6bf59dd80ae073a6de3dc88ae0651421042dfe98d95047631db",
+    "evaluator_sha256": "d89a5a636234c3d968d3e71a1366faa3fbbb2491acd902eec0e44a77bc7c305f",
+    "mink_adapter_sha256": "cdff063ce164dc5eb8137c6c8cbd66f5c102eb06f0842a0f92b64727f9e70583",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "runtime_identity": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9",
+    "image_id": "sha256:063a59e9a9f4501fb768e85dbef3f91f4abee42aee83cbf39eddc46f14a71368",
+    "ros_distro": "humble",
+    "moveit_version": "2.5.9",
+    "ompl_version": "1.7.0",
+    "planner_plugin": "ompl_interface/OMPLPlanner",
+    "planner_id": "RRTConnect",
+    "planner_type": "geometric::RRTConnect",
+    "kinematics_plugin": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "collision_geometry_link_count": 22,
+    "collision_geometry_shape_count": 22,
+    "urdf_sha256": "544b5f299a5955b4c705cd42f952f4ab4fb898327f6206ea37117533190f63f4",
+    "srdf_sha256": "65bd2a440fb3565fae4373d0218a95afd9564fcb2e4bfdcece06ac4e82c0321d"
+  },
+  "static_evidence": {
+    "status": "passed",
+    "cpp_build": "passed",
+    "ruff": "passed",
+    "focused_tests_passed": 37,
+    "focused_tests_failed": 0,
+    "model_parity_report": "reports/training/m2-smolvla-aloha-moveit-model-parity-plan026-2026-08-15.json",
+    "model_parity_report_sha256": "ccdaafadf0fe900b2c77c7e926ec444598ecbbee33afd6e8ae08e280530a5d68",
+    "maximum_model_parity_position_error_m": 3.188872858294072e-16,
+    "maximum_model_parity_orientation_error_rad": 0.0,
+    "joint_path_margin_smoke": "runs/m2-smolvla-aloha-geometry-teacher-026/static/joint-path-margin-smoke-063a59e9a9f4.json",
+    "joint_path_margin_smoke_sha256": "f6dbe5cd6fba2a7797831b3572f825fd77e753afbb6e9c9008a29a71eba76f09",
+    "positive_smoke_waypoints": 8,
+    "positive_smoke_minimum_path_margin_rad": 0.25577550429170226,
+    "negative_smoke_minimum_start_margin_rad": 0.00658000000000003,
+    "negative_smoke_reason": "start_state_outside_joint_path_margin",
+    "network_mode": "none",
+    "model_weights_loaded": false,
+    "dataset_rows_loaded": false
+  },
+  "frozen_scientific_boundary": {
+    "action_contract_changed": false,
+    "teacher_changed": false,
+    "mink_joint_limit_margin_rad": 0.01,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "orientation_relaxation": false,
+    "train_exact_episode": 2,
+    "train_exact_seed": 10
+  },
+  "gates": {
+    "train_only_exact_authorized": true,
+    "train_only_exact_executed": false,
+    "optimizer_steps_authorized": false,
+    "cuda_training_authorized": false,
+    "later_seed_groups_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_authorized": false
+  }
+}

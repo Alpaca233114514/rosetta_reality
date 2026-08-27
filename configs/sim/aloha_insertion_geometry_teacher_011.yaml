@@ -1,0 +1,107 @@
+schema_version: 1
+plan_id: m2-smolvla-aloha-geometry-teacher-011
+status: diagnostic_preregistered_no_label_collection
+hypothesis: >-
+  Geometry-teacher 010 used 27 precise joint-limit-aware approach waypoints and
+  advanced from the historical step-98 approach failure to orient step 125.
+  It then failed while both wrist-rotate joints were limited because orient
+  again required a full six-dimensional pose from five free DOFs. Extending
+  the same planner to orientation-priority waypoints may recover the calibrated
+  grasp orientation while permitting only a position on the feasible manifold
+  that remains inside the unchanged 12 mm approach tolerance and 12 mm per-step
+  Cartesian bound. The 3 mm projected gate and every Action Contract limit stay
+  unchanged.
+scope:
+  dataset_config: configs/data/aloha_sim_insertion_m2.yaml
+  dataset_revision: cc571a3c661df81b566dbfde3d5c1e85fcdf7884
+  action_contract: configs/sim/aloha_insertion_smolvla.yaml
+  train_episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  validation_episodes: [22, 13, 7, 33, 45]
+  hidden_test_episodes: [31, 6, 1, 24, 5]
+  hidden_test_loaded: false
+calibration:
+  protocol: successful_train_grasp_and_terminal_rigid_transforms_v1
+  source_episode: 2
+  simulator_seed: 10
+  insertion_axis_in_socket: [1.0, 0.0, 0.0]
+  source_timeline_actions_used_at_runtime: false
+evaluation:
+  stages: calibration_then_exact_then_tuning_then_development
+  exact_control: {source_episode: 2, simulator_seed: 10}
+  tuning_simulator_seeds: [1900]
+  development_simulator_seeds: [2000, 2001, 2002, 2003, 2004]
+  reserved_collection_simulator_seeds: [3000, 3001, 3002, 3003, 3004]
+  reserved_policy_gate4_seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+teacher:
+  gripper_open_target: 1.0
+  gripper_closed_target: 0.0
+  gripper_open_threshold: 0.85
+  approach_clearance_m: 0.08
+  approach_tolerance_m: 0.012
+  approach_orientation_tolerance_rad: 0.04
+  grasp_tolerance_m: 0.008
+  lift_object_height_m: 0.17
+  lift_tolerance_m: 0.012
+  meet_center_x_m: 0.0
+  meet_center_y_m: 0.5
+  preinsert_clearance_m: 0.10
+  coarse_alignment_tolerance_m: 0.015
+  maximum_cartesian_step_m: 0.012
+  maximum_orientation_step_rad: 0.04
+  maximum_grasp_drift_m: 0.045
+  workspace_x_min_m: -0.45
+  workspace_x_max_m: 0.45
+  workspace_y_min_m: 0.20
+  workspace_y_max_m: 0.80
+  workspace_z_min_m: 0.0
+  workspace_z_max_m: 0.50
+inverse_kinematics:
+  tolerance: 0.00005
+  rotation_weight: 0.2
+  regularization_threshold: 0.01
+  regularization_strength: 0.001
+  maximum_update_norm: 0.2
+  maximum_steps: 50
+  maximum_accepted_error: 0.001
+  maximum_accepted_projected_error: 0.003
+  maximum_joint_target_delta: 6.283185307179586
+  joint_limit_active_set_retries: 6
+  path_planner_enabled: true
+  path_planner_phases: [approach, orient]
+  path_planner_cartesian_backoff_fractions: [1.0, 0.75, 0.5, 0.25]
+  path_planner_maximum_orientation_relaxation_rad: 0.04
+  path_planner_minimum_cartesian_progress_m: 0.002
+  path_planner_maximum_position_relaxation_m: 0.012
+  path_planner_maximum_cartesian_step_m: 0.012
+  path_planner_minimum_orientation_progress_rad: 0.005
+acceptance:
+  exact_control_successes_required: 1
+  tuning_successes_required: 1
+  development_successes_required: 5
+  maximum_geometry_teacher_failures: 0
+  maximum_inverse_kinematics_failures: 0
+  maximum_adapter_clip_failures: 0
+  hidden_test_loaded: false
+  recovery_labels_authorized_on_pass: false
+implementation_files:
+  src/rosetta_reality/sim/geometry_teacher.py: 74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd
+  scripts/evaluate_aloha_geometry_teacher.py: b587e163c84a114db112f2521f329bed9915c9b5155093bc4eace7d9836838d4
+  src/rosetta_reality/sim/gym_aloha.py: e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d
+output:
+  run_directory: m2-smolvla-aloha-geometry-teacher-011/geometry-teacher
+  reports_are_scoped_by_plan_sha256_and_stage: true
+stop_conditions:
+  - calibration_episode_is_not_train_only
+  - calibration_replay_does_not_reach_reward_four
+  - validation_or_hidden_test_episode_is_loaded
+  - tuning_development_collection_or_policy_gate_seeds_overlap
+  - object_pose_exits_registered_workspace
+  - observed_grasp_transform_exits_registered_drift
+  - unexpected_collision_is_observed
+  - path_planner_exceeds_registered_orientation_step
+  - path_planner_exits_registered_approach_tolerance
+  - path_planner_exceeds_registered_cartesian_step
+  - projected_inverse_kinematics_exceeds_registered_error
+  - environment_applies_additional_action_clipping
+  - attempted_recovery_label_write

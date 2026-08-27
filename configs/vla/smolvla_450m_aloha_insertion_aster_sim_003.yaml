@@ -1,0 +1,86 @@
+schema_version: 1
+role: vla
+stage: m2_closed_loop_simulation
+status: preregistered
+plan_id: m2-smolvla450m-aster-b8-sim-003
+experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+artifact_id: m2-smolvla450m-aster-b8-step2500-003-export004
+artifact_manifest_sha256: 1e6b209c6240954c169c84a79433ee5d88e78d875ac848eac2c626a5139291f0
+hypothesis: >-
+  Aster's validation-selected first-action objective will preserve the repaired
+  action boundary and improve fixed-seed closed-loop ALOHA insertion behavior
+  relative to the read-only Faust control. Environment seeds, seeded upstream
+  inference noise, safety projection, simulator physics, collision semantics
+  and hidden-test isolation remain fixed.
+control_reference:
+  plan: configs/vla/smolvla_450m_aloha_insertion_faust_sim_001.yaml
+  gate4_report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-002.json
+  gate4_report_sha256: af7c75dfb5c8bd975d65c6db559812b25b8725e35ce33c9e7448c12f766b7e00
+  task_success_rate: 0.0
+  relationship: read_only_control
+prior_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-001/gates/gate3-smolvla-sim-001.json
+  report_sha256: 5df3b887984d1c8fd47084c3315a71e3894eac18cc80b1eb08b2120583ed26ed
+  failed_criterion: raw_actions_within_contract
+prior_task_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-002.json
+  report_sha256: af7c75dfb5c8bd975d65c6db559812b25b8725e35ce33c9e7448c12f766b7e00
+  failed_criterion: minimum_task_success_rate
+selection:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-aster-b8-003-selection.json
+  report_sha256: ba33486209f992c5f66cf70bce02f7300f0ae7bd5a50b9c25b49bdcef102c23e
+  checkpoint_step: 2500
+  model_safetensors_sha256: 0dd17b76c7cd20b7b394eed1edffe7a7faee1304149949cfcac61bb2fd87a209
+action_contract:
+  path: configs/sim/aloha_insertion_smolvla.yaml
+  sha256: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+collision_policy:
+  classifier: explicit_task_contact_allowlist
+  allowed_task_contacts:
+    - [red_peg, vx300s_right/10_right_gripper_finger]
+    - [socket-1, vx300s_left/10_left_gripper_finger]
+    - [socket-2, vx300s_left/10_left_gripper_finger]
+    - [socket-3, vx300s_left/10_left_gripper_finger]
+    - [socket-4, vx300s_left/10_left_gripper_finger]
+  same_arm_internal_gripper_contacts_are_non_gating: true
+  all_other_robot_scene_contacts_are_unexpected: true
+simulation_code_sha256:
+  scripts/smolvla_sim_gate.py: 5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae
+  scripts/smolvla_action_repair_sim_gate.py: 4d549a5791e13ef941d300eff8405d9fe5471d3d9d89480af469851629affbe6
+  src/rosetta_reality/sim/gym_aloha.py: fe16ac60756c2b9c1be4651dcf1d42bc5e43dfbb6933dc5dbff3af922cb5692f
+inference:
+  observation_camera: top
+  policy_camera: observation.images.camera1
+  instruction: Insert the peg into the socket.
+  noise: seeded_standard_normal
+  noise_source: pinned_lerobot_default_standard_normal
+  mixed_precision: bf16
+  chunk_execution: receding_horizon_first_action
+  chunk_execution_steps: 1
+  policy_output_projection: action_contract_clip
+  projection_location: vla_output_boundary_before_simulation_adapter
+  unprojected_decoder_action_role: non_gating_diagnostic
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  container_image_id: sha256:f4a71c4020cd54d2a878f01628d591af9572f0784458f4c821008f8aea30393c
+  memory_limit: 6g
+  memory_swap_limit: 6g
+gate3:
+  seed: 20260809
+  policy_noise_seed: 20260809
+  maximum_steps: 20
+  require_finite_actions: true
+  require_projected_policy_actions_within_contract: true
+  require_adapter_no_additional_clipping: true
+  maximum_unexpected_collisions: 0
+  report_suffix: "003"
+gate4:
+  seeds: [1000, 1001, 1002, 1003, 1004]
+  policy_noise_seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+  minimum_task_success_rate: 0.2
+  maximum_unexpected_collisions: 0
+  require_gate3_passed: true
+  report_suffix: "003"
+hidden_test_loaded: false

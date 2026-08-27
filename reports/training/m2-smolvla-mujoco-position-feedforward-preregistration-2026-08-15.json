@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-mujoco-position-feedforward-preregistration-2026-08-15",
+  "status": "locally_implemented_preregistered_static_verified_no_exact",
+  "work_line": "m2_smolvla_object_geometry_teacher",
+  "finding": {
+    "source_plan": "configs/sim/aloha_insertion_geometry_teacher_032.yaml",
+    "source_plan_sha256": "435630a5f5e3037a3580e4296e38d4bd9b2b5f9ea2c49f55bb4e261dca7e5645",
+    "source_audit": "reports/training/m2-smolvla-athena-plan032-exact-audit-2026-08-15.json",
+    "source_audit_sha256": "082c5e6dda8665acdfbe87b2572dfc1cbdc016c85ea29273e6af71f6ccbdc244",
+    "source_exact_report_sha256": "f8ea0bb5514afe7c1bf64930b05ac40f52346b9c98ec35e9c2a539dbfc2acf5c",
+    "source_exact_status": "failed_0_of_1_safe_final_waypoint_tracking_boundary",
+    "global_plan_attempts": 1,
+    "retained_reference_commands": 402,
+    "final_waypoint_index": 15,
+    "final_waypoint_l1_distance_rad": 0.03446431288757733,
+    "final_target_position_error_m": 0.02851971797645092,
+    "diagnosis": "the collision-free global trajectory and its exact kinematic goal were valid, but the absolute MuJoCo position setpoint settled with a nonzero actuator tracking residual"
+  },
+  "official_architecture": {
+    "global_layer": "MoveIt 2.5.9 OMPL RRTConnect plus retained Hybrid Planning SimpleSampler reference",
+    "controller_boundary": "MuJoCo affine SISO actuator force generation and static generalized-force balance",
+    "ros2_control_position_interface_behavior": "desired positions are forwarded directly; its PID adapter applies to velocity-only or effort command interfaces",
+    "moveit_servo_role": "official high-rate local Cartesian or joint jogging with singularity and collision handling",
+    "selected_reason": "the registered Gym Action Contract must remain absolute joint-position control, so Plan033 preserves the official global planner and solves the official MuJoCo low-level position-actuator equation instead of changing controller type or inventing another search algorithm",
+    "sources": {
+      "ros2_control_joint_trajectory_controller": "https://control.ros.org/humble/doc/ros2_controllers/joint_trajectory_controller/doc/userdoc.html",
+      "ros2_control_parameters": "https://control.ros.org/humble/doc/ros2_controllers/joint_trajectory_controller/doc/parameters.html",
+      "moveit_servo_tutorial": "https://moveit.picknik.ai/humble/doc/examples/realtime_servo/realtime_servo_tutorial.html",
+      "moveit_servo_2_5_9_source": "https://github.com/moveit/moveit2/blob/2.5.9/moveit_ros/moveit_servo/src/servo_calcs.cpp",
+      "mujoco_actuation_model": "https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model",
+      "mujoco_passive_forces": "https://mujoco.readthedocs.io/en/stable/computation/index.html#passive-forces"
+    }
+  },
+  "registered_single_axis": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_033.yaml",
+    "plan_sha256": "3fd522c8bab1c96012c4bf40d1a5aed84aea27ef03e31b1ceb7bdb2ff0887d14",
+    "change": "after the retained final waypoint is inside the frozen SimpleSampler L1 tolerance, invert the official affine fixed-gain position-actuator equation to balance qfrc_bias minus qfrc_passive and latch the bounded reference for that phase",
+    "handoff": "final_waypoint_within_moveit_simple_sampler_l1_tolerance",
+    "maximum_correction_rad": 0.05,
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "replan_on_failure": false,
+    "pose_thresholds_changed": false,
+    "joint_limit_margins_changed": false,
+    "planner_or_ik_plugin_changed": false,
+    "gym_adapter_changed": false,
+    "seeds_or_labels_changed": false
+  },
+  "implementation": {
+    "src/rosetta_reality/sim/moveit_aloha_planner.py": "f3f2acfdb3f54ab8e170a1e039443e20027ecf905e7deef3e8c30e314fc3b79e",
+    "src/rosetta_reality/sim/mujoco_position_feedforward.py": "2eb97c27709533e5ebb78043f42dc4ff8c7dace1f4d8ad78c3411fbcb05235c3",
+    "scripts/evaluate_aloha_geometry_teacher.py": "0ac0ae663fa97824ac525e2afec9c185617c1fbc8fbe13fd6e00e7dbacb017f8",
+    "tests/test_mujoco_position_feedforward.py": "5bfc53f9a4348a7437c4495ba9990e1d91c247c2d08d2fea9993ad2b09f50f7e",
+    "tests/test_moveit_aloha_planner.py": "d531bf489df7f94532d00b70fcdf4088bd06cf38293a31f19e5b04f394f9e248",
+    "tests/test_geometry_teacher_protocol.py": "7db3e855c112479c90695a6c9b0cdaecae12a9ca4346d1b0fc038f817de72cd4"
+  },
+  "local_verification": {
+    "python_ast_parse": "passed_for_all_modified_python_files",
+    "git_diff_check": "passed",
+    "protected_gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "protected_geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "ruff": "passed",
+    "focused_tests": {
+      "passed": 67,
+      "failed": 0,
+      "container_image": "rosetta-reality-smolvla-sim-xpu:mink-1.2.0",
+      "network": "disabled",
+      "repository_mount": "read_only"
+    },
+    "yaml_runtime_validation": "passed_via_geometry_teacher_protocol",
+    "implementation_hash_binding": "passed",
+    "docker_control_boundary": "Windows Docker 29.6.1 engine invoked from explicit WSL Bash through the existing docker.exe because WSL CLI injection is unavailable",
+    "cuda": false
+  },
+  "gates": {
+    "train_exact_run": false,
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps": 0,
+    "cuda_training": false,
+    "model_or_data_downloaded": false
+  },
+  "next_authorized_action": "read-only resolve an existing local immutable dataset cache and official MoveIt 2.5.9 sidecar runtime, then run FK parity, the actual sidecar trajectory smoke, and only then Plan033 episode 2 seed 10 train-only exact"
+}

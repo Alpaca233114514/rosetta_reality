@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan037-local-exact-audit-2026-08-15",
+  "status": "failed_only_on_registered_500_step_horizon",
+  "execution": {
+    "name": "athena-plan037-local-exact-001",
+    "location": "local_linux_container",
+    "network": "disabled",
+    "repository_mount": "read_only",
+    "cuda": false,
+    "optimizer_steps": 0,
+    "exit_code": 1,
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_037.yaml",
+    "plan_sha256": "81eb1b480597670af2bbc11dd4e9d9becc3f960e036799fbb72cefde5cdb9263",
+    "exact_report_sha256": "6b99e77a4b97df52e858ce3b8bde3632038dbc3e1955874f310b7e90d1a3690e",
+    "execution_log_sha256": "71858cb239c3a6fb2205b496995c093a843377b6a2ab99a7dca6b1aaf3a8a667",
+    "moveit_stderr_sha256": "f7d6cccca0725cb157db74670cf9aac2f5270525870c7a07d7ee9df36437ffcd"
+  },
+  "exact_result": {
+    "calibration_reward": 4.0,
+    "successes": 0,
+    "required_successes": 1,
+    "steps_executed": 500,
+    "registered_maximum_steps": 500,
+    "maximum_reward": 0.0,
+    "final_phase": "descend",
+    "final_target_position_error_m": 0.00954453926533461,
+    "teacher_failure": null,
+    "inverse_kinematics_failures": 0,
+    "adapter_clip_failures": 0,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "unexpected_collision_count": 0,
+    "phase_visits": {
+      "open": 15,
+      "approach": 301,
+      "orient": 162,
+      "descend": 22
+    },
+    "path_planner_attempts": 4,
+    "terminal_control_activations": 4,
+    "terminal_control_completions": 3,
+    "task_contact_exemption_events": 8,
+    "task_contact_exemption_steps": 8,
+    "minimum_commanded_joint_limit_margin_rad": 0.0454045677947996,
+    "minimum_observed_joint_limit_margin_rad": 0.0483707333374022
+  },
+  "horizon_diagnosis": {
+    "orient_to_descend_transition_step": 478,
+    "descend_steps_available_before_horizon": 22,
+    "train_calibration_first_grasp_step": 186,
+    "train_calibration_terminal_step": 293,
+    "train_calibration_post_grasp_steps": 108,
+    "registered_extension_steps": 250,
+    "proposed_maximum_steps": 750,
+    "reason": "The official retained-path execution is safe but longer than direct replay; 750 preserves all success and safety gates while allowing the completed approach/orient path plus the demonstrated post-grasp horizon."
+  },
+  "gate_seals": {
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "model_or_data_downloaded": false,
+    "cuda_training": false
+  },
+  "next_action": "Preregister maximum_steps 750 as the only behavioral change; preserve all geometric, collision, joint-limit and seed gates."
+}

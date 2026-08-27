@@ -15,6 +15,30 @@ from rosetta_reality.sim.env import SimulationEnvironment
 class GymAlohaEnvironment(SimulationEnvironment):
     """Adapt a registered Gym-ALOHA task to Rosetta observations and actions."""
 
+    _INSERTION_ALLOWED_TASK_CONTACTS = frozenset(
+        {
+            *(
+                frozenset(
+                    {
+                        "red_peg",
+                        f"vx300s_right/10_{finger}_gripper_finger",
+                    }
+                )
+                for finger in ("left", "right")
+            ),
+            *(
+                frozenset(
+                    {
+                        f"socket-{index}",
+                        f"vx300s_left/10_{finger}_gripper_finger",
+                    }
+                )
+                for index in range(1, 5)
+                for finger in ("left", "right")
+            ),
+        }
+    )
+
     def __init__(
         self,
         contract: ActionContract,
@@ -101,9 +125,65 @@ class GymAlohaEnvironment(SimulationEnvironment):
             violations += int(value < float(lower) - 1e-5 or value > float(upper) + 1e-5)
         return violations
 
-    @staticmethod
-    def is_unexpected_collision_pair(first: str, second: str) -> bool:
-        """Classify one MuJoCo geom pair without hiding cross-arm gripper collisions."""
+    def diagnostic_snapshot(self) -> dict[str, Any]:
+        """Return a bounded, JSON-safe MuJoCo pose snapshot for failure analysis.
+
+        This is deliberately read-only and simulator-specific.  The policy and
+        generic environment contracts do not consume these values; diagnostics
+        use them only to localize the first closed-loop deviation.
+        """
+
+        unwrapped = getattr(self._environment, "unwrapped", self._environment)
+        control_environment = getattr(unwrapped, "_env", None)
+        physics = getattr(control_environment, "physics", None)
+        if physics is None:
+            return {"bodies": {}, "joint_limit_violations": [], "contacts": []}
+
+        model = physics.model
+        data = physics.data
+        bodies: dict[str, dict[str, list[float]]] = {}
+        for name in (
+            "peg",
+            "socket",
+            "vx300s_left/gripper_link",
+            "vx300s_right/gripper_link",
+        ):
+            try:
+                body_id = int(model.name2id(name, "body"))
+            except (KeyError, ValueError):
+                continue
+            if body_id < 0:
+                continue
+            bodies[name] = {
+                "position": [float(value) for value in data.xpos[body_id]],
+                "quaternion": [float(value) for value in data.xquat[body_id]],
+            }
+
+        joint_violations: list[dict[str, float | str]] = []
+        for joint_id in range(int(model.njnt)):
+            if not bool(model.jnt_limited[joint_id]):
+                continue
+            qpos_address = int(model.jnt_qposadr[joint_id])
+            lower, upper = model.jnt_range[joint_id]
+            value = float(data.qpos[qpos_address])
+            if value < float(lower) - 1e-5 or value > float(upper) + 1e-5:
+                joint_violations.append(
+                    {
+                        "name": str(model.id2name(joint_id, "joint") or "unknown"),
+                        "value": value,
+                        "lower": float(lower),
+                        "upper": float(upper),
+                    }
+                )
+
+        return {
+            "bodies": bodies,
+            "joint_limit_violations": joint_violations,
+            "contacts": [list(pair) for pair in self.contact_pairs()],
+        }
+
+    def is_unexpected_collision_pair(self, first: str, second: str) -> bool:
+        """Classify contacts while exempting only registered task grasps."""
 
         def is_robot(name: str) -> bool:
             return name.startswith("vx300s_")
@@ -121,13 +201,17 @@ class GymAlohaEnvironment(SimulationEnvironment):
         )
         if is_robot(first) and is_robot(second):
             return not internal_gripper_contact
-        if first == "table" and is_robot(second) and not is_gripper(second):
-            return True
-        if second == "table" and is_robot(first) and not is_gripper(first):
-            return True
-        if is_robot(first) and not is_gripper(first) and not is_robot(second):
-            return True
-        return bool(is_robot(second) and not is_gripper(second) and not is_robot(first))
+
+        pair = frozenset({first, second})
+        allowed_task_contacts = (
+            self._INSERTION_ALLOWED_TASK_CONTACTS
+            if self.contract.environment_id == "gym_aloha/AlohaInsertion-v0"
+            else frozenset()
+        )
+        if pair in allowed_task_contacts:
+            return False
+
+        return is_robot(first) != is_robot(second)
 
     @staticmethod
     def _observation(value: Any) -> Mapping[str, Any]:

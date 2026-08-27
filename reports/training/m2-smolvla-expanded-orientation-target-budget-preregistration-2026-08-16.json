@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-expanded-orientation-target-budget-plan054-2026-08-16",
+  "status": "preregistered_before_plan054_execution",
+  "source_plan": "configs/sim/aloha_insertion_geometry_teacher_053.yaml",
+  "source_plan_sha256": "c0a3759f2f40796cdaf8bfc7e3c3f9a15dafe54190c12477d93d127a7d266926",
+  "source_audit": "reports/training/m2-smolvla-athena-plan053-local-exact-audit-2026-08-16.json",
+  "source_audit_sha256": "f35c1d2e9c7d9b90c46822ed2b8adc308f1f69d1dab6bd1d9620ee57b7904711",
+  "source_exact_report_sha256": "ffbbf2d475c0ccff6c28374b1c5dda4a4800acd0dbb8cb5f19f97eac24d134af",
+  "hypothesis": "Plan 053 is safe but exhausts the registered horizon because its 0.04-rad bounded orientation target yields very small fractional end-effector progress while still requiring long official OMPL paths. Increasing only that target budget to 0.20 rad lets the unchanged 0.5-first trust-region fraction request up to 0.10 rad of orientation progress per replan without changing the final pose gates, joint constraints, waypoint joint-step cap, or horizon.",
+  "single_axis_change": {
+    "setting": "teacher.maximum_orientation_step_rad",
+    "from_rad": 0.04,
+    "to_rad": 0.2,
+    "interpretation": "bounded_intermediate_orientation_target_budget",
+    "acceptance_tolerance": false,
+    "persistent_hidden_state": false
+  },
+  "diagnostic_evidence": {
+    "probe_generator_sha256": "1ed8672ad651db0e797f422636a8023db8825c844577d860ee8e54f05b9ea7cf",
+    "probe_runner_sha256": "bb02f4f713460d6088e0f61bd7b9772cb5bca268050f8e8f5213654ed987b993",
+    "probe_requests_sha256": "36164f60edbaf7581ad9b3ead2d1102b66e88ad01f67296167094a38f21c5d51",
+    "probe_results_sha256": "c788b98270fbd4285d205220ba8f6d033197542eca54ee22a1b9cef0bb3a52d0",
+    "probe_summary_sha256": "5e4539fa2eff3d83614f28fb47be0f6791984a07f591ffa06f79decec9ffa8d2",
+    "requests": 54,
+    "successful_official_plans": 30,
+    "half_fraction_successful_official_plans": 9,
+    "half_fraction_minimum_goal_margin_rad": 0.05529586389511776,
+    "half_fraction_maximum_goal_margin_rad": 0.07233686298561137,
+    "half_fraction_minimum_selected_ik_maximum_start_delta_rad": 3.1227088062694794,
+    "maximum_goal_position_error_m_below_registered_gate": true,
+    "maximum_goal_orientation_error_rad_below_registered_gate": true
+  },
+  "frozen_settings": {
+    "selection_policy": "orientation_progress_first_v1",
+    "candidate_basis": "feedback_aligned_orthonormal_v1",
+    "restoration_reference": "command_margin_boundary",
+    "restoration_buffer_rad": 0.001,
+    "radii_m": [0.0, 0.0015, 0.003, 0.006, 0.009],
+    "maximum_requested_position_relaxation_m": 0.012,
+    "orientation_progress_fractions": [0.5, 0.25, 0.125, 0.05],
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "physical_joint_limit_margin_rad": 0.01,
+    "maximum_joint_target_delta_rad": 0.23561944901923448,
+    "exact_seed": 10,
+    "maximum_steps": 750
+  },
+  "acceptance": {
+    "exact_control_successes_required": 1,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "minimum_expanded_orientation_target_budget_events": 1,
+    "minimum_constraint_anchored_restoration_events": 1,
+    "minimum_orientation_first_selection_events": 1,
+    "hidden_test_loaded": false,
+    "recovery_labels_authorized_on_pass": false
+  },
+  "gate_boundary": {
+    "tuning_seed_1900": "sealed_until_plan054_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

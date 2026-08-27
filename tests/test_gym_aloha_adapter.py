@@ -60,7 +60,7 @@ def test_gym_adapter_converts_observation_and_clips_action() -> None:
     assert fake.closed
 
 
-def test_collision_metric_ignores_only_same_arm_internal_gripper_contacts(
+def test_collision_metric_ignores_only_internal_and_registered_task_contacts(
     monkeypatch,
 ) -> None:
     contract = load_action_contract(
@@ -81,9 +81,29 @@ def test_collision_metric_ignores_only_same_arm_internal_gripper_contacts(
             "vx300s_right/10_left_gripper_finger",
         ),
         ("table", "vx300s_left/7_upper_arm"),
-        ("peg", "vx300s_left/10_left_gripper_finger"),
+        ("red_peg", "vx300s_right/10_right_gripper_finger"),
+        ("red_peg", "vx300s_right/10_left_gripper_finger"),
+        ("socket-1", "vx300s_left/10_left_gripper_finger"),
+        ("socket-4", "vx300s_left/10_right_gripper_finger"),
+        ("red_peg", "vx300s_left/10_left_gripper_finger"),
+        ("socket-1", "vx300s_right/10_right_gripper_finger"),
+        ("table", "vx300s_left/10_left_gripper_finger"),
+        ("unrelated_object", "vx300s_right/10_right_gripper_finger"),
         ("socket", "vx300s_right/7_upper_arm"),
     )
     monkeypatch.setattr(environment, "contact_pairs", lambda: pairs)
 
-    assert environment.unexpected_collision_count() == 3
+    assert environment.unexpected_collision_count() == 7
+
+
+def test_diagnostic_snapshot_is_empty_without_mujoco_backend() -> None:
+    contract = load_action_contract(
+        REPOSITORY_ROOT / "configs" / "sim" / "aloha_insertion.yaml"
+    )
+    environment = GymAlohaEnvironment(contract, environment=FakeEnvironment())
+
+    assert environment.diagnostic_snapshot() == {
+        "bodies": {},
+        "joint_limit_violations": [],
+        "contacts": [],
+    }

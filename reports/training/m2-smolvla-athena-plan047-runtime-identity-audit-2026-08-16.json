@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan047-runtime-identity-audit-2026-08-16",
+  "status": "passed_before_exact",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-047",
+  "runtime": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9-joint-margin-selection-006",
+    "image_id": "sha256:82c7e6a8100ad485e22f28e0ab1ed36c551eb5ad877c0243fbbb31d29fe6540b",
+    "executable_sha256": "f7579c034dd8e118f465c2b16274f957d613e5f24775c5f3b61567489e561fed",
+    "urdf_sha256": "544b5f299a5955b4c705cd42f952f4ab4fb898327f6206ea37117533190f63f4",
+    "srdf_sha256": "9a24cfc87a670abd74d87b15d6f1c70b66fec59d8628a5d93ceb316be9f91db5",
+    "description_manifest_sha256": "b55646fd65907365e67dfc06f15e0bf545089df826511df12d0ad7be23a0932b",
+    "implementation_sha256": "db7b85e67588bf2e2e98b410a152aa1b4e33f947a6d8f53ba0ed6cca0888e222",
+    "client_sha256": "32107b371e2ca4674b07f6def009cca70e811ec40f3fed62f7f326f9c87b8957",
+    "identity_and_repeat_sha256": "5d12b8012ebf1ddfc89cd31a53e709a277e208bbcf9b71369a3e556c77fcb8c4",
+    "stderr_sha256": "c56284d21ccb22ad55d3e7638d5948f0663aabaef5cc72da681b1182d6ec18dd"
+  },
+  "identity": {
+    "backend": "moveit2_ompl",
+    "moveit_version": "2.5.9",
+    "ompl_version": "1.7.0",
+    "planner": "ompl_interface/OMPLPlanner:RRTConnect",
+    "kinematics_plugin": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "ik_group_selection_mode": "explicit_registered_groups_v1",
+    "full_pose_groups": ["left_arm", "right_arm"],
+    "ik_task_modes": ["full_pose", "position_priority"],
+    "ik_search_mode": "deterministic_seeded_moveit_subgroup_multistart_v1",
+    "ik_candidate_selection_mode": "deterministic_maximum_minimum_joint_limit_margin_v1",
+    "position_priority_groups": [
+      "left_arm_position_priority",
+      "right_arm_position_priority"
+    ],
+    "position_priority_orientation_weight": 0.0,
+    "position_priority_ompl_seed_reset_per_request": true,
+    "position_priority_terminal_goal_normalization_limit_rad": 0.00001,
+    "collision_geometry_link_count": 22,
+    "collision_geometry_shape_count": 22
+  },
+  "full_pose_regression": {
+    "status": "passed",
+    "raw_sha256": "3f8575c186a31b17be1444d73c8e9f95b6838c1b4c50814cdad76ee324e58356",
+    "requests": 2,
+    "both_status_ok": true,
+    "valid_ik_candidate_count": [64, 64],
+    "selected_ik_attempt": [12, 12],
+    "selected_ik_minimum_joint_limit_margin_rad": [
+      0.2558288232841355,
+      0.2558288232841355
+    ],
+    "maximum_goal_position_error_m": 0.00003869187311712844,
+    "maximum_goal_orientation_error_rad": 0.0008553109498574286,
+    "minimum_path_joint_limit_margin_rad": 0.25582952847121443
+  },
+  "position_priority_repeat": {
+    "status": "passed",
+    "report": "reports/training/m2-smolvla-aloha-moveit-joint-margin-selection-repeat-plan047-2026-08-16.json",
+    "report_sha256": "30d8cf0ff8c367a7aa7e5b5124ed048825f36ac64d4b88d016e14f4985125dfe",
+    "raw_repeat_sha256": "7f55f71fb0aa737958321907c9be6843efc7d284c5386e34dddab1d7d5bf9421",
+    "goal_vectors_exactly_equal": true,
+    "trajectory_vectors_exactly_equal": true,
+    "selection_diagnostics_exactly_equal": true,
+    "valid_ik_candidate_count": 1,
+    "selected_ik_attempt": 1,
+    "selected_ik_minimum_joint_limit_margin_rad": 0.05948986061096173
+  },
+  "plan046_failed_request_replay": {
+    "status": "diagnostic_passed",
+    "source_request_response_sha256": "8f5fb9d4457c04e25a9de7b68ad466f89a19738b137c6d2023e27f15c697d880",
+    "replay_results_sha256": "a07d1c9174c2a545deb991d5fa67e9809a16133227a44d86d1fc7c1da5dd82b4",
+    "replay_summary_sha256": "93aa699881fd1c89a9b4f90645647f9b6260960c40f561090b40ea7b6c949f12",
+    "planning_requests": 27,
+    "planning_successes": 4,
+    "planning_failures": 23,
+    "successful_requests_with_selection_diagnostics": 4,
+    "representative_multi_candidate_request": {
+      "valid_ik_candidate_count": 39,
+      "selected_ik_attempt": 154,
+      "selected_ik_minimum_joint_limit_margin_rad": 0.8421263422109941,
+      "selected_ik_maximum_start_delta_rad": 3.1329353037666947
+    },
+    "near_limit_multi_candidate_request": {
+      "old_first_valid_goal_margin_rad": 0.0475104891201368,
+      "valid_ik_candidate_count": 33,
+      "selected_ik_attempt": 73,
+      "selected_ik_minimum_joint_limit_margin_rad": 0.04802262733195661,
+      "selected_ik_maximum_start_delta_rad": 0.011470809557691641
+    },
+    "final_registered_backoff_fractions_remain_unsolved": true,
+    "interpretation": "The registered change deterministically selects and reports the best valid official-LMA candidate where multiple branches exist; it does not fabricate a solution where the frozen candidate generator yields none. Exact execution remains the acceptance authority."
+  },
+  "source_failure_and_registered_change": {
+    "source_plan": "configs/sim/aloha_insertion_geometry_teacher_046.yaml",
+    "source_plan_sha256": "a80b3490044e45ff2603ada009c4bd764a5e5df60271308ae8d69c3c495f23b6",
+    "source_exact_report_sha256": "dcf2667b3994d1093c14f162f4a17468cd3c2544d94ff28babaa6d52e04fc1b3",
+    "source_audit": "reports/training/m2-smolvla-athena-plan046-local-exact-audit-2026-08-16.json",
+    "source_audit_sha256": "9101b0787a53f5ae2093f9528c3da1c60b83150117a5641ab2252a442978de9e",
+    "preregistration": "reports/training/m2-smolvla-deterministic-moveit-joint-margin-candidate-selection-preregistration-2026-08-16.json",
+    "preregistration_sha256": "ac299843778da44a7f4b30421098f54e16648e18a04e7694dd7bafc2bf820ddf",
+    "single_axis": "replace_first_valid_lma_candidate_with_deterministic_maximum_minimum_joint_margin_selection"
+  },
+  "model_parity": {
+    "report": "reports/training/m2-smolvla-aloha-moveit-model-parity-plan047-2026-08-16.json",
+    "report_sha256": "e68a6627b65fdd7dd05a7153d5a217a32dc8656aefd23718986f7c9a54222679",
+    "status": "passed",
+    "sample_count": 5,
+    "maximum_position_error_m": 3.188872858294072e-16,
+    "maximum_orientation_error_rad": 0.0
+  },
+  "static_validation": {
+    "ruff": "passed",
+    "tests": "23 passed",
+    "scope": [
+      "src/rosetta_reality/sim/moveit_aloha_planner.py",
+      "scripts/evaluate_aloha_geometry_teacher.py",
+      "tests/test_moveit_aloha_planner.py"
+    ]
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "sealed_until_plan047_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

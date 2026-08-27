@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-explicit-moveit-full-pose-group-selection-preregistration-2026-08-16",
+  "status": "preregistered_not_executed",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_044.yaml",
+    "plan_sha256": "c573dbf48b0e4d68de24e55e16a01c4c58e173050c4a9085612863d6adb1951e",
+    "exact_report_sha256": "d61823063721d53c50b0929af710d7512cd0e44afd46b5e0f6074c6d7d32b989",
+    "audit": "reports/training/m2-smolvla-athena-plan044-local-exact-audit-2026-08-16.json",
+    "audit_sha256": "78342bdde53f439a6663d184fddc271b480a4d2523048162f42c582c7b8ba039",
+    "failure_step": 97,
+    "failure_phase": "approach",
+    "solver_failure": "bimanual_subgroup_count_differs",
+    "position_priority_hypothesis_exercised": false
+  },
+  "hypothesis": "The composed SRDF intentionally adds two position-only arm groups, so enumerating every subgroup beneath bimanual is no longer a stable full-pose selection contract. Selecting the already registered left_arm and right_arm groups explicitly through RobotModel::getJointModelGroup will restore the original full-pose LMA path without changing either solver, while the position-priority branch continues to select its two explicit position-only groups. This should let Plan044 reach the previously validated fallback rather than failing on subgroup count.",
+  "single_axis": "replace_bimanual_getSubgroups_enumeration_with_explicit_registered_full_pose_arm_groups",
+  "registered_change": {
+    "full_pose_groups": ["left_arm", "right_arm"],
+    "position_priority_groups": [
+      "left_arm_position_priority",
+      "right_arm_position_priority"
+    ],
+    "lookup": "moveit_core_robot_model_getJointModelGroup",
+    "full_pose_solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "position_priority_solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "null_group_fails_closed": true,
+    "group_order_is_fixed": true,
+    "all_other_planner_behavior_frozen": true
+  },
+  "required_evidence_before_exact": [
+    "sidecar identity retains the two original and two position-priority group contracts",
+    "a full-pose request reaches deterministic LMA instead of subgroup-count rejection",
+    "the registered position-priority failure probe still passes",
+    "the deterministic position-priority repeat still returns equal goal and trajectory",
+    "the five-sample MuJoCo/MoveIt model-parity report passes",
+    "Ruff and all related tests pass",
+    "all implementation and plan hashes are bound in a new Plan045"
+  ],
+  "frozen_contract": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "position_tolerance_m": 0.001,
+    "orientation_tolerance_rad": 0.003,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "maximum_position_priority_orientation_relaxation_rad": 0.04,
+    "physical_joint_limit_margin_rad": 0.01,
+    "joint_path_constraint_margin_rad": 0.04540462255477905,
+    "ompl_planner": "RRTConnect",
+    "ik_seed": 2210,
+    "ik_maximum_attempts": 256,
+    "environment_side_clipping_allowed": false
+  },
+  "acceptance": {
+    "stage": "train_only_exact",
+    "required_successes": 1,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "maximum_unexpected_collision_count": 0,
+    "hidden_test_loaded": false,
+    "recovery_labels_written": false
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "sealed_until_plan045_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

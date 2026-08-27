@@ -14,6 +14,7 @@ packages:
   lerobot: 0.6.2
   lerobot_revision: c903b114a90e703b3f7d0c46cb38727c328c55ff
   trackio: 0.28.0
+  gym-aloha: 0.1.4
 storage:
   platform_data_root_environment: AUTODL_TMP
   default_platform_data_root: /root/autodl-tmp
@@ -40,6 +41,7 @@ gates:
   - two_step_cuda_optimizer_smoke
   - independent_checkpoint_reload
   - separately_preregistered_formal_plan
+  - exported_artifact_backed_up_before_remote_gate
 formal_training:
   enabled_by_profile: false
   reason: >-

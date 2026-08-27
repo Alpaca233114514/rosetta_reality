@@ -1,0 +1,75 @@
+{
+  "acceptance": {
+    "exact_control_successes_required": 1,
+    "hidden_test_loaded": false,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "minimum_lift_contact_exemption_events": 1,
+    "minimum_lift_feedback_anchor_commands": 1,
+    "recovery_labels_authorized_on_pass": false
+  },
+  "frozen_settings": {
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "exact_seed": 10,
+    "lift_feedback_step_m": 0.006,
+    "lift_object_height_m": 0.17,
+    "maximum_cartesian_step_m": 0.012,
+    "maximum_grasp_drift_m": 0.045,
+    "maximum_orientation_step_rad": 0.2,
+    "maximum_steps": 750,
+    "physical_joint_limit_margin_rad": 0.01
+  },
+  "gate_boundary": {
+    "collection_seeds_3000_3004": "sealed",
+    "cuda_training": "forbidden_without_new_user_authorization",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "recovery_labels": "forbidden",
+    "tuning_seed_1900": "sealed_until_plan056_exact_passes",
+    "validation_and_hidden": "sealed"
+  },
+  "hypothesis": "Plan055 proves the feedback-anchored lift keeps both objects grasped, but the right finger remains near the table during initial lift and touches it. The same contact pair is already demonstrated and registered for descend/grasp; extending the phase scope to lift should allow the unchanged, already-bounded lift motion to continue without relaxing any other collision gate.",
+  "preregistration_id": "m2-smolvla-lift-contact-exemption-plan056-2026-08-16",
+  "schema_version": 1,
+  "single_axis_change": {
+    "allowed_unordered_geom_pairs": [
+      [
+        "table",
+        "vx300s_right/10_right_gripper_finger"
+      ]
+    ],
+    "from_phases": [
+      "descend",
+      "grasp"
+    ],
+    "interpretation": "reuse_registered_contact_pair_for_lift_phase_only_not_new_contact_or_relaxation",
+    "persistent_hidden_state": false,
+    "setting": "lift_contact_exemption.phases",
+    "to_phases": [
+      "descend",
+      "grasp",
+      "lift"
+    ]
+  },
+  "source_audit": "reports/training/m2-smolvla-athena-plan055-local-exact-audit-2026-08-16.json",
+  "source_audit_sha256": "4d595331be67883800dc5d08b6e711c3e38bc3746fc8dabae65bc683cacb0352",
+  "source_exact_report_sha256": "3e23f37ca1775154fceb95b58edf296abc571f937f71d88283f4fbd3accb5f96",
+  "source_failure": {
+    "commanded_margin_breach_events": 0,
+    "failure": "Unexpected collision prevents geometry-teacher supervision.",
+    "inverse_kinematics_failures": 0,
+    "lift_feedback_anchor_commands": 50,
+    "observed_margin_breach_events": 0,
+    "peg_grasp_contact": true,
+    "peg_on_table": true,
+    "phase": "lift",
+    "socket_grasp_contact": true,
+    "socket_on_table": false,
+    "step": 438
+  },
+  "source_plan": "configs/sim/aloha_insertion_geometry_teacher_055.yaml",
+  "source_plan_sha256": "dfb14e406bb5687ba951e2bf9844f0a1fd3c5ea93106874650ee492e55adfe15",
+  "status": "preregistered_before_plan056_execution"
+}

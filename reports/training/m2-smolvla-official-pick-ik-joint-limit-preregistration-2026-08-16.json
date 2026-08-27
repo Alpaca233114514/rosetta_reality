@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-official-pick-ik-joint-limit-preregistration-2026-08-16",
+  "status": "preregistered_not_executed",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_047.yaml",
+    "plan_sha256": "bcc564976f07b39d3746d738b33aecda9a2971f3929b28266467bbde7a1020ac",
+    "exact_report_sha256": "5a3db61675ec216d8323dcbd4b9cb29137411335d062a24a61a5cba4f7de4206",
+    "audit": "reports/training/m2-smolvla-athena-plan047-local-exact-audit-2026-08-16.json",
+    "audit_sha256": "f7d37e750b90d753f3e2a43eb698596e300a09fc54af59f17d51104bc39f7bf8",
+    "failure_step": 256,
+    "failure_phase": "orient",
+    "solver_failure": "bimanual_lma_ik_failed",
+    "valid_ik_candidate_count": 0,
+    "pre_step_minimum_margin_joint": "right_wrist_rotate",
+    "pre_step_minimum_margin_rad": 0.04681600578308087,
+    "registered_command_margin_rad": 0.04540462255477905
+  },
+  "diagnostic_boundary": {
+    "orient_decoupling_probe_001_sha256": "a6ecc7a527d30d9ca08d0501a2e66596feb85ab6906c27c3994d2913cea03a77",
+    "per_arm_and_grid_probe_002_sha256": "a7453d7c04f04aa78387e3fe46d7f063cd3bcece0cf347e546fcae2bc9de3d4b",
+    "fine_stencil_probe_003_sha256": "0873468de29fefefeed1dcd17057b948f808468054581d3373400200e2a24f5c",
+    "bimanual_stencil_probe_004_sha256": "c02042884b81ff579aa9cd3f39960e374e8c1f1feaa9ec76e456a4d50cb7511d",
+    "finding": "A custom position-relaxation stencil can recover some bounded orient waypoints, but it is task-specific and does not remove the underlying full-pose solver limitation. The replacement must move joint-limit avoidance into the registered MoveIt kinematics plugin and keep Rosetta's outer collision, path-margin and exact-pose checks."
+  },
+  "hypothesis": "MoveIt-compatible pick_ik exposes a built-in avoid-joint-limits objective and local gradient optimizer. Replacing only the full-pose LMA plugin with version-pinned pick_ik should optimize away from the wrist boundary while retaining the same requested poses and Rosetta's independent exact task-space, joint-path-constraint, bounds, collision and OMPL validation. The position-only approach fallback remains on official MoveIt LMA and every downstream gate remains sealed until a new exact pass.",
+  "single_axis": "replace_full_pose_lma_plugin_with_version_pinned_pick_ik_joint_limit_avoidance",
+  "official_sources": {
+    "moveit_pick_ik_tutorial": "https://moveit.picknik.ai/main/doc/how_to_guides/pick_ik/pick_ik_tutorial.html",
+    "pick_ik_release_readme": "https://raw.githubusercontent.com/PickNikRobotics/pick_ik/1.1.2/README.md",
+    "pick_ik_release_parameters": "https://raw.githubusercontent.com/PickNikRobotics/pick_ik/1.1.2/src/pick_ik_parameters.yaml"
+  },
+  "registered_dependency": {
+    "apt_package": "ros-humble-pick-ik",
+    "apt_version": "1.1.2-2jammy.20260804.215003",
+    "plugin": "pick_ik/PickIkPlugin",
+    "license": "BSD-3-Clause",
+    "ros_distro": "humble",
+    "moveit_version": "2.5.9",
+    "full_pose_groups": ["left_arm", "right_arm"],
+    "position_priority_groups_unchanged": [
+      "left_arm_position_priority",
+      "right_arm_position_priority"
+    ]
+  },
+  "registered_solver_configuration": {
+    "mode": "local",
+    "kinematics_solver_timeout_s": 0.05,
+    "position_scale": 1.0,
+    "rotation_scale": 0.5,
+    "position_threshold_m": 0.001,
+    "orientation_threshold_rad": 0.003,
+    "cost_threshold": 10.0,
+    "avoid_joint_limits_weight": 0.1,
+    "minimal_displacement_weight": 0.01,
+    "center_joints_weight": 0.0,
+    "stop_optimization_on_valid_solution": false,
+    "gd_step_size": 0.0001,
+    "gd_max_iters": 500,
+    "gd_min_cost_delta": 1e-12,
+    "outer_seed": 2210,
+    "outer_maximum_attempts": 256,
+    "outer_timeout_s": 2.0,
+    "outer_candidate_selection": "deterministic_maximum_minimum_joint_limit_margin_v1"
+  },
+  "independent_fail_closed_validation": [
+    "MoveIt RobotState satisfiesBounds",
+    "registered 0.04540462255477905 rad joint path constraints",
+    "MoveIt planning-scene self collision",
+    "0.001 m position tolerance",
+    "0.003 rad orientation tolerance",
+    "0.001 weighted exact error",
+    "0.003 projected exact error",
+    "OMPL RRTConnect path validity"
+  ],
+  "required_evidence_before_exact": [
+    "new image binds the exact pick_ik package version and plugin identity",
+    "runtime identity loads pick_ik for both full-pose groups and LMA only for position-priority groups",
+    "captured Plan047 first-orient request is solved within every frozen outer gate or fails closed",
+    "same request on fresh sidecars returns identical selected goal, path and diagnostics",
+    "five-sample MuJoCo/MoveIt model parity passes",
+    "Ruff and all related tests pass",
+    "all implementation and runtime hashes are bound in Plan048"
+  ],
+  "frozen_contract": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "teacher_position_and_orientation_targets": "unchanged",
+    "position_tolerance_m": 0.001,
+    "orientation_tolerance_rad": 0.003,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "physical_joint_limit_margin_rad": 0.01,
+    "joint_path_constraint_margin_rad": 0.04540462255477905,
+    "environment_side_clipping_allowed": false,
+    "custom_orient_stencil_enabled": false
+  },
+  "acceptance": {
+    "stage": "train_only_exact",
+    "required_successes": 1,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "maximum_unexpected_collision_count": 0,
+    "hidden_test_loaded": false,
+    "recovery_labels_written": false
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "sealed_until_plan048_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

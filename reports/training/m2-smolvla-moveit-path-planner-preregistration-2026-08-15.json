@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-moveit-path-planner-preregistration-2026-08-15",
+  "status": "train_exact_preregistered_not_executed",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_022.yaml",
+    "plan_id": "m2-smolvla-aloha-geometry-teacher-022",
+    "sha256": "cbeefa9b913d650c256eaef38b04ebfe64b43ad554ddc7274076afb0850dc5fc",
+    "single_axis": "upstream_moveit2_ompl_rrtconnect_fallback_after_mink_failure",
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "maximum_joint_target_delta_rad": 0.23561944901923448,
+    "orientation_relaxation_rad": 0.0
+  },
+  "upstream": {
+    "ros_distro": "humble",
+    "moveit_version": "2.5.9",
+    "ompl_version": "1.7.0",
+    "planner_plugin": "ompl_interface/OMPLPlanner",
+    "planner_id": "RRTConnect",
+    "planner_type": "geometric::RRTConnect",
+    "kinematics_plugin": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "interbotix_manipulators_commit": "b66d5b905725351dd71d3251a06cd3f4c777940f",
+    "interbotix_archive_sha256": "d22c67bf76a83de275e547f07ed9959bbf5a4335fe0da4ff092efa7094ab7637"
+  },
+  "runtime": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9",
+    "image_id": "sha256:a48a28875f358f087fa83f6819c720d66f74e9ff9f3bdb28c8997fcd54f566b2",
+    "executable_sha256": "e2d51c1aad413bf58111a0aa2c750c1083175eb80a8a23fdda5c78ed0173181b",
+    "urdf_sha256": "544b5f299a5955b4c705cd42f952f4ab4fb898327f6206ea37117533190f63f4",
+    "srdf_sha256": "65bd2a440fb3565fae4373d0218a95afd9564fcb2e4bfdcece06ac4e82c0321d",
+    "description_manifest_sha256": "65d733588c7d6a7f78ac2a2eacb62b4b14e7337151e4190d046d957edbd5572b"
+  },
+  "model_parity": {
+    "report": "reports/training/m2-smolvla-aloha-moveit-model-parity-2026-08-15.json",
+    "report_sha256": "09d5872bae5cb8ff34d724c7d02c7c9c1c852a2c3dad4c54a97575ff4f7f54a0",
+    "sample_count": 5,
+    "maximum_position_error_m": 3.188872858294072e-16,
+    "maximum_orientation_error_rad": 0.0,
+    "dataset_rows_loaded": false,
+    "hidden_test_loaded": false
+  },
+  "official_planner_smoke": {
+    "request": "neutral_bimanual_calibration_sites_down_0.005_m",
+    "ompl_seed": 2210,
+    "status": "passed",
+    "planner_plugin": "ompl_interface/OMPLPlanner",
+    "planner_id": "RRTConnect",
+    "waypoint_count": 2,
+    "path_length_rad": 0.03678845529387281,
+    "maximum_waypoint_joint_delta_rad": 0.020381925998332107,
+    "maximum_goal_position_error_m": 2.3459061185342847e-05,
+    "maximum_goal_orientation_error_rad": 0.0005538440389254536,
+    "maximum_goal_weighted_error": 0.0001342278689703837,
+    "planning_time_s_observed": 0.00315584
+  },
+  "static_and_protocol_evidence": {
+    "ruff": "passed",
+    "focused_tests_passed": 22,
+    "focused_tests_failed": 0,
+    "evaluator_sha256": "10a516a626fd4a583cd759fb539f0a15aad12e9abfa0fe29d3e1d2f1c8b50af3",
+    "moveit_client_sha256": "12518932cbfb036b649840f739573add90c5671db38df6147affbf73a9741a8e",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "athena": {
+    "run_name": "Athena",
+    "one_remote_furnace_only": true,
+    "train_only_exact_authorized": true,
+    "optimizer_steps_authorized": false,
+    "cuda_training_authorized": false,
+    "tuning_seed_opened": false,
+    "development_seeds_opened": false,
+    "collection_seeds_opened": false,
+    "policy_gate_seeds_opened": false,
+    "validation_episodes_loaded": false,
+    "hidden_test_loaded": false,
+    "recovery_labels_authorized": false
+  },
+  "next_gate": "athena_remote_train_only_exact_must_pass_before_any_later_stage"
+}

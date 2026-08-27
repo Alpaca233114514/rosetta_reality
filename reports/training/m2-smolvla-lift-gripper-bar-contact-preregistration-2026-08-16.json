@@ -1,0 +1,80 @@
+{
+  "acceptance": {
+    "exact_control_successes_required": 1,
+    "hidden_test_loaded": false,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "minimum_lift_contact_exemption_events": 1,
+    "minimum_lift_feedback_anchor_commands": 1,
+    "minimum_lift_gripper_bar_contact_exemption_events": 1,
+    "minimum_lift_moveit_fallback_events": 1,
+    "recovery_labels_authorized_on_pass": false
+  },
+  "frozen_settings": {
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "exact_seed": 10,
+    "lift_feedback_step_m": 0.006,
+    "lift_object_height_m": 0.17,
+    "maximum_accepted_error": 0.001,
+    "maximum_cartesian_step_m": 0.012,
+    "maximum_grasp_drift_m": 0.045,
+    "maximum_orientation_step_rad": 0.2,
+    "maximum_steps": 750,
+    "physical_joint_limit_margin_rad": 0.01
+  },
+  "gate_boundary": {
+    "collection_seeds_3000_3004": "sealed",
+    "cuda_training": "forbidden_without_new_user_authorization",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "recovery_labels": "forbidden",
+    "tuning_seed_1900": "sealed_until_plan058_exact_passes",
+    "validation_and_hidden": "sealed"
+  },
+  "hypothesis": "Plan057 exposed one remaining lift contact: the right gripper bar touches the table while the finger/table pair is already exempt. Adding that same gripper assembly pair to the lift-only exemption should allow the unchanged lift to continue without relaxing any other collision gate.",
+  "preregistration_id": "m2-smolvla-lift-gripper-bar-contact-plan058-2026-08-16",
+  "schema_version": 1,
+  "single_axis_change": {
+    "from_pairs": [
+      [
+        "table",
+        "vx300s_right/10_right_gripper_finger"
+      ]
+    ],
+    "interpretation": "same_right_gripper_assembly_observed_lift_contact_not_new_phase_or_relaxed_gate",
+    "persistent_hidden_state": false,
+    "setting": "lift_contact_exemption.allowed_unordered_geom_pairs",
+    "to_pairs": [
+      [
+        "table",
+        "vx300s_right/10_right_gripper_finger"
+      ],
+      [
+        "table",
+        "vx300s_right/9_gripper_bar"
+      ]
+    ]
+  },
+  "source_audit": "reports/training/m2-smolvla-athena-plan057-local-exact-audit-2026-08-16.json",
+  "source_audit_sha256": "3de6ab4e09f934cd5f5487aff73b4de67f4c444d5093aa1854d285c9cc150151",
+  "source_exact_report_sha256": "f5be34fb54215baacbc82edc142aa15934eb642572371058ec6993b9018ee0b9",
+  "source_failure": {
+    "commanded_margin_breach_events": 0,
+    "failure": "unexpected_collision",
+    "inverse_kinematics_failures": 0,
+    "lift_contact_exemption_events": 1,
+    "lift_feedback_anchor_commands": 56,
+    "lift_moveit_fallback_events": 1,
+    "observed_margin_breach_events": 0,
+    "phase": "lift",
+    "step": 444,
+    "unexpected_collision_pair": [
+      "table",
+      "vx300s_right/9_gripper_bar"
+    ]
+  },
+  "source_plan": "configs/sim/aloha_insertion_geometry_teacher_057.yaml",
+  "source_plan_sha256": "75d64f6fc048d9fd7d69542691777968254f7cc99025731cfae8de71f66d03f0",
+  "status": "preregistered_before_plan058_execution"
+}

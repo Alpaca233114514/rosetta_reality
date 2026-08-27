@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan051-local-exact-audit-2026-08-16",
+  "status": "failed_train_only_exact_horizon_exhausted",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_051.yaml",
+    "sha256": "e593c3c7f13eba83c3760d315b1acde34c4fe5243069c13bfdbee061f2e82ef8"
+  },
+  "launcher_recovery": {
+    "attempt_001_status": "stopped_before_evaluator_due_to_docker_exe_wsl_path_mount",
+    "attempt_001_launch_log_sha256": "b3433f09c600f184c43de1540cd5d6ab6c6db4a8f8de4f58403702b3bbb665d9",
+    "attempt_001_exact_report_created": false,
+    "attempt_002_status": "completed_exact_evaluation"
+  },
+  "execution": {
+    "attempt": "athena-plan051-local-exact-002",
+    "container_image_id": "sha256:4941347b5ffa947d66491efe92006180ec6106745bae31f0cd3ee970c7e33f9a",
+    "moveit_source_image_id": "sha256:82c7e6a8100ad485e22f28e0ab1ed36c551eb5ad877c0243fbbb31d29fe6540b",
+    "moveit_executable_sha256": "f7579c034dd8e118f465c2b16274f957d613e5f24775c5f3b61567489e561fed",
+    "exit_code": 1,
+    "execution_log_sha256": "1ba7c0e4211f6852d3de7a1b97600906d4743d6d615aaeabbb91793754641dfb",
+    "exact_report_sha256": "f80d14eee434c3637330e77ecf6d1b1e8f45aeff0fd123bec06dc3299428c647",
+    "moveit_stderr_sha256": "1c6c049c8962bcf8104542e4d0496b231f07f76f88b5d6e8fc85dd2179f0a61f"
+  },
+  "result": {
+    "steps_executed": 750,
+    "final_phase": "orient",
+    "maximum_reward": 0.0,
+    "inverse_kinematics_failures": 0,
+    "geometry_teacher_failures": 0,
+    "path_planner_attempts": 19,
+    "path_planner_waypoints": 601,
+    "path_planner_terminal_control_completions": 17,
+    "trust_region_margin_restoration_events": 8,
+    "trust_region_orientation_progress_events": 0,
+    "trust_region_feedback_basis_events": 8,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "adapter_clip_failures": 0,
+    "joint_limit_projection_events": 0,
+    "unexpected_collision_count": 0,
+    "minimum_commanded_joint_limit_margin_rad": 0.04569305427551251,
+    "minimum_pre_step_joint_limit_margin_rad": 0.018642320709228333,
+    "minimum_observed_post_step_joint_limit_margin_rad": 0.018642320709228333
+  },
+  "root_cause": {
+    "classification": "lexicographic_margin_restoration_starves_orientation_progress",
+    "finding": "The feedback-aligned basis removed the Plan 050 endpoint failure, but every trust-region activation selected a feasible margin-restoration candidate before testing orientation progress. Eight of eight feedback-basis events restored margin and zero advanced orientation, so the exact episode exhausted its unchanged 750-step horizon in orient without an IK failure. The next single-axis change must make feasible orientation progress primary and retain margin restoration only as a fallback, while leaving hard path constraints and every threshold unchanged."
+  },
+  "protected_identities": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "not_executed",
+    "development_seeds_2000_2004": "not_executed",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "not_written",
+    "cuda_training": "not_started"
+  }
+}

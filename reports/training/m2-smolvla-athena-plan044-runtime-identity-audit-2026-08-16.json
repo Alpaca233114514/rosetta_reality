@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan044-runtime-identity-audit-2026-08-16",
+  "status": "passed_before_exact",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-044",
+  "runtime": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9-position-priority-003",
+    "image_id": "sha256:18605ed2d1c8a6d01f53b8e95ec0624b5d6dd3687db981e673d29702edf03f15",
+    "executable_sha256": "1e9727f5da50480ae5291883bc5818d67b70b55c56295421ddeb24f09ff1cc1f",
+    "urdf_sha256": "544b5f299a5955b4c705cd42f952f4ab4fb898327f6206ea37117533190f63f4",
+    "srdf_sha256": "9a24cfc87a670abd74d87b15d6f1c70b66fec59d8628a5d93ceb316be9f91db5",
+    "description_manifest_sha256": "b55646fd65907365e67dfc06f15e0bf545089df826511df12d0ad7be23a0932b",
+    "identity_sha256": "72fd2ad3f8790578c57c7c8ecc9fcf0e1b4efc13f05b2e3ef09a3cea6737cbd0",
+    "stderr_sha256": "a68b45d0c4158b45521b37fe1ef4848403779c655127bc1e2db09c352b9c1470"
+  },
+  "identity": {
+    "backend": "moveit2_ompl",
+    "moveit_version": "2.5.9",
+    "ompl_version": "1.7.0",
+    "planner": "ompl_interface/OMPLPlanner:RRTConnect",
+    "kinematics_plugin": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "ik_task_modes": ["full_pose", "position_priority"],
+    "position_priority_groups": [
+      "left_arm_position_priority",
+      "right_arm_position_priority"
+    ],
+    "position_priority_orientation_weight": 0.0,
+    "position_priority_ompl_seed_reset_per_request": true,
+    "position_priority_terminal_goal_normalization_limit_rad": 0.00001,
+    "collision_geometry_link_count": 22,
+    "collision_geometry_shape_count": 22
+  },
+  "registered_failure_probe": {
+    "status": "passed",
+    "raw_probe_sha256": "a46aec9c7d3afa2fce2c41e3fc1af79b2730f0598556be6af00e23dad03d87f4",
+    "cartesian_fraction": 1.0,
+    "ik_attempts_used": 1,
+    "maximum_goal_position_error_m": 0.0008290217354026833,
+    "maximum_goal_orientation_error_rad": 0.02998983441605129,
+    "minimum_path_joint_limit_margin_rad": 0.05948986061096173,
+    "maximum_terminal_goal_normalization_rad": 8.194188354532922e-7,
+    "waypoint_count": 2
+  },
+  "repeat_proof": {
+    "report": "reports/training/m2-smolvla-aloha-moveit-position-priority-repeat-plan044-2026-08-16.json",
+    "report_sha256": "7be9cc6e556f5b4d754a305867c61e80d2a5a8eb20d89d055373d87415ffc854",
+    "raw_repeat_sha256": "d99f17ecddf370ab53311a0f0ab3ef444f5da90859505e71a150fbb0028f9661",
+    "goal_vectors_exactly_equal": true,
+    "trajectory_vectors_exactly_equal": true,
+    "attempt_counts_equal": true
+  },
+  "preserved_negative_evidence": [
+    {
+      "attempt": "athena-plan044-position-priority-repeat-001",
+      "boundary": "two_requests_in_one_sidecar_before_per_request_seed_reset",
+      "raw_sha256": "515da8698f5d8586df22608586dec42a2b09107c44014bea29388f80346f24b4",
+      "goal_vectors_exactly_equal": true,
+      "trajectory_vectors_exactly_equal": false
+    },
+    {
+      "attempt": "athena-plan044-position-priority-repeat-002",
+      "boundary": "fresh_sidecars_before_terminal_goal_normalization",
+      "raw_sha256": "6b1ee1392b0b174874cfd55ad27fb694ed8c3d4a3f939a644e2d6d46325d69d8",
+      "maximum_path_difference_rad": 1.957745835001745e-6,
+      "trajectory_vectors_exactly_equal": false
+    },
+    {
+      "attempt": "athena-plan044-position-priority-repeat-003",
+      "boundary": "fresh_sidecars_after_seed_reset_before_terminal_goal_normalization",
+      "raw_sha256": "d0652a037b8f8d50707ec5f75661c9a6aeaaf7e9ec9b312e59b85572405d02df",
+      "maximum_path_difference_rad": 1.8428653538737905e-6,
+      "trajectory_vectors_exactly_equal": false
+    }
+  ],
+  "model_parity": {
+    "report": "reports/training/m2-smolvla-aloha-moveit-model-parity-plan044-2026-08-16.json",
+    "report_sha256": "2423570ddc2081f8b913f87b31c9b6372b661d60229e3b8641f9cea6107f7f58",
+    "status": "passed",
+    "sample_count": 5,
+    "maximum_position_error_m": 3.188872858294072e-16,
+    "maximum_orientation_error_rad": 0.0
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "sealed_until_plan044_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

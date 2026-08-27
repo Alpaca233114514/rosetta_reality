@@ -1,0 +1,57 @@
+{
+  "audit_id": "m2-smolvla-athena-plan055-local-exact-audit-2026-08-16",
+  "execution": {
+    "exact_report_sha256": "3e23f37ca1775154fceb95b58edf296abc571f937f71d88283f4fbd3accb5f96",
+    "execution_log_sha256": "d2af20e0b99562e3b9bcad690e677ff230963b081dc1f09790cd1ee73033ebaa",
+    "moveit_stderr_sha256": "7aeb4d006415031f98062c773135a03efc6c9e04ffbeac6001f409a52625a77e"
+  },
+  "gate_seals": {
+    "collection_seeds_3000_3004": "sealed",
+    "cuda_training": "not_started",
+    "development_seeds_2000_2004": "not_executed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "recovery_labels": "not_written",
+    "tuning_seed_1900": "not_executed",
+    "validation_and_hidden": "sealed"
+  },
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_055.yaml",
+    "sha256": "dfb14e406bb5687ba951e2bf9844f0a1fd3c5ea93106874650ee492e55adfe15"
+  },
+  "result": {
+    "adapter_clip_failures": 0,
+    "commanded_margin_breach_events": 0,
+    "expanded_orientation_target_budget_events": 0,
+    "failure_step": 438,
+    "final_phase": "lift",
+    "inverse_kinematics_failures": 0,
+    "joint_limit_projection_events": 0,
+    "lift_feedback_anchor_commands": 50,
+    "observed_margin_breach_events": 0,
+    "peg_grasp_contact": true,
+    "peg_on_table": true,
+    "phase_visits": {
+      "approach": 241,
+      "descend": 28,
+      "grasp": 7,
+      "lift": 50,
+      "open": 15,
+      "orient": 97
+    },
+    "socket_grasp_contact": true,
+    "socket_on_table": false,
+    "steps_executed": 439,
+    "teacher_failure": "Unexpected collision prevents geometry-teacher supervision."
+  },
+  "root_cause": {
+    "classification": "feedback_anchor_preserved_grasp_but_required_lift_phase_task_contact_scope",
+    "finding": "The feedback-anchored lift kept both grippers on the objects. The right peg remained on/near the table during the initial lift, so the already-evidenced table/right-finger contact occurred in lift, where it is not registered and therefore failed closed."
+  },
+  "schema_version": 1,
+  "scope_lock": {
+    "additional_planner_plan": "not_authorized",
+    "local_changes_after_this_audit": "single_axis_plan056_only",
+    "remote_stage": "not_connected"
+  },
+  "status": "failed_train_only_exact"
+}

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_no_execution",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-036",
+  "hypothesis": "Plan 035 reached the original MoveIt goal to 2.96434154734015e-05 rad arm-joint L1, but retained the completed reference for the rest of approach. Because the geometry teacher emits a bounded 0.012 m task-space target, that completed global plan represented only one receding-horizon increment. Releasing a terminal reference only after the original uncorrected MoveIt goal is reached will let the next current-state teacher target enter the normal Mink/MoveIt pipeline without per-step global replanning.",
+  "single_axis": "official_moveit_terminal_completion_reset_then_bounded_target_refresh",
+  "source": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_035.yaml",
+    "plan_sha256": "e7b048ea99d1ea7fd0eb997ce63baf986ad5a575131d8ee84dc24646d9168197",
+    "audit": "reports/training/m2-smolvla-athena-plan035-local-exact-audit-2026-08-15.json",
+    "audit_sha256": "efd1531568f49a172763f3d8fc61b7b4d5644b2f0952d640d8ccad645df05cf7",
+    "exact_report_sha256": "2d1fa4e3afd3748a218c82220ea678972cc25a97514f9bacec6d71eca6a6174f"
+  },
+  "observed_failure": {
+    "moveit_plan_step": 97,
+    "target_position_error_at_plan_m": 0.0381825380027294,
+    "teacher_maximum_cartesian_step_m": 0.012,
+    "terminal_control_activation_step": 153,
+    "terminal_control_commands": 347,
+    "final_target_position_error_m": 0.026163499802350998,
+    "frozen_approach_tolerance_m": 0.012,
+    "final_arm_joint_l1_to_original_moveit_goal_rad": 0.0000296434154734015,
+    "final_arm_joint_l1_to_compensated_command_rad": 0.039295138703090406,
+    "interpretation": "The actuator reached the original bounded MoveIt goal; the remaining Cartesian error is the next bounded task-space increment, not tracking failure."
+  },
+  "official_basis": {
+    "moveit_hybrid_planning_documentation": "https://moveit.picknik.ai/humble/doc/examples/hybrid_planning/hybrid_planning_tutorial.html",
+    "simple_sampler_source": "https://github.com/moveit/moveit2/blob/2.5.9/moveit_ros/hybrid_planning/local_planner/trajectory_operator_plugins/src/simple_sampler.cpp",
+    "local_planner_component_source": "https://github.com/moveit/moveit2/blob/2.5.9/moveit_ros/hybrid_planning/local_planner/local_planner_component/src/local_planner_component.cpp",
+    "reused_semantics": [
+      "SimpleSampler reports trajectory progress 1.0 at the final reference waypoint.",
+      "LocalPlannerComponent succeeds and resets the trajectory operator when progress exceeds 0.995.",
+      "A later bounded task-space target is a new planning problem, not a failure retry or per-step replan."
+    ]
+  },
+  "registered_change": {
+    "terminal_goal_l1_tolerance_rad": 0.001,
+    "release_condition": "terminal_control_active_and_current_arm_state_within_l1_tolerance_of_uncompensated_moveit_goal",
+    "post_release_behavior": "reset_retained_reference_then_run_current_target_through_existing_mink_then_moveit_fallback",
+    "replan_every_step": false,
+    "replan_on_failure": false,
+    "pose_thresholds_changed": false,
+    "joint_limit_margins_changed": false,
+    "teacher_changed": false
+  },
+  "acceptance": {
+    "exact_seed": 10,
+    "exact_successes_required": 1,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "at_least_one_terminal_reference_completion": true,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false
+  },
+  "stop_conditions": [
+    "terminal_reference_releases_before_the_uncompensated_moveit_goal_is_reached",
+    "terminal_reference_releases_on_failure_or_by_elapsed_step_count",
+    "global_planner_runs_every_step",
+    "frozen_pose_threshold_or_joint_margin_changes",
+    "commanded_or_observed_joint_margin_breach",
+    "validation_hidden_or_later_seed_access",
+    "recovery_label_write"
+  ]
+}

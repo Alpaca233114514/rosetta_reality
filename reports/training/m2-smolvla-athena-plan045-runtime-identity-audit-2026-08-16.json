@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan045-runtime-identity-audit-2026-08-16",
+  "status": "passed_before_exact",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-045",
+  "runtime": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9-position-priority-005",
+    "image_id": "sha256:c19771a03cf5579bb5891e0c4f0c7afbbdbb5315f82b1e8d727f44ee5f2b4945",
+    "executable_sha256": "a3698a200b517d76660ab907c10753675fca867ea4fd913f456af97fac94bbff",
+    "urdf_sha256": "544b5f299a5955b4c705cd42f952f4ab4fb898327f6206ea37117533190f63f4",
+    "srdf_sha256": "9a24cfc87a670abd74d87b15d6f1c70b66fec59d8628a5d93ceb316be9f91db5",
+    "description_manifest_sha256": "b55646fd65907365e67dfc06f15e0bf545089df826511df12d0ad7be23a0932b",
+    "identity_sha256": "3ee2b1aa263a2e903beaf969017a7d070e0343c1d4d9579b55c2cb4ca4ba919b",
+    "stderr_sha256": "6143cbc3a5a18a1a7c3e59d5dca8fa82a546f1232af0bc3a9991bacabd07d5be"
+  },
+  "identity": {
+    "backend": "moveit2_ompl",
+    "moveit_version": "2.5.9",
+    "ompl_version": "1.7.0",
+    "planner": "ompl_interface/OMPLPlanner:RRTConnect",
+    "kinematics_plugin": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "ik_group_selection_mode": "explicit_registered_groups_v1",
+    "full_pose_groups": ["left_arm", "right_arm"],
+    "ik_task_modes": ["full_pose", "position_priority"],
+    "position_priority_groups": [
+      "left_arm_position_priority",
+      "right_arm_position_priority"
+    ],
+    "position_priority_orientation_weight": 0.0,
+    "position_priority_ompl_seed_reset_per_request": true,
+    "position_priority_terminal_goal_normalization_limit_rad": 0.00001,
+    "collision_geometry_link_count": 22,
+    "collision_geometry_shape_count": 22
+  },
+  "full_pose_regression": {
+    "status": "passed",
+    "raw_sha256": "c66e790fb124b4f33070866846df780ae1849978934c4705884de9d4043d26ba",
+    "requests": 2,
+    "both_status_ok": true,
+    "bimanual_subgroup_count_failure_observed": false,
+    "ik_attempts_used": [1, 1],
+    "maximum_goal_position_error_m": 0.0000399762835222266,
+    "maximum_goal_orientation_error_rad": 0.000922011238250971,
+    "minimum_path_joint_limit_margin_rad": 0.255776892038574
+  },
+  "registered_failure_probe": {
+    "status": "passed",
+    "raw_probe_sha256": "2f9df395f4476cc5214d065b959fb078f0a60f8242ebb34e7191a777c2a774bc",
+    "cartesian_fraction": 1.0,
+    "ik_attempts_used": 1,
+    "maximum_goal_position_error_m": 0.000829021735402683,
+    "maximum_goal_orientation_error_rad": 0.0299898344160513,
+    "minimum_path_joint_limit_margin_rad": 0.0594898606109617,
+    "maximum_terminal_goal_normalization_rad": 9.9580183485562e-7,
+    "waypoint_count": 2
+  },
+  "repeat_proof": {
+    "report": "reports/training/m2-smolvla-aloha-moveit-position-priority-repeat-plan045-2026-08-16.json",
+    "report_sha256": "0ec07c6882928afdc6a8cd1cb9c0913d36a9eb79cb575f3bfb6cefd835789117",
+    "raw_repeat_sha256": "572b6b8baa6f08a582bc89530225b7363bc44f3526015d7c55ccf8e651c7b8bf",
+    "goal_vectors_exactly_equal": true,
+    "trajectory_vectors_exactly_equal": true,
+    "attempt_counts_equal": true
+  },
+  "source_failure_and_registered_change": {
+    "source_plan": "configs/sim/aloha_insertion_geometry_teacher_044.yaml",
+    "source_plan_sha256": "c573dbf48b0e4d68de24e55e16a01c4c58e173050c4a9085612863d6adb1951e",
+    "source_exact_report_sha256": "d61823063721d53c50b0929af710d7512cd0e44afd46b5e0f6074c6d7d32b989",
+    "source_audit": "reports/training/m2-smolvla-athena-plan044-local-exact-audit-2026-08-16.json",
+    "source_audit_sha256": "78342bdde53f439a6663d184fddc271b480a4d2523048162f42c582c7b8ba039",
+    "preregistration": "reports/training/m2-smolvla-explicit-moveit-full-pose-group-selection-preregistration-2026-08-16.json",
+    "preregistration_sha256": "cf6c04b3509358efbbc97e1a85b614173d98108eb0e3213ad8f45452f56d5db1"
+  },
+  "model_parity": {
+    "report": "reports/training/m2-smolvla-aloha-moveit-model-parity-plan045-2026-08-16.json",
+    "report_sha256": "35fffc3eb1c2410f94a2b7dddfc6ec0e197dbb0a447dbd6013cf3458714423ed",
+    "status": "passed",
+    "sample_count": 5,
+    "maximum_position_error_m": 3.188872858294072e-16,
+    "maximum_orientation_error_rad": 0.0
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "sealed_until_plan045_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

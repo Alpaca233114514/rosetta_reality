@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "report_type": "aloha_moveit_deterministic_subgroup_ik_repeat",
+  "status": "passed",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-043",
+  "search_contract": {
+    "mode": "deterministic_seeded_moveit_subgroup_multistart_v1",
+    "seed": 2210,
+    "maximum_attempts": 256,
+    "outer_timeout_s": 2.0,
+    "subgroup_order": ["left_arm", "right_arm"],
+    "solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "solver_base_frames": ["vx300s_left/base_link", "vx300s_right/base_link"],
+    "solver_tip_frames": [
+      "vx300s_left/ee_gripper_link",
+      "vx300s_right/ee_gripper_link"
+    ],
+    "target_transform": "moveit::core::RobotState::setToIKSolverFrame"
+  },
+  "repeat_result": {
+    "requests": 2,
+    "both_status_ok": true,
+    "goal_vectors_exactly_equal": true,
+    "attempt_counts_equal": true,
+    "ik_attempts_used": 1,
+    "goal_vector_sha256": "352ea54711a0ec74b8b9b4636165959478d08e8708ac96fdfc464c4c892d5fed"
+  },
+  "runtime": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9-deterministic-ik-002",
+    "image_id": "sha256:b88507608ae1c56fbfc7921bbb497c220001fa81b77df3143ad9912fa01507cf",
+    "executable_sha256": "e1b10da4534fbf154c7a04753682e6b7a7f4206c896e29c8f0bdb22a872a89e3",
+    "implementation_sha256": "19175863c3a876cc2bf153c673b743d5975dcfab2759e6d60c785850ce232efc"
+  },
+  "evidence": {
+    "requests": "integration/aloha_moveit2/config/deterministic_ik_repeat_requests.jsonl",
+    "requests_sha256": "1fbbf579ba88c20beade9677b1328481082a50c419f259a0d3aa1597f8f91a07",
+    "execution_log_data_root_relative": "runs/m2-smolvla-aloha-geometry-teacher-043/athena-plan043-deterministic-repeat-001/execution.log",
+    "execution_log_sha256": "0e87aff46f45417cd82d63c9637c9fe242a7d0bd11a3ac72ab0ec15de4ffe5b6",
+    "model_parity_report": "reports/training/m2-smolvla-aloha-moveit-model-parity-plan043-2026-08-15.json",
+    "model_parity_report_sha256": "e9926845045dd39f28a55a8cd7019495f62bb19b556a0d79b9c8adc0a541eb29",
+    "preregistration": "reports/training/m2-smolvla-deterministic-moveit-subgroup-ik-frame-preregistration-2026-08-15.json",
+    "preregistration_sha256": "56af21a301d38a5256fa61c2e1dbb945d9b89a6bb24a014c8f81edf961d2084f"
+  },
+  "sealed_boundaries": {
+    "dataset_rows_loaded": false,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false,
+    "cuda_training_started": false
+  }
+}

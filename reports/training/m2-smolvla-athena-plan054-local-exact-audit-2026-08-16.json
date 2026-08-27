@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan054-local-exact-audit-2026-08-16",
+  "status": "failed_train_only_exact",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_054.yaml",
+    "sha256": "d8d68745ea7a22c59f924713c93f04bcacce4371fca820b6040645b913c5ef6d"
+  },
+  "launcher_recovery": {
+    "background_attempt": "athena-plan054-local-exact-001",
+    "background_attempt_status": "stopped_before_container_start_with_empty_launcher_log",
+    "background_attempt_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "background_attempt_exact_report_created": false,
+    "guarded_attempt": "athena-plan054-local-exact-002",
+    "guarded_attempt_supervisor": "hidden_windows_process_holding_foreground_wsl_bash",
+    "guarded_attempt_supervisor_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "guarded_attempt_supervisor_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "execution": {
+    "exit_code": 1,
+    "execution_log_sha256": "3143f34c29210824411580fb1e0b47ade7acf5edf4fcf85f57a2aeb19594295e",
+    "exact_report_sha256": "dfbe89d5afebbfa63fc0f689a5b2c7015c34de6a88573f8f2defb8b152fe19f3",
+    "moveit_stderr_sha256": "77557adeb2213944b5d9495d748636e386bc799d1ee3b390c4298382426da638"
+  },
+  "result": {
+    "seed": 10,
+    "steps_executed": 423,
+    "final_phase": "lift",
+    "phase_visits": {
+      "open": 15,
+      "approach": 241,
+      "orient": 97,
+      "descend": 28,
+      "grasp": 7,
+      "lift": 34
+    },
+    "geometry_teacher_failures": 1,
+    "teacher_failure": "Observed object-to-end-effector transform exceeded the grasp-drift limit.",
+    "inverse_kinematics_failures": 0,
+    "path_planner_attempts": 6,
+    "path_planner_waypoints": 188,
+    "path_planner_terminal_control_completions": 5,
+    "task_contact_exemption_events": 12,
+    "contact_phase_feedforward_commands": 35,
+    "trust_region_margin_restoration_events": 0,
+    "trust_region_orientation_progress_events": 0,
+    "trust_region_feedback_basis_events": 0,
+    "trust_region_orientation_first_events": 0,
+    "trust_region_constraint_anchored_restoration_events": 0,
+    "expanded_orientation_target_budget_events": 0,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "adapter_clip_failures": 0,
+    "joint_limit_projection_events": 0
+  },
+  "failure_boundary": {
+    "seed": 10,
+    "step": 422,
+    "phase": "lift",
+    "failure": "observed_grasp_transform_exceeded_registered_drift",
+    "maximum_grasp_drift_m": 0.045,
+    "unexpected_collision_count": 0,
+    "peg_grasp_contact": false,
+    "socket_grasp_contact": true,
+    "peg_on_table": false,
+    "socket_on_table": false
+  },
+  "root_cause": {
+    "classification": "expanded_teacher_orientation_step_changed_pre_trust_region_task_dynamics",
+    "finding": "The 0.20-rad teacher step allowed direct planning to leave orient and reach lift before any active-set trust-region event occurred. The resulting manipulation lost the registered peg grasp and exceeded the unchanged grasp-drift invariant. Therefore the registered axis was not isolated to the joint-limit-aware fallback, and Plan 054 is rejected rather than treated as evidence for the trust-region target-budget hypothesis."
+  },
+  "scope_lock": {
+    "local_changes_after_this_audit": "verification_documentation_and_content_addressed_packaging_only",
+    "additional_planner_plan": "not_authorized",
+    "remote_stage": "exact_only_after_new_ssh_window",
+    "tuning_and_development": "sealed"
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "not_executed",
+    "development_seeds_2000_2004": "not_executed",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "not_written",
+    "cuda_training": "not_started",
+    "ssh": "not_connected"
+  }
+}

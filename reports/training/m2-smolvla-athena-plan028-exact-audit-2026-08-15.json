@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan028-exact-audit-2026-08-15",
+  "status": "train_exact_failed_recursive_feasibility_later_gates_sealed",
+  "task_name": "Athena",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_028.yaml",
+    "sha256": "536e882ec2222b67dcf7c81006f3b4860190823e0843ccc6b5fe6f8285b39899",
+    "evaluator_sha256": "806ae93d357c041155c6f7f99b8e506a0b3939ae841219c3d9eeefedbc8c1068",
+    "protocol_test_sha256": "3bf981c0464d14eb858aad3349a7d3397fe0fb0d7d8f2a73dcf0444af2f049ce"
+  },
+  "workspace": {
+    "release_id": "20260815T073758Z-5bd66d5e4bdc-574d6a7eae5f",
+    "archive_sha256": "574d6a7eae5fe42d21face90c9edd294c450858d0d950b502322f0507ff32171",
+    "workspace_tree_sha256": "a51f9e9a6740981ffeee70429f1775f628ef56c3684ca9f52bb41ef1d2ad7219",
+    "workspace_file_count": 361,
+    "safe_extract_omitted_member": "checkpoints",
+    "omitted_member_reason": "absolute local WSL symbolic link not required by geometry exact"
+  },
+  "watchdogs": {
+    "hard_deadline": "2026-08-15T18:00:00+08:00",
+    "hard_watchdog_pid": 1446,
+    "hard_sleep_pid": 1452,
+    "task_deadline": "2026-08-15T17:20:00+08:00",
+    "task_watchdog_pid": 1460,
+    "task_sleep_pid": 1466,
+    "task_nice": 19,
+    "task_io_class": "idle",
+    "independent_reconnect_verified": true
+  },
+  "static_evidence": {
+    "attempt_001": {
+      "experiment_started": false,
+      "classification": "local_control_plane_runner_writer_quote_failure_before_launch"
+    },
+    "attempt_002": {
+      "exit_code": 0,
+      "ruff": "passed",
+      "focused_tests_passed": 43,
+      "focused_tests_failed": 0,
+      "plan_boundary_validation": "passed",
+      "maximum_fk_parity_position_error_m": 3.188872858294072e-16,
+      "maximum_fk_parity_orientation_error_rad": 0.0,
+      "command_margin_rad": 0.04540462255477905,
+      "joint_margin_smoke_minimum_path_margin_rad": 0.2557759341471746,
+      "joint_margin_smoke_minimum_next_margin_rad": 0.41856799059245353,
+      "negative_margin_smoke_reason": "start_state_outside_joint_path_margin",
+      "negative_margin_smoke_start_margin_rad": 0.020000000000000018
+    }
+  },
+  "calibration": {
+    "source_episode": 2,
+    "simulator_seed": 10,
+    "maximum_reward": 4.0,
+    "steps_executed": 294
+  },
+  "exact": {
+    "attempt_001": {
+      "runner_exit_code": 1,
+      "report_sha256": "0848857b401a10635cd7d66da4dd7cd339f8417abd9982141669c01a05ccbb64",
+      "report_id": "m2-smolvla-aloha-geometry-teacher-028-4f3cf9b54b5ad3ec",
+      "successes": 0,
+      "required_successes": 1,
+      "steps_executed": 107,
+      "final_phase": "approach",
+      "path_planner_attempts": 3,
+      "path_planner_waypoint_actions_used": 2,
+      "maximum_path_planner_waypoint_count": 29,
+      "minimum_successful_path_margin_rad": 0.052193536834716614,
+      "minimum_successful_next_margin_rad": 0.16251630740252576,
+      "maximum_path_planner_goal_weighted_error": 0.00017017363068477326,
+      "commanded_margin_breach_events": 0,
+      "observed_margin_breach_events": 0,
+      "minimum_commanded_margin_rad": 0.04555977828979474,
+      "minimum_commanded_margin_step": 105,
+      "minimum_observed_margin_rad": 0.039528980331420716,
+      "minimum_observed_margin_step": 105,
+      "maximum_command_to_observed_joint_error_rad": 0.15629220008850098,
+      "maximum_tracking_overshoot_toward_limit_rad": 0.03540462255477905,
+      "failure_step": 106,
+      "failure_reason": "start_state_outside_joint_path_margin",
+      "failure_ik_error": 0.011678277559489273,
+      "failure_projected_ik_error": 0.011688468407996477,
+      "adapter_clip_failures": 0,
+      "joint_limit_projection_events": 0,
+      "start_bound_reconciliation_events": 0
+    }
+  },
+  "finding": {
+    "boundary": "tightened_set_recursive_feasibility",
+    "responsible_joint": "right_wrist_rotate",
+    "responsible_bound": "lower",
+    "command_step": 105,
+    "physical_margin_rad": 0.01,
+    "tracking_reserve_rad": 0.03540462255477905,
+    "command_margin_rad": 0.04540462255477905,
+    "commanded_margin_rad": 0.04555977828979474,
+    "observed_margin_rad": 0.039528980331420716,
+    "command_to_observed_margin_loss_rad": 0.006030797958374024,
+    "tightened_margin_shortfall_rad": 0.005875642223358334,
+    "physical_margin_breach": false,
+    "interpretation": "constraint tightening prevented physical-margin breaches, but controller tracking left the tightened command set and no backup controller restored recursive feasibility before the next MoveIt request",
+    "next_safe_action": "preregister a single-axis joint-limit retreat or backup feedback phase for physically safe observations outside the tightened command set, with monotonic return and per-step physical-margin checks",
+    "moveit_start_tolerance_relaxation_allowed": false,
+    "pose_gate_relaxation_allowed": false,
+    "physical_joint_margin_relaxation_allowed": false
+  },
+  "gates": {
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps": 0,
+    "cuda_training": false,
+    "model_or_data_downloaded": false
+  },
+  "local_evidence": {
+    "directory": "runs/m2-smolvla-aloha-geometry-teacher-028/remote/athena-plan028-exact-001",
+    "summary_sha256": "664a9039a0dcc743b3b70ca4947ddd4d7f5a2b70bdfa36ab657450870549a236",
+    "evidence_bundle_sha256": "2ed7a88d3746fb38d7e08be060935e4b2eeaef274587ee3c91e6695674fa706b",
+    "evidence_bundle_members": 59,
+    "unsafe_bundle_members": 0
+  },
+  "shutdown": {
+    "requested_deadline": "2026-08-15T18:00:00+08:00",
+    "manual_shutdown_id": "manual-shutdown-athena-plan028-complete-001",
+    "manual_shutdown_pid": 3766,
+    "manual_shutdown_record_sha256": "3c10b48ab9b576a931c5da3bf14831e1001b5e4a73a5c4d7e63d02a76f8003b2",
+    "shutdown_script_sha256": "179715883ca2436ae649f5339f0d9306a044f3f54af5cbd5ed5ba95f36d37db1",
+    "shutdown_command": "/usr/bin/shutdown",
+    "shutdown_arguments": [],
+    "ssh_after_shutdown_exit_code": 255,
+    "ssh_after_shutdown_error": "Connection reset",
+    "status": "ssh_connection_closed"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-geometry-path-planner-audit-2026-08-14",
+  "status": "train_exact_failed",
+  "scope": {
+    "plans": [10, 11, 12, 13, 14],
+    "tuning_seed_opened": false,
+    "development_seeds_opened": false,
+    "collection_seeds_opened": false,
+    "policy_gate_seeds_opened": false,
+    "validation_episodes_loaded": false,
+    "hidden_test_loaded": false,
+    "recovery_labels_written": false,
+    "cuda_training_started": false
+  },
+  "frozen_identities": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "maximum_accepted_ik_error": 0.001,
+    "maximum_accepted_projected_ik_error": 0.003,
+    "maximum_position_anchor_m": 0.012,
+    "maximum_cartesian_step_m": 0.012
+  },
+  "results": [
+    {
+      "plan": 10,
+      "evidence_environment": "autodl_remote",
+      "plan_sha256": "ec78415e0a3c5d7ace5c6190e50e70a0b06c7c222364049f616adbd20170e6b4",
+      "evaluator_sha256": "bb676891484f81512f927f663bcd443cc5d1bb2bf4091320d9c75a4a09a12259",
+      "report_sha256": "64044579a3cb66613748172b77f577b59ed0bf080616a5b0ce4611cd794c57ce",
+      "last_step": 125,
+      "final_phase": "orient",
+      "path_planner_attempts": 28,
+      "path_planner_waypoints": 27,
+      "maximum_projected_ik_error": 0.006960180828197437,
+      "status": "failed"
+    },
+    {
+      "plan": 11,
+      "evidence_environment": "local_vla_sim_xpu",
+      "plan_sha256": "7659ab10483078fd2cccd05cafff57176e94566189c8a65c9e6275c15616f7ae",
+      "evaluator_sha256": "b587e163c84a114db112f2521f329bed9915c9b5155093bc4eace7d9836838d4",
+      "report_sha256": "0c12d0cf19592d61ff69b092188cbfa44bf66ba11e1eb08ec9b737817b062deb",
+      "last_step": 155,
+      "final_phase": "orient",
+      "path_planner_attempts": 58,
+      "path_planner_waypoints": 57,
+      "maximum_projected_ik_error": 0.006882439298032348,
+      "status": "failed"
+    },
+    {
+      "plan": 12,
+      "evidence_environment": "local_vla_sim_xpu",
+      "plan_sha256": "225b1976f243fe92ab4bb286007ab1f5cb6c66058498d8b5e4dc3423a144f9f3",
+      "evaluator_sha256": "eb1c82b50d8e483becb7c475e6ff57dfb86401d6a5d112b6702821211a2c26aa",
+      "report_sha256": "c89ae3ebe7eba1af0e0dedf01a16614cb07a162e81c73a62940f1aa8aa853fcb",
+      "last_step": 129,
+      "final_phase": "orient",
+      "path_planner_attempts": 32,
+      "path_planner_waypoints": 31,
+      "maximum_projected_ik_error": 0.00803323605687403,
+      "status": "failed"
+    },
+    {
+      "plan": 13,
+      "evidence_environment": "local_vla_sim_xpu",
+      "plan_sha256": "f202331d961f5b093cd37efe3072a41d4be7b7d449deabc7377a195f39d80835",
+      "evaluator_sha256": "1329b0e2ddde8ad9144a80ec9071ee227274acf947ff5cbc3417c6a83398167b",
+      "report_sha256": "b650485fa569dec226a937598eb5a881361109730105769880bc007019adba16",
+      "last_step": 125,
+      "final_phase": "orient",
+      "path_planner_attempts": 28,
+      "path_planner_waypoints": 27,
+      "maximum_projected_ik_error": 0.006960180828197437,
+      "status": "failed"
+    },
+    {
+      "plan": 14,
+      "evidence_environment": "local_vla_sim_xpu",
+      "plan_sha256": "b10bdd6a0455f826ebfbd6f25537135cd04593aad1ff72e919f98aca8e118a50",
+      "evaluator_sha256": "de47b7f4e34fe4078db1c6523c1e4cced175441e8be11115c9bc584e31e4de29",
+      "report_sha256": "7705210399fe2eb13ee0b2b05c65144e2f5e4aa1ce21eda595e0c9147e49fa90",
+      "last_step": 125,
+      "final_phase": "orient",
+      "path_planner_attempts": 28,
+      "path_planner_waypoints": 27,
+      "maximum_projected_ik_error": 0.006960180828197437,
+      "status": "failed"
+    }
+  ],
+  "next_gate": "new_constrained_solver_hypothesis_must_pass_train_only_exact"
+}

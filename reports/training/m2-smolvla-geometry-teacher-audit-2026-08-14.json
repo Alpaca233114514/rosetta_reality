@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-geometry-teacher-audit-2026-08-14",
+  "status": "exact_gate_failed",
+  "decision": {
+    "recovery_labels_authorized": false,
+    "recovery_training_authorized": false,
+    "ssh_required": false,
+    "tuning_seed_opened": false,
+    "development_seeds_opened": false,
+    "collection_seeds_opened": false,
+    "policy_gate4_seeds_opened": false,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false
+  },
+  "identity": {
+    "dataset_revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+    "action_contract": "configs/sim/aloha_insertion_smolvla.yaml",
+    "teacher_implementation_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "evaluator_sha256": "36bc6287912d0fa6405939515530e156db31e0ca0b58e10200dbd8b3793d4119",
+    "gym_aloha_adapter_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "protocol": {
+    "label_type": "object_geometry_event_feedback_teacher_action",
+    "state_conditioned": true,
+    "object_geometry_conditioned": true,
+    "source_timeline_actions_used_at_runtime": false,
+    "environment_step_input": false,
+    "timestamp_input": false,
+    "source_episode_scope": "train_only",
+    "projected_pose_threshold": 0.003,
+    "environment_side_clipping_allowed": false
+  },
+  "calibration": {
+    "source_episode": 2,
+    "simulator_seed": 10,
+    "maximum_reward": 4.0,
+    "steps": 294
+  },
+  "attempts": [
+    {
+      "plan": "003",
+      "plan_sha256": "f046d08639c2dee6da67be1a07b803d5489adc0577b300a3df85353ed24c6e76",
+      "report_sha256": "000fd7d249f642ef466933d8f46cc8fc966a937648c4c1f6c82e882179f9f8cc",
+      "steps": 25,
+      "final_phase": "approach",
+      "failure": "unbounded_grasp_orientation_target",
+      "maximum_inverse_kinematics_error": 0.010684342005291355
+    },
+    {
+      "plan": "004",
+      "plan_sha256": "4320a0ad115645d6d7c304f551c7ebc5ed65e652b5a8dc9aa02cb10b794698ab",
+      "report_sha256": "6a22acfe5432fc2cb02b88b02f82c419902ee005861d03837cf5a134ffc796c9",
+      "steps": 78,
+      "final_phase": "descend",
+      "failure": "post_ik_action_contract_projection_not_verified",
+      "maximum_inverse_kinematics_error": 0.000048493361967012134,
+      "projected_field": "right_forearm_roll"
+    },
+    {
+      "plan": "005",
+      "plan_sha256": "b5ce9e508f9f0353ac4cffd4cf5ef81b75022e1ed93c799736139c11326fb372",
+      "report_sha256": "680c53f7b1f210c5e80522c640ae1eff8a689b4f964db753d9ba6310bed2c7fa",
+      "steps": 16,
+      "final_phase": "approach",
+      "failure": "redundant_joint_delta_limiter_distorted_accurate_ik",
+      "maximum_inverse_kinematics_error": 0.0000016556750007532842,
+      "maximum_projected_error": 0.015670714612799636
+    },
+    {
+      "plan": "006",
+      "plan_sha256": "2d2f11957db178b894ded6ad0a22c8e2bdd35cd45f05c77d62edd38beca965b9",
+      "report_sha256": "296bcff3ef70dbc6a437156bbe8382c18d18c094bcb31f7c469d1be97add8f27",
+      "steps": 66,
+      "final_phase": "approach",
+      "failure": "unconstrained_ik_crossed_action_contract_limit",
+      "maximum_projected_error": 0.008566937537494025,
+      "projected_field": "right_forearm_roll"
+    },
+    {
+      "plan": "007",
+      "plan_sha256": "e960604ebb901dbac57754f4fc7b55c6b2aaecff3f67b6534b739383a703e014",
+      "report_sha256": "c6f6cb1635cf533f02c036796f7d064e1641c1ae30d1c51dd27b88af230f20cb",
+      "steps": 66,
+      "final_phase": "approach",
+      "failure": "five_free_dofs_could_not_match_six_dimensional_pose",
+      "maximum_inverse_kinematics_error": 0.004422991043437315,
+      "maximum_projected_error": 0.0043849246263572405,
+      "projected_field": "right_forearm_roll"
+    },
+    {
+      "plan": "008",
+      "plan_sha256": "275d4820adccd1d3ac9ecbc5500a11c474be3e1882995522155c5095024f791c",
+      "report_sha256": "32dc38552c06e75f1bf05469b685edd8480ea8ec66076793da73b3d53fa2c672",
+      "steps": 98,
+      "final_phase": "approach",
+      "failure": "duplicate_solver_convergence_gate_conflicted_with_registered_threshold",
+      "maximum_inverse_kinematics_error": 0.0009625081825476922,
+      "maximum_projected_error": 0.0008840321679599583,
+      "projected_field": "right_wrist_rotate"
+    },
+    {
+      "plan": "009",
+      "plan_sha256": "33bdc1f4ec9d1315ccb742853e1a9f323e47b596e0f89bbcf045de182b6ef5fb",
+      "report_sha256": "31efb33964a4646cd35a1d926b5315046eb722aeee387952112e6ed25df724b6",
+      "steps": 99,
+      "final_phase": "approach",
+      "failure": "next_joint_limited_intermediate_pose_remained_infeasible",
+      "maximum_inverse_kinematics_error": 0.01196430105789775,
+      "maximum_projected_error": 0.011965100896001645,
+      "projected_field": "right_wrist_rotate"
+    }
+  ],
+  "next_required_boundary": "joint_limit_aware_geometric_path_planner_that_passes_exact_before_tuning"
+}

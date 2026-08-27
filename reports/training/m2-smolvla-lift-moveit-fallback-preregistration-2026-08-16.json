@@ -1,0 +1,70 @@
+{
+  "acceptance": {
+    "exact_control_successes_required": 1,
+    "hidden_test_loaded": false,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "minimum_lift_contact_exemption_events": 1,
+    "minimum_lift_feedback_anchor_commands": 1,
+    "minimum_lift_moveit_fallback_events": 1,
+    "recovery_labels_authorized_on_pass": false
+  },
+  "frozen_settings": {
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "exact_seed": 10,
+    "lift_feedback_step_m": 0.006,
+    "lift_object_height_m": 0.17,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "maximum_cartesian_step_m": 0.012,
+    "maximum_grasp_drift_m": 0.045,
+    "maximum_orientation_step_rad": 0.2,
+    "maximum_steps": 750,
+    "physical_joint_limit_margin_rad": 0.01
+  },
+  "gate_boundary": {
+    "collection_seeds_3000_3004": "sealed",
+    "cuda_training": "forbidden_without_new_user_authorization",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "recovery_labels": "forbidden",
+    "tuning_seed_1900": "sealed_until_plan057_exact_passes",
+    "validation_and_hidden": "sealed"
+  },
+  "hypothesis": "Plan056 moved the failure to one Mink QP solve in lift. The official MoveIt/OMPL fallback is already proven in approach and orient; extending the same fallback to lift after a Mink failure should provide a constrained collision-checked solution without changing the teacher target, contact scope, margins, pose gates or acceptance thresholds.",
+  "preregistration_id": "m2-smolvla-lift-moveit-fallback-plan057-2026-08-16",
+  "schema_version": 1,
+  "single_axis_change": {
+    "activation": "only_after_unchanged_mink_qp_failure",
+    "from_phases": [
+      "approach",
+      "orient"
+    ],
+    "interpretation": "official_moveit_fallback_phase_scope_extension_not_new_solver_or_relaxed_gate",
+    "persistent_hidden_state": false,
+    "setting": "inverse_kinematics.path_planner_phases",
+    "to_phases": [
+      "approach",
+      "orient",
+      "lift"
+    ]
+  },
+  "source_audit": "reports/training/m2-smolvla-athena-plan056-local-exact-audit-2026-08-16.json",
+  "source_audit_sha256": "2d03c505ccad15d2ed6cf4ae29a5eacdb426ada0baf4d91898f1e1ccb339a0b6",
+  "source_exact_report_sha256": "47e399ac6bdbca5d6580e679477cfef7bae45759248ffd813ad03fc27b205acf",
+  "source_failure": {
+    "commanded_margin_breach_events": 0,
+    "failure": "inverse_kinematics_failure",
+    "inverse_kinematics_failures": 1,
+    "lift_contact_exemption_events": 1,
+    "lift_feedback_anchor_commands": 56,
+    "maximum_inverse_kinematics_error": 0.0015606494501644484,
+    "observed_margin_breach_events": 0,
+    "phase": "lift",
+    "step": 443
+  },
+  "source_plan": "configs/sim/aloha_insertion_geometry_teacher_056.yaml",
+  "source_plan_sha256": "20653da3f6d0ad6d1cb4528a29380f4298051b6841713cab6053a6334981e56e",
+  "status": "preregistered_before_plan057_execution"
+}

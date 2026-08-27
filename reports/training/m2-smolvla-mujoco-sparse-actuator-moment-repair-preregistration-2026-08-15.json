@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-mujoco-sparse-actuator-moment-repair-preregistration-2026-08-15",
+  "status": "locally_implemented_preregistered_static_and_sidecar_verified_no_exact",
+  "work_line": "m2_smolvla_object_geometry_teacher",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_033.yaml",
+    "plan_sha256": "3fd522c8bab1c96012c4bf40d1a5aed84aea27ef03e31b1ceb7bdb2ff0887d14",
+    "audit": "reports/training/m2-smolvla-athena-plan033-local-exact-audit-2026-08-15.json",
+    "audit_sha256": "89728307f15ebbb4d5d65adcc0a7ea31d1720563b3852ebb3bbf6633fc5efad0",
+    "exact_report_sha256": "a7516fb47d386ba3f87d63eda7ef787edf434aa914d1f2975e77eed49af65f52",
+    "failure_step": 127,
+    "terminal_waypoint_index": 15,
+    "terminal_handoff_l1_distance_rad": 0.16979807420839654,
+    "failure": "dense actuator_moment shape assumption rejected MuJoCo 3.8.1 official CSR storage before terminal control activation"
+  },
+  "registered_single_axis": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_034.yaml",
+    "plan_sha256": "6dc5019b80522eca489b2d1473f0f801ef6c596cd5cbf38acfe1401baaa883ad",
+    "change": "read and strictly validate MuJoCo actuator_moment from its official CSR row metadata while retaining the dense unit boundary",
+    "required_fields": ["moment_rownnz", "moment_rowadr", "moment_colind"],
+    "direct_one_dof_row_required": true,
+    "force_balance_changed": false,
+    "pose_thresholds_changed": false,
+    "joint_limit_margins_changed": false,
+    "planner_or_ik_plugin_changed": false,
+    "gym_adapter_changed": false,
+    "seeds_or_labels_changed": false
+  },
+  "implementation": {
+    "src/rosetta_reality/sim/moveit_aloha_planner.py": "f3f2acfdb3f54ab8e170a1e039443e20027ecf905e7deef3e8c30e314fc3b79e",
+    "src/rosetta_reality/sim/mujoco_position_feedforward.py": "2be1e16624e272955a4366c57fa019fc303a557d756c12edcb2530cb7b664fc4",
+    "scripts/evaluate_aloha_geometry_teacher.py": "43b04e75f1a686b0bab3951e15a7a761ae09075fe78da5fd352355559b55f603",
+    "tests/test_mujoco_position_feedforward.py": "bc2200420ada91d93f7f17bd01022f50b7e4338b0400c68e2eb122ae5c8334dd",
+    "tests/test_moveit_aloha_planner.py": "d531bf489df7f94532d00b70fcdf4088bd06cf38293a31f19e5b04f394f9e248",
+    "tests/test_geometry_teacher_protocol.py": "57027e365a8f6e6e3d91f27224b9e11a8d56ad4f6955da1c38dc85bb74260bf7"
+  },
+  "local_verification": {
+    "ruff": "passed",
+    "focused_tests": {
+      "passed": 69,
+      "failed": 0,
+      "network": "disabled",
+      "repository_mount": "read_only"
+    },
+    "official_sidecar_identity": "passed",
+    "collision_geometry": "22_links_22_shapes",
+    "mesh_manifest_sha256": "63edd159854e2eaa99bbe640c76b6b65e0e0ac517081689796d31c1db579e04d",
+    "urdf_source_manifest_sha256": "c74d4712fe206303ef081a3f81c65c6aa2a8b1a0b29b3d52b174e9c6cbc8ccf1",
+    "fk_parity": {
+      "status": "passed",
+      "sample_count": 5,
+      "report_sha256": "07410d8832cce1bd137e0c32993e4b54a25985a796881bff48743b78ae80aa62",
+      "maximum_position_error_m": 3.188872858294072e-16,
+      "maximum_orientation_error_rad": 0.0
+    },
+    "local_composite_image": "rosetta-reality-plan033-local-composite:005",
+    "local_composite_image_id": "sha256:4941347b5ffa947d66491efe92006180ec6106745bae31f0cd3ee970c7e33f9a",
+    "protected_gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "protected_geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "git_diff_check": "passed",
+    "cuda": false
+  },
+  "gates": {
+    "train_exact_run": false,
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps": 0,
+    "cuda_training": false,
+    "model_or_data_downloaded": false
+  },
+  "next_authorized_action": "run only Plan034 episode 2 seed 10 train-only exact in the already verified local composite boundary"
+}

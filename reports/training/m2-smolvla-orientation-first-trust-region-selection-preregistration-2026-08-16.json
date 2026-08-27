@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-orientation-first-trust-region-selection-plan052-2026-08-16",
+  "status": "preregistered_before_plan052_execution",
+  "work_line": "VLA geometry-teacher train-only exact",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_051.yaml",
+    "plan_sha256": "e593c3c7f13eba83c3760d315b1acde34c4fe5243069c13bfdbee061f2e82ef8",
+    "audit": "reports/training/m2-smolvla-athena-plan051-local-exact-audit-2026-08-16.json",
+    "audit_sha256": "c31291f4425488f1ed8d282da8e619cf72039a9adb99872298fb0d43916e4a1b",
+    "exact_report_sha256": "f80d14eee434c3637330e77ecf6d1b1e8f45aeff0fd123bec06dc3299428c647",
+    "steps_executed": 750,
+    "final_phase": "orient",
+    "inverse_kinematics_failures": 0,
+    "feedback_basis_events": 8,
+    "margin_restoration_events": 8,
+    "orientation_progress_events": 0
+  },
+  "hypothesis": "Plan 051 proves the feedback-aligned basis is feasible but also proves that margin-first lexicographic selection starves the primary Cartesian task. Selecting the largest feasible registered orientation fraction first, maximizing minimum joint margin only within that fraction, and falling back to margin restoration only when no progress fraction is feasible will preserve hard joint/path constraints while preventing starvation.",
+  "single_axis_change": {
+    "from": "margin_restoration_then_orientation_progress",
+    "to": "orientation_progress_then_margin_restoration",
+    "selection_policy": "largest_feasible_orientation_fraction_then_maximum_goal_minimum_joint_margin_then_minimum_radius_then_direction_order_with_margin_restoration_fallback",
+    "orientation_progress_fraction_order": [0.5, 0.25, 0.125, 0.05],
+    "orientation_progress_feasibility": [
+      "official_lma_endpoint_valid",
+      "official_ompl_path_valid",
+      "registered_joint_path_constraints",
+      "registered_pose_tolerances"
+    ],
+    "margin_restoration_fallback_minimum_improvement_rad": 0.001,
+    "persistent_hidden_state": false
+  },
+  "frozen_settings": {
+    "candidate_basis": "feedback_aligned_orthonormal_v1",
+    "radii_m": [0.0, 0.0015, 0.003, 0.006, 0.009],
+    "maximum_requested_position_relaxation_m": 0.012,
+    "solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "global_planner": "official_moveit2_ompl_rrtconnect",
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "exact_seed": 10,
+    "maximum_steps": 750
+  },
+  "existing_feasibility_evidence": {
+    "plan050_initial_boundary_largest_progress_fraction": 0.125,
+    "plan050_initial_boundary_goal_minimum_joint_margin_rad": 0.04969582730007538,
+    "plan050_final_boundary_largest_progress_fraction": 0.125,
+    "plan050_final_boundary_goal_minimum_joint_margin_rad": 0.0470786152560545,
+    "interpretation": "Both sealed train-only boundaries admitted orientation progress above the unchanged command margin; margin-first ordering, not hard feasibility, prevented Plan 051 from selecting it."
+  },
+  "acceptance": {
+    "exact_control_successes_required": 1,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "minimum_feedback_basis_events": 1,
+    "minimum_orientation_first_selection_events": 1,
+    "hidden_test_loaded": false,
+    "recovery_labels_authorized_on_pass": false
+  },
+  "gate_boundary": {
+    "tuning_seed_1900": "sealed_until_plan052_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

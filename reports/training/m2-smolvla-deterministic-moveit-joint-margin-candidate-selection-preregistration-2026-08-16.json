@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-deterministic-moveit-joint-margin-candidate-selection-preregistration-2026-08-16",
+  "status": "preregistered_not_executed",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_046.yaml",
+    "plan_sha256": "a80b3490044e45ff2603ada009c4bd764a5e5df60271308ae8d69c3c495f23b6",
+    "exact_report_sha256": "dcf2667b3994d1093c14f162f4a17468cd3c2544d94ff28babaa6d52e04fc1b3",
+    "audit": "reports/training/m2-smolvla-athena-plan046-local-exact-audit-2026-08-16.json",
+    "audit_sha256": "9101b0787a53f5ae2093f9528c3da1c60b83150117a5641ab2252a442978de9e",
+    "failure_step": 257,
+    "failure_phase": "orient",
+    "solver_failure": "bimanual_lma_ik_failed",
+    "pre_step_minimum_margin_joint": "right_wrist_rotate",
+    "pre_step_minimum_margin_rad": 0.0466891670989988,
+    "registered_command_margin_rad": 0.04540462255477905
+  },
+  "hypothesis": "The registered MoveIt sidecar currently accepts the first valid deterministic LMA candidate. During full-pose Cartesian feedback this repeatedly selects the local wrist continuation and consumes the remaining right_wrist_rotate margin. Evaluating the same frozen deterministic multistart budget and selecting the valid candidate with the maximum minimum physical joint-limit margin should prefer an alternate official-LMA branch when one exists, while preserving solver, target, collision, path-constraint and OMPL semantics.",
+  "single_axis": "replace_first_valid_lma_candidate_with_deterministic_maximum_minimum_joint_margin_selection",
+  "registered_change": {
+    "selection_mode": "deterministic_maximum_minimum_joint_limit_margin_v1",
+    "candidate_generator": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "task_modes": ["full_pose", "position_priority"],
+    "validity_filter": [
+      "satisfiesBounds",
+      "registered_joint_path_constraints",
+      "self_collision_free",
+      "registered_task_space_tolerance"
+    ],
+    "primary_objective": "maximize_minimum_arm_joint_limit_margin_rad",
+    "secondary_objective": "minimize_maximum_absolute_arm_joint_delta_from_start_rad",
+    "final_tie_break": "lowest_deterministic_attempt_index",
+    "seed": 2210,
+    "maximum_attempts": 256,
+    "outer_timeout_s": 2.0,
+    "global_planner": "official_moveit2_ompl_rrtconnect",
+    "selection_diagnostics_required": [
+      "valid_ik_candidate_count",
+      "selected_ik_attempt",
+      "selected_ik_minimum_joint_limit_margin_rad",
+      "selected_ik_maximum_start_delta_rad"
+    ],
+    "all_other_planner_behavior_frozen": true
+  },
+  "required_evidence_before_exact": [
+    "runtime identity reports the registered candidate-selection mode",
+    "ordinary full-pose and position-priority smoke requests still pass",
+    "the Plan046 failed-request probe reports deterministic selection diagnostics",
+    "a repeated request returns the same selected goal and diagnostics",
+    "five-sample MuJoCo/MoveIt model parity still passes",
+    "Ruff and all related tests pass",
+    "all implementation and plan hashes are bound in Plan047"
+  ],
+  "frozen_contract": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "position_tolerance_m": 0.001,
+    "orientation_tolerance_rad": 0.003,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "maximum_position_priority_orientation_relaxation_rad": 0.04,
+    "physical_joint_limit_margin_rad": 0.01,
+    "joint_path_constraint_margin_rad": 0.04540462255477905,
+    "environment_side_clipping_allowed": false
+  },
+  "acceptance": {
+    "stage": "train_only_exact",
+    "required_successes": 1,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "maximum_unexpected_collision_count": 0,
+    "hidden_test_loaded": false,
+    "recovery_labels_written": false
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "sealed_until_plan047_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

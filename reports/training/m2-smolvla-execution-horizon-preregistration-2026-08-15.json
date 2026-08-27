@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_no_execution",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-038",
+  "hypothesis": "Plan 037 has no teacher, IK, clip, collision or joint-margin failure and reaches descend at step 478, leaving only 22 steps before the 500-step horizon. Extending only the episode horizon to 750 steps will permit the safe official retained-path execution and the train-demonstrated post-grasp sequence to finish without changing any success or safety threshold.",
+  "single_axis": "maximum_episode_steps_500_to_750",
+  "source": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_037.yaml",
+    "plan_sha256": "81eb1b480597670af2bbc11dd4e9d9becc3f960e036799fbb72cefde5cdb9263",
+    "audit": "reports/training/m2-smolvla-athena-plan037-local-exact-audit-2026-08-15.json",
+    "audit_sha256": "797a8192c5cdb32554f0e6a7c1a27de27162f2116e8d3d7c11d119b53141fc2d",
+    "exact_report_sha256": "6b99e77a4b97df52e858ce3b8bde3632038dbc3e1955874f310b7e90d1a3690e"
+  },
+  "observed_boundary": {
+    "old_maximum_steps": 500,
+    "steps_executed": 500,
+    "final_phase": "descend",
+    "orient_to_descend_transition_step": 478,
+    "descend_steps_before_horizon": 22,
+    "final_target_position_error_m": 0.00954453926533461,
+    "frozen_grasp_tolerance_m": 0.008,
+    "teacher_failures": 0,
+    "inverse_kinematics_failures": 0,
+    "adapter_clip_failures": 0,
+    "unexpected_collision_count": 0,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "train_calibration_first_grasp_step": 186,
+    "train_calibration_terminal_step": 293,
+    "train_calibration_post_grasp_steps": 108
+  },
+  "registered_change": {
+    "old_maximum_steps": 500,
+    "new_maximum_steps": 750,
+    "extension_steps": 250,
+    "pose_thresholds_changed": false,
+    "joint_limit_margins_changed": false,
+    "planner_or_controller_changed": false,
+    "teacher_targets_changed": false,
+    "collision_policy_changed": false,
+    "seed_or_label_boundaries_changed": false
+  },
+  "acceptance": {
+    "exact_seed": 10,
+    "exact_successes_required": 1,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false
+  },
+  "stop_conditions": [
+    "maximum_steps_differs_from_750",
+    "any_pose_collision_joint_limit_planner_controller_or_teacher_setting_changes",
+    "validation_hidden_or_later_seed_access",
+    "recovery_label_write"
+  ]
+}

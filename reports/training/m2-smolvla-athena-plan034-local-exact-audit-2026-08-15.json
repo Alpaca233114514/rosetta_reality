@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan034-local-exact-audit-2026-08-15",
+  "status": "failed_safe_before_exact_report_action_to_gym_joint_name_boundary",
+  "execution": {
+    "name": "athena-plan034-local-exact-001",
+    "location": "local_linux_container",
+    "network": "disabled",
+    "repository_mount": "read_only",
+    "cuda": false,
+    "optimizer_steps": 0,
+    "exit_code": 1,
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_034.yaml",
+    "plan_sha256": "6dc5019b80522eca489b2d1473f0f801ef6c596cd5cbf38acfe1401baaa883ad",
+    "exact_report_created": false,
+    "execution_log_sha256": "f1552754b36e1d15588cfb23dcb59a9dbf06f7428be91d7d92dff9b54c26697d",
+    "moveit_stderr_sha256": "669f45b585c9870c7aaf5c84643bea43102e68931ee78090d7a5d3a843f27c3d"
+  },
+  "progress": {
+    "calibration_reward": 4.0,
+    "calibration_steps": 294,
+    "exact_seed_started": 10,
+    "csr_storage_repair_passed_original_failure": true,
+    "terminal_feedforward_completed": false,
+    "command_executed": false
+  },
+  "failure": {
+    "type": "dm_control.mujoco.wrapper.core.Error",
+    "message": "Object of type 'joint' with name 'left_waist' does not exist.",
+    "diagnosis": "The terminal feedforward call passed MoveIt and Action Contract dimension names to MuJoCo model.name2id; the registered Gym model uses the existing vx300s_left/... and vx300s_right/... joint names already owned by the evaluator and Mink adapter.",
+    "action_contract_joint_name": "left_waist",
+    "gym_joint_name": "vx300s_left/waist",
+    "mapping_scope": "the existing ordered 12-arm LEFT_JOINTS plus RIGHT_JOINTS constants",
+    "planner_or_teacher_failure": false,
+    "csr_storage_failure": false
+  },
+  "gate_seals": {
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "model_or_data_downloaded": false,
+    "cuda_training": false
+  },
+  "next_single_axis": "Plan035 preserves Plan034 and replaces only the terminal feedforward joint lookup names with the evaluator's already registered ordered Gym MuJoCo joint names."
+}

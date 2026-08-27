@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan052-local-exact-audit-2026-08-16",
+  "status": "failed_train_only_exact",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_052.yaml",
+    "sha256": "7b9be243e46731a031d1ac1c65d521144a008fbcb6f8b2046b60eacf5b2158c5"
+  },
+  "launcher_recovery": {
+    "background_attempt_status": "stopped_before_evaluator_with_empty_launcher_log",
+    "background_attempt_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "background_attempt_exact_report_created": false,
+    "guarded_foreground_attempt": "athena-plan052-local-exact-002"
+  },
+  "execution": {
+    "exit_code": 1,
+    "execution_log_sha256": "e23e55b5e0122141b45b15d610b40ec3c2935541cf412c6f80b62d9552027e3d",
+    "exact_report_sha256": "d6a15d1b899ceb8f41f69294889b6113e2073a1f92d14b9e105645835c1a4c5e",
+    "moveit_stderr_sha256": "9ca12208466b394aa3ac6774ce1df8f97ef0f78263233281562deab7be9f6a1e"
+  },
+  "progress_before_failure": {
+    "steps_executed": 333,
+    "final_phase": "orient",
+    "path_planner_attempts": 8,
+    "path_planner_waypoints": 183,
+    "trust_region_margin_restoration_events": 0,
+    "trust_region_orientation_progress_events": 3,
+    "trust_region_feedback_basis_events": 3,
+    "trust_region_orientation_first_events": 3,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "adapter_clip_failures": 0,
+    "joint_limit_projection_events": 0
+  },
+  "failure_boundary": {
+    "seed": 10,
+    "step": 332,
+    "phase": "orient",
+    "solver_failure": "bimanual_lma_ik_failed",
+    "ik_attempts_used": 256,
+    "valid_ik_candidate_count": 0,
+    "ik_error": 0.01719365134061093,
+    "projected_ik_error": 0.01719826508371267,
+    "pre_step_minimum_margin_joint": "right_wrist_rotate",
+    "pre_step_minimum_margin_rad": 0.04582680709838849,
+    "registered_command_margin_rad": 0.04540462255477905,
+    "remaining_registered_margin_rad": 0.00042218454360944247
+  },
+  "root_cause": {
+    "classification": "restoration_hysteresis_is_anchored_to_current_margin_instead_of_the_active_constraint_boundary",
+    "finding": "Orientation-first selection was exercised three times. At step 332 no orientation-progress candidate existed. The fallback then rejected the only valid zero-orientation candidate because it improved the current margin by 0.000933 rad rather than 0.001 rad, even though its goal margin was 0.001356 rad inside the unchanged command constraint. Active-set restoration must preserve the 0.001-rad interior buffer but measure it from the active constraint boundary, not require an additional 0.001 rad from every current state."
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "not_executed",
+    "development_seeds_2000_2004": "not_executed",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "not_written",
+    "cuda_training": "not_started"
+  }
+}

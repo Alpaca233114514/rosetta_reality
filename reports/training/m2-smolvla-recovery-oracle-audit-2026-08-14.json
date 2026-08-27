@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-recovery-oracle-audit-2026-08-14",
+  "status": "exact_control_passed_cross_pose_failed",
+  "decision": {
+    "recovery_labels_authorized": false,
+    "recovery_training_authorized": false,
+    "ssh_required": false,
+    "development_seeds_opened": false,
+    "collection_seeds_opened": false,
+    "policy_gate4_seeds_opened": false,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false
+  },
+  "identity": {
+    "dataset_revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+    "action_contract": "configs/sim/aloha_insertion_smolvla.yaml",
+    "oracle_implementation_sha256": "0b781f11832cb2bd00d7b704ddf2a2f90b6f435a3785cb0b70af750a9413bd1d",
+    "evaluator_sha256": "7b4e22a93a3995bb7a3eb4af5c113d3d6746ab1379be5f6a53a6f70fdca50b65",
+    "recovery_manifest_contract_sha256": "c93bfa9f5c5b841d18a9c94da4dbd9f9f3c53b5b8721e6ba5677a8d7ae4f840b"
+  },
+  "protocol": {
+    "label_type": "state_and_reward_conditioned_oracle_action",
+    "time_indexed_reference": false,
+    "environment_step_input": false,
+    "timestamp_input": false,
+    "out_of_distribution_behavior": "raise_without_label",
+    "source_episode_scope": "train_only"
+  },
+  "source_replays": {
+    "registered": 11,
+    "reward_four_successes": 11
+  },
+  "attempts": [
+    {
+      "plan_sha256": "e5765387b88860c27a77a1bb1345031c7090cf8f20db4114ee73d17c242a757e",
+      "progress_state_distance": 0.01,
+      "exact": {
+        "success": true,
+        "maximum_reward": 4.0,
+        "steps": 294,
+        "maximum_state_distance": 0.00564728770405054,
+        "report_sha256": "1a8117c198eb6b6ec8aa82ddf6736a1a3aa17796b94f4540ca1c07f1647ffea4"
+      },
+      "tuning": {
+        "seed": 1900,
+        "success": false,
+        "maximum_reward": 0.0,
+        "steps": 500,
+        "stalled_reference_index": 20,
+        "maximum_state_distance": 0.0155259147286415,
+        "oracle_out_of_distribution": false,
+        "inverse_kinematics_failures": 0,
+        "report_sha256": "9852c309a6afbc1097d71658e2110581468c281d373bf3df1dcb90a7fe48cfa6"
+      }
+    },
+    {
+      "plan_sha256": "5d3d23ea32a7dd8fc2b05c425f6a140b2806a967b4341fd0915895ec07afea79",
+      "progress_state_distance": 0.02,
+      "exact": {
+        "success": true,
+        "maximum_reward": 4.0,
+        "steps": 294,
+        "maximum_state_distance": 0.00564728770405054,
+        "report_sha256": "350a5c98857e825afa891259b93f87c072aa7d13dc207e9a030875158fe24749"
+      },
+      "tuning": {
+        "seed": 1900,
+        "success": false,
+        "maximum_reward": 0.0,
+        "steps": 500,
+        "stalled_reference_index": 25,
+        "maximum_state_distance": 0.0372819304466248,
+        "oracle_out_of_distribution": false,
+        "inverse_kinematics_failures": 0,
+        "report_sha256": "47d05efbafec0d6cf37cfc17d4201889ffed86b84b1e46253dcdff34fcb060de"
+      }
+    }
+  ],
+  "next_required_boundary": "object_geometry_conditioned_independently_validated_teacher"
+}

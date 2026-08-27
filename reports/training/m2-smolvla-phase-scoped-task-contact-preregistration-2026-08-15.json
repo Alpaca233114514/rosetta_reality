@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_no_execution",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-037",
+  "hypothesis": "Plan 036 reached descend with the official terminal-completion refresh working, then stopped only because the generic robot-versus-table collision classifier rejected a contact pair that is present for ten steps immediately before the first successful grasp in the immutable train-only calibration replay. Classifying only that exact pair as a task contact during descend and grasp will remove the false positive without weakening any other collision, pose, joint-limit, seed or label gate.",
+  "single_axis": "phase_scoped_train_demonstrated_task_contact_classification",
+  "source": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_036.yaml",
+    "plan_sha256": "3bb462191c2229734684ba37a9efa4e3827b3057139b8bb20942cad0e833acd2",
+    "audit": "reports/training/m2-smolvla-athena-plan036-local-exact-audit-2026-08-15.json",
+    "audit_sha256": "1d4ca435b5a1d52ccebea228a3d7f423e0fb9558c61ea7b408639c903f1895b9",
+    "exact_report_sha256": "ee4c52484af8f07177111ffd755ae92b0ec92810373e97ec8aac51363bf57730",
+    "calibration_contact_diagnostic_sha256": "fa05af5c86a57a8db4f956e5806fc4fe71e0e96f59024b1d0cafbf5ac8dd7081",
+    "final_contact_diagnostic_sha256": "d89832f01a374ada292918e311d63112467d415b84736ee26fd147effe16eaff"
+  },
+  "registered_change": {
+    "allowed_pair": [
+      "table",
+      "vx300s_right/10_right_gripper_finger"
+    ],
+    "allowed_phases": [
+      "descend",
+      "grasp"
+    ],
+    "evidence_episode": 2,
+    "evidence_seed": 10,
+    "evidence_contact_steps": [
+      175,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      182,
+      183,
+      185
+    ],
+    "evidence_first_grasp_step": 186,
+    "evidence_terminal_reward": 4.0,
+    "all_other_unexpected_contacts_fail_closed": true,
+    "collision_detection_disabled": false,
+    "pose_thresholds_changed": false,
+    "joint_limit_margins_changed": false,
+    "maximum_steps_changed": false,
+    "teacher_targets_changed": false
+  },
+  "acceptance": {
+    "exact_seed": 10,
+    "exact_successes_required": 1,
+    "minimum_task_contact_exemption_events": 1,
+    "maximum_nonregistered_unexpected_collision_events": 0,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false
+  },
+  "stop_conditions": [
+    "any_contact_other_than_the_exact_registered_pair_is_exempted",
+    "the_registered_pair_is_exempted_outside_descend_or_grasp",
+    "the_train_calibration_contact_evidence_or_hash_differs",
+    "collision_detection_is_disabled_or_the_raw_contact_is_not_reported",
+    "maximum_steps_pose_gates_joint_margins_or_teacher_targets_change",
+    "validation_hidden_or_later_seed_access",
+    "recovery_label_write"
+  ]
+}

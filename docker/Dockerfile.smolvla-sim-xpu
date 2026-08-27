@@ -2,6 +2,7 @@ ARG INTEL_PYTORCH_IMAGE=intel/pytorch@sha256:dda613c2e1ab34d9630626ffac50d530fe5
 FROM ${INTEL_PYTORCH_IMAGE}
 
 ARG LEROBOT_REVISION=c903b114a90e703b3f7d0c46cb38727c328c55ff
+ARG PIP_INDEX_URL=https://pypi.org/simple
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
@@ -12,7 +13,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
     MUJOCO_GL=egl
 
-RUN apt-get -o Acquire::Retries=5 update \
+RUN sed -i 's|http://archive.ubuntu.com|https://archive.ubuntu.com|g; s|http://security.ubuntu.com|https://security.ubuntu.com|g' \
+        /etc/apt/sources.list.d/ubuntu.sources \
+    && apt-get -o Acquire::Retries=5 update \
     && apt-get -o Acquire::Retries=5 install --yes --no-install-recommends \
         ca-certificates \
         libegl1 \
@@ -29,13 +32,17 @@ COPY src ./src
 RUN python -m pip install \
         "lerobot[training,smolvla] @ https://github.com/huggingface/lerobot/archive/${LEROBOT_REVISION}.zip" \
         "gym-aloha==0.1.4" \
+        "mujoco==3.8.1" \
+        "mink==1.2.0" \
+        "qpsolvers==4.13.0" \
+        "daqp==0.8.7" \
         "trackio==0.28.0" \
         "pytest==9.1.1" \
         "ruff==0.16.2" \
     && python -m pip install --no-deps . \
     && python -m pip check \
     && python -c "import torch; assert torch.__version__.endswith('+xpu')" \
-    && python -c "from importlib.metadata import version; assert version('lerobot') == '0.6.2'; assert version('gym-aloha') == '0.1.4'; assert version('trackio') == '0.28.0'"
+    && python -c "from importlib.metadata import version; assert version('lerobot') == '0.6.2'; assert version('gym-aloha') == '0.1.4'; assert version('trackio') == '0.28.0'; assert version('mujoco') == '3.8.1'; assert version('mink') == '1.2.0'; assert version('qpsolvers') == '4.13.0'; assert version('daqp') == '0.8.7'"
 
 COPY configs ./configs
 COPY integration ./integration

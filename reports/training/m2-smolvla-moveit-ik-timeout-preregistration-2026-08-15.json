@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_no_execution",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-039",
+  "hypothesis": "Plan038 completed one official retained trajectory, then its second request failed only because MoveIt subgroup LMA IK returned no solution within the independently registered 0.10 second IK timeout. Raising only that official solver timeout to 0.50 seconds will give the unchanged bimanual LMA solver a bounded solution budget without changing OMPL planning time, goals, tolerances, safety margins, controller behavior, horizon, or gate identities.",
+  "single_axis": "moveit_lma_ik_timeout_0_10_to_0_50_seconds",
+  "source": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_038.yaml",
+    "plan_sha256": "a0a3cf3274c6b7a0513be43b43ca6cbcdd108027652ede3f591fe0aa94e539bc",
+    "audit": "reports/training/m2-smolvla-athena-plan038-local-exact-audit-2026-08-15.json",
+    "audit_sha256": "c052c07e87ca69e74bdadff14c71eec4550fc28bf44a9fa321c1d5abd997529c",
+    "exact_report_sha256": "18104017bdee2a6f6e630fa752ab9b3000a257905082c985a085e606d46d3dd4"
+  },
+  "observed_boundary": {
+    "step": 223,
+    "phase": "approach",
+    "solver_failure": "bimanual_lma_ik_failed",
+    "path_planner_attempts": 2,
+    "terminal_control_completions": 1,
+    "old_ik_timeout_s": 0.1,
+    "allowed_planning_time_s": 0.25,
+    "mink_inverse_kinematics_error": 0.007773014738224906,
+    "mink_projected_inverse_kinematics_error": 0.0077440154346065096,
+    "pre_step_minimum_physical_joint_limit_margin_rad": 0.05966366775512677,
+    "teacher_failures": 0,
+    "adapter_clip_failures": 0,
+    "unexpected_collision_count": 0,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0
+  },
+  "registered_change": {
+    "old_ik_timeout_s": 0.1,
+    "new_ik_timeout_s": 0.5,
+    "multiplier": 5.0,
+    "allowed_planning_time_s": 0.25,
+    "maximum_steps": 750,
+    "kinematics_plugin_changed": false,
+    "planner_or_planner_id_changed": false,
+    "pose_thresholds_changed": false,
+    "joint_limit_margins_changed": false,
+    "controller_changed": false,
+    "teacher_targets_changed": false,
+    "collision_policy_changed": false,
+    "seed_or_label_boundaries_changed": false
+  },
+  "official_basis": {
+    "robot_state_api": "https://moveit.picknik.ai/humble/api/html/classmoveit_1_1core_1_1RobotState.html",
+    "moveit2_source_tag": "2.5.9",
+    "call": "RobotState::setFromIKSubgroups",
+    "interpretation": "The timeout is the bounded solver budget passed to the unchanged IK implementation; it is distinct from OMPL allowed planning time."
+  },
+  "acceptance": {
+    "exact_seed": 10,
+    "exact_successes_required": 1,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "minimum_terminal_control_completions": 1,
+    "minimum_task_contact_exemption_events": 1,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false
+  },
+  "stop_conditions": [
+    "path_planner_ik_timeout_differs_from_0_50_seconds",
+    "path_planner_allowed_planning_time_differs_from_0_25_seconds",
+    "any_pose_collision_joint_limit_planner_controller_teacher_or_horizon_setting_changes",
+    "validation_hidden_or_later_seed_access",
+    "recovery_label_write"
+  ]
+}

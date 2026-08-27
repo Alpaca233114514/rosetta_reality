@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-moveit-hybrid-trajectory-execution-preregistration-2026-08-15",
+  "status": "locally_implemented_preregistered_no_remote_exact",
+  "work_line": "m2_smolvla_object_geometry_teacher",
+  "finding": {
+    "source_plan": "configs/sim/aloha_insertion_geometry_teacher_030.yaml",
+    "source_plan_sha256": "763ba45ed8ca8d84120dae99ca1375d915427e77f290784437d291575ad25f4d",
+    "source_exact_report_sha256": "aaa033c6a1740bac40d9589b01372c059e9d242099b2aa6a5ab4c4f8d1029fa3",
+    "source_exact_status": "failed_0_of_1_safe_but_nonprogressing_orient",
+    "global_plan_attempts": 131,
+    "diagnosis": "the evaluator discarded every accepted MoveIt trajectory after its bounded first command and replanned from a new redundant IK branch on the next fallback step"
+  },
+  "official_architecture": {
+    "moveit_version": "2.5.9",
+    "global_planner": "ompl_interface/OMPLPlanner geometric::RRTConnect",
+    "trajectory_operator": "moveit_hybrid_planning/SimpleSampler",
+    "local_constraint_solver": "moveit_hybrid_planning/ForwardTrajectory",
+    "waypoint_l1_tolerance_rad": 0.2,
+    "license": "BSD-3-Clause",
+    "sources": {
+      "hybrid_planning_concepts": "https://moveit.picknik.ai/humble/doc/concepts/hybrid_planning/hybrid_planning.html",
+      "hybrid_planning_readme": "https://github.com/moveit/moveit2/tree/2.5.9/moveit_ros/hybrid_planning",
+      "simple_sampler": "https://github.com/moveit/moveit2/blob/2.5.9/moveit_ros/hybrid_planning/local_planner/trajectory_operator_plugins/src/simple_sampler.cpp",
+      "forward_trajectory": "https://github.com/moveit/moveit2/blob/2.5.9/moveit_ros/hybrid_planning/local_planner/local_constraint_solver_plugins/src/forward_trajectory.cpp",
+      "trajectory_execution_manager": "https://moveit.picknik.ai/humble/api/html/classtrajectory__execution__manager_1_1TrajectoryExecutionManager.html"
+    }
+  },
+  "registered_single_axis": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_031.yaml",
+    "plan_sha256": "1c5316574470263c5b5b584ae6627487581fe61c8c890fa77685a522034125d2",
+    "change": "retain the full accepted global trajectory and follow its next reference waypoint until teacher phase change",
+    "replan_every_step": false,
+    "replan_on_phase_change": true,
+    "pose_thresholds_changed": false,
+    "joint_limit_margins_changed": false,
+    "planner_or_ik_plugin_changed": false,
+    "seeds_or_labels_changed": false
+  },
+  "implementation": {
+    "src/rosetta_reality/sim/moveit_aloha_planner.py": "bd69e76a3e505b253f14032e824c1dd4a4baabcb092be93065c45295d6892c55",
+    "scripts/evaluate_aloha_geometry_teacher.py": "07922c1dbbf8dfb696ca217385da34a2528bd1c1808650d30897816cf6eb6b40",
+    "tests/test_moveit_aloha_planner.py": "4d25f9f608a6773b1d9b9573a100ad941d8a5f0c870359bb0ba9f01dbcb16995",
+    "tests/test_geometry_teacher_protocol.py": "754f6c5e77b63c55b730ace971ce91f9acf208d4740f2a514d1630f31aeda825"
+  },
+  "local_verification": {
+    "ruff": "passed",
+    "focused_tests": {
+      "passed": 57,
+      "failed": 0,
+      "container_image": "rosetta-reality-smolvla-sim-xpu:mink-1.2.0",
+      "network": "disabled",
+      "cuda": false
+    },
+    "official_sidecar_full_trajectory_smoke": {
+      "image": "rosetta-reality-aloha-moveit2:humble-2.5.9-start-path-constraints-002",
+      "image_id": "sha256:fbf64d43c017d51ebd00cee07aebeb9abb0d79b75e5c9cc477ba9a30acee8d44",
+      "network": "disabled",
+      "normal": {
+        "waypoints": 8,
+        "path_length_rad": 1.3408268711570153,
+        "path_maximum_waypoint_joint_delta_rad": 0.0993591379230041
+      },
+      "start_state_recovery": {
+        "waypoints": 41,
+        "path_length_rad": 7.946066884072706,
+        "path_maximum_waypoint_joint_delta_rad": 0.11261942148813398
+      },
+      "registered_maximum_joint_target_delta_rad": 0.23561944901923448,
+      "actual_python_client_full_trajectory_validation": "passed"
+    },
+    "git_diff_check": "passed"
+  },
+  "gates": {
+    "train_exact_run": false,
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps": 0,
+    "cuda_training": false,
+    "model_or_data_downloaded": false
+  },
+  "next_authorized_action": "after SSH is explicitly opened, stage one new content-addressed Plan031 workspace, install and independently verify the watchdog, reproduce static evidence, then run only episode 2 seed 10 train-only exact"
+}

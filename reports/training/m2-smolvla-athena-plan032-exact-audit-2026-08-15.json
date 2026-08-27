@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-athena-plan032-exact-audit-2026-08-15",
+  "status": "failed_0_of_1_safe_final_waypoint_tracking_boundary",
+  "identity": {
+    "run_name": "Athena",
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_032.yaml",
+    "plan_sha256": "435630a5f5e3037a3580e4296e38d4bd9b2b5f9ea2c49f55bb4e261dca7e5645",
+    "workspace_release": "20260815T123607Z-5bd66d5e4bdc-7ee5ddb43dc0",
+    "workspace_archive_sha256": "7ee5ddb43dc037b704e35a9b03423587a46717e8ca182363dcaae720246093a9",
+    "exact_runner_sha256": "0b9a02520385e805012fc57dbe047aa6ad73ae3a778fe519ed91d8cc25a90e4c",
+    "exact_execution_log_sha256": "160d7eb8747465d3f12e19f0296a4bf0fbbd8b74d532a0825b28cfdd6734e8fa",
+    "exact_report_sha256": "f8ea0bb5514afe7c1bf64930b05ac40f52346b9c98ec35e9c2a539dbfc2acf5c",
+    "moveit_stderr_sha256": "a96f0fccef291bb34e1e971e41f43e552d21c8e89354bb87a62c07df1e2f3f05"
+  },
+  "prerequisites": {
+    "ruff": "passed",
+    "focused_tests_passed": 61,
+    "focused_tests_failed": 0,
+    "moveit_gym_fk_parity": "passed",
+    "actual_sidecar_full_trajectory_client": "passed",
+    "calibration_episode": 2,
+    "calibration_seed": 10,
+    "calibration_reward": 4,
+    "calibration_steps": 294
+  },
+  "exact": {
+    "successes": 0,
+    "required_successes": 1,
+    "steps_executed": 500,
+    "maximum_reward": 0.0,
+    "final_phase": "approach",
+    "phase_visits": {
+      "open": 15,
+      "approach": 485
+    },
+    "path_planner_attempts": 1,
+    "path_planner_waypoint_count": 16,
+    "path_planner_reference_reuse_commands": 402,
+    "path_planner_reference_waypoint_advancements": 15,
+    "maximum_path_planner_reference_waypoint_index": 15,
+    "path_planner_total_planning_time_s": 0.016344363,
+    "final_reference_waypoint_l1_distance_rad": 0.03446431288757733,
+    "final_target_position_error_m": 0.02851971797645092,
+    "geometry_teacher_failures": 0,
+    "inverse_kinematics_failures": 0,
+    "adapter_clip_failures": 0,
+    "joint_limit_projection_events": 0,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "minimum_commanded_joint_limit_margin_rad": 0.05830754287719708,
+    "minimum_observed_joint_limit_margin_rad": 0.052193536834716614,
+    "minimum_constrained_path_joint_limit_margin_rad": 0.052193536834716614,
+    "maximum_path_planner_goal_position_error_m": 8.258796088854016e-06,
+    "maximum_path_planner_goal_orientation_error_rad": 0.0002117788971842651,
+    "unexpected_collision_count": 0
+  },
+  "diagnosis": {
+    "retained_reference_execution_worked": true,
+    "repeated_global_replanning_was_removed": true,
+    "last_waypoint_reached_at_trace_step": 125,
+    "failure_boundary": "persistent final-waypoint joint tracking residual leaves task-space approach error above the frozen gate",
+    "controller_correction_selected": false
+  },
+  "authorization": {
+    "exact_passed": false,
+    "tuning_seed_1900_opened": false,
+    "development_seeds_opened": false,
+    "collection_seeds_opened": false,
+    "policy_gate_seeds_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "cuda_training_executed": false,
+    "downloads_executed": false
+  }
+}

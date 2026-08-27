@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_no_execution",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-041",
+  "hypothesis": "Plan040 completed two retained MoveIt trajectories but its third bimanual LMA request exhausted the 0.50 second stochastic restart budget before the contact-phase controller was reached. Raising only the same official IK timeout to 2.00 seconds will make the unchanged LMA goal search robust enough to reach the already preregistered Plan040 descend/grasp controller, while remaining below the frozen 5.0 second sidecar response timeout.",
+  "single_axis": "moveit_lma_ik_timeout_0_50_to_2_00_seconds",
+  "source": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_040.yaml",
+    "plan_sha256": "564e787da05af530241e44dd420e23d87e9dac47a8f1fc59c60b06f2d64b2768",
+    "audit": "reports/training/m2-smolvla-athena-plan040-local-exact-audit-2026-08-15.json",
+    "audit_sha256": "5210fd20e3c6a9051e6b0d109aac3ed0fc0e5b67c2935b49325723d2a9fd5571",
+    "exact_report_sha256": "e959de95684c4c309b3d563a9984ce31add4967bbc10ff0fe5bfd44915383169"
+  },
+  "observed_boundary": {
+    "step": 249,
+    "phase": "orient",
+    "solver_failure": "bimanual_lma_ik_failed",
+    "path_planner_attempts": 3,
+    "terminal_control_completions": 2,
+    "contact_phase_feedforward_commands": 0,
+    "old_ik_timeout_s": 0.5,
+    "allowed_planning_time_s": 0.25,
+    "response_timeout_s": 5.0,
+    "pre_step_minimum_physical_joint_limit_margin_rad": 0.061452999191284,
+    "teacher_failures": 0,
+    "adapter_clip_failures": 0,
+    "unexpected_collision_count": 0,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0
+  },
+  "registered_change": {
+    "old_ik_timeout_s": 0.5,
+    "new_ik_timeout_s": 2.0,
+    "multiplier": 4.0,
+    "allowed_planning_time_s": 0.25,
+    "response_timeout_s": 5.0,
+    "maximum_steps": 750,
+    "contact_phase_feedforward_changed": false,
+    "kinematics_plugin_changed": false,
+    "planner_or_planner_id_changed": false,
+    "pose_thresholds_changed": false,
+    "joint_limit_margins_changed": false,
+    "controller_changed": false,
+    "teacher_targets_changed": false,
+    "collision_policy_changed": false,
+    "seed_or_label_boundaries_changed": false
+  },
+  "official_basis": {
+    "robot_state_api": "https://moveit.picknik.ai/humble/api/html/classmoveit_1_1core_1_1RobotState.html",
+    "moveit2_source_tag": "2.5.9",
+    "call": "RobotState::setFromIKSubgroups",
+    "interpretation": "The timeout is the bounded randomized solver budget passed to the unchanged LMA IK implementation. It remains distinct from the 0.25 second OMPL planning budget and below the 5.0 second response timeout."
+  },
+  "acceptance": {
+    "exact_seed": 10,
+    "exact_successes_required": 1,
+    "minimum_contact_phase_feedforward_commands": 1,
+    "maximum_contact_phase_feedforward_failures": 0,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false
+  },
+  "stop_conditions": [
+    "path_planner_ik_timeout_differs_from_2_00_seconds",
+    "path_planner_allowed_planning_time_differs_from_0_25_seconds",
+    "path_planner_response_timeout_differs_from_5_0_seconds",
+    "contact_phase_feedforward_or_any_pose_collision_joint_limit_planner_controller_teacher_or_horizon_setting_changes",
+    "validation_hidden_or_later_seed_access",
+    "recovery_label_write"
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-execution-margin-diagnostic-preregistration-2026-08-15",
+  "status": "preregistered_awaiting_train_exact",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_027.yaml",
+    "sha256": "b655c2956a7b7ce84ba882796748f8877b6229ff25a385262852a3dfd139123c",
+    "plan_id": "m2-smolvla-aloha-geometry-teacher-027"
+  },
+  "prior_evidence": {
+    "plan": "m2-smolvla-aloha-geometry-teacher-026",
+    "exact_report_sha256": "f010221c3c94cf840b554a1dd646b5ecc6f3eb8fe47913fb03e22c40e9b2f3cd",
+    "failure_step": 113,
+    "failure_reason": "start_state_outside_joint_path_margin",
+    "observed_start_margin_rad": 0.00961627014160138,
+    "registered_margin_rad": 0.01,
+    "margin_shortfall_rad": 0.0003837298583986206,
+    "minimum_successful_official_path_margin_rad": 0.030544891433715637,
+    "minimum_successful_bounded_next_margin_rad": 0.25811082074868175
+  },
+  "single_variable": {
+    "name": "commanded_vs_observed_joint_margin_instrumentation",
+    "schema": "commanded_vs_observed_joint_margin_v1",
+    "scope": "every_executed_exact_control_step_plus_unexecuted_failure_state",
+    "records": [
+      "pre_step_observed_arm_joint_vector_and_per_joint_margin",
+      "absolute_commanded_arm_joint_vector_and_per_joint_margin",
+      "post_step_observed_arm_joint_vector_and_per_joint_margin",
+      "per_joint_observed_minus_command_tracking_error",
+      "same_direction_overshoot_past_command_toward_bound",
+      "command_to_observation_margin_loss",
+      "first_commanded_and_observed_registered_margin_breach_steps"
+    ],
+    "affects_action_selection": false,
+    "affects_teacher_or_solver": false,
+    "affects_simulator_adapter": false
+  },
+  "implementation": {
+    "evaluator": "scripts/evaluate_aloha_geometry_teacher.py",
+    "evaluator_sha256": "46e375a40b2cc8445a524069105f63146f0d40ddf3b090f31dbbb66258a28b5e",
+    "protocol_test": "tests/test_geometry_teacher_protocol.py",
+    "protocol_test_sha256": "4492acc3c69d1edbd459a9a3f6c9d040aaed63e680da83d3788b2a3acab2c7b0",
+    "protected_adapter": "src/rosetta_reality/sim/gym_aloha.py",
+    "protected_adapter_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "frozen_boundaries": {
+    "action_contract": true,
+    "teacher": true,
+    "mink_daqp": true,
+    "moveit_lma_rrtconnect": true,
+    "collision_resources": true,
+    "pose_acceptance_m": 0.001,
+    "projected_pose_acceptance_m": 0.003,
+    "physical_joint_margin_rad": 0.01,
+    "exact_train_episode": 2,
+    "exact_simulator_seed": 10,
+    "time_indexed_expert_actions": false,
+    "recovery_labels": false
+  },
+  "decision_protocol": [
+    {
+      "condition": "commanded_margin_first_crosses_below_0_01_rad",
+      "interpretation": "the selected Mink or MoveIt command is the first unsafe boundary",
+      "next_axis": "fail_closed_command_margin_enforcement_without_changing_physical_margin"
+    },
+    {
+      "condition": "command_stays_at_or_above_0_01_rad_but_next_observation_crosses_below_it",
+      "interpretation": "execution tracking or simulator controller dynamics consumes the safety margin",
+      "next_axis": "measured_execution_reserve_or_feedback_guard_without_changing_physical_margin"
+    },
+    {
+      "condition": "neither_command_nor_observation_crosses_below_0_01_rad",
+      "interpretation": "plan_026_failure_does_not_reproduce_under_hash_bound_plan_027",
+      "next_axis": "audit_determinism_and_only_open_tuning_if_exact_itself_passes"
+    }
+  ],
+  "verification": {
+    "windows_native_python_used": false,
+    "wsl_used": true,
+    "docker_used": true,
+    "ssh_used": false,
+    "cuda_used": false,
+    "network_access_enabled": false,
+    "repository_mount": "read_only",
+    "image": "rosetta-reality-smolvla-sim-xpu:mink-1.2.0",
+    "image_id": "sha256:8313a310d42fdefc5e8f069be5732e2a97b6f0772aa1c8b2033934a1b489596f",
+    "runtime_tests_status": "passed_local_linux_container",
+    "ruff": "passed",
+    "focused_tests_passed": 39,
+    "focused_tests_failed": 0,
+    "initial_test_attempt": {
+      "passed": 35,
+      "failed": 1,
+      "failure": "new_float32_assertion_used_pytest_default_tolerance",
+      "resolution": "bounded_test_tolerance_to_5e-7_without_changing_runtime_code"
+    },
+    "static_checks": [
+      "plan_load_and_implementation_hash_validation",
+      "diagnostic_non_causality_protocol",
+      "command_vs_observation_margin_and_overshoot_output",
+      "json_parse",
+      "git_diff_check",
+      "sha256_binding"
+    ]
+  },
+  "gates": {
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps": 0,
+    "cuda_training": false
+  }
+}

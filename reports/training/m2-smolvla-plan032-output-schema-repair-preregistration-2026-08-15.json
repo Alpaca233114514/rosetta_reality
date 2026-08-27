@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-plan032-output-schema-repair-preregistration-2026-08-15",
+  "status": "schema_only_repair_preregistered_no_plan032_remote_exact",
+  "work_line": "m2_smolvla_object_geometry_teacher",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_031.yaml",
+    "plan_sha256": "1c5316574470263c5b5b584ae6627487581fe61c8c890fa77685a522034125d2",
+    "remote_attempt": "athena-plan031-exact-001",
+    "stage_reached": "calibration_complete_before_planner_rollout",
+    "exception": "KeyError: output",
+    "exact_report_created": false,
+    "execution_log_sha256": "f1b88ba641a09e43600b28f25cf55e2e809f90c75a0a9390015584bf94ec7b35",
+    "runner_sha256": "15c49e1d240cbeed0f188ce108e5663c2f142775424fef969c2f37dbd0cd24dd",
+    "exit_record_sha256": "b9a7d4ad53d77c3dc9966a91cf4b1735f7e482e4acc5101fb1167aa26a75e2f1"
+  },
+  "repair": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_032.yaml",
+    "plan_sha256": "435630a5f5e3037a3580e4296e38d4bd9b2b5f9ea2c49f55bb4e261dca7e5645",
+    "evaluator_sha256": "80db803c26582dc8612f9dd5df222611c8fcffa89cccf318e7690a5c981fa75c",
+    "protocol_test_sha256": "73bc17865afda2e50c61e3362592174e200e2970d8e94e5034654a135312f342",
+    "restores_plan030_output_and_stop_condition_tail": true,
+    "adds_precalibration_output_contract_validation": true,
+    "planner_or_teacher_behavior_changed": false,
+    "pose_gates_changed": false,
+    "joint_limit_margins_changed": false,
+    "seeds_or_labels_changed": false
+  },
+  "authorization": {
+    "next_stage": "plan032_train_only_exact_after_new_workspace_and_remote_static",
+    "optimizer_steps": false,
+    "cuda_training": false,
+    "downloads": false,
+    "tuning_development_collection_policy_gate_validation_hidden_opened": false,
+    "recovery_labels": false
+  }
+}

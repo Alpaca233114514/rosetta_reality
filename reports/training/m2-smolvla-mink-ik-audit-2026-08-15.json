@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-mink-ik-audit-2026-08-15",
+  "status": "upstream_solver_installed_train_exact_failed",
+  "scope": {
+    "plans": [15, 16, 17, 18, 19, 20, 21],
+    "tuning_seed_opened": false,
+    "development_seeds_opened": false,
+    "collection_seeds_opened": false,
+    "policy_gate_seeds_opened": false,
+    "validation_episodes_loaded": false,
+    "hidden_test_loaded": false,
+    "recovery_labels_written": false,
+    "cuda_training_started": false,
+    "autodl_server_used": false
+  },
+  "upstream_stack": {
+    "mujoco": "3.8.1",
+    "mink": "1.2.0",
+    "qpsolvers": "4.13.0",
+    "daqp": "0.8.7",
+    "solver": "daqp",
+    "tasks": ["left_frame", "right_frame", "neutral_posture"],
+    "limits": ["configuration", "named_arm_velocity"],
+    "constraints": ["freeze_non_arm_dofs"],
+    "reference": "https://github.com/kevinzakka/mink/blob/main/examples/arm_aloha.py"
+  },
+  "frozen_identities": {
+    "container_image_sha256": "8313a310d42fdefc5e8f069be5732e2a97b6f0772aa1c8b2033934a1b489596f",
+    "mink_adapter_sha256": "373373f6dda5b5f1fa86a95357cd1c20e45a66b47ebf788d95f519afa44e14b5",
+    "evaluator_sha256": "9ec759ad6de5ff9af2d888a6f987603a4a55f278991ed151e2408139e27c872f",
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "maximum_accepted_ik_error": 0.001,
+    "maximum_accepted_projected_ik_error": 0.003
+  },
+  "results": [
+    {
+      "plan": 15,
+      "plan_sha256": "a414a7b899d248cb9f9b65269f511e673336ff5a309d538fd7dbec2f8c824181",
+      "report_sha256": "fb45538b5fbc5f090c8a4b0c3c099ea6d5c7a2145028fb76eeb12a2e5bf70caa",
+      "last_step": 15,
+      "final_phase": "approach",
+      "maximum_ik_error": 0.003423137280493391,
+      "maximum_projected_ik_error": 0.003425959918725615,
+      "status": "failed"
+    },
+    {
+      "plan": 16,
+      "plan_sha256": "17de4fed328dcac0788a4f78c288d6ab68d25cf668dfd323256979a896c46397",
+      "report_sha256": "41a57cd2d433053e26baa04a74d49c739435903f8f005b87c1891765553ddb0a",
+      "last_step": 15,
+      "final_phase": "approach",
+      "maximum_ik_error": 0.0016339329057470811,
+      "maximum_projected_ik_error": 0.0015426735626533628,
+      "status": "failed"
+    },
+    {
+      "plan": 17,
+      "plan_sha256": "670f2114c95e50ed6d9616eda52c83f48720d0c967cc5e8d9b8f1f15fea52587",
+      "report_sha256": null,
+      "status": "aborted_no_report_strict_json_infinity"
+    },
+    {
+      "plan": 18,
+      "plan_sha256": "d19d6cd19c422450026f52972ffa9126f20d18767445ee6f8728bdbd3e03bd9a",
+      "report_sha256": "21070381db5fdbf991d67869eadbf003518ab46ba7617fefb41e02295476375d",
+      "last_step": 33,
+      "final_phase": "approach",
+      "maximum_ik_error": 0.01200002059340477,
+      "maximum_projected_ik_error": 0.01200002059340477,
+      "failure": "right_finger_configuration_ingress",
+      "status": "failed"
+    },
+    {
+      "plan": 19,
+      "plan_sha256": "35cf9d0eed1c4ef88eda4641888cada347c0a0d9e121f46358562e8adece133d",
+      "report_sha256": "d2ea1947f751f7079d50259e65c267ef672252505b437148455a3e2f0168e95c",
+      "last_step": 98,
+      "final_phase": "approach",
+      "maximum_ik_error": 0.012138118074065505,
+      "maximum_projected_ik_error": 0.012138118074065505,
+      "failure": "action_contract_mjcf_wrist_bound_delta",
+      "status": "failed"
+    },
+    {
+      "plan": 20,
+      "plan_sha256": "919af5173e6f83c821009abe75ec944620796b1c477fdb4b214cdc0f74f585e2",
+      "report_sha256": "15c4b421baa568109108e3b005b4dca3c68f7e5dd12eba6b5a8c22cff3b3b784",
+      "last_step": 98,
+      "final_phase": "approach",
+      "maximum_ik_error": 0.011908505257532235,
+      "maximum_projected_ik_error": 0.011913858596623727,
+      "status": "failed"
+    },
+    {
+      "plan": 21,
+      "plan_sha256": "f7954a54565ab7858465fe64ffbfc178e494290150ba9b15b37d8bed6cf23312",
+      "report_sha256": "1c6a0813161cc420084499f15920d215b5b367b4856f39c639e9b77e7ba8f873",
+      "last_step": 98,
+      "final_phase": "approach",
+      "maximum_ik_error": 0.01190680861545904,
+      "maximum_projected_ik_error": 0.01189256245974505,
+      "status": "failed"
+    }
+  ],
+  "manual_interventions": [
+    {
+      "plan": 19,
+      "event": "first invocation omitted ROSETTA_RUN_ROOT",
+      "effect": "process exited before destination creation; no report or run directory was created",
+      "resolution": "reran the same immutable plan with the required absolute run root"
+    }
+  ],
+  "current_gate": "train_only_exact_failed",
+  "next_architecture_boundary": "preregister an upstream global planner such as MoveIt 2 with OMPL before any further path-planning implementation"
+}

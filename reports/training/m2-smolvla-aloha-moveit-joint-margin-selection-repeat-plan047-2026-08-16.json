@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "report_type": "aloha_moveit_joint_margin_candidate_selection_repeat",
+  "status": "passed",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-047",
+  "search_contract": {
+    "ik_task_modes": ["full_pose", "position_priority"],
+    "solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "selection_mode": "deterministic_maximum_minimum_joint_limit_margin_v1",
+    "primary_objective": "maximize_minimum_arm_joint_limit_margin_rad",
+    "secondary_objective": "minimize_maximum_absolute_arm_joint_delta_from_start_rad",
+    "final_tie_break": "lowest_deterministic_attempt_index",
+    "seed": 2210,
+    "maximum_attempts": 256,
+    "outer_timeout_s": 2.0,
+    "position_priority_ompl_seed_reset_per_request": true,
+    "terminal_goal_normalization_limit_rad": 0.00001
+  },
+  "repeat_result": {
+    "boundary": "fresh_sidecar_process_with_same_image_and_seed",
+    "requests": 2,
+    "both_status_ok": true,
+    "candidate_selection_modes_equal": true,
+    "goal_vectors_exactly_equal": true,
+    "trajectory_vectors_exactly_equal": true,
+    "attempt_counts_equal": true,
+    "valid_candidate_counts_equal": true,
+    "selected_attempts_equal": true,
+    "selected_margins_equal": true,
+    "selected_start_deltas_equal": true,
+    "ik_attempts_used": 256,
+    "valid_ik_candidate_count": 1,
+    "selected_ik_attempt": 1,
+    "selected_ik_minimum_joint_limit_margin_rad": 0.05948986061096173,
+    "selected_ik_maximum_start_delta_rad": 0.03280532418522619,
+    "maximum_goal_position_error_m": 0.0008290217354026833,
+    "maximum_goal_orientation_error_rad": 0.02998983441605129,
+    "minimum_path_joint_limit_margin_rad": 0.05948986061096173,
+    "maximum_observed_terminal_goal_normalization_rad": 9.92706471247828e-7
+  },
+  "full_pose_regression": {
+    "requests": 2,
+    "both_status_ok": true,
+    "valid_ik_candidate_count": [64, 64],
+    "selected_ik_attempt": [12, 12],
+    "selected_ik_minimum_joint_limit_margin_rad": [
+      0.2558288232841355,
+      0.2558288232841355
+    ],
+    "selected_ik_maximum_start_delta_rad": [
+      2.6286371816086116,
+      2.6286371816086116
+    ],
+    "maximum_goal_position_error_m": 0.00003869187311712844,
+    "maximum_goal_orientation_error_rad": 0.0008553109498574286,
+    "minimum_path_joint_limit_margin_rad": 0.25582952847121443
+  },
+  "runtime": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9-joint-margin-selection-006",
+    "image_id": "sha256:82c7e6a8100ad485e22f28e0ab1ed36c551eb5ad877c0243fbbb31d29fe6540b",
+    "executable_sha256": "f7579c034dd8e118f465c2b16274f957d613e5f24775c5f3b61567489e561fed",
+    "implementation_sha256": "db7b85e67588bf2e2e98b410a152aa1b4e33f947a6d8f53ba0ed6cca0888e222",
+    "client_sha256": "32107b371e2ca4674b07f6def009cca70e811ec40f3fed62f7f326f9c87b8957"
+  },
+  "evidence": {
+    "raw_repeat_data_root_relative": "runs/m2-smolvla-aloha-geometry-teacher-047/athena-plan047-runtime-validation-001/position-priority-repeat-fresh-sidecar.json",
+    "raw_repeat_sha256": "7f55f71fb0aa737958321907c9be6843efc7d284c5386e34dddab1d7d5bf9421",
+    "identity_and_repeat_data_root_relative": "runs/m2-smolvla-aloha-geometry-teacher-047/athena-plan047-runtime-validation-001/identity-repeat.jsonl",
+    "identity_and_repeat_sha256": "5d12b8012ebf1ddfc89cd31a53e709a277e208bbcf9b71369a3e556c77fcb8c4",
+    "full_pose_smoke_data_root_relative": "runs/m2-smolvla-aloha-geometry-teacher-047/athena-plan047-runtime-validation-001/full-pose-smoke.jsonl",
+    "full_pose_smoke_sha256": "3f8575c186a31b17be1444d73c8e9f95b6838c1b4c50814cdad76ee324e58356",
+    "model_parity_report": "reports/training/m2-smolvla-aloha-moveit-model-parity-plan047-2026-08-16.json",
+    "model_parity_report_sha256": "e68a6627b65fdd7dd05a7153d5a217a32dc8656aefd23718986f7c9a54222679",
+    "preregistration": "reports/training/m2-smolvla-deterministic-moveit-joint-margin-candidate-selection-preregistration-2026-08-16.json",
+    "preregistration_sha256": "ac299843778da44a7f4b30421098f54e16648e18a04e7694dd7bafc2bf820ddf"
+  },
+  "sealed_boundaries": {
+    "dataset_rows_loaded": false,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false,
+    "cuda_training_started": false
+  }
+}

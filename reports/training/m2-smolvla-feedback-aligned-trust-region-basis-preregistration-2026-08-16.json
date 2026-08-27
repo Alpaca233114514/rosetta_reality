@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-feedback-aligned-trust-region-basis-plan051-2026-08-16",
+  "status": "preregistered_before_plan051_execution",
+  "work_line": "VLA geometry-teacher train-only exact",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_050.yaml",
+    "plan_sha256": "1b4731cb1c18739ba2d3a0f6d06966f0f7fefb2eeb961196a71ca0dcfe74f811",
+    "audit": "reports/training/m2-smolvla-athena-plan050-local-exact-audit-2026-08-16.json",
+    "audit_sha256": "934b4d8b50f511ddb1e68b32d1fa69a163d8b81b327099e780df9d5cbdac87c3",
+    "exact_report_sha256": "7bb8771d7fc0c3e75394852c242b498eeafff876ad45fb1abdf9bf456859815b",
+    "step": 712,
+    "phase": "orient",
+    "solver_failure": "bimanual_lma_ik_failed",
+    "minimum_margin_joint": "right_wrist_rotate",
+    "minimum_margin_rad": 0.04560698516845685,
+    "registered_command_margin_rad": 0.04540462255477905
+  },
+  "hypothesis": "The active-set trust region is effective, but a fixed world-coordinate candidate basis undersamples the local feasible manifold when the bounded feedback target is not axis aligned. Replacing only that basis with a deterministic feedback-aligned orthonormal basis will expose official LMA continuations while preserving the same trust-region radius, position-relaxation envelope, orientation fractions, planner, limits, gates, and train-only identity.",
+  "single_axis_change": {
+    "from": "fixed_world_coordinate_basis",
+    "to": "deterministic_feedback_aligned_orthonormal_basis_v1",
+    "radial_axis": "normalize(requested_active_position-current_active_position)",
+    "reference_axis": "world_basis_axis_with_minimum_absolute_radial_dot_with_xyz_tie_order",
+    "tangent_one": "normalize(cross(radial_axis,reference_axis))",
+    "tangent_two": "cross(radial_axis,tangent_one)",
+    "direction_order": [
+      "positive_radial",
+      "negative_radial",
+      "positive_tangent_one",
+      "negative_tangent_one",
+      "positive_tangent_two",
+      "negative_tangent_two"
+    ],
+    "zero_position_error_behavior": "fail_closed_without_a_feedback_basis",
+    "persistent_hidden_state": false,
+    "task_specific_direction": false
+  },
+  "diagnostic_evidence": {
+    "scope": "sealed_train_only_plan050_failure_reconstruction",
+    "probe_generator": "runs/m2-smolvla-aloha-geometry-teacher-051/local-feedback-basis-probe-001/generate_probe_requests.py",
+    "probe_generator_sha256": "a44c91e076fbddbdea030362f5fff4595e0252955e1104d75cb72a62d880e7b4",
+    "probe_runner": "runs/m2-smolvla-aloha-geometry-teacher-051/local-feedback-basis-probe-001/run-probe.sh",
+    "probe_runner_sha256": "aa919404a50b673ee387fa3722709c03bf2335ddb6a22fda6c69350fdb0275be",
+    "requests_sha256": "174a274a95388fa55559facfe7410954f45ddec3b7c1a10b006ddb0e240e6f09",
+    "results_sha256": "97c397adecfba02cf3c7955d7f0f6519590968cdcdc34f19658dcb8e0ef59ca9",
+    "summary_sha256": "d9df5c91313082a9e8dc70f3f138ab74dd317194e652be4f4d4ca3b2e0da4261",
+    "requests": 65,
+    "successful_candidates": 11,
+    "best_margin_restoration": {
+      "orientation_fraction": 0.0,
+      "radius_m": 0.003,
+      "direction": "negative_tangent_two",
+      "goal_minimum_joint_limit_margin_rad": 0.051032575992705276,
+      "margin_improvement_rad": 0.005425590824248426,
+      "maximum_goal_position_error_m": 0.00002161981399523306,
+      "maximum_goal_orientation_error_rad": 0.0005330757699471217
+    },
+    "largest_registered_orientation_progress": {
+      "orientation_fraction": 0.125,
+      "radius_m": 0.003,
+      "direction": "negative_tangent_two",
+      "goal_minimum_joint_limit_margin_rad": 0.0470786152560545,
+      "maximum_goal_position_error_m": 0.00002023953803799378,
+      "maximum_goal_orientation_error_rad": 0.0004993622646574507
+    },
+    "finger_state_note": "The probe used the already recorded open-gripper physical positions from the same train-only orient path; arm start state and Cartesian targets were reconstructed from the Plan 050 exact report."
+  },
+  "frozen_settings": {
+    "activation_phase": "orient",
+    "activation_after": [
+      "mink_qp_failed",
+      "direct_full_pose_moveit_lma_failed",
+      "registered_full_pose_cartesian_backoff_exhausted"
+    ],
+    "active_arm_selection": "arm_owning_current_minimum_action_contract_joint_margin",
+    "radii_m": [0.0, 0.0015, 0.003, 0.006, 0.009],
+    "maximum_requested_position_relaxation_m": 0.012,
+    "margin_restoration_orientation_fraction": 0.0,
+    "minimum_margin_improvement_rad": 0.001,
+    "orientation_progress_fractions": [0.5, 0.25, 0.125, 0.05],
+    "solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "global_planner": "official_moveit2_ompl_rrtconnect",
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "exact_seed": 10,
+    "maximum_steps": 750
+  },
+  "acceptance": {
+    "exact_control_successes_required": 1,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "minimum_feedback_basis_events": 1,
+    "hidden_test_loaded": false,
+    "recovery_labels_authorized_on_pass": false
+  },
+  "gate_boundary": {
+    "tuning_seed_1900": "sealed_until_plan051_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

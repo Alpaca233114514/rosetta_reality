@@ -1,6 +1,8 @@
 ARG INTEL_PYTORCH_IMAGE=intel/pytorch@sha256:dda613c2e1ab34d9630626ffac50d530fe5e2ef5576f6fb68de7b2d360b41cd5
 FROM ${INTEL_PYTORCH_IMAGE}
 
+ARG PIP_INDEX_URL=https://pypi.org/simple
+
 ENV DEBIAN_FRONTEND=noninteractive \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -8,7 +10,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
     MUJOCO_GL=egl
 
-RUN apt-get -o Acquire::Retries=5 update \
+RUN sed -i 's|http://archive.ubuntu.com|https://archive.ubuntu.com|g; s|http://security.ubuntu.com|https://security.ubuntu.com|g' \
+        /etc/apt/sources.list.d/ubuntu.sources \
+    && apt-get -o Acquire::Retries=5 update \
     && apt-get -o Acquire::Retries=5 install --yes --no-install-recommends \
         ca-certificates \
         libegl1 \
@@ -31,11 +35,16 @@ RUN python -m pip install \
         "peft==0.20.0" \
         "lerobot[dataset]==0.6.1" \
         "gym-aloha==0.1.4" \
+        "mujoco==3.8.1" \
+        "mink==1.2.0" \
+        "qpsolvers==4.13.0" \
+        "daqp==0.8.7" \
         "pytest==9.1.1" \
         "ruff==0.16.2" \
     && python -m pip install --no-deps . \
     && python -m pip check \
-    && python -c "import torch; assert torch.__version__.endswith('+xpu')"
+    && python -c "import torch; assert torch.__version__.endswith('+xpu')" \
+    && python -c "from importlib.metadata import version; assert version('mujoco') == '3.8.1'; assert version('mink') == '1.2.0'; assert version('qpsolvers') == '4.13.0'; assert version('daqp') == '0.8.7'"
 
 COPY configs ./configs
 COPY scripts ./scripts

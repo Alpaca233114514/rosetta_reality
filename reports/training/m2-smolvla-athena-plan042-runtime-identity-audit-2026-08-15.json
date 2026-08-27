@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "failed_before_plan_execution",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-042",
+  "attempt": "athena-plan042-runtime-identity-001",
+  "purpose": "pre-execution MoveIt runtime identity check",
+  "result": {
+    "exit_code": 1,
+    "planner_requests_executed": 0,
+    "simulator_steps_executed": 0,
+    "failure": "MoveIt LMA base frame differs for left_arm",
+    "cause": "The initial deterministic implementation incorrectly required each subgroup LMA solver base frame to equal the model frame world. The official MoveIt subgroup path transforms each world-frame target into that subgroup solver's actual base frame before invoking the solver."
+  },
+  "immutable_evidence": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9-deterministic-ik-001",
+    "image_id": "sha256:2f00ccee9dd4c0772bcbdf55be5ddc3e6b76e5a49cac2a6224c0359eddbca513",
+    "implementation_sha256": "d4df09aaeeaa0cf1c28829b64595e1b9e56090842e7469183ae2582c53cae81d",
+    "execution_log_data_root_relative": "runs/m2-smolvla-aloha-geometry-teacher-042/athena-plan042-runtime-identity-001/execution.log",
+    "execution_log_sha256": "e9eb6342f011a877e65ad8aa3cc2d4597ed6d13c8c63957dbdb9accee28b62a8",
+    "preregistration": "reports/training/m2-smolvla-deterministic-moveit-subgroup-ik-preregistration-2026-08-15.json",
+    "preregistration_sha256": "b70268f5dd4d183086bb375c03819ac144d254e772d79493b97dd842726a5dbb"
+  },
+  "sealed_boundaries": {
+    "validation_or_hidden_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false,
+    "cuda_training_started": false
+  }
+}

@@ -1,0 +1,7 @@
+# Official MoveIt position-priority waypoint preregistration
+
+Plan043 made the failing request reproducible. Its target orientation was already the current end-effector orientation; the failure came from the next 12 mm approach translation as the right wrist neared its lower limit. A non-gating replay showed that the unchanged official full-pose LMA and OMPL stack accepts 0.125 and 0.25 Cartesian fractions, but the 0.25 solution nearly consumes the registered path margin. Repeating smaller exact-pose steps alone is therefore not the registered repair.
+
+Plan044 will add one approach-only fallback built on an official MoveIt capability: separate LMA groups configured with `position_only_ik=true`. After the existing exact solvers fail, the sidecar will search the largest registered Cartesian fraction using fixed seed order, require position error no greater than 1 mm, orientation drift no greater than 0.04 rad, all joint margins, bounds, and collision checks, and then plan to that joint state with the unchanged official OMPL RRTConnect pipeline. The intermediate target is discarded after execution and the original geometry teacher target is recomputed from feedback.
+
+This does not relax the final 1 mm/3 mrad pose checks, the weighted 1 mm/3 mm IK gates, the Action Contract, or the physical/path joint margins. Only train episode 2 / simulator seed 10 may run until the new exact gate passes. The JSON companion is the authority.

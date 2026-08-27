@@ -330,7 +330,7 @@ def _validate_furnace_program(
         raise ValueError("The formal furnace registry checksum changed.")
     registry = _load_yaml(registry_path)
     runs = registry.get("runs")
-    codenames = ["Odyssey", "Don Quixote", "Moby Dick"]
+    codenames = ["Aster", "Way", "cookie"]
     ordinal = furnace.get("ordinal")
     relative_plan = plan_path.resolve().relative_to(REPOSITORY_ROOT).as_posix()
     if (

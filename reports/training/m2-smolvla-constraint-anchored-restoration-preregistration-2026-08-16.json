@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-constraint-anchored-restoration-plan053-2026-08-16",
+  "status": "preregistered_before_plan053_execution",
+  "source_plan": "configs/sim/aloha_insertion_geometry_teacher_052.yaml",
+  "source_plan_sha256": "7b9be243e46731a031d1ac1c65d521144a008fbcb6f8b2046b60eacf5b2158c5",
+  "source_exact_report_sha256": "d6a15d1b899ceb8f41f69294889b6113e2073a1f92d14b9e105645835c1a4c5e",
+  "hypothesis": "The remaining fallback failure is caused by measuring the 1 mrad restoration hysteresis from the current state rather than the active command-margin boundary. Requiring goal margin at least command margin plus 1 mrad preserves the same hard safety buffer and admits the only verified official LMA continuation.",
+  "single_axis_change": {
+    "from": "goal_margin_at_least_current_margin_plus_0_001_rad",
+    "to": "goal_margin_at_least_command_margin_plus_0_001_rad",
+    "restoration_buffer_rad": 0.001,
+    "selection": "maximum_goal_minimum_joint_margin_then_minimum_radius_then_direction_order",
+    "activation": "only_when_no_registered_orientation_progress_candidate_exists",
+    "persistent_hidden_state": false
+  },
+  "diagnostic_evidence": {
+    "probe_generator_sha256": "c8bddae7d9f6663d1846770e989b5de5b6af809e7504e6330f9fb36b851dfb3c",
+    "probe_runner_sha256": "4b9c2f09618d3c5b3815914a4e8690e855a87ce96982377a7975ef8b6f152a39",
+    "probe_requests_sha256": "186862ccc5ee450f9af5fcca821a704cdfcc00471652f06d28338aa3576ff7ce",
+    "probe_results_sha256": "b43fb24fb6d33a2844e6775a1c9390c07545a1191fee559163003ddf0a52a9c6",
+    "probe_summary_sha256": "fbf708ac10dc0cb4d83c4bfde215332d96c7e1a54629c57b047d8661332c37d8",
+    "requests": 25,
+    "successful_candidates": 1,
+    "start_minimum_margin_rad": 0.04582680709838849,
+    "goal_minimum_margin_rad": 0.0467601859750193,
+    "current_relative_improvement_rad": 0.00093337887663081,
+    "command_boundary_interior_buffer_rad": 0.00135556342024025,
+    "maximum_goal_position_error_m": 0.000021627343269163957,
+    "maximum_goal_orientation_error_rad": 0.0005372495480365532
+  },
+  "frozen_settings": {
+    "selection_policy": "orientation_progress_first_v1",
+    "candidate_basis": "feedback_aligned_orthonormal_v1",
+    "radii_m": [0.0, 0.0015, 0.003, 0.006, 0.009],
+    "maximum_requested_position_relaxation_m": 0.012,
+    "orientation_progress_fractions": [0.5, 0.25, 0.125, 0.05],
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "exact_seed": 10,
+    "maximum_steps": 750
+  },
+  "acceptance": {
+    "exact_control_successes_required": 1,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "minimum_constraint_anchored_restoration_events": 1,
+    "minimum_orientation_first_selection_events": 1,
+    "hidden_test_loaded": false,
+    "recovery_labels_authorized_on_pass": false
+  },
+  "gate_boundary": {
+    "tuning_seed_1900": "sealed_until_plan053_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

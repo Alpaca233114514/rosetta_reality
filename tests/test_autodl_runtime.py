@@ -14,6 +14,16 @@ RUNNER_PATH = REPOSITORY_ROOT / "scripts/run_autodl.sh"
 BOOTSTRAP_PATH = REPOSITORY_ROOT / "scripts/bootstrap_autodl.sh"
 STAGE_PATH = REPOSITORY_ROOT / "scripts/stage_autodl_from_wsl.sh"
 PREFLIGHT_PATH = REPOSITORY_ROOT / "scripts/run_autodl_preflight.py"
+POSTTRAIN_RUNNER_PATH = REPOSITORY_ROOT / "scripts/run_autodl_posttrain_v2.sh"
+CUDA_SMOKE_RUNNER = REPOSITORY_ROOT / "scripts/run_smolvla_state_robustness_cuda_smoke.py"
+CUDA_PRIMARY_PLAN = (
+    REPOSITORY_ROOT
+    / "configs/vla/smolvla_450m_aloha_insertion_way_cuda_batch128_smoke_001.yaml"
+)
+CUDA_FALLBACK_PLAN = (
+    REPOSITORY_ROOT
+    / "configs/vla/smolvla_450m_aloha_insertion_way_cuda_batch64_smoke_001.yaml"
+)
 
 
 def test_autodl_profile_uses_platform_container_and_fail_closed_formal_gate() -> None:
@@ -28,6 +38,7 @@ def test_autodl_profile_uses_platform_container_and_fail_closed_formal_gate() ->
     assert profile["packages"]["lerobot_revision"] == (
         "c903b114a90e703b3f7d0c46cb38727c328c55ff"
     )
+    assert profile["packages"]["gym-aloha"] == "0.1.4"
     assert profile["agent_monitoring"] == {
         "blocking_shell": "bash",
         "blocking_command": "sleep 300",
@@ -40,7 +51,7 @@ def test_autodl_profile_uses_platform_container_and_fail_closed_formal_gate() ->
     assert profile["hidden_test_loaded"] is False
 
 
-def test_autodl_runner_is_offline_and_refuses_formal_training() -> None:
+def test_autodl_runner_is_offline_and_requires_explicit_formal_plan() -> None:
     runner = RUNNER_PATH.read_text(encoding="utf-8")
 
     assert "HF_HUB_OFFLINE=1" in runner
@@ -48,7 +59,24 @@ def test_autodl_runner_is_offline_and_refuses_formal_training() -> None:
     assert "ROSETTA_TORCH_DEVICE=cuda" in runner
     assert "run_benchmark" in runner
     assert "formal)" in runner
-    assert "formal CUDA training is locked" in runner
+    assert "formal requires an explicit separately preregistered --plan" in runner
+    assert "ROSETTA_AUTODL_FORMAL_AUTHORIZED=1" in runner
+    assert "run_smolvla_state_robustness_cuda_formal.py" in runner
+    assert "ROSETTA_AUTODL_TWO_STEP_SMOKE_AUTHORIZED=1" in runner
+    assert "ROSETTA_AUTODL_ARTIFACT_BACKUP_VERIFIED" in runner
+    assert "docker run" not in runner
+
+
+def test_posttrain_v2_runner_is_isolated_from_training_authorization() -> None:
+    runner = POSTTRAIN_RUNNER_PATH.read_text(encoding="utf-8")
+
+    assert "evaluate_smolvla_way_validation_v2.py" in runner
+    assert "export_smolvla_way_v2.py" in runner
+    assert "smolvla_autodl_way_sim_gate_v2.py" in runner
+    assert "ROSETTA_AUTODL_ARTIFACT_BACKUP_VERIFIED" in runner
+    assert "HF_HUB_OFFLINE=1" in runner
+    assert "ROSETTA_AUTODL_FORMAL_AUTHORIZED" not in runner
+    assert "run_smolvla_state_robustness_cuda_formal" not in runner
     assert "docker run" not in runner
 
 
@@ -58,6 +86,8 @@ def test_autodl_bootstrap_preserves_preinstalled_cuda_pytorch() -> None:
     assert "torch.cuda.is_available()" in bootstrap
     assert "--system-site-packages" in bootstrap
     assert 'for package in ("torch", "torchvision")' in bootstrap
+    assert '"gym-aloha==0.1.4"' in bootstrap
+    assert "libegl1" in bootstrap
     assert "PIP_CONSTRAINT" in bootstrap
     assert "pip install torch" not in bootstrap
     assert "pip install cuda" not in bootstrap.lower()
@@ -83,6 +113,40 @@ def test_autodl_resource_exception_is_no_optimizer_preflight_only() -> None:
     assert 'enabled_by_profile") is not False' in launcher
     assert 'preflight.get("optimizer_created") is not False' in launcher
     assert '"formal_training_authorized": False' in launcher
+
+
+def test_way_cuda_smoke_uses_ordered_create_only_batch_fallback() -> None:
+    primary = yaml.safe_load(CUDA_PRIMARY_PLAN.read_text(encoding="utf-8"))
+    fallback = yaml.safe_load(CUDA_FALLBACK_PLAN.read_text(encoding="utf-8"))
+    runner = CUDA_SMOKE_RUNNER.read_text(encoding="utf-8")
+
+    assert primary["optimizer_smoke"]["batch_size"] == 128
+    assert primary["activation"] == {
+        "mode": "primary",
+        "fallback_plan": (
+            "configs/vla/smolvla_450m_aloha_insertion_way_cuda_batch64_smoke_001.yaml"
+        ),
+        "fallback_only_after_cuda_memory_failure": True,
+        "automatic_in_run_retry": False,
+    }
+    assert fallback["optimizer_smoke"]["batch_size"] == 64
+    assert fallback["activation"]["mode"] == (
+        "fallback_after_primary_cuda_memory_failure"
+    )
+    assert fallback["activation"]["eligible_failure_classes"] == [
+        "cuda_out_of_memory",
+        "peak_memory_guard_exceeded",
+    ]
+    assert fallback["activation"]["failed_primary_checkpoint_or_optimizer_reuse"] is False
+    assert primary["initialization"] == fallback["initialization"] == {
+        "source": "revision_pinned_base_model",
+        "aster_checkpoint_used": False,
+        "faust_checkpoint_used": False,
+        "optimizer_state_reused": False,
+    }
+    assert "--primary-failure-report" in runner
+    assert "automatic_retry_performed" in runner
+    assert "checkpoint_or_optimizer_state_reused_by_fallback" in runner
 
 
 def test_autodl_files_preserve_historical_faust_hash_inventory() -> None:

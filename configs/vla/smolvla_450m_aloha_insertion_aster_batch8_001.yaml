@@ -1,0 +1,246 @@
+schema_version: 1
+role: vla
+stage: m2_action_repair_development_training
+status: preregistered
+plan_id: m2-smolvla450m-aster-b8-001
+run_name: m2-smolvla450m-aster-b8-001
+hypothesis: >-
+  The Faust training objective weights all 50 chunk timesteps uniformly while the
+  registered Action Contract executes only the first predicted action before
+  re-observing. Training the pinned flow-matching objective with a registered
+  first-action-only temporal weight profile, holding data, base checkpoint,
+  batch size, optimizer, scheduler and all other axes fixed, will improve the
+  deployment-aligned first-action MAE and fixed-seed Gate 4 behavior relative to
+  the read-only Faust control.
+control_reference:
+  plan: configs/vla/smolvla_450m_aloha_insertion_faust_batch8_002.yaml
+  plan_sha256: 7f8215b23c21b1b5685cbcc86ee74c9bd691ebf26214e562204bfa135d592c46
+  control_run: m2-smolvla450m-faust-b8-002
+  selection_report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-faust-b8-002-selection.json
+  selection_report_sha256: bcb7eccd9e90facd4758f18bb33c712bc40acd989380061563792445f0cefaf4
+  relationship: read_only_control
+  reason: single_variable_temporal_horizon_weighting
+furnace_program:
+  program_id: m2-smolvla450m-three-furnace-002
+  registry: configs/vla/smolvla_450m_aloha_insertion_three_furnace_002.yaml
+  registry_sha256: 3052f8cd4362fea1e78108728e086ee06644224e48f8bba03e6b2f40a722cdb0
+  ordinal: 1
+  codename: Aster
+  maximum_formal_runs: 3
+parent_experiment:
+  config: configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml
+  sha256: 0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210
+  experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+initialization:
+  source: revision_pinned_base
+  reason: isolate the temporal-loss variable from all diagnostic and interrupted checkpoints
+  model_id: lerobot/smolvla_base
+  model_revision: c83c3163b8ca9b7e67c509fffd9121e66cb96205
+  overfit_checkpoint_used: false
+  interrupted_checkpoint_used: false
+loss_contract:
+  profile: first_action_only
+  chunk_size: 50
+  upstream_implementation_sha256: 37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d
+action_space:
+  adapt_to_pi_aloha: false
+  dataset_space: standard_aloha_joint_position
+  explicit: true
+  model_internal_space: normalized_pi_aloha_arms_bounded_sine_grippers
+  normalization: train_only_mean_std_after_representation_adapter
+  reject_source_beyond_contract_tolerance: true
+  representation_adapter: rosetta_pi_aloha_arms_bounded_sine_grippers
+  representation_adapter_stage: after_target_projection_before_normalization
+  schema_version: 1
+  target_projection: action_contract_clip
+  target_projection_stage: before_normalization
+normalization:
+  source_split: train
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/normalization/train-only-3e3c6b9d347e5e71.json
+  report_sha256: 263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988
+  dataset_view_manifest: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/dataset_views/train-only-3e3c6b9d347e5e71/view_manifest.json
+  dataset_view_manifest_sha256: 9853c191ae87016379fc1a16ebfbb87e05ab5147cd8a03d82f9c2a894c9b531e
+  validation_episodes_loaded: false
+  hidden_test_loaded: false
+prerequisites:
+  benchmark:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/benchmark/pre-training-af690cf13969cd22.json
+    sha256: 2b0e6fc36bd165a97b5273cb5de054764798a697fde8841876e2d131ca305502
+  gate1:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate1-e41df36c5d90.json
+    sha256: 858f6d3ce43484de5b7b50d0e68f5267d4b3fdb2ebf26e099c3adb3602d00c81
+  gate2:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate2-10fb9a9a364a.json
+    sha256: 26f373a63becbcfa879505ecb1a82a1fc13d724ce0638e43cdc1e3455b75b0d6
+  action_space:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/action-space-8a56bf3b42087938.json
+    sha256: d5718be9051c69663291e0eb449ba331971a1343668688e8c26ee40d5e7e90da
+  fixed_samples:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/fixed-samples-e53ab827f232dd51.json
+    sha256: 2b9953ac048898155ad70a7ee3f0ab284b1b585ea88d71dc14c8589fa3ec2d84
+  smoke_acceptance:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/acceptance/repair-bounded-smoke-xpu-003.json
+    sha256: 0e0ed861007989ccf7f4c1a903e12a4d42f2865c92e41388a59ab4b19f1f176f
+  overfit_acceptance:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/acceptance/repair-bounded-overfit-xpu-003.json
+    sha256: 085ad2750711fce0539117f34588cab7c229a302541525c223d61b62a90743df
+  trackio_sync:
+    path: runs/m2-smolvla450m-aloha-insertion-001/tracking/space-sync-db38f79f1bb0b42a.json
+    sha256: 117867389d1670a72e2035e040978be7425a5fbf3481372a4cac42cabf5ad765
+  performance_parity:
+    path: runs/m2-smolvla450m-aloha-insertion-001/performance/masked-camera-parity-5b1ad3513dfb.json
+    sha256: 9ab4548d5729d27bd4f93c4e4d28b04cf069e658c06c86159764e973a7ca660a
+  performance_benchmark:
+    path: runs/m2-smolvla450m-aloha-insertion-001/performance/m2-smolvla450m-perf-compile-b8-skip-003.json
+    sha256: f705c6f3da3ca2ee8ef34a0ac62f8dea08b90d4dc2f34614eeaea8dcb78391e9
+preflight:
+  run_name: m2-smolvla450m-aster-b8-preflight-004
+  episodes: [49]
+  batch_size: 1
+  optimizer_created: false
+optimizer_smoke:
+  run_name: m2-smolvla450m-aster-b8-smoke-003
+  episodes: [49]
+  batch_size: 8
+  steps: 2
+  save_freq: 1
+  save_checkpoint: true
+  log_freq: 1
+  num_workers: 0
+  persistent_workers: false
+  hidden_test_loaded: false
+training:
+  episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  batch_size: 8
+  steps: 2500
+  minimum_dataset_passes: 1.0
+  save_freq: 625
+  save_checkpoint: true
+  log_freq: 10
+  num_workers: 0
+  persistent_workers: false
+  checkpoint_steps: [625, 1250, 1875, 2500]
+  eval_split: 0.0
+  validation_gradients: false
+  hidden_test_loaded: false
+  optimizer:
+    type: adamw
+    lr: 1.0e-4
+    betas: [0.9, 0.95]
+    eps: 1.0e-8
+    weight_decay: 1.0e-10
+    grad_clip_norm: 10.0
+  scheduler:
+    type: cosine_decay_with_warmup
+    num_warmup_steps: 125
+    num_decay_steps: 2500
+    peak_lr: 1.0e-4
+    decay_lr: 2.5e-6
+  policy:
+    empty_cameras: 2
+    compile_model: true
+    compile_mode: reduce-overhead
+    skip_fully_masked_camera_encoding: true
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  mixed_precision: bf16
+  memory_limit: 8g
+  memory_swap_limit: 8g
+  cpu_limit: 2
+  maximum_peak_xpu_allocated_bytes: 7516192768
+  expected_wall_time_minutes: 100
+  maximum_wall_time_minutes: 150
+  checkpoint_memory_trim: true
+monitoring:
+  policy: sleep_between_quarter_checkpoints
+  estimated_total_minutes: 100
+  wake_fractions: [0.25, 0.5, 0.75, 1.0]
+  wake_steps: [625, 1250, 1875, 2500]
+  blocking_command: sleep
+  sleep_poll_seconds: 300
+  hidden_test_loaded: false
+tracking:
+  project: rosetta-reality-vla
+  space_id: LAlpaca/rosetta-reality-trackio
+  delivery: local_durable_then_checkpoint_sync
+  public_payload_only: true
+validation:
+  run_name_prefix: m2-smolvla450m-aster-b8-validation-003
+  episodes: [22, 13, 7, 33, 45]
+  frame_offsets: [0, 125, 250, 375]
+  samples_per_episode: 4
+  total_samples: 20
+  batch_size: 1
+  noise: zeros
+  flow_time: 0.5
+  checkpoints: [base, 625, 1250, 1875, 2500]
+  primary_selection_metric: first_action_mae
+  secondary_selection_metric: action_mae
+  hidden_test_loaded: false
+decision_policy:
+  select_checkpoint_on: validation_only
+  accept_candidate_if:
+    - all_logged_losses_and_gradients_are_finite
+    - checkpoint_reload_and_processor_statistics_match
+    - validation_first_action_mae_improves_over_faust_control
+    - standard_space_gripper_violation_rate_is_zero
+    - measured_peak_xpu_allocation_is_within_registered_guard
+  reject_candidate_if:
+    - hidden_test_boundary_is_crossed
+    - resource_limit_is_violated
+    - optimizer_or_scheduler_contract_changes
+    - temporal_loss_profile_changes
+    - validation_first_action_mae_does_not_improve_over_faust_control
+  extension_policy: >-
+    Do not extend beyond 2,500 optimizer steps and do not automatically launch
+    another full-dataset attempt.
+risk_register:
+  - >-
+    First-action-only weighting removes supervision from chunk steps 2-50. The
+    full-chunk action MAE is expected to degrade; only the deployment-aligned
+    first-action MAE and fixed-seed Gate 4 are acceptance-relevant.
+  - >-
+    The sine decoder guarantees standard gripper bounds but is periodic for
+    arbitrary internal values. Validation must retain internal-support
+    diagnostics instead of treating bounded output as proof that internal
+    angles stayed in-distribution.
+stop_conditions:
+  - nonfinite_loss_gradient_or_action
+  - out_of_memory
+  - peak_xpu_allocation_above_7516192768_bytes
+  - optimizer_or_scheduler_state_divergence
+  - unsupported_accelerator_operation
+  - checkpoint_failure
+  - trackio_local_durability_failure
+  - implementation_checksum_mismatch
+  - normalization_identity_mismatch
+  - temporal_loss_profile_mismatch
+  - standard_space_gripper_output_violation
+  - validation_or_hidden_test_episode_used_for_gradients
+  - hidden_test_episode_materialized_or_loaded
+implementation_files:
+  scripts/run_smolvla_horizon_loss_formal.py: 06af05f573e01c1fd95ba5ea71d9c22b2affa480d0ffbf759dd28c640070895a
+  scripts/export_smolvla_aster.py: 18a0e0cc2ac45eecf187199bc6b20186b96d33cc4ba6879018e726d71d21fb40
+  scripts/train_smolvla_horizon_loss_formal.py: 381a671d8aad5e54181638e6a82e3af098a6d9a522ed468ef4baf7c6ccb19d22
+  scripts/accept_smolvla_aster_batch8_smoke.py: a5c94742f10fc1c6eeef1733949028158dd81e20d7983539966cacaab28e5849
+  scripts/select_smolvla_aster_checkpoint.py: 861632b700d9b1c56de7bad80585f63bc0ff2b6b03cb78299e6c003655aaa349
+  scripts/evaluate_smolvla_aster_validation.py: 9a2c313f8e4fa143bb93b83ff8dc043ba44711ca1b9897e8e7c5446552d349d4
+  scripts/run_smolvla_action_repair_formal.py: 920706c20bc0d326e4c7a70d2216ae342f14253c7eb20aeff105f9929e446dec
+  scripts/run_smolvla_action_repair_phase.py: 7c0c6b7fb9266d521a1dcb4ded86eaab29454518619a5e2d8a955429bbb810c7
+  scripts/run_smolvla_formal.py: 869b6435b5a8595988cc063d4ebdc28a4eb47319cfde20f3d0cbcac9321ec775
+  scripts/run_smolvla_phase.py: cbeaff055e4738dfafa4ce3a110ae164585bb87c0d7251af1623d3d633c0ae63
+  scripts/train_smolvla_action_repair.py: 97d0bd13af9dcd0a78e712d8eaf335fb036075c4c80c7dd9053e4c2827334b19
+  scripts/train_smolvla_trackio.py: 20d8449fc67f6ef7911532b14b3644e4dc16835b407bf0c120981137fae717ef
+  scripts/select_smolvla_checkpoint.py: 1264be82b6fc0420fcf566155d74472170ebc113b1db71d1f35a19cce514a277
+  scripts/evaluate_smolvla_validation.py: 507422bf4baa90ec34e844e858cb386d7ea90c3f5faf3725f899bfacdbaac403
+  scripts/smolvla_forward_check.py: 7d7dd79167c604bae13e525fa9a6f51a9a1fec5e331a1352120d49d60f04e3d0
+  scripts/autodl_doctor.py: 72da969b95d13fea38e8a16c67b220981b7d7e49260213403872ab1d3719a277
+  src/rosetta_reality/vla/__init__.py: bd22446fe35e43b0bad6f6f84d7556adc12170dbd3c97b0f01128267bbf02cb5
+  src/rosetta_reality/vla/action_space.py: 4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb
+  src/rosetta_reality/vla/checkpoint_memory.py: 381a611c7a3902318ddd099cdfc6c14aa45cf94c207f29ca9bdeb6cfeceb33ca
+  src/rosetta_reality/vla/fixed_samples.py: 1627cb54f4c352a8832f7fa4abb2ded76d3d960799dccec8460cdd0be82a954a
+  src/rosetta_reality/vla/horizon_loss.py: c7b46678f6d4aa5cd790efaa018dc9d44d2f011aece0bf945101ba28ef0104f0
+  src/rosetta_reality/vla/processor.py: 6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384
+  src/rosetta_reality/tracking/trackio_lerobot.py: 009cd1041e4a6b4c1ba1860bfba20b6166c24bdb593c7b7efb23fe02d3b02bbd
+hidden_test_loaded: false

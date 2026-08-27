@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan030-exact-audit-2026-08-15",
+  "status": "train_exact_failed_safe_but_nonprogressing_orient_later_gates_sealed",
+  "task_name": "Athena",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_030.yaml",
+    "sha256": "763ba45ed8ca8d84120dae99ca1375d915427e77f290784437d291575ad25f4d",
+    "evaluator_sha256": "c000eb7cf09091074b7b0c729f393e100da4de1b5bf9d8d149e35cdc65448cd1",
+    "protocol_test_sha256": "f7b8a7ae3064586318ccf06ed332a3824dbd6f34f182e2e5324f23b077e65370"
+  },
+  "workspace": {
+    "release_id": "20260815T092123Z-5bd66d5e4bdc-357ee507c1ec",
+    "archive_sha256": "357ee507c1ecee7ca0386efc3e62b8c47362d085ae42d30c713e84177e319ceb",
+    "task_id": "athena-plan030-20260815T092123Z-5bd66d5e4bdc-357ee507c1ec",
+    "runtime_archive_sha256": "e2ac0af666b17a317a2e4d74f72f6660d476e0b5d168226072f4a7c09e72b070",
+    "task_identity_sha256": "be4c924a8cc292e837e264fcdfa46941cc05f7d220870b1f17debc1cc69bfde2"
+  },
+  "runtime": {
+    "source_image": "rosetta-reality-aloha-moveit2:humble-2.5.9-start-path-constraints-002",
+    "source_image_id": "sha256:fbf64d43c017d51ebd00cee07aebeb9abb0d79b75e5c9cc477ba9a30acee8d44",
+    "executable_sha256": "900001236058db02e380db1838a0bca70fd07baad236e6c44cb0ed959b3fafaf",
+    "urdf_sha256": "544b5f299a5955b4c705cd42f952f4ab4fb898327f6206ea37117533190f63f4",
+    "srdf_sha256": "65bd2a440fb3565fae4373d0218a95afd9564fcb2e4bfdcece06ac4e82c0321d",
+    "description_manifest_sha256": "65d733588c7d6a7f78ac2a2eacb62b4b14e7337151e4190d046d957edbd5572b"
+  },
+  "dependencies": {
+    "environment": "rosetta-geometry-plan029-003",
+    "location": "system_image_disk",
+    "manifest_sha256": "7941a4fcb91d325adb097e0645b9b063085272c56bb4187d13d94d0bae634315",
+    "pip_freeze_sha256": "fbbbc458458c41f472db0db95d69e1e285661237490320e8faf4d51642eb5168",
+    "pip_check": "passed",
+    "python": "3.12.3",
+    "packages": {
+      "PyYAML": "6.0.2",
+      "daqp": "0.8.7",
+      "dm-control": "1.0.41",
+      "gym-aloha": "0.1.4",
+      "mink": "1.2.0",
+      "mujoco": "3.8.1",
+      "pyarrow": "25.0.0",
+      "pytest": "9.1.1",
+      "qpsolvers": "4.13.0",
+      "ruff": "0.16.2",
+      "torch": "2.8.0+cu128",
+      "typeguard": "2.2.2"
+    }
+  },
+  "static_evidence": {
+    "attempt": "athena-plan030-static-001",
+    "exit_code": 0,
+    "ruff": "passed",
+    "focused_tests_passed": 54,
+    "focused_tests_failed": 0,
+    "fk_parity": "passed",
+    "model_parity_report_sha256": "07410d8832cce1bd137e0c32993e4b54a25985a796881bff48743b78ae80aa62",
+    "direct_smoke_results_sha256": "3034217f064cab133a7e77ebff827bfcbfbc6b43259d8bf4975df1ef8b8b9e46",
+    "recovery_prefix_waypoints": 20,
+    "minimum_prefix_physical_margin_rad": 0.01998734641020672,
+    "minimum_constrained_margin_rad": 0.2557764936506446,
+    "minimum_next_margin_rad": 0.12162426156114625,
+    "minimum_recovery_progress_rad": 0.10163691515093953
+  },
+  "exact": {
+    "attempt_001": {
+      "exit_code": 1,
+      "classification": "dependency_preflight_failure_before_dataset_rows",
+      "failure": "ModuleNotFoundError: pyarrow",
+      "report_created": false,
+      "execution_log_sha256": "b13ab0a29cfbaba5fee36c6e848580930136bb203d3dcf50f0a5c9c61a9125e6"
+    },
+    "attempt_002": {
+      "exit_code": 1,
+      "report_sha256": "aaa033c6a1740bac40d9589b01372c059e9d242099b2aa6a5ab4c4f8d1029fa3",
+      "report_id": "m2-smolvla-aloha-geometry-teacher-030-dbeb88643b980ffc",
+      "execution_log_sha256": "6d4c42b505132b6877ebbe1a41696b2b82dd8d985ca96aabe87b16bf3c11530f",
+      "successes": 0,
+      "required_successes": 1,
+      "steps_executed": 500,
+      "final_phase": "orient",
+      "phase_visits": {
+        "open": 15,
+        "approach": 121,
+        "orient": 364
+      },
+      "maximum_reward": 0,
+      "path_planner_attempts": 131,
+      "path_planner_waypoints": 131,
+      "path_planner_start_state_recovery_events": 23,
+      "path_planner_total_planning_time_s": 5.270729332999998,
+      "maximum_inverse_kinematics_error": 0.000927692895277554,
+      "maximum_projected_inverse_kinematics_error": 0.000984088031830697,
+      "maximum_path_planner_goal_weighted_error": 0.00021702769342473507,
+      "commanded_margin_breach_events": 0,
+      "observed_margin_breach_events": 0,
+      "minimum_commanded_margin_rad": 0.04540456779479962,
+      "minimum_observed_margin_rad": 0.01990832336425763,
+      "minimum_constrained_path_margin_rad": 0.045446080555739954,
+      "minimum_recovery_progress_rad": 0.025191480574232816,
+      "inverse_kinematics_failures": 0,
+      "adapter_clip_failures": 0,
+      "joint_limit_projection_events": 0,
+      "teacher_failure": null,
+      "final_peg_grasp_contact": false,
+      "final_socket_grasp_contact": false,
+      "final_unexpected_collision_count": 0
+    }
+  },
+  "calibration": {
+    "source_episode": 2,
+    "simulator_seed": 10,
+    "maximum_reward": 4.0,
+    "steps_executed": 294
+  },
+  "finding": {
+    "boundary": "safe_but_nonprogressing_orient_phase",
+    "interpretation": "the official MoveIt start-state recovery and tightened joint-margin contract remained fail-closed, but the teacher exhausted 500 steps without leaving orient or establishing either grasp contact",
+    "what_is_not_supported": "the evidence does not support relaxing the frozen pose thresholds, physical joint margin, or start-state tolerance",
+    "next_safe_action": "diagnose the orient-phase object-geometry feedback and waypoint execution locally, then preregister one new controlled axis before any new exact run"
+  },
+  "gates": {
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps": 0,
+    "cuda_training": false,
+    "model_or_data_downloaded": false
+  },
+  "local_evidence": {
+    "directory": "runs/m2-smolvla-aloha-geometry-teacher-030/remote-athena-plan030-20260815"
+  },
+  "shutdown": {
+    "requested_deadline": "2026-08-15T19:40:00+08:00",
+    "task_watchdog_deadline": "2026-08-15T18:35:00+08:00",
+    "manual_shutdown_id": "manual-shutdown-athena-plan030-complete-001",
+    "manual_shutdown_pid": 7558,
+    "manual_shutdown_sleep_pid": 7562,
+    "manual_shutdown_delay_seconds": 60,
+    "manual_shutdown_record_sha256": "32f3769dd58db2577af913becdae88614d2df02e4e2ade62e4bf41fdc791f117",
+    "shutdown_script_sha256": "f3f07f64d7304193102d1b6d143bf3b9314f02ab1d247d7f2826cfc798303775",
+    "shutdown_command": "/usr/bin/shutdown",
+    "shutdown_arguments": [],
+    "manual_shutdown_status": "ssh_connection_closed",
+    "ssh_after_shutdown_checked_at": "2026-08-15T17:50:07+08:00",
+    "ssh_after_shutdown_exit_code": 255,
+    "ssh_after_shutdown_error": "Connection reset"
+  }
+}

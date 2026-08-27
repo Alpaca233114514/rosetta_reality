@@ -29,6 +29,10 @@ qwen = [
 ]
 sim = [
     "gym-aloha>=0.1.4,<0.2.0",
+    "mujoco==3.8.1",
+    "mink==1.2.0",
+    "qpsolvers==4.13.0",
+    "daqp==0.8.7",
 ]
 vla_tracking = [
     "trackio==0.28.0",

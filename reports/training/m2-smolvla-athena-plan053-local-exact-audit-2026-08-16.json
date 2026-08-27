@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan053-local-exact-audit-2026-08-16",
+  "status": "failed_train_only_exact",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_053.yaml",
+    "sha256": "c0a3759f2f40796cdaf8bfc7e3c3f9a15dafe54190c12477d93d127a7d266926"
+  },
+  "execution": {
+    "attempt": "athena-plan053-local-exact-001",
+    "exit_code": 1,
+    "execution_log_sha256": "4744c708fca6349ac7fc1f0a1701be8d20bfd8323a6a6f4ecf25e4a005744266",
+    "exact_report_sha256": "ffbbf2d475c0ccff6c28374b1c5dda4a4800acd0dbb8cb5f19f97eac24d134af",
+    "moveit_stderr_sha256": "1de11441c867ff294674beab732974d5c39272182a1386b61bc0c316c48cedbf"
+  },
+  "progress_before_failure": {
+    "steps_executed": 750,
+    "final_phase": "orient",
+    "phase_visits": {
+      "open": 15,
+      "approach": 241,
+      "orient": 494
+    },
+    "path_planner_attempts": 24,
+    "path_planner_waypoints": 601,
+    "path_planner_reference_reuse_commands": 577,
+    "path_planner_reference_waypoint_advancements": 168,
+    "path_planner_terminal_control_completions": 22,
+    "trust_region_margin_restoration_events": 2,
+    "trust_region_orientation_progress_events": 18,
+    "trust_region_feedback_basis_events": 20,
+    "trust_region_orientation_first_events": 18,
+    "trust_region_constraint_anchored_restoration_events": 2,
+    "inverse_kinematics_failures": 0,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "adapter_clip_failures": 0,
+    "joint_limit_projection_events": 0
+  },
+  "failure_boundary": {
+    "seed": 10,
+    "step": 749,
+    "phase": "orient",
+    "failure": "registered_execution_horizon_exhausted_without_success",
+    "ik_error": 0.00018170498882966082,
+    "projected_ik_error": 0.00018170498882966082,
+    "target_position_error_m": 0.01190998312085867,
+    "pre_step_minimum_margin_joint": "right_wrist_rotate",
+    "pre_step_minimum_margin_rad": 0.04574026115417462,
+    "commanded_minimum_margin_rad": 0.04572786338806134,
+    "observed_minimum_margin_rad": 0.04574193008422833,
+    "registered_command_margin_rad": 0.04540462255477905
+  },
+  "root_cause": {
+    "classification": "orientation_target_budget_too_small_for_registered_horizon",
+    "finding": "Constraint-anchored restoration removed the Plan 052 dead end and produced 18 safe orientation-progress replans with no IK failure or margin breach. However, the frozen 0.04-rad teacher orientation target combined with fractional trust-region progress produced many long official OMPL paths for very small end-effector orientation advances, consuming all 750 registered steps before leaving orient. The next controlled axis is the bounded orientation target budget, not the final 1 mm / 3 mm pose gates, joint margins, seed boundary, or horizon."
+  },
+  "frontier_probe": {
+    "probe_001": {
+      "requests": 45,
+      "valid": 21,
+      "requests_sha256": "920cf4da61c6b7f6c6886b07a29f3288cfc8973774c46314b0d0076e95f200a8",
+      "results_sha256": "30980e5e47e095b2cee7512179e84c8607814148c2fe59b5c58169df04c0bef2",
+      "summary_sha256": "2669ca84c7d90f93c1ab8799c504e227fa3c934124e3807e77cb40bb5660cc2b"
+    },
+    "probe_002": {
+      "requests": 54,
+      "valid": 30,
+      "full_fraction_valid": 9,
+      "requests_sha256": "36164f60edbaf7581ad9b3ead2d1102b66e88ad01f67296167094a38f21c5d51",
+      "results_sha256": "c788b98270fbd4285d205220ba8f6d033197542eca54ee22a1b9cef0bb3a52d0",
+      "summary_sha256": "5e4539fa2eff3d83614f28fb47be0f6791984a07f591ffa06f79decec9ffa8d2"
+    },
+    "finding": "At the sealed Plan 053 step-711 state, official MoveIt LMA and OMPL returned valid candidates for the larger 0.20-rad orientation target, including nine full-fraction candidates. This supports changing only the target budget while retaining the registered fraction list and every safety and acceptance bound."
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "not_executed",
+    "development_seeds_2000_2004": "not_executed",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "not_written",
+    "cuda_training": "not_started"
+  }
+}

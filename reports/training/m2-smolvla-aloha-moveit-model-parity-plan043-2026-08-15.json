@@ -1,0 +1,62 @@
+{
+  "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+  "dataset_rows_loaded": false,
+  "gym_aloha_version": "0.1.4",
+  "hidden_test_loaded": false,
+  "maximum_orientation_error_rad": 0.0,
+  "maximum_position_error_m": 3.188872858294072e-16,
+  "moveit_image": "rosetta-reality-aloha-moveit2:humble-2.5.9-deterministic-ik-002",
+  "moveit_image_id": "sha256:b88507608ae1c56fbfc7921bbb497c220001fa81b77df3143ad9912fa01507cf",
+  "moveit_results_sha256": "58e022d7107a1a55f6cd6421a7097e78b557389b089d4f4a485bfdfa25932b2f",
+  "mujoco_version": "3.8.1",
+  "orientation_tolerance_rad": 2e-05,
+  "position_tolerance_m": 2e-05,
+  "report_type": "aloha_moveit_gym_model_parity",
+  "requests_sha256": "18407a3f62a760d9eaca65e44c1218250ecad5caa952a70c21fe1f7453003599",
+  "sample_count": 5,
+  "samples": [
+    {
+      "arms": {
+        "left": {"orientation_error_rad": 0.0, "position_error_m": 0.0},
+        "right": {"orientation_error_rad": 0.0, "position_error_m": 8.326672684688674e-17}
+      },
+      "moveit_self_collision": false,
+      "request_id": "neutral_start"
+    },
+    {
+      "arms": {
+        "left": {"orientation_error_rad": 0.0, "position_error_m": 1.7772239894833365e-16},
+        "right": {"orientation_error_rad": 0.0, "position_error_m": 3.188872858294072e-16}
+      },
+      "moveit_self_collision": false,
+      "request_id": "asymmetric_reach"
+    },
+    {
+      "arms": {
+        "left": {"orientation_error_rad": 0.0, "position_error_m": 1.2412670766236366e-16},
+        "right": {"orientation_error_rad": 0.0, "position_error_m": 2.2887833992611187e-16}
+      },
+      "moveit_self_collision": false,
+      "request_id": "cross_workspace"
+    },
+    {
+      "arms": {
+        "left": {"orientation_error_rad": 0.0, "position_error_m": 2.5589376332604516e-16},
+        "right": {"orientation_error_rad": 0.0, "position_error_m": 2.5438405243138006e-16}
+      },
+      "moveit_self_collision": false,
+      "request_id": "wrist_limit_margin"
+    },
+    {
+      "arms": {
+        "left": {"orientation_error_rad": 0.0, "position_error_m": 1.3566380516206423e-16},
+        "right": {"orientation_error_rad": 0.0, "position_error_m": 1.789373782233265e-16}
+      },
+      "moveit_self_collision": false,
+      "request_id": "joint_limit_margin"
+    }
+  ],
+  "schema_version": 1,
+  "simulator_seed": 10,
+  "status": "passed"
+}

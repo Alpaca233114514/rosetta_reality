@@ -1,0 +1,93 @@
+{
+  "attempts": {
+    "001": "runner_preflight_failed_gym_aloha_version_attribute_missing",
+    "002": "plan_hash_binding_failed_missing_ignored_runs_scripts_in_frozen_archive",
+    "003": "executed_registered_exact_stage"
+  },
+  "audit_id": "m2-smolvla-athena-plan054-remote-exact-audit-2026-08-16",
+  "evidence": {
+    "completion_summary": "runs/m2-smolvla-aloha-geometry-teacher-054/remote-athena-plan054-exact-003/pre-shutdown-completion-summary.json",
+    "exact_report": "runs/m2-smolvla-aloha-geometry-teacher-054/remote-athena-plan054-exact-003/runs/athena-plan054-exact-003/m2-smolvla-aloha-geometry-teacher-054/geometry-teacher/d8d68745ea7a22c5/exact.json",
+    "execution_log": "runs/m2-smolvla-aloha-geometry-teacher-054/remote-athena-plan054-exact-003/attempts/athena-plan054-exact-003.execution.log",
+    "local_root": "runs/m2-smolvla-aloha-geometry-teacher-054/remote-athena-plan054-exact-003/"
+  },
+  "exact": {
+    "adapter_clip_failures": 0,
+    "commanded_margin_breach_events": 0,
+    "final_phase": "lift",
+    "inverse_kinematics_failures": 0,
+    "joint_limit_projection_events": 0,
+    "observed_margin_breach_events": 0,
+    "path_planner_attempts": 6,
+    "path_planner_reference_reuse_commands": 182,
+    "path_planner_reference_waypoint_advancements": 44,
+    "path_planner_terminal_control_activations": 6,
+    "path_planner_terminal_control_completions": 5,
+    "path_planner_trust_region_expanded_orientation_target_budget_events": 0,
+    "path_planner_waypoints": 188,
+    "phase_visits": {
+      "approach": 241,
+      "descend": 28,
+      "grasp": 7,
+      "lift": 34,
+      "open": 15,
+      "orient": 97
+    },
+    "required_successes": 1,
+    "steps_executed": 423,
+    "successes": 0,
+    "teacher_failure": "Observed object-to-end-effector transform exceeded the grasp-drift limit.",
+    "unexpected_collision_count": 0
+  },
+  "identity": {
+    "boot_id": "c7f0d91f-cfd3-488a-9969-c70510f77465",
+    "exact_report_sha256": "b20e503fce4adf91d37ff55bdf81ce956d4e7e3c08a188902611294fb6ef2dc2",
+    "exact_runner_sha256": "08738df042bbfc4c05a336b7f8164531de510f535d2043c20199028d158c087d",
+    "execution_log_sha256": "ce6472eda0fa4ba7f0a70b34da47775b5a5d269ae684ed2295b9667081875e19",
+    "git_branch": "codex/er-vla-smolvla-pipeline",
+    "git_head": "5bd66d5e4bdc0228dc1648825d8d3ec1236dc09f",
+    "host": "autodl-container-44db45aec7-cd880eb6",
+    "moveit_stderr_sha256": "f5366fa04059a56141f97f375d8decc1aff25805feb97bd2a69493e848efcadd",
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_054.yaml",
+    "plan_sha256": "d8d68745ea7a22c59f924713c93f04bcacce4371fca820b6040645b913c5ef6d",
+    "pre_shutdown_summary_sha256": "d18583b5e5ded4ae0dfe0475d4120cf99756ec9ea8754a9def7c2b2fe7dbf60d",
+    "run_name": "Athena",
+    "workspace_archive_sha256": "e759e520fd2b07213195a45408b8ac4a67673cd958870b41d0263c795b5ad041",
+    "workspace_release": "20260815T212909Z-5bd66d5e4bdc-e759e520fd2b"
+  },
+  "prerequisites": {
+    "hard_watchdog": {
+      "deadline": "2026-08-16T09:40:00+08:00",
+      "kind": "hard-0940-plan054",
+      "sleep_nice": 19,
+      "sleep_uid": 0,
+      "verified_from_independent_ssh": true
+    },
+    "mesh_manifest_sha256": "63edd159854e2eaa99bbe640c76b6b65e0e0ac517081689796d31c1db579e04d",
+    "nested_docker_used": false,
+    "read_only_audit": "passed",
+    "task_low_watchdog": {
+      "deadline": "2026-08-16T08:20:00+08:00",
+      "kind": "athena-plan054-task-low-0820",
+      "sleep_nice": 19,
+      "sleep_uid": 65534,
+      "verified_from_independent_ssh": true
+    },
+    "urdf_source_manifest_sha256": "c74d4712fe206303ef081a3f81c65c6aa2a8b1a0b29b3d52b174e9c6cbc8ccf1",
+    "workspace_and_runtime_upload": "create_only_no_overwrite"
+  },
+  "schema_version": 1,
+  "scope_lock": {
+    "cuda_training": "not_executed",
+    "downloads": "none",
+    "plan055": "not_created",
+    "recovery_labels": "forbidden",
+    "tuning_development_collection_policy_gate_validation_hidden": "sealed"
+  },
+  "shutdown": {
+    "method": "manual_shutdown_after_evidence_pullback",
+    "requested": true,
+    "watchdogs_alive_before_shutdown": true
+  },
+  "status": "failed_train_only_exact"
+}

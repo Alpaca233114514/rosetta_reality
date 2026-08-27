@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-active-set-cartesian-trust-region-preregistration-2026-08-16",
+  "status": "preregistered_not_executed",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_047.yaml",
+    "plan_sha256": "bcc564976f07b39d3746d738b33aecda9a2971f3929b28266467bbde7a1020ac",
+    "audit": "reports/training/m2-smolvla-athena-plan047-local-exact-audit-2026-08-16.json",
+    "audit_sha256": "f7d37e750b90d753f3e2a43eb698596e300a09fc54af59f17d51104bc39f7bf8",
+    "failure_step": 256,
+    "failure_phase": "orient",
+    "active_joint": "right_wrist_rotate",
+    "start_minimum_joint_limit_margin_rad": 0.04680980690002423,
+    "command_joint_limit_margin_rad": 0.04540462255477905
+  },
+  "discarded_solver_axis": {
+    "audit": "reports/training/m2-smolvla-athena-plan049-pick-ik-global-runtime-audit-2026-08-16.json",
+    "audit_sha256": "d147b3af1766bb475c85208118aa9c81de791509b4b16fe3e7f71d531d5cff47",
+    "finding": "Version-pinned Pick IK local and global modes both loaded correctly but returned zero candidates for the same request; the dependency is not corrupt and solver replacement is not the next experimental axis."
+  },
+  "diagnostic_evidence": {
+    "probe_scope": "sealed train-only Plan047 first-orient request",
+    "candidate_generator": "symmetric_active_arm_cartesian_coordinate_trust_region",
+    "probe_requests_sha256": "af0a6139239d8bb9fe1fe8191203a398e734b2deedbcd7c4f5d1a3356918bcee",
+    "probe_results_sha256": "a789385cca0e7adec79142c9b0c63572503bbd6a46aed4ca6883a5ca158c4a3d",
+    "probe_summary_sha256": "22a15ede3d7f6983faefdfca80cc71f9971a184ff2b936bdacd1c8310b5d52ff",
+    "requests": 90,
+    "successful_candidates": 15,
+    "best_margin_restoration": {
+      "orientation_fraction": 0.0,
+      "radius_m": 0.0015,
+      "direction": [0.0, -1.0, 0.0],
+      "goal_minimum_joint_limit_margin_rad": 0.05377660526384975,
+      "margin_improvement_rad": 0.00696679836382552,
+      "maximum_goal_position_error_m": 0.000022304447018177305,
+      "maximum_goal_orientation_error_rad": 0.0005518094608569392
+    },
+    "orientation_progress_candidate": {
+      "orientation_fraction": 0.125,
+      "radius_m": 0.0015,
+      "direction": [0.0, -1.0, 0.0],
+      "goal_minimum_joint_limit_margin_rad": 0.04969582730007538,
+      "maximum_goal_position_error_m": 0.00001778402664006716,
+      "maximum_goal_orientation_error_rad": 0.0004415373479573436
+    }
+  },
+  "hypothesis": "When a full-pose orient waypoint is blocked by the active joint limit, a deterministic coordinate trust region can first move the active arm within the already-frozen 12 mm waypoint envelope while preserving its current orientation and maximizing the official MoveIt goal joint margin. Once no candidate improves margin by 1 mrad, the same trust region can advance the active arm orientation by the largest feasible registered fraction. Feedback replanning makes active-arm orientation monotonic while allowing position to move on the feasible manifold; each candidate remains subject to the unchanged exact waypoint IK, tightened joint margin, collision and OMPL path gates.",
+  "single_axis": "active_joint_cartesian_trust_region_margin_restoration_then_orientation_progress",
+  "registered_change": {
+    "activation_phase": "orient",
+    "activation_after": [
+      "mink_qp_failed",
+      "direct_full_pose_moveit_lma_failed",
+      "registered_full_pose_cartesian_backoff_exhausted"
+    ],
+    "active_arm_selection": "arm_owning_current_minimum_action_contract_joint_margin",
+    "passive_arm_position": "current",
+    "passive_arm_orientation": "requested",
+    "active_arm_position_center": "current",
+    "coordinate_directions": [
+      [1.0, 0.0, 0.0],
+      [-1.0, 0.0, 0.0],
+      [0.0, 1.0, 0.0],
+      [0.0, -1.0, 0.0],
+      [0.0, 0.0, 1.0],
+      [0.0, 0.0, -1.0]
+    ],
+    "radii_m": [0.0, 0.0015, 0.003, 0.006, 0.009],
+    "maximum_requested_position_relaxation_m": 0.012,
+    "margin_restoration_orientation_fraction": 0.0,
+    "minimum_margin_improvement_rad": 0.001,
+    "margin_restoration_selection": "maximum_goal_minimum_joint_limit_margin_then_minimum_radius_then_direction_order",
+    "orientation_progress_fractions": [0.5, 0.25, 0.125, 0.05],
+    "orientation_progress_selection": "largest_fraction_then_maximum_goal_minimum_joint_limit_margin_then_minimum_radius_then_direction_order",
+    "active_orientation_interpolation": "shortest_arc_quaternion_slerp_current_to_requested",
+    "waypoint_solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "global_planner": "official_moveit2_ompl_rrtconnect",
+    "feedback_replans_original_target": true,
+    "persistent_hidden_state": false
+  },
+  "frozen_contract": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "moveit_source_image": "rosetta-reality-aloha-moveit2:humble-2.5.9-joint-margin-selection-006",
+    "moveit_source_image_id": "sha256:82c7e6a8100ad485e22f28e0ab1ed36c551eb5ad877c0243fbbb31d29fe6540b",
+    "position_tolerance_m": 0.001,
+    "orientation_tolerance_rad": 0.003,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "physical_joint_limit_margin_rad": 0.01,
+    "joint_path_constraint_margin_rad": 0.04540462255477905,
+    "ik_seed": 2210,
+    "ik_maximum_attempts": 256,
+    "custom_task_direction_enabled": false,
+    "pose_or_margin_gate_relaxed": false,
+    "seed_and_label_boundaries": "unchanged"
+  },
+  "acceptance": {
+    "stage": "train_only_exact",
+    "required_successes": 1,
+    "minimum_trust_region_margin_restoration_events": 1,
+    "minimum_trust_region_orientation_progress_events": 1,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "maximum_unexpected_collision_count": 0,
+    "hidden_test_loaded": false,
+    "recovery_labels_written": false
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "sealed_until_plan050_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

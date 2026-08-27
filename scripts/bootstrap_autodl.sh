@@ -12,6 +12,17 @@ readonly LEROBOT_REVISION="c903b114a90e703b3f7d0c46cb38727c328c55ff"
 [[ -d "$PLATFORM_ROOT" ]] || { printf 'error: AutoDL data disk is missing: %s\n' "$PLATFORM_ROOT" >&2; exit 2; }
 command -v nvidia-smi >/dev/null 2>&1 || { printf 'error: nvidia-smi is unavailable\n' >&2; exit 2; }
 
+if command -v apt-get >/dev/null 2>&1; then
+    apt-get -o Acquire::Retries=5 update
+    apt-get -o Acquire::Retries=5 install --yes --no-install-recommends \
+        ca-certificates \
+        libegl1 \
+        libgl1 \
+        libgles2 \
+        libglfw3 \
+        libosmesa6
+fi
+
 # The selected AutoDL image must provide CUDA PyTorch. The bootstrap deliberately
 # preserves it instead of installing or upgrading torch, CUDA, cuDNN or drivers.
 python - <<'PY'
@@ -47,6 +58,7 @@ PY
 PIP_CONSTRAINT="$CONSTRAINTS_FILE" python -m pip install \
     "lerobot[training,smolvla] @ https://github.com/huggingface/lerobot/archive/${LEROBOT_REVISION}.zip" \
     "trackio==0.28.0" \
+    "gym-aloha==0.1.4" \
     "pytest==9.1.1" \
     "ruff==0.16.2"
 PIP_CONSTRAINT="$CONSTRAINTS_FILE" python -m pip install --no-deps "$REPOSITORY_ROOT"
@@ -57,6 +69,7 @@ from importlib.metadata import version
 assert torch.cuda.is_available()
 assert version("lerobot") == "0.6.2"
 assert version("trackio") == "0.28.0"
+assert version("gym-aloha") == "0.1.4"
 print(f"AutoDL environment ready: torch={torch.__version__}, CUDA={torch.version.cuda}")
 PY
 

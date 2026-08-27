@@ -1,0 +1,47 @@
+{
+  "original": {
+    "archive_file": "athena-plan054-workspace-20260815T212909Z-5bd66d5e4bdc-e759e520fd2b.tar",
+    "member_count": 549,
+    "overwritten": false,
+    "preserved": true,
+    "release_id": "20260815T212909Z-5bd66d5e4bdc-e759e520fd2b",
+    "workspace_archive_sha256": "e759e520fd2b07213195a45408b8ac4a67673cd958870b41d0263c795b5ad041"
+  },
+  "remote_exact_reference": {
+    "attempt": "athena-plan054-exact-003",
+    "audit_json": "reports/training/m2-smolvla-athena-plan054-remote-exact-audit-2026-08-16.json",
+    "audit_json_sha256": "853bfdaf02ec1a79c3b143d9cf3e41920b7e0f719a3997dbc3d08058ced47f1f",
+    "audit_md": "reports/training/m2-smolvla-athena-plan054-remote-exact-audit-2026-08-16.md",
+    "audit_md_sha256": "7352ff8862a951f70058d0767857d278eb3339a5fba59d6c79c802228e626ec0",
+    "exact_report_sha256": "b20e503fce4adf91d37ff55bdf81ce956d4e7e3c08a188902611294fb6ef2dc2"
+  },
+  "repair_id": "m2-smolvla-athena-plan054-workspace-package-repair-2026-08-16",
+  "repaired": {
+    "added_files": {
+      "runs/m2-smolvla-aloha-geometry-teacher-054/local-exact-001/launch-exact.sh": "5830ea6888a1cb40e8a0d9d117ba01f1f7931dec75a31c2b2b7ad876b83350ba",
+      "runs/m2-smolvla-aloha-geometry-teacher-054/local-exact-001/run-exact.sh": "b36dc7299f2f88e993026662c0d03a38748273f49b69fa53163a2acdbe7a5e3d",
+      "runs/m2-smolvla-aloha-geometry-teacher-054/local-exact-001/start-exact.sh": "2af5c6837c37879df35093f815eec5f3f5c35eb40ef7e364f2678119c8702d3b",
+      "runs/m2-smolvla-aloha-geometry-teacher-054/local-orientation-step-probe-002/generate_probe_requests.py": "1ed8672ad651db0e797f422636a8023db8825c844577d860ee8e54f05b9ea7cf",
+      "runs/m2-smolvla-aloha-geometry-teacher-054/local-orientation-step-probe-002/run-probe.sh": "bb02f4f713460d6088e0f61bd7b9772cb5bca268050f8e8f5213654ed987b993"
+    },
+    "archive_file": "athena-plan054-workspace-20260816T060456Z-5bd66d5e4bdc-071094e4d8de.tar",
+    "member_count": 554,
+    "release_id": "20260816T060456Z-5bd66d5e4bdc-071094e4d8de",
+    "workspace_archive_sha256": "071094e4d8deebf824c896866a47412a906680234baf84b1d0cfde89f8e78d36"
+  },
+  "root_cause": "ignored_runs_files_referenced_by_plan_and_evaluator_hash_binding_were_omitted_by_git_exclude_standard_archive_build",
+  "schema_version": 1,
+  "scope": {
+    "gates_opened": false,
+    "original_package_modified": false,
+    "plan055_created": false,
+    "planner_teacher_adapter_simulator_code_changed": false
+  },
+  "status": "repaired",
+  "verification": {
+    "all_plan054_implementation_files_present_and_hash_matched": true,
+    "both_hardcoded_probe_paths_present_and_hash_matched": true,
+    "no_original_member_removed": true,
+    "only_expected_members_added": true
+  }
+}

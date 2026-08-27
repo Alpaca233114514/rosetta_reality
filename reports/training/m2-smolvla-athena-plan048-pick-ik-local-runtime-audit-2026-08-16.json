@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan048-pick-ik-local-runtime-audit-2026-08-16",
+  "status": "failed_pre_exact_runtime_validation",
+  "preregistration": {
+    "path": "reports/training/m2-smolvla-official-pick-ik-joint-limit-preregistration-2026-08-16.json",
+    "sha256": "96b988c2a74e9e7480d78b235f01f999e3b25738b568da1b1c60a95fe0d87f5f"
+  },
+  "runtime": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9-pick-ik-joint-limit-007",
+    "image_id": "sha256:8489448faa09b515d130edf2cdea9aaa0052edb40372828dc4b5ccab2b9b0b85",
+    "parent_image_id": "sha256:82c7e6a8100ad485e22f28e0ab1ed36c551eb5ad877c0243fbbb31d29fe6540b",
+    "pick_ik_package": "ros-humble-pick-ik",
+    "pick_ik_package_version": "1.1.2-2jammy.20260804.215003",
+    "full_pose_plugin": "pick_ik/PickIkPlugin",
+    "mode": "local",
+    "binary_sha256": "8412071260975d6f18e9428a2420f5eabb3d3e8936c4578c006c20458de2192c",
+    "build_log_sha256": "6995d5b4d9c43e65bf6d3b685fa75ff42f5d9f1baf07cae2ecb640bda3327e59"
+  },
+  "captured_failure_probe": {
+    "source_plan": "m2-smolvla-aloha-geometry-teacher-047",
+    "source_step": 256,
+    "request_id": "plan048-plan047-first-orient",
+    "result_log_sha256": "46ac2a793167fd752d928168515262443dc144f4334f4fe162ca53df328148f9",
+    "stderr_sha256": "e50254c4d353a12f2c5fa2261f11fd406f30cc98afed467d406616a76d47a741",
+    "status": "error",
+    "reason": "bimanual_pick_ik_failed",
+    "ik_attempts_used": 256,
+    "valid_ik_candidate_count": 0
+  },
+  "finding": "The version-pinned plugin and local-mode parameters loaded correctly, but local gradient optimization returned no candidate that passed the unchanged outer exact-pose, tightened joint-margin, bounds and collision checks. Plan048 is stopped before exact. The next isolated plugin-axis test may use pick_ik's registered global memetic mode; no custom Cartesian stencil is enabled.",
+  "protected_identities": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "gate_seals": {
+    "exact": "not_executed",
+    "tuning_seed_1900": "not_executed",
+    "development_seeds_2000_2004": "not_executed",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "not_written",
+    "cuda_training": "not_started"
+  }
+}

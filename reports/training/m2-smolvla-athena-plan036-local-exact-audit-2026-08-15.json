@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan036-local-exact-audit-2026-08-15",
+  "status": "failed_after_terminal_refresh_on_train_demonstrated_table_contact",
+  "execution": {
+    "name": "athena-plan036-local-exact-001",
+    "location": "local_linux_container",
+    "network": "disabled",
+    "repository_mount": "read_only",
+    "cuda": false,
+    "optimizer_steps": 0,
+    "exit_code": 1,
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_036.yaml",
+    "plan_sha256": "3bb462191c2229734684ba37a9efa4e3827b3057139b8bb20942cad0e833acd2",
+    "exact_report_sha256": "ee4c52484af8f07177111ffd755ae92b0ec92810373e97ec8aac51363bf57730",
+    "execution_log_sha256": "e34dc18689462dce2ff9adb748526c997bdeb9c73c0552ed4cda9a4edd28cc06",
+    "moveit_stderr_sha256": "ed00083a24ca75e12983d19566bace0d38eb99d743b607b5ca11ca7cf1eb031e"
+  },
+  "exact_result": {
+    "calibration_reward": 4.0,
+    "successes": 0,
+    "required_successes": 1,
+    "steps_executed": 428,
+    "maximum_reward": 0.0,
+    "final_phase": "descend",
+    "teacher_failure": "Unexpected collision prevents geometry-teacher supervision.",
+    "inverse_kinematics_failures": 0,
+    "adapter_clip_failures": 0,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "path_planner_attempts": 3,
+    "path_planner_reference_waypoint_advancements": 58,
+    "terminal_control_activations": 3,
+    "terminal_control_completions": 2,
+    "terminal_control_commands": 41,
+    "terminal_completion_gate_passed": true,
+    "unexpected_collision_count": 1
+  },
+  "contact_diagnosis": {
+    "first_failure_step": 427,
+    "failure_phase": "descend",
+    "unexpected_pair": [
+      "table",
+      "vx300s_right/10_right_gripper_finger"
+    ],
+    "final_contact_diagnostic_sha256": "d89832f01a374ada292918e311d63112467d415b84736ee26fd147effe16eaff",
+    "calibration_contact_diagnostic_sha256": "fa05af5c86a57a8db4f956e5806fc4fe71e0e96f59024b1d0cafbf5ac8dd7081",
+    "train_calibration_episode": 2,
+    "train_calibration_seed": 10,
+    "train_calibration_contact_steps": [
+      175,
+      176,
+      177,
+      178,
+      179,
+      180,
+      181,
+      182,
+      183,
+      185
+    ],
+    "train_calibration_first_grasp_step": 186,
+    "train_calibration_first_grasp_reward": 1.0,
+    "train_calibration_terminal_reward": 4.0,
+    "interpretation": "The exact pair is a bounded pre-grasp table contact present in the successful train-only calibration, so the generic robot-versus-table classifier is over-broad for descend/grasp."
+  },
+  "gate_seals": {
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "model_or_data_downloaded": false,
+    "cuda_training": false
+  },
+  "next_action": "Preregister one exact-pair, phase-scoped train-demonstrated task-contact classification repair; preserve fail-closed handling for every other contact."
+}

@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-moveit-start-path-constraint-recovery-preregistration-2026-08-15",
+  "status": "preregistered_local_evidence_passed_remote_exact_not_run",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_029.yaml",
+    "plan_id": "m2-smolvla-aloha-geometry-teacher-029",
+    "sha256": "4fc4bff41966022591057bf19c9246b5f511ef3009fde66b1e87a59aca70cde0"
+  },
+  "single_axis_change": {
+    "from": "static_uniform_constraint_tightening",
+    "to": "static_uniform_constraint_tightening_plus_official_start_state_path_constraint_adapter",
+    "adapter": "default_planner_request_adapters/FixStartStatePathConstraints",
+    "entry_condition": "physical_safe_but_tightened_path_constraint_invalid",
+    "physical_joint_limit_margin_rad": 0.01,
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "prefix_contract": "physical_margin_and_monotonic_margin_progress",
+    "constrained_suffix_contract": "tightened_command_margin",
+    "first_execution_waypoint_contract": "positive_margin_progress_when_recovery_is_active"
+  },
+  "source_negative_evidence": {
+    "audit": "reports/training/m2-smolvla-athena-plan028-exact-audit-2026-08-15.json",
+    "audit_sha256": "c06412aba0d10fc0c7a21c04ece5352e2f1ff85d692a701d119a73d0cdcf6829",
+    "exact_report_sha256": "0848857b401a10635cd7d66da4dd7cd339f8417abd9982141669c01a05ccbb64",
+    "failure_step": 106,
+    "failure_reason": "start_state_outside_joint_path_margin",
+    "minimum_pre_failure_observed_margin_rad": 0.039528980331420716,
+    "physical_margin_breach_events": 0
+  },
+  "official_upstream": {
+    "moveit_version": "2.5.9",
+    "planning_pipeline": "planning_pipeline::PlanningPipeline",
+    "planner_plugin": "ompl_interface/OMPLPlanner",
+    "planner_id": "RRTConnect",
+    "request_adapter": "default_planner_request_adapters/FixStartStatePathConstraints",
+    "documentation": [
+      "https://moveit.picknik.ai/humble/doc/concepts/motion_planning.html",
+      "https://moveit.picknik.ai/humble/api/html/classdefault__planner__request__adapters_1_1FixStartStatePathConstraints.html",
+      "https://moveit.picknik.ai/humble/api/html/fix__start__state__path__constraints_8cpp_source.html",
+      "https://moveit.picknik.ai/humble/api/html/classplanning__pipeline_1_1PlanningPipeline.html"
+    ]
+  },
+  "runtime": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9-start-path-constraints-001",
+    "image_id": "sha256:9b8903623be1b75263a24042aa801723339bbdc08b670fbe4caf7d453dffedeb",
+    "executable_sha256": "3e89d68b92365ed3391101f20ed0e79aa13a08e0675ca53b4151cce672cec5da",
+    "urdf_sha256": "544b5f299a5955b4c705cd42f952f4ab4fb898327f6206ea37117533190f63f4",
+    "srdf_sha256": "65bd2a440fb3565fae4373d0218a95afd9564fcb2e4bfdcece06ac4e82c0321d",
+    "description_manifest_sha256": "65d733588c7d6a7f78ac2a2eacb62b4b14e7337151e4190d046d957edbd5572b",
+    "network_mode": "none",
+    "nested_docker_used": false
+  },
+  "implementation": {
+    "integration/aloha_moveit2/src/aloha_moveit_planner.cpp": "70829bfa58473a434a35996a026aeda7d2d03313792301527a10c1fc822ecb4d",
+    "src/rosetta_reality/sim/moveit_aloha_planner.py": "7842cf06cc644648b0b3ac5d23e6958ab876f668f568a252b34002fa00836bfa",
+    "scripts/evaluate_aloha_geometry_teacher.py": "9354709d57a5e33f7d6c8096566629b1c2e77a8afcb0a2860b1917a597f2f8bb",
+    "tests/test_geometry_teacher_protocol.py": "eac1c694efd9984406323758220e7551ea5f5811b79a3e3796cb4d1ffed04c7e",
+    "tests/test_moveit_aloha_planner.py": "9e5d320c47ac0efd4bb64a9429ba7d543f2b4772638fee9b3277f621cdeae49a"
+  },
+  "local_validation": {
+    "attempt_001": {
+      "status": "failed_before_planner_start",
+      "reason": "ROS setup script read an unset AMENT_TRACE_SETUP_FILES while Bash nounset was active",
+      "preserved": true,
+      "evidence": "runs/m2-smolvla-aloha-geometry-teacher-029/local-preregistration-001/failure.json",
+      "evidence_sha256": "d533011f656936d133cb8565fb0b797d8459499885fc6a9fafda2c6a89da8abf"
+    },
+    "attempt_002": {
+      "status": "passed",
+      "relevant_tests_passed": 47,
+      "model_parity": {
+        "report": "reports/training/m2-smolvla-aloha-moveit-model-parity-plan029-2026-08-15.json",
+        "report_sha256": "ed8110a68729813ea0c8e7784b5e5439a643af214a28208dc13436cc6b6788d9",
+        "moveit_results_sha256": "58a4a7889281555aa8cbb592af5ad659314a4c8aa71edaf29770e5b02e145606",
+        "maximum_position_error_m": 3.188872858294072e-16,
+        "maximum_orientation_error_rad": 0.0
+      },
+      "direct_smoke": {
+        "input_sha256": "6aff17a33b5c96c9fe34d782a6769d9d9f6af8e2b281363bdd197caca41964c4",
+        "output_sha256": "f6444af7351d1896ddbb1a29614ad5cffe7226419d39048948adfb2ee6d54c14",
+        "identity_adapter_list": [
+          "default_planner_request_adapters/FixStartStatePathConstraints"
+        ],
+        "normal": {
+          "status": "ok",
+          "adapter_prefix_waypoint_count": 0,
+          "waypoint_count": 8,
+          "minimum_constrained_path_joint_limit_margin_rad": 0.25577631244600063,
+          "minimum_next_joint_limit_margin_rad": 0.41856804463514297
+        },
+        "recovery": {
+          "status": "ok",
+          "start_state_satisfies_joint_path_constraint": false,
+          "start_state_path_constraint_recovery": true,
+          "adapter_prefix_waypoint_count": 29,
+          "waypoint_count": 59,
+          "minimum_start_joint_limit_margin_rad": 0.01998734641020672,
+          "minimum_adapter_prefix_physical_joint_limit_margin_rad": 0.01998734641020672,
+          "minimum_constrained_path_joint_limit_margin_rad": 0.17818474371155113,
+          "minimum_next_joint_limit_margin_rad": 0.04194725447779968,
+          "minimum_recovery_progress_rad": 0.02195990806759296
+        },
+        "physical_unsafe": {
+          "status": "error",
+          "reason": "start_state_outside_physical_joint_limit_margin",
+          "minimum_start_joint_limit_margin_rad": 0.00658000000000003
+        }
+      }
+    }
+  },
+  "sealed_boundaries": {
+    "remote_exact_run_completed": false,
+    "tuning_seed_1900_open": false,
+    "development_seeds_2000_2004_open": false,
+    "collection_seeds_3000_3004_open": false,
+    "policy_gate_seeds_1000_1004_open": false,
+    "validation_loaded": false,
+    "hidden_test_loaded": false,
+    "recovery_labels_written": false,
+    "cuda_training_started": false,
+    "model_or_dataset_downloaded": false
+  },
+  "next_authorized_stage": "future_autodl_train_only_exact_seed_10_after_new_content_addressed_workspace_and_verified_watchdogs"
+}

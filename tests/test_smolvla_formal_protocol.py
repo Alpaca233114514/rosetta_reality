@@ -176,10 +176,38 @@ def test_simulation_policy_shape_follows_versioned_action_contract() -> None:
         input_features={"observation.state": SimpleNamespace(shape=(5,))},
     )
 
-    assert smolvla_sim_gate._validate_policy_contract_shape(policy_config, contract) == 5
+    # The policy config state shape is an upstream base-model placeholder and may
+    # differ from the dataset contract; the dataset shape is the runtime truth.
+    assert (
+        smolvla_sim_gate._validate_policy_contract_shape(policy_config, contract, 14)
+        == 14
+    )
     policy_config.chunk_size = 50
     with pytest.raises(ValueError, match="policy dimensions"):
-        smolvla_sim_gate._validate_policy_contract_shape(policy_config, contract)
+        smolvla_sim_gate._validate_policy_contract_shape(policy_config, contract, 14)
+    with pytest.raises(ValueError, match="state dimension"):
+        smolvla_sim_gate._validate_policy_contract_shape(
+            SimpleNamespace(chunk_size=12, output_features={"action": SimpleNamespace(shape=(7,))}),
+            contract,
+            0,
+        )
+
+
+def test_dataset_state_dimension_matches_faust_artifact_case() -> None:
+    # Regression guard for the upstream smolvla_base placeholder (state shape 6)
+    # versus the real 14-D ALOHA dataset/simulator state.
+    assert (
+        smolvla_sim_gate._dataset_state_dimension(
+            {"observation.state": {"shape": [14]}}
+        )
+        == 14
+    )
+    with pytest.raises(ValueError, match="one-dimensional"):
+        smolvla_sim_gate._dataset_state_dimension(
+            {"observation.state": {"shape": [3, 14]}}
+        )
+    with pytest.raises(ValueError, match="no robot-state contract"):
+        smolvla_sim_gate._dataset_state_dimension({})
 
 
 def test_selection_rejects_cross_workspace_validation() -> None:

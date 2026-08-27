@@ -84,20 +84,34 @@ class CachedFeatureDataset(Dataset[dict[str, Tensor]]):
             manifest.get("identity", {}).get("selection", {}).get("action_transform")
         )
         loaded_episodes: list[int] = []
+        loaded_episode_set: set[int] = set()
+        loaded_paths: set[str] = set()
         for shard in raw_shards:
-            relative = Path(str(shard["path"]))
+            if not isinstance(shard, dict):
+                raise ValueError("Feature cache shard records must be mappings.")
+            relative_text = str(shard["path"])
+            relative = Path(relative_text)
             if relative.is_absolute() or ".." in relative.parts:
                 raise ValueError(f"Unsafe feature shard path: {relative}.")
+            episode = int(shard["episode"])
+            if episode in loaded_episode_set:
+                raise ValueError(f"Feature cache repeats episode {episode} for split {split!r}.")
+            relative_key = relative.as_posix()
+            if relative_key in loaded_paths:
+                raise ValueError(
+                    f"Feature cache repeats shard path {relative} for split {split!r}."
+                )
+            loaded_episodes.append(episode)
+            loaded_episode_set.add(episode)
+            loaded_paths.add(relative_key)
             path = cache_root / relative
             if file_sha256(path) != shard["sha256"]:
                 raise ValueError(f"Feature shard checksum mismatch: {relative}.")
             value = torch.load(path, map_location="cpu", weights_only=True)
             if value.get("identity_hash") != expected_identity or value.get("split") != split:
                 raise ValueError(f"Feature shard identity mismatch: {relative}.")
-            episode = int(shard["episode"])
             if int(value.get("episode", -1)) != episode:
                 raise ValueError(f"Feature shard episode identity mismatch: {relative}.")
-            loaded_episodes.append(episode)
             if expected_transform:
                 payload_transform = value.get("action_transform")
                 if (
@@ -145,10 +159,16 @@ class CachedFeatureDataset(Dataset[dict[str, Tensor]]):
         if declared_total != count:
             raise ValueError("Feature manifest total differs from loaded shard samples.")
         declared_episodes = manifest.get("identity", {}).get("split", {}).get(split)
-        if declared_episodes is not None and set(map(int, declared_episodes)) != set(
-            loaded_episodes
-        ):
-            raise ValueError("Feature manifest episode split differs from loaded shards.")
+        if declared_episodes is not None:
+            if not isinstance(declared_episodes, list):
+                raise ValueError("Feature manifest episode split must be an ordered list.")
+            declared_episode_values = [int(value) for value in declared_episodes]
+            if len(declared_episode_values) != len(set(declared_episode_values)):
+                raise ValueError("Feature manifest episode split contains duplicates.")
+            if declared_episode_values != loaded_episodes:
+                raise ValueError(
+                    "Feature manifest episode split order differs from loaded shards."
+                )
 
     def __len__(self) -> int:
         return self.features.shape[0]

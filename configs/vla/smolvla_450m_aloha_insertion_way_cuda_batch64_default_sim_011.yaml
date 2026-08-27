@@ -1,0 +1,114 @@
+schema_version: 1
+role: vla
+stage: m2_closed_loop_simulation
+status: preregistered
+plan_id: m2-smolvla450m-way-b64-default-sim-011
+experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+artifact_id: m2-smolvla450m-way-b64-default-step0316-002-export001
+artifact_manifest_sha256: 49effbbd3d4802e36e148a43ef42a20feb31518ab5e550b2b3a447d07c0c9fb1
+hypothesis: >-
+  Relative to the read-only Aster primary closed-loop control, the fresh-base
+  Way policy trained with normalized robot-state Gaussian jitter std=0.05 will
+  improve fixed-seed closed-loop ALOHA insertion robustness. Environment seeds,
+  seeded upstream inference noise, safety projection, receding-horizon
+  execution, simulator physics, collision semantics and acceptance thresholds
+  remain fixed.
+single_axis_change:
+  field: training.normalized_observation_state_jitter_std
+  control: 0.0
+  candidate: 0.05
+  unchanged:
+    - fresh_base_model_revision
+    - validation_selected_checkpoint_protocol
+    - environment_seeds
+    - inference_noise_and_seeds
+    - action_contract
+    - policy_output_projection
+    - chunk_execution
+    - simulator_physics
+    - acceptance_thresholds
+control_reference:
+  plan: configs/vla/smolvla_450m_aloha_insertion_aster_sim_003.yaml
+  plan_sha256: 77f67d23fb53bcc4e2eae2f43113a04217ba50065f1e12cccc1dd407dafb6633
+  gate4_report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-003.json
+  gate4_report_sha256: 86c35a4dbcb70761a5ec6787fd95e6dcbd11e26738aaab9e34500be02aff8a46
+  task_success_rate: 0.0
+  relationship: read_only_control
+prior_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-001/gates/gate3-smolvla-sim-001.json
+  report_sha256: 5df3b887984d1c8fd47084c3315a71e3894eac18cc80b1eb08b2120583ed26ed
+  failed_criterion: raw_actions_within_contract
+prior_task_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-003.json
+  report_sha256: 86c35a4dbcb70761a5ec6787fd95e6dcbd11e26738aaab9e34500be02aff8a46
+  failed_criterion: minimum_task_success_rate
+selection:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-way-cuda-b64-default-formal-002-selection.json
+  report_sha256: 7ee31cafa766ea992d696818cd2d16ef89e304d53a84d4c13798226c6b813427
+  checkpoint_step: 316
+  model_safetensors_sha256: 31ec390248862919cd90457815d7c00cfbe9e28fcc12c6c5d217fea1013bad0b
+export_runtime_repair:
+  plan: configs/vla/smolvla_450m_aloha_insertion_way_cuda_batch64_default_export_runtime_repair_001.yaml
+  plan_sha256: 0868f9340de6aedde1a4ce05f59b445b38c02ba53a3bfc38d5b8d16039f233b9
+artifact_backup:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/artifact_backup/m2-smolvla450m-way-b64-default-step0316-002-export001-remote-durable-backup-001.json
+  report_sha256: d66dcfbcb7e756b561f8b36c664647ef7ace649ddb1546a3810d6f500350b185
+  off_host_copy_created: false
+  same_durable_data_disk: true
+  user_bandwidth_preference_applied: true
+action_contract:
+  path: configs/sim/aloha_insertion_smolvla.yaml
+  sha256: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+collision_policy:
+  classifier: explicit_task_contact_allowlist
+  allowed_task_contacts:
+    - [red_peg, vx300s_right/10_right_gripper_finger]
+    - [socket-1, vx300s_left/10_left_gripper_finger]
+    - [socket-2, vx300s_left/10_left_gripper_finger]
+    - [socket-3, vx300s_left/10_left_gripper_finger]
+    - [socket-4, vx300s_left/10_left_gripper_finger]
+  same_arm_internal_gripper_contacts_are_non_gating: true
+  all_other_robot_scene_contacts_are_unexpected: true
+simulation_code_sha256:
+  scripts/run_autodl.sh: bc1b1f913bc06efd7821ac330748c0c537e6491c58a8a4bc0c43214534f2c90a
+  scripts/smolvla_autodl_way_sim_gate_runtime_repair.py: 3ac2ae7a4e04fb63f8c7c014b1b0c98f7b3716bea0c6d5772bcabadd6517ea9b
+  scripts/smolvla_autodl_way_sim_gate.py: dbaec6f314a7e90f3c2612dc5f57c951c8da672fa7523982e77c6f041d7847ac
+  scripts/smolvla_sim_gate.py: 5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae
+  src/rosetta_reality/sim/gym_aloha.py: e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d
+  src/rosetta_reality/vla/processor.py: 6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384
+inference:
+  observation_camera: top
+  policy_camera: observation.images.camera1
+  instruction: Insert the peg into the socket.
+  noise: seeded_standard_normal
+  noise_source: pinned_lerobot_default_standard_normal
+  mixed_precision: bf16
+  chunk_execution: receding_horizon_first_action
+  chunk_execution_steps: 1
+  policy_output_projection: action_contract_clip
+  projection_location: vla_output_boundary_before_simulation_adapter
+  unprojected_decoder_action_role: non_gating_diagnostic
+resources:
+  runtime: autodl_container_instance
+  accelerator: cuda
+  memory_limit: autodl_platform_container
+  memory_swap_limit: autodl_platform_container
+  nested_docker_used: false
+gate3:
+  seed: 20260809
+  policy_noise_seed: 20260809
+  maximum_steps: 20
+  require_finite_actions: true
+  require_projected_policy_actions_within_contract: true
+  require_adapter_no_additional_clipping: true
+  maximum_unexpected_collisions: 0
+  report_suffix: "011"
+gate4:
+  seeds: [1000, 1001, 1002, 1003, 1004]
+  policy_noise_seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+  minimum_task_success_rate: 0.2
+  maximum_unexpected_collisions: 0
+  require_gate3_passed: true
+  report_suffix: "011"
+hidden_test_loaded: false

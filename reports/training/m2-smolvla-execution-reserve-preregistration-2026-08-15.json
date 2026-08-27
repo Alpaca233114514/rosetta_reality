@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-execution-reserve-preregistration-2026-08-15",
+  "status": "preregistered_awaiting_train_exact",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_028.yaml",
+    "plan_id": "m2-smolvla-aloha-geometry-teacher-028",
+    "sha256": "536e882ec2222b67dcf7c81006f3b4860190823e0843ccc6b5fe6f8285b39899"
+  },
+  "source_evidence": {
+    "plan_id": "m2-smolvla-aloha-geometry-teacher-027",
+    "audit_path": "reports/training/m2-smolvla-athena-plan027-exact-audit-2026-08-15.json",
+    "audit_sha256": "610273b3fdacb9a4b38a563751a2f183846be531bf9b1c5faddb48a447f8d955",
+    "exact_report_sha256": "7dd47ab9eada44ba8ca1105050ba6af784259f39bd55eb079f7025fe53999b73",
+    "reserve_metric": "maximum_tracking_overshoot_toward_limit_rad",
+    "reserve_scope": "all_arm_joints_all_executed_train_exact_steps",
+    "reserve_value_rad": 0.03540462255477905
+  },
+  "single_variable": {
+    "name": "static_uniform_robust_constraint_tightening",
+    "schema": "robust_joint_limit_constraint_tightening_v1",
+    "physical_joint_limit_margin_rad": 0.01,
+    "tracking_reserve_rad": 0.03540462255477905,
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "applies_to": [
+      "mink.ConfigurationLimit",
+      "moveit_msgs/JointConstraint"
+    ],
+    "affects_action_selection": true,
+    "dynamic_adaptation": false
+  },
+  "official_components": {
+    "mink_version": "1.2.0",
+    "mink_limit": "ConfigurationLimit",
+    "daqp_version": "0.8.7",
+    "moveit_version": "2.5.9",
+    "moveit_constraint": "moveit_msgs/JointConstraint",
+    "ompl_planner": "geometric::RRTConnect",
+    "kinematics_plugin": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "new_ik_or_path_planner_introduced": false
+  },
+  "frozen_boundaries": {
+    "teacher": true,
+    "action_contract": true,
+    "physical_joint_limit_margin_rad": 0.01,
+    "pose_acceptance_m": 0.001,
+    "projected_pose_acceptance_m": 0.003,
+    "exact_train_episode": 2,
+    "exact_simulator_seed": 10,
+    "collision_resources": true,
+    "moveit_runtime_identity": true,
+    "time_indexed_expert_actions": false,
+    "recovery_labels": false
+  },
+  "acceptance_additions": {
+    "maximum_commanded_physical_margin_breach_events": 0,
+    "maximum_observed_physical_margin_breach_events": 0,
+    "diagnostic_margin_remains_physical_not_tightened": true
+  },
+  "implementation": {
+    "evaluator": "scripts/evaluate_aloha_geometry_teacher.py",
+    "evaluator_sha256": "806ae93d357c041155c6f7f99b8e506a0b3939ae841219c3d9eeefedbc8c1068",
+    "protocol_test": "tests/test_geometry_teacher_protocol.py",
+    "protocol_test_sha256": "3bf981c0464d14eb858aad3349a7d3397fe0fb0d7d8f2a73dcf0444af2f049ce",
+    "teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "mink_adapter_sha256": "cdff063ce164dc5eb8137c6c8cbd66f5c102eb06f0842a0f92b64727f9e70583",
+    "moveit_adapter_sha256": "5ce1bdbb4c06d6bf59dd80ae073a6de3dc88ae0651421042dfe98d95047631db",
+    "protected_adapter_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "verification": {
+    "windows_native_python_used": false,
+    "wsl_bash_used": true,
+    "docker_used": true,
+    "docker_cli_invoked_from_wsl_bash": true,
+    "network_access_enabled": false,
+    "repository_mount": "read_only",
+    "container_root_filesystem": "read_only",
+    "image": "rosetta-reality-smolvla-sim-xpu:mink-1.2.0",
+    "image_id": "sha256:8313a310d42fdefc5e8f069be5732e2a97b6f0772aa1c8b2033934a1b489596f",
+    "ruff": "passed",
+    "protocol_tests_passed": 14,
+    "focused_tests_passed": 43,
+    "focused_tests_failed": 0,
+    "initial_protocol_failure": {
+      "passed": 2,
+      "failed": 12,
+      "single_cause": "transcribed_package_xml_hash_had_one_extra_trailing_character",
+      "runtime_code_reached": false
+    }
+  },
+  "gates": {
+    "exact_executed": false,
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps": 0,
+    "cuda_training": false,
+    "model_or_data_downloaded": false
+  }
+}

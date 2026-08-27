@@ -17,8 +17,10 @@ Commands:
   doctor                 Verify RTX 4090, packages and immutable caches offline.
   benchmark              Run immutable pre-training baselines; no model weights/optimizer.
   preflight ARG...       Run an explicitly supplied no-optimizer command after doctor+benchmark.
+  smoke ARG...           Run the plan-bound two-step Way CUDA smoke; formal remains locked.
+  gate ARG...            Run a preregistered Way Gate 3/4 after artifact backup.
   shell                  Open an offline shell with the registered durable roots.
-  formal                 Refuse until a separately preregistered CUDA plan exists.
+  formal ARG...          Run only an explicit, separately preregistered Way formal plan.
 
 The AutoDL container instance is the Linux container boundary. This runner never
 tries to start nested Docker. Model/dataset download and Trackio public sync are
@@ -59,6 +61,9 @@ export_runtime() {
     export HF_HUB_DISABLE_TELEMETRY=1
     export TOKENIZERS_PARALLELISM=false
     export ROSETTA_TORCH_DEVICE=cuda
+    export ROSETTA_DOCKER_MEMORY_LIMIT=autodl_platform_container
+    export ROSETTA_DOCKER_MEMORY_SWAP_LIMIT=autodl_platform_container
+    export MUJOCO_GL=egl
     export ROSETTA_AUTODL_RUNTIME_PROFILE="$PROFILE"
     export PYTHONPYCACHEPREFIX="$DURABLE_ROOT/runs/pycache"
     export TORCHINDUCTOR_CACHE_DIR="$DURABLE_ROOT/runs/compiler_cache/cuda/inductor"
@@ -67,7 +72,7 @@ export_runtime() {
 }
 
 run_doctor() {
-    python scripts/autodl_doctor.py --profile "$PROFILE" --config "$EXPERIMENT_CONFIG"
+    python scripts/autodl_doctor_cuda.py --profile "$PROFILE" --config "$EXPERIMENT_CONFIG"
 }
 
 run_benchmark() {
@@ -98,12 +103,34 @@ case "$command" in
         export ROSETTA_AUTODL_NO_OPTIMIZER_AUTHORIZED=1
         "$@"
         ;;
+    smoke)
+        [[ "$#" -gt 0 ]] || die "smoke requires explicit plan and evidence arguments"
+        export_runtime
+        export ROSETTA_AUTODL_TWO_STEP_SMOKE_AUTHORIZED=1
+        python scripts/run_smolvla_state_robustness_cuda_smoke.py "$@"
+        ;;
+    gate)
+        [[ "$#" -gt 0 ]] || die "gate requires gate3/gate4 and an explicit plan"
+        export_runtime
+        [[ "${ROSETTA_AUTODL_ARTIFACT_BACKUP_VERIFIED:-}" == "1" ]] \
+            || die "gate requires verified deploy-artifact backup evidence"
+        python scripts/smolvla_autodl_way_sim_gate_runtime_repair.py "$@"
+        ;;
     shell)
         export_runtime
         exec bash --noprofile --norc
         ;;
     formal)
-        die "formal CUDA training is locked until benchmark, two-step smoke and a new plan are registered"
+        [[ "$#" -gt 0 ]] || die "formal requires an explicit plan and evidence arguments"
+        explicit_plan=0
+        for argument in "$@"; do
+            [[ "$argument" == "--plan" ]] && explicit_plan=1
+        done
+        [[ "$explicit_plan" == "1" ]] \
+            || die "formal requires an explicit separately preregistered --plan"
+        export_runtime
+        export ROSETTA_AUTODL_FORMAL_AUTHORIZED=1
+        python scripts/run_smolvla_state_robustness_cuda_formal.py "$@"
         ;;
     -h|--help|help)
         usage

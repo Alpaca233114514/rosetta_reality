@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_no_execution",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-040",
+  "hypothesis": "Plan039's final commanded pose was free of the unregistered left-finger/table contact, while the observed pose acquired that contact from near-table tracking/gravity droop. Extending the already registered official MuJoCo static inverse-dynamics position feedforward to only descend and grasp will reduce that droop without changing IK, task targets, collision classification, pose thresholds, joint margins, the MoveIt path planner, or later-stage gates.",
+  "single_axis": "extend_registered_static_position_feedforward_to_descend_and_grasp",
+  "source": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_039.yaml",
+    "plan_sha256": "a0a919d778e8af06395103c3ba8a432c2348a34ffbe556450f246f337a3844c5",
+    "audit": "reports/training/m2-smolvla-athena-plan039-local-exact-audit-2026-08-15.json",
+    "audit_sha256": "463e16d744e50ff7c1d1dcf726dc2158d09a9d66a356f05e735fbe21bb157616",
+    "exact_report_sha256": "2296577282cd3e9fe20b514eabb12d4b155cc4e46d66a6a52ba6a9030e64ad5b",
+    "observed_contact_diagnostic_sha256": "c3e29a05b2f2f1b0e3af6ad9c2b4ff55fb46393ce574c52af23794f10dde1909",
+    "commanded_contact_diagnostic_sha256": "96a64e5c80b56ec351baca63235ade99586d519b471106bbef34cf1a6096e80b",
+    "feedforward_counterfactual_sha256": "8d9f4ce94feee82fd2bf23c4b6de37b3c1bdb6ec6f1356f2f82537ff0e542da7"
+  },
+  "observed_boundary": {
+    "failure_step": 441,
+    "phase": "descend",
+    "unexpected_pair": [
+      "table",
+      "vx300s_left/10_left_gripper_finger"
+    ],
+    "unexpected_pair_present_in_train_calibration": false,
+    "commanded_pose_contains_unexpected_pair": false,
+    "observed_pose_contains_unexpected_pair": true,
+    "counterfactual_maximum_correction_rad": 0.004120926503546007,
+    "counterfactual_minimum_command_joint_limit_margin_rad": 0.6329709929863547,
+    "counterfactual_contains_unexpected_pair": false
+  },
+  "registered_change": {
+    "backend": "mujoco_static_inverse_dynamics_affine_position_feedforward",
+    "phases": [
+      "descend",
+      "grasp"
+    ],
+    "maximum_correction_rad": 0.05,
+    "joint_limit_margin_rad": 0.04540462255477905,
+    "neutral_reference_tolerance_rad": 1e-9,
+    "reuses_terminal_feedforward_implementation": true,
+    "collision_allowlist_changed": false,
+    "pose_thresholds_changed": false,
+    "joint_limit_margins_changed": false,
+    "planner_or_ik_changed": false,
+    "teacher_targets_changed": false,
+    "horizon_changed": false,
+    "seed_or_label_boundaries_changed": false
+  },
+  "official_basis": {
+    "mujoco_actuation": "https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model",
+    "mujoco_force_balance": "https://mujoco.readthedocs.io/en/stable/computation/index.html#passive-forces",
+    "control_interpretation": "The existing implementation solves the official fixed-gain affine position-actuator equation for the static bias/passive force at the desired pose and fails closed on unsupported transmissions, force limits, control limits, correction bounds, or joint margins."
+  },
+  "acceptance": {
+    "exact_seed": 10,
+    "exact_successes_required": 1,
+    "minimum_contact_phase_feedforward_commands": 1,
+    "maximum_contact_phase_feedforward_failures": 0,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "maximum_unexpected_collisions": 0,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false
+  },
+  "stop_conditions": [
+    "contact_phase_feedforward_scope_differs_from_descend_and_grasp",
+    "contact_phase_feedforward_does_not_reuse_the_registered_static_inverse_dynamics_implementation",
+    "contact_phase_feedforward_exceeds_the_existing_0_05_rad_correction_bound",
+    "contact_phase_feedforward_breaches_the_existing_command_joint_margin",
+    "any_collision_pose_joint_limit_planner_ik_teacher_horizon_seed_or_label_setting_changes",
+    "validation_hidden_or_later_seed_access",
+    "recovery_label_write"
+  ]
+}

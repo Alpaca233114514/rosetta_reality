@@ -100,8 +100,25 @@ class _ArtifactMetadata:
         self.stats = _convert_statistics(combined)
 
 
+def _dataset_state_dimension(dataset_features: dict[str, Any]) -> int:
+    """Return the runtime robot-state dimension from the dataset feature contract."""
+    state_feature = dataset_features.get("observation.state")
+    if not isinstance(state_feature, dict):
+        raise ValueError("Artifact dataset features have no robot-state contract.")
+    shape = state_feature.get("shape")
+    if (
+        not isinstance(shape, tuple | list)
+        or len(shape) != 1
+        or isinstance(shape[0], bool)
+        or not isinstance(shape[0], int)
+        or shape[0] <= 0
+    ):
+        raise ValueError("Artifact dataset state shape must be one-dimensional.")
+    return int(shape[0])
+
+
 def _validate_policy_contract_shape(
-    policy_config: Any, contract: ActionContract
+    policy_config: Any, contract: ActionContract, dataset_state_dimension: int
 ) -> int:
     output_feature = policy_config.output_features.get("action")
     output_shape = getattr(output_feature, "shape", None)
@@ -111,17 +128,13 @@ def _validate_policy_contract_shape(
         or tuple(output_shape) != (contract.dimension,)
     ):
         raise ValueError("Artifact policy dimensions differ from the Action Contract.")
-    state_feature = policy_config.input_features.get("observation.state")
-    state_shape = getattr(state_feature, "shape", None)
-    if (
-        not isinstance(state_shape, tuple | list)
-        or len(state_shape) != 1
-        or isinstance(state_shape[0], bool)
-        or not isinstance(state_shape[0], int)
-        or state_shape[0] <= 0
-    ):
-        raise ValueError("Artifact policy has no one-dimensional robot-state contract.")
-    return int(state_shape[0])
+    if dataset_state_dimension <= 0:
+        raise ValueError("Artifact dataset state dimension must be positive.")
+    # The policy config `observation.state` shape is a placeholder inherited from
+    # the upstream `lerobot/smolvla_base` config; `make_policy` rebuilds action
+    # features from dataset metadata but never rebuilds a non-empty input feature,
+    # so the dataset feature shape is the only runtime-truthful state dimension.
+    return dataset_state_dimension
 
 
 class _OnlineSmolVLA:
@@ -146,13 +159,14 @@ class _OnlineSmolVLA:
         policy_cfg.pretrained_revision = None
         policy_cfg.load_vlm_weights = False
         metadata = _ArtifactMetadata(config, normalization)
+        dataset_state_dimension = _dataset_state_dimension(metadata.features)
         self.policy = make_policy(
             cfg=policy_cfg,
             ds_meta=metadata,
             rename_map=config["rename_map"],
         )
         self.state_dimension = _validate_policy_contract_shape(
-            self.policy.config, contract
+            self.policy.config, contract, dataset_state_dimension
         )
         self.action_dimension = contract.dimension
         self.chunk_length = contract.chunk_length
@@ -278,6 +292,16 @@ def _load_artifact(plan_path: Path) -> tuple[dict[str, Any], Path, dict[str, Any
         )
     ):
         raise ValueError("SmolVLA simulation plan or resource boundary is invalid.")
+    source_sha256 = plan.get("simulation_code_sha256")
+    if source_sha256 is not None:
+        if not isinstance(source_sha256, dict) or not source_sha256:
+            raise ValueError("Simulation code identity must be a non-empty mapping.")
+        for relative, expected in source_sha256.items():
+            if not isinstance(relative, str) or not isinstance(expected, str):
+                raise ValueError("Simulation code identity entries must be strings.")
+            source_path = _repository_path(relative)
+            if len(expected) != 64 or file_sha256(source_path) != expected:
+                raise ValueError(f"Simulation code changed after registration: {relative}.")
     selection_path = _repository_path(plan["selection"]["report"])
     selection = _load_json(selection_path)
     if (
@@ -359,7 +383,11 @@ def _load_artifact(plan_path: Path) -> tuple[dict[str, Any], Path, dict[str, Any
     config = _load_json(artifact / "config.json")
     normalization = _load_json(artifact / "normalization.json")
     if (
-        manifest.get("status") != "verified"
+        (
+            plan.get("artifact_manifest_sha256") is not None
+            and file_sha256(manifest_path) != plan["artifact_manifest_sha256"]
+        )
+        or manifest.get("status") != "verified"
         or manifest.get("artifact_id") != plan["artifact_id"]
         or manifest.get("experiment_id") != plan["experiment_id"]
         or manifest.get("selected_checkpoint_step") != plan["selection"]["checkpoint_step"]

@@ -1,0 +1,59 @@
+schema_version: 1
+role: vla
+stage: smolvla_way_validation_runtime_repair
+status: preregistered
+repair_id: m2-smolvla450m-way-cuda-b64-default-validation-runtime-repair-003
+reason: >-
+  The first validation-only attempt produced no reports because the historical
+  evaluator expected tokenizer files inside the policy root and an old
+  top-level normalization alias. The immutable base cache instead registers
+  tokenizer files in the pinned VLM dependency snapshot, while the completed
+  Way formal plan registers normalization under prerequisites. This repair
+  adapts only those read-only validation inputs.
+formal_plan:
+  path: configs/vla/smolvla_450m_aloha_insertion_way_cuda_batch64_default_formal_002.yaml
+  plan_id: m2-smolvla450m-way-cuda-b64-default-formal-002
+  sha256: b02a84f219c52b226cc97eba019cfc98cc217301504b37e1b557f957a702744c
+formal_launch:
+  path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/launch/m2-smolvla450m-way-cuda-b64-default-formal-002.json
+  sha256: 52ee8a6b986be78d86aace8547cc81c9511fd5c212fda55fb0e283ca1439feb6
+formal_completion:
+  path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/completion/m2-smolvla450m-way-cuda-b64-default-formal-002.json
+  sha256: 5e1ab5ad0fbee4520e6da1d046661e242d68af04c8dda254112e0fec65668e45
+failed_validation_attempt:
+  path: runs/orchestration/way-validation-b64-default-20260814-r4-001.log
+  sha256: 8bbd3a136cbabc11441c2482251253c0fc46174a1294fcc6745ef7e23e9c0c8b
+  exit_status: 1
+  reports_created: false
+scope:
+  validation_only: true
+  optimizer_created: false
+  gradients_enabled: false
+  checkpoint_or_optimizer_state_modified: false
+  training_identity_changed: false
+  hidden_test_loaded: false
+compatibility_repairs:
+  base_tokenizer_identity_from_pinned_vlm_dependency: true
+  legacy_normalization_alias_from_formal_prerequisites: true
+  validation_reports_preserve_formal_launch_code_identity: true
+  validation_runtime_identity_recorded_separately: true
+base_tokenizer_source:
+  source: pinned_vlm_dependency_snapshot
+  repo_id: HuggingFaceTB/SmolVLM2-500M-Video-Instruct
+  revision: 7b375e1b73b11138ff12fe22c8f2822d8fe03467
+  manifest_sha256: f6d10e2a3b8ba46baefcb8ec8bc5af1421a0738be476c0f71e1f66bc7a42d843
+  cache_layout: hub/models--HuggingFaceTB--SmolVLM2-500M-Video-Instruct/snapshots/7b375e1b73b11138ff12fe22c8f2822d8fe03467
+validation_run_name_prefix: m2-smolvla450m-way-cuda-b64-default-validation-002
+outputs:
+  create_only: true
+  sources: [base, 79, 158, 237, 316]
+  root: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/validation
+  test_split_loaded: false
+implementation_files:
+  scripts/evaluate_smolvla_way_validation_runtime_repair.py: 1cf07200528eab10ae89bb4ec0acb3b092525e7b831897ac5e5d79a4841cb244
+  scripts/evaluate_smolvla_way_validation.py: 7545755f94e88462923852eeb797374596b68503c80eee1e2d6bda2f8b14ebe1
+  scripts/evaluate_smolvla_validation.py: 507422bf4baa90ec34e844e858cb386d7ea90c3f5faf3725f899bfacdbaac403
+  scripts/evaluate_smolvla_aster_validation.py: 911a7aeb6cd0efec7b2a03df0db185d71ce9aaadea566ec15bb237079390f52f
+  scripts/run_smolvla_state_robustness_cuda_formal.py: b613f2f980697d94a7f748f8e67bf199b4f861e31e14bfa624e2877218313e33
+hidden_test_loaded: false
+closed_loop_claim: false

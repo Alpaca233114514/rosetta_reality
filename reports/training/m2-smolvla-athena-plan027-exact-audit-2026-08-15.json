@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan027-exact-audit-2026-08-15",
+  "status": "train_exact_failed_execution_tracking_reserve_later_gates_sealed",
+  "task_name": "Athena",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_027.yaml",
+    "sha256": "b655c2956a7b7ce84ba882796748f8877b6229ff25a385262852a3dfd139123c",
+    "evaluator_sha256": "46e375a40b2cc8445a524069105f63146f0d40ddf3b090f31dbbb66258a28b5e",
+    "protocol_test_sha256": "4492acc3c69d1edbd459a9a3f6c9d040aaed63e680da83d3788b2a3acab2c7b0"
+  },
+  "workspace": {
+    "release_id": "20260815T070001Z-5bd66d5e4bdc-f2c4662a2dab",
+    "archive_sha256": "f2c4662a2dabff46e53a88ce1780679622473a298779d2e73679ed5d3c84e002",
+    "safe_extract_omitted_member": "checkpoints",
+    "omitted_member_reason": "absolute local WSL symbolic link not required by geometry exact"
+  },
+  "watchdogs": {
+    "hard_deadline": "2026-08-15T18:00:00+08:00",
+    "hard_watchdog_pid": 1448,
+    "hard_sleep_pid": 1451,
+    "task_deadline": "2026-08-15T16:40:00+08:00",
+    "task_watchdog_pid": 1642,
+    "task_sleep_pid": 1645,
+    "task_nice": 19,
+    "task_io_class": "idle",
+    "independent_reconnect_verified": true,
+    "superseded_record_preserved": true,
+    "superseded_reason": "powershell_cr_prevented_low_priority_branch"
+  },
+  "static_evidence": {
+    "attempt_001": {
+      "exit_code": 1,
+      "classification": "infrastructure_dependency_check_failure_before_tests"
+    },
+    "typeguard_overlay": {
+      "source": "ubuntu_jammy_python3-typeguard_2.2.2-1.1",
+      "network_used": false
+    },
+    "attempt_002": {
+      "exit_code": 0,
+      "ruff": "passed",
+      "focused_tests_passed": 39,
+      "focused_tests_failed": 0,
+      "maximum_fk_parity_position_error_m": 3.188872858294072e-16,
+      "maximum_fk_parity_orientation_error_rad": 0.0,
+      "joint_margin_smoke_waypoints": 8,
+      "joint_margin_smoke_minimum_path_margin_rad": 0.2557753747255791,
+      "negative_margin_smoke_reason": "start_state_outside_joint_path_margin",
+      "negative_margin_smoke_start_margin_rad": 0.00658000000000003
+    }
+  },
+  "calibration": {
+    "source_episode": 2,
+    "simulator_seed": 10,
+    "maximum_reward": 4.0,
+    "steps_executed": 294
+  },
+  "exact": {
+    "attempt_003": {
+      "exit_code": 1,
+      "classification": "runner_parent_directory_missing_before_evaluator"
+    },
+    "attempt_004": {
+      "runner_exit_code": 1,
+      "report_sha256": "7dd47ab9eada44ba8ca1105050ba6af784259f39bd55eb079f7025fe53999b73",
+      "successes": 0,
+      "required_successes": 1,
+      "steps_executed": 141,
+      "final_phase": "approach",
+      "path_planner_attempts": 11,
+      "path_planner_waypoints": 10,
+      "minimum_successful_path_margin_rad": 0.01422609336853009,
+      "minimum_successful_next_margin_rad": 0.06973937890929083,
+      "commanded_margin_breach_events": 0,
+      "observed_margin_breach_events": 1,
+      "first_commanded_margin_breach_step": null,
+      "first_observed_margin_breach_step": 139,
+      "minimum_commanded_margin_rad": 0.013024463729858216,
+      "minimum_commanded_margin_step": 132,
+      "minimum_observed_margin_rad": 0.007716312484741028,
+      "minimum_observed_margin_step": 139,
+      "maximum_command_to_observed_joint_error_rad": 0.15629935264587402,
+      "maximum_tracking_overshoot_toward_limit_rad": 0.03540462255477905,
+      "maximum_margin_loss_command_to_observation_rad": 0.15629935264587402,
+      "failure_step": 140,
+      "failure_reason": "start_state_outside_joint_path_margin",
+      "adapter_clip_failures": 0,
+      "joint_limit_projection_events": 0
+    }
+  },
+  "finding": {
+    "boundary": "controller_execution_tracking_reserve",
+    "responsible_joint": "left_wrist_rotate",
+    "responsible_bound": "upper",
+    "command_step": 139,
+    "commanded_margin_rad": 0.015719308929443184,
+    "observed_margin_rad": 0.007716312484741028,
+    "overshoot_toward_bound_rad": 0.008002996444702148,
+    "registered_margin_rad": 0.01,
+    "interpretation": "the planner command remained outside the protected band, but controller execution moved the next observed state inside it",
+    "next_safe_action": "preregister a single-axis measured execution reserve or closed-loop feedback guard without changing the physical margin or pose gates",
+    "pose_gate_relaxation_allowed": false,
+    "joint_margin_relaxation_allowed": false
+  },
+  "gates": {
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps": 0,
+    "cuda_training": false,
+    "model_or_data_downloaded": false
+  },
+  "local_evidence": {
+    "summary_sha256": "34b181199aeedfdb71a3da903e98b61b9a9074bfcc37d6c5fc12fa121cb93906",
+    "evidence_bundle_sha256": "e6fca0350547889abb1f16a0130d9b099ab2495a78ed9b87201c0f39938c615e",
+    "evidence_bundle_members": 92,
+    "unsafe_bundle_members": 0
+  },
+  "shutdown": {
+    "requested_deadline": "2026-08-15T18:00:00+08:00",
+    "manual_shutdown_id": "athena-plan027-complete-20260815T072222Z-4024",
+    "manual_shutdown_pid": 4035,
+    "shutdown_command": "/usr/bin/shutdown",
+    "shutdown_arguments": [],
+    "ssh_after_shutdown_exit_code": 255,
+    "ssh_after_shutdown_error": "Connection reset",
+    "status": "ssh_connection_closed"
+  }
+}

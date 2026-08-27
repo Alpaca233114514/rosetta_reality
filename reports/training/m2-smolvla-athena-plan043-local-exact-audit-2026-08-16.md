@@ -1,0 +1,7 @@
+# Athena Plan043 local exact audit
+
+Plan043 removed the earlier unseeded, wall-clock-dependent subgroup IK behavior and proved the corrected MoveIt/MuJoCo model identity before execution. Its train-only exact run still failed: at approach step 223 the right wrist was legal but only 0.059494 rad above its lower physical limit, Mink left a 0.007776 weighted residual, and all 256 fixed-seed official LMA attempts failed to find a full-state-valid exact goal.
+
+This is no longer an unknown-seed or timeout result. The exact run had no collision, Action Contract clipping, commanded/observed margin breach, geometry-teacher failure, label write, later-seed access, model/data download, CUDA work, or optimizer step. One earlier official MoveIt path and its terminal handoff completed, but the next requested approach pose was not reachable by the registered exact-target IK search.
+
+Plans010-014 are useful negative evidence: their bounded position-priority/orientation-relaxation feedback advanced through the historical approach singularity, but their custom dm_control active-set orientation recovery failed later. The next single axis therefore reuses only that bounded task-space waypoint policy. Every intermediate waypoint must still be solved and collision/path checked by the unchanged official MoveIt LMA and OMPL stack, and the teacher's original final pose, 1 mm/3 mrad checks, physical joint margins, and all seed/label gates remain unchanged. The JSON companion is the machine-readable authority.

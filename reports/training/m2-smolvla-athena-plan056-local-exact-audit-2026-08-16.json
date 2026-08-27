@@ -1,0 +1,56 @@
+{
+  "audit_id": "m2-smolvla-athena-plan056-local-exact-audit-2026-08-16",
+  "execution": {
+    "exact_report_sha256": "47e399ac6bdbca5d6580e679477cfef7bae45759248ffd813ad03fc27b205acf",
+    "execution_log_sha256": "29b5cfa4c6cfb319b233c8c88ff8e2b796882ce5df9daf33f0df175ffce04caa",
+    "moveit_stderr_sha256": "377646e6a8fcf35fd822e6d42405340eb3d7542e943035fe84d30f8caa2cb8dd"
+  },
+  "gate_seals": {
+    "collection_seeds_3000_3004": "sealed",
+    "cuda_training": "not_started",
+    "development_seeds_2000_2004": "not_executed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "recovery_labels": "not_written",
+    "tuning_seed_1900": "not_executed",
+    "validation_and_hidden": "sealed"
+  },
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_056.yaml",
+    "sha256": "20653da3f6d0ad6d1cb4528a29380f4298051b6841713cab6053a6334981e56e"
+  },
+  "result": {
+    "adapter_clip_failures": 0,
+    "commanded_margin_breach_events": 0,
+    "expanded_orientation_target_budget_events": 0,
+    "failure": "inverse_kinematics_failure",
+    "failure_step": 443,
+    "final_phase": "lift",
+    "inverse_kinematics_failures": 1,
+    "joint_limit_projection_events": 0,
+    "lift_contact_exemption_events": 1,
+    "lift_feedback_anchor_commands": 56,
+    "maximum_inverse_kinematics_error": 0.0015606494501644484,
+    "observed_margin_breach_events": 0,
+    "peg_grasp_contact": true,
+    "phase_visits": {
+      "approach": 241,
+      "descend": 28,
+      "grasp": 7,
+      "lift": 56,
+      "open": 15,
+      "orient": 97
+    },
+    "socket_grasp_contact": true,
+    "steps_executed": 444
+  },
+  "root_cause": {
+    "classification": "mink_qp_lift_target_exceeds_registered_ik_error_gate",
+    "finding": "After lift feedback and lift contact scoping were repaired, the remaining failure is one local Mink QP solve in lift that could not reach the unchanged 0.001 weighted-error gate. The official MoveIt/OMPL fallback is currently registered only for approach and orient."
+  },
+  "schema_version": 1,
+  "scope_lock": {
+    "local_changes_after_this_audit": "single_axis_plan057_only",
+    "remote_stage": "not_connected"
+  },
+  "status": "failed_train_only_exact"
+}

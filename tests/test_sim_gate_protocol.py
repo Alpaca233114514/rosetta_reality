@@ -24,6 +24,7 @@ from scripts.sim_gate import (
     _task_evaluation_acceptance,
     _validated_initial_alignment,
 )
+from scripts.smolvla_aster_ensemble_sim import _mean_predictions
 from scripts.smolvla_sim_gate import _gate4_episode_workspace_matches
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
@@ -44,6 +45,36 @@ def test_gate4_episode_workspace_identity_must_match_current_workspace() -> None
 def test_gate4_requires_gate3_workspace_identity_in_prerequisite_check() -> None:
     source = Path(smolvla_sim_gate.__file__).read_text(encoding="utf-8")
     assert 'prior.get("code_identity") != code_identity' in source
+
+
+def test_gaussian_action_ensemble_averages_standard_space_samples() -> None:
+    raw, processed = _mean_predictions(
+        [
+            (torch.tensor([[0.0, 1.0]]), torch.tensor([[0.2, 0.4]])),
+            (torch.tensor([[2.0, 3.0]]), torch.tensor([[0.6, 0.8]])),
+        ]
+    )
+
+    assert torch.equal(raw, torch.tensor([[1.0, 2.0]]))
+    assert torch.allclose(processed, torch.tensor([[0.4, 0.6]]))
+
+
+@pytest.mark.parametrize(
+    "predictions",
+    [
+        [],
+        [(torch.tensor([[0.0]]), torch.tensor([[float("nan")]]))],
+        [
+            (torch.tensor([[0.0]]), torch.tensor([[0.0]])),
+            (torch.tensor([[0.0, 1.0]]), torch.tensor([[0.0, 1.0]])),
+        ],
+    ],
+)
+def test_gaussian_action_ensemble_rejects_invalid_samples(
+    predictions: list[tuple[torch.Tensor, torch.Tensor]],
+) -> None:
+    with pytest.raises(ValueError, match="Gaussian action"):
+        _mean_predictions(predictions)
 
 
 def test_online_artifact_rejects_same_id_with_processor_drift(tmp_path: Path) -> None:

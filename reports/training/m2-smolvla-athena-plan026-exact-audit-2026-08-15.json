@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan026-exact-audit-2026-08-15",
+  "status": "train_exact_failed_later_gates_sealed",
+  "task_name": "Athena",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_026.yaml",
+    "sha256": "7e87a23663cd66af72c8957221e5e87b7b98744efbc68009bb1cb2ceea461a53"
+  },
+  "workspace": {
+    "release_id": "20260815T054533Z-5bd66d5e4bdc-7394c4ea5d4c",
+    "archive_sha256": "7394c4ea5d4cd577ae9996ae591e8beeb927c5f707923fcbc0da8300dfe98d8e",
+    "safe_extract_omitted_member": "checkpoints",
+    "omitted_member_reason": "absolute local WSL symbolic link not required by geometry exact"
+  },
+  "watchdogs": {
+    "hard_deadline": "2026-08-15T16:30:00+08:00",
+    "hard_watchdog_pid": 1500,
+    "hard_sleep_pid": 1504,
+    "task_deadline": "2026-08-15T16:10:00+08:00",
+    "task_watchdog_pid": 1592,
+    "task_sleep_pid": 1596,
+    "task_nice": 19,
+    "task_io_class": "idle",
+    "independent_reconnect_verified": true
+  },
+  "static_evidence": {
+    "successful_attempt": "athena-plan026-build-static-004",
+    "sidecar_executable_sha256": "e5da00ce9fe665d9d28edbd0bfa075df608418f2e5a471685b94136ff310cc6d",
+    "ruff": "passed",
+    "focused_tests_passed": 37,
+    "focused_tests_failed": 0,
+    "maximum_fk_parity_position_error_m": 3.188872858294072e-16,
+    "maximum_fk_parity_orientation_error_rad": 0.0,
+    "joint_margin_smoke_waypoints": 8,
+    "joint_margin_smoke_minimum_path_margin_rad": 0.25577709735151943,
+    "negative_margin_smoke_reason": "start_state_outside_joint_path_margin",
+    "negative_margin_smoke_start_margin_rad": 0.00658000000000003
+  },
+  "calibration": {
+    "source_episode": 2,
+    "simulator_seed": 10,
+    "maximum_reward": 4.0,
+    "steps_executed": 294
+  },
+  "exact": {
+    "report_sha256": "f010221c3c94cf840b554a1dd646b5ecc6f3eb8fe47913fb03e22c40e9b2f3cd",
+    "successes": 0,
+    "required_successes": 1,
+    "steps_executed": 114,
+    "final_phase": "approach",
+    "path_planner_attempts": 4,
+    "path_planner_waypoints": 3,
+    "minimum_successful_path_margin_rad": 0.030544891433715637,
+    "minimum_successful_next_margin_rad": 0.25811082074868175,
+    "failure_step": 113,
+    "failure_reason": "start_state_outside_joint_path_margin",
+    "failure_observed_start_margin_rad": 0.00961627014160138,
+    "registered_margin_rad": 0.01,
+    "margin_shortfall_rad": 0.0003837298583986206,
+    "ik_error": 0.010972119914633108,
+    "projected_ik_error": 0.010960835099750222,
+    "adapter_clip_failures": 0,
+    "joint_limit_projection_events": 0
+  },
+  "finding": {
+    "measured_boundary": "official planned paths met the registered margin, but the later observed start state fell inside it before the fourth planner attempt",
+    "interpretation": "the all-path MoveIt constraint repaired planned-path safety; the remaining boundary is execution feedback or controller tracking between accepted commands and the next observed state",
+    "next_safe_action": "diagnose and instrument commanded-versus-observed joint-margin evolution locally before preregistering a new single-axis exact plan",
+    "pose_gate_relaxation_allowed": false,
+    "joint_margin_relaxation_allowed": false
+  },
+  "gates": {
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps": 0,
+    "cuda_training": false
+  },
+  "local_evidence": {
+    "summary_sha256": "194ff35c78c2cbe9d82b4e62568d69415a8b54618cf4b0055d9c44cab01aedb1",
+    "evidence_bundle_sha256": "f15afed9ce99f9077bff98853496ec0ec7bd374d985f03552bf8baa295354f82",
+    "evidence_bundle_members": 25,
+    "unsafe_bundle_members": 0
+  },
+  "shutdown": {
+    "requested_deadline": "2026-08-15T16:30:00+08:00",
+    "manual_shutdown_id": "athena-plan026-complete-20260815T062227Z-4371",
+    "manual_shutdown_pid": 4381,
+    "ssh_after_shutdown_exit_code": 255,
+    "status": "ssh_connection_closed"
+  }
+}

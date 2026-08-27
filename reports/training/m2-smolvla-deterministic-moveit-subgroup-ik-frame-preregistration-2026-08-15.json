@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_no_execution",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-043",
+  "hypothesis": "The Plan042 dry-run failed because its identity assertion omitted MoveIt 2.5.9's required model-frame-to-subgroup-solver-frame transformation. Reusing the registered deterministic start-first, seeded 256-attempt scheduler while applying RobotState::setToIKSolverFrame to each unchanged target will reproduce the official subgroup coordinate contract and make the joint-limit-aware bimanual IK search deterministic.",
+  "single_axis": "deterministic_official_subgroup_ik_with_registered_solver_frame_transformation",
+  "sources": {
+    "plan041": "configs/sim/aloha_insertion_geometry_teacher_041.yaml",
+    "plan041_sha256": "f9a1168f29d0ca59cae2a722b7826e3c35038f966fcaa00fa939249470d38a2c",
+    "plan041_audit": "reports/training/m2-smolvla-athena-plan041-local-exact-audit-2026-08-15.json",
+    "plan041_audit_sha256": "cc0ef524ce966c1549cabdf0ef8463e87b2c71b3d7e2fc4f7ed28acf148c260a",
+    "plan042_preregistration": "reports/training/m2-smolvla-deterministic-moveit-subgroup-ik-preregistration-2026-08-15.json",
+    "plan042_preregistration_sha256": "b70268f5dd4d183086bb375c03819ac144d254e772d79493b97dd842726a5dbb",
+    "plan042_runtime_audit": "reports/training/m2-smolvla-athena-plan042-runtime-identity-audit-2026-08-15.json",
+    "plan042_runtime_audit_sha256": "0d2653d3f36b3504eae4e6fa117f88b592a8ee14578cdb0e2b47361317ba2fa1"
+  },
+  "official_source": {
+    "moveit2_tag": "2.5.9",
+    "robot_state_source": "https://github.com/moveit/moveit2/blob/2.5.9/moveit_core/robot_state/src/robot_state.cpp#L1671-L1858",
+    "frame_transform_api": "moveit::core::RobotState::setToIKSolverFrame",
+    "kinematics_api": "kinematics::KinematicsBase::getPositionIK",
+    "rng_api": "random_numbers::RandomNumberGenerator(seed)",
+    "license": "BSD-3-Clause"
+  },
+  "registered_contract": {
+    "search_mode": "deterministic_seeded_moveit_subgroup_multistart_v1",
+    "first_attempt_seed": "request_start_state",
+    "subsequent_seed_generator": "random_numbers::RandomNumberGenerator",
+    "seed": 2210,
+    "maximum_attempts": 256,
+    "outer_timeout_s": 2.0,
+    "subgroup_order": ["left_arm", "right_arm"],
+    "solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "solver_call": "getPositionIK",
+    "target_input_frame": "world",
+    "solver_base_frames": ["vx300s_left/base_link", "vx300s_right/base_link"],
+    "solver_tip_frames": [
+      "vx300s_left/ee_gripper_link",
+      "vx300s_right/ee_gripper_link"
+    ],
+    "target_transform": "RobotState::setToIKSolverFrame",
+    "full_state_validation_after_each_bimanual_candidate": [
+      "satisfiesBounds",
+      "joint_path_constraints",
+      "self_collision"
+    ],
+    "targets_tolerances_ompl_controller_contacts_margins_horizon_and_seed_boundaries_frozen_from_plan041": true
+  },
+  "acceptance": {
+    "runtime_identity_passes": true,
+    "same_request_repeated_in_one_sidecar_returns_same_goal_and_attempt_count": true,
+    "successful_plans_report_attempts_used_within_1_to_256": true,
+    "model_parity_revalidated": true,
+    "exact_seed": 10,
+    "exact_successes_required": 1,
+    "minimum_contact_phase_feedforward_commands": 1,
+    "maximum_contact_phase_feedforward_failures": 0,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false
+  },
+  "stop_conditions": [
+    "solver_base_or_tip_frame_identity_differs",
+    "world_target_is_not_transformed_with_the_official_robot_state_api",
+    "deterministic_seed_attempt_cap_subgroup_order_or_solver_identity_differs",
+    "full_state_bounds_constraint_or_collision_validation_is_skipped",
+    "same_request_repetition_changes_goal_or_attempt_count",
+    "any_frozen_plan041_target_tolerance_planner_controller_contact_margin_horizon_seed_or_label_setting_changes",
+    "validation_hidden_or_later_seed_access",
+    "recovery_label_write"
+  ]
+}

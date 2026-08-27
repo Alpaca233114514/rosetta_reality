@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-gym-joint-name-adapter-repair-preregistration-2026-08-15",
+  "status": "locally_implemented_preregistered_static_and_sidecar_verified_no_exact",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_034.yaml",
+    "plan_sha256": "6dc5019b80522eca489b2d1473f0f801ef6c596cd5cbf38acfe1401baaa883ad",
+    "audit": "reports/training/m2-smolvla-athena-plan034-local-exact-audit-2026-08-15.json",
+    "audit_sha256": "a96aab19647cb6622d2fff357d99712eccc19fb3ea81012acffd138bdcc3db97",
+    "execution_log_sha256": "f1552754b36e1d15588cfb23dcb59a9dbf06f7428be91d7d92dff9b54c26697d",
+    "exact_report_created": false,
+    "failure": "Action Contract joint name left_waist was passed to Gym MuJoCo model.name2id instead of vx300s_left/waist"
+  },
+  "registered_single_axis": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_035.yaml",
+    "plan_sha256": "e7b048ea99d1ea7fd0eb997ce63baf986ad5a575131d8ee84dc24646d9168197",
+    "change": "use the evaluator's existing ordered Gym MuJoCo LEFT_JOINTS plus RIGHT_JOINTS names only for terminal actuator lookup",
+    "mapping_count": 12,
+    "mapping_order_matches_arm_action_indices": true,
+    "csr_storage_changed": false,
+    "force_balance_changed": false,
+    "pose_thresholds_changed": false,
+    "joint_limit_margins_changed": false,
+    "planner_or_ik_plugin_changed": false,
+    "gym_adapter_changed": false,
+    "seeds_or_labels_changed": false
+  },
+  "implementation": {
+    "src/rosetta_reality/sim/moveit_aloha_planner.py": "f3f2acfdb3f54ab8e170a1e039443e20027ecf905e7deef3e8c30e314fc3b79e",
+    "src/rosetta_reality/sim/mujoco_position_feedforward.py": "2be1e16624e272955a4366c57fa019fc303a557d756c12edcb2530cb7b664fc4",
+    "scripts/evaluate_aloha_geometry_teacher.py": "fd8e4fc129e762a29939ef2fde5d112ec160863943a435bedbfaa7e927bf0845",
+    "tests/test_mujoco_position_feedforward.py": "bc2200420ada91d93f7f17bd01022f50b7e4338b0400c68e2eb122ae5c8334dd",
+    "tests/test_moveit_aloha_planner.py": "b9b7178fdfbe15c3fa53245b7b418a0f5675c1928c6e9efbd2d5428f5384e7f3",
+    "tests/test_geometry_teacher_protocol.py": "abd2548d0524ac36302aab969d0e40666dc8d9654e1e8388252afe0dcf4fc655"
+  },
+  "local_verification": {
+    "ruff": "passed",
+    "focused_tests": {"passed": 70, "failed": 0},
+    "network": "disabled",
+    "repository_mount": "read_only",
+    "official_sidecar_identity": "passed",
+    "collision_geometry": "22_links_22_shapes",
+    "fk_parity_report_sha256": "07410d8832cce1bd137e0c32993e4b54a25985a796881bff48743b78ae80aa62",
+    "protected_gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "protected_geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "git_diff_check": "passed",
+    "cuda": false
+  },
+  "gates": {
+    "train_exact_run": false,
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps": 0,
+    "cuda_training": false,
+    "model_or_data_downloaded": false
+  },
+  "run_cap": "third_and_final_local_exact_attempt",
+  "next_authorized_action": "run only Plan035 episode 2 seed 10 train-only exact; stop at its result boundary"
+}

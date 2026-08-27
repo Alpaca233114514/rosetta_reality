@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan046-local-exact-audit-2026-08-16",
+  "status": "failed_train_only_exact",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_046.yaml",
+    "sha256": "a80b3490044e45ff2603ada009c4bd764a5e5df60271308ae8d69c3c495f23b6"
+  },
+  "execution": {
+    "attempt": "athena-plan046-local-exact-001",
+    "container_image_id": "sha256:4941347b5ffa947d66491efe92006180ec6106745bae31f0cd3ee970c7e33f9a",
+    "moveit_source_image": "rosetta-reality-aloha-moveit2:humble-2.5.9-position-priority-005",
+    "moveit_source_image_id": "sha256:c19771a03cf5579bb5891e0c4f0c7afbbdbb5315f82b1e8d727f44ee5f2b4945",
+    "exit_code": 1,
+    "execution_log_sha256": "0376d3a70e1bdc0ed652a9188176ba4808401a463df3c2b6b60f5351b7042cf5",
+    "exact_report_sha256": "dcf2667b3994d1093c14f162f4a17468cd3c2544d94ff28babaa6d52e04fc1b3",
+    "moveit_stderr_sha256": "ce1717ac598d71aab050fac735b2a7c463f556b8e40c0c366fcba3e49397eba6"
+  },
+  "progress_before_failure": {
+    "steps_executed": 258,
+    "final_phase": "orient",
+    "path_planner_attempts": 5,
+    "path_planner_waypoints": 108,
+    "path_planner_terminal_control_completions": 3,
+    "maximum_position_priority_orientation_relaxation_rad": 0.02996265654346509,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "adapter_clip_failures": 0,
+    "unexpected_collision_count": 0,
+    "minimum_pre_step_joint_limit_margin_rad": 0.0391043568420408,
+    "minimum_observed_post_step_joint_limit_margin_rad": 0.0391043568420408
+  },
+  "failure_boundary": {
+    "seed": 10,
+    "step": 257,
+    "phase": "orient",
+    "solver_failure": "bimanual_lma_ik_failed",
+    "inverse_kinematics_failures": 1,
+    "ik_attempts_used": 256,
+    "ik_error": 0.0152728557398482,
+    "projected_ik_error": 0.0152750577903066,
+    "pre_step_minimum_margin_joint": "right_wrist_rotate",
+    "pre_step_minimum_margin_bound": "lower",
+    "pre_step_minimum_margin_rad": 0.0466891670989988,
+    "registered_command_margin_rad": 0.04540462255477905,
+    "remaining_registered_margin_rad": 0.00128454454421975
+  },
+  "attempt_scoped_diagnostic": {
+    "request_response_sha256": "8f5fb9d4457c04e25a9de7b68ad466f89a19738b137c6d2023e27f15c697d880",
+    "registered_full_pose_backoff_fractions_all_failed": [
+      0.75,
+      0.5,
+      0.25,
+      0.125,
+      0.1,
+      0.05
+    ],
+    "last_registered_fraction_probe_sha256": "7e60b0a9e0fb20758a86b9aad8ab1d408db722812f6ca53c342c31c3e1f71ba0",
+    "effective_full_target_fractions_that_succeeded": [
+      0.025,
+      0.0125,
+      0.00625,
+      0.005,
+      0.0025
+    ],
+    "effective_fraction_0_025_start_margin_rad": 0.0466898823547361,
+    "effective_fraction_0_025_goal_margin_rad": 0.0460752816066252,
+    "effective_fraction_0_025_margin_consumption_rad": 0.0006146007481109,
+    "original_target_position_priority_probe_sha256": "d821cf97380dedc01b530c38322c1dd74eef0d9f339a3dc0cd32764f288db4a2",
+    "original_target_position_priority_successful_trials": 0
+  },
+  "root_cause": {
+    "classification": "first_valid_local_ik_continuation_consumes_remaining_active_joint_margin",
+    "finding": "Plan046's bounded full-pose waypoints worked twice and advanced exact by 32 steps, but each local first-valid LMA continuation drove right_wrist_rotate toward the tightened lower bound. At step 257 only 0.00128 rad remained above the command margin. A still smaller 0.025 effective waypoint is solvable but consumes another 0.000615 rad, so shrinking the Cartesian fraction alone only postpones the same active-limit failure. The next hypothesis must change joint-limit-aware IK candidate selection rather than relax a margin or add still smaller steps.",
+    "full_pose_cartesian_backoff_exercised": true,
+    "pose_or_margin_gate_relaxed": false
+  },
+  "protected_identities": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "not_executed",
+    "development_seeds_2000_2004": "not_executed",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "not_written",
+    "cuda_training": "not_started"
+  }
+}

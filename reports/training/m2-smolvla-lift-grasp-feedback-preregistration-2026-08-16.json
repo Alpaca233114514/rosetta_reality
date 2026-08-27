@@ -1,0 +1,66 @@
+{
+  "acceptance": {
+    "exact_control_successes_required": 1,
+    "hidden_test_loaded": false,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "minimum_expanded_orientation_target_budget_events": 1,
+    "minimum_lift_feedback_anchor_commands": 1,
+    "recovery_labels_authorized_on_pass": false
+  },
+  "frozen_settings": {
+    "command_joint_limit_margin_rad": 0.04540462255477905,
+    "exact_seed": 10,
+    "lift_object_height_m": 0.17,
+    "lift_tolerance_m": 0.012,
+    "maximum_cartesian_step_m": 0.012,
+    "maximum_grasp_drift_m": 0.045,
+    "maximum_orientation_step_rad": 0.2,
+    "maximum_steps": 750,
+    "path_planner_maximum_joint_step_rad": 0.23561944901923448,
+    "path_planner_phases": [
+      "approach",
+      "orient"
+    ],
+    "physical_joint_limit_margin_rad": 0.01
+  },
+  "gate_boundary": {
+    "collection_seeds_3000_3004": "sealed",
+    "cuda_training": "forbidden_without_new_user_authorization",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "recovery_labels": "forbidden",
+    "tuning_seed_1900": "sealed_until_plan055_exact_passes",
+    "validation_and_hidden": "sealed"
+  },
+  "hypothesis": "Plan054 loses the peg grasp in lift because the teacher commands EEF targets toward a fixed terminal object pose; the right EEF advances faster than the object and the grasp opens. A small feedback-anchored object-lift increment keeps the commanded EEF pose tied to the currently observed object pose each step, preserving the captured grasp transform while still moving upward.",
+  "preregistration_id": "m2-smolvla-lift-grasp-feedback-plan055-2026-08-16",
+  "schema_version": 1,
+  "single_axis_change": {
+    "from_rule": "fixed_terminal_lift_object_pose",
+    "interpretation": "bounded_feedback_object_lift_increment_not_acceptance_tolerance",
+    "persistent_hidden_state": false,
+    "setting": "teacher.lift_feedback_step_m",
+    "step_m": 0.006,
+    "to_rule": "feedback_anchored_incremental_lift_object_pose"
+  },
+  "source_audit": "reports/training/m2-smolvla-athena-plan054-local-exact-audit-2026-08-16.json",
+  "source_audit_sha256": "9e5b82fd0126f5652918040734b70fcc8b47a7063d46daee3b134cd5fb1a5847",
+  "source_exact_report_sha256": "dfbe89d5afebbfa63fc0f689a5b2c7015c34de6a88573f8f2defb8b152fe19f3",
+  "source_failure": {
+    "commanded_margin_breach_events": 0,
+    "expanded_orientation_target_budget_events": 0,
+    "failure": "observed_grasp_transform_exceeded_registered_drift",
+    "inverse_kinematics_failures": 0,
+    "maximum_grasp_drift_m": 0.045,
+    "observed_margin_breach_events": 0,
+    "phase": "lift",
+    "step": 422
+  },
+  "source_plan": "configs/sim/aloha_insertion_geometry_teacher_054.yaml",
+  "source_plan_sha256": "d8d68745ea7a22c59f924713c93f04bcacce4371fca820b6040645b913c5ef6d",
+  "source_remote_audit": "reports/training/m2-smolvla-athena-plan054-remote-exact-audit-2026-08-16.json",
+  "source_remote_audit_sha256": "853bfdaf02ec1a79c3b143d9cf3e41920b7e0f719a3997dbc3d08058ced47f1f",
+  "status": "preregistered_before_plan055_execution"
+}

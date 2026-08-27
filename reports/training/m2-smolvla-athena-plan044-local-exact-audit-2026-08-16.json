@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan044-local-exact-audit-2026-08-16",
+  "status": "failed_train_only_exact",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_044.yaml",
+    "sha256": "c573dbf48b0e4d68de24e55e16a01c4c58e173050c4a9085612863d6adb1951e"
+  },
+  "execution": {
+    "attempt": "athena-plan044-local-exact-001",
+    "container_image_id": "sha256:4941347b5ffa947d66491efe92006180ec6106745bae31f0cd3ee970c7e33f9a",
+    "moveit_source_image": "rosetta-reality-aloha-moveit2:humble-2.5.9-position-priority-003",
+    "moveit_source_image_id": "sha256:18605ed2d1c8a6d01f53b8e95ec0624b5d6dd3687db981e673d29702edf03f15",
+    "exit_code": 1,
+    "execution_log_sha256": "3ca35f8edabe32dcfa0f467510281a3422f8a4b0f9652f7a692592d97f91a417",
+    "exact_report_sha256": "d61823063721d53c50b0929af710d7512cd0e44afd46b5e0f6074c6d7d32b989",
+    "moveit_stderr_sha256": "9e624ba8ae6f250fd8db27ba25ea8726fe8c5036d91b0d22aa5c26ab7dabe008"
+  },
+  "failure_boundary": {
+    "seed": 10,
+    "step": 97,
+    "phase": "approach",
+    "solver_failure": "bimanual_subgroup_count_differs",
+    "inverse_kinematics_failures": 1,
+    "path_planner_attempts": 1,
+    "path_planner_waypoints": 0,
+    "maximum_path_planner_ik_attempts_used": 0,
+    "minimum_pre_step_joint_limit_margin_rad": 0.052193536834716614,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "unexpected_collision_count": 0
+  },
+  "root_cause": {
+    "classification": "srdf_group_enumeration_contract_bug_before_registered_position_priority_fallback",
+    "finding": "Adding left_arm_position_priority and right_arm_position_priority to the SRDF made RobotModel report four subgroups under bimanual. The full-pose branch still called bimanual_group_->getSubgroups and required exactly two, so it rejected the first ordinary full-pose MoveIt fallback before LMA or OMPL ran.",
+    "position_priority_hypothesis_exercised": false,
+    "official_solver_failure": false,
+    "pose_or_margin_gate_relaxed": false
+  },
+  "protected_identities": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "not_executed",
+    "development_seeds_2000_2004": "not_executed",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "not_written",
+    "cuda_training": "not_started"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-joint-limit-followup-audit-2026-08-15",
+  "status": "train_exact_failed_later_gates_sealed",
+  "plans": [
+    {
+      "plan_id": "m2-smolvla-aloha-geometry-teacher-023",
+      "plan_sha256": "26c6caa9b5397d66d378ba0f9404c07e6bef5be27d8c0dab43587b9a234e3954",
+      "exact_report_sha256": "ec0ed7a2e910eabbc9fefc3b9369a990b82d4ab37c588055f085a53e73af1234",
+      "status": "failed",
+      "failure_step": 98,
+      "maximum_start_bound_violation_rad": 0.005985603256225769
+    },
+    {
+      "plan_id": "m2-smolvla-aloha-geometry-teacher-024",
+      "plan_sha256": "dcccc4bcbdaab7384b9c3334e0418470a48911f907084f43be3474be47c699d8",
+      "exact_report_sha256": "2a6e33f51dfaca904b7f4be7c6f2d1d07bf428cf841e5251675da0af21bc77ab",
+      "status": "failed",
+      "failure_step": 97,
+      "mink_joint_limit_margin_rad": 0.01,
+      "maximum_arm_start_bound_violation_rad": 0.0
+    },
+    {
+      "plan_id": "m2-smolvla-aloha-geometry-teacher-025",
+      "plan_sha256": "21ca069b55e22bf72e5e922e679c45f6f21a196217c0a2a190665fc331df29d6",
+      "exact_report_sha256": "bfd55bc72f9f85cc19a8e3de58d2a15a72e65f41ded6818910c353a961acac2e",
+      "status": "failed",
+      "failure_step": 168,
+      "steps_executed": 169,
+      "path_planner_attempts": 22,
+      "path_planner_waypoints_executed": 21,
+      "maximum_start_bound_violation_rad": 0.0005873297882081907,
+      "maximum_goal_position_error_m": 0.00003773987103663825,
+      "maximum_goal_orientation_error_rad": 0.0009541714104034111
+    }
+  ],
+  "gates": {
+    "tuning_seed_opened": false,
+    "development_seeds_opened": false,
+    "collection_seeds_opened": false,
+    "policy_gate_seeds_opened": false,
+    "validation_episodes_loaded": false,
+    "hidden_test_loaded": false,
+    "recovery_labels_written": false,
+    "optimizer_steps_executed": false,
+    "cuda_training_executed": false
+  },
+  "next_axis": "official_moveit_joint_path_constraints_with_registered_execution_margin"
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "status": "preregistered_no_execution",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-042",
+  "hypothesis": "Plan041 confirmed that MoveIt 2.5.9's unseeded wall-clock subgroup restart loop is not reproducible even with a 2.00 second budget. Copying its start-state-first and per-subgroup multistart structure into the sidecar, but driving subsequent official LMA getPositionIK calls with a fixed random_numbers seed and a fixed 256-attempt cap, will make the same IK search deterministic and auditable without changing LMA, targets, validity checks, OMPL, controller behavior, or any gate threshold.",
+  "single_axis": "unseeded_wall_clock_subgroup_multistart_to_deterministic_seeded_attempt_bound",
+  "source": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_041.yaml",
+    "plan_sha256": "f9a1168f29d0ca59cae2a722b7826e3c35038f966fcaa00fa939249470d38a2c",
+    "audit": "reports/training/m2-smolvla-athena-plan041-local-exact-audit-2026-08-15.json",
+    "audit_sha256": "cc0ef524ce966c1549cabdf0ef8463e87b2c71b3d7e2fc4f7ed28acf148c260a",
+    "exact_report_sha256": "4d2fbb92b790d9e47b7696539509868644d0530a0b0c657d678d156f62b96813"
+  },
+  "official_source": {
+    "moveit2_tag": "2.5.9",
+    "robot_state_source": "https://github.com/moveit/moveit2/blob/2.5.9/moveit_core/robot_state/src/robot_state.cpp#L1671-L1858",
+    "kinematics_api": "kinematics::KinematicsBase::getPositionIK",
+    "rng_api": "random_numbers::RandomNumberGenerator(seed)",
+    "license": "BSD-3-Clause"
+  },
+  "registered_change": {
+    "search_mode": "deterministic_seeded_moveit_subgroup_multistart_v1",
+    "first_attempt_seed": "request_start_state",
+    "subsequent_seed_generator": "random_numbers::RandomNumberGenerator",
+    "seed": 2210,
+    "maximum_attempts": 256,
+    "outer_timeout_s": 2.0,
+    "subgroup_order": [
+      "left_arm",
+      "right_arm"
+    ],
+    "solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "solver_call": "getPositionIK",
+    "required_solver_base_frame": "world",
+    "required_solver_tip_frames": [
+      "vx300s_left/ee_gripper_link",
+      "vx300s_right/ee_gripper_link"
+    ],
+    "full_state_validation_after_each_bimanual_candidate": [
+      "satisfiesBounds",
+      "joint_path_constraints",
+      "self_collision"
+    ],
+    "ompl_seed_changed": false,
+    "ompl_planner_changed": false,
+    "ik_plugin_changed": false,
+    "target_or_tolerance_changed": false,
+    "contact_phase_feedforward_changed": false,
+    "collision_policy_changed": false,
+    "joint_limit_margin_changed": false,
+    "horizon_changed": false,
+    "seed_or_label_boundaries_changed": false
+  },
+  "acceptance": {
+    "identity_reports_search_mode_seed_attempt_cap_and_solver_frames": true,
+    "each_successful_plan_reports_attempts_used_within_1_to_256": true,
+    "same_request_repeated_in_one_sidecar_returns_same_ik_goal": true,
+    "model_parity_revalidated": true,
+    "exact_seed": 10,
+    "exact_successes_required": 1,
+    "minimum_contact_phase_feedforward_commands": 1,
+    "maximum_contact_phase_feedforward_failures": 0,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false
+  },
+  "stop_conditions": [
+    "deterministic_search_identity_seed_attempt_cap_subgroup_order_or_solver_frame_differs",
+    "deterministic_search_calls_any_ik_plugin_other_than_the_registered_official_lma_plugin",
+    "deterministic_search_skips_full_state_bounds_constraint_or_collision_validation",
+    "same_request_repetition_changes_the_ik_goal",
+    "outer_ik_timeout_differs_from_2_0_seconds",
+    "any_target_tolerance_planner_controller_collision_margin_horizon_seed_or_label_setting_changes",
+    "validation_hidden_or_later_seed_access",
+    "recovery_label_write"
+  ]
+}

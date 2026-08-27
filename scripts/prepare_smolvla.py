@@ -141,6 +141,7 @@ def validate_snapshot(root: Path, config: dict[str, Any]) -> dict[str, Any]:
     if (
         manifest.get("schema_version") != 1
         or manifest.get("status") != "validated"
+        or manifest.get("source") != config["source"]
         or manifest.get("repo_id") != config["repo_id"]
         or manifest.get("revision") != config["revision"]
     ):
@@ -178,6 +179,7 @@ def validate_dependency(root: Path, config: dict[str, Any]) -> dict[str, Any]:
     if (
         manifest.get("schema_version") != 1
         or manifest.get("status") != "validated"
+        or manifest.get("source") != config["source"]
         or manifest.get("repo_id") != dependency["repo_id"]
         or manifest.get("revision") != dependency["revision"]
         or manifest.get("license") != dependency["license"]
@@ -313,6 +315,65 @@ def prepare(config: dict[str, Any], attempts: int) -> int:
     return 0
 
 
+def remanifest(config: dict[str, Any]) -> int:
+    """Regenerate the snapshot manifest as a strict superset of its records.
+
+    Every file already recorded must keep its recorded identity; only newly
+    expected files (for example a policy tokenizer added to the snapshot) are
+    appended.  This is the registered maintenance path for completing a
+    validated snapshot without re-downloading any weights.
+    """
+    root = snapshot_root(config)
+    manifest_path = root / str(config["manifest"])
+    if not manifest_path.is_file():
+        raise FileNotFoundError("The SmolVLA model manifest is missing; use prepare first.")
+    previous = _mapping(
+        json.loads(manifest_path.read_text(encoding="utf-8")), "manifest"
+    )
+    if (
+        previous.get("schema_version") != 1
+        or previous.get("status") != "validated"
+        or previous.get("source") != config["source"]
+        or previous.get("repo_id") != config["repo_id"]
+        or previous.get("revision") != config["revision"]
+    ):
+        raise ValueError("SmolVLA manifest identity differs from the pinned config.")
+    contract = _contract(root, config)
+    if previous.get("model_contract") != contract:
+        raise ValueError("SmolVLA manifest contract differs from config.json.")
+    previous_files = _mapping(previous.get("files"), "manifest.files")
+    current = _file_records(root, [str(value) for value in config["expected"]["files"]])
+    removed = set(previous_files) - set(current)
+    if removed:
+        raise ValueError(f"Remanifest refuses to drop recorded files: {sorted(removed)}.")
+    for relative, record in previous_files.items():
+        if current.get(relative) != record:
+            raise ValueError(f"Remanifest refuses to change a recorded file: {relative}.")
+    manifest = {
+        **previous,
+        "files": current,
+        "total_bytes": sum(record["bytes"] for record in current.values()),
+    }
+    if manifest == previous:
+        print(json.dumps({"status": "already_current"}, indent=2, sort_keys=True))
+        return 0
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+    validate_snapshot(root, config)
+    print(
+        json.dumps(
+            {
+                "status": "remanifested",
+                "added": sorted(set(current) - set(previous_files)),
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    return 0
+
+
 def inspect(config: dict[str, Any]) -> int:
     manifest = validate_snapshot(snapshot_root(config), config)
     dependency = validate_dependency(snapshot_root(config), config)
@@ -340,14 +401,18 @@ def inspect(config: dict[str, Any]) -> int:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("prepare", "inspect"))
+    parser.add_argument("command", choices=("prepare", "inspect", "remanifest"))
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--attempts", type=int, default=5)
     args = parser.parse_args()
     if args.attempts <= 0:
         raise ValueError("--attempts must be positive.")
     config = load_config(args.config.resolve())
-    return prepare(config, args.attempts) if args.command == "prepare" else inspect(config)
+    if args.command == "prepare":
+        return prepare(config, args.attempts)
+    if args.command == "remanifest":
+        return remanifest(config)
+    return inspect(config)
 
 
 if __name__ == "__main__":

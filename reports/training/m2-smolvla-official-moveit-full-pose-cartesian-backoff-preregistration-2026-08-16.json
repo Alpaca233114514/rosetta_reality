@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-official-moveit-full-pose-cartesian-backoff-preregistration-2026-08-16",
+  "status": "preregistered_not_executed",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_045.yaml",
+    "plan_sha256": "2fcd6b157fede3c76d72bcc3590a8d197d50c74abb3d55508bb12d8ff6b0f488",
+    "exact_report_sha256": "5c6cddbdff6e3b47932242c0a8ab00a95e9a1c882a86cec272ef37c563545e7e",
+    "audit": "reports/training/m2-smolvla-athena-plan045-local-exact-audit-2026-08-16.json",
+    "audit_sha256": "cf26736f139143b24a6a78819009ef8f6b196db508f0829e9cae9cf69a2d5a63",
+    "failure_step": 225,
+    "failure_phase": "orient",
+    "solver_failure": "bimanual_lma_ik_failed",
+    "ik_attempts_used": 256,
+    "pre_step_minimum_joint_limit_margin_rad": 0.06095780380249005
+  },
+  "diagnostic_evidence": {
+    "request_response_sha256": "ee23d700eef68cedf30d45eb91faaaca89d74f8c1531b4db23c01c56755cdfb6",
+    "full_pose_backoff_probe_sha256": "add43c591cae700b2c1e0c5c7e22127df596cccc85953b83a9ad81b044fd19cc",
+    "position_only_probe_sha256": "ca2d83ec6c6701bd3fa8e97378cbf62fe5c68d2c32c356df9ae2624f835d87c6",
+    "bimanual_successful_fractions": [0.125, 0.1, 0.05],
+    "largest_successful_fraction": 0.125,
+    "ik_attempts_used_at_largest_successful_fraction": 1,
+    "solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "global_planner": "ompl_interface/OMPLPlanner:RRTConnect"
+  },
+  "hypothesis": "The remaining failure is a local target-step problem, not exhausted joint margin or a broken official solver. When direct full-pose LMA fails, deterministically trying the largest bounded Cartesian waypoint that linearly interpolates both positions and shortest-arc slerps both quaternions from current to requested pose will keep the exact full-pose objective inside the local IK basin. Executing that collision-checked OMPL waypoint and recomputing the original teacher target from feedback should make monotonic task-space progress without relaxing final pose, collision or joint-limit gates.",
+  "single_axis": "official_full_pose_lma_cartesian_position_and_quaternion_backoff_before_position_only_fallback",
+  "registered_change": {
+    "activation_phases": ["approach", "orient"],
+    "activation_after": ["mink_qp_failed", "direct_full_pose_moveit_lma_failed"],
+    "fractions_largest_first": [0.75, 0.5, 0.25, 0.125, 0.1, 0.05],
+    "position_interpolation": "linear_current_to_requested",
+    "orientation_interpolation": "shortest_arc_quaternion_slerp_current_to_requested",
+    "minimum_linear_progress_m": 0.00025,
+    "minimum_angular_progress_rad": 0.001,
+    "progress_rule": "maximum_arm_linear_or_angular_progress_meets_its_bound",
+    "waypoint_solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "waypoint_solver_mode": "full_pose",
+    "global_planner": "official_moveit2_ompl_rrtconnect",
+    "feedback_replans_original_target": true,
+    "position_priority_fallback_order": "after_full_pose_cartesian_backoff_exhaustion_in_approach_only",
+    "all_other_planner_behavior_frozen": true
+  },
+  "frozen_contract": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "position_tolerance_m": 0.001,
+    "orientation_tolerance_rad": 0.003,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "maximum_position_priority_orientation_relaxation_rad": 0.04,
+    "physical_joint_limit_margin_rad": 0.01,
+    "joint_path_constraint_margin_rad": 0.04540462255477905,
+    "ompl_planner": "RRTConnect",
+    "ik_seed": 2210,
+    "ik_maximum_attempts": 256,
+    "environment_side_clipping_allowed": false
+  },
+  "acceptance": {
+    "stage": "train_only_exact",
+    "required_successes": 1,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "maximum_unexpected_collision_count": 0,
+    "hidden_test_loaded": false,
+    "recovery_labels_written": false
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "sealed_until_plan046_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

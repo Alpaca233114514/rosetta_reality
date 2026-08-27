@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "report_type": "aloha_moveit_position_priority_repeat",
+  "status": "passed",
+  "plan_id": "m2-smolvla-aloha-geometry-teacher-044",
+  "search_contract": {
+    "ik_task_mode": "position_priority",
+    "solver": "lma_kinematics_plugin/LMAKinematicsPlugin",
+    "position_only_groups": [
+      "left_arm_position_priority",
+      "right_arm_position_priority"
+    ],
+    "orientation_weight": 0.0,
+    "seed": 2210,
+    "maximum_attempts": 256,
+    "outer_timeout_s": 2.0,
+    "maximum_orientation_relaxation_rad": 0.04,
+    "ompl_seed_reset_per_request": true,
+    "terminal_goal_normalization_limit_rad": 0.00001,
+    "terminal_goal_normalization_validation": "moveit_planning_scene_is_path_valid"
+  },
+  "repeat_result": {
+    "boundary": "fresh_sidecar_process_with_same_image_and_seed",
+    "requests": 2,
+    "both_status_ok": true,
+    "goal_vectors_exactly_equal": true,
+    "trajectory_vectors_exactly_equal": true,
+    "attempt_counts_equal": true,
+    "ik_attempts_used": 1,
+    "maximum_goal_position_error_m": 0.0008290217354026833,
+    "maximum_goal_orientation_error_rad": 0.02998983441605129,
+    "minimum_path_joint_limit_margin_rad": 0.05948986061096173,
+    "maximum_observed_terminal_goal_normalization_rad": 9.384630438868946e-7
+  },
+  "runtime": {
+    "image": "rosetta-reality-aloha-moveit2:humble-2.5.9-position-priority-003",
+    "image_id": "sha256:18605ed2d1c8a6d01f53b8e95ec0624b5d6dd3687db981e673d29702edf03f15",
+    "executable_sha256": "1e9727f5da50480ae5291883bc5818d67b70b55c56295421ddeb24f09ff1cc1f",
+    "implementation_sha256": "ce186bdf793118711d6c1316f349130ebe2832538366d171975db909633933e0"
+  },
+  "evidence": {
+    "raw_repeat_data_root_relative": "runs/m2-smolvla-aloha-geometry-teacher-044/athena-plan044-runtime-identity-003/official-position-priority-repeat.json",
+    "raw_repeat_sha256": "d99f17ecddf370ab53311a0f0ab3ef444f5da90859505e71a150fbb0028f9661",
+    "identity_data_root_relative": "runs/m2-smolvla-aloha-geometry-teacher-044/athena-plan044-runtime-identity-003/identity.jsonl",
+    "identity_sha256": "72fd2ad3f8790578c57c7c8ecc9fcf0e1b4efc13f05b2e3ef09a3cea6737cbd0",
+    "probe_data_root_relative": "runs/m2-smolvla-aloha-geometry-teacher-044/athena-plan044-runtime-identity-003/official-position-priority-probe.json",
+    "probe_sha256": "a46aec9c7d3afa2fce2c41e3fc1af79b2730f0598556be6af00e23dad03d87f4",
+    "model_parity_report": "reports/training/m2-smolvla-aloha-moveit-model-parity-plan044-2026-08-16.json",
+    "model_parity_report_sha256": "2423570ddc2081f8b913f87b31c9b6372b661d60229e3b8641f9cea6107f7f58",
+    "preregistration": "reports/training/m2-smolvla-official-moveit-position-priority-waypoint-preregistration-2026-08-16.json",
+    "preregistration_sha256": "a1fcc9b8d6aa01045e98e017d9edd43335357bf21176f5de8e5fe9dde2514b4d"
+  },
+  "sealed_boundaries": {
+    "dataset_rows_loaded": false,
+    "hidden_test_loaded": false,
+    "validation_episodes_loaded": false,
+    "later_seeds_executed": false,
+    "recovery_labels_written": false,
+    "cuda_training_started": false
+  }
+}

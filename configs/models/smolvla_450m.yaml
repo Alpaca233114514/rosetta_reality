@@ -32,6 +32,9 @@ expected:
     - policy_preprocessor_step_5_normalizer_processor.safetensors
     - policy_postprocessor.json
     - policy_postprocessor_step_0_unnormalizer_processor.safetensors
+    - tokenizer/chat_template.jinja
+    - tokenizer/tokenizer.json
+    - tokenizer/tokenizer_config.json
   config:
     type: smolvla
     chunk_size: 50

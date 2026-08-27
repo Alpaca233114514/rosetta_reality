@@ -1,0 +1,117 @@
+schema_version: 1
+role: vla
+stage: m2_state_robustness_optimizer_smoke
+status: preregistered
+plan_id: m2-smolvla450m-way-state-jitter-smoke-002
+run_name: m2-smolvla450m-way-state-jitter-smoke-002
+hypothesis: >-
+  The Aster trace diverged from the expert at step zero and crossed 0.025 state
+  MAE by step four, while the policy action was about eight times more sensitive
+  to state shuffling than image shuffling. Adding one fixed 0.05 standard
+  deviation Gaussian perturbation to train-normalized state only, with the
+  absolute expert action target unchanged, may teach local corrective behavior.
+  This two-step smoke validates only implementation, gradients, checkpointing
+  and resource safety; it does not claim closed-loop improvement.
+supersedes:
+  plan: configs/vla/smolvla_450m_aloha_insertion_way_state_jitter_smoke_001.yaml
+  plan_sha256: c1dd048eb3264565408050de714297f68a2139d01273bcf053528eccd18b5a5c
+  failed_run: m2-smolvla450m-way-state-jitter-smoke-001
+  failed_evidence_reason: trackio_formal_plan_sha256_was_null
+  preserve_all_prior_artifacts: true
+  reuse_checkpoint_or_optimizer_state: false
+reused_compiler_cache:
+  source_plan_sha256: c1dd048eb3264565408050de714297f68a2139d01273bcf053528eccd18b5a5c
+  cache_root: compiler_cache/way-jitter-c1dd048eb326
+  reason: identical_model_graph_and_optimizer_smoke_shape
+  weights_or_optimizer_state: false
+control_reference:
+  plan: configs/vla/smolvla_450m_aloha_insertion_aster_batch8_003.yaml
+  plan_sha256: ef6b932e3eed071fac197570b25e714f287374c1877f5f053c0beedb95603bd8
+  relationship: read_only_aster_control
+  preserved_axes:
+    - revision_pinned_base_initialization
+    - first_action_only_selected_valid_mean
+    - dataset_and_split
+    - batch_optimizer_scheduler
+    - bounded_gripper_action_boundary
+parent_experiment:
+  config: configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml
+  sha256: 0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210
+  experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+loss_contract:
+  profile: first_action_only
+  chunk_size: 50
+  normalization: mean_over_selected_valid_entries
+  upstream_implementation_sha256: 37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d
+state_robustness_contract:
+  profile: normalized_gaussian_state_jitter
+  normalized_standard_deviation: 0.05
+  input_space: train_normalized_observation_state
+  training_only: true
+  validation_and_deployment_inputs_clean: true
+  target_semantics: unchanged_absolute_expert_action
+  recovery_oracle: false
+  dagger: false
+  upstream_implementation_sha256: 37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d
+training_data:
+  split: train
+  episodes: [49]
+  validation_episodes_loaded: false
+  hidden_test_loaded: false
+reused_no_optimizer_preflight:
+  path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/preflight/m2-smolvla450m-aster-b8-preflight-005.json
+  sha256: 6c135445b033d8e79b32a6ae018ffa406aed887e494fd09bd2b64e273d686a3e
+  training_axis_active: false
+  reason: state_jitter_is_installed_only_on_training_policy_forward
+reused_clean_base_validation:
+  path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/validation/m2-smolvla450m-aster-b8-validation-004-base.json
+  sha256: 3cad10f636a90bdfc915f6aef83791372d1c5054a378296c343054e9c9191058
+  state_jitter_active: false
+  reason: validation_and_deployment_inputs_remain_clean
+optimizer_smoke:
+  episodes: [49]
+  batch_size: 8
+  steps: 2
+  save_freq: 1
+  save_checkpoint: true
+  log_freq: 1
+  num_workers: 0
+  persistent_workers: false
+  hidden_test_loaded: false
+  policy:
+    empty_cameras: 2
+    compile_model: true
+    compile_mode: reduce-overhead
+    skip_fully_masked_camera_encoding: true
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  mixed_precision: bf16
+  memory_limit: 8g
+  memory_swap_limit: 8g
+  cpu_limit: 2
+  maximum_peak_xpu_allocated_bytes: 7516192768
+  expected_wall_time_minutes: 100
+  maximum_wall_time_minutes: 150
+  checkpoint_memory_trim: true
+acceptance:
+  - exactly_two_finite_losses_and_gradients
+  - checkpoints_at_steps_one_and_two
+  - optimizer_scheduler_contract_matches_aster
+  - peak_xpu_allocation_within_registered_guard
+  - durable_trackio_binds_exact_plan_and_state_jitter_contract
+  - hidden_test_not_loaded
+stop_conditions:
+  - nonfinite_loss_gradient_or_action
+  - out_of_memory
+  - peak_xpu_allocation_above_7516192768_bytes
+  - optimizer_or_scheduler_state_divergence
+  - checkpoint_failure
+  - state_jitter_contract_mismatch
+  - missing_formal_plan_sha256_in_trackio
+  - validation_or_hidden_test_episode_used_for_gradients
+implementation_files:
+  scripts/run_smolvla_state_robustness_smoke.py: d4fd8a77586cc2e508c0f5c4034dd6fc52ef1c7bf7d55b328b1d828ab8c455a8
+  scripts/train_smolvla_state_robustness_smoke.py: ac33cdf33e1a9c320f3fb5142a19e778f6cb2266a7cb27fd05bd77d2f413c563
+  src/rosetta_reality/vla/state_robustness.py: 7c77cc757390c4d8015e071e49f9e30f7ee0d4c7a30984e7e453b8eca5a419bd
+hidden_test_loaded: false

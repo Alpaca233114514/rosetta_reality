@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-official-pick-ik-global-preregistration-2026-08-16",
+  "status": "preregistered_not_executed",
+  "source_runtime_failure": {
+    "audit": "reports/training/m2-smolvla-athena-plan048-pick-ik-local-runtime-audit-2026-08-16.json",
+    "audit_sha256": "612592fc9efd1e9e15120336fd394408df0852d7b78dde96195050adef850f89",
+    "runtime_mode": "local",
+    "captured_request_reason": "bimanual_pick_ik_failed",
+    "captured_request_valid_candidate_count": 0
+  },
+  "hypothesis": "The captured target is close in Cartesian space but requires crossing to a different joint branch. pick_ik documents its global memetic optimizer for solutions far from the initial joint guess, while local gradient mode is intended for nearby joint solutions. Changing only the already-loaded plugin mode to global, with one thread and fixed population/generation parameters, should search the alternate branch while Rosetta's unchanged outer validator continues to enforce exact pose, tightened joint margin, bounds, collision and OMPL path validity.",
+  "single_axis": "pick_ik_local_to_global_memetic_mode",
+  "registered_dependency": {
+    "apt_package": "ros-humble-pick-ik",
+    "apt_version": "1.1.2-2jammy.20260804.215003",
+    "plugin": "pick_ik/PickIkPlugin",
+    "full_pose_groups": ["left_arm", "right_arm"],
+    "position_priority_plugin": "lma_kinematics_plugin/LMAKinematicsPlugin"
+  },
+  "registered_solver_configuration": {
+    "mode": "global",
+    "kinematics_solver_timeout_s": 0.05,
+    "position_scale": 1.0,
+    "rotation_scale": 0.5,
+    "position_threshold_m": 0.001,
+    "orientation_threshold_rad": 0.003,
+    "cost_threshold": 10.0,
+    "avoid_joint_limits_weight": 0.1,
+    "minimal_displacement_weight": 0.01,
+    "center_joints_weight": 0.0,
+    "stop_optimization_on_valid_solution": false,
+    "memetic_num_threads": 1,
+    "memetic_stop_on_first_solution": false,
+    "memetic_population_size": 64,
+    "memetic_elite_size": 8,
+    "memetic_wipeout_fitness_tol": 0.00001,
+    "memetic_max_generations": 100,
+    "memetic_gd_max_iters": 25,
+    "memetic_gd_max_time_s": 0.005,
+    "outer_seed": 2210,
+    "outer_maximum_attempts": 256,
+    "outer_timeout_s": 2.0,
+    "outer_candidate_selection": "deterministic_maximum_minimum_joint_limit_margin_v1"
+  },
+  "required_evidence_before_exact": [
+    "runtime identity binds global mode and all memetic parameters",
+    "captured Plan047 first-orient request passes every unchanged outer gate",
+    "two fresh single-thread sidecars return identical selected goal and path",
+    "five-sample MuJoCo/MoveIt model parity passes",
+    "Ruff and all related tests pass",
+    "all implementation and runtime hashes are bound in Plan049"
+  ],
+  "frozen_contract": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "position_tolerance_m": 0.001,
+    "orientation_tolerance_rad": 0.003,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "physical_joint_limit_margin_rad": 0.01,
+    "joint_path_constraint_margin_rad": 0.04540462255477905,
+    "custom_orient_stencil_enabled": false,
+    "seed_and_label_boundaries": "unchanged"
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "sealed_until_plan049_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

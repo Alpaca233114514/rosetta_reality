@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan045-local-exact-audit-2026-08-16",
+  "status": "failed_train_only_exact",
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_045.yaml",
+    "sha256": "2fcd6b157fede3c76d72bcc3590a8d197d50c74abb3d55508bb12d8ff6b0f488"
+  },
+  "execution": {
+    "attempt": "athena-plan045-local-exact-001",
+    "container_image_id": "sha256:4941347b5ffa947d66491efe92006180ec6106745bae31f0cd3ee970c7e33f9a",
+    "moveit_source_image": "rosetta-reality-aloha-moveit2:humble-2.5.9-position-priority-005",
+    "moveit_source_image_id": "sha256:c19771a03cf5579bb5891e0c4f0c7afbbdbb5315f82b1e8d727f44ee5f2b4945",
+    "exit_code": 1,
+    "execution_log_sha256": "8c00cc69c5c81f0167d4017e9be8778f2870832bc3d432e42754fe2ec7981e41",
+    "exact_report_sha256": "5c6cddbdff6e3b47932242c0a8ab00a95e9a1c882a86cec272ef37c563545e7e",
+    "moveit_stderr_sha256": "87fdb8e374537ead1d36ff2add046ad18d6da572d42e5df90b8352260d1bc610"
+  },
+  "progress_before_failure": {
+    "steps_executed": 226,
+    "final_phase": "orient",
+    "path_planner_attempts": 3,
+    "path_planner_waypoints": 76,
+    "path_planner_terminal_control_completions": 1,
+    "maximum_position_priority_orientation_relaxation_rad": 0.029989797605092322,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "adapter_clip_failures": 0,
+    "unexpected_collision_count": 0,
+    "minimum_pre_step_joint_limit_margin_rad": 0.0502418423461912,
+    "minimum_observed_post_step_joint_limit_margin_rad": 0.0502418423461912
+  },
+  "failure_boundary": {
+    "seed": 10,
+    "step": 225,
+    "phase": "orient",
+    "solver_failure": "bimanual_lma_ik_failed",
+    "inverse_kinematics_failures": 1,
+    "ik_attempts_used": 256,
+    "ik_error": 0.013753741465544474,
+    "projected_ik_error": 0.013747797958407549,
+    "pre_step_minimum_margin_joint": "right_wrist_rotate",
+    "pre_step_minimum_margin_bound": "lower",
+    "pre_step_minimum_margin_rad": 0.06095780380249005
+  },
+  "attempt_scoped_diagnostic": {
+    "request_response_sha256": "ee23d700eef68cedf30d45eb91faaaca89d74f8c1531b4db23c01c56755cdfb6",
+    "failed_request_target_position_delta_m": {
+      "left": 0.011110202347635637,
+      "right": 0.011658480534972783
+    },
+    "failed_request_target_orientation_delta_rad": {
+      "left": 0.039999909719660345,
+      "right": 0.03999986159282033
+    },
+    "position_only_probe_sha256": "ca2d83ec6c6701bd3fa8e97378cbf62fe5c68d2c32c356df9ae2624f835d87c6",
+    "position_only_successful_trials": 0,
+    "full_pose_backoff_probe_sha256": "add43c591cae700b2c1e0c5c7e22127df596cccc85953b83a9ad81b044fd19cc",
+    "full_pose_bimanual_largest_successful_fraction": 0.125,
+    "full_pose_bimanual_successful_fractions": [0.125, 0.1, 0.05],
+    "full_pose_bimanual_ik_attempts_used": 1,
+    "full_pose_backoff_uses_official_lma_and_ompl": true
+  },
+  "root_cause": {
+    "classification": "full_pose_target_step_exceeds_local_bimanual_ik_basin_before_joint_limit",
+    "finding": "After the Plan044 subgroup repair and one successful position-priority waypoint, the teacher entered orient with both requested poses about 11 mm and exactly 0.04 rad from the current poses. Direct official full-pose LMA exhausted 256 attempts. Position-only LMA also failed because the current orientation was already at the registered relaxation boundary. Interpolating both translation and quaternion kept the official full-pose objective and succeeded deterministically at fractions 0.125, 0.1 and 0.05.",
+    "full_pose_group_selection_fix_exercised": true,
+    "position_priority_hypothesis_exercised": true,
+    "pose_or_margin_gate_relaxed": false
+  },
+  "protected_identities": {
+    "geometry_teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "not_executed",
+    "development_seeds_2000_2004": "not_executed",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "not_written",
+    "cuda_training": "not_started"
+  }
+}

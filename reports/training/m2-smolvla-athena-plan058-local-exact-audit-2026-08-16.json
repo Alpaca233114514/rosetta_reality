@@ -1,0 +1,62 @@
+{
+  "audit_id": "m2-smolvla-athena-plan058-local-exact-audit-2026-08-16",
+  "execution": {
+    "exact_report_sha256": "ab1b4d96b32d9a5425f9df1c664d80d65be463a9acd32c0800770178dfafc93f",
+    "execution_log_sha256": "65de66875213a6c4819587e74f55f4b65e62d575ba0be79641307cc5c81c7260",
+    "moveit_stderr_sha256": "f72cc91368a693c7e63850e4c74e4810e4180f3c56620cdec1474409d908af4e"
+  },
+  "gate_seals": {
+    "collection_seeds_3000_3004": "sealed",
+    "cuda_training": "not_started",
+    "development_seeds_2000_2004": "not_executed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "recovery_labels": "not_written",
+    "tuning_seed_1900": "not_executed",
+    "validation_and_hidden": "sealed"
+  },
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_058.yaml",
+    "sha256": "fd8f81d66bcda86ff308bc1123400ce4349b23a51f64e2892057cbe87d228616"
+  },
+  "result": {
+    "adapter_clip_failures": 0,
+    "commanded_margin_breach_events": 0,
+    "expanded_orientation_target_budget_events": 0,
+    "final_phase": "lift",
+    "inverse_kinematics_failures": 0,
+    "joint_limit_projection_events": 0,
+    "lift_contact_exemption_events": 306,
+    "lift_feedback_anchor_commands": 362,
+    "lift_gripper_bar_contact_exemption_events": 302,
+    "lift_moveit_fallback_events": 1,
+    "observed_margin_breach_events": 0,
+    "path_planner_attempts": 7,
+    "path_planner_reference_reuse_commands": 488,
+    "path_planner_reference_waypoint_advancements": 46,
+    "path_planner_waypoints": 495,
+    "peg_grasp_contact": true,
+    "peg_on_table": true,
+    "phase_visits": {
+      "approach": 241,
+      "descend": 28,
+      "grasp": 7,
+      "lift": 362,
+      "open": 15,
+      "orient": 97
+    },
+    "socket_grasp_contact": true,
+    "socket_on_table": false,
+    "steps_executed": 750,
+    "success": false
+  },
+  "root_cause": {
+    "classification": "feedback_anchor_preserves_grasp_but_right_peg_does_not_leave_table_within_horizon",
+    "finding": "Plan058 cleared every safety boundary and ran the full horizon, but the right peg remained on/near the table. The current feedback-only lift target follows the stuck object rather than generating a sustained feasible upward bias for the right arm."
+  },
+  "schema_version": 1,
+  "scope_lock": {
+    "local_changes_after_this_audit": "wrap_up_documentation_only",
+    "remote_stage": "not_connected"
+  },
+  "status": "failed_train_only_exact_horizon_exhausted"
+}

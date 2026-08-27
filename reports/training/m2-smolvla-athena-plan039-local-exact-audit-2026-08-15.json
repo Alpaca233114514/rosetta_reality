@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "audit_id": "m2-smolvla-athena-plan039-local-exact-audit-2026-08-15",
+  "status": "failed_on_unregistered_observed_left_finger_table_contact",
+  "execution": {
+    "name": "athena-plan039-local-exact-001",
+    "location": "local_linux_container",
+    "network": "disabled",
+    "repository_mount": "read_only",
+    "cuda": false,
+    "optimizer_steps": 0,
+    "exit_code": 1,
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_039.yaml",
+    "plan_sha256": "a0a919d778e8af06395103c3ba8a432c2348a34ffbe556450f246f337a3844c5",
+    "exact_report_sha256": "2296577282cd3e9fe20b514eabb12d4b155cc4e46d66a6a52ba6a9030e64ad5b",
+    "execution_log_sha256": "f6cceb7e56b16a3b12d59e386514e5b4e7e4b0141b453ac3913fa497d9f2057c",
+    "moveit_stderr_sha256": "28016f3e7605b0b6418a7156c10620e234755cbcbbfc0b7c26af895271dafaf7"
+  },
+  "exact_result": {
+    "calibration_reward": 4.0,
+    "successes": 0,
+    "required_successes": 1,
+    "steps_executed": 442,
+    "registered_maximum_steps": 750,
+    "maximum_reward": 0.0,
+    "final_phase": "descend",
+    "teacher_failure": "Unexpected collision prevents geometry-teacher supervision.",
+    "inverse_kinematics_failures": 0,
+    "adapter_clip_failures": 0,
+    "commanded_margin_breach_events": 0,
+    "observed_margin_breach_events": 0,
+    "unexpected_collision_count": 1,
+    "path_planner_attempts": 3,
+    "terminal_control_activations": 3,
+    "terminal_control_completions": 2,
+    "task_contact_exemption_events": 15,
+    "minimum_commanded_joint_limit_margin_rad": 0.052003040390014466,
+    "minimum_observed_joint_limit_margin_rad": 0.052193536834716614
+  },
+  "failure_boundary": {
+    "step": 441,
+    "phase": "descend",
+    "last_executed_step": 440,
+    "last_target_position_error_m": 0.008988597430288792,
+    "last_inverse_kinematics_error": 8.708843315205285e-7,
+    "last_projected_inverse_kinematics_error": 0.00013877622825752927,
+    "unexpected_pair": [
+      "table",
+      "vx300s_left/10_left_gripper_finger"
+    ],
+    "registered_task_pair_still_present": [
+      "table",
+      "vx300s_right/10_right_gripper_finger"
+    ],
+    "train_calibration_contains_unexpected_pair": false,
+    "final_observed_contact_diagnostic_sha256": "c3e29a05b2f2f1b0e3af6ad9c2b4ff55fb46393ce574c52af23794f10dde1909",
+    "final_commanded_contact_diagnostic_sha256": "96a64e5c80b56ec351baca63235ade99586d519b471106bbef34cf1a6096e80b",
+    "diagnosis": "The static commanded pose has only the already registered right-finger task contact. The observed pose additionally contacts the table with the left finger, so the failure is controller tracking/gravity droop near the table and cannot be repaired by expanding the contact allowlist."
+  },
+  "counterfactual": {
+    "method": "official_mujoco_static_inverse_dynamics_position_feedforward",
+    "scope": "reconstructed_last_descend_step_only",
+    "diagnostic_sha256": "8d9f4ce94feee82fd2bf23c4b6de37b3c1bdb6ec6f1356f2f82537ff0e542da7",
+    "maximum_correction_rad": 0.004120926503546007,
+    "minimum_command_joint_limit_margin_rad": 0.6329709929863547,
+    "unexpected_pairs_after_counterfactual_step": [
+      [
+        "table",
+        "vx300s_right/10_right_gripper_finger"
+      ]
+    ],
+    "registered_pair_only_after_classification": true,
+    "interpretation": "A bounded 4.12 mrad static inverse-dynamics correction removes the unregistered left-finger/table contact in the reconstructed boundary without changing the task-contact policy or joint limits. This diagnostic is not an exact pass."
+  },
+  "gate_seals": {
+    "tuning_opened": false,
+    "development_opened": false,
+    "collection_opened": false,
+    "policy_gate_opened": false,
+    "validation_or_hidden_loaded": false,
+    "recovery_labels_written": false,
+    "model_or_data_downloaded": false,
+    "cuda_training": false
+  },
+  "next_action": "Preregister phase-scoped static inverse-dynamics feedforward for descend and grasp as the only behavioral change; preserve the collision allowlist, targets, tolerances, planner, horizon, margins, seeds, and labels."
+}

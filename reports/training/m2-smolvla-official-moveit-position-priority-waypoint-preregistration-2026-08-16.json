@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "m2-smolvla-official-moveit-position-priority-waypoint-preregistration-2026-08-16",
+  "status": "preregistered_not_executed",
+  "source_failure": {
+    "plan": "configs/sim/aloha_insertion_geometry_teacher_043.yaml",
+    "plan_sha256": "0c2baa2dd38fb0639fbdbf9b584e5a4d24125e0575a51177fc76c95ee53e4d40",
+    "exact_report_sha256": "590e4eab19506fd3f9d682e3a3b80c64ed92812870eb67621d8633969fc788ae",
+    "audit": "reports/training/m2-smolvla-athena-plan043-local-exact-audit-2026-08-16.json",
+    "audit_sha256": "8c54a42449aca7f4e4d36de22e44fc2815175bdf03254edcbec64a1d4010f4b6",
+    "failure_step": 223,
+    "failure_phase": "approach",
+    "solver_failure": "bimanual_lma_ik_failed",
+    "minimum_margin_joint": "right_wrist_rotate",
+    "minimum_margin_rad": 0.05949391372680646,
+    "ik_attempts_used": 256
+  },
+  "diagnostic_evidence": {
+    "gating": false,
+    "request_response_log_sha256": "64577318568e5fa8bc76429d0039a41a4a15c75841f2486b40ee3ede497856be",
+    "orientation_probe_sha256": "6c1d5ca35b560d25441e4722593194a9f9b781e89249131c99f39e9c63d958a7",
+    "cartesian_backoff_probe_sha256": "8fd0e5c4ae9d271e0743602039002eff6f1559fb461db2861dc3bc9d70b72607",
+    "finding": "The failed target orientation equals current FK within numerical precision. Full 12 mm translation fails, while official full-pose LMA plus OMPL accepts deterministic 0.125 and 0.25 Cartesian fractions; the 0.25 goal remains 0.0475069 rad inside the physical bound and above the 0.0454046 rad path margin. Position-only IK is required to search a different feasible orientation before that margin is consumed."
+  },
+  "hypothesis": "MoveIt 2.5.9's official LMA plugin supports position_only_ik by setting its rotational Cartesian weights to zero. A deterministic, approach-only position-priority solver can use that official mode to find a collision-free pose at the largest registered Cartesian fraction while allowing at most 0.04 rad orientation drift, then use the unchanged official OMPL RRTConnect pipeline to reach the resulting joint goal. Feedback will subsequently resume the original exact teacher target. This should route around the wrist-limit singularity without relaxing final task pose, Action Contract, or exact acceptance thresholds.",
+  "single_axis": "replace_exact_pose_retry_at_approach_limit_with_official_moveit_position_only_lma_waypoint_then_ompl",
+  "official_sources": [
+    {
+      "component": "MoveIt 2.5.9 LMAKinematicsPlugin",
+      "url": "https://github.com/moveit/moveit2/blob/2.5.9/moveit_kinematics/lma_kinematics_plugin/src/lma_kinematics_plugin.cpp#L114-L128",
+      "contract": "position_only_ik sets orientation_vs_position_weight to zero"
+    },
+    {
+      "component": "MoveIt 2.5.9 LMAKinematicsPlugin",
+      "url": "https://github.com/moveit/moveit2/blob/2.5.9/moveit_kinematics/lma_kinematics_plugin/src/lma_kinematics_plugin.cpp#L219-L272",
+      "contract": "official weighted KDL ChainIkSolverPos_LMA and bound enforcement"
+    }
+  ],
+  "registered_algorithm": {
+    "activation_phases": ["approach"],
+    "activation": "only after unchanged Mink exact solve and unchanged deterministic full-pose MoveIt solve both fail",
+    "solver": "official_moveit_2_5_9_lma_position_only_ik",
+    "position_only_groups": ["left_arm_position_priority", "right_arm_position_priority"],
+    "cartesian_backoff_fractions": [1.0, 0.75, 0.5, 0.25, 0.125],
+    "minimum_cartesian_progress_m": 0.001,
+    "maximum_orientation_relaxation_rad": 0.04,
+    "search_mode": "deterministic_seeded_moveit_subgroup_multistart_v1",
+    "seed": 2210,
+    "maximum_attempts_per_fraction": 256,
+    "outer_timeout_s_per_fraction": 2.0,
+    "candidate_order": "largest_cartesian_fraction_then_fixed_seed_attempt_order",
+    "candidate_validity": [
+      "official_robot_bounds",
+      "registered_joint_path_margin",
+      "planning_scene_self_collision_free",
+      "maximum_position_error_at_most_0_001_m",
+      "maximum_orientation_relaxation_at_most_0_04_rad"
+    ],
+    "global_planner": "official_moveit2_ompl_rrtconnect",
+    "planning_request_adapter": "default_planner_request_adapters/FixStartStatePathConstraints",
+    "execution": "unchanged_retained_reference_simple_sampler_and_terminal_feedback",
+    "feedback": "discard the intermediate waypoint after terminal completion and recompute the original teacher target from the next observation"
+  },
+  "frozen_contract": {
+    "teacher_sha256": "74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd",
+    "gym_aloha_sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "dataset_revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+    "position_tolerance_m": 0.001,
+    "orientation_tolerance_rad": 0.003,
+    "maximum_accepted_error": 0.001,
+    "maximum_accepted_projected_error": 0.003,
+    "physical_joint_limit_margin_rad": 0.01,
+    "joint_path_constraint_margin_rad": 0.04540462255477905,
+    "maximum_orientation_step_rad": 0.04,
+    "environment_side_clipping_allowed": false,
+    "source_timeline_actions_used_at_runtime": false
+  },
+  "required_evidence_before_exact": [
+    "new sidecar identity reports both official position-only LMA groups",
+    "deterministic repeat of a position-priority request returns identical goal and path",
+    "existing MuJoCo/MoveIt parity remains passed",
+    "Ruff and related protocol/unit tests pass",
+    "all implementation and plan hashes are bound in a new Plan044"
+  ],
+  "acceptance": {
+    "stage": "train_only_exact",
+    "required_successes": 1,
+    "maximum_geometry_teacher_failures": 0,
+    "maximum_inverse_kinematics_failures": 0,
+    "maximum_adapter_clip_failures": 0,
+    "maximum_commanded_margin_breach_events": 0,
+    "maximum_observed_margin_breach_events": 0,
+    "maximum_unexpected_collision_count": 0,
+    "maximum_position_priority_orientation_relaxation_rad": 0.04,
+    "hidden_test_loaded": false,
+    "recovery_labels_written": false
+  },
+  "gate_seals": {
+    "tuning_seed_1900": "sealed_until_plan044_exact_passes",
+    "development_seeds_2000_2004": "sealed_until_tuning_passes",
+    "collection_seeds_3000_3004": "sealed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "validation_and_hidden": "sealed",
+    "recovery_labels": "forbidden",
+    "cuda_training": "forbidden_without_new_user_authorization"
+  }
+}

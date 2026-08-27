@@ -1,0 +1,63 @@
+{
+  "audit_id": "m2-smolvla-athena-plan057-local-exact-audit-2026-08-16",
+  "execution": {
+    "exact_report_sha256": "f5be34fb54215baacbc82edc142aa15934eb642572371058ec6993b9018ee0b9",
+    "execution_log_sha256": "d8b94d3ee792af22997cd0d3233c2771dedc7a45033c45b1a701a2d3ba755fef",
+    "moveit_stderr_sha256": "ad1a6f4755c83ed9d063ca5f30ba7e725ff162f1f7eef4d124346f56ecfdcaff"
+  },
+  "gate_seals": {
+    "collection_seeds_3000_3004": "sealed",
+    "cuda_training": "not_started",
+    "development_seeds_2000_2004": "not_executed",
+    "policy_gate_seeds_1000_1004": "sealed",
+    "recovery_labels": "not_written",
+    "tuning_seed_1900": "not_executed",
+    "validation_and_hidden": "sealed"
+  },
+  "plan": {
+    "path": "configs/sim/aloha_insertion_geometry_teacher_057.yaml",
+    "sha256": "75d64f6fc048d9fd7d69542691777968254f7cc99025731cfae8de71f66d03f0"
+  },
+  "result": {
+    "adapter_clip_failures": 0,
+    "commanded_margin_breach_events": 0,
+    "failure": "unexpected_collision",
+    "failure_step": 444,
+    "final_phase": "lift",
+    "inverse_kinematics_failures": 0,
+    "joint_limit_projection_events": 0,
+    "lift_contact_exemption_events": 1,
+    "lift_feedback_anchor_commands": 56,
+    "lift_moveit_fallback_events": 1,
+    "observed_margin_breach_events": 0,
+    "path_planner_attempts": 7,
+    "path_planner_reference_waypoint_advancements": 45,
+    "path_planner_waypoints": 189,
+    "peg_grasp_contact": true,
+    "phase_visits": {
+      "approach": 241,
+      "descend": 28,
+      "grasp": 7,
+      "lift": 56,
+      "open": 15,
+      "orient": 97
+    },
+    "socket_grasp_contact": true,
+    "steps_executed": 445,
+    "teacher_failure": "Unexpected collision prevents geometry-teacher supervision.",
+    "unexpected_collision_pair": [
+      "table",
+      "vx300s_right/9_gripper_bar"
+    ]
+  },
+  "root_cause": {
+    "classification": "right_gripper_bar_table_contact_not_yet_registered_for_lift",
+    "finding": "The official lift fallback solved the IK failure and retained grasp, but the right gripper bar contacts the table during initial lift. That gripper-bar/table pair is not covered by the current lift contact exemption."
+  },
+  "schema_version": 1,
+  "scope_lock": {
+    "local_changes_after_this_audit": "single_axis_plan058_only",
+    "remote_stage": "not_connected"
+  },
+  "status": "failed_train_only_exact"
+}

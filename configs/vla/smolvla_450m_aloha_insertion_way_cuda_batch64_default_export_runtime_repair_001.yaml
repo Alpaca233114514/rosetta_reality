@@ -1,0 +1,43 @@
+schema_version: 1
+role: vla
+stage: smolvla_way_export_runtime_repair
+status: preregistered
+repair_id: m2-smolvla450m-way-cuda-b64-default-export-runtime-repair-001
+reason: >-
+  The completed Way formal plan stores its immutable train-only normalization
+  identity under prerequisites, while the historical export evaluator expects
+  the equivalent top-level normalization alias. This compatibility layer adds
+  only that read-only alias before export and independent reload.
+formal_plan:
+  path: configs/vla/smolvla_450m_aloha_insertion_way_cuda_batch64_default_formal_002.yaml
+  plan_id: m2-smolvla450m-way-cuda-b64-default-formal-002
+  sha256: b02a84f219c52b226cc97eba019cfc98cc217301504b37e1b557f957a702744c
+selection_report:
+  path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-way-cuda-b64-default-formal-002-selection.json
+  sha256: 7ee31cafa766ea992d696818cd2d16ef89e304d53a84d4c13798226c6b813427
+selected_checkpoint:
+  step: 316
+  model_safetensors_sha256: 31ec390248862919cd90457815d7c00cfbe9e28fcc12c6c5d217fea1013bad0b
+artifact_id: m2-smolvla450m-way-b64-default-step0316-002-export001
+scope:
+  export_and_independent_reload_only: true
+  optimizer_created: false
+  gradients_enabled: false
+  checkpoint_or_optimizer_state_modified: false
+  training_identity_changed: false
+  hidden_test_loaded: false
+compatibility_repairs:
+  legacy_normalization_alias_from_formal_prerequisites: true
+outputs:
+  create_only: true
+  exact_independent_reload_required: true
+  artifact_root: artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-way-b64-default-step0316-002-export001
+implementation_files:
+  scripts/export_smolvla_way_runtime_repair.py: f1198b6666e4a926dc5e45b0b637f15594aeed1047ff3e77c420189ec48a69d0
+  scripts/export_smolvla_way.py: afab037ebb848ca17fd1d40bd06ca66b8bd1161dc780b4b0a966734819178f19
+  scripts/export_smolvla.py: fe5a77416c9a0e6f9f86b4c6f976535442ef2dc72626336a87586f46cc69edeb
+  scripts/evaluate_smolvla_validation.py: 507422bf4baa90ec34e844e858cb386d7ea90c3f5faf3725f899bfacdbaac403
+  scripts/evaluate_smolvla_aster_validation.py: 911a7aeb6cd0efec7b2a03df0db185d71ce9aaadea566ec15bb237079390f52f
+  scripts/run_smolvla_state_robustness_cuda_formal.py: b613f2f980697d94a7f748f8e67bf199b4f861e31e14bfa624e2877218313e33
+hidden_test_loaded: false
+closed_loop_claim: false
