@@ -40,6 +40,7 @@ import run_smolvla_phase as phase_runner  # noqa: E402
 
 from rosetta_reality.experiment import file_sha256, workspace_code_identity  # noqa: E402
 from rosetta_reality.features import create_json  # noqa: E402
+from rosetta_reality.vla.action_space import load_smolvla_experiment  # noqa: E402
 from rosetta_reality.vla.training.context import PHASE_FORMAL, PHASE_SMOKE  # noqa: E402
 from rosetta_reality.vla.training.features import FEATURE_FACTORIES  # noqa: E402
 from rosetta_reality.vla.training.launch import (  # noqa: E402
@@ -97,7 +98,7 @@ def _resolve_plan(plan_path: Path) -> tuple[dict[str, Any], Path, dict[str, Any]
         raise ValueError("Parent experiment path escaped the repository root.")
     if file_sha256(base_path) != parent["sha256"]:
         raise ValueError("Version-2 plan parent experiment checksum is stale.")
-    experiment = _load_yaml(base_path)
+    experiment = load_smolvla_experiment(base_path, REPOSITORY_ROOT)
     if parent["experiment_id"] != experiment["experiment_id"]:
         raise ValueError("Version-2 plan parent experiment identity differs.")
     return plan, base_path, experiment
@@ -259,7 +260,7 @@ def _validate_normalization(
         or any(view_stats.get(feature) != value for feature, value in effective_stats.items())
     ):
         raise ValueError("Train-only dataset view stats differ from the normalization report.")
-    return report_path, manifest_path
+    return report_path, manifest_path, view_root
 
 
 def _validate_preflight_report(
@@ -421,7 +422,7 @@ def main() -> int:
     contract_path = REPOSITORY_ROOT / str(experiment["action_contract"]["derived"])
     contract_sha256 = file_sha256(contract_path)
     prerequisites = _validate_prerequisites(plan, experiment, base_path, contract_sha256)
-    normalization_report, view_manifest = _validate_normalization(
+    normalization_report, view_manifest, dataset_view_root = _validate_normalization(
         plan, experiment, base_path, contract_sha256
     )
     plan_sha256 = file_sha256(plan_path)
@@ -450,7 +451,10 @@ def main() -> int:
         )
 
     model_root = phase_runner._model_root(experiment)
-    dataset_root = phase_runner._dataset_root(experiment)
+    # Validates the immutable data-cache identity; every phase consumes the
+    # validated train-only view resolved from the normalization report, the
+    # same dataset surface the registered no-optimizer preflight checks.
+    phase_runner._dataset_root(experiment)
     checkpoint_root = phase_runner._absolute_root("ROSETTA_CHECKPOINT_ROOT")
     run_root = phase_runner._absolute_root("ROSETTA_RUN_ROOT")
     run_name = {
@@ -496,7 +500,10 @@ def main() -> int:
     if not device:
         raise ValueError("ROSETTA_TORCH_DEVICE must be set by the Docker runner.")
     os.environ["ROSETTA_VLA_PHASE"] = phase
-    os.environ["ROSETTA_VLA_EXPERIMENT_CONFIG"] = str(runtime_experiment_path)
+    # The composed runtime experiment stays under the durable run root as
+    # evidence; consumers of this environment variable require the in-repo
+    # parent config, matching the registered historical launcher boundary.
+    os.environ["ROSETTA_VLA_EXPERIMENT_CONFIG"] = str(base_path)
     os.environ["ROSETTA_VLA_RUN_NAME"] = run_name
     os.environ["ROSETTA_VLA_TRAIN_STATS_REPORT"] = str(normalization_report)
     os.environ["ROSETTA_VLA_FORMAL_PLAN_SHA256"] = plan_sha256
@@ -530,7 +537,7 @@ def main() -> int:
         mode=args.mode,
         run_name=run_name,
         model_root=model_root,
-        dataset_root=dataset_root,
+        dataset_root=dataset_view_root,
         output_dir=output_dir,
         device=device,
     )

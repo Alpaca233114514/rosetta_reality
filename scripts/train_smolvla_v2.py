@@ -39,6 +39,7 @@ from rosetta_reality.vla.training import (  # noqa: E402
     validate_plan_structure,
 )
 from rosetta_reality.vla.training.features import FEATURE_FACTORIES  # noqa: E402
+from rosetta_reality.vla.training.plan import FEATURE_TRACKIO_LOGGING  # noqa: E402
 
 LAUNCHER_VALIDATED_ENV = "ROSETTA_VLA_V2_LAUNCHER_VALIDATED"
 PLAN_PATH_ENV = "ROSETTA_VLA_V2_PLAN_PATH"
@@ -104,7 +105,9 @@ def main() -> None:
         lerobot_train.main()
     finally:
         stack.restore_all(context)
-        finish_trackio()
+        # Only a run whose plan initialized Trackio owns its teardown.
+        if FEATURE_TRACKIO_LOGGING in installed:
+            finish_trackio()
 
 
 if __name__ == "__main__":
