@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "audit": "m2-smolvla-zen-formal-audit-2026-08-27",
+  "furnace": "Zen",
+  "furnace_scope": "two_arm_registered_comparison_uniform_vs_first_action_only",
+  "status": "completed_negative_result",
+  "hypothesis_rejected": true,
+  "hidden_test_loaded": false,
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "final_workspace": {
+    "release_id": "20260827T104500Z-6fe7535-zen-formal-r42b",
+    "archive_sha256": "7f7bcbe287d3d99f756489fb88ad3b1b4db640a9fb20c0824aa2f0d082a8e0e8",
+    "base_revision": "6fe7535"
+  },
+  "arms": {
+    "uniform": {
+      "plan_id": "m2-smolvla450m-zen-uniform-002",
+      "plan_sha256_prefix": "07cc24bf",
+      "run_name": "m2-smolvla450m-zen-cuda-b64-uniform-001",
+      "loss_first_last": [0.905, 0.156],
+      "gradient_first_last": [3.162, 0.814],
+      "wall_minutes": 48.4,
+      "selected_step": 316,
+      "selected_first_action_mae": 0.021572770214905695,
+      "base_first_action_mae": 0.29053780037377563,
+      "improvement_over_base_fraction": 0.9257,
+      "artifact_id": "m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001",
+      "reload_exact_tensor_equality": true,
+      "reload_maximum_absolute_metric_difference": 0.0,
+      "gate3_suffix": "411",
+      "gate3_status": "passed",
+      "gate4_status": "failed",
+      "gate4_task_successes": "0/5",
+      "gate4_maximum_reward_per_seed": [0.0, 0.0, 0.0, 0.0, 0.0],
+      "gate4_joint_limit_violations_per_seed": [4, 0, 0, 0, 1],
+      "gate4_unexpected_collisions": 0,
+      "gate4_invalid_action_rate": 0.0,
+      "gate4_action_smoothness_l2": [0.196, 0.1718, 0.1682, 0.1768, 0.1923]
+    },
+    "firstaction": {
+      "plan_id": "m2-smolvla450m-zen-firstaction-001",
+      "plan_sha256_prefix": "3b9c62f5",
+      "run_name": "m2-smolvla450m-zen-cuda-b64-firstaction-001",
+      "loss_first_last": [1.032, 0.15],
+      "gradient_first_last": [4.203, 1.526],
+      "wall_minutes": 47.9,
+      "selected_step": 316,
+      "selected_first_action_mae": 0.022150604739519103,
+      "base_first_action_mae": 0.29053780037377563,
+      "improvement_over_base_fraction": 0.9238,
+      "artifact_id": "m2-smolvla450m-zen-cuda-b64-firstaction-001-step0316-deploy-001",
+      "reload_exact_tensor_equality": true,
+      "reload_maximum_absolute_metric_difference": 0.0,
+      "gate3_suffix": "422",
+      "gate3_status": "passed",
+      "gate4_status": "failed",
+      "gate4_task_successes": "0/5",
+      "gate4_maximum_reward_per_seed": [0.0, 0.0, 0.0, 0.0, 0.0],
+      "gate4_joint_limit_violations_per_seed": [0, 0, 0, 0, 0],
+      "gate4_unexpected_collisions": 0,
+      "gate4_invalid_action_rate": 0.0
+    }
+  },
+  "verdict": {
+    "offline": "uniform control slightly better than first-action treatment at this scale; both far better than base and than read-only Aster/Prometheus contexts",
+    "closed_loop": "both arms 0/5 with maximum reward 0 on seeds 1000-1004; only failed criterion is minimum_task_success_rate",
+    "interpretation": "T1 temporal-weight axis rejected at development scale (batch 64, 316 updates); Aster-era offline gain does not generalize across training regimes; failure classification remains training/closed-loop generalization",
+    "m2_complete": false
+  },
+  "engineering_defects_fixed": [
+    "frozen engine step_5 vs v2 step_7 processor filenames (glob resolution)",
+    "validation report naming step-%06d hyphen",
+    "selection source key step vs checkpoint_step",
+    "inverted load_vlm_weights identity check in reload path",
+    "synthetic probe replaced by engine-rerun reload proof",
+    "tarfile gzip level-9 stall; inventory-based backup evidence",
+    "gate3/gate4 code-identity binding broken by re-staging; paired reruns under suffixes 411/422",
+    "durable disk exhaustion; removed own unreferenced duplicate backup archive",
+    "mistranscribed prior-failure checksums re-read from immutable files",
+    "artifact config.json adapt_to_pi_aloha merge; defective artifacts superseded by rename"
+  ],
+  "ffmpeg_maintenance": {
+    "installed": {
+      "conda_prefixes": ["/root/ff5", "/root/ff6", "/root/ff7"],
+      "libavutil_versions": [57, 58, 59],
+      "apt_ffmpeg4_full_set": true
+    },
+    "activation_result": "negative",
+    "blockers": [
+      "conda-forge libs require GLIBCXX_3.4.30; miniconda python RPATH pins older libstdc++",
+      "torchcodec 0.11.1 + torch 2.8.0: undefined symbol torch_dtype_float4_e2m1fn_x2 (ffmpeg4 core)",
+      "torchcodec 0.9.0: core dump on import"
+    ],
+    "torchcodec_reverted_to": "0.11.1",
+    "retraining_decision": "none; training used torchvision decode backend throughout (~9.3 s/step), arm identities frozen"
+  },
+  "evidence_paths_remote": {
+    "selections": "runs/<exp>/selection/*zen*selection.json",
+    "gates": "runs/<exp>/gates/gate{3,4}-smolvla-sim-{411,422}.json",
+    "artifacts": "artifacts/<exp>/*zen*deploy-001/",
+    "reload_reports": "runs/<exp>/validation/*reload*step-000316.json",
+    "driver": "runs/orchestration/zen-furnace-events.jsonl",
+    "checkpoints_deviation": "/root/zen-runtime/checkpoints (system disk; do not release instance)"
+  }
+}

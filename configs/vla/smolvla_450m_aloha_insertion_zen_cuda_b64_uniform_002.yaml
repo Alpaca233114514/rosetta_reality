@@ -1,0 +1,134 @@
+schema_version: 2
+role: vla
+status: preregistered
+plan_id: m2-smolvla450m-zen-uniform-002
+run_name: m2-smolvla450m-zen-cuda-b64-uniform-001
+hypothesis: >-
+  Zen arm A, registered uniform control. Completes the T1 comparison that the
+  blocked Prometheus furnace could not close: at CUDA scale, batch 64, one
+  registered-exposure pass (20,224 exposures, 316 optimizer steps) and fresh
+  pinned-base initialization, upstream uniform flow-matching over the whole
+  chunk is compared against arm B (identical identity except the preregistered
+  first_action_only temporal weight profile) through validation-only selection,
+  exact export/reload and closed-loop Gates 3/4. This arm changes nothing from
+  the Faust-family objective; any attribution requires arm B under the other
+  Zen plan frozen in the same session.
+parent_experiment:
+  config: configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml
+  sha256: 0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210
+  experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+runtime_profile:
+  path: configs/runtime/autodl_rtx4090.yaml
+  sha256: be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992
+  profile_id: autodl-rtx4090-cuda-001
+  nested_docker_used: false
+initialization:
+  source: revision_pinned_base_model
+  faust_checkpoint_used: false
+  aster_checkpoint_used: false
+  way_checkpoint_used: false
+  prometheus_checkpoint_used: false
+  optimizer_state_reused: false
+training:
+  episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  batch_size: 64
+  steps: 316
+  save_freq: 79
+  log_freq: 79
+  checkpoint_steps: [79, 158, 237, 316]
+  eval_split: 0.0
+  validation_gradients: false
+  hidden_test_loaded: false
+  num_workers: 0
+  persistent_workers: false
+  policy:
+    empty_cameras: 2
+    compile_model: false
+    compile_mode: default
+    skip_fully_masked_camera_encoding: true
+  optimizer:
+    type: adamw
+    lr: 1.0e-4
+    betas: [0.9, 0.95]
+    eps: 1.0e-8
+    weight_decay: 1.0e-10
+    grad_clip_norm: 10.0
+  scheduler:
+    type: cosine_decay_with_warmup
+    num_warmup_steps: 31
+    num_decay_steps: 316
+    peak_lr: 1.0e-4
+    decay_lr: 2.5e-6
+optimizer_smoke:
+  run_name: m2-smolvla450m-zen-uniform-smoke-001
+  episodes: [49]
+  batch_size: 64
+  steps: 2
+  save_freq: 1
+  save_checkpoint: true
+  log_freq: 1
+  num_workers: 0
+  persistent_workers: false
+preflight:
+  run_name: m2-smolvla450m-zen-uniform-preflight-001
+  episodes: [49]
+  batch_size: 64
+  steps: 1
+  save_checkpoint: false
+  log_freq: 1
+  num_workers: 0
+  persistent_workers: false
+validation:
+  episodes: [22, 13, 7, 33, 45]
+  frame_offsets: [0]
+  total_samples: 5
+  hidden_test_loaded: false
+resources:
+  memory_limit: autodl_platform_container
+  memory_swap_limit: autodl_platform_container
+  cpu_limit: 16
+  mixed_precision: bf16
+  checkpoint_memory_trim: true
+features:
+  - name: train_only_statistics
+  - name: action_boundary_projection
+  - name: checkpoint_memory_trim
+monitoring:
+  policy: sleep_between_quarter_checkpoints
+  wake_fractions: [0.25, 0.5, 0.75, 1.0]
+  wake_steps: [79, 158, 237, 316]
+  blocking_command: sleep
+  sleep_poll_seconds: 300
+  estimated_total_minutes: 90
+  hidden_test_loaded: false
+prerequisites: {}
+normalization:
+  source_split: train
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/normalization/train-only-3e3c6b9d347e5e71.json
+  report_sha256: 263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988
+  dataset_view_manifest: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/dataset_views/train-only-3e3c6b9d347e5e71/view_manifest.json
+  dataset_view_manifest_sha256: 9853c191ae87016379fc1a16ebfbb87e05ab5147cd8a03d82f9c2a894c9b531e
+  validation_episodes_loaded: false
+  hidden_test_loaded: false
+implementation_files:
+  scripts/run_smolvla_v2.py: d703b63b8ebf96b9579cb7af41e3ec84645a9a225c21a72698451ee782559327
+  scripts/train_smolvla_v2.py: 888cca61cbacee7ce72527cc78f232c0b783f8c6bb432d11bf7e75740e89c52a
+  scripts/smolvla_forward_check.py: 7d7dd79167c604bae13e525fa9a6f51a9a1fec5e331a1352120d49d60f04e3d0
+  src/rosetta_reality/vla/training/plan.py: 6b8afadca01b1cff2a1a7075b1884c0362f327810363cc589e42def336f9bcf9
+  src/rosetta_reality/vla/training/features.py: 3b312e5363c835381151042a2d92b7ca15c96a5757eb04120c89112b854811a0
+  src/rosetta_reality/vla/training/context.py: 3681409b19dbae403a22dbf5dcff64e8d767b0ffea59b4be1260c2f1538c68bd
+  src/rosetta_reality/vla/training/launch.py: c7a3d2efa8b14a531c01a5c81df12ab47ea146c9048e89a21a1346f2525d4de8
+  src/rosetta_reality/vla/action_space.py: 4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb
+  src/rosetta_reality/vla/processor.py: 6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384
+stop_conditions:
+  - nonfinite_loss_gradient_or_action
+  - out_of_memory_no_automatic_retry
+  - cuda_graph_or_other_runtime_failure_no_automatic_retry
+  - elapsed_time_above_registered_minutes_per_phase
+  - normalization_or_workspace_identity_mismatch
+  - checkpoint_write_failure
+  - hidden_test_or_validation_episode_used_for_gradients
+  - feature_install_rollback_failure
+hidden_test_loaded: false
+closed_loop_claim: false
+formal_training_claim: true
