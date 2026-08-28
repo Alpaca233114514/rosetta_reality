@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "stage": "m2_smolvla_zen_first_deviation_trace_result",
+  "date": "2026-08-28",
+  "status": "complete",
+  "gating": false,
+  "hidden_test_loaded": false,
+  "preregistration": {
+    "report": "reports/training/m2-smolvla-zen-first-deviation-preregistration-2026-08-28.md",
+    "json": "reports/training/m2-smolvla-zen-first-deviation-preregistration-2026-08-28.json"
+  },
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "traced_artifact": {
+    "artifact_id": "m2-smolvla450m-zen-cuda-b64-firstaction-001-step0316-deploy-001",
+    "artifact_manifest_sha256": "d6b2a7ff922605daf04670dd8e57a582fc4f5f5dcb1efd78ff37aec3357d0653"
+  },
+  "protocol": {
+    "dataset_episode": 2,
+    "simulator_seed": 10,
+    "policy_noise_seed": 10,
+    "maximum_steps": 320,
+    "steps_executed": 294,
+    "end_reason": "expert_done_at_step_293",
+    "reset_cross_environment_state_mae": 0.0
+  },
+  "runtime": {
+    "boundary": "docker_linux_from_wsl",
+    "accelerator": "xpu",
+    "container_image_id": "sha256:f4a71c4020cd54d2a878f01628d591af9572f0784458f4c821008f8aea30393c",
+    "memory_limit": "6g",
+    "network": "none"
+  },
+  "summary": {
+    "expert_maximum_reward": 4.0,
+    "expert_done_step": 293,
+    "expert_first_nonzero_reward_step": 186,
+    "policy_maximum_reward": 0.0,
+    "policy_done": false,
+    "policy_joint_limit_violations": 0,
+    "policy_unexpected_collisions": 0,
+    "step_zero_action_mae": 0.032943226397037506,
+    "step_zero_post_state_mae": 0.015197002328932285,
+    "first_state_mae_crossings": {
+      "0.005": 0,
+      "0.01": 0,
+      "0.025": 1,
+      "0.05": 18,
+      "0.1": 29
+    },
+    "maximum_state_mae": 0.31062379479408264,
+    "final_state_mae": 0.09667164832353592,
+    "mean_time_indexed_action_mae": 0.1736299404430957
+  },
+  "aster_baseline_comparison": {
+    "report": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/aster-trajectory-520c8ec87c1618fc.json",
+    "step_zero_action_mae": 0.0204168,
+    "step_zero_post_state_mae": 0.0055942,
+    "first_state_mae_crossings": {
+      "0.01": 1,
+      "0.025": 4,
+      "0.05": 24,
+      "0.1": 28
+    },
+    "maximum_state_mae": 0.222958,
+    "policy_maximum_reward": 1.0,
+    "verdict": "zen_firstaction_departs_earlier_and_faster_onset_divergence_before_step_1_profiles_converge_by_0.05_threshold"
+  },
+  "interpretation": [
+    "divergence_again_begins_at_step_zero_before_any_simulator_anomaly_violation_or_contact",
+    "expert_replay_reproduced_reward_4_success_at_the_same_reset",
+    "batch64_316update_regime_did_not_improve_the_executed_first_action_relative_to_batch8_2500update_aster",
+    "zero_violation_zero_reward_matches_the_artifact_gate4_safety_profile_action_boundary_not_implicated"
+  ],
+  "evidence": [
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/zen-trajectory-a4acabf885059bd2.json",
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/orchestration/zen-trajectory-trace-001.log",
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/orchestration/zen-trajectory-trace-001.status",
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/plans/m2-smolvla450m-zen-firstaction-trace-sim-001.yaml",
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-zen-cuda-b64-firstaction-001-selection-trace-gate.json",
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/artifact_backup/m2-smolvla450m-zen-deploy-artifacts-local-transfer-001.json"
+  ],
+  "operational_closeout": {
+    "artifacts_transferred_locally": [
+      "m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001",
+      "m2-smolvla450m-zen-cuda-b64-firstaction-001-step0316-deploy-001"
+    ],
+    "all_remote_sha256_verified": true,
+    "autodl_instance_shut_down_after_transfer": true,
+    "instance_must_not_be_released_checkpoints_on_system_disk": true
+  },
+  "not_conclusions": [
+    "non_gating_diagnostic_only",
+    "no_arm_ranking_only_firstaction_traced",
+    "no_recovery_label_authorization",
+    "t2_axis_requires_its_own_teacher_gate_preregistration"
+  ]
+}

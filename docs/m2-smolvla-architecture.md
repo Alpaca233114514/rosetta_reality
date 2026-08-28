@@ -542,7 +542,7 @@ Current state:
 | Zen training/validation/selection/export | passed | both arms converged (batch 64, 316 steps), selected step 316, exact independent reload (audit 2026-08-27) |
 | Zen Gate 3 | passed | both arms through the rendered per-arm plans (suffixes `411` uniform, `422` firstaction) under final workspace `r42b` |
 | Zen Gate 4 | **failed** | both arms `0/5` with reward `0` on every seed 1000--1004; firstaction recorded zero violations of every safety class; uniform additionally failed `joint_limits_respected` (5 violations) — the audit markdown's "only failed criterion" sentence is a prose slip, the gate JSONs are authoritative |
-| Zen first-deviation trace | preregistered 2026-08-28 | local XPU diagnostic against the immutable Aster trace baseline; execution pending deploy-artifact transfer from the shut-down instance |
+| Zen first-deviation trace | completed 2026-08-28 | local XPU diagnostic on the firstaction deploy artifact: divergence begins at step zero (action MAE `0.032943`, post-state MAE `0.015197`; Aster `0.0204168`/`0.0055942`), crossings `0.005`/`0.01`/`0.025` at steps 0/0/1, `0.05` at 18, `0.1` at 29; expert replay reproduced reward 4 at step 293; policy reward 0 with zero violations; report `m2-smolvla-zen-first-deviation-trace-2026-08-28` |
 | recovery-oracle exact control | diagnostic passed | train episode 2/seed 10 reproduced reward 4 in 294 actions with no OOD or IK failure |
 | recovery-oracle cross-pose tuning | **failed** | two registered robot-state progression thresholds both returned reward 0 on dedicated seed 1900; development/collection/Gate seeds remained unopened |
 | object-geometry teacher exact | **plan 030 failed `0/1`; joint-limit safety held; later gates sealed** | calibration reached reward 4, but exact exhausted 500 steps in `orient` with reward 0; 131 planner attempts and 23 recovery events produced zero IK, clip or joint-margin failures |
@@ -1119,15 +1119,15 @@ needs its own registered comparison.
 
 The current next sequence after the Zen two-arm Gate 4 failure is:
 
-1. transfer the two selected Zen deploy artifacts to the local artifact root
-   (requires the user to power the AutoDL instance back on; the instance was
-   shut down after the audit and must not be released), then execute the
-   preregistered Zen first-deviation trace
-   (`reports/training/m2-smolvla-zen-first-deviation-preregistration-2026-08-28.md`)
-   against the Aster baseline;
-2. preserve the completed first-deviation trace as the immutable comparison
-   baseline and do not reinterpret its time-indexed expert actions as recovery
-   labels;
+1. completed 2026-08-28: both selected Zen deploy artifacts transferred to the
+   local artifact root (SHA256-verified; the AutoDL instance was shut down
+   again under the registered procedure and must not be released) and the
+   preregistered Zen first-deviation trace executed locally
+   (`reports/training/m2-smolvla-zen-first-deviation-trace-2026-08-28.md`) —
+   divergence again begins at step zero, earlier than Aster;
+2. preserve the completed first-deviation traces (Aster and Zen) as the
+   immutable comparison baselines and do not reinterpret their time-indexed
+   expert actions as recovery labels;
 3. add per-module gradient diagnostics and test whether stronger visual
    conditioning changes the now-confirmed state-dominant shortcut;
 4. add exact checkpoint metrics, pre/post-clip and per-module optimizer

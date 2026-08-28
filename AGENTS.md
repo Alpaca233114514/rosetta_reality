@@ -168,10 +168,11 @@ Local control plane
   passed for all of them. Therefore M2 is not complete. No agent may infer
   acceptance from offline MAE or start another full furnace without a new
   single-axis registered plan and the required authorization/gates. The
-  registered follow-up diagnostic is the Zen first-deviation trace
-  (`reports/training/m2-smolvla-zen-first-deviation-preregistration-2026-08-28.md`),
-  pending deploy-artifact transfer; the AutoDL instance is shut down and must
-  not be released.
+  registered follow-up diagnostic — the Zen first-deviation trace
+  (`reports/training/m2-smolvla-zen-first-deviation-trace-2026-08-28.md`) —
+  completed 2026-08-28: divergence again begins at step zero, earlier than
+  Aster. Both selected Zen deploy artifacts now live in the local artifact
+  root; the AutoDL instance is shut down again and must not be released.
 - If architecture prose conflicts with a hash-bound config, Action Contract,
   executable assertion or immutable evidence, stop and reconcile the mismatch.
   Never silently choose one or edit historical evidence to match prose.
