@@ -5,8 +5,8 @@ readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 readonly REPOSITORY_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd -P)"
 readonly EXPERIMENT_ID="m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003"
 readonly ORCHESTRATION_ROOT="${REPOSITORY_ROOT}/runs/${EXPERIMENT_ID}/orchestration"
-readonly STATUS_PATH="${ORCHESTRATION_ROOT}/zen-module-gradients-002.status"
-readonly LOG_PATH="${ORCHESTRATION_ROOT}/zen-module-gradients-002.log"
+readonly STATUS_PATH="${ORCHESTRATION_ROOT}/zen-module-gradients-003.status"
+readonly LOG_PATH="${ORCHESTRATION_ROOT}/zen-module-gradients-003.log"
 
 mkdir -p -- "$ORCHESTRATION_ROOT"
 [[ ! -e "$STATUS_PATH" && ! -e "$LOG_PATH" ]] \
@@ -26,7 +26,7 @@ set +e
     echo "[firstaction $(date +%H:%M:%S)]"
     ROSETTA_VLA_SIM_XPU_IMAGE=sha256:f4a71c4020cd54d2a878f01628d591af9572f0784458f4c821008f8aea30393c \
     ROSETTA_VLA_DOCKER_MEMORY=6g \
-    ROSETTA_CONTAINER_NAME=zen-module-gradients-002 \
+    ROSETTA_CONTAINER_NAME=zen-module-gradients-003 \
         scripts/run_m2_container.sh vla-sim-xpu \
         python -u scripts/diagnose_smolvla_zen_module_gradients.py \
         --artifact-id m2-smolvla450m-zen-cuda-b64-firstaction-001-step0316-deploy-001
@@ -34,7 +34,7 @@ set +e
     echo "[uniform $(date +%H:%M:%S)]"
     ROSETTA_VLA_SIM_XPU_IMAGE=sha256:f4a71c4020cd54d2a878f01628d591af9572f0784458f4c821008f8aea30393c \
     ROSETTA_VLA_DOCKER_MEMORY=6g \
-    ROSETTA_CONTAINER_NAME=zen-module-gradients-002 \
+    ROSETTA_CONTAINER_NAME=zen-module-gradients-003 \
         scripts/run_m2_container.sh vla-sim-xpu \
         python -u scripts/diagnose_smolvla_zen_module_gradients.py \
         --artifact-id m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001

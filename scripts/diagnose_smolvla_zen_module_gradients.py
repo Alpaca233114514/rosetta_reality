@@ -79,30 +79,34 @@ REGISTERED_ADAPTATION = {
     "train_expert_only": True,
     "train_state_proj": True,
 }
-# First-match-wins parameter grouping over policy.named_parameters(). Matching
-# is by substring and position-independent: the concrete parameter names carry
-# a runtime `model.` prefix and nested HF module names, so fixed prefixes are
-# not stable across the pinned dependency tree.
-GRADIENT_GROUPS: tuple[tuple[str, tuple[str, ...]], ...] = (
-    ("vision_encoder", ("vlm_with_expert.vlm.", "vision_model.")),
-    ("language_model", ("vlm_with_expert.vlm.",)),
-    ("action_expert", ("vlm_with_expert.lm_expert.",)),
-    ("state_projector", ("state_proj.",)),
+# First-match-wins parameter grouping over policy.named_parameters(). A name
+# matches a group when ANY alternative matches, and an alternative matches
+# when ALL of its markers appear in the name (substring, position
+# independent): concrete runtime names carry a `model.` prefix and nested HF
+# module names, so fixed prefixes are not stable across the pinned tree.
+GRADIENT_GROUPS: tuple[tuple[str, tuple[tuple[str, ...], ...]], ...] = (
+    ("vision_encoder", (("vlm_with_expert.vlm.", "vision_model."),)),
+    ("language_model", (("vlm_with_expert.vlm.",),)),
+    ("action_expert", (("vlm_with_expert.lm_expert.",),)),
+    ("state_projector", (("state_proj.",),)),
     (
         "action_io_projections",
         (
-            "action_in_proj.",
-            "action_out_proj.",
-            "action_time_mlp_in.",
-            "action_time_mlp_out.",
+            ("action_in_proj.",),
+            ("action_out_proj.",),
+            ("action_time_mlp_in.",),
+            ("action_time_mlp_out.",),
         ),
     ),
 )
 
 
 def _group_of(name: str) -> str:
-    for group, markers in GRADIENT_GROUPS:
-        if all(marker in name for marker in markers):
+    for group, alternatives in GRADIENT_GROUPS:
+        if any(
+            all(marker in name for marker in alternative)
+            for alternative in alternatives
+        ):
             return group
     raise ValueError(f"Unmatched policy parameter fails the group contract: {name}")
 
@@ -439,7 +443,8 @@ def _main(args: argparse.Namespace) -> int:
         "registered_adaptation": REGISTERED_ADAPTATION,
         "freeze_verification": freeze_verification,
         "gradient_groups": {
-            group: list(prefixes) for group, prefixes in GRADIENT_GROUPS
+            group: [list(alternative) for alternative in alternatives]
+            for group, alternatives in GRADIENT_GROUPS
         },
         "protocol": {
             "samples": "registered validation episodes / frame offsets",

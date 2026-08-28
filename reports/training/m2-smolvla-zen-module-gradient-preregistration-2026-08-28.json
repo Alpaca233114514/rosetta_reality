@@ -19,13 +19,26 @@
   },
   "samples": {
     "source": "zen plan validation protocol",
-    "episodes": [22, 13, 7, 33, 45],
-    "frame_offsets": [0],
+    "episodes": [
+      22,
+      13,
+      7,
+      33,
+      45
+    ],
+    "frame_offsets": [
+      0
+    ],
     "count": 5,
     "train_episodes_used": false,
     "hidden_test_used": false
   },
-  "conditions": ["normal", "image_shuffle", "state_shuffle", "image_zero"],
+  "conditions": [
+    "normal",
+    "image_shuffle",
+    "state_shuffle",
+    "image_zero"
+  ],
   "shuffle": {
     "policy": "cross_episode_same_frame_offset_derangement",
     "seed": 20260812
@@ -42,21 +55,49 @@
     "train_state_proj": true
   },
   "gradient_groups": {
-    "vision_encoder": ["vlm_with_expert.vlm.", "vision_model."],
-    "language_model": ["vlm_with_expert.vlm."],
-    "action_expert": ["vlm_with_expert.lm_expert."],
-    "state_projector": ["state_proj."],
+    "vision_encoder": [
+      [
+        "vlm_with_expert.vlm.",
+        "vision_model."
+      ]
+    ],
+    "language_model": [
+      [
+        "vlm_with_expert.vlm."
+      ]
+    ],
+    "action_expert": [
+      [
+        "vlm_with_expert.lm_expert."
+      ]
+    ],
+    "state_projector": [
+      [
+        "state_proj."
+      ]
+    ],
     "action_io_projections": [
-      "action_in_proj.",
-      "action_out_proj.",
-      "action_time_mlp_in.",
-      "action_time_mlp_out."
+      [
+        "action_in_proj."
+      ],
+      [
+        "action_out_proj."
+      ],
+      [
+        "action_time_mlp_in."
+      ],
+      [
+        "action_time_mlp_out."
+      ]
     ]
   },
-  "group_matching": "first_match_wins_substring_position_independent_fail_closed_on_unmatched",
+  "group_matching": "first_match_wins_substring_alternatives_any_of_alternative_requires_all_markers_fail_closed_on_unmatched",
   "metric": {
     "per_sample": "group_gradient_l2",
-    "aggregate": ["mean_over_samples", "max_over_samples"],
+    "aggregate": [
+      "mean_over_samples",
+      "max_over_samples"
+    ],
     "contrast": "perturbed_over_normal_ratio_per_group"
   },
   "dataset": {
@@ -67,15 +108,9 @@
   "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
   "implementation": {
     "script": "scripts/diagnose_smolvla_zen_module_gradients.py",
-    "script_sha256": "92d966716ab54fd6b750f997b0d866430519e0e4e5838590ff4f31635f050e30",
+    "script_sha256": "e666124a6bfbf4a0f62dabcb00236b7549bb28a71eea830aa849444936d989ee",
     "runner": "scripts/run_zen_module_gradients.sh",
-    "runner_sha256": "adef3820016c768efe9b0c516410347f145d93c82103a1118ea42bd9a9ae3334"
-  },
-  "amendment": {
-    "date": "2026-08-28",
-    "kind": "implementation_repair_no_protocol_change",
-    "detail": "first attempt (script sha 8558f5a5…, orchestration 001) failed closed at the group contract because runtime parameter names carry a model. prefix; replaced fixed-prefix matching with position-independent substring matching (five-group semantics unchanged), enumerate all unmatched names on failure, re-run under suffix 002; failed 001 log/status retained as evidence",
-    "samples_seeds_conditions_artifacts_changed": false
+    "runner_sha256": "a65cf0477dd7d9c809b0da591d51c9ebad916ef2dcf4fcda1200b8497ef4e42e"
   },
   "resources": {
     "runtime": "docker_linux_from_wsl",
@@ -101,14 +136,30 @@
   "expected_evidence": [
     "runs/<experiment_id>/diagnostics/zen-module-gradients-firstaction-<hash>.json",
     "runs/<experiment_id>/diagnostics/zen-module-gradients-uniform-<hash>.json",
-    "runs/<experiment_id>/orchestration/zen-module-gradients-002.log",
-    "runs/<experiment_id>/orchestration/zen-module-gradients-002.status",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-003.log",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-003.status",
     "runs/<experiment_id>/orchestration/zen-module-gradients-001.log (failed attempt, retained)",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-002.log (failed attempt, retained)",
     "reports/training/m2-smolvla-zen-module-gradient-diagnostic-2026-08-28.md"
   ],
   "not_conclusions": [
     "frozen_module_zero_grads_verify_freeze_not_visual_signal_use",
     "zeros_noise_fixed_time_is_a_registered_probe_not_full_training_distribution",
     "non_gating_no_arm_ranking_no_visual_conditioning_axis_authorization"
+  ],
+  "amendments": [
+    {
+      "date": "2026-08-28",
+      "kind": "implementation_repair_no_protocol_change",
+      "attempt": "001 (script sha 8558f5a5…)",
+      "detail": "fixed-prefix matching missed the runtime model. prefix; failed closed at the group contract before any gradient"
+    },
+    {
+      "date": "2026-08-28",
+      "kind": "implementation_repair_no_protocol_change",
+      "attempt": "002 (script sha 92d96671…)",
+      "detail": "action_io group required all four markers in one name (all where any-of-alternatives was meant); failed closed with the eight action projection parameters unmatched; matcher now uses alternatives and is covered by offline unit assertions",
+      "samples_seeds_conditions_artifacts_changed": false
+    }
   ]
 }
