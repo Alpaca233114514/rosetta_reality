@@ -256,7 +256,7 @@ def _main(args: argparse.Namespace) -> int:
     zen_plan = yaml.safe_load(ZEN_FIRSTACTION_PLAN.read_text(encoding="utf-8"))
     validation = zen_plan["validation"]
     episodes = [int(value) for value in validation["episodes"]]
-    offsets = [args.frame_offset] * len(episodes)
+    offsets = [args.frame_offset]
     hidden = {31, 6, 1, 24, 5}
     train_episodes = set(int(value) for value in zen_plan["training"]["episodes"])
     if (

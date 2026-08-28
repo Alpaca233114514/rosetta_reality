@@ -25,30 +25,47 @@
   },
   "samples": {
     "source": "zen plan validation episodes at frame offset 250",
-    "episodes": [22, 13, 7, 33, 45],
+    "episodes": [
+      22,
+      13,
+      7,
+      33,
+      45
+    ],
     "frame_offset": 250,
     "count": 5,
-    "verified_pairwise_state_difference_range": [0.36, 0.84],
+    "verified_pairwise_state_difference_range": [
+      0.36,
+      0.84
+    ],
     "train_episodes_used": false,
     "hidden_test_used": false
   },
   "implementation": {
     "script": "scripts/diagnose_smolvla_zen_module_gradients.py",
-    "script_sha256": "f6a7a182a65f458bf460a0a242ba6a4e92e7d2ce0753fc3be74232b284a1c742",
+    "script_sha256": "4f48d430e38249cc954997d1cb9f0364bf35c7d254a844b917d2f09cfb66833d",
     "runner": "scripts/run_zen_module_gradients.sh",
-    "runner_sha256": "2bef6e46dc4d43e441ebc60be5e9205702fdd4206910f4e47d9cc73e3627d4a8",
-    "orchestration_suffix": "004"
+    "runner_sha256": "c8937d47548311664503b1ac8f140dbacd5ccb8a678311b69d1131a1643d3f91",
+    "orchestration_suffix": "005"
   },
   "expected_evidence": [
     "runs/<experiment_id>/diagnostics/zen-module-gradients-firstaction-<hash>.json (frame_offset 250)",
     "runs/<experiment_id>/diagnostics/zen-module-gradients-uniform-<hash>.json (frame_offset 250)",
-    "runs/<experiment_id>/orchestration/zen-module-gradients-004.log",
-    "runs/<experiment_id>/orchestration/zen-module-gradients-004.status",
-    "reports/training/m2-smolvla-zen-module-gradient-diagnostic-2026-08-28.md (combined completion report)"
+    "runs/<experiment_id>/orchestration/zen-module-gradients-005.log",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-005.status",
+    "reports/training/m2-smolvla-zen-module-gradient-diagnostic-2026-08-28.md (combined completion report)",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-004.log (failed attempt, retained)"
   ],
   "not_conclusions": [
     "non_gating_no_arm_ranking_no_visual_conditioning_authorization",
     "mid_trajectory_probe_point_not_full_training_distribution",
     "frame0_image_insensitivity_result_of_registration_001_remains_valid_for_what_it_measures"
-  ]
+  ],
+  "amendment": {
+    "date": "2026-08-28",
+    "kind": "implementation_repair_no_protocol_change",
+    "attempt": "004 (script sha f6a7a182…)",
+    "detail": "offsets list was built as one entry per episode, making _validation_indices return the 5x5 cartesian product (25 samples); the sample-count guard failed closed before any gradient; offsets is now the single registered offset [250]; failed 004 log/status retained as evidence",
+    "protocol_changed": false
+  }
 }
