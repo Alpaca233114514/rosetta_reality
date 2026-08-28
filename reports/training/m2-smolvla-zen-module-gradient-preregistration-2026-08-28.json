@@ -42,7 +42,7 @@
     "train_state_proj": true
   },
   "gradient_groups": {
-    "vision_encoder": ["vlm_with_expert.vlm.vision_model."],
+    "vision_encoder": ["vlm_with_expert.vlm.", "vision_model."],
     "language_model": ["vlm_with_expert.vlm."],
     "action_expert": ["vlm_with_expert.lm_expert."],
     "state_projector": ["state_proj."],
@@ -53,7 +53,7 @@
       "action_time_mlp_out."
     ]
   },
-  "group_matching": "first_match_wins_fail_closed_on_unmatched",
+  "group_matching": "first_match_wins_substring_position_independent_fail_closed_on_unmatched",
   "metric": {
     "per_sample": "group_gradient_l2",
     "aggregate": ["mean_over_samples", "max_over_samples"],
@@ -67,9 +67,15 @@
   "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
   "implementation": {
     "script": "scripts/diagnose_smolvla_zen_module_gradients.py",
-    "script_sha256": "8558f5a5884c2344081bb624430dc157048483d5139091857c5648698ed14ec6",
+    "script_sha256": "92d966716ab54fd6b750f997b0d866430519e0e4e5838590ff4f31635f050e30",
     "runner": "scripts/run_zen_module_gradients.sh",
-    "runner_sha256": "30c104c2c1659028368263d801fafd2c99dcb46ff0aa08f73f1390f2f19bd8f1"
+    "runner_sha256": "adef3820016c768efe9b0c516410347f145d93c82103a1118ea42bd9a9ae3334"
+  },
+  "amendment": {
+    "date": "2026-08-28",
+    "kind": "implementation_repair_no_protocol_change",
+    "detail": "first attempt (script sha 8558f5a5…, orchestration 001) failed closed at the group contract because runtime parameter names carry a model. prefix; replaced fixed-prefix matching with position-independent substring matching (five-group semantics unchanged), enumerate all unmatched names on failure, re-run under suffix 002; failed 001 log/status retained as evidence",
+    "samples_seeds_conditions_artifacts_changed": false
   },
   "resources": {
     "runtime": "docker_linux_from_wsl",
@@ -95,8 +101,9 @@
   "expected_evidence": [
     "runs/<experiment_id>/diagnostics/zen-module-gradients-firstaction-<hash>.json",
     "runs/<experiment_id>/diagnostics/zen-module-gradients-uniform-<hash>.json",
-    "runs/<experiment_id>/orchestration/zen-module-gradients-001.log",
-    "runs/<experiment_id>/orchestration/zen-module-gradients-001.status",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-002.log",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-002.status",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-001.log (failed attempt, retained)",
     "reports/training/m2-smolvla-zen-module-gradient-diagnostic-2026-08-28.md"
   ],
   "not_conclusions": [

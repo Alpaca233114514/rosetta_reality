@@ -79,9 +79,12 @@ REGISTERED_ADAPTATION = {
     "train_expert_only": True,
     "train_state_proj": True,
 }
-# First-match-wins parameter grouping over policy.named_parameters().
+# First-match-wins parameter grouping over policy.named_parameters(). Matching
+# is by substring and position-independent: the concrete parameter names carry
+# a runtime `model.` prefix and nested HF module names, so fixed prefixes are
+# not stable across the pinned dependency tree.
 GRADIENT_GROUPS: tuple[tuple[str, tuple[str, ...]], ...] = (
-    ("vision_encoder", ("vlm_with_expert.vlm.vision_model.",)),
+    ("vision_encoder", ("vlm_with_expert.vlm.", "vision_model.")),
     ("language_model", ("vlm_with_expert.vlm.",)),
     ("action_expert", ("vlm_with_expert.lm_expert.",)),
     ("state_projector", ("state_proj.",)),
@@ -98,8 +101,8 @@ GRADIENT_GROUPS: tuple[tuple[str, tuple[str, ...]], ...] = (
 
 
 def _group_of(name: str) -> str:
-    for group, prefixes in GRADIENT_GROUPS:
-        if name.startswith(prefixes):
+    for group, markers in GRADIENT_GROUPS:
+        if all(marker in name for marker in markers):
             return group
     raise ValueError(f"Unmatched policy parameter fails the group contract: {name}")
 
@@ -180,14 +183,24 @@ def _verify_requires_grad(policy: Any) -> dict[str, Any]:
     per_group: dict[str, dict[str, int]] = {}
     for group, _ in GRADIENT_GROUPS:
         per_group[group] = {"trainable": 0, "frozen": 0}
+    unmatched: list[str] = []
     for name, parameter in policy.named_parameters():
-        group = _group_of(name)
+        try:
+            group = _group_of(name)
+        except ValueError:
+            unmatched.append(name)
+            continue
         trainable = bool(parameter.requires_grad)
         if group in frozen_groups and trainable:
             raise ValueError(f"Frozen-module parameter is trainable: {name}.")
         if group == "action_expert" and trainable and "lm_head" in name:
             raise ValueError(f"Expert lm_head must stay frozen: {name}.")
         per_group[group]["trainable" if trainable else "frozen"] += 1
+    if unmatched:
+        raise ValueError(
+            "Unmatched policy parameters fail the group contract: "
+            f"{sorted(unmatched)}"
+        )
     for group, counts in per_group.items():
         if counts["trainable"] + counts["frozen"] == 0:
             raise ValueError(f"Gradient group matched no parameters: {group}.")

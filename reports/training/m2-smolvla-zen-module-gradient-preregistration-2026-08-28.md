@@ -34,14 +34,26 @@ design, not acceptance of any policy.
 | conditions | `normal`, `image_shuffle` (cross-episode derangement), `state_shuffle` (cross-episode), `image_zero` (black images) |
 | shuffle | `cross_episode_same_frame_offset_derangement`, seed `20260812` (the registered modality-diagnostic seed) |
 | loss point | teacher-forced flow-matching loss with **zeros noise** and fixed **flow time `0.5`** (the registered historical validation flow time) |
+| gradient groups | first-match-wins over `named_parameters()` by **substring match, position-independent** (the concrete runtime names carry a `model.` prefix and nested HF module names): `vision_encoder` (`vlm_with_expert.vlm.` + `vision_model.`), `language_model` (remaining `vlm_with_expert.vlm.*`), `action_expert` (`vlm_with_expert.lm_expert.*`), `state_projector` (`state_proj.*`), `action_io_projections` (`action_in_proj.*`, `action_out_proj.*`, `action_time_mlp_in.*`, `action_time_mlp_out.*`); any unmatched parameter fails closed with the full unmatched list |
 | adaptation rebuild | `freeze_vision_encoder=true`, `train_expert_only=true`, `train_state_proj=true` — the registered shared contract; fail-closed verification that vision/language groups contain zero trainable parameters and expert `lm_head` stays frozen |
-| gradient groups | first-match-wins over `named_parameters()`: `vision_encoder` (`vlm_with_expert.vlm.vision_model.*`), `language_model` (remaining `vlm_with_expert.vlm.*`), `action_expert` (`vlm_with_expert.lm_expert.*`), `state_projector` (`state_proj.*`), `action_io_projections` (`action_in_proj.*`, `action_out_proj.*`, `action_time_mlp_in.*`, `action_time_mlp_out.*`); any unmatched parameter fails closed |
 | metric | per-group gradient L2 (sqrt of summed squared grads over the group) per sample; report mean/max over the 5 samples per condition, plus perturbed/normal ratios |
 | dataset | `lerobot/aloha_sim_insertion_human` revision `cc571a3c…`, checksum-validated local cache; view restricted to the validation episodes |
 | boundary | artifact processors + `ensure_smolvla_action_boundary` with the artifact's action space; Action Contract sha `fc71a043…` |
 | runtime | local WSL Docker `vla-sim-xpu`, image `sha256:f4a71c40…`, memory `6g`, networking disabled, XPU, bf16 autocast, policy in `eval` mode |
-| script | `scripts/diagnose_smolvla_zen_module_gradients.py`, sha256 `8558f5a5884c2344081bb624430dc157048483d5139091857c5648698ed14ec6` |
-| runner | `scripts/run_zen_module_gradients.sh`, sha256 `30c104c2c1659028368263d801fafd2c99dcb46ff0aa08f73f1390f2f19bd8f1` |
+| script | `scripts/diagnose_smolvla_zen_module_gradients.py`, sha256 `92d966716ab54fd6b750f997b0d866430519e0e4e5838590ff4f31635f050e30` |
+| runner | `scripts/run_zen_module_gradients.sh`, sha256 `adef3820016c768efe9b0c516410347f145d93c82103a1118ea42bd9a9ae3334` |
+
+**Amendment (implementation repair, same day).** The first execution attempt
+(script sha `8558f5a5…`, orchestration `zen-module-gradients-001`) failed
+closed at the group contract: concrete runtime parameter names carry a
+`model.` prefix (`model.vlm_with_expert.vlm.model.vision_model…`) that the
+original fixed-prefix matching did not anticipate, so the diagnostic aborted
+before any gradient was computed and no sample, seed, condition or artifact
+changed. This amendment replaces prefix matching with position-independent
+substring matching (semantics of the five groups unchanged), makes the
+failure enumerate every unmatched name, and re-runs under orchestration
+suffix `002`; the failed `001` log/status are retained as fail-closed
+evidence.
 
 ## 4. Acceptance criteria (of the diagnostic run itself)
 
@@ -65,7 +77,8 @@ design, not acceptance of any policy.
 ## 6. Expected evidence
 
 - `runs/<experiment_id>/diagnostics/zen-module-gradients-{firstaction,uniform}-<hash>.json`
-- `runs/<experiment_id>/orchestration/zen-module-gradients-001.{log,status}`
+- `runs/<experiment_id>/orchestration/zen-module-gradients-002.{log,status}`
+  (the failed `001` attempt is retained as fail-closed evidence)
 - a completion report
   `reports/training/m2-smolvla-zen-module-gradient-diagnostic-2026-08-28.{md,json}`
 
