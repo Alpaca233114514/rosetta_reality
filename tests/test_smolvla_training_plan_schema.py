@@ -156,6 +156,10 @@ def test_base_plan_is_valid_and_reports_feature_order() -> None:
             lambda p: p["features"].append({"name": "state_robustness_jitter"}),
             "state-robustness contract",
         ),
+        (
+            lambda p: p["features"].append({"name": "state_conditioning_dropout"}),
+            "visual-conditioning contract",
+        ),
         (lambda p: p["features"].append({"name": "fixed_frame_sampler"}), "'phase'"),
         (lambda p: p.update(hidden_test_loaded=True), "hidden-test"),
         (lambda p: p["normalization"].update(report="/absolute/path.json"), "repository-relative"),

@@ -176,8 +176,14 @@ Local control plane
   (`reports/training/m2-smolvla-zen-module-gradient-diagnostic-2026-08-28.md`,
   gradient-level confirmation of the state-dominant shortcut: state shuffle
   moves trainable-module gradients 1.5–3.4x while image shuffle moves them
-  ≤~8%). Both selected Zen deploy artifacts live in the local artifact root;
-  the AutoDL instance is shut down again and must not be released.
+  ≤~8%). The first T4 treatment is implementation-preregistered at
+  `reports/training/m2-smolvla-visual-conditioning-state-dropout-preregistration-2026-08-28.md`:
+  training-only whole-sample normalized-state dropout with a dedicated RNG.
+  Its static/container tests pass, but optimizer work remains unauthorized
+  until candidate selection/export/exact reload and the executable offset-250
+  gradient gate exist; do not use offset 0 for state-sensitivity claims. Both
+  selected Zen deploy artifacts live in the local artifact root; the AutoDL
+  instance is shut down again and must not be released.
 - If architecture prose conflicts with a hash-bound config, Action Contract,
   executable assertion or immutable evidence, stop and reconcile the mismatch.
   Never silently choose one or edit historical evidence to match prose.

@@ -65,6 +65,7 @@ first failure and restores in reverse order:
 | `fixed_frame_sampler` | migrated fixed-frame `EpisodeAwareSampler` replacement, phase-parameterized |
 | `horizon_weight_profile` | delegates to `vla/horizon_loss.py` (upstream SHA fail-closed) |
 | `state_robustness_jitter` | delegates to `vla/state_robustness.py` (upstream SHA fail-closed) |
+| `state_conditioning_dropout` | delegates to the new `vla/visual_conditioning.py`; drops complete normalized-state samples with a dedicated RNG and leaves validation/deployment clean |
 | `checkpoint_memory_trim` | new device-aware merge of the two historical memory modules |
 
 Guarantees: unknown or duplicated declarations fail closed at schema
@@ -79,7 +80,10 @@ Cross-declaration invariants enforced by the schema:
 `checkpoint_memory_trim` requires `resources.checkpoint_memory_trim: true`;
 `horizon_weight_profile` requires a `loss_contract`; `state_robustness_jitter`
 requires a `state_robustness_contract`; `trackio_logging` requires a tracking
-section.
+section; `state_conditioning_dropout` requires a
+`visual_conditioning_contract`.  The dropout implementation does not consume
+the global model/dataloader RNG and forbids formal resume until its dedicated
+generator state participates in the registered T7 parity contract.
 
 ## 4. Version-2 plan schema
 
@@ -149,6 +153,7 @@ scripts/run_m2_container.sh vla-xpu \
   tests/test_smolvla_action_repair.py \
   tests/test_smolvla_horizon_loss.py \
   tests/test_smolvla_state_robustness.py \
+  tests/test_smolvla_visual_conditioning.py \
   tests/test_smolvla_formal_protocol.py \
   tests/test_smolvla_faust_protocol.py
 

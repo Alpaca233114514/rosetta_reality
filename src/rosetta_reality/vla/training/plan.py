@@ -36,6 +36,7 @@ FEATURE_MASKED_CAMERA_SKIP = "masked_camera_skip"
 FEATURE_CHECKPOINT_MEMORY_TRIM = "checkpoint_memory_trim"
 FEATURE_HORIZON_WEIGHT_PROFILE = "horizon_weight_profile"
 FEATURE_STATE_ROBUSTNESS_JITTER = "state_robustness_jitter"
+FEATURE_STATE_CONDITIONING_DROPOUT = "state_conditioning_dropout"
 FEATURE_TRACKIO_LOGGING = "trackio_logging"
 FEATURE_FIXED_FRAME_SAMPLER = "fixed_frame_sampler"
 SAMPLER_PHASES = frozenset({"smoke", "overfit", "overfit_resume"})
@@ -419,6 +420,13 @@ def _validate_features(plan: dict[str, Any], known_features: Container[str]) -> 
     ):
         raise ValueError(
             "Declaring state_robustness_jitter requires a state-robustness contract."
+        )
+    if FEATURE_STATE_CONDITIONING_DROPOUT in names and not isinstance(
+        plan.get("visual_conditioning_contract"), dict
+    ):
+        raise ValueError(
+            "Declaring state_conditioning_dropout requires a visual-conditioning "
+            "contract."
         )
     if FEATURE_TRACKIO_LOGGING in names:
         tracking = _mapping(plan.get("tracking"), "Plan section 'tracking'")

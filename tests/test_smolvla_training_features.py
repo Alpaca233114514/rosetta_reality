@@ -107,6 +107,7 @@ def test_registry_covers_the_declared_feature_set() -> None:
         "fixed_frame_sampler",
         "horizon_weight_profile",
         "state_robustness_jitter",
+        "state_conditioning_dropout",
         "checkpoint_memory_trim",
     }
 
@@ -350,6 +351,53 @@ def test_state_robustness_feature_installs_and_restores(
     ) is None
 
 
+def test_visual_conditioning_feature_installs_and_restores(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import rosetta_reality.vla.visual_conditioning as visual_conditioning_module
+
+    module = _fake_modeling_module(tmp_path, "visual_conditioning_modeling.py")
+    monkeypatch.setattr(features_module, "_load_modeling_module", lambda: module)
+    fake_sha = file_sha256(Path(module.__file__))
+    monkeypatch.setattr(
+        visual_conditioning_module, "UPSTREAM_IMPLEMENTATION_SHA256", fake_sha
+    )
+    original_install = visual_conditioning_module.install_visual_conditioning_profile
+    monkeypatch.setattr(
+        visual_conditioning_module,
+        "install_visual_conditioning_profile",
+        lambda modeling_module, profile, **kwargs: original_install(
+            modeling_module, profile, upstream_sha256=fake_sha, **kwargs
+        ),
+    )
+    plan = {
+        "visual_conditioning_contract": {
+            "profile": "samplewise_normalized_state_dropout",
+            "dropout_probability": 0.5,
+            "generator_seed": 20260828,
+            "input_space": "train_normalized_observation_state",
+            "granularity": "whole_sample",
+            "replacement": "normalized_zero",
+            "rescale_retained_state": False,
+            "generator": "dedicated_cpu_generator",
+            "training_only": True,
+            "target_semantics": "unchanged_absolute_expert_action",
+            "upstream_implementation_sha256": fake_sha,
+        }
+    }
+    context = _context(tmp_path, plan=plan)
+    feature = FEATURE_FACTORIES["state_conditioning_dropout"]({})
+
+    feature.install(context)
+    assert getattr(
+        module.SmolVLAPolicy.forward, "_rosetta_visual_conditioning_profile", None
+    ) == "samplewise_normalized_state_dropout"
+    feature.restore(context)
+    assert getattr(
+        module.SmolVLAPolicy.forward, "_rosetta_visual_conditioning_profile", None
+    ) is None
+
+
 def test_fixed_frame_sampler_restricts_to_registered_frames(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -393,7 +441,12 @@ def test_trackio_logging_swaps_the_logger_class_without_module_patching(
         "loss_contract": {
             "profile": "first_action_only",
             "normalization": "mean_over_selected_valid_entries",
-        }
+        },
+        "visual_conditioning_contract": {
+            "profile": "samplewise_normalized_state_dropout",
+            "dropout_probability": 0.5,
+            "granularity": "whole_sample",
+        },
     }
     context = _context(tmp_path, plan=plan)
     original_logger = module.WandBLogger
@@ -406,6 +459,12 @@ def test_trackio_logging_swaps_the_logger_class_without_module_patching(
     assert module.WandBLogger is not original_logger
     extension = feature._public_extension(context)
     assert extension["temporal_loss_profile"] == "first_action_only"
+    assert extension["visual_conditioning_profile"] == (
+        "samplewise_normalized_state_dropout"
+    )
+    assert extension["state_dropout_probability"] == pytest.approx(0.5)
+    assert extension["state_dropout_granularity"] == "whole_sample"
+    assert extension["state_dropout_training_only"] is True
     assert extension["bounded_gripper_decoder"] is True
     assert extension["training_harness"] == "v2"
     feature.restore(context)

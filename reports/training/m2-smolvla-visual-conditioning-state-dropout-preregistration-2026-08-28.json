@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "stage": "m2_smolvla_visual_conditioning_state_dropout_preregistration",
+  "date": "2026-08-28",
+  "status": "implementation_preregistered",
+  "training_authorized": false,
+  "optimizer_smoke_authorized": false,
+  "gate3_gate4_authorized": false,
+  "hidden_test_loaded": false,
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "finding": "T4_state_dominant_shortcut_confirmed_at_output_trajectory_and_gradient_levels",
+  "hypothesis": "whole-sample train-normalized state dropout increases use of the frozen visual representation without changing global model RNG, labels, loss, optimizer, or deployment inputs",
+  "comparison": {
+    "control_plan": "configs/vla/smolvla_450m_aloha_insertion_zen_cuda_b64_uniform_002.yaml",
+    "control_plan_sha256": "07cc24bfc4ec6fc6c9e87d6249d5efb602f7a4f0b3769dd810bf51886a4d6227",
+    "control_artifact": "m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001",
+    "control_gradient_report": "reports/training/m2-smolvla-zen-module-gradient-diagnostic-2026-08-28.json",
+    "control_gradient_report_sha256": "5ee9824e8bea8031094a7d650a9f9e594a5b55f96470f9ba7eda5065dc38190c",
+    "fresh_base_required": true,
+    "checkpoint_or_optimizer_reuse": false
+  },
+  "treatment_contract": {
+    "profile": "samplewise_normalized_state_dropout",
+    "dropout_probability": 0.5,
+    "generator_seed": 20260828,
+    "input_space": "train_normalized_observation_state",
+    "granularity": "whole_sample",
+    "replacement": "normalized_zero",
+    "rescale_retained_state": false,
+    "generator": "dedicated_cpu_generator",
+    "global_rng_consumed": false,
+    "training_only": true,
+    "target_semantics": "unchanged_absolute_expert_action",
+    "minimum_training_batch_size": 2,
+    "resume_allowed": false,
+    "upstream_implementation_sha256": "37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d"
+  },
+  "frozen_training_axis": {
+    "loss": "uniform_flow_matching",
+    "batch_size": 64,
+    "optimizer_steps": 316,
+    "sample_exposures": 20224,
+    "optimizer_scheduler": "identical_to_zen_uniform",
+    "freeze_vision_encoder": true,
+    "train_expert_only": true,
+    "train_state_proj": true,
+    "validation_and_deployment_state": "clean"
+  },
+  "gradient_gate": {
+    "protocol": {
+      "episodes": [22, 13, 7, 33, 45],
+      "frame_offset": 250,
+      "sample_count": 5,
+      "shuffle_seed": 20260812,
+      "shuffle_policy": "cross_episode_same_frame_offset_derangement",
+      "noise": "zeros",
+      "flow_time": 0.5,
+      "conditions": ["normal", "image_shuffle", "state_shuffle", "image_zero"],
+      "offset_zero_forbidden_for_state_sensitivity": true
+    },
+    "groups": ["action_expert", "state_projector", "action_io_projections"],
+    "definitions": {
+      "state_sensitivity": "mean(abs(log(state_shuffle_gradient_ratio)))",
+      "image_sensitivity": "mean(abs(log(image_shuffle_gradient_ratio)))",
+      "state_dominance_score": "state_sensitivity - image_sensitivity"
+    },
+    "control": {
+      "normal_mean_flow_loss": 0.1467,
+      "state_sensitivity_approx": 0.953,
+      "image_sensitivity_approx": 0.047,
+      "state_dominance_score_approx": 0.905
+    },
+    "pass_criteria": {
+      "freeze_and_trainable_groups_exact": true,
+      "normal_gradients_finite_and_nonzero": true,
+      "nondegenerate_state_and_image_samples": true,
+      "maximum_normal_mean_flow_loss": 0.22005,
+      "maximum_state_sensitivity": 0.7,
+      "minimum_image_sensitivity": 0.1,
+      "maximum_state_dominance_score": 0.453
+    },
+    "threshold_relaxation_after_observation_allowed": false,
+    "m2_acceptance_claim": false
+  },
+  "implementation_files": {
+    "src/rosetta_reality/vla/visual_conditioning.py": "8113fb1bb0c0dcf99111b970d926fd39c3235ebe6b356e35441903463e6c369c",
+    "src/rosetta_reality/vla/training/features.py": "cee1769c122b42de477b58cd1039c783798fd53915987cbc7ce5e9761e254055",
+    "src/rosetta_reality/vla/training/plan.py": "06bd1d6dc8728e6c96ac18cf451e2577dead5ed1f7fac2ac5acc79cc25f99d9b",
+    "tests/test_smolvla_visual_conditioning.py": "f281e929280df202bd3e00e35435c56d790f8654cc384fbbc83235e12acfb132",
+    "tests/test_smolvla_training_features.py": "d543a2364eaa9046e3c79c07e23a544bed03f47749d080976eb75b5aaeb30a50",
+    "tests/test_smolvla_training_plan_schema.py": "08a3d7e14f5637e3d15096fc7fefd25c7cc9a1e6800158d73d24c400a9205a9f"
+  },
+  "verification": {
+    "runtime": "wsl_bash_to_read_only_linux_docker",
+    "model_weights_loaded": false,
+    "dataset_rows_loaded": false,
+    "pytest": "50_passed",
+    "ruff": "passed",
+    "warning": "pytest_cache_write_denied_on_read_only_repository_mount"
+  },
+  "next_required_before_optimizer_work": [
+    "create_only_v2_candidate_selection_export_and_exact_reload_path",
+    "executable_offset250_gradient_gate_bound_to_candidate_plan_and_artifact",
+    "hash_bound_v2_formal_plan",
+    "no_optimizer_preflight",
+    "two_step_cuda_optimizer_smoke",
+    "explicit_training_authorization"
+  ],
+  "forbidden_combinations": [
+    "vision_unfreezing",
+    "state_jitter",
+    "temporal_loss_change",
+    "optimizer_or_scheduler_change",
+    "recovery_labels",
+    "checkpoint_or_optimizer_reuse",
+    "resume_without_generator_state_parity",
+    "offset_zero_state_sensitivity_claim",
+    "hidden_test_access"
+  ]
+}

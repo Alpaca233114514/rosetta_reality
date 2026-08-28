@@ -13,8 +13,9 @@ Every feature is an explicit local extension of the pinned upstream trainer:
 
 Feature implementations reuse the frozen, unit-tested modules
 ``vla/horizon_loss.py``, ``vla/state_robustness.py``, ``vla/processor.py`` and
-``vla/fixed_samples.py`` wherever they exist; only the composition layer is
-new.  The historical ``scripts/train_smolvla_*`` stack remains untouched as
+``vla/fixed_samples.py`` wherever they exist.  New experiments may add a new,
+separately named implementation module without mutating those frozen modules.
+The historical ``scripts/train_smolvla_*`` stack remains untouched as
 provenance for the completed Faust, Aster and Way runs.
 """
 
@@ -369,6 +370,32 @@ class StateRobustnessJitterFeature(TrainingFeature):
         restore_state_robustness_profile(_load_modeling_module())
 
 
+class StateConditioningDropoutFeature(TrainingFeature):
+    """Install the registered training-only whole-state dropout treatment."""
+
+    name = "state_conditioning_dropout"
+
+    def __init__(self, parameters: Mapping[str, Any]) -> None:
+        if parameters:
+            raise ValueError("state_conditioning_dropout declares no parameters.")
+
+    def install(self, context: TrainingContext) -> None:
+        from rosetta_reality.vla.visual_conditioning import (
+            install_visual_conditioning_profile,
+            profile_from_plan,
+        )
+
+        profile = profile_from_plan(context.plan)
+        install_visual_conditioning_profile(_load_modeling_module(), profile)
+
+    def restore(self, context: TrainingContext) -> None:
+        from rosetta_reality.vla.visual_conditioning import (
+            restore_visual_conditioning_profile,
+        )
+
+        restore_visual_conditioning_profile(_load_modeling_module())
+
+
 def release_checkpoint_headroom(device: str | None = None) -> None:
     """Return unreachable host and unused CUDA/XPU allocations before serialization."""
 
@@ -478,6 +505,16 @@ class TrackioLoggingFeature(TrainingFeature):
                 "normalized_standard_deviation"
             )
             extension["state_jitter_training_only"] = True
+        visual_contract = context.plan.get("visual_conditioning_contract")
+        if isinstance(visual_contract, dict):
+            extension["visual_conditioning_profile"] = visual_contract.get("profile")
+            extension["state_dropout_probability"] = visual_contract.get(
+                "dropout_probability"
+            )
+            extension["state_dropout_granularity"] = visual_contract.get(
+                "granularity"
+            )
+            extension["state_dropout_training_only"] = True
         return extension
 
     def _build_logger_class(self, context: TrainingContext) -> type:
@@ -572,6 +609,7 @@ FEATURE_FACTORIES: dict[str, Callable[[Mapping[str, Any]], TrainingFeature]] = {
     FixedFrameSamplerFeature.name: FixedFrameSamplerFeature,
     HorizonWeightProfileFeature.name: HorizonWeightProfileFeature,
     StateRobustnessJitterFeature.name: StateRobustnessJitterFeature,
+    StateConditioningDropoutFeature.name: StateConditioningDropoutFeature,
     CheckpointMemoryTrimFeature.name: CheckpointMemoryTrimFeature,
     TrackioLoggingFeature.name: TrackioLoggingFeature,
 }

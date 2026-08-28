@@ -206,6 +206,7 @@ and Qwen ER independently passes its own evaluation.
 | `src/rosetta_reality/vla/fixed_samples.py` | deterministic diagnostic sample identity | train/validation split selection |
 | `src/rosetta_reality/vla/horizon_loss.py` | checksum-bound temporal mask plus selected-valid reduction | optimizer/scheduler policy |
 | `src/rosetta_reality/vla/state_robustness.py` | checksum-bound, train-only normalized-state jitter | validation/deployment mutation or recovery labels |
+| `src/rosetta_reality/vla/visual_conditioning.py` | checksum-bound, train-only whole-sample normalized-state dropout using a dedicated RNG | vision unfreezing, validation/deployment mutation, recovery labels or global-RNG drift |
 | `src/rosetta_reality/vla/runtime_compatibility.py` | versioned post-training normalization/tokenizer/root and CUDA compile guards | mutation of completed hash-bound runners or learning semantics |
 | `src/rosetta_reality/sim/` | simulator-neutral action contract and Gym-ALOHA adapter | SmolVLA internals |
 | `src/rosetta_reality/sim/geometry_teacher.py` | object/EEF/contact/reward-conditioned event teacher and bounded task-space targets | time-indexed source actions or simulator-specific IK |
@@ -544,6 +545,7 @@ Current state:
 | Zen Gate 4 | **failed** | both arms `0/5` with reward `0` on every seed 1000--1004; firstaction recorded zero violations of every safety class; uniform additionally failed `joint_limits_respected` (5 violations) — the audit markdown's "only failed criterion" sentence is a prose slip, the gate JSONs are authoritative |
 | Zen first-deviation trace | completed 2026-08-28 | local XPU diagnostic on the firstaction deploy artifact: divergence begins at step zero (action MAE `0.032943`, post-state MAE `0.015197`; Aster `0.0204168`/`0.0055942`), crossings `0.005`/`0.01`/`0.025` at steps 0/0/1, `0.05` at 18, `0.1` at 29; expert replay reproduced reward 4 at step 293; policy reward 0 with zero violations; report `m2-smolvla-zen-first-deviation-trace-2026-08-28` |
 | Zen module-gradient diagnostic | completed 2026-08-28 | both deploy artifacts, teacher-forced probe at validation frame offsets 0 and 250 (registrations 001/002): at offset 250 `state_shuffle` multiplies the loss 2.1–4.4x and every trainable module's gradients 1.5–3.4x while `image_shuffle` moves them ≤~8% and `image_zero` ≤~47% — gradient-level confirmation of the state-dominant shortcut; freeze pattern verified exactly. Protocol discovery: frame-0 states are bit-identical across all 50 dataset episodes, so the registered offset-0 validation protocol cannot probe state sensitivity (002 added fail-closed degeneracy guards); report `m2-smolvla-zen-module-gradient-diagnostic-2026-08-28` |
+| visual-conditioning state-dropout axis | implementation preregistered 2026-08-28; no optimizer work authorized | new v2 `state_conditioning_dropout` feature drops exactly half of each optimizer batch's complete normalized-state samples using a dedicated RNG, leaving global model RNG, labels, validation/deployment and the frozen VLM unchanged; 50 focused container tests plus Ruff passed. The offset-250 gradient gate and non-degradation guard are frozen in `m2-smolvla-visual-conditioning-state-dropout-preregistration-2026-08-28`; candidate selection/export/reload and an executable gate remain required before a formal plan or smoke |
 | recovery-oracle exact control | diagnostic passed | train episode 2/seed 10 reproduced reward 4 in 294 actions with no OOD or IK failure |
 | recovery-oracle cross-pose tuning | **failed** | two registered robot-state progression thresholds both returned reward 0 on dedicated seed 1900; development/collection/Gate seeds remained unopened |
 | object-geometry teacher exact | **plan 030 failed `0/1`; joint-limit safety held; later gates sealed** | calibration reached reward 4, but exact exhausted 500 steps in `orient` with reward 0; 131 planner attempts and 23 recovery events produced zero IK, clip or joint-margin failures |
@@ -1104,7 +1106,7 @@ to find the owning layer before editing:
 | T1 executed-horizon loss mismatch | `horizon_loss.py` plus `run/train_smolvla_horizon_loss_formal.py`; the Zen two-arm campaign rejected `first_action_only` at batch 64 / 316 updates (no offline gain, no closed-loop change), and the Aster batch-8 offline gain does not transfer across regimes — the axis is closed unless a longer-schedule / smaller-batch replication is separately preregistered | selected-valid reduction tests, exact upstream SHA, preflight and two-step optimizer smoke |
 | T2 no recovery distribution | `geometry_teacher.py`, upstream Mink adapter, official MoveIt/OMPL sidecar, MuJoCo position-feedforward boundary, staged evaluator and recovery-data contract | preserve plans `022`--`054`; Plan053 is safe but horizon-exhausted and Plan054 failed grasp drift before its new event locally and on Athena; no further planner plan is authorized, and later seeds and labels remain sealed |
 | T3 validation noise mismatch | `scripts/evaluate_smolvla_action_repair_validation.py` and new evaluation config | fixed Gaussian seed ensemble matching deployment |
-| T4 state-dominant shortcut | `scripts/diagnose_smolvla_aster_modalities.py` plus new single-axis configs; the Zen module-gradient diagnostic (`scripts/diagnose_smolvla_zen_module_gradients.py`, report `m2-smolvla-zen-module-gradient-diagnostic-2026-08-28`) confirmed the shortcut at the gradient level (state shuffle moves trainable-module gradients 1.5–3.4x, image shuffle ≤~8%) and defined the target metric any visual-conditioning axis must move | per-module gradients and controlled image/history ablations |
+| T4 state-dominant shortcut | `scripts/diagnose_smolvla_aster_modalities.py`, `scripts/diagnose_smolvla_zen_module_gradients.py` and the new `visual_conditioning.py` feature; the Zen diagnostic confirmed state-shuffle gradient ratios 1.5–3.4x versus image shuffle ≤~8%. The first treatment is preregistered as whole-sample normalized-state dropout with a dedicated RNG, but optimizer work remains closed until its candidate post-train path and executable offset-250 metric gate exist | exact dropout/RNG isolation tests, then candidate selection/export/reload plus the frozen offset-250 state-dominance gate |
 | T6 periodic gripper latent | `src/rosetta_reality/vla/processor.py` | internal-support rate plus endpoint and standard-bound tests |
 | T7 formal resume gap | formal runner/trainer and `checkpoint_memory.py` | uninterrupted versus stop/resume parity |
 | T9 checkpoint/log mismatch | formal plan validation and checkpoint writer | exact same-step metric/resource snapshot |
@@ -1130,10 +1132,13 @@ The current next sequence after the Zen two-arm Gate 4 failure is:
    immutable comparison baselines and do not reinterpret their time-indexed
    expert actions as recovery labels;
 3. per-module gradient diagnostics completed 2026-08-28 (Zen module-gradient
-   report above); the remaining half of this item — testing whether stronger
-   visual conditioning changes the shortcut — is a separate single-axis
-   training registration whose target metric is now defined by those gradient
-   ratios;
+   report above); the first stronger-visual-conditioning treatment is now
+   implementation-preregistered as whole-sample normalized-state dropout
+   (`m2-smolvla-visual-conditioning-state-dropout-preregistration-2026-08-28`).
+   Its feature/schema/RNG-isolation checks pass, but it is not yet an executable
+   training registration: add the create-only candidate selection/export/exact-
+   reload path and executable offset-250 gradient gate before any preflight,
+   optimizer smoke or furnace authorization;
 4. add exact checkpoint metrics, pre/post-clip and per-module optimizer
    diagnostics;
 5. add formal resume parity;
@@ -1195,7 +1200,8 @@ scripts/run_m2_container.sh vla-xpu \
   tests/test_smolvla_formal_protocol.py \
   tests/test_smolvla_training_plan_schema.py \
   tests/test_smolvla_training_features.py \
-  tests/test_smolvla_training_launch.py
+  tests/test_smolvla_training_launch.py \
+  tests/test_smolvla_visual_conditioning.py
 
 scripts/run_m2_container.sh vla-xpu \
   python -m ruff check \
