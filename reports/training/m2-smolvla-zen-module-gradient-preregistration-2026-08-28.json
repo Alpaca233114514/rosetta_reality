@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "stage": "m2_smolvla_zen_module_gradient_diagnostic_preregistration",
+  "date": "2026-08-28",
+  "status": "preregistered",
+  "gating": false,
+  "training_authorized": false,
+  "hidden_test_loaded": false,
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "authority": "docs/m2-smolvla-architecture.md#section-10-item-3-finding-T4",
+  "question": "Is the learning signal itself state-dominated: do trainable-module gradients move massively under state_shuffle while barely moving under image_shuffle or image_zero?",
+  "artifacts": {
+    "m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001": {
+      "manifest_sha256": "ecc73b9e26f43b6dc85981e61e2ed3aaa651b208b1cd72ad26f93877599694ec"
+    },
+    "m2-smolvla450m-zen-cuda-b64-firstaction-001-step0316-deploy-001": {
+      "manifest_sha256": "d6b2a7ff922605daf04670dd8e57a582fc4f5f5dcb1efd78ff37aec3357d0653"
+    }
+  },
+  "samples": {
+    "source": "zen plan validation protocol",
+    "episodes": [22, 13, 7, 33, 45],
+    "frame_offsets": [0],
+    "count": 5,
+    "train_episodes_used": false,
+    "hidden_test_used": false
+  },
+  "conditions": ["normal", "image_shuffle", "state_shuffle", "image_zero"],
+  "shuffle": {
+    "policy": "cross_episode_same_frame_offset_derangement",
+    "seed": 20260812
+  },
+  "loss_probe": {
+    "noise": "zeros",
+    "flow_time": 0.5,
+    "mixed_precision": "bf16",
+    "policy_mode": "eval"
+  },
+  "registered_adaptation": {
+    "freeze_vision_encoder": true,
+    "train_expert_only": true,
+    "train_state_proj": true
+  },
+  "gradient_groups": {
+    "vision_encoder": ["vlm_with_expert.vlm.vision_model."],
+    "language_model": ["vlm_with_expert.vlm."],
+    "action_expert": ["vlm_with_expert.lm_expert."],
+    "state_projector": ["state_proj."],
+    "action_io_projections": [
+      "action_in_proj.",
+      "action_out_proj.",
+      "action_time_mlp_in.",
+      "action_time_mlp_out."
+    ]
+  },
+  "group_matching": "first_match_wins_fail_closed_on_unmatched",
+  "metric": {
+    "per_sample": "group_gradient_l2",
+    "aggregate": ["mean_over_samples", "max_over_samples"],
+    "contrast": "perturbed_over_normal_ratio_per_group"
+  },
+  "dataset": {
+    "repo_id": "lerobot/aloha_sim_insertion_human",
+    "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+    "checksum_validated_local_cache": true
+  },
+  "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+  "implementation": {
+    "script": "scripts/diagnose_smolvla_zen_module_gradients.py",
+    "script_sha256": "8558f5a5884c2344081bb624430dc157048483d5139091857c5648698ed14ec6",
+    "runner": "scripts/run_zen_module_gradients.sh",
+    "runner_sha256": "30c104c2c1659028368263d801fafd2c99dcb46ff0aa08f73f1390f2f19bd8f1"
+  },
+  "resources": {
+    "runtime": "docker_linux_from_wsl",
+    "accelerator": "xpu",
+    "container_image_id": "sha256:f4a71c4020cd54d2a878f01628d591af9572f0784458f4c821008f8aea30393c",
+    "memory_limit": "6g",
+    "memory_swap_limit": "6g",
+    "network": "none"
+  },
+  "acceptance_criteria": [
+    "complete_finite_reports_for_both_artifacts",
+    "freeze_verification_passed",
+    "group_contract_covers_all_parameters",
+    "no_optimizer_zero_weight_updates",
+    "hidden_test_not_loaded"
+  ],
+  "stop_conditions": [
+    "identity_checksum_freeze_or_group_mismatch_fail_closed",
+    "nonfinite_loss_or_gradient",
+    "container_oom_or_xpu_failure_no_automatic_retry",
+    "no_parameter_rerun_under_this_registration"
+  ],
+  "expected_evidence": [
+    "runs/<experiment_id>/diagnostics/zen-module-gradients-firstaction-<hash>.json",
+    "runs/<experiment_id>/diagnostics/zen-module-gradients-uniform-<hash>.json",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-001.log",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-001.status",
+    "reports/training/m2-smolvla-zen-module-gradient-diagnostic-2026-08-28.md"
+  ],
+  "not_conclusions": [
+    "frozen_module_zero_grads_verify_freeze_not_visual_signal_use",
+    "zeros_noise_fixed_time_is_a_registered_probe_not_full_training_distribution",
+    "non_gating_no_arm_ranking_no_visual_conditioning_axis_authorization"
+  ]
+}
