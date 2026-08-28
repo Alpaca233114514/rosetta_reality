@@ -5,10 +5,10 @@ SmolVLA M2 work. It is intentionally not named after a furnace or date. Update
 this file when component ownership, execution boundaries, the current evidence
 source, or the next repair stage changes.
 
-Document updated: 2026-08-16. Current Faust evidence snapshot: 2026-08-12;
+Document updated: 2026-08-28. Current Faust evidence snapshot: 2026-08-12;
 current Aster implementation audit: 2026-08-13; current Way CUDA evidence:
 2026-08-14; current object-geometry teacher/official planner evidence:
-2026-08-16.
+2026-08-16; current Zen two-arm campaign completion audit: 2026-08-27.
 
 ## 1. Mandatory reading order and authority
 
@@ -21,7 +21,14 @@ exports, evaluation or simulation, read in this order:
    — current empirical interpretation and repair order;
 4. `reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.json`
    — machine-readable result and finding registry;
-5. for object-geometry work,
+5. `reports/training/m2-smolvla-zen-formal-audit-2026-08-27.md` and its JSON
+   companion — the newest completed formal campaign (two-arm Zen) and its
+   Gate 4 negative results, superseding nothing above but extending the
+   failure tally and next-step options; the follow-up diagnostic is
+   preregistered in
+   `reports/training/m2-smolvla-zen-first-deviation-preregistration-2026-08-28.md`
+   and its JSON companion;
+6. for object-geometry work,
    `reports/training/m2-smolvla-geometry-teacher-audit-2026-08-14.md` and its
    JSON companion, then
    `reports/training/m2-smolvla-mink-ik-audit-2026-08-15.md` and its JSON
@@ -68,9 +75,9 @@ exports, evaluation or simulation, read in this order:
    `m2-smolvla-athena-plan057-local-exact-audit-2026-08-16`, and
    `m2-smolvla-athena-plan058-local-exact-audit-2026-08-16` with their JSON
    companions;
-6. the registered experiment, formal-run and simulation configs named below;
-7. immutable `runs/` and `artifacts/` evidence referenced by those reports;
-8. implementation code and tests for the component being changed.
+7. the registered experiment, formal-run and simulation configs named below;
+8. immutable `runs/` and `artifacts/` evidence referenced by those reports;
+9. implementation code and tests for the component being changed.
 
 Authority is layered rather than interchangeable:
 
@@ -101,14 +108,15 @@ The current work line is **VLA / System 1**, not Qwen ER.
 | dataset revision | `cc571a3c661df81b566dbfde3d5c1e85fcdf7884` |
 | split | 40 train / 5 validation / 5 sealed hidden test episodes |
 | repaired experiment | `m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003` |
-| completed formal runs | Faust `-002`; corrected Aster `-003`; Way CUDA batch-64/default `formal-002` |
-| latest selected checkpoint | Way step 316, validation first-action MAE `0.030136355795964066`; Aster remains the `0.02250973408226855` read-only offline control |
-| export/reload | Faust, Aster and Way passed with exact action equality |
-| Gate 3 | Faust, Aster and Way passed |
-| Gate 4 | Faust, Aster and Way all failed `0/5` |
+| completed formal runs | Faust `-002`; corrected Aster `-003`; Way CUDA batch-64/default `formal-002`; Zen two-arm `uniform-002` / `firstaction-001` |
+| latest selected checkpoint | Zen uniform step 316, validation first-action MAE `0.021572770214905695`; Zen firstaction step 316 `0.022150604739519103`; Way step 316 `0.030136355795964066`; Aster remains the `0.02250973408226855` read-only offline control |
+| export/reload | Faust, Aster, Way and both Zen arms passed with exact action equality |
+| Gate 3 | Faust, Aster, Way and both Zen arms passed |
+| Gate 4 | Faust, Aster, Way, Zen-uniform (`411`) and Zen-firstaction (`422`) all failed `0/5` |
 | Aster T1 attempt | `aster-b8-002` completed, but is not valid single-axis evidence |
 | current T1 result | `aster-b8-003` selected/exported and Gate 3 passed; Gate 4 failed |
 | current Way result | fresh-base train-only normalized-state jitter `std=0.05`; selected/exported and Gate 3 passed; Gate 4 failed |
+| current Zen result | preregistered two-arm single-axis comparison (uniform control vs `first_action_only` treatment) at batch 64 / 316 updates through the v2 harness; both arms trained to convergence, exported bit-exact, Gate 3 passed, Gate 4 failed `0/5` with reward `0` on every seed 1000--1004; the registered hypothesis is rejected |
 | current recovery-teacher result | Plan `054` failed grasp drift in `lift` locally and on Athena. Authorized local repair chain: Plan `055` feedback-anchored lift preserved both grasps but hit an unregistered table contact; Plan `056` lifted the contact scope but hit one Mink IK failure; Plan `057` extended the official MoveIt fallback to lift but hit the right gripper-bar/table contact; Plan `058` added that observed contact and ran all 750 steps safely in `lift` without losing grasp, but the right peg never left the table. Exact remains failed and all later gates remain sealed |
 | M2 completion | **not complete** |
 | hidden test | not loaded |
@@ -232,6 +240,11 @@ and Qwen ER independently passes its own evaluation.
 | `scripts/evaluate_smolvla_way_validation_v2.py`, `scripts/export_smolvla_way_v2.py`, `scripts/smolvla_autodl_way_sim_gate_v2.py` | reusable post-Way compatibility entry points for future plans | retroactive mutation of Way evidence or automatic experiment authorization |
 | `scripts/run_autodl_posttrain_v2.sh` | isolated future validation/export/Gate dispatch without changing the completed Way runner identity | optimizer or formal-training authorization |
 | `scripts/run_autodl.sh` | registered AutoDL doctor/smoke/formal/validation/selection/export/Gate command dispatch | bypassing verified plans or nested Docker |
+| `scripts/smolvla_zen_protocol.py`, `scripts/smolvla_zen_validate.py` | preregistered Zen two-arm protocol identity, specs and plan validation | mutating completed Zen identities or authorizing new arms |
+| `scripts/select_smolvla_zen_checkpoint.py`, `scripts/export_smolvla_zen.py` | Zen validation-only selection and deploy export with derived gate-facing records | hidden-test selection or Gate 4 acceptance |
+| `scripts/smolvla_autodl_zen_sim_gate.py` | AutoDL CUDA Gate 3/4 wrapper rendering per-arm sim plans with derived selection and inventory backup evidence | protocol, seed, threshold or Action Contract changes |
+| `scripts/run_smolvla_zen_furnace.sh` | the guarded tmux Zen furnace ladder (doctor through Gate 4 with per-phase guards) | unguarded execution or in-place parameter edits |
+| `scripts/diagnose_smolvla_zen_trajectory.py`, `scripts/run_zen_trajectory_trace.sh` | the preregistered Zen first-deviation trace diagnostic and its local XPU runner | gating claims or recovery-label authorization |
 | `src/rosetta_reality/vla/training/` | version-2 plan-driven composition layer for the pinned LeRobot trainer: plan schema, ordered feature registry with install/restore and rollback, launch assembly (see `docs/m2-smolvla-training-harness-v2.md`) | the upstream training loop, learning semantics, or mutation of the frozen historical trainer stack |
 | `scripts/run_smolvla_v2.py` | the single version-2 launcher validation chain, launch manifest and mode dispatch | bypassing prerequisite evidence or authorizing a furnace by itself |
 | `scripts/train_smolvla_v2.py` | the single version-2 trainer entry installing plan-declared features on the pinned LeRobot trainer | experiment selection or evaluation semantics |
@@ -310,6 +323,15 @@ fresh batch-64/default smoke `-002` -> accepted two-step reload
         v
 fresh-base formal `-002` -> clean validation -> public sync -> selection
         -> exact export/reload -> Gate 3 pass -> Gate 4 fail `0/5`
+        |
+        v
+Zen two-arm v2 campaign (`zen_cuda_b64_{uniform_002,firstaction_001}`)
+        |
+        v
+doctor -> benchmark -> preflight -> smoke -> formal (batch 64, 316 steps)
+        -> validation -> selection -> exact export/reload -> Gate 3 pass
+        -> Gate 4 fail `0/5` (both arms) -> first-deviation trace
+        preregistration 2026-08-28 (pending artifact transfer)
 ```
 
 The formal Faust config and completed evidence are historical identities. A new
@@ -517,6 +539,10 @@ Current state:
 | Way export/reload | passed | selected model and 14-file deploy artifact passed exact independent reload |
 | Way Gate 3 | passed | 20-step reloaded closed loop was finite and inside all registered safety limits |
 | Way Gate 4 | **failed** | seeds 1000--1004 all returned reward `0` and success `false`; safety criteria passed, task-success criterion failed |
+| Zen training/validation/selection/export | passed | both arms converged (batch 64, 316 steps), selected step 316, exact independent reload (audit 2026-08-27) |
+| Zen Gate 3 | passed | both arms through the rendered per-arm plans (suffixes `411` uniform, `422` firstaction) under final workspace `r42b` |
+| Zen Gate 4 | **failed** | both arms `0/5` with reward `0` on every seed 1000--1004; firstaction recorded zero violations of every safety class; uniform additionally failed `joint_limits_respected` (5 violations) — the audit markdown's "only failed criterion" sentence is a prose slip, the gate JSONs are authoritative |
+| Zen first-deviation trace | preregistered 2026-08-28 | local XPU diagnostic against the immutable Aster trace baseline; execution pending deploy-artifact transfer from the shut-down instance |
 | recovery-oracle exact control | diagnostic passed | train episode 2/seed 10 reproduced reward 4 in 294 actions with no OOD or IK failure |
 | recovery-oracle cross-pose tuning | **failed** | two registered robot-state progression thresholds both returned reward 0 on dedicated seed 1900; development/collection/Gate seeds remained unopened |
 | object-geometry teacher exact | **plan 030 failed `0/1`; joint-limit safety held; later gates sealed** | calibration reached reward 4, but exact exhausted 500 steps in `orient` with reward 0; 131 planner attempts and 23 recovery events produced zero IK, clip or joint-margin failures |
@@ -622,6 +648,36 @@ corrected-collision criterion passed. This result rejects the tested Way
 augmentation as a sufficient repair. It does not establish recovery learning:
 unchanged time-indexed labels under perturbed state are still not a
 state-conditioned recovery oracle.
+
+The Zen campaign (completion audit
+`reports/training/m2-smolvla-zen-formal-audit-2026-08-27.md`) then executed the
+first preregistered two-arm single-axis comparison through the version-2
+harness on the AutoDL RTX 4090D container: arm A uniform control
+`m2-smolvla450m-zen-uniform-002` vs arm B `first_action_only` treatment
+`m2-smolvla450m-zen-firstaction-001`, sharing batch 64, 316 steps (20,224
+exposures), the fresh pinned base, identical optimizer/scheduler and seed
+20260809. Both arms converged (uniform loss `0.905 -> 0.156`, firstaction
+`1.032 -> 0.150`, peak CUDA 18.29 GB), selected step 316, exported with
+bit-exact independent reload, and passed Gate 3. Gate 4 failed `0/5` with
+reward `0` for both arms (reports `411`/`422`). Uniform additionally recorded
+five joint-limit violations; firstaction recorded zero violations of every
+safety class — the cleanest closed-loop run of the campaign while still
+scoring zero reward. Offline selection favored the control arm (uniform
+first-action MAE `0.021572770214905695` vs treatment `0.022150604739519103`,
+both ~92% over base `0.290538`), so the registered temporal-weighting
+hypothesis is rejected at this development scale: the Aster-era offline gain
+(batch 8 / 2,500 updates) does not generalize across training regimes, and
+offline MAE remains decoupled from closed-loop success. Note one prose slip
+in the audit markdown (its section 6 calls `minimum_task_success_rate` the
+only failed criterion for both arms): the immutable `411` report also fails
+`joint_limits_respected`; the gate JSON files remain the authority. Zen
+checkpoints (8 quarter checkpoints) remain on the AutoDL system disk
+`/root/zen-runtime/checkpoints` — the instance was shut down after the audit
+and must not be released; the durable data disk reached its 50G budget during
+execution and was recovered by removing this session's own unreferenced
+duplicates. The FFmpeg 5/6/7 runtime install could not activate torchcodec
+(GLIBCXX/ABI negatives, recorded in audit section 8) and is deferred to a
+coordinated torch+torchcodec upgrade; training itself never used torchcodec.
 
 #### Recovery-oracle boundary
 
@@ -1044,7 +1100,7 @@ to find the owning layer before editing:
 
 | Finding | Owning layer / entry point | First required evidence |
 |---|---|---|
-| T1 executed-horizon loss mismatch | `horizon_loss.py` plus `run/train_smolvla_horizon_loss_formal.py` | selected-valid reduction tests, exact upstream SHA, preflight and two-step optimizer smoke |
+| T1 executed-horizon loss mismatch | `horizon_loss.py` plus `run/train_smolvla_horizon_loss_formal.py`; the Zen two-arm campaign rejected `first_action_only` at batch 64 / 316 updates (no offline gain, no closed-loop change), and the Aster batch-8 offline gain does not transfer across regimes — the axis is closed unless a longer-schedule / smaller-batch replication is separately preregistered | selected-valid reduction tests, exact upstream SHA, preflight and two-step optimizer smoke |
 | T2 no recovery distribution | `geometry_teacher.py`, upstream Mink adapter, official MoveIt/OMPL sidecar, MuJoCo position-feedforward boundary, staged evaluator and recovery-data contract | preserve plans `022`--`054`; Plan053 is safe but horizon-exhausted and Plan054 failed grasp drift before its new event locally and on Athena; no further planner plan is authorized, and later seeds and labels remain sealed |
 | T3 validation noise mismatch | `scripts/evaluate_smolvla_action_repair_validation.py` and new evaluation config | fixed Gaussian seed ensemble matching deployment |
 | T4 state-dominant shortcut | `scripts/diagnose_smolvla_aster_modalities.py` plus new single-axis configs | per-module gradients and controlled image/history ablations |
@@ -1061,28 +1117,38 @@ needs its own registered comparison.
 
 ## 10. Next safe work sequence
 
-The current next sequence after Way's failed Gate 4 is:
+The current next sequence after the Zen two-arm Gate 4 failure is:
 
-1. preserve the completed first-deviation trace as the immutable comparison
+1. transfer the two selected Zen deploy artifacts to the local artifact root
+   (requires the user to power the AutoDL instance back on; the instance was
+   shut down after the audit and must not be released), then execute the
+   preregistered Zen first-deviation trace
+   (`reports/training/m2-smolvla-zen-first-deviation-preregistration-2026-08-28.md`)
+   against the Aster baseline;
+2. preserve the completed first-deviation trace as the immutable comparison
    baseline and do not reinterpret its time-indexed expert actions as recovery
    labels;
-2. add per-module gradient diagnostics and test whether stronger visual
+3. add per-module gradient diagnostics and test whether stronger visual
    conditioning changes the now-confirmed state-dominant shortcut;
-3. add exact checkpoint metrics, pre/post-clip and per-module optimizer
+4. add exact checkpoint metrics, pre/post-clip and per-module optimizer
    diagnostics;
-4. add formal resume parity;
-5. align validation noise with deployment;
-6. test gripper internal-support handling;
-7. preserve Way as completed negative evidence and do not continue it in place
-   or reuse any optimizer/checkpoint for a different hypothesis;
-8. preserve object-geometry plans `003`--`054` as immutable evidence; Plan053
+5. add formal resume parity;
+6. align validation noise with deployment;
+7. test gripper internal-support handling;
+8. preserve Way and both Zen arms as completed negative evidence and do not
+   continue them in place or reuse any optimizer/checkpoint for a different
+   hypothesis;
+9. preserve object-geometry plans `003`--`054` as immutable evidence; Plan053
    is the latest safe active-set result and Plan054 is a rejected target-budget
    axis because it failed grasp drift before exercising that event; do not
    create Plan055 under the current scope lock, and do not widen the 0.01-rad
    physical margin, 1 mm / 3 mm pose gates or representation-only
    reconciliation gate;
-9. only then consider history, image augmentation, differential LR, weight
-   decay, EMA or backbone adaptation as separate axes.
+10. recovery-distribution data (T2) remains the only untried primary axis, but
+    it still requires a state-conditioned teacher that passes its own gate
+    before any collection or furnace is preregistered;
+11. only then consider history, image augmentation, differential LR, weight
+    decay, EMA or backbone adaptation as separate axes.
 
 Before optimizer work, a new plan must freeze the hypothesis, data/model/code
 identity, resource budget, optimizer/scheduler contract, validation protocol,
@@ -1100,6 +1166,9 @@ Gate 3/4 protocol and stop conditions. Reuse Faust only as a read-only control.
 - Do not infer compatibility from action tensor shape.
 - Do not treat offline MAE, finite loss, a positive reward or Gate 3 as Gate 4
   success.
+- Do not generalize the Aster batch-8 offline first-action gain across training
+  regimes; the Zen batch-64 two-arm campaign rejected the same temporal-weight
+  axis at its scale.
 - Do not use time-indexed expert actions as recovery labels after deviation.
 - Do not treat the exact-seed retrieval control as a cross-pose recovery oracle;
   its two registered seed-1900 retargeting attempts failed at reward 0.

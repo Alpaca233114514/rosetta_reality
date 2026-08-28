@@ -78,10 +78,11 @@ scripts/run_m2_container.sh ml ruff check .
 The stable current M2 component, training, export, closed-loop and evidence map
 is [`docs/m2-smolvla-architecture.md`](docs/m2-smolvla-architecture.md).
 [`docs/er-vla-pipeline.md`](docs/er-vla-pipeline.md) retains the original role,
-reuse and gate design. Faust formal training has completed, but M2 remains
-blocked because its development Gate 4 failed; the architecture map routes to
-the current audit instead of treating the earlier projected plan as current
-status.
+reuse and gate design. Five formal SmolVLA campaigns (Faust, Aster, Way and the
+two-arm Zen comparison) have completed training, selection, export/reload and
+Gate 3, but all five failed development Gate 4 `0/5`, so M2 remains blocked;
+the architecture map routes to the current audit instead of treating any
+earlier projected plan as current status.
 
 ## M1 Dataset Preparation
 
@@ -156,6 +157,12 @@ identities and AI repair order are recorded in
 [`reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md`](reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md),
 with a machine-readable
 [`JSON companion`](reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.json).
+The newest completed campaign — the two-arm Zen temporal-weighting comparison,
+which rejected the registered hypothesis and extended the Gate 4 failure tally
+to five identities — is audited in
+[`reports/training/m2-smolvla-zen-formal-audit-2026-08-27.md`](reports/training/m2-smolvla-zen-formal-audit-2026-08-27.md)
+and its
+[`JSON companion`](reports/training/m2-smolvla-zen-formal-audit-2026-08-27.json).
 The initial no-optimizer diagnosis is
 preserved in
 [`reports/training/m2-smolvla-action-repair-handoff-2026-08-12.md`](reports/training/m2-smolvla-action-repair-handoff-2026-08-12.md).

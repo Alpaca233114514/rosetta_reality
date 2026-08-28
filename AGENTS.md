@@ -156,13 +156,22 @@ Local control plane
   control-flow map; do not reconstruct the architecture from chat history.
 - After the architecture map, read
   `reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md`
-  and its JSON companion for current evidence, findings and repair order. The
-  earlier `docs/er-vla-pipeline.md` and action-repair handoff remain context and
-  provenance, not current completed-result authority.
-- Current boundary: Faust batch-8 training completed, export/reload and Gate 3
-  passed, but Gate 4 failed `0/5`; therefore M2 is not complete. No agent may
-  infer acceptance from offline MAE or start another full furnace without a new
-  single-axis registered plan and the required authorization/gates.
+  and its JSON companion for the findings framework and repair order, then the
+  newest completed campaign audit
+  `reports/training/m2-smolvla-zen-formal-audit-2026-08-27.md` and its JSON
+  companion for the current evidence state. The earlier `docs/er-vla-pipeline.md`
+  and action-repair handoff remain context and provenance, not current
+  completed-result authority.
+- Current boundary: Gate 4 has failed `0/5` under one identical protocol for
+  five identities — Faust, Aster, Way, Zen-uniform (`411`) and Zen-firstaction
+  (`422`); every other stage (training, selection, export/reload, Gate 3)
+  passed for all of them. Therefore M2 is not complete. No agent may infer
+  acceptance from offline MAE or start another full furnace without a new
+  single-axis registered plan and the required authorization/gates. The
+  registered follow-up diagnostic is the Zen first-deviation trace
+  (`reports/training/m2-smolvla-zen-first-deviation-preregistration-2026-08-28.md`),
+  pending deploy-artifact transfer; the AutoDL instance is shut down and must
+  not be released.
 - If architecture prose conflicts with a hash-bound config, Action Contract,
   executable assertion or immutable evidence, stop and reconcile the mismatch.
   Never silently choose one or edit historical evidence to match prose.
