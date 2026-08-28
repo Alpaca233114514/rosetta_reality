@@ -543,6 +543,7 @@ Current state:
 | Zen Gate 3 | passed | both arms through the rendered per-arm plans (suffixes `411` uniform, `422` firstaction) under final workspace `r42b` |
 | Zen Gate 4 | **failed** | both arms `0/5` with reward `0` on every seed 1000--1004; firstaction recorded zero violations of every safety class; uniform additionally failed `joint_limits_respected` (5 violations) — the audit markdown's "only failed criterion" sentence is a prose slip, the gate JSONs are authoritative |
 | Zen first-deviation trace | completed 2026-08-28 | local XPU diagnostic on the firstaction deploy artifact: divergence begins at step zero (action MAE `0.032943`, post-state MAE `0.015197`; Aster `0.0204168`/`0.0055942`), crossings `0.005`/`0.01`/`0.025` at steps 0/0/1, `0.05` at 18, `0.1` at 29; expert replay reproduced reward 4 at step 293; policy reward 0 with zero violations; report `m2-smolvla-zen-first-deviation-trace-2026-08-28` |
+| Zen module-gradient diagnostic | completed 2026-08-28 | both deploy artifacts, teacher-forced probe at validation frame offsets 0 and 250 (registrations 001/002): at offset 250 `state_shuffle` multiplies the loss 2.1–4.4x and every trainable module's gradients 1.5–3.4x while `image_shuffle` moves them ≤~8% and `image_zero` ≤~47% — gradient-level confirmation of the state-dominant shortcut; freeze pattern verified exactly. Protocol discovery: frame-0 states are bit-identical across all 50 dataset episodes, so the registered offset-0 validation protocol cannot probe state sensitivity (002 added fail-closed degeneracy guards); report `m2-smolvla-zen-module-gradient-diagnostic-2026-08-28` |
 | recovery-oracle exact control | diagnostic passed | train episode 2/seed 10 reproduced reward 4 in 294 actions with no OOD or IK failure |
 | recovery-oracle cross-pose tuning | **failed** | two registered robot-state progression thresholds both returned reward 0 on dedicated seed 1900; development/collection/Gate seeds remained unopened |
 | object-geometry teacher exact | **plan 030 failed `0/1`; joint-limit safety held; later gates sealed** | calibration reached reward 4, but exact exhausted 500 steps in `orient` with reward 0; 131 planner attempts and 23 recovery events produced zero IK, clip or joint-margin failures |
@@ -1103,7 +1104,7 @@ to find the owning layer before editing:
 | T1 executed-horizon loss mismatch | `horizon_loss.py` plus `run/train_smolvla_horizon_loss_formal.py`; the Zen two-arm campaign rejected `first_action_only` at batch 64 / 316 updates (no offline gain, no closed-loop change), and the Aster batch-8 offline gain does not transfer across regimes — the axis is closed unless a longer-schedule / smaller-batch replication is separately preregistered | selected-valid reduction tests, exact upstream SHA, preflight and two-step optimizer smoke |
 | T2 no recovery distribution | `geometry_teacher.py`, upstream Mink adapter, official MoveIt/OMPL sidecar, MuJoCo position-feedforward boundary, staged evaluator and recovery-data contract | preserve plans `022`--`054`; Plan053 is safe but horizon-exhausted and Plan054 failed grasp drift before its new event locally and on Athena; no further planner plan is authorized, and later seeds and labels remain sealed |
 | T3 validation noise mismatch | `scripts/evaluate_smolvla_action_repair_validation.py` and new evaluation config | fixed Gaussian seed ensemble matching deployment |
-| T4 state-dominant shortcut | `scripts/diagnose_smolvla_aster_modalities.py` plus new single-axis configs | per-module gradients and controlled image/history ablations |
+| T4 state-dominant shortcut | `scripts/diagnose_smolvla_aster_modalities.py` plus new single-axis configs; the Zen module-gradient diagnostic (`scripts/diagnose_smolvla_zen_module_gradients.py`, report `m2-smolvla-zen-module-gradient-diagnostic-2026-08-28`) confirmed the shortcut at the gradient level (state shuffle moves trainable-module gradients 1.5–3.4x, image shuffle ≤~8%) and defined the target metric any visual-conditioning axis must move | per-module gradients and controlled image/history ablations |
 | T6 periodic gripper latent | `src/rosetta_reality/vla/processor.py` | internal-support rate plus endpoint and standard-bound tests |
 | T7 formal resume gap | formal runner/trainer and `checkpoint_memory.py` | uninterrupted versus stop/resume parity |
 | T9 checkpoint/log mismatch | formal plan validation and checkpoint writer | exact same-step metric/resource snapshot |
@@ -1128,8 +1129,11 @@ The current next sequence after the Zen two-arm Gate 4 failure is:
 2. preserve the completed first-deviation traces (Aster and Zen) as the
    immutable comparison baselines and do not reinterpret their time-indexed
    expert actions as recovery labels;
-3. add per-module gradient diagnostics and test whether stronger visual
-   conditioning changes the now-confirmed state-dominant shortcut;
+3. per-module gradient diagnostics completed 2026-08-28 (Zen module-gradient
+   report above); the remaining half of this item — testing whether stronger
+   visual conditioning changes the shortcut — is a separate single-axis
+   training registration whose target metric is now defined by those gradient
+   ratios;
 4. add exact checkpoint metrics, pre/post-clip and per-module optimizer
    diagnostics;
 5. add formal resume parity;

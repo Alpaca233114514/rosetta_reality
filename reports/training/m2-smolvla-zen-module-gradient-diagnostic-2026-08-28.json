@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "stage": "m2_smolvla_zen_module_gradient_diagnostic_result",
+  "date": "2026-08-28",
+  "status": "complete",
+  "gating": false,
+  "training_authorized": false,
+  "hidden_test_loaded": false,
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "registrations": [
+    "reports/training/m2-smolvla-zen-module-gradient-preregistration-2026-08-28.json",
+    "reports/training/m2-smolvla-zen-module-gradient-offset250-preregistration-2026-08-28.json"
+  ],
+  "headline": "gradient_level_confirmation_of_state_dominance: state_shuffle multiplies loss 2.1-4.4x and trainable-module gradients 1.5-3.4x while image_shuffle changes gradients by at most ~8%",
+  "offset_250_results": {
+    "firstaction": {
+      "normal_mean_loss": 1.0902,
+      "state_shuffle": {"loss": 2.2468, "loss_ratio": 2.061, "gradient_ratios": {"action_expert": 1.547, "state_projector": 1.878, "action_io_projections": 1.551}},
+      "image_shuffle": {"loss": 1.0373, "gradient_ratios": {"action_expert": 0.989, "state_projector": 1.0, "action_io_projections": 0.978}},
+      "image_zero": {"loss": 1.0477, "gradient_ratios": {"action_expert": 1.046, "state_projector": 1.076, "action_io_projections": 1.008}}
+    },
+    "uniform": {
+      "normal_mean_loss": 0.1467,
+      "state_shuffle": {"loss": 0.6485, "loss_ratio": 4.424, "gradient_ratios": {"action_expert": 2.387, "state_projector": 3.378, "action_io_projections": 2.162}},
+      "image_shuffle": {"loss": 0.141, "gradient_ratios": {"action_expert": 0.972, "state_projector": 0.918, "action_io_projections": 0.972}},
+      "image_zero": {"loss": 0.2456, "gradient_ratios": {"action_expert": 1.465, "state_projector": 1.272, "action_io_projections": 1.403}}
+    },
+    "pairwise_sample_state_max_difference": 0.8384,
+    "pairwise_sample_image_max_difference": 223.0
+  },
+  "offset_0_results": {
+    "state_shuffle": "bit_exact_no_op: all 50 dataset episodes share the identical home-pose state at frame 0 (raw parquet verified, pairwise max difference 0.0000)",
+    "firstaction": {"image_shuffle_gradient_ratios": {"action_expert": 0.998, "state_projector": 1.014}, "image_zero_gradient_ratios": {"action_expert": 0.886, "state_projector": 0.784}},
+    "uniform": {"image_shuffle_gradient_ratios": {"action_expert": 1.228, "state_projector": 1.176}, "image_zero_gradient_ratios": {"action_expert": 2.05, "state_projector": 2.479}}
+  },
+  "protocol_discovery": {
+    "finding": "registered validation offset 0 samples the shared home pose, so cross-episode state perturbation is a no-op there",
+    "verification": "raw parquet observation.state at frame 0 identical across 50/50 episodes; frame 250 states differ pairwise by 0.36-0.84 rad",
+    "guard_added": "registration 002 fails closed on degenerate state or image conditions and records pairwise sample differences"
+  },
+  "freeze_verification": "passed in all runs: vision_encoder and language_model zero trainable parameters and zero gradients; expert lm_head frozen; remaining groups trainable",
+  "implementation_defect_ledger": [
+    "001: fixed-prefix grouping missed runtime model. prefix (fail-closed, no gradients)",
+    "002: action_io group used all-of markers instead of any-of alternatives (fail-closed)",
+    "004: per-episode offset list produced 5x5 cartesian sample set (fail-closed by sample-count guard)"
+  ],
+  "evidence": [
+    "runs/<experiment_id>/diagnostics/zen-module-gradients-cuda-146acab3e4295d47.json",
+    "runs/<experiment_id>/diagnostics/zen-module-gradients-cuda-ae499e966f438a31.json",
+    "runs/<experiment_id>/diagnostics/zen-module-gradients-cuda-c91c0de4d944515f.json",
+    "runs/<experiment_id>/diagnostics/zen-module-gradients-cuda-b8fbf339786a4eef.json",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-003.log",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-005.log",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-{001,002,004}.log (fail-closed attempts, retained)"
+  ],
+  "not_conclusions": [
+    "non_gating_no_arm_ranking_no_m2_acceptance",
+    "two_offset_probe_not_training_distribution",
+    "visual_conditioning_axis_still_needs_its_own_preregistration_these_ratios_define_its_target_metric"
+  ]
+}
