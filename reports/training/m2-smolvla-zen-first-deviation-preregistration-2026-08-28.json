@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "stage": "m2_smolvla_zen_first_deviation_trace_preregistration",
+  "date": "2026-08-28",
+  "status": "preregistered",
+  "authority": "reports/training/m2-smolvla-zen-formal-audit-2026-08-27.md#section-10-option-3",
+  "gating": false,
+  "training_authorized": false,
+  "hidden_test_loaded": false,
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "diagnostic": "zen_train_pose_expert_policy_trajectory_divergence",
+  "hypothesis": "Quantify where the selected Zen first-action artifact first departs from the registered expert replay at the train episode 2 / seed 10 reset, and compare its step-zero action error and early state-MAE crossings against the immutable Aster trace baseline.",
+  "aster_baseline": {
+    "report": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/aster-trajectory-520c8ec87c1618fc.json",
+    "step_zero_action_mae": 0.0204168,
+    "step_zero_post_state_mae": 0.0055942,
+    "first_state_mae_crossings": {
+      "0.01": 1,
+      "0.025": 4,
+      "0.05": 24,
+      "0.1": 28
+    },
+    "maximum_state_mae": 0.222958
+  },
+  "traced_artifact": {
+    "artifact_id": "m2-smolvla450m-zen-cuda-b64-firstaction-001-step0316-deploy-001",
+    "artifact_manifest_sha256": "d6b2a7ff922605daf04670dd8e57a582fc4f5f5dcb1efd78ff37aec3357d0653",
+    "selection_report": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-zen-cuda-b64-firstaction-001-selection.json",
+    "selection_report_sha256": "540de9b07c4ddb2a06420f2902d5c51219ab73cdc6d2a4063f91d30176a8b882",
+    "selected_checkpoint_step": 316,
+    "selected_first_action_mae": 0.022150604739519103
+  },
+  "protocol": {
+    "dataset_episode": 2,
+    "episode_split": "train",
+    "simulator_seed": 10,
+    "policy_noise_seed": 10,
+    "maximum_steps": 320,
+    "noise_mode": "seeded_standard_normal",
+    "chunk_execution": "receding_horizon_first_action",
+    "policy_output_projection": "action_contract_clip",
+    "expert_reference": "time_indexed_not_state_conditioned",
+    "state_mae_thresholds": [0.005, 0.01, 0.025, 0.05, 0.1],
+    "reset_cross_environment_state_mae_maximum": 1e-7
+  },
+  "implementation": {
+    "trace_script": "scripts/diagnose_smolvla_zen_trajectory.py",
+    "trace_script_sha256": "583734d5a2af48ca44827d02857556cd2e2db1c5b65b4bf49df496ba4c14b138",
+    "runner": "scripts/run_zen_trajectory_trace.sh",
+    "runner_sha256": "7b02f0080d1bea1ca27294c44c7366c84bad908792cb3f89ea492dfdc8c9810e",
+    "frozen_engine": {
+      "scripts/smolvla_sim_gate.py": "5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae"
+    },
+    "zen_protocol_module": {
+      "scripts/smolvla_zen_protocol.py": "330175327f6de66fde5fc2cb823eb243543a770dfe4db0f6e527d671f1653bbc"
+    },
+    "adapter_files": {
+      "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+      "src/rosetta_reality/vla/processor.py": "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384",
+      "src/rosetta_reality/vla/action_space.py": "4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb"
+    },
+    "runtime_plan_rendering": "runs/<experiment_id>/plans/m2-smolvla450m-zen-firstaction-trace-sim-001.yaml",
+    "gate_facing_selection_rendering": "runs/<experiment_id>/selection/m2-smolvla450m-zen-cuda-b64-firstaction-001-selection-trace-gate.json"
+  },
+  "precedents": {
+    "projection_prior_failure": {
+      "report": "runs/m2-smolvla450m-aloha-insertion-001/gates/gate3-smolvla-sim-001.json",
+      "report_sha256": "5df3b887984d1c8fd47084c3315a71e3894eac18cc80b1eb08b2120583ed26ed",
+      "failed_criterion": "raw_actions_within_contract"
+    },
+    "noise_prior_task_failure": {
+      "report": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-422.json",
+      "report_sha256": "21a851abdda6b9f642a6021a768905bf0878ff37d3d13ccd75145affabf98003",
+      "failed_criterion": "minimum_task_success_rate"
+    }
+  },
+  "action_contract": {
+    "path": "configs/sim/aloha_insertion_smolvla.yaml",
+    "sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62"
+  },
+  "dataset": {
+    "repo_id": "lerobot/aloha_sim_insertion_human",
+    "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+    "resolved_at_runtime": true
+  },
+  "resources": {
+    "runtime": "docker_linux_from_wsl",
+    "accelerator": "xpu",
+    "container_image_id": "sha256:f4a71c4020cd54d2a878f01628d591af9572f0784458f4c821008f8aea30393c",
+    "memory_limit": "6g",
+    "memory_swap_limit": "6g",
+    "network": "none"
+  },
+  "acceptance_criteria": [
+    "complete_finite_diagnostics_json",
+    "deterministic_independent_resets",
+    "hidden_test_not_loaded",
+    "orchestration_status_and_log_written"
+  ],
+  "stop_conditions": [
+    "identity_or_checksum_mismatch_fail_closed",
+    "nonfinite_action_or_state",
+    "container_oom_or_xpu_failure_no_automatic_retry",
+    "no_parameter_rerun_under_this_registration"
+  ],
+  "pending_prerequisites": [
+    "user_powers_on_autodl_instance",
+    "selected_deploy_artifacts_transferred_to_local_artifact_root_with_checksums",
+    "docker_desktop_running_with_pinned_vla_sim_xpu_image"
+  ],
+  "expected_evidence": [
+    "runs/<experiment_id>/diagnostics/zen-trajectory-<hash>.json",
+    "runs/<experiment_id>/orchestration/zen-trajectory-trace-001.log",
+    "runs/<experiment_id>/orchestration/zen-trajectory-trace-001.status",
+    "reports/training/m2-smolvla-zen-first-deviation-trace-2026-08-28.md"
+  ],
+  "not_conclusions": [
+    "non_gating_diagnostic_only",
+    "no_recovery_label_authorization",
+    "no_closed_loop_acceptance_claim",
+    "t2_axis_still_requires_its_own_teacher_gate_preregistration"
+  ]
+}
