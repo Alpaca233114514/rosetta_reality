@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "stage": "m2_smolvla_zen_module_gradient_diagnostic_registration_002",
+  "date": "2026-08-28",
+  "status": "preregistered",
+  "gating": false,
+  "training_authorized": false,
+  "hidden_test_loaded": false,
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "parent_registration": "reports/training/m2-smolvla-zen-module-gradient-preregistration-2026-08-28.json",
+  "motivation": "registration 001 execution (orchestration 003) discovered that frame-0 states are bit-identical across all dataset episodes (raw parquet verified, 50/50, max diff 0.0000), making its state_shuffle a provable no-op; registration 002 moves the probe to frame 250 where validation-episode states differ pairwise by 0.36-0.84 rad",
+  "protocol_delta": {
+    "frame_offset": 250,
+    "previous_frame_offset": 0,
+    "new_degeneracy_guards": [
+      "fail_closed_if_offset_positive_samples_share_identical_states",
+      "fail_closed_if_frame_zero_samples_differ_in_state",
+      "fail_closed_if_samples_share_identical_images"
+    ],
+    "recorded_sample_facts": [
+      "pairwise_sample_state_max_difference",
+      "pairwise_sample_image_max_difference"
+    ],
+    "everything_else_unchanged_from_registration_001": true
+  },
+  "samples": {
+    "source": "zen plan validation episodes at frame offset 250",
+    "episodes": [22, 13, 7, 33, 45],
+    "frame_offset": 250,
+    "count": 5,
+    "verified_pairwise_state_difference_range": [0.36, 0.84],
+    "train_episodes_used": false,
+    "hidden_test_used": false
+  },
+  "implementation": {
+    "script": "scripts/diagnose_smolvla_zen_module_gradients.py",
+    "script_sha256": "f6a7a182a65f458bf460a0a242ba6a4e92e7d2ce0753fc3be74232b284a1c742",
+    "runner": "scripts/run_zen_module_gradients.sh",
+    "runner_sha256": "2bef6e46dc4d43e441ebc60be5e9205702fdd4206910f4e47d9cc73e3627d4a8",
+    "orchestration_suffix": "004"
+  },
+  "expected_evidence": [
+    "runs/<experiment_id>/diagnostics/zen-module-gradients-firstaction-<hash>.json (frame_offset 250)",
+    "runs/<experiment_id>/diagnostics/zen-module-gradients-uniform-<hash>.json (frame_offset 250)",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-004.log",
+    "runs/<experiment_id>/orchestration/zen-module-gradients-004.status",
+    "reports/training/m2-smolvla-zen-module-gradient-diagnostic-2026-08-28.md (combined completion report)"
+  ],
+  "not_conclusions": [
+    "non_gating_no_arm_ranking_no_visual_conditioning_authorization",
+    "mid_trajectory_probe_point_not_full_training_distribution",
+    "frame0_image_insensitivity_result_of_registration_001_remains_valid_for_what_it_measures"
+  ]
+}

@@ -256,7 +256,7 @@ def _main(args: argparse.Namespace) -> int:
     zen_plan = yaml.safe_load(ZEN_FIRSTACTION_PLAN.read_text(encoding="utf-8"))
     validation = zen_plan["validation"]
     episodes = [int(value) for value in validation["episodes"]]
-    offsets = [int(value) for value in validation["frame_offsets"]]
+    offsets = [args.frame_offset] * len(episodes)
     hidden = {31, 6, 1, 24, 5}
     train_episodes = set(int(value) for value in zen_plan["training"]["episodes"])
     if (
@@ -347,9 +347,43 @@ def _main(args: argparse.Namespace) -> int:
     freeze_verification = _verify_requires_grad(policy)
 
     indices = evaluator._validation_indices(dataset, episodes, offsets)
-    if len(indices) != int(validation["total_samples"]):
-        raise ValueError("Sample count differs from the registered validation protocol.")
+    if len(indices) != len(episodes):
+        raise ValueError("Sample count differs from the selected offsets protocol.")
     samples = [_clone_tree(dataset[relative]) for _, _, relative in indices]
+    camera_keys = [str(value) for value in dataset.meta.camera_keys]
+    if not camera_keys:
+        raise ValueError("Gradient diagnostic dataset has no camera features.")
+
+    def pairwise_max(stack: torch.Tensor) -> float:
+        difference = 0.0
+        for i in range(stack.shape[0]):
+            for j in range(i + 1, stack.shape[0]):
+                difference = max(
+                    difference, float((stack[i] - stack[j]).abs().max())
+                )
+        return difference
+
+    state_stack = torch.stack(
+        [torch.as_tensor(sample["observation.state"]).reshape(-1) for sample in samples]
+    ).to(torch.float64)
+    pairwise_state_difference = pairwise_max(state_stack)
+    image_stack = torch.stack(
+        [
+            torch.as_tensor(sample[key], dtype=torch.float64).reshape(-1)
+            for sample in samples
+            for key in camera_keys
+        ]
+    )
+    pairwise_image_difference = pairwise_max(image_stack)
+    if args.frame_offset == 0 and pairwise_state_difference > 0.0:
+        raise ValueError("Frame-zero samples unexpectedly differ in state.")
+    if args.frame_offset > 0 and pairwise_state_difference <= 0.0:
+        raise ValueError(
+            "Degenerate state_shuffle: selected samples share identical states; "
+            "the protocol cannot probe state sensitivity."
+        )
+    if pairwise_image_difference <= 0.0:
+        raise ValueError("Degenerate image conditions: samples share identical images.")
     episode_tensor = torch.tensor(
         [episode for episode, _, _ in indices], dtype=torch.int64
     )
@@ -357,9 +391,6 @@ def _main(args: argparse.Namespace) -> int:
     shuffle = cross_episode_shuffle_indices(
         episode_tensor, frame_indices=frame_tensor, seed=args.shuffle_seed
     )
-    camera_keys = [str(value) for value in dataset.meta.camera_keys]
-    if not camera_keys:
-        raise ValueError("Gradient diagnostic dataset has no camera features.")
 
     autocast_dtype = evaluator._autocast_dtype("bf16")
     policy.eval()
@@ -447,10 +478,12 @@ def _main(args: argparse.Namespace) -> int:
             for group, alternatives in GRADIENT_GROUPS
         },
         "protocol": {
-            "samples": "registered validation episodes / frame offsets",
+            "samples": "registered validation episodes at the selected frame offset",
             "episodes": episodes,
-            "frame_offsets": offsets,
+            "frame_offset": args.frame_offset,
             "sample_count": len(samples),
+            "pairwise_sample_state_max_difference": pairwise_state_difference,
+            "pairwise_sample_image_max_difference": pairwise_image_difference,
             "conditions": list(CONDITIONS),
             "shuffle_seed": args.shuffle_seed,
             "shuffle_policy": "cross_episode_same_frame_offset_derangement",
@@ -477,6 +510,7 @@ def _main(args: argparse.Namespace) -> int:
         "artifact": report["artifact_manifest_sha256"],
         "shuffle_seed": args.shuffle_seed,
         "flow_time": args.flow_time,
+        "frame_offset": args.frame_offset,
         "script": report["diagnostic_script_sha256"],
     }
     short = args.artifact_id.split("-")[3]
@@ -500,9 +534,21 @@ def main() -> int:
     )
     parser.add_argument("--shuffle-seed", type=int, default=SHUFFLE_SEED)
     parser.add_argument("--flow-time", type=float, default=FLOW_TIME)
+    parser.add_argument(
+        "--frame-offset",
+        type=int,
+        default=0,
+        help=(
+            "validation-episode frame offset for all samples; 0 reproduces the "
+            "registered selection protocol (identical home-pose states, state "
+            "shuffle is a no-op), >0 selects mid-trajectory frames"
+        ),
+    )
     args = parser.parse_args()
     if args.shuffle_seed < 0 or not 0.0 < args.flow_time < 1.0:
         raise ValueError("Shuffle seed must be non-negative and flow time in (0, 1).")
+    if args.frame_offset < 0:
+        raise ValueError("Frame offset must be non-negative.")
     return _main(args)
 
 
