@@ -1498,6 +1498,11 @@ The authorized coverage-40 unattended execution is coordinated by
 shared deadline, prerequisite order, no retry and requested shutdown. See
 `reports/training/m2-smolvla-coverage40-unattended-2026-09-10.md` for the registration.
 Execution and metrics remain unmeasured until its durable reports exist; M2 is incomplete.
+The first dispatch stopped before the batch-1 forward because JSON scientific-notation
+optimizer values were parsed as strings by the YAML plan reader. The failure and
+required plan-loader regression are recorded in
+`reports/training/m2-smolvla-coverage40-execution-failure-2026-09-10.md`.
+No candidate optimization or new visual evaluation ran; automatic retries remain disabled.
 
 Update this document in the same change whenever any of the following changes:
 
