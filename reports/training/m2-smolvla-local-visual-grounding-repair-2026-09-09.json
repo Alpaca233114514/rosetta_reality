@@ -1,0 +1,1744 @@
+{
+  "schema_version": 1,
+  "stage": "local_visual_grounding_repair_and_inference_reuse",
+  "date": "2026-09-09",
+  "branch": "codex/smolvla-visual-conditioning-repair-20260909",
+  "outcome": "local_guard_repairs_and_cached_diagnostic_verified_learned_grounding_unresolved",
+  "container_image_id": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "episodes": [
+    49,
+    4,
+    23,
+    43,
+    21
+  ],
+  "frame_offsets": [
+    0,
+    100,
+    250,
+    450
+  ],
+  "noise_seeds": [
+    null,
+    20260905,
+    20260906,
+    20260907
+  ],
+  "artifacts": {
+    "zen": {
+      "artifact_id": "m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001",
+      "artifact_manifest_sha256": "ecc73b9e26f43b6dc85981e61e2ed3aaa651b208b1cd72ad26f93877599694ec",
+      "dataset_revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "dataset_manifest_sha256": "f3c03f7f60db66496d10e12f081c2bd9949a2f9f771148c7f159263dcea98140",
+      "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+      "forward_calls": 160,
+      "elapsed_seconds": 213.60469773199998,
+      "ingress": {
+        "prepared_image_shapes": [
+          [
+            1,
+            3,
+            512,
+            512
+          ],
+          [
+            1,
+            3,
+            512,
+            512
+          ],
+          [
+            1,
+            3,
+            512,
+            512
+          ]
+        ],
+        "camera_masks": [
+          true,
+          false,
+          false
+        ]
+      },
+      "results": [
+        {
+          "frame_offset": 0,
+          "noise_seed": null,
+          "correct_image_mae": 0.013986648176796734,
+          "mismatched_image_mae": 0.014336684382786707,
+          "paired_mae_gain": 0.0003500362059899739,
+          "per_episode_mae_gain": [
+            -0.003908043893586312,
+            0.0014352543346051658,
+            0.0035359428397246768,
+            -0.0044289933783667424,
+            0.0051160211275730815
+          ],
+          "image_output_shift": 0.00902433790532606,
+          "state_persistence_mae": 0.02103870068011539,
+          "state_shuffle_degenerate": true,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.014260253050209334,
+              "mismatched_mae": 0.014676175068598241,
+              "paired_mae_gain": 0.0004159220183889071
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.01234501893632114,
+              "mismatched_mae": 0.012299740267917515,
+              "paired_mae_gain": -4.527866840362549E-05
+            }
+          }
+        },
+        {
+          "frame_offset": 0,
+          "noise_seed": 20260905,
+          "correct_image_mae": 0.027676956738079232,
+          "mismatched_image_mae": 0.027804215142636427,
+          "paired_mae_gain": 0.00012725840455719403,
+          "per_episode_mae_gain": [
+            -0.005241423645722014,
+            0.004562802213643279,
+            0.001116179595036166,
+            -0.0018155787672315324,
+            0.0020143126270600726
+          ],
+          "image_output_shift": 0.008743075600692204,
+          "state_persistence_mae": 0.02103870068011539,
+          "state_shuffle_degenerate": true,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.029837899596896023,
+              "mismatched_mae": 0.0299695522718442,
+              "paired_mae_gain": 0.00013165267494817575
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.014711299585178495,
+              "mismatched_mae": 0.014812192367389797,
+              "paired_mae_gain": 0.00010089278221130371
+            }
+          }
+        },
+        {
+          "frame_offset": 0,
+          "noise_seed": 20260906,
+          "correct_image_mae": 0.026406872013051596,
+          "mismatched_image_mae": 0.0272311662456819,
+          "paired_mae_gain": 0.000824294232630304,
+          "per_episode_mae_gain": [
+            0.0030617217998951674,
+            -0.0017325457717691148,
+            -0.00031069358478167227,
+            0.0032328658936811344,
+            -0.00012987717387399504
+          ],
+          "image_output_shift": 0.009449172498924392,
+          "state_persistence_mae": 0.02103870068011539,
+          "state_shuffle_degenerate": true,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.02866344569871823,
+              "mismatched_mae": 0.029374548847166202,
+              "paired_mae_gain": 0.0007111031484479705
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.012867429899051786,
+              "mismatched_mae": 0.01437087063677609,
+              "paired_mae_gain": 0.0015034407377243042
+            }
+          }
+        },
+        {
+          "frame_offset": 0,
+          "noise_seed": 20260907,
+          "correct_image_mae": 0.050136173087438306,
+          "mismatched_image_mae": 0.04999346256123057,
+          "paired_mae_gain": -0.00014271052620772805,
+          "per_episode_mae_gain": [
+            -0.0097284701852394,
+            0.003491997968272439,
+            0.0027495083465640035,
+            -0.0030721428338438272,
+            0.005845554073208145
+          ],
+          "image_output_shift": 0.008194215835205146,
+          "state_persistence_mae": 0.02103870068011539,
+          "state_shuffle_degenerate": true,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.056750530862094216,
+              "mismatched_mae": 0.05659305343093971,
+              "paired_mae_gain": -0.00015747743115449944
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.010450026439502835,
+              "mismatched_mae": 0.010395917342975736,
+              "paired_mae_gain": -5.410909652709961E-05
+            }
+          }
+        },
+        {
+          "frame_offset": 100,
+          "noise_seed": null,
+          "correct_image_mae": 0.03921271229961089,
+          "mismatched_image_mae": 0.044728814996778964,
+          "paired_mae_gain": 0.005516102697168078,
+          "per_episode_mae_gain": [
+            0.00982486137322017,
+            0.005171691732747214,
+            0.017885876952537468,
+            -0.00330124276557139,
+            -0.0020006738070930752
+          ],
+          "image_output_shift": 0.022281251528433393,
+          "state_persistence_mae": 0.006777110767351198,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.03480398167545597,
+              "mismatched_mae": 0.041829820815473796,
+              "paired_mae_gain": 0.007025839140017827
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.0656650960445404,
+              "mismatched_mae": 0.06212278008460999,
+              "paired_mae_gain": -0.0035423159599304197
+            }
+          }
+        },
+        {
+          "frame_offset": 100,
+          "noise_seed": 20260905,
+          "correct_image_mae": 0.05842119348900659,
+          "mismatched_image_mae": 0.06113843265920878,
+          "paired_mae_gain": 0.002717239170202187,
+          "per_episode_mae_gain": [
+            0.012233175736452852,
+            0.003392732036965234,
+            0.003328094258904457,
+            0.0001162226711000715,
+            -0.005484028852411679
+          ],
+          "image_output_shift": 0.02201262933335134,
+          "state_persistence_mae": 0.006777110767351198,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.04664182389775912,
+              "mismatched_mae": 0.05020666106914481,
+              "paired_mae_gain": 0.0035648371713856855
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.1290974110364914,
+              "mismatched_mae": 0.1267290621995926,
+              "paired_mae_gain": -0.002368348836898804
+            }
+          }
+        },
+        {
+          "frame_offset": 100,
+          "noise_seed": 20260906,
+          "correct_image_mae": 0.07475776132196188,
+          "mismatched_image_mae": 0.07788886388630739,
+          "paired_mae_gain": 0.0031311025643455132,
+          "per_episode_mae_gain": [
+            0.007239168875717691,
+            -0.0026815365999937057,
+            0.008736353633659226,
+            0.0016875225784523146,
+            0.0006740043338920389
+          ],
+          "image_output_shift": 0.02244433952894594,
+          "state_persistence_mae": 0.006777110767351198,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.05795560941721002,
+              "mismatched_mae": 0.061380481262070435,
+              "paired_mae_gain": 0.0034248718448604146
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.17557067275047303,
+              "mismatched_mae": 0.17693915963172913,
+              "paired_mae_gain": 0.0013684868812561036
+            }
+          }
+        },
+        {
+          "frame_offset": 100,
+          "noise_seed": 20260907,
+          "correct_image_mae": 0.08657463481649756,
+          "mismatched_image_mae": 0.08624102546434317,
+          "paired_mae_gain": -0.00033360935215439116,
+          "per_episode_mae_gain": [
+            -0.011563784841980253,
+            0.003865847097975867,
+            0.013296407381338733,
+            -0.013863797964794295,
+            0.0065972815666879925
+          ],
+          "image_output_shift": 0.021438276847558363,
+          "state_persistence_mae": 0.006777110767351198,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.08229824542067946,
+              "mismatched_mae": 0.08162468260464568,
+              "paired_mae_gain": -0.0006735628160337607
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.11223297119140625,
+              "mismatched_mae": 0.11393908262252808,
+              "paired_mae_gain": 0.0017061114311218261
+            }
+          }
+        },
+        {
+          "frame_offset": 250,
+          "noise_seed": null,
+          "correct_image_mae": 0.041964424927053705,
+          "mismatched_image_mae": 0.044138785671176656,
+          "paired_mae_gain": 0.002174360744122948,
+          "per_episode_mae_gain": [
+            -0.0007924685653831277,
+            0.020945783305381025,
+            -0.005019486748746463,
+            -0.0015152511852128164,
+            -0.002746773085423878
+          ],
+          "image_output_shift": 0.01647872660042984,
+          "state_persistence_mae": 0.07309809062363846,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.0421800499704356,
+              "mismatched_mae": 0.04178480997215957,
+              "paired_mae_gain": -0.000395239998276035
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.04067067466676235,
+              "mismatched_mae": 0.0582626398652792,
+              "paired_mae_gain": 0.017591965198516846
+            }
+          }
+        },
+        {
+          "frame_offset": 250,
+          "noise_seed": 20260905,
+          "correct_image_mae": 0.05469231009483337,
+          "mismatched_image_mae": 0.056173466365518315,
+          "paired_mae_gain": 0.0014811562706849406,
+          "per_episode_mae_gain": [
+            0.0004817684114511524,
+            0.016468558992658342,
+            -0.0067617978368486676,
+            0.0021334769470351084,
+            -0.004916225160871234
+          ],
+          "image_output_shift": 0.016038679857073086,
+          "state_persistence_mae": 0.07309809062363846,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.055957822439571224,
+              "mismatched_mae": 0.05475432022940367,
+              "paired_mae_gain": -0.0012035022101675472
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.04709923602640629,
+              "mismatched_mae": 0.06468834318220615,
+              "paired_mae_gain": 0.017589107155799866
+            }
+          }
+        },
+        {
+          "frame_offset": 250,
+          "noise_seed": 20260906,
+          "correct_image_mae": 0.05184712918874409,
+          "mismatched_image_mae": 0.050369322546092526,
+          "paired_mae_gain": -0.001477806642651558,
+          "per_episode_mae_gain": [
+            -0.006520647422543594,
+            0.00838230297501598,
+            -0.0037908697766917093,
+            -0.0008636824786663055,
+            -0.004596136510372162
+          ],
+          "image_output_shift": 0.01484609501702445,
+          "state_persistence_mae": 0.07309809062363846,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.052530139599305886,
+              "mismatched_mae": 0.04860040220276763,
+              "paired_mae_gain": -0.003929737396538258
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.04774906672537327,
+              "mismatched_mae": 0.060982844606041905,
+              "paired_mae_gain": 0.01323377788066864
+            }
+          }
+        },
+        {
+          "frame_offset": 250,
+          "noise_seed": 20260907,
+          "correct_image_mae": 0.05980452566540667,
+          "mismatched_image_mae": 0.06011676906075861,
+          "paired_mae_gain": 0.00031224339535193785,
+          "per_episode_mae_gain": [
+            -0.005401140744132655,
+            0.013295270934967058,
+            -0.006110045260616711,
+            0.0006222959075655256,
+            -0.0008451638610235282
+          ],
+          "image_output_shift": 0.014939270960167051,
+          "state_persistence_mae": 0.07309809062363846,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.06233550678007305,
+              "mismatched_mae": 0.06077031487754236,
+              "paired_mae_gain": -0.00156519190253069
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.044618638977408406,
+              "mismatched_mae": 0.05619549416005611,
+              "paired_mae_gain": 0.011576855182647705
+            }
+          }
+        },
+        {
+          "frame_offset": 450,
+          "noise_seed": null,
+          "correct_image_mae": 0.018669358085441803,
+          "mismatched_image_mae": 0.021994603042756872,
+          "paired_mae_gain": 0.0033252449573150703,
+          "per_episode_mae_gain": [
+            0.0026356400921940804,
+            0.007147872354835272,
+            -0.0009606625618679183,
+            0.0012474304863384791,
+            0.006555944415075439
+          ],
+          "image_output_shift": 0.009672434800969703,
+          "state_persistence_mae": 0.05688687764507319,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.02038442384218797,
+              "mismatched_mae": 0.024563116444430003,
+              "paired_mae_gain": 0.004178692602242033
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.00837896354496479,
+              "mismatched_mae": 0.006583522632718086,
+              "paired_mae_gain": -0.001795440912246704
+            }
+          }
+        },
+        {
+          "frame_offset": 450,
+          "noise_seed": 20260905,
+          "correct_image_mae": 0.023403360092613314,
+          "mismatched_image_mae": 0.026014042243228428,
+          "paired_mae_gain": 0.0026106821506151133,
+          "per_episode_mae_gain": [
+            -0.0018644576027457202,
+            0.005139093613252044,
+            -0.0013738596545798437,
+            0.004581519003425326,
+            0.00657111539372376
+          ],
+          "image_output_shift": 0.009596872609108686,
+          "state_persistence_mae": 0.05688687764507319,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.02646437061872954,
+              "mismatched_mae": 0.029372634703759105,
+              "paired_mae_gain": 0.002908264085029562
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.005037296935915947,
+              "mismatched_mae": 0.005862487480044365,
+              "paired_mae_gain": 0.000825190544128418
+            }
+          }
+        },
+        {
+          "frame_offset": 450,
+          "noise_seed": 20260906,
+          "correct_image_mae": 0.033685003250970375,
+          "mismatched_image_mae": 0.035174019335369976,
+          "paired_mae_gain": 0.0014890160843996066,
+          "per_episode_mae_gain": [
+            -0.0019313028980312602,
+            0.006446423873837505,
+            -0.0011621394327708653,
+            0.0016243670667920793,
+            0.0024677318121705738
+          ],
+          "image_output_shift": 0.009987776260823011,
+          "state_persistence_mae": 0.05688687764507319,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.03755708992248401,
+              "mismatched_mae": 0.03944872042629868,
+              "paired_mae_gain": 0.0018916305038146676
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.010452483221888543,
+              "mismatched_mae": 0.009525812789797783,
+              "paired_mae_gain": -0.0009266704320907593
+            }
+          }
+        },
+        {
+          "frame_offset": 450,
+          "noise_seed": 20260907,
+          "correct_image_mae": 0.02581078791658261,
+          "mismatched_image_mae": 0.02935252874490938,
+          "paired_mae_gain": 0.0035417408283267703,
+          "per_episode_mae_gain": [
+            0.0030378240293690135,
+            0.0005084882889475141,
+            0.003629490334008421,
+            0.0038924568465777804,
+            0.0066404446427311215
+          ],
+          "image_output_shift": 0.00977225766650268,
+          "state_persistence_mae": 0.05688687764507319,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.028975479099123427,
+              "mismatched_mae": 0.033114042734572045,
+              "paired_mae_gain": 0.004138563635448614
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.0068226408213377,
+              "mismatched_mae": 0.006783444806933403,
+              "paired_mae_gain": -3.9196014404296876E-05
+            }
+          }
+        }
+      ]
+    },
+    "vcdropout": {
+      "artifact_id": "m2-smolvla450m-vcdropout-cuda-b64-001-step0237-deploy-001",
+      "artifact_manifest_sha256": "abb8497a7424df2ad1c3e03eb364e581d9d0f05e12dfdf3a59d8bb4ed67f80ea",
+      "dataset_revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "dataset_manifest_sha256": "f3c03f7f60db66496d10e12f081c2bd9949a2f9f771148c7f159263dcea98140",
+      "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+      "forward_calls": 160,
+      "elapsed_seconds": 190.58558173999995,
+      "ingress": {
+        "prepared_image_shapes": [
+          [
+            1,
+            3,
+            512,
+            512
+          ],
+          [
+            1,
+            3,
+            512,
+            512
+          ],
+          [
+            1,
+            3,
+            512,
+            512
+          ]
+        ],
+        "camera_masks": [
+          true,
+          false,
+          false
+        ]
+      },
+      "results": [
+        {
+          "frame_offset": 0,
+          "noise_seed": null,
+          "correct_image_mae": 0.022229318350686558,
+          "mismatched_image_mae": 0.023501103474492472,
+          "paired_mae_gain": 0.0012717851238059146,
+          "per_episode_mae_gain": [
+            -0.01254616815796388,
+            0.008774634916335344,
+            0.0004415743751451373,
+            0.003462603581803186,
+            0.0062262809037097865
+          ],
+          "image_output_shift": 0.011544394266924688,
+          "state_persistence_mae": 0.02103870068011539,
+          "state_shuffle_degenerate": true,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.019073022184117387,
+              "mismatched_mae": 0.020529009638509402,
+              "paired_mae_gain": 0.001455987454392016
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.04116709535010159,
+              "mismatched_mae": 0.0413336664903909,
+              "paired_mae_gain": 0.00016657114028930664
+            }
+          }
+        },
+        {
+          "frame_offset": 0,
+          "noise_seed": 20260905,
+          "correct_image_mae": 0.044695272506214676,
+          "mismatched_image_mae": 0.045137061182010385,
+          "paired_mae_gain": 0.0004417886757957084,
+          "per_episode_mae_gain": [
+            -0.007986580171356243,
+            0.007717336328434092,
+            -0.002467090164178184,
+            0.004516525959063854,
+            0.00042875142701502355
+          ],
+          "image_output_shift": 0.012141614686697721,
+          "state_persistence_mae": 0.02103870068011539,
+          "state_shuffle_degenerate": true,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.047415183348736414,
+              "mismatched_mae": 0.04798807824263349,
+              "paired_mae_gain": 0.0005728948938970765
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.028375807451084256,
+              "mismatched_mae": 0.028030958818271758,
+              "paired_mae_gain": -0.0003448486328125
+            }
+          }
+        },
+        {
+          "frame_offset": 0,
+          "noise_seed": 20260906,
+          "correct_image_mae": 0.04181818211717265,
+          "mismatched_image_mae": 0.04223756958797042,
+          "paired_mae_gain": 0.0004193874707977687,
+          "per_episode_mae_gain": [
+            0.0020469866160835537,
+            0.0004893703652279717,
+            0.000600844605027565,
+            0.0015885556183223213,
+            -0.0026288198506725685
+          ],
+          "image_output_shift": 0.012582150460886104,
+          "state_persistence_mae": 0.02103870068011539,
+          "state_shuffle_degenerate": true,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.0447021049214527,
+              "mismatched_mae": 0.045191390304050096,
+              "paired_mae_gain": 0.0004892853825973968
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.024514645291492342,
+              "mismatched_mae": 0.024514645291492342,
+              "paired_mae_gain": 0.0
+            }
+          }
+        },
+        {
+          "frame_offset": 0,
+          "noise_seed": 20260907,
+          "correct_image_mae": 0.08237928088887461,
+          "mismatched_image_mae": 0.08234753630656216,
+          "paired_mae_gain": -3.1744582312447684E-05,
+          "per_episode_mae_gain": [
+            -0.02240469685888716,
+            0.008271635110889162,
+            0.004177620967051813,
+            0.0029440721097801414,
+            0.006852645759603807
+          ],
+          "image_output_shift": 0.012063786600317273,
+          "state_persistence_mae": 0.02103870068011539,
+          "state_shuffle_degenerate": true,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.0908357006808122,
+              "mismatched_mae": 0.0908357006808122,
+              "paired_mae_gain": 0.0
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.03164076213724911,
+              "mismatched_mae": 0.03141855006106198,
+              "paired_mae_gain": -0.00022221207618713378
+            }
+          }
+        },
+        {
+          "frame_offset": 100,
+          "noise_seed": null,
+          "correct_image_mae": 0.049850628179098876,
+          "mismatched_image_mae": 0.0754270302065249,
+          "paired_mae_gain": 0.02557640202742602,
+          "per_episode_mae_gain": [
+            0.04008054596904133,
+            0.015462586390120643,
+            0.0780060945877007,
+            0.0026329284799950464,
+            -0.00830014528972762
+          ],
+          "image_output_shift": 0.05348264930902847,
+          "state_persistence_mae": 0.006777110767351198,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.03969207601621747,
+              "mismatched_mae": 0.07128561582261075,
+              "paired_mae_gain": 0.03159353980639328
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.11080194115638733,
+              "mismatched_mae": 0.10027551651000977,
+              "paired_mae_gain": -0.010526424646377564
+            }
+          }
+        },
+        {
+          "frame_offset": 100,
+          "noise_seed": 20260905,
+          "correct_image_mae": 0.07741540899234159,
+          "mismatched_image_mae": 0.10269667034569596,
+          "paired_mae_gain": 0.02528126135335437,
+          "per_episode_mae_gain": [
+            0.04691298568754324,
+            0.022113453596830368,
+            0.0650890888646245,
+            0.0015591712934630258,
+            -0.009268392675689288
+          ],
+          "image_output_shift": 0.055683558720297045,
+          "state_persistence_mae": 0.006777110767351198,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.05682065108170112,
+              "mismatched_mae": 0.0832797477254644,
+              "paired_mae_gain": 0.026459096643763284
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.2009839564561844,
+              "mismatched_mae": 0.21919820606708526,
+              "paired_mae_gain": 0.01821424961090088
+            }
+          }
+        },
+        {
+          "frame_offset": 100,
+          "noise_seed": 20260906,
+          "correct_image_mae": 0.0938294428001557,
+          "mismatched_image_mae": 0.12068092595519764,
+          "paired_mae_gain": 0.026851483155041933,
+          "per_episode_mae_gain": [
+            0.03968188406101295,
+            0.01628338119813374,
+            0.07031462102064065,
+            0.006831480855388301,
+            0.0011460486400340284
+          ],
+          "image_output_shift": 0.05459590087245617,
+          "state_persistence_mae": 0.006777110767351198,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.06645395361507932,
+              "mismatched_mae": 0.09493271542402605,
+              "paired_mae_gain": 0.028478761808946727
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.258082377910614,
+              "mismatched_mae": 0.2751701891422272,
+              "paired_mae_gain": 0.01708781123161316
+            }
+          }
+        },
+        {
+          "frame_offset": 100,
+          "noise_seed": 20260907,
+          "correct_image_mae": 0.10622600547171064,
+          "mismatched_image_mae": 0.11851489444130234,
+          "paired_mae_gain": 0.012288888969591686,
+          "per_episode_mae_gain": [
+            -0.010216089763811656,
+            -0.0011100955307483673,
+            0.07626741964902196,
+            -0.002775925610746656,
+            -0.0007208638957568578
+          ],
+          "image_output_shift": 0.047543298453092575,
+          "state_persistence_mae": 0.006777110767351198,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.09596932004205883,
+              "mismatched_mae": 0.10771751585416496,
+              "paired_mae_gain": 0.011748195812106132
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.16776611804962158,
+              "mismatched_mae": 0.1832991659641266,
+              "paired_mae_gain": 0.015533047914505004
+            }
+          }
+        },
+        {
+          "frame_offset": 250,
+          "noise_seed": null,
+          "correct_image_mae": 0.05219894130714238,
+          "mismatched_image_mae": 0.06606685179285705,
+          "paired_mae_gain": 0.013867910485714674,
+          "per_episode_mae_gain": [
+            0.02417597154687558,
+            0.0432232136705092,
+            -0.005710295002375331,
+            0.01449852277125631,
+            -0.006847860557692391
+          ],
+          "image_output_shift": 0.04387668133048075,
+          "state_persistence_mae": 0.07309809062363846,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.05274322826880962,
+              "mismatched_mae": 0.06145631081890315,
+              "paired_mae_gain": 0.008713082550093532
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.04893321953713894,
+              "mismatched_mae": 0.09373009763658047,
+              "paired_mae_gain": 0.04479687809944153
+            }
+          }
+        },
+        {
+          "frame_offset": 250,
+          "noise_seed": 20260905,
+          "correct_image_mae": 0.07633328004740178,
+          "mismatched_image_mae": 0.08302551597090704,
+          "paired_mae_gain": 0.006692235923505255,
+          "per_episode_mae_gain": [
+            0.03217152283260865,
+            0.032724744108106406,
+            -0.014483653541122164,
+            -0.0005948788353375026,
+            -0.016356554946729114
+          ],
+          "image_output_shift": 0.042773475078865884,
+          "state_persistence_mae": 0.07309809062363846,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.08076077486233164,
+              "mismatched_mae": 0.08378516732094189,
+              "paired_mae_gain": 0.0030243924586102365
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.04976831115782261,
+              "mismatched_mae": 0.07846760787069798,
+              "paired_mae_gain": 0.028699296712875366
+            }
+          }
+        },
+        {
+          "frame_offset": 250,
+          "noise_seed": 20260906,
+          "correct_image_mae": 0.06818493086445544,
+          "mismatched_image_mae": 0.07762056233228318,
+          "paired_mae_gain": 0.00943563146782773,
+          "per_episode_mae_gain": [
+            0.02523991864706789,
+            0.020124551440988268,
+            0.005014502975557532,
+            0.011566605685012681,
+            -0.014767421409487724
+          ],
+          "image_output_shift": 0.039484172500669955,
+          "state_persistence_mae": 0.07309809062363846,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.07008983080741019,
+              "mismatched_mae": 0.07833437895557532,
+              "paired_mae_gain": 0.008244548148165146
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.05675553120672703,
+              "mismatched_mae": 0.07333766259253024,
+              "paired_mae_gain": 0.016582131385803223
+            }
+          }
+        },
+        {
+          "frame_offset": 250,
+          "noise_seed": 20260907,
+          "correct_image_mae": 0.0736150849477521,
+          "mismatched_image_mae": 0.0861120610697461,
+          "paired_mae_gain": 0.012496976121994002,
+          "per_episode_mae_gain": [
+            -0.009688865060784988,
+            0.04071144204187606,
+            0.0058114460802504,
+            0.010673411190509796,
+            0.014977446358118738
+          ],
+          "image_output_shift": 0.039922841964289545,
+          "state_persistence_mae": 0.07309809062363846,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.07807863526977599,
+              "mismatched_mae": 0.08631511216517537,
+              "paired_mae_gain": 0.008236476895399391
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.04683378301560879,
+              "mismatched_mae": 0.08489375449717045,
+              "paired_mae_gain": 0.038059971481561664
+            }
+          }
+        },
+        {
+          "frame_offset": 450,
+          "noise_seed": null,
+          "correct_image_mae": 0.03232628755670573,
+          "mismatched_image_mae": 0.04046620527016265,
+          "paired_mae_gain": 0.00813991771345692,
+          "per_episode_mae_gain": [
+            0.009719843078138573,
+            0.012779275288007088,
+            -0.000601983695690121,
+            0.005590285573686872,
+            0.013212168323142188
+          ],
+          "image_output_shift": 0.016474804395277584,
+          "state_persistence_mae": 0.05688687764507319,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.035925403540022674,
+              "mismatched_mae": 0.04514380789672335,
+              "paired_mae_gain": 0.009218404356700679
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.010731591656804085,
+              "mismatched_mae": 0.012400589510798454,
+              "paired_mae_gain": 0.0016689978539943696
+            }
+          }
+        },
+        {
+          "frame_offset": 450,
+          "noise_seed": 20260905,
+          "correct_image_mae": 0.03935834488033184,
+          "mismatched_image_mae": 0.04562418194753783,
+          "paired_mae_gain": 0.0062658370672059914,
+          "per_episode_mae_gain": [
+            0.00518939274895404,
+            0.012980278714426927,
+            -0.004025112970599106,
+            0.003907329269817897,
+            0.013277297573430198
+          ],
+          "image_output_shift": 0.01719173725827464,
+          "state_persistence_mae": 0.05688687764507319,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.044695261671828725,
+              "mismatched_mae": 0.05186633883665005,
+              "paired_mae_gain": 0.007171077164821326
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.007336844131350518,
+              "mismatched_mae": 0.008171240612864495,
+              "paired_mae_gain": 0.0008343964815139771
+            }
+          }
+        },
+        {
+          "frame_offset": 450,
+          "noise_seed": 20260906,
+          "correct_image_mae": 0.052659980819693634,
+          "mismatched_image_mae": 0.057898056666765896,
+          "paired_mae_gain": 0.0052380758470722604,
+          "per_episode_mae_gain": [
+            -0.00243050857846226,
+            0.012370718709592308,
+            -0.001173864584416151,
+            0.006544075374092374,
+            0.010879958314555032
+          ],
+          "image_output_shift": 0.01772833801805973,
+          "state_persistence_mae": 0.05688687764507319,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.059807580119619765,
+              "mismatched_mae": 0.06584028402964275,
+              "paired_mae_gain": 0.006032703910022974
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.009774385020136833,
+              "mismatched_mae": 0.010244692489504815,
+              "paired_mae_gain": 0.00047030746936798095
+            }
+          }
+        },
+        {
+          "frame_offset": 450,
+          "noise_seed": 20260907,
+          "correct_image_mae": 0.035161495385026297,
+          "mismatched_image_mae": 0.04228163272408503,
+          "paired_mae_gain": 0.007120137339058731,
+          "per_episode_mae_gain": [
+            0.012242164047035788,
+            0.00041662881683026044,
+            0.004412208351173571,
+            0.0062167830765247345,
+            0.012312902403729302
+          ],
+          "image_output_shift": 0.016684267540196224,
+          "state_persistence_mae": 0.05688687764507319,
+          "state_shuffle_degenerate": false,
+          "by_unit": {
+            "radian": {
+              "dimensions": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "correct_mae": 0.03987563055707142,
+              "mismatched_mae": 0.04813729501329363,
+              "paired_mae_gain": 0.008261664456222206
+            },
+            "normalized": {
+              "dimensions": [
+                6,
+                13
+              ],
+              "correct_mae": 0.006876684352755546,
+              "mismatched_mae": 0.007147658988833428,
+              "paired_mae_gain": 0.00027097463607788085
+            }
+          }
+        }
+      ]
+    }
+  },
+  "cross_artifact_descriptive_comparison": {
+    "vcdropout_higher_correct_image_gripper_mae": 15,
+    "vcdropout_more_image_sensitive": 16,
+    "vcdropout_higher_correct_image_joint_mae": 16,
+    "causal_claim": false,
+    "groups": 16
+  },
+  "acceleration": {
+    "schema_version": 1,
+    "stage": "frozen_visual_cache_parity",
+    "status": "passed",
+    "exact_action_equality": true,
+    "compared_output": "executed first action, all 14 dimensions, every paired forward",
+    "maximum_absolute_action_difference": 0.0,
+    "reference_report_sha256": "f3fba367d9ab2950f437f485875bb53696a46ec8f10e1b2d286f6568c57bdae7",
+    "cached_report_sha256": "f84cb1b500c3d68cfb0fd1e72392cfc6957971e9e72e571eb0e7a3c4cf0bfc44",
+    "reference_seconds": 213.60469773199998,
+    "cached_seconds": 153.59829948699985,
+    "speedup": 1.3906709803781319,
+    "cache": [
+      {
+        "hits": 459,
+        "encoder_calls": 21,
+        "max_cache_bytes": 67108864,
+        "peak_cache_bytes": 2580480
+      }
+    ],
+    "implementation_sha256": {
+      "scripts/diagnose_visual_grounding_cached.py": "486ba00cfcd0a451af4868847072b56add55489a93f33b15c1abb107263cd3e8",
+      "src/rosetta_reality/vla/inference_image_cache.py": "3c94590c36b637cda0531a307c20996022ad957ea8c99fbdd54f6b27f96a8309"
+    },
+    "limitation": "One sequential timing comparison includes model loading and host variation; no training/Gate claim. Equality covers recorded first actions, not entire chunks."
+  },
+  "scope_guard_reproduction": {
+    "synthetic_only": true,
+    "results": [
+      {
+        "implementation": "before",
+        "trainable_lm_head": {
+          "rejected": false,
+          "reported_language_frozen": true,
+          "flags_unchanged": false
+        },
+        "shared_visual_weight": {
+          "rejected": true,
+          "error": "Scope parameter is aliased outside the scope: vlm_with_expert.vlm.model.text_model.weight",
+          "flags_unchanged": false
+        }
+      },
+      {
+        "implementation": "after",
+        "trainable_lm_head": {
+          "rejected": true,
+          "error": "Non-visual VLM parameter must stay frozen: vlm_with_expert.vlm.lm_head.weight",
+          "flags_unchanged": true
+        },
+        "shared_visual_weight": {
+          "rejected": true,
+          "error": "Scope parameter is aliased outside the scope: vlm_with_expert.vlm.model.text_model.weight",
+          "flags_unchanged": true
+        }
+      }
+    ]
+  },
+  "verification": {
+    "real_cache_seconds": 11.61,
+    "staged_patch_unchanged": true,
+    "python_files_checked": 9,
+    "synthetic_seconds": 14.02,
+    "synthetic_tests_passed": 68,
+    "real_cache_tests_passed": 1,
+    "ruff_check": "passed",
+    "total_forward_calls": 480,
+    "ruff_format_check": "passed",
+    "cache_checksum_files": 9,
+    "cache_checksum_bytes": 91364026
+  },
+  "retained_incidents": [
+    "Docker stale runtime socket directories preserved reversibly before restart",
+    "TorchCodec shared-library loading failed; existing upstream PyAV fallback used successfully",
+    "Independent scope reproduction initially failed source import; entrypoint fixed, failure log retained"
+  ],
+  "latest_candidate": {
+    "artifact_id": "m2-smolvla450m-vfunfreeze-cuda-b32-003-step0632-deploy-001",
+    "historical_closure": "reports/training/m2-smolvla-vfunfreeze-gate34-closure-2026-09-06.json",
+    "next_prerequisite": "existing local export or authorized SSH verification and retrieval",
+    "remote_status_checked": false,
+    "local_weights_present": false,
+    "temporal_grounding": "not measured"
+  },
+  "historical_gate_protocol_changed": false,
+  "gate4_run": false,
+  "training_run": false,
+  "optimizer_created": false,
+  "hidden_test_loaded": false,
+  "validation_loaded": false,
+  "ssh_used": false,
+  "downloads": false,
+  "commit_created": false,
+  "push_performed": false,
+  "learned_policy_improvement": "not measured",
+  "m2_complete": false,
+  "limitations": [
+    "Five train episodes only; no generalization or task-success claim",
+    "Cross-episode images may conflict with destination pose after reset",
+    "Mixed-unit aggregate MAE is a proxy; physical unit metrics retained separately",
+    "Single sequential timing comparison includes model loading and host variation",
+    "Exact output comparison covers first actions only; all chunks checked finite",
+    "Latest vfunfreeze export unavailable locally"
+  ],
+  "evidence_sha256": {
+    "reports/training/m2-smolvla-local-visual-grounding-preregistration-2026-09-09.json": "cc575fc0a35b2643ecf046070b780e4b5d9b345af36151536c11d443d350d46c",
+    "reports/training/m2-smolvla-local-image-cache-preregistration-2026-09-09.json": "0c27872c01901f010317d47aee33bd132c640962edee823e2cc4f609242d2554",
+    "scripts/diagnose_visual_grounding.py": "c7a9fc1353c965081d6f31382d345c93a216cba5de7eb588c2158848edac7943",
+    "scripts/diagnose_visual_grounding_cached.py": "486ba00cfcd0a451af4868847072b56add55489a93f33b15c1abb107263cd3e8",
+    "src/rosetta_reality/vla/visual_grounding.py": "9e079751d93cad33fc87ae34c2d2f2c32789468cb131a8b7383d90b2abca80af",
+    "src/rosetta_reality/vla/inference_image_cache.py": "3c94590c36b637cda0531a307c20996022ad957ea8c99fbdd54f6b27f96a8309",
+    "src/rosetta_reality/vla/vision_front_end.py": "26d97202c8e56734a23dc653776924001540e742f813670c7762767c4876a801",
+    "tests/test_smolvla_vision_front_end.py": "20ff6054c249c064b67667c4de5a6d375e08f078f568b2246c1b94e562fe7362",
+    "tests/test_smolvla_visual_grounding.py": "c8df3122a1a6c99d2d75c309db5c5da3ac469bb32fbbdb1142444e383a321b74",
+    "tests/test_smolvla_visual_grounding_data.py": "827fc9e9a742b5b573949ce4052c3ae08ba5a2a00d6e9a03399cdbbd7117434e",
+    "tests/test_smolvla_inference_image_cache.py": "182156828f21e3b13645976663720e5e0daf5e99a524d924a0054c736e804979",
+    "runs/smolvla-visual-repair-20260909-001/zen-temporal-grounding-001.json": "f3fba367d9ab2950f437f485875bb53696a46ec8f10e1b2d286f6568c57bdae7",
+    "runs/smolvla-visual-repair-20260909-001/vcdropout-temporal-grounding-001.json": "3f8579c3bac36cfe7d0c0c44ae1812fa1d78693697af996a1aa23f3689ec72d1",
+    "runs/smolvla-visual-repair-20260909-001/zen-temporal-grounding-cached-001.json": "f84cb1b500c3d68cfb0fd1e72392cfc6957971e9e72e571eb0e7a3c4cf0bfc44",
+    "runs/smolvla-visual-repair-20260909-001/image-cache-parity-001.json": "621391b9b9c8b201c9fc6ef158167aa3948c62ca72741054a20538d8b3b0f053",
+    "runs/smolvla-visual-repair-20260909-001/scope-guard-before-after.json": "9bd9c21516e695a7c20e21de0ba2cb46347dfec7e6a91e8fe9af5cb29f8c943f",
+    "runs/smolvla-visual-repair-20260909-001/verification.log": "ba3d8e7cf08d89585971a9755cebbe8fd33d1052f7ae38f4ac6b27548baf7829",
+    "runs/smolvla-visual-repair-20260909-001/verification-acceleration-001.log": "445e8fdbc1d9ff2e18155680aee438d382b16ca38b8a0110cda1256b0a34796e",
+    "runs/smolvla-visual-repair-20260909-001/verification-reproduction-001.log": "37c5d943801d1c6e6addc5d3330ceea707672fe662976ac9c31682e0fdc0c29c",
+    "runs/smolvla-visual-repair-20260909-001/grounding-attempt-001.log": "3c43609f948adade563d28a84a19777c181a4a7e8431de1b3be55890390714bf",
+    "runs/smolvla-visual-repair-20260909-001/cache-parity-attempt-001.log": "b3ce2d37c6bcffb35063b8e68a2de1735e0831dc25b946e973abf1fa69310c65",
+    "runs/smolvla-visual-repair-20260909-001/before/vision_front_end.py": "0ce44efe4cf02d537e1b225daed3b039c604c6c85a66f8993bfb749f56e1797b",
+    "runs/smolvla-visual-repair-20260909-001/reproduce_scope_guards.py": "f22c64593c9d88c6e2e3139cd4be5ab34eb9513d4844307f7275d247482119e8"
+  }
+}

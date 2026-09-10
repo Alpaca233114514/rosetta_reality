@@ -129,6 +129,40 @@ def test_optimizer_fragment_matches_the_frozen_faust_launcher() -> None:
     assert optimizer_arguments(training) == _optimizer_arguments(training)
 
 
+@pytest.mark.parametrize("mode", ["train", "smoke"])
+def test_ineffective_vision_unfreeze_fails_closed(mode: str) -> None:
+    import copy
+
+    experiment = copy.deepcopy(EXPERIMENT)
+    experiment["model"]["adaptation"]["freeze_vision_encoder"] = False
+    with pytest.raises(ValueError, match="entire VLM"):
+        build_training_arguments(
+            _plan(), experiment, mode=mode, run_name="test",
+            model_root=Path("/model"), dataset_root=Path("/data"),
+            output_dir=Path("/out"), device="cpu",
+        )
+
+
+@pytest.mark.parametrize("location", ["top", "training", "policy", "model"])
+def test_silent_adaptation_override_rejected(location: str) -> None:
+    plan = _plan()
+    if location == "top":
+        target = plan
+    elif location == "policy":
+        target = plan["training"]["policy"]
+    elif location == "model":
+        target = plan.setdefault("model", {})
+    else:
+        target = plan["training"]
+    target["freeze_vision_encoder"] = False
+    with pytest.raises(ValueError, match="parent experiment"):
+        build_training_arguments(
+            plan, EXPERIMENT, mode="train", run_name="test",
+            model_root=Path("/model"), dataset_root=Path("/data"),
+            output_dir=Path("/out"), device="cpu",
+        )
+
+
 def test_build_training_arguments_pins_the_upstream_cli_surface() -> None:
     arguments = build_training_arguments(
         _plan(),

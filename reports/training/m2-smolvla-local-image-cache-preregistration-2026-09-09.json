@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "m2-smolvla-local-image-cache-20260909-001",
+  "status": "preregistered_no_optimizer_acceleration_check",
+  "hypothesis": "Repeated exact RGB encoding can be reused within one frozen eval model without changing recorded first-action predictions.",
+  "authorization": "User authorized a more efficient local chain; this is bounded offline inference only.",
+  "baseline_plan": "reports/training/m2-smolvla-local-visual-grounding-preregistration-2026-09-09.json",
+  "baseline_plan_sha256": "cc575fc0a35b2643ecf046070b780e4b5d9b345af36151536c11d443d350d46c",
+  "reference_report": "runs/smolvla-visual-repair-20260909-001/zen-temporal-grounding-001.json",
+  "reference_report_sha256": "f3fba367d9ab2950f437f485875bb53696a46ec8f10e1b2d286f6568c57bdae7",
+  "artifact_id": "m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001",
+  "artifact_manifest_sha256": "ecc73b9e26f43b6dc85981e61e2ed3aaa651b208b1cd72ad26f93877599694ec",
+  "implementation_files": {
+    "src/rosetta_reality/vla/inference_image_cache.py": "3c94590c36b637cda0531a307c20996022ad957ea8c99fbdd54f6b27f96a8309",
+    "scripts/diagnose_visual_grounding_cached.py": "486ba00cfcd0a451af4868847072b56add55489a93f33b15c1abb107263cd3e8",
+    "tests/test_smolvla_inference_image_cache.py": "182156828f21e3b13645976663720e5e0daf5e99a524d924a0054c736e804979"
+  },
+  "max_cache_bytes": 67108864,
+  "cache_identity": [
+    "exact_prepared_pixels",
+    "shape",
+    "device",
+    "dtype",
+    "autocast",
+    "unchanged_parameter_versions"
+  ],
+  "preserved_semantics": [
+    "original_placeholder_embeddings",
+    "camera_masks",
+    "processor",
+    "model_weights",
+    "diffusion_noise",
+    "action_contract",
+    "registered_sample_order"
+  ],
+  "runtime": {
+    "device": "xpu",
+    "network": "none",
+    "memory_swap": "6g",
+    "memory": "6g",
+    "launcher": "wsl_bash_to_linux_docker",
+    "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+    "cpus": 2
+  },
+  "maximum_forward_calls": 160,
+  "maximum_inference_seconds": 1200,
+  "acceptance": [
+    "all_baseline_identities_equal",
+    "all_160_first_actions_exactly_equal_in_all_14_dimensions",
+    "cache_within_budget",
+    "elapsed_time_and_hit_rate_reported"
+  ],
+  "stop_conditions": [
+    "baseline_source_or_reference_hash_drift",
+    "any_nonfinite_input_or_output",
+    "parameter_version_change",
+    "autograd_or_training_mode",
+    "out_of_memory_no_retry",
+    "budget_exceeded",
+    "prediction_parity_failure"
+  ],
+  "preflight": "68 focused synthetic tests passed; corrected reproduction entrypoint and Ruff checks passed.",
+  "optimizer_created": false,
+  "training_authorized": false,
+  "ssh_authorized": false,
+  "hidden_test_loaded": false,
+  "validation_loaded": false,
+  "output": "runs/smolvla-visual-repair-20260909-001/zen-temporal-grounding-cached-001.json",
+  "cache_report": "runs/smolvla-visual-repair-20260909-001/image-cache-parity-001.json",
+  "timing_limitation": "One sequential pair includes model load and host variation; not a controlled benchmark."
+}

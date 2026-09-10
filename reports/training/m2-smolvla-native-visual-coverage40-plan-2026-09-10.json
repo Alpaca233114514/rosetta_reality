@@ -1,0 +1,556 @@
+{
+  "document_schema_version": 1,
+  "document_kind": "review_plan_not_launcher_config",
+  "plan_id": "m2-smolvla-native-visual-coverage40-plan-2026-09-10",
+  "date": "2026-09-10",
+  "timezone": "Asia/Shanghai",
+  "status": "draft_requires_remote_identity_and_authorization",
+  "executable": false,
+  "launchable_v2_plan": false,
+  "human_readable_plan": "reports/training/m2-smolvla-native-visual-coverage40-plan-2026-09-10.md",
+  "official_evidence_note": "reports/training/m2-smolvla-visual-coverage-official-evidence-2026-09-10.md",
+  "authorization": {
+    "current_scope": [
+      "public_technical_reading",
+      "local_static_inspection",
+      "documentation",
+      "bounded_read_only_ssh_inspection_completed",
+      "git_fetch",
+      "commit_and_push_current_feature_branch"
+    ],
+    "remote_ssh": true,
+    "remote_ssh_scope": "bounded_read_only_session_completed_and_disconnected",
+    "instance_start": false,
+    "optimizer": false,
+    "new_compute_budget": false,
+    "downloads": false,
+    "public_trackio_sync": false,
+    "commit": true,
+    "push": true,
+    "push_branch": "codex/smolvla-visual-conditioning-repair-20260909",
+    "shutdown": false,
+    "release_instance": false,
+    "prior_30_minute_budget_reusable": false,
+    "current_document_work_limit_minutes": 60
+  },
+  "hypothesis": {
+    "intervention": "train_frame0_episode_coverage_8_to_40_at_fixed_updates_and_exposures",
+    "official_guarantee": false,
+    "isolated_coverage_causal_effect": false,
+    "repetition_allocation_changes": true,
+    "equal_wall_time_claim": false,
+    "single_training_seed_only": true
+  },
+  "historical_control": {
+    "evidence_status": "handoff_corroborated_by_local_remote_summary_logs_not_final_remote_artifacts",
+    "local_recovery_report": "reports/training/m2-smolvla-native-visual-local-recovery-2026-09-10.md",
+    "local_recovery_manifest": "reports/training/visual-native-recovery-20260910/manifest.json",
+    "workspace_relative_to_remote_durable_root": "dev/visual-utilization-20260909-001",
+    "branch": "codex/smolvla-visual-conditioning-repair-20260909",
+    "local_branch_is_synchronized_source": false,
+    "report_paths": [
+      "reports/training/m2-smolvla-native-visual-small-2026-09-09.md",
+      "reports/training/m2-smolvla-native-visual-small-2026-09-09.json"
+    ],
+    "evidence_root": "runs/visual-native-small-001/",
+    "old_plan_id": "m2-smolvla450m-visual-native-b4-pilot-003",
+    "step": 256,
+    "batch_size": 4,
+    "reported_regression_passes": 47,
+    "reported_frozen_vlm_tensor_count": 345,
+    "reported_train_noise_passes": 4,
+    "reported_dev_noise_passes": 0,
+    "reported_noise_conditions": 4,
+    "historical_mse_space_verified": false,
+    "historical_cyclic_mse": {
+      "train8": {
+        "correct": 0.026303,
+        "mismatched": 0.37537,
+        "constant_mean_floor": 0.192625
+      },
+      "dev5": {
+        "correct": 0.217349,
+        "mismatched": 0.184712,
+        "constant_mean_floor": 0.121431
+      }
+    },
+    "instance_current_status": "authoritative_instance_pending_provided_ssh_is_a_different_old_worker",
+    "old_reports_mutable": false
+  },
+  "local_reference_only": {
+    "sources": [
+      "configs/vla/smolvla_450m_aloha_insertion.yaml",
+      "configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml",
+      "configs/sim/aloha_insertion_smolvla.yaml",
+      "configs/runtime/autodl_rtx4090.yaml"
+    ],
+    "revisions": {
+      "lerobot": "c903b114a90e703b3f7d0c46cb38727c328c55ff",
+      "smolvla_base": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+      "vlm_dependency": "7b375e1b73b11138ff12fe22c8f2822d8fe03467",
+      "dataset": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884"
+    },
+    "file_sha256": {
+      "configs/vla/smolvla_450m_aloha_insertion.yaml": "7306014717eb3fe5a5997a92406ec18cb251f1c17cc9d46ed74d75ac71d8b19f",
+      "configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml": "0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210",
+      "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+      "configs/runtime/autodl_rtx4090.yaml": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992"
+    },
+    "local_sampler": "single_episode_contract_does_not_include_remote_extension",
+    "local_autodl_smoke_and_formal_dispatch": "historical_way_runners_not_this_pilot"
+  },
+  "arms": {
+    "A": {
+      "role": "read_only_existing_control",
+      "train_episode_count": 8,
+      "exact_train_episodes": null,
+      "local_historical_script_episode_order": [49, 4, 23, 43, 21, 37, 18, 34],
+      "local_episode_order_is_checkpoint_verified": false,
+      "optimization_this_attempt": false,
+      "old_optimizer_resumed": false,
+      "endpoint_step": 256,
+      "historical_main_exposures": 1024,
+      "mean_main_exposures_per_episode": 128
+    },
+    "B": {
+      "role": "coverage40_candidate",
+      "initialization": "fresh_same_pinned_base_and_original_seed",
+      "main_training_attempts_maximum": 1,
+      "train_episode_count": 40,
+      "frame_offset": 0,
+      "batch_size": 4,
+      "optimizer_updates": 256,
+      "main_sample_exposures": 1024,
+      "mean_main_exposures_per_episode": 25.6,
+      "endpoint_step": 256,
+      "checkpoint_selection": "fixed_endpoint_no_dev_selection",
+      "initialize_from_smoke": false,
+      "resume_any_optimizer": false
+    }
+  },
+  "data": {
+    "train40": [
+      49,
+      4,
+      23,
+      43,
+      21,
+      37,
+      18,
+      34,
+      0,
+      47,
+      38,
+      29,
+      3,
+      26,
+      14,
+      17,
+      44,
+      30,
+      15,
+      42,
+      10,
+      35,
+      25,
+      32,
+      19,
+      36,
+      41,
+      28,
+      8,
+      27,
+      16,
+      11,
+      2,
+      20,
+      9,
+      39,
+      46,
+      48,
+      12,
+      40
+    ],
+    "development_validation5": [
+      22,
+      13,
+      7,
+      33,
+      45
+    ],
+    "sealed_hidden5": [
+      31,
+      6,
+      1,
+      24,
+      5
+    ],
+    "validation_is_independent_test": false,
+    "hidden_sample_access_allowed": false,
+    "frame_offset": 0,
+    "chunk_length": 50,
+    "valid_action_dimensions": 14,
+    "scan_filter_before_materialization": true,
+    "record_image_hashes_and_duplicate_counts": true,
+    "episode_count_is_independent_visual_variation_count": false,
+    "full_valid_frame0_chunks_required": true,
+    "normalization": "reuse_exact_control_train_only_artifact_no_refit",
+    "sampler": "inherit_verified_remote_algorithm_and_rng",
+    "pre_optimizer_sample_schedule_length": 1024,
+    "conditional_epoch_permutation_counts": {
+      "condition": "only_if_control_sampler_is_verified_epoch_permutation",
+      "A": {
+        "episodes_at_128": 8
+      },
+      "B": {
+        "episodes_at_26": 24,
+        "episodes_at_25": 16
+      }
+    }
+  },
+  "inherited_training_fields_require_exact_identity": [
+    "base_model_and_vlm_weights",
+    "processor_tokenizer_revision_and_artifacts",
+    "action_contract_and_representation",
+    "train_only_normalization",
+    "native_loss_and_flow_time_distribution",
+    "chunk_semantics_and_masks",
+    "frozen_and_trainable_parameter_names",
+    "initialization_sampler_and_flow_rng",
+    "batch_steps_and_accumulation",
+    "optimizer_fields_and_parameter_groups",
+    "scheduler_fields_and_full_lr_sequence",
+    "precision_compile_camera_optimizations",
+    "augmentation_switches_and_ordered_features"
+  ],
+  "forbidden_learning_additions": [
+    "paired_loss",
+    "state_dropout",
+    "state_jitter",
+    "vision_unfreeze",
+    "new_pooling",
+    "new_image_augmentation",
+    "ema",
+    "differential_learning_rates",
+    "new_visual_embedding_cache"
+  ],
+  "evaluation": {
+    "protocol_id": "frame0_all_nonself_mean_error_v1",
+    "register_before_new_results": true,
+    "arms": [
+      "A",
+      "B"
+    ],
+    "views": [
+      "train8",
+      "train40",
+      "dev5"
+    ],
+    "donor_scope": "within_each_view_only",
+    "train8_predictions_reused_from_train40": true,
+    "batch_size": 1,
+    "noise_conditions": [
+      {
+        "mode": "zeros",
+        "seed": null
+      },
+      {
+        "mode": "gaussian",
+        "seed": 20260905
+      },
+      {
+        "mode": "gaussian",
+        "seed": 20260906
+      },
+      {
+        "mode": "gaussian",
+        "seed": 20260907
+      }
+    ],
+    "noise_values_are_new_registration_not_verified_old_pilot": true,
+    "noise_values_match_local_historical_registration_script": true,
+    "noise_generation": "single_full_cpu_generator_tensor_per_condition_identical_across_arms_and_samples_record_cast_order_and_hash",
+    "native_denoising_steps": 10,
+    "teacher_forced_target_input_allowed": false,
+    "model_mode": "eval_inference",
+    "reset_context_each_prediction": true,
+    "exact_nonvisual_equality_required": [
+      "processed_state",
+      "task_tokens",
+      "attention_masks",
+      "camera_masks",
+      "empty_camera_placeholders",
+      "all_other_nonvisual_inputs"
+    ],
+    "native_online_processor_required": true,
+    "ingress_identity_range_and_mask_checks": true,
+    "primary_space": "normalized_model_action_before_inverse_normalization_and_representation_decode",
+    "score_dtype": "float64",
+    "primary_horizon": "full_valid_50_step_chunk",
+    "padded_action_dimensions_included": false,
+    "groups": {
+      "primary": [
+        "all_valid",
+        "joint_radian",
+        "gripper_normalized"
+      ],
+      "resolve_from_contract": true,
+      "expected_joint_count": 12,
+      "expected_gripper_count": 2,
+      "expected_gripper_indices": [
+        6,
+        13
+      ]
+    },
+    "formulas": {
+      "distance": "d_g(p,y)=mean((p-y)^2 over common valid horizon and group dimensions)",
+      "correct": "C_g=mean_i d_g(P[i],Y[i])",
+      "mismatch": "M_g=mean_i mean_j!=i d_g(P[j],Y[i])",
+      "oracle_mean": "mu_E=mean_i Y[i] coordinatewise",
+      "oracle_floor": "B_g=mean_i d_g(mu_E,Y[i])",
+      "visual_gain": "M_g-C_g",
+      "below_mean_gain": "B_g-C_g",
+      "epsilon": "1e-8*max(1,abs(M_g),abs(B_g))"
+    },
+    "average_mismatch_predictions_before_scoring": false,
+    "baseline_roles": {
+      "evaluation_set_mean": "finite_set_squared_error_oracle_not_deployable_baseline",
+      "train40_mean_on_dev5": "separate_train_only_constant_baseline",
+      "development_labels_used_for_training": false,
+      "mean_is_mae_lower_bound": false
+    },
+    "standard_space_diagnostics": [
+      "per_group_chunk_and_first_action_mae_mse_before_safety_projection",
+      "per_dimension_errors",
+      "gripper_internal_support",
+      "action_legality"
+    ],
+    "required_saved_evidence": [
+      "full_normalized_predictions",
+      "standard_space_predictions",
+      "targets",
+      "masks",
+      "noise_hashes",
+      "processed_nonvisual_input_hashes",
+      "image_identity_hashes",
+      "NxN_error_matrices",
+      "per_episode_gains",
+      "per_noise_and_group_metrics",
+      "code_config_and_artifact_hashes"
+    ],
+    "nonself_ordered_pairs_per_view_per_noise": {
+      "train8": 56,
+      "train40": 1560,
+      "dev5": 20
+    },
+    "nonself_ordered_pair_scores_per_arm_all_noises": 6544,
+    "independent_observations_claim": false
+  },
+  "acceptance": {
+    "integrity_required": [
+      "all_remote_identity_fields_bound",
+      "correct_samples_and_no_hidden_load",
+      "nonvisual_equality",
+      "finite_and_legal_outputs",
+      "resource_limits",
+      "frozen_vlm_numerically_unchanged",
+      "action_expert_numerically_updated",
+      "exact_optimizer_scheduler_and_sampling_contract"
+    ],
+    "serialization_dtype_changes_are_learning_updates": false,
+    "old_control_reproduction": "reproduce_old_protocol_to_recorded_precision_without_retraining_A",
+    "training_fit": {
+      "A_view": "train8",
+      "B_view": "train40",
+      "minimum_conditions": 3,
+      "total_conditions": 4,
+      "rule": "primary_all_valid_C_below_M_and_B_by_epsilon"
+    },
+    "development_visual": {
+      "view": "dev5",
+      "minimum_same_conditions": 3,
+      "total_conditions": 4,
+      "required_groups": [
+        "all_valid",
+        "joint_radian",
+        "gripper_normalized"
+      ],
+      "rule": "C_below_M_and_B_by_epsilon_in_each_group",
+      "apply_same_rule_to_A": true
+    },
+    "degenerate_floor": {
+      "rule": "B_g<=epsilon",
+      "status": "not measurable",
+      "overall_pass_allowed": false
+    },
+    "coverage_gain": {
+      "minimum_conditions": 3,
+      "total_conditions": 4,
+      "primary_group": "all_valid",
+      "rule": "C_B<C_A-epsilon and visual_gain_B>visual_gain_A+epsilon",
+      "epsilon": "1e-8*max(1,abs(C_A),abs(C_B),abs(visual_gain_A),abs(visual_gain_B))"
+    },
+    "physical_nonregression": {
+      "aggregate": "mean_of_four_noise_conditions",
+      "groups": [
+        "joint_radian",
+        "gripper_normalized"
+      ],
+      "horizons": [
+        "chunk",
+        "first_action"
+      ],
+      "metric": "mse",
+      "rule": "error_B<=error_A+1e-8*max(1,abs(error_A),abs(error_B))"
+    },
+    "independent_reload": {
+      "arms": [
+        "A",
+        "B"
+      ],
+      "processes": "fresh_process_per_arm",
+      "scenes": 45,
+      "noise_conditions": 4,
+      "compare": [
+        "entire_normalized_action_chunk",
+        "entire_standard_action_chunk"
+      ],
+      "equality": "exact_values",
+      "metric_only_or_first_action_only_allowed": false
+    },
+    "positive_interpretation": "fixed_frame0_development_progress_only",
+    "single_arm_pass_without_between_arm_gain": "visual_control_passes_coverage_benefit_not_supported",
+    "candidate_fit_failure": "fixed_budget_training_fit_insufficient_not_proof_of_absent_visual_information",
+    "negative_interpretation": "close_this_registered_fixed_budget_design_preserve_negative_evidence_no_automatic_next_run",
+    "m2_complete": false,
+    "gate34_authorized": false
+  },
+  "future_resource_proposal": {
+    "authorized": false,
+    "read_only_remote_inventory_minutes": 10,
+    "new_compute_chain_total_minutes": 30,
+    "budget_includes": [
+      "environment_and_data_checks",
+      "preflight",
+      "two_step_smoke",
+      "A_control_reproduction",
+      "B_256_updates",
+      "both_arm_evaluation",
+      "independent_reload",
+      "durable_save"
+    ],
+    "suggested_stage_minutes": {
+      "checks_preflight_smoke": 10,
+      "control_validation": 3,
+      "candidate_training": 5,
+      "evaluation_reload": 8,
+      "save_and_summary": 4
+    },
+    "cuda_allocated_limit_gib": 8,
+    "cuda_reserved_limit_gib": 10,
+    "remote_cpu_rss_limit_gib": 16,
+    "honor_tighter_existing_limits": true,
+    "historical_timing_basis_only": {
+      "pilot_seconds_approximately": 132,
+      "peak_cuda_allocation_gb_approximately": 2.82,
+      "currently_verified": false
+    },
+    "prediction_budget": {
+      "scenes_per_arm": 45,
+      "noises": 4,
+      "initial_predictions_per_arm": 180,
+      "arms": 2,
+      "initial_plus_reload_predictions": 720,
+      "denoising_steps_per_prediction": 10,
+      "total_expert_denoising_steps": 7200,
+      "old_reproduction_preflight_smoke_additional": true
+    },
+    "disk_formula": "all_registered_new_checkpoints+smoke_checkpoints+export_and_atomic_save_temporaries+source_and_logs+2GiB_margin",
+    "actual_free_disk_bytes": null,
+    "disk_shortage_action": "stop_without_deleting_existing_evidence",
+    "actual_device_and_runtime_verified": false,
+    "automatically_rerun_missing_gate1_gate2": false,
+    "nested_docker_used": false,
+    "long_process_guard": "tmux_or_verified_equivalent_with_durable_logs_and_independent_deadline_watchdog",
+    "stable_monitor_interval_seconds": 300,
+    "stop_without_auto_retry": true,
+    "auto_shutdown_authorized": false,
+    "auto_release_allowed": false
+  },
+  "traffic_and_tracking": {
+    "server_side_work": true,
+    "transfer_model_data_predictions_or_full_logs": false,
+    "small_reviewed_documents_metrics_and_manifests_only": true,
+    "cache_download_allowed": false,
+    "tracking_project_candidate": "rosetta-reality-vla",
+    "tracking_run_name_candidate": "visual-native-coverage40-001",
+    "tracking_store_candidate": "runs/trackio",
+    "tracking_delivery": "local_durable_only",
+    "public_sync_authorized": false
+  },
+  "remote_pending": {
+    "current_platform_instance_and_power_state": null,
+    "authoritative_workspace_head_dirty_patch_and_untracked_source_inventory": null,
+    "old_report_paths_and_sha256": null,
+    "old_resolved_plan_and_all_parent_hashes": null,
+    "old_checkpoint_path_size_sha256_and_manifest": null,
+    "old_processor_tokenizer_and_normalization_identities": null,
+    "exact_train8_episode_order": null,
+    "training_seed_and_rng_contract": null,
+    "optimizer_and_scheduler_resolved_values_and_lr_sequence": null,
+    "sampler_algorithm_and_all_1024_indices": null,
+    "full_runtime_package_and_gpu_identity": null,
+    "durable_mount_free_space_and_checkpoint_size": null,
+    "gate1_gate2_and_cache_evidence_compatibility": null,
+    "new_evaluator_source_and_normalized_output_accessor_hash": null,
+    "frozen_vlm_and_trainable_parameter_inventory": null,
+    "actual_preflight_smoke_candidate_evaluation_reload_commands": null,
+    "watchdog_and_safe_durable_stop_behavior": null,
+    "authoritative_instance_access_and_new_compute_authorization": null,
+    "new_resolved_hash_bound_execution_plans": null
+  },
+  "future_output": {
+    "run_name_candidate": "visual-native-coverage40-001",
+    "root_candidate": "runs/visual-native-coverage40-001/",
+    "created_this_session": false,
+    "create_only": true,
+    "collision_policy": "register_new_unique_suffix_preserve_existing_root",
+    "required_sections": [
+      "identity",
+      "plans",
+      "preflight",
+      "smoke",
+      "training",
+      "evaluation",
+      "reload",
+      "tracking",
+      "closure.json"
+    ]
+  },
+  "stop_conditions": [
+    "identity_drift_or_missing_evidence",
+    "missing_cache",
+    "hidden_sample_materialized_or_loaded",
+    "sample_or_nonvisual_mismatch",
+    "unregistered_second_axis",
+    "nonfinite_loss_gradient_or_action",
+    "oom_or_resource_limit",
+    "unsupported_accelerator",
+    "illegal_action",
+    "frozen_parameter_update",
+    "sampler_optimizer_or_scheduler_deviation",
+    "checkpoint_or_local_trackio_durability_failure",
+    "reload_failure",
+    "insufficient_remaining_budget_or_deadline",
+    "registered_acceptance_failure"
+  ],
+  "current_execution_results": {
+    "remote_access": "provided_old_worker_inspected_read_only_and_disconnected_authoritative_workspace_not_found",
+    "preflight": "not measured",
+    "training": "not measured",
+    "all_pairs_evaluation": "not measured",
+    "independent_reload": "not measured",
+    "task_success": "not measured",
+    "m2_complete": false
+  }
+}

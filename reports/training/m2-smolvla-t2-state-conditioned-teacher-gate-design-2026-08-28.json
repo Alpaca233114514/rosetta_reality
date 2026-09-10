@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "stage": "m2_smolvla_t2_state_conditioned_teacher_gate_design",
+  "date": "2026-08-28",
+  "status": "design_only",
+  "gating": false,
+  "training_authorized": false,
+  "collection_authorized": false,
+  "labels_authorized": false,
+  "hidden_test_loaded": false,
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "authority": "reports/training/m2-smolvla-t2-state-conditioned-teacher-gate-design-2026-08-28.md",
+  "purpose": "define the teacher gate and teacher contract required before any T2 recovery-distribution data discussion",
+  "negative_evidence_addressed": {
+    "recovery_oracle_cross_pose_failure": "gate stage G2 requires all registered tuning poses to be solved before anything downstream opens",
+    "geometry_teacher_safe_but_non_progressing": "gate stage G3 measures recovery progress from deviated states directly; safety alone cannot pass",
+    "time_indexed_labels_invalid_after_deviation": "teacher contract forbids time, trajectory-index, episode-id and seed inputs"
+  },
+  "teacher_contract": {
+    "inputs": [
+      "robot_joint_state_both_arms_and_grippers",
+      "object_geometry_peg_and_socket_poses_with_contact_flags",
+      "task_milestone_state_from_observed_reward_transitions_only"
+    ],
+    "output": "one absolute standard-space action under the unchanged Action Contract",
+    "forbidden_inputs": [
+      "wall_clock_or_step_time",
+      "trajectory_or_frame_index",
+      "episode_id",
+      "seed",
+      "dataset_identity",
+      "policy_state"
+    ],
+    "determinism": "deterministic_given_inputs",
+    "off_support_behavior": "explicit_fail_closed_refusal_never_silent_default"
+  },
+  "gate_stages": {
+    "G0": "static contract conformance including non-degenerate refusal region",
+    "G1": "exact calibration reproduction within budget with zero safety violations; insufficient by design",
+    "G2": "cross-pose generalization on the reserved tuning-seed group; proposal 5/5 poses within per-pose budget",
+    "G3": "recovery from deviated states; proposal >=3 perturbed states per pose, <=150-action recovery budget, refusal rate <=10%",
+    "G4": "boundary honesty on registered negative suite; zero silent defaults",
+    "G5": "independent audit from immutable evidence"
+  },
+  "numeric_thresholds_status": "design_proposals_only_binding_upon_separate_teacher_preregistration",
+  "gate_pass_permits": [
+    "proposing the next preregistration only"
+  ],
+  "gate_pass_does_not_permit": [
+    "collection_seed_access",
+    "label_manifest_writes",
+    "dagger_rollouts",
+    "policy_furnace_authorization",
+    "geometry_planner_scope_lock_reopening"
+  ]
+}

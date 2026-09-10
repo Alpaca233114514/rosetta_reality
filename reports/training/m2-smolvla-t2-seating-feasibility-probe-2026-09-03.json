@@ -1,0 +1,33 @@
+{
+  "boundaries": {
+    "autodl_used": false,
+    "gate_evidence_written": false,
+    "gate_thresholds_modified": false,
+    "hidden_test_loaded": false
+  },
+  "caveats": [
+    "60-step privileged budget (light run under the user's no-heavy-tasks boundary)",
+    "seed 1904 unprobed"
+  ],
+  "consequence": "protocol-level finding candidate: the G2 pose set demands precision beyond the position-control envelope at 1901; changing the frozen G2 set, physics or actuation semantics is the user's decision under a new registration",
+  "created_at": "2026-09-03",
+  "instrument": "scripts/diagnose_g2_seating_feasibility.py",
+  "method": {
+    "budget_steps": 60,
+    "calibration": "seated peg->socket transform captured at candidate-003 teacher success on sibling 1903 (step 305, reward 4)",
+    "handoff": "teacher stalled at step 298 (reward 2; stall detector fired at the align->insert transition pause)",
+    "privileged_controller": "per-step live-frame ideal-target recomposition, position-priority site anchoring, right-arm hold, multistart constrained IK (unshifted first), registered 0.06 rad/step bound, closed grippers",
+    "probe_seed": 1901
+  },
+  "protocol_id": "m2-t2-teacher-gate-001",
+  "question": "are the failing G2 poses seatable under position control, or is the wall teacher-internal?",
+  "result": {
+    "minimum_socket_gap_m": 0.026879049837589264,
+    "pin_contact": false,
+    "reward_progression": "2 -> 3 (peg-socket contact achieved by the privileged controller)",
+    "success": false
+  },
+  "schema_version": 1,
+  "stage": "t2_seating_feasibility_probe",
+  "verdict": "the seating wall is not teacher-internal; a contract-free privileged controller reproduces the ~3 cm floor under the registered position-control bound"
+}

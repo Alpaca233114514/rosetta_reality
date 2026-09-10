@@ -1,0 +1,95 @@
+{
+  "best_gate_result": "G2 3/5 (G1 passed)",
+  "boundaries": {
+    "autodl_used": false,
+    "collection_or_furnace_authorized": false,
+    "gate_thresholds_modified": false,
+    "hidden_test_loaded": false
+  },
+  "candidate_design": "reports/training/m2-smolvla-t2-geometric-teacher-003-design-2026-09-03.md",
+  "candidate_id": "mink-geometric-insertion-teacher-003",
+  "created_at": "2026-09-03",
+  "escapes": {
+    "align_stall_escape": "shifted seeds on stall plus 0.03 m floor acceptance; 1901/1904 advanced past the 14 mm floor conflict",
+    "insert_stall_press": "0.02 m press on peg_socket_contact stall; did not close the seating gap",
+    "transport_stall_unlock": "hold the meet target inside _meet_left_target; 1900 solved end-to-end"
+  },
+  "gate_evidence": {
+    "g0_001_sha256": "e9920249d00a31aa054dcc7b674b4534430172eff948ddda3f865d9a0156c6c8",
+    "g1_001": {
+      "maximum_reward": 4.0,
+      "passed": true,
+      "rollout_length": 380,
+      "sha256": "c9f1797cb6a56fc714c85b700b434bbc5b747d14b482a7aa49636c8645b91dda"
+    },
+    "g2_001": {
+      "episodes": [
+        {
+          "maximum_reward": 4.0,
+          "refusal": null,
+          "rollout_length": 287,
+          "seed": 1900,
+          "success": true
+        },
+        {
+          "maximum_reward": 3.0,
+          "refusal": null,
+          "rollout_length": 500,
+          "seed": 1901,
+          "success": false
+        },
+        {
+          "maximum_reward": 0.0,
+          "refusal": "unsafe_state",
+          "rollout_length": 40,
+          "seed": 1902,
+          "success": false
+        },
+        {
+          "maximum_reward": 4.0,
+          "refusal": null,
+          "rollout_length": 306,
+          "seed": 1903,
+          "success": true
+        },
+        {
+          "maximum_reward": 2.0,
+          "refusal": null,
+          "rollout_length": 500,
+          "seed": 1904,
+          "success": false
+        }
+      ],
+      "passed": false,
+      "sha256": "ae6103f60b73a95417ba93822b956fdd9b16b0e728c1147164a5def29050add3"
+    }
+  },
+  "measured_wall": "INSERT seating demands physical pin contact; at 1901/1904 the dual-arm loaded QP floor (8-14 mm) plus compliant-cage hang leaves the socket centimetres short with the arm at its floor; 1902's approach swing self-collision is outside this candidate's registered base",
+  "open_question_before_teardown": "are G2 poses 1901/1904 seatable at all under this simulator's position control? a privileged read-only feasibility diagnostic separates teacher insufficiency from a protocol-level pose-set finding",
+  "protocol_id": "m2-t2-teacher-gate-001",
+  "schema_version": 1,
+  "stage": "t2_geometric_teacher_003_closure",
+  "teacher_tally": [
+    {
+      "best": "G2 1/5",
+      "candidate": "gym-aloha-scripted-insertion-adapter-001",
+      "closed": "2026-08-30"
+    },
+    {
+      "best": "G1 failed",
+      "candidate": "mink-geometric-insertion-teacher-001",
+      "closed": "2026-09-02"
+    },
+    {
+      "best": "G2 2/5",
+      "candidate": "mink-geometric-insertion-teacher-002",
+      "closed": "2026-09-03"
+    },
+    {
+      "best": "G2 3/5",
+      "candidate": "mink-geometric-insertion-teacher-003",
+      "closed": "2026-09-03"
+    }
+  ],
+  "verdict": "closed_method_level_negative_evidence"
+}

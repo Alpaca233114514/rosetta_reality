@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-08T20:46:50.1029874+08:00",
+  "gating": false,
+  "status": "blocked_before_probe_by_registered_ruff_gate",
+  "registration": "reports/training/m2-smolvla-t2-seating-feasibility-gate4-preregistration-2026-09-06.json",
+  "runtime": {
+    "images": 45,
+    "docker_memory": "6g",
+    "network": "none",
+    "memory_swap": "6g",
+    "torch": "2.11.0+xpu",
+    "container_records": 134,
+    "linux_engine_available": true,
+    "server_version": "29.7.2",
+    "check_env_exit_code": 0,
+    "xpu_available": true,
+    "image_identity_matched": true,
+    "cpus": 2,
+    "image_id": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da"
+  },
+  "recovery": {
+    "runtime_socket_directories_renamed_and_retained": true,
+    "factory_reset": false,
+    "original_settings_backed_up": true,
+    "only_setting_changed": "CustomWslDistroDir",
+    "official_restart": true,
+    "vhdx_deleted": false,
+    "vhdx_overwritten": false,
+    "debian_terminated": false,
+    "restored_existing_data_disk_location": true
+  },
+  "checks": {
+    "pytest": {
+      "log": "runs/m2-t2-seating-feasibility-gate4-2026-09-08-bootstrap-001/focused-pytest.log",
+      "exit_code": 0,
+      "warning": "PytestCacheWarning: read-only repository prevents cache creation",
+      "seconds": 8.15,
+      "passed": 38
+    },
+    "ruff": {
+      "file": "scripts/diagnose_gate4_seating_feasibility.py",
+      "suggested_formatting": "Blank line after diagnose_g2_seating_feasibility import",
+      "line": 17,
+      "message": "Import block is un-sorted or un-formatted",
+      "exit_code": 1,
+      "fix_applied": false,
+      "code": "I001",
+      "log": "runs/m2-t2-seating-feasibility-gate4-2026-09-08-bootstrap-001/ruff.log"
+    }
+  },
+  "calibration": "not run",
+  "sanity_control": "not run",
+  "rows": [
+    {
+      "seed": 1000,
+      "status": "not measured",
+      "simulation_started": false,
+      "minimum_socket_gap_mm": null,
+      "failure_phase": "pre_probe_ruff_gate",
+      "seatable": null,
+      "final_pre_step_socket_gap_mm": null,
+      "steps": null,
+      "privileged_minimum_socket_gap_mm": null
+    },
+    {
+      "seed": 1001,
+      "status": "not measured",
+      "simulation_started": false,
+      "minimum_socket_gap_mm": null,
+      "failure_phase": "pre_probe_ruff_gate",
+      "seatable": null,
+      "final_pre_step_socket_gap_mm": null,
+      "steps": null,
+      "privileged_minimum_socket_gap_mm": null
+    },
+    {
+      "seed": 1002,
+      "status": "not measured",
+      "simulation_started": false,
+      "minimum_socket_gap_mm": null,
+      "failure_phase": "pre_probe_ruff_gate",
+      "seatable": null,
+      "final_pre_step_socket_gap_mm": null,
+      "steps": null,
+      "privileged_minimum_socket_gap_mm": null
+    },
+    {
+      "seed": 1003,
+      "status": "not measured",
+      "simulation_started": false,
+      "minimum_socket_gap_mm": null,
+      "failure_phase": "pre_probe_ruff_gate",
+      "seatable": null,
+      "final_pre_step_socket_gap_mm": null,
+      "steps": null,
+      "privileged_minimum_socket_gap_mm": null
+    },
+    {
+      "seed": 1004,
+      "status": "not measured",
+      "simulation_started": false,
+      "minimum_socket_gap_mm": null,
+      "failure_phase": "pre_probe_ruff_gate",
+      "seatable": null,
+      "final_pre_step_socket_gap_mm": null,
+      "steps": null,
+      "privileged_minimum_socket_gap_mm": null
+    }
+  ],
+  "interpretation": "Inconclusive: required Ruff check failed before calibration or target rollouts. Not a 0/5 result; no feasibility or protocol-ceiling conclusion.",
+  "historical_evidence_verification": [
+    {
+      "unchanged": true,
+      "path": "reports/training/m2-smolvla-t2-seating-feasibility-gate4-2026-09-06.md",
+      "sha256": "7ee6c8e27b4d046c73ccac50ef051ebc6b1be07c369a873483a2cbbb0e4c2e4c"
+    },
+    {
+      "unchanged": true,
+      "path": "reports/training/m2-smolvla-t2-seating-feasibility-gate4-2026-09-06.json",
+      "sha256": "ac64e45d44fb21708ea0680a891628adf8e176b59a66f0f85988ee0d696c125b"
+    },
+    {
+      "unchanged": true,
+      "path": "reports/training/m2-smolvla-t2-seating-feasibility-gate4-preregistration-2026-09-06.md",
+      "sha256": "8272f7349786842648b204d16a50e4b2aee51dce9be9ce095cf41af1a724802f"
+    },
+    {
+      "unchanged": true,
+      "path": "reports/training/m2-smolvla-t2-seating-feasibility-gate4-preregistration-2026-09-06.json",
+      "sha256": "7ff268a5b69bd4ab49f977b27269293510cb4d157f594944c893da265dadaa8a"
+    }
+  ],
+  "source_verification": [
+    {
+      "unchanged": true,
+      "path": "scripts/diagnose_gate4_seating_feasibility.py",
+      "sha256": "4257afe72d180884a362d79467399bc8bb15f35ac7dd56cafe1a617caa0ad044"
+    },
+    {
+      "unchanged": true,
+      "path": "tests/test_gate4_seating_feasibility.py",
+      "sha256": "443364512c3675d0f397267f145d8e88a72efe4b4d673073a2929df881a694d8"
+    },
+    {
+      "unchanged": true,
+      "path": "scripts/diagnose_g2_seating_feasibility.py",
+      "sha256": "688cf792b9d1958f81825ba8ee24ef5c4c1a65fe570ccd4a63a25d981e715aa7"
+    },
+    {
+      "unchanged": true,
+      "path": "scripts/smolvla_sim_gate.py",
+      "sha256": "5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae"
+    },
+    {
+      "unchanged": true,
+      "path": "scripts/run_m2_container.sh",
+      "sha256": "937184e05a9d5ff95666c59aa2c0c3486a2a151534a094ebe8ea9f211f22fea3"
+    },
+    {
+      "unchanged": true,
+      "path": "configs/sim/aloha_insertion_smolvla.yaml",
+      "sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62"
+    },
+    {
+      "unchanged": true,
+      "path": "configs/sim/aloha_insertion.yaml",
+      "sha256": "8c3263011173d2d978ccef8fccdaafccf3b2a8690b47798a5b55fa69b5c40a9a"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/__init__.py",
+      "sha256": "dd8555389df4e5e74ff97f2f13c3a2d1163cfa48b3214da68c6aa54186943e14"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/action_contract.py",
+      "sha256": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/env.py",
+      "sha256": "23833bc38fa6ecca1ae5f36299f2fc6d5d11a22f11b27322cb7751c55fe04113"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/geometric_teacher.py",
+      "sha256": "d28f99e81b7d81004883f15bdc91df0cdb146edd984bc1f01c3847f6d979c187"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/geometry_teacher.py",
+      "sha256": "e0cf824bb2120a2eaa1955bcb8109f44fae5e26812546f09c341ed0933372d99"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/gym_aloha.py",
+      "sha256": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/mink_aloha_ik.py",
+      "sha256": "cdff063ce164dc5eb8137c6c8cbd66f5c102eb06f0842a0f92b64727f9e70583"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/moveit_aloha_planner.py",
+      "sha256": "32107b371e2ca4674b07f6def009cca70e811ec40f3fed62f7f326f9c87b8957"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/mujoco_position_feedforward.py",
+      "sha256": "2be1e16624e272955a4366c57fa019fc303a557d756c12edcb2530cb7b664fc4"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/recovery_oracle.py",
+      "sha256": "0b781f11832cb2bd00d7b704ddf2a2f90b6f435a3785cb0b70af750a9413bd1d"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/scripted_teacher_observer.py",
+      "sha256": "6f657d71c98bcaea883c8aa30f6f9f73fbd705f6987ba11f977cb92ac563b7a3"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/scripted_teacher.py",
+      "sha256": "5d87d2c2a74341ecb522519de22e3941564be823ca19b147c906fbbb2668da20"
+    },
+    {
+      "unchanged": true,
+      "path": "src/rosetta_reality/sim/teacher_gate.py",
+      "sha256": "087be6d4f0e2a72c0d80838b7ae88737650994566af3d4b026ab18fdbc09cd72"
+    }
+  ],
+  "model_loaded": false,
+  "dataset_loaded": false,
+  "hidden_test_loaded": false,
+  "training_run": false,
+  "downloads_requested": false,
+  "gate_protocol_changed": false,
+  "commit_or_push": false,
+  "next_step": "A formatting-only source-identity amendment must be recorded before re-running focused pytest, Ruff and then the unchanged probe; preserve the original registration and blocked reports."
+}

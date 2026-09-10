@@ -200,6 +200,28 @@ def test_trackio_feature_requires_tracking_section() -> None:
         _validated(plan)
 
 
+def test_state_treatment_features_are_mutually_exclusive() -> None:
+    plan = _base_plan()
+    plan["state_robustness_contract"] = {
+        "profile": "normalized_gaussian_state_jitter",
+    }
+    plan["visual_conditioning_contract"] = {
+        "profile": "samplewise_normalized_state_dropout",
+    }
+    plan["features"].extend(
+        [{"name": "state_robustness_jitter"}, {"name": "state_conditioning_dropout"}]
+    )
+    with pytest.raises(ValueError, match="mutually exclusive"):
+        _validated(plan)
+
+    plan["features"].pop()
+    assert "state_robustness_jitter" in _validated(plan)
+
+    plan["features"][-1] = {"name": "state_conditioning_dropout"}
+    plan.pop("state_robustness_contract")
+    assert "state_conditioning_dropout" in _validated(plan)
+
+
 def test_fixed_frame_sampler_validates_phase_parameter() -> None:
     plan = _base_plan()
     plan["features"].append({"name": "fixed_frame_sampler", "phase": "formal"})

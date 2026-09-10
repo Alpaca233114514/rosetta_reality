@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "stage": "smolvla_vfunfreeze_gate34_closure",
+  "date": "2026-09-06",
+  "candidate": {
+    "plan_id": "m2-smolvla450m-vfunfreeze-003",
+    "run_name": "m2-smolvla450m-vfunfreeze-cuda-b32-003",
+    "plan_path": "configs/vla/smolvla_450m_aloha_insertion_vfunfreeze_cuda_b32_003.yaml",
+    "registered_fallback": "batch 32 / 632 steps (user-approved), per-module non-reentrant activation checkpointing (user-approved option A)",
+    "artifact_id": "m2-smolvla450m-vfunfreeze-cuda-b32-003-step0632-deploy-001",
+    "artifact_location": "remote durable data disk (not yet transferred home; traffic agreement)"
+  },
+  "chain_results": {
+    "smoke_update_verification": {
+      "status": "passed",
+      "vision_tensors_changed": "198/198",
+      "language_model_tensors_changed": "0/147",
+      "evidence": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/vfunfreeze-smoke-update-verification.json"
+    },
+    "formal_training": {
+      "steps": 632,
+      "seconds_per_step": 5.29,
+      "gradient_pre_clip_l2_range": [1.5, 1.8],
+      "grad_clip_norm_threshold": 10.0
+    },
+    "selection": {
+      "selected_step": 632,
+      "first_action_mae": 0.019602819688485137,
+      "base_first_action_mae": 0.29053780037377563,
+      "improvement_fraction": 0.9325,
+      "read_only_controls": {
+        "zen_uniform": 0.021572770214905695,
+        "zen_firstaction": 0.022150604739519103,
+        "aster": 0.02250973408226855,
+        "vcdropout": 0.029304,
+        "caveat": "cross-batch comparison (registered fallback)"
+      }
+    },
+    "export_reload": {
+      "status": "verified",
+      "maximum_absolute_metric_difference": 0.0
+    },
+    "frame0_alignment_gate": {
+      "status": "passed",
+      "zero_noise_paired_gain": 0.000563,
+      "noise_seed_gains": {"20260905": 0.000719, "20260906": -0.000234, "20260907": 0.000637},
+      "image_output_shift_range": [0.006586, 0.007756],
+      "evidence": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/frame0-paired-alignment-validation-vfunfreeze-2026-09-06.json"
+    },
+    "gate3": {
+      "status": "passed",
+      "report": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate3-smolvla-sim-444.json"
+    },
+    "gate4": {
+      "status": "failed",
+      "task_success_rate": 0.0,
+      "task_successes": "0/5",
+      "seeds": [1000, 1001, 1002, 1003, 1004],
+      "joint_limit_violations": 19,
+      "unexpected_collisions": 19,
+      "invalid_action_rate": 0.0,
+      "raw_limit_violation_rate": 0.0,
+      "report": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-444.json"
+    }
+  },
+  "verdict": {
+    "axis": "visual_front_end_unfreeze",
+    "outcome": "closed_as_negative_evidence",
+    "gate4_tally": "seven consecutive identities at 0/5 under one identical protocol (Faust, Aster, Way, Zen-uniform, Zen-firstaction, vcdropout, vfunfreeze)",
+    "interpretation": "offline-best and first-ever alignment-gate pass still did not convert to closed-loop success; learning-side representation axes (temporal weighting, state robustness, state-conditioned dropout, vision unfreeze) are all exhausted",
+    "remaining_hypothesis_families": [
+      "closed-loop action execution/control layer (19 joint-limit violations point at chunk execution and control boundary)",
+      "T2 recovery supervision (teacher line closed at the protocol wall)",
+      "data scale / task difficulty at development scale (50 episodes, 316-632 steps)"
+    ],
+    "new_furnace_authorized": false
+  },
+  "process_incidents": [
+    "candidate-001 smoke OOM at batch 64",
+    "candidate-002 smoke OOM at batch 32 without checkpointing (trainable SigLIP tower ~0.6-0.8 GiB/sample activations)",
+    "candidate-003 system disk (30G) full at checkpoint 158; checkpoint root relocated to data disk; failed formal attempt residue preserved under superseded dirs",
+    "watchdog autonomous completion (outcome=success) with automatic poweroff"
+  ],
+  "hidden_test_loaded": false,
+  "closed_loop_claim": false
+}

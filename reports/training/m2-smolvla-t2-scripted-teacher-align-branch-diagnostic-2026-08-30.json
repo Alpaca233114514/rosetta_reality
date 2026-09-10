@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "stage": "m2_t2_scripted_teacher_align_branch_diagnostic",
+  "registered_at": "2026-08-30",
+  "candidate_id": "gym-aloha-scripted-insertion-adapter-001",
+  "gate_protocol_id": "m2-t2-teacher-gate-001",
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "report": "reports/training/m2-smolvla-t2-scripted-teacher-align-branch-diagnostic-2026-08-30.md",
+  "container_image_id": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "probe_instrument": {
+    "script": "scripts/diagnose_scripted_teacher_g1.py",
+    "modes_added": ["align", "dock"],
+    "gate_evidence_written": false
+  },
+  "align_probe": {
+    "spawn_yaw_degrees_all_seeds": 0.0,
+    "frozen_cage": {
+      "seed_1900": {"peg_hold_tilt_deg": 77.0, "socket_freeze_tilt_deg": 94.0, "align_target_yaw_deg": 34.38},
+      "seed_1902": {"align_target_yaw_deg": -2.46},
+      "seed_1903": {"align_target_yaw_deg": 3.33},
+      "seed_1904": {"align_target_yaw_deg": -0.89}
+    },
+    "parallel_align_chase_pos_err_m": {"seed_1900": 0.1738, "seed_1902": 0.0339, "seed_1903": 0.0, "seed_1904": 0.0336},
+    "flipped_rotZ180_at_align_pos_err_m": {"seed_1900": 0.0049, "seed_1902": 0.0069, "seed_1903": "parallel-first", "seed_1904": 0.0059},
+    "start_arm_pose_exact_align": "converges for every seed",
+    "rigid_recomposition_through_flipped_frame": "stalls (position shift 2.6-4 cm)",
+    "flipped_hover_plus_0.10m": "stalls 0.03-0.12 m for every seed"
+  },
+  "repair_round_1": {
+    "registered_adaptations": [
+      "fixed-order alignment multistart (parallel -> 180 deg world-Z wrist flip), frozen-state IK probe thresholds 0.008 m / 0.05 rad, <=40 iterations",
+      "descend glide entry-anchored ladder, 0.012 m step"
+    ],
+    "evidence": {
+      "g0": {"file": "g0-002.json", "sha256": "dae1407f349a202b7c6f3296e55a041c884b61e538e3cda5f173b3718f3f70ae", "passed": true},
+      "g1": {"file": "g1-007.json", "sha256": "417e815b7a7edb845d1bc2691d28c85491712d57b01aab1a783cf63122696ada", "passed": true, "seed_10_steps": 306},
+      "g2": {"file": "g2-003.json", "sha256": "ce5761a7f16d41b41075baceff50dd85260859fa8e93d2b2b3f5a4722052660e", "passed": false}
+    },
+    "g2_outcome": {
+      "1900": "table strike step 172 (descend ladder regression)",
+      "1901": "table strike step 177 (unchanged)",
+      "1902": "table strike step 171 (descend ladder regression)",
+      "1903": "solved, 269 steps",
+      "1904": "flipped through align at 237, aligned 0.007 m at 244, insert stall 0.034 m"
+    },
+    "attribution": "descend ladder removed live-glide lateral homing; withdrawn"
+  },
+  "dock_sweep": {
+    "seed_1904_flipped_insert_pos_err_m": {"P_0.16": 0.0424, "P_0.14": 0.0352, "P_0.12": 0.0302, "P_0.10": 0.0279, "P_0.08": 0.028},
+    "conclusion": "residual floor ~0.03 m; P cannot rescue the insert",
+    "real_dock_park_error_m": {"seed_1903": {"y": -0.0312}, "seed_1904": {"y": 0.0361}},
+    "insert_reach_correlation": "dock y 0.460 converges (1903), dock y 0.527 stalls (1904)"
+  },
+  "repair_round_2": {
+    "registered_change": "withdraw descend ladder (restore live-pose glide); keep alignment multistart",
+    "evidence": {
+      "g0": {"file": "g0-003.json", "sha256": "d397aacb7aae0c9694c3c3d96bb4cfa0fd4fccd59580f81256dbd6025587fea6", "passed": true},
+      "g1": {"file": "g1-008.json", "sha256": "eef4a01f13f04ab94aef60797ef935fbb7e93f5110859adc1540e9d45ccc4d52", "passed": true, "seed_10_steps": 305},
+      "g2": {"file": "g2-004.json", "sha256": "7656b80dfa0afd06545de98146e7f408326ff1108756056a46fcb100a057d1d5", "passed": false}
+    },
+    "g2_outcome": {
+      "1900": {"success": false, "max_reward": 3.0, "length": 500},
+      "1901": {"success": false, "max_reward": 0.0, "length": 177, "table_strike_step": 177},
+      "1902": {"success": false, "max_reward": 3.0, "length": 500, "joint_limit_violations": 2},
+      "1903": {"success": true, "max_reward": 4.0, "length": 269},
+      "1904": {"success": false, "max_reward": 2.0, "length": 500}
+    }
+  },
+  "verdict": {
+    "gate_passed": false,
+    "g2_attempts_used": ["002", "003", "004"],
+    "failure_decomposition": [
+      "align branch trap (1900/1902/1904): solved by the registered multistart flip",
+      "descend ladder: measured regression, withdrawn",
+      "insert final approach (1900/1902/1904): left arm stalls 0.02-0.03 m short of pin press at the drifted dock; dock carries the right arm's +/-3.5 cm seed-random park error",
+      "descend execution drift (1901): identical strike at step 177 in every attempt; command-layer candidates measured ineffective"
+    ],
+    "stop_condition": "preregistered 2-3 round repair budget cannot produce 5/5; scripted-adapter candidate class closes as method-level negative evidence",
+    "residual_hypotheses_not_exercised": [
+      "insert press-through: deepen the insert command once peg_socket_contact is observed (best case 3/5)",
+      "dock-y compensation: no registered constant controls the seed-random park error"
+    ],
+    "next_registered_alternative": "Mink geometric teacher stack (mink==1.2.0/qpsolvers==4.13.0/daqp==0.8.7 pinned in the sim image)"
+  },
+  "boundaries": {
+    "gate_thresholds_modified": false,
+    "gate_seeds_modified": false,
+    "gate_criteria_modified": false,
+    "create_only_evidence": true,
+    "autodl_used": false,
+    "network_downloads": false,
+    "observation_contract_modified": false
+  }
+}

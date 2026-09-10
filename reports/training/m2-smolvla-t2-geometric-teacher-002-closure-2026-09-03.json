@@ -1,0 +1,109 @@
+{
+  "best_gate_result": "G2 2/5 (G1 passed)",
+  "boundaries": {
+    "autodl_used": false,
+    "collection_or_furnace_authorized": false,
+    "gate_thresholds_modified": false,
+    "hidden_test_loaded": false
+  },
+  "candidate_design": "reports/training/m2-smolvla-t2-geometric-teacher-002-design-2026-09-03.md",
+  "candidate_id": "mink-geometric-insertion-teacher-002",
+  "coupling_table": [
+    {
+      "A": "0.012",
+      "B": "0.02",
+      "conflict": "seed 10 safe vs 1900/1901 unblocked",
+      "constant": "transport_exit_tolerance"
+    },
+    {
+      "A": "best_residual",
+      "B": "unshifted_or_acceptance_only",
+      "conflict": "1900 rescue vs 1901 pin",
+      "constant": "align_branch_selection"
+    },
+    {
+      "A": "off",
+      "B": "on",
+      "conflict": "1903/1904 solved vs slowed to reward 3",
+      "constant": "align_insert_glide"
+    }
+  ],
+  "created_at": "2026-09-03",
+  "gate_evidence": {
+    "g0_001_sha256": "be0097ad67c2deace0ba3cc8713213c02c4e5b1e01cfcc2db5d73ec3f410a5f6",
+    "g1_001": {
+      "maximum_reward": 4.0,
+      "passed": true,
+      "rollout_length": 380,
+      "seed": 10,
+      "sha256": "5677ac8e383583258283dc7f902727ac9f61b0414a7e40ac23c1b28584437615"
+    },
+    "g2_001": {
+      "episodes": [
+        {
+          "maximum_reward": 2.0,
+          "refusal": null,
+          "rollout_length": 500,
+          "seed": 1900,
+          "success": false
+        },
+        {
+          "maximum_reward": 2.0,
+          "refusal": null,
+          "rollout_length": 500,
+          "seed": 1901,
+          "success": false
+        },
+        {
+          "maximum_reward": 0.0,
+          "refusal": "unsafe_state",
+          "rollout_length": 40,
+          "seed": 1902,
+          "success": false
+        },
+        {
+          "maximum_reward": 4.0,
+          "refusal": null,
+          "rollout_length": 306,
+          "seed": 1903,
+          "success": true
+        },
+        {
+          "maximum_reward": 4.0,
+          "refusal": null,
+          "rollout_length": 418,
+          "seed": 1904,
+          "success": true
+        }
+      ],
+      "passed": false,
+      "sha256": "f1ae3442fb845717ef677ac7d5497f1dd016ec678984404026ef9de5bf8a0e97"
+    }
+  },
+  "post_registration_exploration": [
+    {
+      "change": "transport exit tolerance 0.02 + APPROACH glide",
+      "measured": "unblocked 1900/1901 transport, removed the 1902 self-collision; seed 10 not re-validated then",
+      "round": "A"
+    },
+    {
+      "change": "descend-entry recapture + align 0.02 + press-through + branch-selection experiments",
+      "measured": "1901 align stall is a multistart artifact; 1900 needs the branch escape; ungated mid-carry flips dropped the socket (residual 1.789 rad); final composition regressed 1903/1904 and seed 10",
+      "round": "B"
+    },
+    {
+      "change": "G2-001 branch behaviour + round-A/B mechanical fixes",
+      "measured": "preview 1/5 with the seed-10 transport strike",
+      "round": "C"
+    }
+  ],
+  "protocol_id": "m2-t2-teacher-gate-001",
+  "residual_hypotheses_not_exercised": [
+    "stall-triggered branch-escape state machine",
+    "per-phase tolerance scheduling tied to the measured QP tracking floor",
+    "transport-tolerance/entry-state coupling analysis"
+  ],
+  "schema_version": 1,
+  "stage": "t2_geometric_teacher_002_closure",
+  "verdict": "closed_method_level_negative_evidence"
+}

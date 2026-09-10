@@ -105,6 +105,27 @@ def build_training_arguments(
         raise ValueError("A training phase attempted to load hidden-test episodes.")
     policy = dict(experiment["model"]["policy"])
     adaptation = experiment["model"]["adaptation"]
+    for key in ("freeze_vision_encoder", "train_expert_only", "train_state_proj"):
+        if type(adaptation.get(key)) is not bool:
+            raise ValueError(f"Parent experiment adaptation.{key} must be a boolean.")
+    if not adaptation["freeze_vision_encoder"] and adaptation["train_expert_only"]:
+        raise ValueError(
+            "freeze_vision_encoder=false conflicts with train_expert_only=true: "
+            "the pinned upstream freezes the entire VLM. Register an explicit adaptation scope."
+        )
+    # Adaptation is owned by the checksum-bound parent, not a policy overlay.
+    adaptation_keys = set(adaptation) | {"adaptation"}
+    for section in (plan, plan.get("model", {}), plan.get("policy", {})):
+        if not isinstance(section, dict):
+            raise ValueError("Plan/model/policy sections must be mappings.")
+        if adaptation_keys & section.keys():
+            raise ValueError("Adaptation overrides must be registered in the parent experiment.")
+    for name in ("training", "preflight", "optimizer_smoke"):
+        section = plan.get(name, {})
+        if not isinstance(section, dict) or not isinstance(section.get("policy", {}), dict):
+            raise ValueError("Plan phase and phase policy must be mappings.")
+        if adaptation_keys & section.keys() or adaptation_keys & section.get("policy", {}).keys():
+            raise ValueError("Adaptation overrides must be registered in the parent experiment.")
     mixed_precision = str(plan["resources"]["mixed_precision"])
     save_checkpoint = bool(phase_config.get("save_checkpoint", mode != MODE_PREFLIGHT))
     log_freq = int(phase_config.get("log_freq", 1))

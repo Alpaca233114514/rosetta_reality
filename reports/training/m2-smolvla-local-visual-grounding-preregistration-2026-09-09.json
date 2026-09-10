@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "id": "m2-smolvla-local-visual-grounding-20260909-001",
+  "status": "preregistered_no_optimizer_diagnostic",
+  "hypothesis": "Frame-zero-only evidence may hide temporal variation in image-action alignment. Compare correct and same-offset mismatched images with destination state/task and noise fixed.",
+  "runtime": {
+    "memory_swap": "6g",
+    "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+    "memory": "6g",
+    "network": "none",
+    "launcher": "wsl_bash_to_linux_docker",
+    "batch_size": 1,
+    "accelerator": "xpu",
+    "cpus": 2
+  },
+  "episodes": [
+    49,
+    4,
+    23,
+    43,
+    21
+  ],
+  "frame_offsets": [
+    0,
+    100,
+    250,
+    450
+  ],
+  "noise_seeds": [
+    null,
+    20260905,
+    20260906,
+    20260907
+  ],
+  "intervention": "cyclic_previous_episode_image_at_same_offset",
+  "maximum_forward_calls_per_artifact": 160,
+  "maximum_inference_seconds_per_artifact": 1200,
+  "artifacts": {
+    "m2-smolvla450m-vcdropout-cuda-b64-001-step0237-deploy-001": "abb8497a7424df2ad1c3e03eb364e581d9d0f05e12dfdf3a59d8bb4ed67f80ea",
+    "m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001": "ecc73b9e26f43b6dc85981e61e2ed3aaa651b208b1cd72ad26f93877599694ec"
+  },
+  "acceptance": [
+    "input_identity_and_finiteness_verified",
+    "all_registered_offsets_and_noise_settings_reported",
+    "paired_gains_by_physical_unit",
+    "state_persistence_baseline_reported",
+    "no_task_success_claim"
+  ],
+  "stop_conditions": [
+    "checksum_or_sample_identity_mismatch",
+    "nonfinite_input_or_output",
+    "out_of_memory_no_automatic_retry",
+    "inference_time_budget_exceeded",
+    "hidden_or_validation_sample_access",
+    "unsupported_runtime"
+  ],
+  "implementation_files": {
+    "scripts/diagnose_visual_grounding.py": "c7a9fc1353c965081d6f31382d345c93a216cba5de7eb588c2158848edac7943",
+    "src/rosetta_reality/vla/visual_grounding.py": "9e079751d93cad33fc87ae34c2d2f2c32789468cb131a8b7383d90b2abca80af",
+    "scripts/diagnose_frame0_vision_probe.py": "8fec016b3e61df527c9994a1446a6688a77cab10c9fdddabac05463aec0ccd70",
+    "src/rosetta_reality/vla/vision_diagnostics.py": "9bf5ab370be5f803a205b9e2a596bd25ed64b32514afcb5c9c39ef770a40fe63",
+    "src/rosetta_reality/vla/vision_front_end.py": "26d97202c8e56734a23dc653776924001540e742f813670c7762767c4876a801",
+    "tests/test_smolvla_visual_grounding.py": "c8df3122a1a6c99d2d75c309db5c5da3ac469bb32fbbdb1142444e383a321b74",
+    "tests/test_smolvla_visual_grounding_data.py": "827fc9e9a742b5b573949ce4052c3ae08ba5a2a00d6e9a03399cdbbd7117434e",
+    "tests/test_smolvla_vision_front_end.py": "20ff6054c249c064b67667c4de5a6d375e08f078f568b2246c1b94e562fe7362",
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62"
+  },
+  "hidden_test_loaded": false,
+  "validation_loaded": false,
+  "optimizer_authorized": false,
+  "training_authorized": false,
+  "ssh_authorized": false,
+  "gate_protocol_changed": false,
+  "output_root": "runs/smolvla-visual-repair-20260909-001",
+  "source_tests": "63 passed in pinned local container before data access",
+  "limitation": "vfunfreeze-003 weights are absent locally; this comparison does not re-evaluate that artifact or close the visual-quality issue"
+}

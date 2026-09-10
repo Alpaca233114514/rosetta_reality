@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-10",
+  "kind": "local_recovery_inventory",
+  "status": "partial_recovery_checkpoint_and_remote_final_source_pending",
+  "training_ready": false,
+  "source_branch": "codex/smolvla-visual-conditioning-repair-20260909",
+  "local_parent_revision": "2078b642dd96cf4ee3f3475cb44c04be86b68da7",
+  "authoritative_workspace_relative_to_durable_root": "dev/visual-utilization-20260909-001",
+  "local_search": {
+    "roots": [
+      "runs/",
+      "artifacts/",
+      "checkpoints/"
+    ],
+    "checkpoint_root_is_junction": true,
+    "excluded": [
+      "runs/compiler_cache/"
+    ],
+    "inventoried_file_count": 10971,
+    "searched_identity_terms": [
+      "visual-native",
+      "native-b4",
+      "visual-utilization",
+      "native-visual-small",
+      "visual-small-001"
+    ],
+    "matching_paths": 0,
+    "known_weight_filenames_count": 78,
+    "native_control_checkpoint_found": false,
+    "all_disks_exhaustively_searched": false,
+    "newest_weight_identity": "vfunfreeze-step0632-incomplete-transfer-not-native-control",
+    "newest_weight_bytes": 52199424
+  },
+  "old_worker_inspection": {
+    "status": "completed_read_only_then_disconnected",
+    "user_confirmed_different_instance": true,
+    "expected_workspace_found": false,
+    "matching_native_evidence_found_in_bounded_search": false,
+    "gpu": "NVIDIA GeForce RTX 4090 D",
+    "gpu_total_mib": 24564,
+    "gpu_used_mib": 1,
+    "gpu_utilization_percent": 0,
+    "durable_free_bytes": 11742392320,
+    "registered_env_metadata": {
+      "python": "3.12.3",
+      "torch": "2.8.0+cu128",
+      "lerobot": "0.6.2",
+      "trackio": "0.28.0"
+    },
+    "package_code_imported": false,
+    "model_or_data_loaded": false,
+    "nested_docker_used": false,
+    "platform_billing_state": "not verified",
+    "inspection_is_readiness_approval": false
+  },
+  "published_branch_inspection": {
+    "method": "git ls-remote --heads via existing Git configuration",
+    "visual_or_vision_matching_branch_found": false,
+    "main_revision": "14f320d981e7fdc53142a314e6d4cc9f3ea58940",
+    "main_stage": "M1",
+    "local_commits_ahead_of_main": 41,
+    "old_worker_query": "timeout exit 124; not evidence of branch absence",
+    "snapshot_time": "before authorized push"
+  },
+  "historical_pilot_summary": {
+    "provenance": "parsed local copy of remote-native-report-001.log; not raw remote report",
+    "report": "reports/training/m2-smolvla-native-visual-small-2026-09-09.md",
+    "compute_wall_seconds": 1197,
+    "acceptance": {
+      "trained_samples_pass": true,
+      "validation_pass": false,
+      "independent_reload_exact": true
+    },
+    "summaries": {
+      "train": {
+        "base_mean_chunk_mse": 1.5833144640248047,
+        "pilot_mean_chunk_mse": 0.026302986440486214,
+        "pilot_mean_wrong_image_chunk_mse": 0.3753699440308513,
+        "image_invariant_mean_mse": 0.19262524052096472,
+        "base_positive_swap_gaps": 1,
+        "pilot_positive_swap_gaps": 4,
+        "pilot_beats_image_invariant_mean_count": 4,
+        "base_mean_centered_cosine": -0.04196511374952813,
+        "pilot_mean_centered_cosine": 0.9522363964812985,
+        "base_first_joint_mae_rad": 0.3227621807115308,
+        "pilot_first_joint_mae_rad": 0.022281638037384255,
+        "base_first_gripper_mae_normalized": 0.12682753708213568,
+        "pilot_first_gripper_mae_normalized": 0.009508096147328615
+      },
+      "validation": {
+        "base_mean_chunk_mse": 1.5598796968516033,
+        "pilot_mean_chunk_mse": 0.21734885635917822,
+        "pilot_mean_wrong_image_chunk_mse": 0.18471204009764872,
+        "image_invariant_mean_mse": 0.12143061699190126,
+        "base_positive_swap_gaps": 4,
+        "pilot_positive_swap_gaps": 0,
+        "pilot_beats_image_invariant_mean_count": 0,
+        "base_mean_centered_cosine": 0.06048874388021079,
+        "pilot_mean_centered_cosine": -0.12766363456419633,
+        "base_first_joint_mae_rad": 0.3181848053781626,
+        "pilot_first_joint_mae_rad": 0.021832001218960312,
+        "base_first_gripper_mae_normalized": 0.12854935675859452,
+        "pilot_first_gripper_mae_normalized": 0.014852982759475707
+      }
+    },
+    "pilot_resources": {
+      "elapsed_seconds": 131.7342020533979,
+      "peak_cuda_allocated_bytes": 2817605120,
+      "peak_host_rss_bytes": 3743199232
+    },
+    "all_pairs_measured": false,
+    "regression_passes": 47,
+    "regressions_rerun_this_session": false
+  },
+  "source_excerpts": [
+    {
+      "source": "runs\\smolvla-visual-repair-20260909-003\\remote-native-edit.sh",
+      "source_sha256": "41e6f4838941494fbe10c09d0f3adc878e9886f7c30e369bcb41887f563133b8",
+      "target_path": "src/rosetta_reality/vla/fixed_visual_samples.py",
+      "excerpt_path": "reports\\training\\visual-native-recovery-20260910\\fixed_visual_samples.py.txt",
+      "excerpt_sha256": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c",
+      "normalization": "UTF-8 without BOM; CRLF to LF; selected heredoc body",
+      "status": "historical_pre_format_source_excerpt_not_remote_final_identity",
+      "executed": false
+    },
+    {
+      "source": "runs\\smolvla-visual-repair-20260909-003\\remote-native-edit.sh",
+      "source_sha256": "41e6f4838941494fbe10c09d0f3adc878e9886f7c30e369bcb41887f563133b8",
+      "target_path": "tests/test_smolvla_fixed_visual_samples.py",
+      "excerpt_path": "reports\\training\\visual-native-recovery-20260910\\test_fixed_visual_samples.py.txt",
+      "excerpt_sha256": "f1bbcd230f5c2ffc24dc795a0e55686db74223701b7e47db49304cad11fde22b",
+      "normalization": "UTF-8 without BOM; CRLF to LF; selected heredoc body",
+      "status": "historical_pre_format_source_excerpt_not_remote_final_identity",
+      "executed": false
+    },
+    {
+      "source": "runs\\smolvla-visual-repair-20260909-003\\remote-native-trackio-fix.sh",
+      "source_sha256": "9425119e67eed5bc4a667fb015cc0ed7137a490c521f3a120bcf13863cb02f0f",
+      "target_path": "tests/test_smolvla_tracking_composition.py",
+      "excerpt_path": "reports\\training\\visual-native-recovery-20260910\\test_tracking_composition.py.txt",
+      "excerpt_sha256": "6d0cdbd32a6a41ab6c2ad07f3ba5f357a09bfa4da1c181595521bdd172bbed93",
+      "normalization": "UTF-8 without BOM; CRLF to LF; selected heredoc body",
+      "status": "historical_pre_format_source_excerpt_not_remote_final_identity",
+      "executed": false
+    },
+    {
+      "source": "runs\\smolvla-visual-repair-20260909-003\\remote-native-finalize.sh",
+      "source_sha256": "3970cbf12712359deac70dc2327cb8e3e62691b63c065d2f2d4d9347ccdf68d9",
+      "target_path": "tests/test_smolvla_v2_error_boundaries.py",
+      "excerpt_path": "reports\\training\\visual-native-recovery-20260910\\test_v2_error_boundaries.py.txt",
+      "excerpt_sha256": "c6e070c08121e5bc9f0ad5da9744492d349fafc90be505e26b54480c7d958ea6",
+      "normalization": "UTF-8 without BOM; CRLF to LF; selected heredoc body",
+      "status": "historical_pre_format_source_excerpt_not_remote_final_identity",
+      "executed": false
+    },
+    {
+      "source": "runs\\smolvla-visual-repair-20260909-003\\remote-native-evaluator.sh",
+      "source_sha256": "832c76c2e8d079057f2b8537b369253aef26dfcd438cee52e1dcaeb6f6656725",
+      "target_path": "scripts/evaluate_visual_native_small.py",
+      "excerpt_path": "reports\\training\\visual-native-recovery-20260910\\evaluate_visual_native_small.py.txt",
+      "excerpt_sha256": "65ecc75d5fa6cb90f85a95c9031d00a65f62495e96b3564fda41d2e2aa322af0",
+      "normalization": "UTF-8 without BOM; CRLF to LF; selected heredoc body",
+      "status": "historical_pre_format_source_excerpt_not_remote_final_identity",
+      "executed": false
+    }
+  ],
+  "local_evidence": [
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-edit.sh",
+      "bytes": 10061,
+      "sha256": "41e6f4838941494fbe10c09d0f3adc878e9886f7c30e369bcb41887f563133b8",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-register.sh",
+      "bytes": 7723,
+      "sha256": "856f5a5e2c7c1a80142ce9359e616f8a7d2e4294e558cbe6c2fee2d8a0d13d40",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-trackio-fix.sh",
+      "bytes": 6325,
+      "sha256": "9425119e67eed5bc4a667fb015cc0ed7137a490c521f3a120bcf13863cb02f0f",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-retry.sh",
+      "bytes": 2909,
+      "sha256": "cdf2a64c75db28009957114e3b8e96751fbe1d04153353d9cdb6087e8f19cbc4",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-continue.sh",
+      "bytes": 3363,
+      "sha256": "dd0bb6da71359c10b90c8679806a149dd60f13a5665a7b807b370c4da0ad87a5",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-evaluator.sh",
+      "bytes": 10518,
+      "sha256": "832c76c2e8d079057f2b8537b369253aef26dfcd438cee52e1dcaeb6f6656725",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-finalize.sh",
+      "bytes": 5744,
+      "sha256": "3970cbf12712359deac70dc2327cb8e3e62691b63c065d2f2d4d9347ccdf68d9",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-report.sh",
+      "bytes": 11157,
+      "sha256": "d87603029bf479004ecc84c50973937fb054da1f817f16ddd2efadee4811efc6",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-final-audit.sh",
+      "bytes": 2562,
+      "sha256": "08723b26dbd43516ba36f429fa5bfbd72b8ba02361f8cb3857657bbf3830eaca",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-report-001.log",
+      "bytes": 1850,
+      "sha256": "a48d2d668328c089ef2cdcc6432bc86e2e740bf63a994a871521cfd973aa5f0c",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-final-audit-001.log",
+      "bytes": 256,
+      "sha256": "7b8a66acd30fbd580d12e636bfa21ff38c91366024cbec40a797af284fb8a99f",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-finalize-001.log",
+      "bytes": 175,
+      "sha256": "ad6070843f91030db0e1d37b6e8c6fd32a8686cd19db0c3a4b1a4a51b3691b4d",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-status-008.log",
+      "bytes": 38744,
+      "sha256": "d6adf670cb577fb7ea74ca9f885197bdcbb431ec8187046fb000372a04837060",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-register-001.log",
+      "bytes": 608,
+      "sha256": "adac1ff0421ebada1cb2d3e8a0070c727dc84c33880a6bf2348796c972b2c54d",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\remote-native-poweroff-001.log",
+      "bytes": 591,
+      "sha256": "de22a47cda2a47ef6541e26bbd68eff52d2e9f895fe0899806a32a94abfada40",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\source-manifest.json",
+      "bytes": 3406,
+      "sha256": "27558c67a60e0a261555d5071e15e472411f4a8f1ce0b51976ffaaa242eca82c",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\transfer-plan.json",
+      "bytes": 1225,
+      "sha256": "b8dd8fd30848e3b54d550986f0b4ddc0c056291f3ea595f8a9de3835161d4b6d",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\artifact-transfer-001.log",
+      "bytes": 1738,
+      "sha256": "a8b79dfdb420986167ce183a3e68a51ce753796511176ccbf2d65abaab931d33",
+      "raw_published": false
+    },
+    {
+      "path": "runs\\smolvla-visual-repair-20260909-003\\artifact-transfer-002.log",
+      "bytes": 74,
+      "sha256": "7aaeae1efd8900030a528ff6fd3e55d49f634d7f0bf400b216bf8d6b9956a565",
+      "raw_published": false
+    }
+  ],
+  "recovery_order": [
+    {
+      "input": "remote-native-edit.sh",
+      "changes": [
+        "bounded cross-episode sample helper and feature integration",
+        "forward-check parsed batch/episode settings"
+      ]
+    },
+    {
+      "input": "remote-native-register.sh",
+      "changes": [
+        "move train-split guard before dataset construction",
+        "create initial bounded plans"
+      ]
+    },
+    {
+      "input": "remote-native-trackio-fix.sh",
+      "changes": [
+        "compose resolved runtime tracking metadata",
+        "preserve original trainer error during Trackio cleanup",
+        "create -002 identities"
+      ]
+    },
+    {
+      "input": "remote-native-retry.sh",
+      "changes": [
+        "create -003 CUDA runtime metadata identities",
+        "fail-fast runner shells"
+      ]
+    },
+    {
+      "input": "remote-native-continue.sh",
+      "changes": [
+        "checkpoint checker permits only exact-value-preserving BF16-to-FP32 conversion"
+      ]
+    },
+    {
+      "input": "remote-native-evaluator.sh",
+      "changes": [
+        "historical cyclic evaluator, not the new all-pairs evaluator"
+      ]
+    },
+    {
+      "input": "remote-native-finalize.sh",
+      "changes": [
+        "regression source before Ruff formatting"
+      ]
+    }
+  ],
+  "missing": [
+    "native 8-episode step-256 pretrained_model and recovery checkpoint identity",
+    "remote final-audit.json with per-file SHA-256",
+    "original pilot report md/json and full eval/reload JSON",
+    "old -003 plan and resolved train_config with optimizer/scheduler/seed",
+    "current source/cache/normalization/environment manifests on target worker"
+  ],
+  "next_action": "Recover final source and control checkpoint identity on the authoritative instance, then stage code by commit or content-addressed snapshot; obtain a new compute budget before model execution",
+  "new_optimizer_steps": 0,
+  "model_loaded": false,
+  "data_loaded": false,
+  "hidden_test_loaded": false,
+  "visual_generalization_repaired": false,
+  "m2_complete": false
+}

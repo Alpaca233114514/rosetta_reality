@@ -106,6 +106,49 @@
     "two_step_cuda_optimizer_smoke",
     "explicit_training_authorization"
   ],
+  "post_training_path_amendment": {
+    "date": "2026-08-28",
+    "kind": "implementation_completion_no_protocol_change",
+    "candidate_identity": {
+      "plan_id": "m2-smolvla450m-vcdropout-001",
+      "run_name": "m2-smolvla450m-vcdropout-cuda-b64-001",
+      "protocol_module": "scripts/smolvla_vcdropout_protocol.py"
+    },
+    "completed_entries": [
+      "create_only_v2_candidate_selection_export_and_exact_reload_path",
+      "executable_offset250_gradient_gate_bound_to_candidate_plan_and_artifact"
+    ],
+    "remaining_before_optimizer_work": [
+      "hash_bound_v2_formal_plan",
+      "no_optimizer_preflight",
+      "two_step_cuda_optimizer_smoke",
+      "explicit_training_authorization"
+    ],
+    "implementation_files": {
+      "scripts/smolvla_vcdropout_protocol.py": "3967c6192f74fac6d5aa7d9891d25d5f8eaed4aec02a59e6833522cfff1b2cbc",
+      "scripts/smolvla_vcdropout_validate.py": "cf319d3e407fcabebdb2aa3ba0453131efff9ae890734cc6d872bea10918276c",
+      "scripts/select_smolvla_vcdropout_checkpoint.py": "4cce7bbbdc77b901e1be59ea6f14ed1ed149f6d23029573cbde1848f0040e4e6",
+      "scripts/export_smolvla_vcdropout.py": "debe434d71a5b9b4ccffa7086570e8253b416e8a300c92104c249b02ef721bbb",
+      "scripts/gate_smolvla_vcdropout_visual_conditioning.py": "051c98825c1f04b865f30b8e0f9f79880bfff07926134c77532cafa390cc26e1",
+      "tests/test_smolvla_vcdropout_protocol.py": "dfd28ea00c09059210c08fc78f27a0edb0351526564487fa876ff651be357f11"
+    },
+    "schema_amendment": {
+      "detail": "state_robustness_jitter and state_conditioning_dropout declared mutually exclusive in the version-2 plan schema",
+      "changed_files": {
+        "src/rosetta_reality/vla/training/plan.py": "7fd3d0c45c29c5cc2c4b08b4e1b6d3666519f6a1bb53fd84f12260f3674a3c63",
+        "tests/test_smolvla_training_plan_schema.py": "c6bb82b6c20f562fef0781605119a59543cf66cfff83a01f57ea8d380db62807"
+      },
+      "treatment_semantics_changed": false
+    },
+    "verification": {
+      "runtime": "wsl_bash_to_read_only_linux_docker",
+      "model_weights_loaded": false,
+      "dataset_rows_loaded": false,
+      "pytest": "65_passed_including_14_new_protocol_tests",
+      "ruff": "passed"
+    },
+    "training_authorized": false
+  },
   "forbidden_combinations": [
     "vision_unfreezing",
     "state_jitter",

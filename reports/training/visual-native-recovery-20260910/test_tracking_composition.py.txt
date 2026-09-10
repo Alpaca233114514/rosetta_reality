@@ -1,0 +1,19 @@
+"""Inherited runtime metadata must survive the plan-bound logging boundary."""
+
+import copy
+
+from rosetta_reality.vla.training.launch import compose_runtime_experiment
+
+
+def test_tracking_overlay_is_in_same_resolved_runtime_as_resources():
+    parent = {"tracking": {"project": "old", "retained": True},
+              "resources": {"memory_limit": "8g"}, "dataset": {"revision": "pinned"}}
+    plan = {"tracking": {"project": "small-visual", "space_id": ""},
+            "resources": {"memory_limit": "autodl_platform_container"}}
+    before_parent, before_plan = copy.deepcopy(parent), copy.deepcopy(plan)
+    result = compose_runtime_experiment(parent, plan)
+    assert result["tracking"] == {"project": "small-visual", "space_id": "", "retained": True}
+    assert result["resources"]["memory_limit"] == "autodl_platform_container"
+    assert result["dataset"] == parent["dataset"]
+    result["tracking"]["project"] = "changed"
+    assert parent == before_parent and plan == before_plan

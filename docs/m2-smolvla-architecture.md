@@ -5,10 +5,14 @@ SmolVLA M2 work. It is intentionally not named after a furnace or date. Update
 this file when component ownership, execution boundaries, the current evidence
 source, or the next repair stage changes.
 
-Document updated: 2026-08-28. Current Faust evidence snapshot: 2026-08-12;
+Document updated: 2026-09-10. Current Faust evidence snapshot: 2026-08-12;
 current Aster implementation audit: 2026-08-13; current Way CUDA evidence:
 2026-08-14; current object-geometry teacher/official planner evidence:
-2026-08-16; current Zen two-arm campaign completion audit: 2026-08-27.
+2026-08-16; current Zen two-arm campaign completion audit: 2026-08-27; current
+visual-conditioning furnace execution and gradient-gate pass: 2026-08-28;
+current vcdropout Gate 3/4 registered comparison: 2026-08-29; current T2
+teacher-gate candidate closures (scripted adapter, geometric command layer):
+2026-08-30 / 2026-09-02.
 
 ## 1. Mandatory reading order and authority
 
@@ -99,6 +103,124 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Current visual-utilization handoff and review plan (2026-09-10):
+`reports/training/m2-smolvla-native-visual-coverage40-plan-2026-09-10.md`
+and its JSON companion prepare the next fixed-budget frame-0 coverage comparison
+(8 to 40 train episodes, batch 4, 256 updates). Official-source interpretation is
+in `reports/training/m2-smolvla-visual-coverage-official-evidence-2026-09-10.md`.
+These are non-executable review documents; remote identity, actual commands,
+preflight and a fresh compute budget remain pending. A later authorized read-only
+SSH check identified a different older worker; the authoritative native workspace
+and control checkpoint remain unavailable. Local recovery evidence and historical
+source excerpts are indexed in
+`reports/training/m2-smolvla-native-visual-local-recovery-2026-09-10.md`;
+they are not verified final remote source files. The user authorized pushing the
+current feature branch, which does not authorize model execution. The user handoff
+records a completed native frozen-VLM pilot with 4/4 training checks and 0/4
+development-validation checks, 47 regression passes and unchanged frozen VLM
+values. Its authority is the remote `dev/visual-utilization-20260909-001`
+workspace under the durable root, with
+`reports/training/m2-smolvla-native-visual-small-2026-09-09.{md,json}` and
+`runs/visual-native-small-001/`; these remote files were not read in this
+documentation-only session. The local same-named branch is not a synchronized
+source identity. Current instance state is unverified; historical shutdown is
+not live evidence. Reuse the old checkpoint only as a read-only control; use
+the same newly registered all-nonself-image evaluation for both arms, keep
+hidden sealed, and do not add paired loss, dropout or unfreezing. This changes
+the next proposed diagnostic stage, not any historical Gate result or M2 status.
+
+Local visual-grounding repair (2026-09-09):
+`reports/training/m2-smolvla-local-visual-grounding-preregistration-2026-09-09.md`
+and its JSON companion register a no-optimizer, train-only comparison of two
+existing local artifacts at four trajectory offsets. Recent frame-0-only
+checkpoint selection cannot measure later visual grounding. The new
+`scripts/diagnose_visual_grounding.py` checks sample identity, every camera mask,
+input range, matched noise and paired target gains by physical unit. It does
+not change historical selection, Gate protocols or authorize training. The
+visual-front-end scope validator now verifies the complete non-visual VLM and
+rejects invalid/aliased/empty scopes before changing any parameter. Checkpoint
+wrapper conflicts are likewise checked before installation. Future training
+must bind the new implementation hashes; completed plans remain immutable.
+Completed local evidence is in
+`reports/training/m2-smolvla-local-visual-grounding-repair-2026-09-09.md` and
+its JSON companion: 68 synthetic tests, one real-cache test, 320 uncached
+forwards and 160 cached forwards. On the registered train slice, vcdropout is
+more image-sensitive but has worse correct-image joint MAE than Zen in all
+16 offset/noise groups. The opt-in frozen image cache preserves all recorded
+first actions exactly and reduces this one timed Zen run from 213.605 s to
+153.598 s (480 image-encoder calls become 21). Neither comparison measures
+training improvement or task success. Latest vfunfreeze weights are absent
+locally, so its temporal diagnostic remains not measured.
+
+The earlier local-only work focused on a visual-supervision candidate,
+with SSH and heavy execution deferred by the user. See
+`reports/training/m2-smolvla-visual-pair-objective-local-result-2026-09-09.md`
+and its design note. `visual_pair_loss.py` prototypes an anchored velocity
+loss plus action-difference supervision for verified train pairs with equal
+state/language/full-noise inputs and different images. Twenty tiny CPU tensor
+tests establish its arithmetic and gradient direction only. Pair construction,
+model integration, real-model efficacy and task success remain unmeasured;
+the objective is not registered as a trainer feature or enabled by any plan.
+
+Gate 4 feasibility continuation (2026-09-08): Docker Linux engine and the
+registered image identity were recovered from the retained local storage.
+The focused container suite passed 38 tests; the required Ruff check failed
+with `I001` in the registered probe import block. Calibration, sanity control
+and target rollouts were not started. All five seeds remain `not measured`,
+not `0/5`. The September 6 registration, blocked evidence and 20 frozen source
+hashes are unchanged. See
+`reports/training/m2-smolvla-t2-seating-feasibility-gate4-continuation-2026-09-08.md`
+and its JSON companion. This supersedes the runtime blocker described in the
+historical paragraphs below, without changing Gate protocols or M2 acceptance.
+
+Gate 4 feasibility diagnostic registration (2026-09-06):
+`reports/training/m2-smolvla-t2-seating-feasibility-gate4-preregistration-2026-09-06.md`
+and its JSON companion register seeds 1000–1004 solely for a non-gating
+privileged-controller probe. The create-only entry point is
+`scripts/diagnose_gate4_seating_feasibility.py`, reusing the September 3 seater
+with the historical teacher HOLD branch disabled, the unchanged Gate reset,
+and a 500-action total budget including preparation. Implementation and tests
+are prepared but container verification and rollouts remain blocked. WSL startup
+error `Wsl/Service/0x8007274c` cleared on the September 6 continuation; Docker
+Desktop then crashed while initializing its Inference manager (`dockerInference`
+socket inaccessible). See the dated Gate 4 feasibility result report amendment.
+No seed result exists. This does not change the seven policy
+failures, M2 acceptance, task protocol or furnace authorization. A future 0/5
+probe result would mean no solution found by this controller, not an exhaustive
+proof that all position-control strategies are physically infeasible.
+
+Diagnostic boundary update (2026-09-06): the vision-front-end-unfreeze
+candidate `m2-smolvla450m-vfunfreeze-003` (registered fallback batch 32 /
+632 steps with per-module activation checkpointing) completed the full
+preregistered chain and closed the axis as negative evidence — Gate 3
+passed, Gate 4 failed `0/5` with 19 joint-limit violations and 19 unexpected
+collisions, despite the best-ever offline first-action MAE (`0.019603`),
+weight-level proof that exactly the visual front end trained (198/198
+tensors updated, language model bit-identical), and the first frame-0
+alignment-gate pass. Closure authority:
+`reports/training/m2-smolvla-vfunfreeze-gate34-closure-2026-09-06.md` and
+its JSON companion. The tested learning-side variants (temporal weighting,
+state robustness, state-conditioned dropout, vision unfreeze) are closed as
+negative results at their registered scales; this is not an exhaustive rejection
+of all visual-learning hypotheses. Other hypothesis families include closed-loop execution /
+control layer, T2 recovery supervision (closed at the protocol wall), and
+development-scale data limits. No new furnace is authorized by this
+closure.
+
+Diagnostic correction (2026-09-05): read
+`reports/training/m2-smolvla-vision-diagnostic-repair-2026-09-05.md` before
+using the September 3 first-step report to choose a new learning axis. Its
+pooled linear-probe failure does not establish absence of visual information.
+The three diagnostic readers now share a pinned, checksum-verified cache,
+exclude hidden rows at scan time, and distinguish train fitting from validation.
+The functional probe compares correct/mismatched images under identical state
+and fixed noise; the feature probe reports both mean and ordered spatial pooling.
+These are diagnostic repairs, not new model-quality or Gate evidence. Effective
+vision adaptation was still unimplemented at that repair boundary; the subsequent
+registered vfunfreeze execution is recorded above. The v2 launcher rejects the
+ineffective `freeze_vision_encoder=false` plus
+`train_expert_only=true` combination and silently ignored adaptation overrides.
+
 | Field | Current state |
 |---|---|
 | development policy | revision-pinned `lerobot/smolvla_base` 450M |
@@ -112,11 +234,12 @@ The current work line is **VLA / System 1**, not Qwen ER.
 | latest selected checkpoint | Zen uniform step 316, validation first-action MAE `0.021572770214905695`; Zen firstaction step 316 `0.022150604739519103`; Way step 316 `0.030136355795964066`; Aster remains the `0.02250973408226855` read-only offline control |
 | export/reload | Faust, Aster, Way and both Zen arms passed with exact action equality |
 | Gate 3 | Faust, Aster, Way and both Zen arms passed |
-| Gate 4 | Faust, Aster, Way, Zen-uniform (`411`) and Zen-firstaction (`422`) all failed `0/5` |
+| Gate 4 | Faust, Aster, Way, Zen-uniform (`411`), Zen-firstaction (`422`), vcdropout (`433`) and vfunfreeze (`444`) all failed `0/5` |
 | Aster T1 attempt | `aster-b8-002` completed, but is not valid single-axis evidence |
 | current T1 result | `aster-b8-003` selected/exported and Gate 3 passed; Gate 4 failed |
 | current Way result | fresh-base train-only normalized-state jitter `std=0.05`; selected/exported and Gate 3 passed; Gate 4 failed |
 | current Zen result | preregistered two-arm single-axis comparison (uniform control vs `first_action_only` treatment) at batch 64 / 316 updates through the v2 harness; both arms trained to convergence, exported bit-exact, Gate 3 passed, Gate 4 failed `0/5` with reward `0` on every seed 1000--1004; the registered hypothesis is rejected |
+| current vcdropout result | gradient gate passed (image sensitivity `0.226087` vs baseline ≤~8%, dominance `0.408466`) but the separately registered Gate 3/4 comparison failed: Gate 3 passed (8/8 criteria, seed `20260809`, 20 steps) and Gate 4 failed `0/5` with reward `0` on seeds 1000--1004 plus 131 joint-limit violations and 34 unexpected collisions (`433`, 2026-08-29). The state-dominant shortcut was a gradient-level symptom, not the root cause; the axis is closed as negative evidence and the next primary axis is the T2 state-conditioned recovery teacher |
 | current recovery-teacher result | Plan `054` failed grasp drift in `lift` locally and on Athena. Authorized local repair chain: Plan `055` feedback-anchored lift preserved both grasps but hit an unregistered table contact; Plan `056` lifted the contact scope but hit one Mink IK failure; Plan `057` extended the official MoveIt fallback to lift but hit the right gripper-bar/table contact; Plan `058` added that observed contact and ran all 750 steps safely in `lift` without losing grasp, but the right peg never left the table. Exact remains failed and all later gates remain sealed |
 | M2 completion | **not complete** |
 | hidden test | not loaded |
@@ -207,6 +330,10 @@ and Qwen ER independently passes its own evaluation.
 | `src/rosetta_reality/vla/horizon_loss.py` | checksum-bound temporal mask plus selected-valid reduction | optimizer/scheduler policy |
 | `src/rosetta_reality/vla/state_robustness.py` | checksum-bound, train-only normalized-state jitter | validation/deployment mutation or recovery labels |
 | `src/rosetta_reality/vla/visual_conditioning.py` | checksum-bound, train-only whole-sample normalized-state dropout using a dedicated RNG | vision unfreezing, validation/deployment mutation, recovery labels or global-RNG drift |
+| `src/rosetta_reality/vla/vision_front_end.py` | validate the complete frozen VLM complement before enabling the declared visual scope; transactional layout checks for per-module checkpoint wrappers | language-model training, implicit scope widening or changing historical plan hashes |
+| `src/rosetta_reality/vla/visual_grounding.py`, `scripts/diagnose_visual_grounding.py` | registered train-only temporal samples, image intervention identity, per-call camera ingress checks and paired gains by physical unit | optimizer updates, checkpoint selection, hidden/validation access or Gate acceptance |
+| `src/rosetta_reality/vla/inference_image_cache.py`, `scripts/diagnose_visual_grounding_cached.py` | opt-in, bounded exact-image embedding reuse during frozen diagnostics; reference identity and first-action parity verification | trainable feature caching, trainer/Gate interception, mask changes or full-chunk parity claims |
+| `src/rosetta_reality/vla/visual_pair_loss.py` | experimental anchored and paired flow-velocity objective for identical nonvisual inputs at full noise; tiny-tensor arithmetic checks | data pairing/provenance proof, trainer installation, actual model efficacy or task acceptance |
 | `src/rosetta_reality/vla/runtime_compatibility.py` | versioned post-training normalization/tokenizer/root and CUDA compile guards | mutation of completed hash-bound runners or learning semantics |
 | `src/rosetta_reality/sim/` | simulator-neutral action contract and Gym-ALOHA adapter | SmolVLA internals |
 | `src/rosetta_reality/sim/geometry_teacher.py` | object/EEF/contact/reward-conditioned event teacher and bounded task-space targets | time-indexed source actions or simulator-specific IK |
@@ -249,6 +376,7 @@ and Qwen ER independently passes its own evaluation.
 | `src/rosetta_reality/vla/training/` | version-2 plan-driven composition layer for the pinned LeRobot trainer: plan schema, ordered feature registry with install/restore and rollback, launch assembly (see `docs/m2-smolvla-training-harness-v2.md`) | the upstream training loop, learning semantics, or mutation of the frozen historical trainer stack |
 | `scripts/run_smolvla_v2.py` | the single version-2 launcher validation chain, launch manifest and mode dispatch | bypassing prerequisite evidence or authorizing a furnace by itself |
 | `scripts/train_smolvla_v2.py` | the single version-2 trainer entry installing plan-declared features on the pinned LeRobot trainer | experiment selection or evaluation semantics |
+| `scripts/smolvla_vcdropout_protocol.py`, `scripts/smolvla_vcdropout_validate.py`, `scripts/select_smolvla_vcdropout_checkpoint.py`, `scripts/export_smolvla_vcdropout.py`, `scripts/gate_smolvla_vcdropout_visual_conditioning.py` | the create-only visual-conditioning candidate post-training chain: frozen candidate identity/treatment/gate criteria, plan-bound fixed validation, validation-only selection, deploy export with exact independent reload, and the executable offset-250 gradient gate | authorizing training by existing, relaxing the frozen gate thresholds, or mutating completed Zen identities |
 | `scripts/evaluate_aloha_geometry_teacher.py` | train-only rigid calibration, joint-limit-aware IK/path-planner boundary and staged create-only teacher reports | label collection or opening a later seed stage after failure |
 | `reports/training/` | human and machine-readable interpretation | mutable checkpoints |
 | ignored `runs/` and `artifacts/` | immutable local runtime evidence and deploy artifacts | tracked source code |
@@ -545,7 +673,7 @@ Current state:
 | Zen Gate 4 | **failed** | both arms `0/5` with reward `0` on every seed 1000--1004; firstaction recorded zero violations of every safety class; uniform additionally failed `joint_limits_respected` (5 violations) — the audit markdown's "only failed criterion" sentence is a prose slip, the gate JSONs are authoritative |
 | Zen first-deviation trace | completed 2026-08-28 | local XPU diagnostic on the firstaction deploy artifact: divergence begins at step zero (action MAE `0.032943`, post-state MAE `0.015197`; Aster `0.0204168`/`0.0055942`), crossings `0.005`/`0.01`/`0.025` at steps 0/0/1, `0.05` at 18, `0.1` at 29; expert replay reproduced reward 4 at step 293; policy reward 0 with zero violations; report `m2-smolvla-zen-first-deviation-trace-2026-08-28` |
 | Zen module-gradient diagnostic | completed 2026-08-28 | both deploy artifacts, teacher-forced probe at validation frame offsets 0 and 250 (registrations 001/002): at offset 250 `state_shuffle` multiplies the loss 2.1–4.4x and every trainable module's gradients 1.5–3.4x while `image_shuffle` moves them ≤~8% and `image_zero` ≤~47% — gradient-level confirmation of the state-dominant shortcut; freeze pattern verified exactly. Protocol discovery: frame-0 states are bit-identical across all 50 dataset episodes, so the registered offset-0 validation protocol cannot probe state sensitivity (002 added fail-closed degeneracy guards); report `m2-smolvla-zen-module-gradient-diagnostic-2026-08-28` |
-| visual-conditioning state-dropout axis | implementation preregistered 2026-08-28; no optimizer work authorized | new v2 `state_conditioning_dropout` feature drops exactly half of each optimizer batch's complete normalized-state samples using a dedicated RNG, leaving global model RNG, labels, validation/deployment and the frozen VLM unchanged; 50 focused container tests plus Ruff passed. The offset-250 gradient gate and non-degradation guard are frozen in `m2-smolvla-visual-conditioning-state-dropout-preregistration-2026-08-28`; candidate selection/export/reload and an executable gate remain required before a formal plan or smoke |
+| visual-conditioning state-dropout axis | **furnace executed 2026-08-28; frozen gradient gate PASSED** | new v2 `state_conditioning_dropout` feature drops exactly half of each optimizer batch's complete normalized-state samples using a dedicated RNG, leaving global model RNG, labels, validation/deployment and the frozen VLM unchanged; jitter and dropout are mutually exclusive plan declarations. The guarded ladder `scripts/run_smolvla_vcdropout_furnace.sh` ran on AutoDL under explicit user authorization (workspace archive `d0e8389466c9…` after a preregistered attempt-1 instrumentation repair recorded in the visual-conditioning preregistration amendment): doctor → benchmark → preflight → smoke → baseval → formal (batch 64, 316 steps) → val×4 → select → export all completed, selecting step 237 (first-action MAE `0.029304`, fixed flow loss `0.153671`); the deploy artifact `m2-smolvla450m-vcdropout-cuda-b64-001-step0237-deploy-001` passed exact independent reload remotely, transferred to the local artifact root with 13/13 manifest SHA-256 verified, and the executable offset-250 gradient gate PASSED locally on XPU (`normal_mean_flow_loss` `0.158084` ≤ 0.22005, `state_sensitivity` `0.634553` ≤ 0.70, `image_sensitivity` `0.226087` ≥ 0.10, `state_dominance_score` `0.408466` ≤ 0.453; report `vcdropout-gradient-gate-974130aba90568e3.json`). The offline selected MAE is worse than the Zen-uniform control (`0.021573`) by design of the treatment; the registered metric is the gradient gate. The separately registered Gate 3/4 comparison (preregistration and result of 2026-08-29, suffix `433`, create-only wrapper `scripts/smolvla_vcdropout_sim_gate.py` over the frozen engine) then **passed Gate 3 (8/8 criteria) and failed Gate 4 `0/5`** with reward `0` on every seed, 131 joint-limit violations and 34 unexpected collisions — gradient-level visual conditioning did not convert into closed-loop competence, closing the axis as negative evidence (`m2-smolvla-vcdropout-gate34-result-2026-08-29`). The AutoDL instance is shut down again and must not be released |
 | recovery-oracle exact control | diagnostic passed | train episode 2/seed 10 reproduced reward 4 in 294 actions with no OOD or IK failure |
 | recovery-oracle cross-pose tuning | **failed** | two registered robot-state progression thresholds both returned reward 0 on dedicated seed 1900; development/collection/Gate seeds remained unopened |
 | object-geometry teacher exact | **plan 030 failed `0/1`; joint-limit safety held; later gates sealed** | calibration reached reward 4, but exact exhausted 500 steps in `orient` with reward 0; 131 planner attempts and 23 recovery events produced zero IK, clip or joint-margin failures |
@@ -1106,12 +1234,12 @@ to find the owning layer before editing:
 | T1 executed-horizon loss mismatch | `horizon_loss.py` plus `run/train_smolvla_horizon_loss_formal.py`; the Zen two-arm campaign rejected `first_action_only` at batch 64 / 316 updates (no offline gain, no closed-loop change), and the Aster batch-8 offline gain does not transfer across regimes — the axis is closed unless a longer-schedule / smaller-batch replication is separately preregistered | selected-valid reduction tests, exact upstream SHA, preflight and two-step optimizer smoke |
 | T2 no recovery distribution | `geometry_teacher.py`, upstream Mink adapter, official MoveIt/OMPL sidecar, MuJoCo position-feedforward boundary, staged evaluator and recovery-data contract | preserve plans `022`--`054`; Plan053 is safe but horizon-exhausted and Plan054 failed grasp drift before its new event locally and on Athena; no further planner plan is authorized, and later seeds and labels remain sealed |
 | T3 validation noise mismatch | `scripts/evaluate_smolvla_action_repair_validation.py` and new evaluation config | fixed Gaussian seed ensemble matching deployment |
-| T4 state-dominant shortcut | `scripts/diagnose_smolvla_aster_modalities.py`, `scripts/diagnose_smolvla_zen_module_gradients.py` and the new `visual_conditioning.py` feature; the Zen diagnostic confirmed state-shuffle gradient ratios 1.5–3.4x versus image shuffle ≤~8%. The first treatment is preregistered as whole-sample normalized-state dropout with a dedicated RNG, but optimizer work remains closed until its candidate post-train path and executable offset-250 metric gate exist | exact dropout/RNG isolation tests, then candidate selection/export/reload plus the frozen offset-250 state-dominance gate |
+| T4 state-dominant shortcut | `scripts/diagnose_smolvla_aster_modalities.py`, `scripts/diagnose_smolvla_zen_module_gradients.py` and the new `visual_conditioning.py` feature; the Zen diagnostic confirmed state-shuffle gradient ratios 1.5–3.4x versus image shuffle ≤~8%. The treatment furnace executed 2026-08-28, the frozen offset-250 state-dominance gate passed, and the separately registered Gate 3/4 comparison failed `0/5` on 2026-08-29 — the axis is closed: the shortcut was a gradient-level symptom, not the closed-loop root cause | exact dropout/RNG isolation tests, the frozen offset-250 state-dominance gate, then the registered Gate 3/4 comparison (all completed) |
 | T6 periodic gripper latent | `src/rosetta_reality/vla/processor.py` | internal-support rate plus endpoint and standard-bound tests |
-| T7 formal resume gap | formal runner/trainer and `checkpoint_memory.py` | uninterrupted versus stop/resume parity |
-| T9 checkpoint/log mismatch | formal plan validation and checkpoint writer | exact same-step metric/resource snapshot |
+| T7 formal resume gap | v2 harness resume contract (see `docs/m2-smolvla-training-harness-v2.md`): dropout-generator RNG state in checkpoints first, then a registered two-arm uninterrupted-vs-resumed bit-exact parity protocol; the `gradient_clip_diagnostics` and `checkpoint_metric_snapshot` features are its measurement substrate | uninterrupted versus stop/resume parity |
+| T9 checkpoint/log mismatch | the v2 `checkpoint_metric_snapshot` feature (exact same-step metric row inside every checkpoint directory, fail-closed when absent) plus the schema's `save_freq % log_freq == 0` | snapshot presence and exactness tests |
 | T10 missing failure trace | `scripts/smolvla_action_repair_sim_gate.py` and `src/rosetta_reality/eval/diagnostics.py` | object/EEF/reward/raw-action first-deviation window |
-| O2 clipping observability | local instrumentation around pinned LeRobot trainer | pre/post-clip global and per-module norms |
+| O2 clipping observability | the v2 `gradient_clip_diagnostics` feature wrapping the pinned positive-clip path | pre/post-clip global and per-module norms |
 | O3 scheduler peak semantics | local scheduler contract/extension, not dependency-cache edits | exact LR sequence around warmup and final step |
 
 Do not combine these repairs into one furnace. Instrumentation and resume parity
@@ -1120,7 +1248,11 @@ needs its own registered comparison.
 
 ## 10. Next safe work sequence
 
-The current next sequence after the Zen two-arm Gate 4 failure is:
+For the current visual-utilization request, follow the September 10 review plan
+linked in section 2: documentation first, then separately authorized remote
+identity verification and new compute registration. The fixed-budget coverage
+hypothesis does not reopen the completed learning axes below. The following
+sequence records the historical post-Zen work and its authorization boundaries:
 
 1. completed 2026-08-28: both selected Zen deploy artifacts transferred to the
    local artifact root (SHA256-verified; the AutoDL instance was shut down
@@ -1135,13 +1267,34 @@ The current next sequence after the Zen two-arm Gate 4 failure is:
    report above); the first stronger-visual-conditioning treatment is now
    implementation-preregistered as whole-sample normalized-state dropout
    (`m2-smolvla-visual-conditioning-state-dropout-preregistration-2026-08-28`).
-   Its feature/schema/RNG-isolation checks pass, but it is not yet an executable
-   training registration: add the create-only candidate selection/export/exact-
-   reload path and executable offset-250 gradient gate before any preflight,
-   optimizer smoke or furnace authorization;
+   Its feature/schema/RNG-isolation checks pass, the required create-only
+   candidate post-training path plus the executable offset-250 gradient gate
+   were added and verified the same day (65 no-weight/no-data container tests
+   plus Ruff), and the hash-bound formal plan
+   `configs/vla/smolvla_450m_aloha_insertion_vcdropout_cuda_b64_001.yaml`
+   (`m2-smolvla450m-vcdropout-001`, declaring the O2/T9 instrumentation
+   features alongside the treatment) is frozen and validated through the
+   protocol module, the v2 schema and the launcher split guards, with the
+   guarded remote ladder at `scripts/run_smolvla_vcdropout_furnace.sh`
+   stopping after export. Completed 2026-08-28 under explicit user
+   authorization: the ladder ran end-to-end on AutoDL (after the preregistered
+   attempt-1 instrumentation repair), step 237 was selected, the artifact
+   passed exact reload and transferred home, and the local XPU gradient gate
+   PASSED all frozen criteria (image sensitivity `0.226` vs the Zen-baseline
+   ≤~8% shift; dominance `0.408`) — see the §8 axis row. The separately
+   registered Gate 3/4 comparison then ran locally 2026-08-29 (suffix `433`):
+   Gate 3 passed, Gate 4 failed `0/5` with reward `0`, 131 joint-limit
+   violations and 34 unexpected collisions — the axis is closed as negative
+   evidence (`m2-smolvla-vcdropout-gate34-result-2026-08-29`), leaving the T2
+   state-conditioned recovery teacher as the only untried primary axis;
 4. add exact checkpoint metrics, pre/post-clip and per-module optimizer
-   diagnostics;
-5. add formal resume parity;
+   diagnostics — implemented 2026-08-28 as the v2 `checkpoint_metric_snapshot`
+   (T9) and `gradient_clip_diagnostics` (O2) features with focused container
+   tests; declared per plan, no learning semantics changed;
+5. add formal resume parity — the T7 contract is frozen in
+   `docs/m2-smolvla-training-harness-v2.md` (dropout-generator RNG state in
+   checkpoints first, then a registered two-arm bit-exact parity protocol);
+   implementation remains open and formal resume stays forbidden;
 6. align validation noise with deployment;
 7. test gripper internal-support handling;
 8. preserve Way and both Zen arms as completed negative evidence and do not
@@ -1155,7 +1308,72 @@ The current next sequence after the Zen two-arm Gate 4 failure is:
    reconciliation gate;
 10. recovery-distribution data (T2) remains the only untried primary axis, but
     it still requires a state-conditioned teacher that passes its own gate
-    before any collection or furnace is preregistered;
+    before any collection or furnace is preregistered; that teacher gate is
+    designed (staged G0–G5, blocking the two historical failure modes:
+    single-pose success and safety-without-progress) in
+    `reports/training/m2-smolvla-t2-state-conditioned-teacher-gate-design-2026-08-28.md`
+    and is now implemented and preregistered:
+    `reports/training/m2-smolvla-t2-teacher-gate-protocol-preregistration-2026-08-29.md`
+    (`m2-t2-teacher-gate-001`) freezes the thresholds (G1 seed 10 budget 500,
+    G2 tuning seeds 1900–1904 all-solved, G3 ≥3 perturbations/pose ≤150
+    actions refusals <10%, G4 zero silent defaults), the contract module
+    `src/rosetta_reality/sim/teacher_gate.py` enforces the frozen observation
+    field set with explicit-refusal semantics, and the staged runner
+    `scripts/run_teacher_gate.py` executed the G0 harness self-test (passed,
+    evidence `a43b13c7…`) and the G5 chain audit on the bundled probe — which
+    validates the harness only, not a teacher. Four real candidates have
+    since registered and been measured against the frozen gate, and all
+    their classes are closed as method-level negative evidence: the
+    scripted adapter `gym-aloha-scripted-insertion-adapter-001` (G1 passed,
+    best G2 1/5, closed 2026-08-30,
+    `m2-smolvla-t2-scripted-teacher-align-branch-diagnostic-2026-08-30.md`);
+    the geometric command layer `mink-geometric-insertion-teacher-001`
+    (closed 2026-09-02, G1 never passed,
+    `m2-smolvla-t2-geometric-teacher-candidate-diagnostic-2026-09-02.md`);
+    the geometric composition family `-002` (G1 passed, G2 2/5 with the
+    constant-coupling proof, closed 2026-09-03,
+    `m2-smolvla-t2-geometric-teacher-002-closure-2026-09-03.md`); and the
+    stall-escape family `-003` (G1 passed, **G2 3/5** including the first
+    1900 solution, closed 2026-09-03,
+    `m2-smolvla-t2-geometric-teacher-003-closure-2026-09-03.md` — the
+    remaining wall is physical insert seating at the dual-arm loaded QP
+    floor, with no exit condition to unlock). The 2026-09-03 privileged
+    seating-feasibility probe then separated teacher insufficiency from a
+    physics/protocol boundary: a contract-free controller with per-step
+    live-frame recomposition, position-priority anchoring and full
+    multistart still floors ~2.7 cm short of seating on 1901 under the
+    registered action bound
+    (`m2-smolvla-t2-seating-feasibility-probe-2026-09-03.md`) — the wall
+    is not teacher-internal. A final reactive-family design `-004`
+    (live-geometry composition) is drafted with an explicit low prior
+    (`m2-smolvla-t2-live-geometry-teacher-004-design-2026-09-03.md`);
+    whether the G2 pose set itself demands precision beyond the
+    position-control envelope is a protocol-level question owned by the
+    user under a new registration. The Gate 4 seed feasibility extension is
+    now preregistered (2026-09-06; see section 2), but WSL startup currently
+    blocks its tests and execution. No G2 result is extrapolated to seeds
+    1000–1004; a failed finite controller alone cannot prove physical
+    impossibility. A 2026-09-03 four-part diagnostic then
+    investigated the feed-vs-absorption-vs-representation question behind the
+    six-identity step-zero deviation
+    (`m2-smolvla-t2-first-step-vision-representation-diagnostic-2026-09-03.md`):
+    the historical report records weak frame-0 action alignment despite
+    image sensitivity, and failed pooled linear readouts (ridge CV MAE
+    0.0153/0.0157 versus a 0.0134 constant-mean reference). The September 5
+    code audit limits these conclusions: pooled linear failure does not
+    establish absent spatial information; connector outputs precede the
+    expert's contextualized KV; the old reader materialized all frame-zero
+    rows before excluding hidden labels, conflicting with the report's
+    hidden-not-loaded statement. Preserve that report as historical evidence,
+    not as authorization or a proven representation verdict. Corrected
+    probes must run before choosing spatial readout or vision adaptation;
+    a formal unfreeze plan must additionally prove actual parameter updates.
+    The same historical diagnostic measured and fixed
+    the teacher line's own step-0 configuration yank (0.117 rad; zero-delta
+    hold, 22 tests), unblocking the candidate-004 retest. The T2 axis is
+    therefore blocked: any future candidate requires a new registered plan
+    (the closure reports list the recorded residual hypotheses), and no
+    collection or furnace is authorized;
 11. only then consider history, image augmentation, differential LR, weight
     decay, EMA or backbone adaptation as separate axes.
 
@@ -1201,7 +1419,8 @@ scripts/run_m2_container.sh vla-xpu \
   tests/test_smolvla_training_plan_schema.py \
   tests/test_smolvla_training_features.py \
   tests/test_smolvla_training_launch.py \
-  tests/test_smolvla_visual_conditioning.py
+  tests/test_smolvla_visual_conditioning.py \
+  tests/test_smolvla_vcdropout_protocol.py
 
 scripts/run_m2_container.sh vla-xpu \
   python -m ruff check \

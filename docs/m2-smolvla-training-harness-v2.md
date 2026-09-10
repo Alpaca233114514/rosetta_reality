@@ -67,6 +67,8 @@ first failure and restores in reverse order:
 | `state_robustness_jitter` | delegates to `vla/state_robustness.py` (upstream SHA fail-closed) |
 | `state_conditioning_dropout` | delegates to the new `vla/visual_conditioning.py`; drops complete normalized-state samples with a dedicated RNG and leaves validation/deployment clean |
 | `checkpoint_memory_trim` | new device-aware merge of the two historical memory modules |
+| `gradient_clip_diagnostics` | audit finding O2: wraps the pinned positive-clip path to append per-update pre/post-clip global and per-module gradient L2 norms to a create-only run-root JSONL; non-finite gradients fail closed; the schema refuses the feature unless `grad_clip_norm` is positive (the zero-clip fallback is not instrumented) |
+| `checkpoint_metric_snapshot` | audit finding T9: wraps `update_policy` to capture each step's final loss/grad-norm/LR/step-time and `save_checkpoint` to write that exact row as `rosetta_checkpoint_metrics.json` inside every checkpoint directory; a checkpoint without an exact captured row fails closed |
 
 Guarantees: unknown or duplicated declarations fail closed at schema
 validation and again at stack construction; double installation of an
@@ -81,9 +83,30 @@ Cross-declaration invariants enforced by the schema:
 `horizon_weight_profile` requires a `loss_contract`; `state_robustness_jitter`
 requires a `state_robustness_contract`; `trackio_logging` requires a tracking
 section; `state_conditioning_dropout` requires a
-`visual_conditioning_contract`.  The dropout implementation does not consume
-the global model/dataloader RNG and forbids formal resume until its dedicated
-generator state participates in the registered T7 parity contract.
+`visual_conditioning_contract`.  `state_robustness_jitter` and
+`state_conditioning_dropout` are mutually exclusive: both patch the pinned
+policy forward and mutate the same training-time `observation.state`, so a
+plan may declare only one state treatment.  The dropout implementation does
+not consume the global model/dataloader RNG.  The v2 harness has no resume
+path today; when the T7 resume parity contract is implemented it must first
+checkpoint the dedicated dropout generator state before any resume may be
+authorized.
+
+### T7 resume parity contract (design, not yet implemented)
+
+Formal resume remains forbidden until all of the following exist and pass, in
+this order: (1) every feature that owns RNG state serializes it into the
+checkpoint — the `state_conditioning_dropout` dedicated CPU generator state
+must be saved alongside the upstream RNG state before any resume-consuming
+plan is even valid; (2) a stop/resume of the pinned trainer at a registered
+checkpoint reproduces, bit-exactly, the uninterrupted run's subsequent losses,
+gradient norms, LR schedule position, dataloader continuation and dropout
+masks; (3) the parity comparison itself runs through a registered two-arm
+protocol (uninterrupted control vs interrupted/resumed treatment) with the
+same fresh-base identity, and its report is create-only evidence. The
+`gradient_clip_diagnostics` and `checkpoint_metric_snapshot` features are the
+measurement substrate for criterion 2. Until then any formal plan declaring
+resume fails closed.
 
 ## 4. Version-2 plan schema
 
@@ -154,6 +177,8 @@ scripts/run_m2_container.sh vla-xpu \
   tests/test_smolvla_horizon_loss.py \
   tests/test_smolvla_state_robustness.py \
   tests/test_smolvla_visual_conditioning.py \
+  tests/test_smolvla_vcdropout_protocol.py \
+  tests/test_smolvla_optimizer_diagnostics.py \
   tests/test_smolvla_formal_protocol.py \
   tests/test_smolvla_faust_protocol.py
 

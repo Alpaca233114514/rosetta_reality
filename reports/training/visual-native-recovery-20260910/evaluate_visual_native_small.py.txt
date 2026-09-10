@@ -1,0 +1,187 @@
+"""Evaluate the preregistered small-sample visual check with native denoising.
+
+No optimizer, teacher-forced actions, image-dependent noise or checkpoint
+selection. Model/data/processor checks precede loading; outputs are create-only.
+"""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import resource
+import sys
+import time
+from pathlib import Path
+from types import SimpleNamespace
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
+
+import numpy as np  # noqa: E402
+import torch  # noqa: E402
+from lerobot.datasets.factory import resolve_delta_timestamps  # noqa: E402
+from lerobot.datasets.lerobot_dataset import LeRobotDataset, LeRobotDatasetMetadata  # noqa: E402
+from lerobot.policies.factory import make_policy  # noqa: E402
+from lerobot.policies.smolvla.configuration_smolvla import SmolVLAConfig  # noqa: E402
+from torch.utils.data import default_collate  # noqa: E402
+
+import run_smolvla_phase as phase_runner  # noqa: E402
+from run_smolvla_v2 import _resolve_plan, _validate_normalization, _validate_prerequisites  # noqa: E402
+from smolvla_forward_check import _make_processors  # noqa: E402
+
+from rosetta_reality.experiment import file_sha256  # noqa: E402
+from rosetta_reality.sim import load_action_contract  # noqa: E402
+from rosetta_reality.vla import load_smolvla_action_space  # noqa: E402
+from rosetta_reality.vla.processor import ensure_smolvla_action_boundary  # noqa: E402
+from rosetta_reality.vla.vision_diagnostics import load_frame_zero_context  # noqa: E402
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--plan", type=Path, required=True)
+    ap.add_argument("--source", choices=["base", "checkpoint"], required=True)
+    ap.add_argument("--output", type=Path, required=True)
+    args = ap.parse_args()
+    if args.output.exists():
+        raise FileExistsError("Evaluation output already exists.")
+    if os.environ.get("HF_HUB_OFFLINE") != "1" or os.environ.get("HF_DATASETS_OFFLINE") != "1":
+        raise ValueError("Offline execution is required.")
+    started = time.monotonic()
+    plan, parent, experiment = _resolve_plan(args.plan.resolve())
+    if plan.get("scope") != "bounded_visual_overfit":
+        raise ValueError("Only the preregistered small-sample protocol is supported.")
+    contract_path = ROOT / experiment["action_contract"]["derived"]
+    contract_sha = file_sha256(contract_path)
+    _validate_prerequisites(plan, experiment, parent, contract_sha)
+    norm_path, _, _ = _validate_normalization(plan, experiment, parent, contract_sha)
+    norm = json.loads(norm_path.read_text())
+    registration = json.loads((ROOT / "runs/visual-native-small-001/preregistration.json").read_text())
+    train = [s["episode"] for s in registration["train_samples"]]
+    validation = [s["episode"] for s in registration["validation_samples"]]
+    episodes = train + validation
+    context = load_frame_zero_context(ROOT, "non_hidden")
+    if set(episodes) & set(experiment["dataset"]["test_episodes"]):
+        raise ValueError("Hidden-test boundary violation.")
+    source = phase_runner._model_root(experiment)
+    if args.source == "checkpoint":
+        smoke = plan["optimizer_smoke"]
+        source = (Path(os.environ["ROSETTA_CHECKPOINT_ROOT"]) / experiment["experiment_id"]
+                  / "smoke" / smoke["run_name"] / "checkpoints"
+                  / f"{smoke['steps']:06d}" / "pretrained_model")
+        saved = json.loads((source / "train_config.json").read_text())
+        if (saved["dataset"]["episodes"] != train
+                or saved["job_name"] != smoke["run_name"]
+                or saved["steps"] != smoke["steps"]
+                or saved["batch_size"] != smoke["batch_size"]):
+            raise ValueError("Checkpoint identity differs from the registered smoke.")
+    source_sha = file_sha256(source / "model.safetensors")
+    cfg = SmolVLAConfig.from_pretrained(source, local_files_only=True)
+    cfg.device = "cuda"
+    cfg.pretrained_path = source
+    cfg.pretrained_revision = None
+    for key, value in experiment["model"]["policy"].items():
+        if hasattr(cfg, key):
+            setattr(cfg, key, value)
+    cfg.load_vlm_weights = False
+    for key, value in experiment["model"]["adaptation"].items():
+        if hasattr(cfg, key):
+            setattr(cfg, key, value)
+    data_cfg = context["config"]
+    meta = LeRobotDatasetMetadata(data_cfg.repo_id, root=context["root"], revision=data_cfg.revision)
+    dataset = LeRobotDataset(
+        data_cfg.repo_id, root=context["root"], episodes=episodes,
+        revision=data_cfg.revision, delta_timestamps=resolve_delta_timestamps(cfg, meta),
+        download_videos=False, return_uint8=True,
+    )
+    dataset.meta.stats.update({k: {s: np.asarray(v) for s, v in values.items()}
+                               for k, values in norm["effective_stats"].items()})
+    torch.manual_seed(experiment["seed"])
+    policy = make_policy(cfg=cfg, ds_meta=dataset.meta, rename_map=experiment["dataset"]["rename_map"])
+    pre, post = _make_processors(
+        SimpleNamespace(policy=cfg, rename_map=experiment["dataset"]["rename_map"]),
+        policy, dataset, torch.device("cuda"),
+    )
+    contract = load_action_contract(contract_path)
+    ensure_smolvla_action_boundary(
+        pre, post, contract, load_smolvla_action_space(experiment),
+        action_contract_sha256=contract_sha, upstream_revision=experiment["upstream"]["revision"],
+    )
+    starts = dict(zip(dataset.meta.episodes["episode_index"],
+                      dataset.meta.episodes["dataset_from_index"], strict=True))
+    batches, targets, targets_standard, image_shas = [], [], [], []
+    for ep in episodes:
+        sample = dataset[dataset.absolute_to_relative_idx[int(starts[ep])]]
+        if int(sample["episode_index"]) != ep or int(sample["frame_index"]) != 0:
+            raise ValueError("Image/label identity mismatch.")
+        if bool(sample["action_is_pad"].any()):
+            raise ValueError("A diagnostic target contains padded actions.")
+        batch = default_collate([sample])
+        for key in dataset.meta.camera_keys:
+            image_shas.append(hashlib.sha256(batch[key].numpy().tobytes()).hexdigest())
+            if batch[key].dtype == torch.uint8:
+                batch[key] = batch[key].float() / 255.0
+        batch = pre(batch)
+        if batches:
+            for key in ["observation.state", "observation.language.tokens", "observation.language.attention_mask"]:
+                if not torch.equal(batch[key], batches[0][key]):
+                    raise ValueError("Nonvisual conditioning differs across images.")
+        targets.append(batch["action"][0].detach().cpu().double().numpy())
+        targets_standard.append(post(batch["action"].clone())[0].detach().cpu().double().numpy())
+        batch.pop("action")
+        batches.append(batch)
+    if len(set(image_shas)) != len(episodes):
+        raise ValueError("Selected camera images are not distinct.")
+    y, ys = np.asarray(targets), np.asarray(targets_standard)
+    policy.eval()
+    torch.cuda.reset_peak_memory_stats()
+    results = []
+    for seed in registration["noise_seeds"]:
+        shape = (1, cfg.chunk_size, cfg.max_action_dim)
+        noise = (torch.zeros(shape) if seed is None else
+                 torch.randn(shape, generator=torch.Generator().manual_seed(seed))).cuda()
+        predictions, standards = [], []
+        for batch in batches:
+            policy.reset()
+            with torch.inference_mode(), torch.autocast("cuda", dtype=torch.bfloat16):
+                pred = policy.predict_action_chunk(batch, noise=noise.clone())
+                standard = post(pred.clone())
+            if not torch.isfinite(pred).all() or not torch.isfinite(standard).all():
+                raise FloatingPointError("Nonfinite predicted actions.")
+            predictions.append(pred[0].cpu().double().numpy())
+            standards.append(standard[0].cpu().double().numpy())
+        predictions, standards = np.asarray(predictions), np.asarray(standards)
+        for split, indices in [("train", slice(0, len(train))), ("validation", slice(len(train), None))]:
+            a, b = predictions[indices], y[indices]
+            ac, bc = a - a.mean(axis=0), b - b.mean(axis=0)
+            correct = float(np.mean((a - b)**2))
+            wrong = float(np.mean((np.roll(a, 1, axis=0) - b)**2))
+            error = np.abs(standards[indices, 0] - ys[indices, 0])
+            results.append({"split": split, "noise_seed": seed,
+                "correct_chunk_mse": correct, "wrong_chunk_mse": wrong,
+                "swap_gain": wrong - correct,
+                "image_invariant_mean_mse": float(np.mean(bc**2)),
+                "centered_cosine": float(np.sum(ac*bc)/(np.linalg.norm(ac)*np.linalg.norm(bc)+1e-12)),
+                "first_action_mae": float(error.mean()),
+                "first_action_mae_per_dimension": error.mean(axis=0).tolist(),
+                "first_predictions_standard": standards[indices, 0].tolist()})
+    report = {"status": "complete", "source": args.source,
+        "source_sha256": source_sha, "plan_sha256": file_sha256(args.plan),
+        "episodes": episodes, "image_sha256": image_shas,
+        "nonvisual_conditioning_exactly_equal": True, "native_denoising_steps": cfg.num_steps,
+        "teacher_forced_action_conditioning": False, "hidden_test_loaded": False,
+        "optimizer_steps": 0, "results": results,
+        "peak_cuda_allocated_bytes": torch.cuda.max_memory_allocated(),
+        "peak_host_rss_bytes": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024,
+        "elapsed_seconds": time.monotonic() - started,
+        "task_success": "not measured"}
+    if report["peak_cuda_allocated_bytes"] > 12*1024**3 or report["peak_host_rss_bytes"] > 10*1024**3:
+        raise RuntimeError("Registered resource limit exceeded.")
+    with args.output.open("x") as f:
+        json.dump(report, f, indent=2, allow_nan=False)
+    print(json.dumps({k: report[k] for k in ["status", "source", "elapsed_seconds", "peak_cuda_allocated_bytes"]}))
+
+
+if __name__ == "__main__":
+    main()

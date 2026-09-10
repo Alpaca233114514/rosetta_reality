@@ -28,6 +28,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
 from functools import wraps
+from pathlib import Path
 from typing import Any
 
 from rosetta_reality.experiment import file_sha256
@@ -396,6 +397,111 @@ class StateConditioningDropoutFeature(TrainingFeature):
         restore_visual_conditioning_profile(_load_modeling_module())
 
 
+class VisionFrontEndUnfreezeFeature(TrainingFeature):
+    """Make exactly the declared visual front-end trainable in the trainer.
+
+    The pinned upstream flags cannot express "visual front-end trainable,
+    language model frozen" (``train_expert_only=true`` freezes the whole VLM,
+    switching it off opens the text stack).  This feature wraps
+    ``make_policy``: once the pinned constructor has applied the frozen
+    baseline (``freeze_vision_encoder=true`` / ``train_expert_only=true`` /
+    ``train_state_proj=true`` from the parent experiment), the declared
+    ``vision_model`` + ``connector`` parameters flip to trainable and the
+    resolved scope is written to a create-only diagnostics report before the
+    trainer builds the optimizer from ``policy.parameters()``.  Validation,
+    export and deployment never install this feature, and the saved policy
+    config keeps the frozen-baseline flags.
+    """
+
+    name = "vision_front_end_unfreeze"
+
+    def __init__(self, parameters: Mapping[str, Any]) -> None:
+        if parameters:
+            raise ValueError("vision_front_end_unfreeze declares no parameters.")
+
+    def install(self, context: TrainingContext) -> None:
+        from rosetta_reality.vla.vision_front_end import (
+            apply_front_end_scope,
+            scope_report_text,
+        )
+
+        adaptation = context.experiment["model"]["adaptation"]
+        if (
+            adaptation.get("freeze_vision_encoder") is not True
+            or adaptation.get("train_expert_only") is not True
+            or adaptation.get("train_state_proj") is not True
+        ):
+            raise ValueError(
+                "vision_front_end_unfreeze requires the frozen-baseline parent "
+                "adaptation (freeze_vision_encoder/train_expert_only/train_state_proj "
+                "all true); an explicit adaptation change needs a new parent "
+                "experiment registration."
+            )
+        contract = context.plan.get("vision_front_end_contract")
+        if not isinstance(contract, dict) or contract.get("profile") != "visual_front_end_unfreeze":
+            raise ValueError("The vision front-end treatment contract is missing.")
+        if (
+            contract.get("activation_checkpointing")
+            != "per_module_nonreentrant_vision_front_end"
+        ):
+            raise ValueError(
+                "The vision front-end contract must declare the registered "
+                "per-module non-reentrant activation checkpointing."
+            )
+
+        lerobot_train = _lerobot_train_module()
+        if getattr(lerobot_train, _marker(self.name), False):
+            raise RuntimeError("vision_front_end_unfreeze is already installed.")
+        original = lerobot_train.make_policy
+        feature_marker = self.name
+        scope_state: dict[str, Any] = {}
+
+        def make_policy(*args: Any, **kwargs: Any) -> Any:
+            policy = original(*args, **kwargs)
+            scope = apply_front_end_scope(policy.model)
+            from rosetta_reality.vla.vision_front_end import (
+                install_front_end_checkpointing,
+            )
+
+            checkpointing = install_front_end_checkpointing(policy.model)
+            destination = _diagnostics_destination(
+                context, f"vision-front-end-scope-{context.run_name}.json"
+            )
+            if destination.exists():
+                raise FileExistsError(
+                    f"Vision front-end scope report is create-only: {destination.name}."
+                )
+            destination.write_text(
+                scope_report_text(
+                    scope,
+                    activation_checkpointing=checkpointing,
+                    feature=feature_marker,
+                    phase=context.phase,
+                    run_name=context.run_name,
+                    experiment_id=str(context.experiment["experiment_id"]),
+                    plan_sha256=file_sha256(context.plan_path),
+                ),
+                encoding="utf-8",
+            )
+            scope_state["scope"] = scope
+            return policy
+
+        make_policy._rosetta_v2_original = original  # type: ignore[attr-defined]
+        make_policy._rosetta_v2_scope_state = scope_state  # type: ignore[attr-defined]
+        lerobot_train.make_policy = make_policy
+        setattr(lerobot_train, _marker(self.name), True)
+
+    def restore(self, context: TrainingContext) -> None:
+        lerobot_train = _lerobot_train_module()
+        if getattr(lerobot_train, _marker(self.name), False) is not True:
+            raise RuntimeError("No vision front-end unfreeze wrapper is installed.")
+        current = lerobot_train.make_policy
+        lerobot_train.make_policy = getattr(
+            current, "_rosetta_v2_original", None
+        ) or current
+        setattr(lerobot_train, _marker(self.name), False)
+
+
 def release_checkpoint_headroom(device: str | None = None) -> None:
     """Return unreachable host and unused CUDA/XPU allocations before serialization."""
 
@@ -409,6 +515,294 @@ def release_checkpoint_headroom(device: str | None = None) -> None:
         malloc_trim.argtypes = [ctypes.c_size_t]
         malloc_trim.restype = ctypes.c_int
         malloc_trim(0)
+
+
+def _diagnostics_destination(context: TrainingContext, filename: str) -> Path:
+    """Resolve the create-only durable diagnostics path for one run."""
+
+    import os
+
+    run_root = os.environ.get("ROSETTA_RUN_ROOT")
+    if not run_root:
+        raise RuntimeError("Training diagnostics require ROSETTA_RUN_ROOT.")
+
+    directory = (
+        Path(run_root) / str(context.experiment["experiment_id"]) / "diagnostics"
+    )
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory / filename
+
+
+def _meter_value(metric: Any) -> float:
+    """Return this-step value from a pinned LeRobot ``AverageMeter`` or float.
+
+    The pinned trainer routes every ``train_metrics`` assignment through
+    ``MetricsTracker.__setattr__`` into ``AverageMeter.update``, so the step's
+    own reading lives in ``.val``; plain floats stay supported for callers
+    that assign scalars directly.
+    """
+
+    value = getattr(metric, "val", metric)
+    return float(value)
+
+
+class GradientClipDiagnosticsFeature(TrainingFeature):
+    """Record pre/post-clip global and per-module gradient norms per step.
+
+    Audit finding O2.  ``update_policy`` is wrapped only to capture the policy
+    object so per-parameter names resolve through ``named_parameters()``; the
+    measurement itself wraps ``Accelerator.clip_grad_norm_``.  The only
+    instrumented clip path is the registered positive ``grad_clip_norm``; the
+    schema refuses this feature when the plan clips at zero or below because
+    that upstream fallback path is not measured.  Non-finite gradients fail
+    closed instead of being logged as numbers.
+    """
+
+    name = "gradient_clip_diagnostics"
+    _CLIP_MARKER = "_rosetta_v2_clip_diagnostics_installed"
+
+    def __init__(self, parameters: Mapping[str, Any]) -> None:
+        if parameters:
+            raise ValueError("gradient_clip_diagnostics declares no parameters.")
+        self._original_clip: Any = None
+        self._original_update: Any = None
+        self._state: dict[str, Any] = {"update": 0, "policy": None, "names": None}
+
+    @staticmethod
+    def _norms(parameters: Any, names: dict[int, str] | None) -> dict[str, float]:
+        import math
+
+        import torch
+
+        squared: dict[str, float] = {}
+        for index, parameter in enumerate(parameters):
+            if parameter.grad is None:
+                continue
+            gradient = parameter.grad.detach()
+            if not bool(torch.isfinite(gradient).all()):
+                raise FloatingPointError(
+                    "Non-finite gradient observed by clip diagnostics."
+                )
+            group = (
+                names.get(id(parameter), "unresolved").split(".", 1)[0]
+                if names is not None
+                else "unresolved"
+            )
+            squared[group] = squared.get(group, 0.0) + float(
+                gradient.to(torch.float64).square().sum()
+            )
+        module_norms = {
+            group: math.sqrt(value) for group, value in squared.items()
+        }
+        module_norms["global"] = math.sqrt(sum(squared.values()))
+        return module_norms
+
+    def install(self, context: TrainingContext) -> None:
+        import accelerate
+
+        lerobot_train = _lerobot_train_module()
+        if getattr(accelerate.Accelerator, self._CLIP_MARKER, False):
+            raise RuntimeError("gradient_clip_diagnostics is already installed.")
+        optimizer = context.plan.get("training", {}).get("optimizer", {})
+        clip_norm = optimizer.get("grad_clip_norm")
+        if (
+            not isinstance(clip_norm, int | float)
+            or isinstance(clip_norm, bool)
+            or float(clip_norm) <= 0.0
+        ):
+            raise ValueError(
+                "gradient_clip_diagnostics requires a positive registered "
+                "grad_clip_norm; the zero-clip fallback path is not instrumented."
+            )
+        destination = _diagnostics_destination(
+            context, f"gradient-clip-{context.run_name}.jsonl"
+        )
+        if destination.exists():
+            raise FileExistsError(f"Clip diagnostics are create-only: {destination.name}.")
+        self._original_clip = accelerate.Accelerator.clip_grad_norm_
+        self._original_update = lerobot_train.update_policy
+        state = self._state
+        state["destination"] = destination
+
+        @wraps(self._original_update)
+        def update_policy(*args: Any, **kwargs: Any) -> Any:
+            policy = args[1] if len(args) > 1 else kwargs.get("policy")
+            if policy is not None and state["policy"] is not policy:
+                state["policy"] = policy
+                state["names"] = {
+                    id(parameter): name
+                    for name, parameter in policy.named_parameters()
+                }
+            return self._original_update(*args, **kwargs)
+
+        def clip_grad_norm_(
+            self_accelerator: Any, parameters: Any, max_norm: float, **kwargs: Any
+        ) -> Any:
+            import json
+
+            # The trainer passes a fresh `policy.parameters()` generator per
+            # update; materialize once so the diagnostics passes and the
+            # original clip observe the same live tensors instead of an
+            # exhausted iterator.
+            materialized = list(parameters)
+            pre_clip = self._norms(materialized, state["names"])
+            total_norm = self._original_clip(
+                self_accelerator, materialized, max_norm, **kwargs
+            )
+            post_clip = self._norms(materialized, state["names"])
+            state["update"] = int(state["update"]) + 1
+            with open(state["destination"], "a", encoding="utf-8") as handle:
+                handle.write(
+                    json.dumps(
+                        {
+                            "update": state["update"],
+                            "registered_grad_clip_norm": float(max_norm),
+                            "pre_clip_l2": pre_clip,
+                            "post_clip_l2": post_clip,
+                        },
+                        allow_nan=False,
+                        sort_keys=True,
+                    )
+                    + "\n"
+                )
+            return total_norm
+
+        setattr(clip_grad_norm_, self._CLIP_MARKER, True)
+        update_policy._rosetta_v2_original = self._original_update  # type: ignore[attr-defined]
+        lerobot_train.update_policy = update_policy
+        accelerate.Accelerator.clip_grad_norm_ = clip_grad_norm_
+        setattr(accelerate.Accelerator, self._CLIP_MARKER, True)
+
+    def restore(self, context: TrainingContext) -> None:
+        import accelerate
+
+        lerobot_train = _lerobot_train_module()
+        if getattr(accelerate.Accelerator, self._CLIP_MARKER, False) is not True:
+            raise RuntimeError("No clip-diagnostics wrapper is installed.")
+        if self._original_clip is not None:
+            accelerate.Accelerator.clip_grad_norm_ = self._original_clip
+        current_update = lerobot_train.update_policy
+        lerobot_train.update_policy = getattr(
+            current_update, "_rosetta_v2_original", None
+        ) or current_update
+        setattr(accelerate.Accelerator, self._CLIP_MARKER, False)
+
+
+class CheckpointMetricSnapshotFeature(TrainingFeature):
+    """Write the exact same-step metric row into every checkpoint directory.
+
+    Audit finding T9.  ``update_policy`` is wrapped to capture the step's final
+    loss/grad-norm/LR/step-time values, and ``save_checkpoint`` is wrapped to
+    serialize them next to the weights.  A checkpoint whose step has no exact
+    captured row fails closed instead of writing an approximate snapshot.
+    """
+
+    name = "checkpoint_metric_snapshot"
+    _SNAPSHOT_NAME = "rosetta_checkpoint_metrics.json"
+
+    def __init__(self, parameters: Mapping[str, Any]) -> None:
+        if parameters:
+            raise ValueError("checkpoint_metric_snapshot declares no parameters.")
+        self._captured: dict[int, dict[str, float]] = {}
+
+    @staticmethod
+    def _memory_snapshot(device: str) -> dict[str, Any]:
+        import torch
+
+        api = "unavailable"
+        values: dict[str, int] = {}
+        try:
+            if device == "cuda" and torch.cuda.is_available():
+                api = "torch.cuda"
+                values = {
+                    "max_allocated_bytes": int(torch.cuda.max_memory_allocated()),
+                    "allocated_bytes": int(torch.cuda.memory_allocated()),
+                }
+            elif device == "xpu" and torch.xpu.is_available():
+                api = "torch.xpu"
+                values = {
+                    "max_allocated_bytes": int(torch.xpu.max_memory_allocated()),
+                    "allocated_bytes": int(torch.xpu.memory_allocated()),
+                    "reserved_bytes": int(torch.xpu.memory_reserved()),
+                }
+        except (AttributeError, RuntimeError):
+            api = "unavailable"
+        return {"api": api, **values}
+
+    def install(self, context: TrainingContext) -> None:
+        lerobot_train = _lerobot_train_module()
+        if getattr(lerobot_train, _marker(self.name), False):
+            raise RuntimeError("checkpoint_metric_snapshot is already installed.")
+        original_update = lerobot_train.update_policy
+        original_save = lerobot_train.save_checkpoint
+        captured = self._captured
+        snapshot_name = self._SNAPSHOT_NAME
+        memory_probe = self._memory_snapshot
+        context_device = context.device
+
+        @wraps(original_update)
+        def update_policy(*args: Any, **kwargs: Any) -> Any:
+            result = original_update(*args, **kwargs)
+            tracker = args[0] if args else kwargs.get("train_metrics")
+            update_ordinal = len(captured) + 1
+            captured[update_ordinal] = {
+                "loss": _meter_value(tracker.loss),
+                "grad_norm": _meter_value(tracker.grad_norm),
+                "lr": _meter_value(tracker.lr),
+                "update_s": _meter_value(tracker.update_s),
+            }
+            return result
+
+        def save_checkpoint(*args: Any, **kwargs: Any) -> Any:
+            step = kwargs.get("step") if "step" in kwargs else args[1]
+            step = int(step)
+            if step not in captured:
+                raise ValueError(
+                    "Checkpoint step has no exact captured metric row (finding T9): "
+                    f"{step}."
+                )
+            result = original_save(*args, **kwargs)
+            import json
+
+            checkpoint_dir = (
+                kwargs.get("checkpoint_dir") if "checkpoint_dir" in kwargs else args[0]
+            )
+            payload = {
+                "schema_version": 1,
+                "stage": "smolvla_v2_checkpoint_metric_snapshot",
+                "step": step,
+                "metrics": captured[step],
+                "metrics_source": "update_policy_return_value",
+                "memory": memory_probe(context_device),
+                "run_name": context.run_name,
+                "phase": context.phase,
+                "experiment_id": context.experiment["experiment_id"],
+            }
+            (checkpoint_dir / snapshot_name).write_text(
+                json.dumps(payload, indent=2, sort_keys=True, allow_nan=False) + "\n",
+                encoding="utf-8",
+            )
+            return result
+
+        update_policy._rosetta_v2_original = original_update  # type: ignore[attr-defined]
+        save_checkpoint._rosetta_v2_original = original_save  # type: ignore[attr-defined]
+        lerobot_train.update_policy = update_policy
+        lerobot_train.save_checkpoint = save_checkpoint
+        setattr(lerobot_train, _marker(self.name), True)
+
+    def restore(self, context: TrainingContext) -> None:
+        lerobot_train = _lerobot_train_module()
+        if getattr(lerobot_train, _marker(self.name), False) is not True:
+            raise RuntimeError("No checkpoint metric snapshot is installed.")
+        current_update = lerobot_train.update_policy
+        current_save = lerobot_train.save_checkpoint
+        lerobot_train.update_policy = getattr(
+            current_update, "_rosetta_v2_original", None
+        ) or current_update
+        lerobot_train.save_checkpoint = getattr(
+            current_save, "_rosetta_v2_original", None
+        ) or current_save
+        setattr(lerobot_train, _marker(self.name), False)
 
 
 class CheckpointMemoryTrimFeature(TrainingFeature):
@@ -515,6 +909,14 @@ class TrackioLoggingFeature(TrainingFeature):
                 "granularity"
             )
             extension["state_dropout_training_only"] = True
+        vision_scope = context.plan.get("vision_front_end_contract")
+        if isinstance(vision_scope, dict):
+            extension["vision_front_end_profile"] = vision_scope.get("profile")
+            extension["vision_front_end_scope"] = vision_scope.get("scope")
+            extension["vision_front_end_language_model"] = vision_scope.get(
+                "language_model"
+            )
+            extension["vision_front_end_training_only"] = True
         return extension
 
     def _build_logger_class(self, context: TrainingContext) -> type:
@@ -610,7 +1012,10 @@ FEATURE_FACTORIES: dict[str, Callable[[Mapping[str, Any]], TrainingFeature]] = {
     HorizonWeightProfileFeature.name: HorizonWeightProfileFeature,
     StateRobustnessJitterFeature.name: StateRobustnessJitterFeature,
     StateConditioningDropoutFeature.name: StateConditioningDropoutFeature,
+    VisionFrontEndUnfreezeFeature.name: VisionFrontEndUnfreezeFeature,
     CheckpointMemoryTrimFeature.name: CheckpointMemoryTrimFeature,
+    GradientClipDiagnosticsFeature.name: GradientClipDiagnosticsFeature,
+    CheckpointMetricSnapshotFeature.name: CheckpointMetricSnapshotFeature,
     TrackioLoggingFeature.name: TrackioLoggingFeature,
 }
 

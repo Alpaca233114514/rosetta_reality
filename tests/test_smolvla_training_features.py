@@ -108,7 +108,10 @@ def test_registry_covers_the_declared_feature_set() -> None:
         "horizon_weight_profile",
         "state_robustness_jitter",
         "state_conditioning_dropout",
+        "vision_front_end_unfreeze",
         "checkpoint_memory_trim",
+        "gradient_clip_diagnostics",
+        "checkpoint_metric_snapshot",
     }
 
 

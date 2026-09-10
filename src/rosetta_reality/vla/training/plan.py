@@ -34,9 +34,12 @@ RUN_NAME_PATTERN = re.compile(r"[a-z0-9][a-z0-9._-]{2,79}")
 ALLOWED_COMPILE_MODES = frozenset({"default", "reduce-overhead", "max-autotune"})
 FEATURE_MASKED_CAMERA_SKIP = "masked_camera_skip"
 FEATURE_CHECKPOINT_MEMORY_TRIM = "checkpoint_memory_trim"
+FEATURE_GRADIENT_CLIP_DIAGNOSTICS = "gradient_clip_diagnostics"
+FEATURE_CHECKPOINT_METRIC_SNAPSHOT = "checkpoint_metric_snapshot"
 FEATURE_HORIZON_WEIGHT_PROFILE = "horizon_weight_profile"
 FEATURE_STATE_ROBUSTNESS_JITTER = "state_robustness_jitter"
 FEATURE_STATE_CONDITIONING_DROPOUT = "state_conditioning_dropout"
+FEATURE_VISION_FRONT_END_UNFREEZE = "vision_front_end_unfreeze"
 FEATURE_TRACKIO_LOGGING = "trackio_logging"
 FEATURE_FIXED_FRAME_SAMPLER = "fixed_frame_sampler"
 SAMPLER_PHASES = frozenset({"smoke", "overfit", "overfit_resume"})
@@ -428,6 +431,39 @@ def _validate_features(plan: dict[str, Any], known_features: Container[str]) -> 
             "Declaring state_conditioning_dropout requires a visual-conditioning "
             "contract."
         )
+    if FEATURE_VISION_FRONT_END_UNFREEZE in names and not isinstance(
+        plan.get("vision_front_end_contract"), dict
+    ):
+        raise ValueError(
+            "Declaring vision_front_end_unfreeze requires a vision front-end "
+            "treatment contract."
+        )
+    if (
+        FEATURE_STATE_ROBUSTNESS_JITTER in names
+        and FEATURE_STATE_CONDITIONING_DROPOUT in names
+    ):
+        raise ValueError(
+            "Features state_robustness_jitter and state_conditioning_dropout are "
+            "mutually exclusive: both patch the pinned policy forward and mutate "
+            "the same training-time observation.state."
+        )
+    if FEATURE_GRADIENT_CLIP_DIAGNOSTICS in names:
+        optimizer = _mapping(plan.get("training"), "Plan section 'training'").get(
+            "optimizer"
+        )
+        clip_norm = (
+            optimizer.get("grad_clip_norm") if isinstance(optimizer, dict) else None
+        )
+        if (
+            not isinstance(clip_norm, int | float)
+            or isinstance(clip_norm, bool)
+            or float(clip_norm) <= 0.0
+        ):
+            raise ValueError(
+                "Declaring gradient_clip_diagnostics requires a positive registered "
+                "grad_clip_norm: the upstream zero-clip fallback path is not "
+                "instrumented."
+            )
     if FEATURE_TRACKIO_LOGGING in names:
         tracking = _mapping(plan.get("tracking"), "Plan section 'tracking'")
         if not isinstance(tracking.get("project"), str) or not isinstance(

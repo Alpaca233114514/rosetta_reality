@@ -103,3 +103,75 @@ Single axis = one new teacher candidate measured by the frozen gate. No
 threshold may be widened; no collection, label manifest or furnace is
 authorized by any stage result; the six-identity Gate 4 failure record stays
 untouched; the hidden test stays sealed; AutoDL remains shut down.
+
+
+## Implementation session outcome (2026-08-29, continued)
+
+The candidate is implemented, registered and measured; the gate is NOT passed
+yet. Evidence under `runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/teacher_gate/gym-aloha-scripted-insertion-adapter-001/`:
+
+- `register` + G0 PASSED (`07eb3fde…`); G1 PASSED twice (`f5c8acd3…`, then
+  `41501317…` re-run after code changes to keep the chain identity current):
+  seed 10 reward 4.0, ~300 steps, zero refusals/violations/collisions.
+- G2 attempts 001–003 (create-only, preserved): best 2/5 — seed 1903 solves
+  (~271 steps); 1900/1902/1904 stall at reward 2 in SOCKET_APPROACH/ALIGN,
+  1901 hits a descend table collision (unexpected-collision refusal, step 177).
+- Open items 1–4 of this design are done: upstream pin
+  `tonyzhaozh/act@742c753c0d4a5d87076c8f69e5628c79a8cc5488` (MIT,
+  `scripted_policy.py` `InsertionPolicy`; the mocap bodies carry no quat, so
+  the grasp orientations are world-frame tilts). The upstream literal -60°
+  right tilt is unreachable through the greedy QP; the registered adaptation
+  is +60° left / +120° right (diagnostic tilt matrix in
+  `scripts/diagnose_scripted_teacher_g1.py --mode frames`).
+- Open item 5 (G3/G4/G5) stays locked behind a G2 pass.
+
+Registered adaptations documented in `src/rosetta_reality/sim/scripted_teacher.py`:
+state-conditioned stages (OPEN, APPROACH position-only, ORIENT in-place,
+DESCEND with stall/floor guards, GRASP on contacts, TRANSPORT peg-park,
+SOCKET_APPROACH hover, ALIGN descend onto the peg axis, INSERT slide with
+pin-contact success), IK target gliding, damped joint pursuit, gripper
+targets inside the finger joints' physical range, and the role swap: the
+LEFT arm carries the socket onto the parked peg (the right arm's carried-pose
+IK stalls 1-3.5 cm short of socket-relative targets on stretched spawns).
+
+Next-session diagnosis queue: (a) extract the per-seed spawn yaw/pose and the
+left-arm align residual (0.16-0.20 m) reachability branch for seeds
+1900/1902/1904 — the in-cage recapture at SOCKET_APPROACH entry did not
+change them; (b) seed 1901's descend lateral drift (3.4 cm) with the floor
+guard now in place; (c) the frozen-reference/hold coupling checks. The gate
+thresholds, seeds and protocol remain frozen; no threshold may be widened.
+
+## Diagnosis and repair rounds (2026-08-30, line closed)
+
+The diagnosis queue was executed with two new read-only probe modes in
+`scripts/diagnose_scripted_teacher_g1.py` (`align`, `dock`); full
+measurements and the stop-condition verdict are registered in
+`m2-smolvla-t2-scripted-teacher-align-branch-diagnostic-2026-08-30.md`.
+Findings: spawn yaw is zero for every seed (position-only sampler) — the
+real per-seed variable is the in-cage settling at the transport freeze; the
+align failure is a wrist-branch IK trap (the same position converges with a
+180° world-Z wrist flip and from `START_ARM_POSE`); the convergent flipped
+branch keeps the parallel-composed site position (the compliant cage
+re-settles the socket) and must bypass the +0.10 m hover climb.
+
+Round 1 registered the fixed-order alignment multistart (parallel → flipped,
+frozen-state IK probe) plus a descend ladder for seed 1901; G2 attempt 003
+proved the flip works online through align (1904 entered INSERT) while the
+ladder is a measured regression (it removed the live glide's lateral homing
+and caused new descend-phase table strikes on 1900/1902) and was withdrawn.
+Round 2 (ladder reverted, multistart kept; G2 attempt 004) converged the
+failure picture: 1900/1902 stall one reward increment below the terminal pin
+contact (insert final approach), 1904 stalls at the drifted dock (the right
+arm parks the peg with a seed-random ±3.5 cm error inside the 0.04
+tolerance), 1901's descend table strike is bit-identical at step 177 in every
+attempt (QP/physics execution scatter; the registered command-layer candidate
+was measured ineffective), and 1903 stays solved.
+
+Stop condition: the gate requires 5/5; no registered single-axis hypothesis
+reaches it within the 2–3 round budget (the documented press-through idea for
+the insert final approach has a best case of 3/5 and cannot touch 1901/1904).
+**The scripted-adapter candidate class closes as method-level negative
+evidence.** The registered next alternative is the Mink geometric teacher
+stack (dependencies already pinned in the sim image); reopening the scripted
+class would require a new registered plan. All evidence remains create-only
+(G0-002/G0-003, G1-007/G1-008, G2-003/G2-004 preserved on failure).

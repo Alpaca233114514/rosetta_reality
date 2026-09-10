@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "identity": "m2-t2-seating-feasibility-gate4-2026-09-06",
+  "created_at_utc": "2026-09-06T12:07:10.0844729Z",
+  "status": "blocked_before_container_start",
+  "gating": false,
+  "error_code": "Wsl/Service/0x8007274c",
+  "error_original": "由于连接方在一段时间后没有正确答复或连接的主机没有反应，连接尝试失败。",
+  "sandbox_initial_error": "Wsl/Service/CreateInstance/E_ACCESSDENIED",
+  "escalated_attempts": "read-only Bash pwd, Docker image inspection, and requested container pytest all unable to start Bash",
+  "pytest": "attempted_but_not_started",
+  "ruff": "not_run",
+  "probe": "not_run",
+  "calibration": "not_run",
+  "container_image_verified_live": false,
+  "models_loaded": false,
+  "hidden_test_loaded": false,
+  "autodl_used": false,
+  "rows": [
+    {
+      "seed": 1000,
+      "seatable": null,
+      "steps": null,
+      "minimum_socket_gap_mm": null,
+      "failure_phase": "infrastructure_before_simulation",
+      "status": "not_run"
+    },
+    {
+      "seed": 1001,
+      "seatable": null,
+      "steps": null,
+      "minimum_socket_gap_mm": null,
+      "failure_phase": "infrastructure_before_simulation",
+      "status": "not_run"
+    },
+    {
+      "seed": 1002,
+      "seatable": null,
+      "steps": null,
+      "minimum_socket_gap_mm": null,
+      "failure_phase": "infrastructure_before_simulation",
+      "status": "not_run"
+    },
+    {
+      "seed": 1003,
+      "seatable": null,
+      "steps": null,
+      "minimum_socket_gap_mm": null,
+      "failure_phase": "infrastructure_before_simulation",
+      "status": "not_run"
+    },
+    {
+      "seed": 1004,
+      "seatable": null,
+      "steps": null,
+      "minimum_socket_gap_mm": null,
+      "failure_phase": "infrastructure_before_simulation",
+      "status": "not_run"
+    }
+  ],
+  "decision": "inconclusive_no_results",
+  "preregistration": "reports/training/m2-smolvla-t2-seating-feasibility-gate4-preregistration-2026-09-06.json",
+  "preregistration_sha256": "7ff268a5b69bd4ab49f977b27269293510cb4d157f594944c893da265dadaa8a"
+}

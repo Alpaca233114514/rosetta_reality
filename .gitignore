@@ -257,3 +257,8 @@ Thumbs.db
 # Keep the experiments directory while ignoring generated experiment contents.
 /experiments/*
 !/experiments/.gitkeep
+
+# Local agent/tool state (auto-rewritten, must never be committed)
+.better-manager-*
+.dsh-token-meter*
+.zcode/

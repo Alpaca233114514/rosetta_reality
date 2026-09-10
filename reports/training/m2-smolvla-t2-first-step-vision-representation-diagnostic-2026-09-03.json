@@ -1,0 +1,77 @@
+{
+  "boundaries": {
+    "autodl_used": false,
+    "gate_evidence_written": false,
+    "gate_thresholds_modified": false,
+    "hidden_test_loaded": false
+  },
+  "created_at": "2026-09-03",
+  "measurements": {
+    "dataset_frame0_degeneracy": {
+      "first_action_mad": 0.0134,
+      "first_action_pairwise": 0.0185,
+      "frame0_state_pairwise_max_diff": 0.0,
+      "instrument": "scripts/diagnose_first_action_spread.py",
+      "policy_step0_mae_reference": {
+        "aster": 0.0204,
+        "zen": 0.0329
+      }
+    },
+    "frame0_functional_probe": {
+      "episodes": 45,
+      "finding": "image_sensitivity was satisfied by image-dependent noise, not image-aligned behaviour",
+      "instrument": "scripts/diagnose_frame0_vision_probe.py",
+      "vcdropout_step237": {
+        "mae_vs_episode_expert": 0.0299,
+        "output_spread_mad": 0.012,
+        "per_dim_corr_mean": -0.05
+      },
+      "zen_uniform_step316": {
+        "mae_vs_episode_expert": 0.0206,
+        "output_spread_mad": 0.0075,
+        "per_dim_corr_mean": 0.013
+      }
+    },
+    "frozen_feature_linear_probe": {
+      "artifact": "m2-smolvla450m-vcdropout-cuda-b64-001-step0237-deploy-001",
+      "boundary": "mean-pooled linear decodability only; non-linear/token-level untested",
+      "instrument": "scripts/diagnose_frozen_feature_probe.py",
+      "modules": {
+        "connector_960d_main": {
+          "cv_mae": 0.0157,
+          "cv_r2": -0.228
+        },
+        "vision_tower_768d": {
+          "cv_mae": 0.0153,
+          "cv_r2": -0.182
+        }
+      },
+      "registered_floor": 0.0134,
+      "same_data_cv_floor": 0.0136,
+      "verdict": "frozen features do not linearly decode the first-action variation (representation limited)"
+    },
+    "teacher_step0_self_deviation": {
+      "action_mae_vs_expert": 0.1171,
+      "fix": "zero-delta hold (hold_enabled switch), 22 focused tests pass",
+      "instrument": "scripts/diagnose_teacher_first_step.py",
+      "root_cause": "OPEN hold re-solved through QP lands on a different redundancy configuration",
+      "state_mae_vs_expert_step0": 0.0192,
+      "state_mae_vs_expert_step11": 0.0937
+    }
+  },
+  "question": "feed vs absorption vs representation behind step-zero deviation and no-recovery",
+  "redo_direction": {
+    "compute": "AutoDL authorization and resource re-budget required; nothing launched",
+    "gate_lesson": "gate on alignment (frame-0 output-vs-expert correlation / linear-probe floor), not sensitivity alone",
+    "primary_axis": "unfreeze/adapt the vision encoder via the v2 harness as a new single-axis plan",
+    "teacher_line": "hold fix unblocks the -004 retest for the recovery-data axis; both axes required",
+    "template": "configs/vla/smolvla_450m_aloha_insertion_vcdropout_cuda_b64_001.yaml"
+  },
+  "schema_version": 1,
+  "stage": "first_step_vision_representation_diagnostic",
+  "verdict": {
+    "feed": "intact (pairwise image max diff 223/255; image_zero effects recorded)",
+    "function": "vision content unused at the sole disambiguating frames, both deployed artifacts",
+    "representation": "limited; closed-loop failure not explainable by optimization insufficiency alone"
+  }
+}

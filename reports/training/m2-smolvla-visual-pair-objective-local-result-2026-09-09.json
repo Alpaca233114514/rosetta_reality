@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-09",
+  "stage": "visual_pair_objective_tiny_cpu_checks",
+  "status": "prototype_arithmetic_verified_no_real_model_claim",
+  "branch": "codex/smolvla-visual-conditioning-repair-20260909",
+  "hypothesis": "Matched state/language/full-noise pairs can expose image-conditioned action differences; the added loss increases their relative supervision weight.",
+  "runtime": {
+    "launcher": "wsl_bash_to_linux_docker",
+    "network": "none",
+    "memory": "1g",
+    "model_data_mounts": false,
+    "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+    "gpu_passthrough": false,
+    "memory_swap": "1g",
+    "cpus": 1
+  },
+  "verification": {
+    "real_model_forwards": 0,
+    "ruff_check": "passed",
+    "ruff_format_check": "passed",
+    "seconds": 5.18,
+    "tests_passed": 20,
+    "source_identity_unchanged_during_checks": true,
+    "warning": "UserWarning: XPU device count is zero!",
+    "model_objects_created": false,
+    "action_tensor_scalars": 4,
+    "optimizer_created": false
+  },
+  "measured_claims": [
+    "state-only common bias cannot remove paired difference error",
+    "synthetic visual gradient points toward correct action difference",
+    "reversed visual direction is penalized",
+    "anchor catches common-mode error",
+    "zero-weight control is preserved",
+    "partial-noise and nonvisual input mismatches are rejected",
+    "pair identity and action padding constraints hold",
+    "targets and noise do not receive gradients"
+  ],
+  "interpretation": "Additional paired term reweights error differences; verified paired data and controlled inputs are the key prerequisite. This does not establish the actual model failure cause or prove a remedy.",
+  "not_measured": [
+    "real pair availability and supervision quality",
+    "real-model pair-forward integration",
+    "real-model gradients",
+    "trained visual utilization improvement",
+    "task success"
+  ],
+  "trainer_registered": false,
+  "training_config_changed": false,
+  "gate_protocol_changed": false,
+  "new_training_authorized": false,
+  "ssh_used": false,
+  "downloads": false,
+  "real_data_loaded": false,
+  "commit_created": false,
+  "push_performed": false,
+  "m2_complete": false,
+  "evidence_sha256": {
+    "src/rosetta_reality/vla/visual_pair_loss.py": "643e18b57d9b7984ce533aa007db6f3e193ee03ec8acb04efb7f53493cfcd8a3",
+    "tests/test_smolvla_visual_pair_loss.py": "b06ff03635a2b00d9389c8689f2fa55827ebeef02f729f65ea3d1b5834ba5e77",
+    "reports/training/m2-smolvla-visual-pair-objective-design-2026-09-09.md": "5d01939e0e5cbf27ab0d718e2db5ef104c42003e66c16be736fa0091cc6f18a1",
+    "runs/smolvla-visual-repair-20260909-002/preflight-identities.json": "c84ca155a2dbf33c42573db6d877ed50f61f7a850caad013d2c61f07f08e160e",
+    "runs/smolvla-visual-repair-20260909-002/test-objective.sh": "1403f5d988eccb08562fdc5fad72eae5dc7811f19c38e85ff94f75d83d716bf0",
+    "runs/smolvla-visual-repair-20260909-002/unit-tests-001.log": "f6b4ef298438307b5e89bb3bb103cacaaf3df16f772833709b5283108b032be8",
+    "runs/smolvla-visual-repair-20260909-002/unit-tests-001.xml": "28e500abfa478f901ffe1b406667c6ff98365538458caea88390fb77bf1cf5fa",
+    "runs/smolvla-visual-repair-20260909-002/upstream/modeling_smolvla.py": "37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d",
+    "runs/smolvla-visual-repair-20260909-002/upstream/smolvlm_with_expert.py": "996d3b0c713c0ed42b383aa2cf89b2e6f9868e337747c480a64adaecdc1073cf"
+  }
+}

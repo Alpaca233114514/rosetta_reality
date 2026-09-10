@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "stage": "m2_smolvla_vcdropout_gate34_result",
+  "registered_at": "2026-08-29",
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "plan_id": "m2-smolvla450m-vcdropout-001",
+  "artifact_id": "m2-smolvla450m-vcdropout-cuda-b64-001-step0237-deploy-001",
+  "report_suffix": "433",
+  "preregistration": {
+    "report": "reports/training/m2-smolvla-vcdropout-gate34-preregistration-2026-08-29.md",
+    "report_sha256_recorded_before_execution": true
+  },
+  "simulation_plan": {
+    "path": "configs/vla/m2-smolvla450m-vcdropout-cuda-b64-001-sim-433.yaml",
+    "sha256": "14838fef385693b217a2534c99d687d6f60a93b841d273efb410cebefaaea366"
+  },
+  "gate3": {
+    "gate": "m2_gate_3_small_policy_rollout",
+    "status": "passed",
+    "report": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate3-smolvla-sim-433.json",
+    "report_sha256": "a05c902da5903382190475f506c5b1bcb89ea6dc3c3c0ec1f93eea82c3a56710",
+    "failed_criteria": []
+  },
+  "gate4": {
+    "gate": "m2_gate_4_development_task_evaluation",
+    "status": "failed",
+    "report": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-433.json",
+    "report_sha256": "645fefcfec3de83a9f523794b5d8a213f9e987f5095edaaac4947dae9d7d2682",
+    "failed_criteria": [
+      "joint_limits_respected",
+      "maximum_unexpected_collisions",
+      "minimum_task_success_rate"
+    ],
+    "aggregate": {
+      "task_success_rate": 0.0,
+      "mean_rollout_length": 500.0,
+      "invalid_action_rate": 0.0,
+      "joint_limit_violations": 131,
+      "unexpected_collisions": 34,
+      "mean_action_smoothness_l2": 0.33099464774131776,
+      "mean_policy_inference_seconds": 1.1174899030743954,
+      "mean_simulation_step_seconds": 0.15865730742959167,
+      "raw_limit_violation_rate": 0.0,
+      "policy_output_limit_violation_rate": 0.0,
+      "executed_limit_violation_rate": 0.0
+    },
+    "episodes": [
+      {"seed": 1000, "success": false, "maximum_reward": 0, "unexpected_collisions": 7, "joint_limit_violations": 48},
+      {"seed": 1001, "success": false, "maximum_reward": 0, "unexpected_collisions": 13, "joint_limit_violations": 15},
+      {"seed": 1002, "success": false, "maximum_reward": 0, "unexpected_collisions": 0, "joint_limit_violations": 20},
+      {"seed": 1003, "success": false, "maximum_reward": 0, "unexpected_collisions": 10, "joint_limit_violations": 14},
+      {"seed": 1004, "success": false, "maximum_reward": 0, "unexpected_collisions": 4, "joint_limit_violations": 34}
+    ]
+  },
+  "verdict": {
+    "axis_closed": true,
+    "registered_comparison_outcome": "Gate 3 passed; Gate 4 failed 0/5 with reward 0 on every seed and new safety-class violations; the visual-conditioning state-dropout axis is closed at this development scale as a registered negative result",
+    "gradient_gate_outcome": "passed (image_sensitivity 0.226087, state_dominance_score 0.408466) — the treatment changed the diagnosed gradient pathology but did not convert it into closed-loop competence",
+    "campaign_gate4_tally": ["Faust", "Aster", "Way", "Zen-uniform-411", "Zen-firstaction-422", "vcdropout-433"],
+    "m2_complete": false
+  },
+  "attempt1_archive": {
+    "reason": "wrapper crash before any gate evidence: Rosetta processor steps were not registered inside the container during saved-processor rebuild",
+    "fix": "import rosetta_reality.vla.processor for its registration side effect; wrapper sha256 dcf40b0936de765e95e7529a8128cf0a068f7743cf6e4457f90a71d778ee0e58",
+    "location": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/orchestration/vcd-gate34-attempt1-archive/"
+  },
+  "next_axis": {
+    "only_untried_primary_axis": "T2 state-conditioned recovery teacher",
+    "design": "reports/training/m2-smolvla-t2-state-conditioned-teacher-gate-design-2026-08-28.md",
+    "status": "design only; teacher gate must pass before any collection or furnace registration"
+  },
+  "hidden_test_loaded": false
+}
