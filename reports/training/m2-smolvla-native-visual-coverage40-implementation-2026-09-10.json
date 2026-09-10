@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-native-visual-coverage40-implementation-2026-09-10",
+  "status": "implementation_verified_real_model_execution_pending",
+  "module_started_utc": "2026-09-10T03:31:13Z",
+  "source_commit": "dfccd51f1a7117602d533a226618b8e9af06f63e",
+  "branch": "codex/smolvla-visual-conditioning-repair-20260909",
+  "workspace_relative_to_durable_root": "dev/visual-coverage40-20260910-dfccd51",
+  "source_promotion": {
+    "src/rosetta_reality/vla/fixed_visual_samples.py": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c",
+    "src/rosetta_reality/vla/training/features.py": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891",
+    "src/rosetta_reality/vla/training/launch.py": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0",
+    "scripts/train_smolvla_v2.py": "f7aafb6a418ebb1032e862d614388bc87dee77011c63ab3b7873a43ac4d7101e",
+    "scripts/smolvla_forward_check.py": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8",
+    "scripts/evaluate_visual_native_small.py": "1b038e6a7753a59591a093c36fef32fd14a90fad884f0fda52a5090809d8f9ed",
+    "tests/test_smolvla_fixed_visual_samples.py": "d929cb853ab66d8acb88bd97979327d291f1011fb0f0e2e4727514c3446b1edf",
+    "tests/test_smolvla_tracking_composition.py": "e78cd4a9caee3bbd0dda232e9841ff579d7d90fde21c186ef2fa0b000b3a05a7",
+    "tests/test_smolvla_v2_error_boundaries.py": "dc6dba91330bdf60755e9c87171a7592c89c4e3a8e6a2ef738e4e01de1d2cc04"
+  },
+  "old_audit_source_preserved": true,
+  "stage_plans": {
+    "preflight-b1": {
+      "path": "configs/vla/visual-coverage40-20260910-001/preflight-b1.json",
+      "sha256": "dcca7f360c9876433a15fdf1e8f7f76b3b1d76c507cc333aaf507a418bd5b58a"
+    },
+    "preflight-b4": {
+      "path": "configs/vla/visual-coverage40-20260910-001/preflight-b4.json",
+      "sha256": "2c1ab02116278f6fd7cf9d2c5798c412883c1fb017018d9696c3ad64f4df6168"
+    },
+    "smoke2": {
+      "path": "configs/vla/visual-coverage40-20260910-001/smoke2.json",
+      "sha256": "0a26cb63b453cf4fa9b84fbea8953af40c93ec0742eee5272ccdcfe22d99fb1d"
+    },
+    "main256": {
+      "path": "configs/vla/visual-coverage40-20260910-001/main256.json",
+      "sha256": "bbc05a641d9731d9c7350aa251df3a2be476c2462886ed06ffb5e3f033438da8"
+    }
+  },
+  "execution_contract_template": "configs/vla/visual-coverage40-20260910-001/execution-contract.template.json",
+  "execution_contract_sha256": "e6cf7198d94d660c83069409560fd68a44c1e67868845e601ec99fad018f629c",
+  "validation": {
+    "data_loaded": false,
+    "real_full_chunk_reload": "not measured",
+    "final_focused": {
+      "ruff_passed": true,
+      "added_cases": 1,
+      "pytest_passed": 34,
+      "commit": "dfccd51f1a7117602d533a226618b8e9af06f63e"
+    },
+    "distinct_cases_across_final_suites": 117,
+    "model_loaded": false,
+    "nested_docker_used": false,
+    "initial": {
+      "ruff_passed": false,
+      "ruff_errors": 30,
+      "pytest_passed": 56,
+      "error_code": "E501"
+    },
+    "baseline": {
+      "ruff_passed": true,
+      "pytest_passed": 116,
+      "commit": "05291439c01fd0ea5444e80702831d70e152481a"
+    },
+    "optimizer_steps": 0,
+    "simulation_ran": false,
+    "synthetic_sampler": {
+      "status": "synthetic_sampler_verified",
+      "A": {
+        "128": 8
+      },
+      "B": {
+        "26": 24,
+        "25": 16
+      }
+    },
+    "real_model_forward": "not measured"
+  },
+  "current_gpu_query": "No devices were found",
+  "free_disk_bytes": 8370343936,
+  "disk_budget_approved": false,
+  "compute_authorized": false,
+  "old_30_minute_budget_reused": false,
+  "proposed_future_shared_compute_seconds": 1800,
+  "transfer": {
+    "method": "pushed_commit_git_bundle_after_tls_failure",
+    "model_data_checkpoint_transferred": false,
+    "full_bundle_bytes": 1856324
+  },
+  "visual_generalization_repaired": false,
+  "m2_complete": false,
+  "task_success": "not measured",
+  "remaining": [
+    "fresh GPU/compute authorization and shared deadline/watchdog",
+    "live device, disk budget, benchmark, preflight and smoke/reload",
+    "remaining control tokenizer hash and actual consumed processor dependency inventory",
+    "full sample/nonvisual contract and 1024-exposure schedule before optimization",
+    "fresh B checkpoint identity and frozen/updated tensor audit after training"
+  ],
+  "caveats": [
+    "Native collector integration with actual checkpoint/data remains unmeasured",
+    "No complete staged execution driver or external watchdog was run",
+    "No task-success or full-trajectory claim",
+    "Development validation is not independent test; hidden split remains sealed"
+  ],
+  "closeout": "reports/training/m2-smolvla-native-visual-coverage40-closeout-2026-09-10.json"
+}

@@ -1,0 +1,329 @@
+E501 Line too long (105 > 100)
+  --> scripts/evaluate_visual_coverage.py:69:101
+   |
+67 |     for name, digest in contract["upstream_files"].items():
+68 |         relative = Path(name)
+69 |         if relative.is_absolute() or ".." in relative.parts or file_hash(installed / relative) != digest:
+   |                                                                                                     ^^^^^
+70 |             raise ValueError("Installed LeRobot source identity drift.")
+71 |     review = repository_file(contract["review_plan"]["path"])
+   |
+
+E501 Line too long (105 > 100)
+   --> scripts/evaluate_visual_coverage.py:103:101
+    |
+101 |         if (torch.cuda.max_memory_allocated() > limits["cuda_allocated_bytes"]
+102 |                 or torch.cuda.max_memory_reserved() > limits["cuda_reserved_bytes"]
+103 |                 or resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024 > limits["host_rss_bytes"]):
+    |                                                                                                     ^^^^^
+104 |             raise RuntimeError("Registered memory limit exceeded.")
+    |
+
+E501 Line too long (120 > 100)
+   --> scripts/evaluate_visual_coverage.py:130:101
+    |
+128 |     source = Path(os.environ["ROSETTA_CHECKPOINT_ROOT"]) / checkpoint_relative
+129 |     consumed = identity["checkpoint_files"]
+130 |     if not isinstance(consumed, dict) or not {"model.safetensors", "config.json", "train_config.json"} <= set(consumed):
+    |                                                                                                     ^^^^^^^^^^^^^^^^^^^^
+131 |         raise ValueError("Checkpoint has not been sealed.")
+132 |     # Include processor JSON and state files, not only the model tensor file.
+    |
+
+E501 Line too long (118 > 100)
+   --> scripts/evaluate_visual_coverage.py:146:101
+    |
+144 |             or saved["job_name"] != identity["run_name"]):
+145 |         raise ValueError("Saved training configuration differs from the arm.")
+146 |     if arm == "B" and not {"two_step_smoke_reload", "B_training_integrity"} <= set(contract["prerequisite_evidence"]):
+    |                                                                                                     ^^^^^^^^^^^^^^^^^^
+147 |         raise ValueError("Candidate smoke/reload/training integrity evidence is missing.")
+148 |     cfg = native.SmolVLAConfig.from_pretrained(source, local_files_only=True)
+    |
+
+E501 Line too long (108 > 100)
+   --> scripts/evaluate_visual_coverage.py:161:101
+    |
+159 |     context = native.load_frame_zero_context(ROOT, "non_hidden")
+160 |     data_cfg = context["config"]
+161 |     meta = native.LeRobotDatasetMetadata(data_cfg.repo_id, root=context["root"], revision=data_cfg.revision)
+    |                                                                                                     ^^^^^^^^
+162 |     dataset = native.LeRobotDataset(data_cfg.repo_id, root=context["root"], episodes=episodes,
+163 |         revision=data_cfg.revision, delta_timestamps=native.resolve_delta_timestamps(cfg, meta),
+    |
+
+E501 Line too long (102 > 100)
+   --> scripts/evaluate_visual_coverage.py:189:101
+    |
+188 |     def tensor_digest(value):
+189 |         return hashlib.sha256(str(value.dtype).encode() + array_hash(cpu(value)).encode()).hexdigest()
+    |                                                                                                     ^^
+190 |
+191 |     starts = dict(zip(dataset.meta.episodes["episode_index"],
+    |
+
+E501 Line too long (117 > 100)
+   --> scripts/evaluate_visual_coverage.py:196:101
+    |
+194 |     if len(dataset.meta.camera_keys) != 1:
+195 |         raise ValueError("Registered dataset must supply exactly one real camera.")
+196 |     actual_camera = experiment["dataset"]["rename_map"].get(dataset.meta.camera_keys[0], dataset.meta.camera_keys[0])
+    |                                                                                                     ^^^^^^^^^^^^^^^^^
+197 |     required_keys = {"observation.state", "observation.language.tokens",
+198 |                      "observation.language.attention_mask", actual_camera}
+    |
+
+E501 Line too long (109 > 100)
+   --> scripts/evaluate_visual_coverage.py:292:101
+    |
+290 |         if any(t[2] != tensor_digest(noise) for t in traces[condition * 45:(condition + 1) * 45]):
+291 |             raise ValueError("Native decoder did not consume the exact fixed noise.")
+292 |     arrays = {"normalized_predictions": np.asarray(predictions), "standard_predictions": np.asarray(decoded),
+    |                                                                                                     ^^^^^^^^^
+293 |               "internal_grippers": np.asarray(internal), "normalized_targets": np.asarray(targets),
+294 |               "standard_targets": np.asarray(standards), "valid_mask": np.ones((45, 50, 14), dtype=bool),
+    |
+
+E501 Line too long (105 > 100)
+   --> scripts/evaluate_visual_coverage.py:294:101
+    |
+292 |     arrays = {"normalized_predictions": np.asarray(predictions), "standard_predictions": np.asarray(decoded),
+293 |               "internal_grippers": np.asarray(internal), "normalized_targets": np.asarray(targets),
+294 |               "standard_targets": np.asarray(standards), "valid_mask": np.ones((45, 50, 14), dtype=bool),
+    |                                                                                                     ^^^^^
+295 |               "noise": np.stack([n.numpy() for n in noises])}
+296 |     metadata = {"protocol": PROTOCOL, "arm": arm, "episodes": episodes, "views": views,
+    |
+
+E501 Line too long (109 > 100)
+   --> scripts/evaluate_visual_coverage.py:297:101
+    |
+295 |               "noise": np.stack([n.numpy() for n in noises])}
+296 |     metadata = {"protocol": PROTOCOL, "arm": arm, "episodes": episodes, "views": views,
+297 |         "hidden_episodes": data["sealed_hidden5"], "hidden_test_loaded": False, "target_conditioning": False,
+    |                                                                                                     ^^^^^^^^^
+298 |         "native_denoising_steps": 10, "model_mode": "eval_inference", "chunk_length": 50,
+299 |         "max_action_dim": 32, "dimensions": dimensions, "noise_conditions": [None, 20260905, 20260906, 20260907],
+    |
+
+E501 Line too long (113 > 100)
+   --> scripts/evaluate_visual_coverage.py:299:101
+    |
+297 |         "hidden_episodes": data["sealed_hidden5"], "hidden_test_loaded": False, "target_conditioning": False,
+298 |         "native_denoising_steps": 10, "model_mode": "eval_inference", "chunk_length": 50,
+299 |         "max_action_dim": 32, "dimensions": dimensions, "noise_conditions": [None, 20260905, 20260906, 20260907],
+    |                                                                                                     ^^^^^^^^^^^^^
+300 |         "noise_hashes": [array_hash(n) for n in arrays["noise"]],
+301 |         "nonvisual_hashes": [t[1] for t in traces[:45]], "image_hashes": [t[0] for t in traces[:45]],
+    |
+
+E501 Line too long (101 > 100)
+   --> scripts/evaluate_visual_coverage.py:301:101
+    |
+299 |         "max_action_dim": 32, "dimensions": dimensions, "noise_conditions": [None, 20260905, 20260906, 20260907],
+300 |         "noise_hashes": [array_hash(n) for n in arrays["noise"]],
+301 |         "nonvisual_hashes": [t[1] for t in traces[:45]], "image_hashes": [t[0] for t in traces[:45]],
+    |                                                                                                     ^
+302 |         "raw_image_hashes": raw_images, "native_prediction_dtypes": value_dtypes,
+303 |         "common_identity": {"execution_contract_sha256": file_hash(contract_path),
+    |
+
+E501 Line too long (111 > 100)
+  --> scripts/prepare_visual_coverage.py:18:101
+   |
+16 | AUTHORITY = "reports/training/m2-smolvla-native-visual-authority-2026-09-10.json"
+17 | UPSTREAM = {
+18 |     "policies/smolvla/modeling_smolvla.py": "37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d",
+   |                                                                                                     ^^^^^^^^^^^
+19 |     "datasets/sampler.py": "f715aaaa1118ef8901928f92975f7bc08bca412860f072bbcca84555303cc38e",
+20 |     "optim/schedulers.py": "05d57770348fbb3f412f52804a8d0f015f8128a37c55d5ce8ed9af6ed8522bc9",
+   |
+
+E501 Line too long (103 > 100)
+  --> scripts/prepare_visual_coverage.py:41:101
+   |
+39 |         raise ValueError("Unexpected control recipe.")
+40 |     train = review["data"]["train40"]
+41 |     if control["optimizer_smoke"]["episodes"] != train[:8] or control["training"]["episodes"] != train:
+   |                                                                                                     ^^^
+42 |         raise ValueError("Historical active episode scope differs from registration.")
+43 |     result = {}
+   |
+
+E501 Line too long (150 > 100)
+  --> scripts/prepare_visual_coverage.py:49:101
+   |
+47 | …01"
+48 | …, plan_id=name, run_name=name,
+49 | …from 8 to 40 at fixed 256 updates and 1024 exposures; repetition allocation also changes.",
+   |                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+50 | …thorized=False)
+51 | …odes=train, batch_size=batch,
+   |
+
+E501 Line too long (111 > 100)
+   --> scripts/prepare_visual_coverage.py:115:101
+    |
+113 |             "fresh B checkpoint identity and frozen/updated tensor audit after training"],
+114 |         "arms": {
+115 |             "A": {"run_name": control["run_name"], "plan": {"path": CONTROL, "sha256": digest(ROOT / CONTROL)},
+    |                                                                                                     ^^^^^^^^^^^
+116 |                   "checkpoint_relative_to_root": prefix + "/pretrained_model", "checkpoint_files": files},
+117 |             "B": {"run_name": build_plans(control, review)["main256"]["run_name"],
+    |
+
+E501 Line too long (106 > 100)
+   --> scripts/prepare_visual_coverage.py:116:101
+    |
+114 |         "arms": {
+115 |             "A": {"run_name": control["run_name"], "plan": {"path": CONTROL, "sha256": digest(ROOT / CONTROL)},
+116 |                   "checkpoint_relative_to_root": prefix + "/pretrained_model", "checkpoint_files": files},
+    |                                                                                                     ^^^^^^
+117 |             "B": {"run_name": build_plans(control, review)["main256"]["run_name"],
+118 |                   "plan": stages["main256"], "checkpoint_relative_to_root":
+    |
+
+E501 Line too long (107 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:127:101
+    |
+125 |     if set(arrays) != ARRAY_NAMES or metadata.get("protocol") != PROTOCOL:
+126 |         raise ValueError("Missing full prediction evidence or wrong protocol.")
+127 |     if metadata.get("hidden_test_loaded") is not False or metadata.get("target_conditioning") is not False:
+    |                                                                                                     ^^^^^^^
+128 |         raise ValueError("Hidden access or teacher-forced conditioning is forbidden.")
+129 |     if metadata.get("native_denoising_steps") != 10 or metadata.get("model_mode") != "eval_inference":
+    |
+
+E501 Line too long (102 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:129:101
+    |
+127 |     if metadata.get("hidden_test_loaded") is not False or metadata.get("target_conditioning") is not False:
+128 |         raise ValueError("Hidden access or teacher-forced conditioning is forbidden.")
+129 |     if metadata.get("native_denoising_steps") != 10 or metadata.get("model_mode") != "eval_inference":
+    |                                                                                                     ^^
+130 |         raise ValueError("Native inference contract changed.")
+131 |     if metadata.get("noise_conditions") != [None, 20260905, 20260906, 20260907]:
+    |
+
+E501 Line too long (103 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:147:101
+    |
+145 |     if episodes != views["train40"] + views["dev5"]:
+146 |         raise ValueError("Bundle episode order differs from its registered views.")
+147 |     if not set(views["train8"]) <= set(views["train40"]) or set(views["train40"]) & set(views["dev5"]):
+    |                                                                                                     ^^^
+148 |         raise ValueError("Donor scope or split mismatch.")
+149 |     if any(len(v) < 2 or len(v) != len(set(v)) for v in views.values()):
+    |
+
+E501 Line too long (106 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:205:101
+    |
+203 |             conditions.append({
+204 |                 "noise_seed": metadata["noise_conditions"][noise],
+205 |                 "normalized": score_view(arrays["normalized_predictions"][noise, indices], y, mask, dims),
+    |                                                                                                     ^^^^^^
+206 |                 "standard": standard_diagnostics(arrays["standard_predictions"][noise, indices], ys, dims),
+207 |                 "gripper_internal_outside_support_rate": float((np.abs(g) > np.pi / 2).mean()),
+    |
+
+E501 Line too long (107 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:206:101
+    |
+204 |                 "noise_seed": metadata["noise_conditions"][noise],
+205 |                 "normalized": score_view(arrays["normalized_predictions"][noise, indices], y, mask, dims),
+206 |                 "standard": standard_diagnostics(arrays["standard_predictions"][noise, indices], ys, dims),
+    |                                                                                                     ^^^^^^^
+207 |                 "gripper_internal_outside_support_rate": float((np.abs(g) > np.pi / 2).mean()),
+208 |             })
+    |
+
+E501 Line too long (105 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:214:101
+    |
+212 |     train_mean = arrays["normalized_targets"][train].astype(np.float64).mean(axis=0)
+213 |     error = np.square(arrays["normalized_targets"][dev] - train_mean)
+214 |     baseline = {name: float(error[..., indices].mean()) for name, indices in action_groups(dims).items()}
+    |                                                                                                     ^^^^^
+215 |     fit_view = "train8" if metadata["arm"] == "A" else "train40"
+216 |     fit = sum(row["normalized"]["all_valid"]["passed"] for row in results[fit_view])
+    |
+
+E501 Line too long (116 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:288:101
+    |
+286 |     for ac, bc in zip(ar["views"]["dev5"], br["views"]["dev5"], strict=True):
+287 |         x, y = ac["normalized"]["all_valid"], bc["normalized"]["all_valid"]
+288 |         epsilon = 1e-8 * max(1., abs(x["correct"]), abs(y["correct"]), abs(x["visual_gain"]), abs(y["visual_gain"]))
+    |                                                                                                     ^^^^^^^^^^^^^^^^
+289 |         gains.append(y["correct"] < x["correct"] - epsilon and y["visual_gain"] > x["visual_gain"] + epsilon)
+290 |     nonregression = {}
+    |
+
+E501 Line too long (109 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:289:101
+    |
+287 |         x, y = ac["normalized"]["all_valid"], bc["normalized"]["all_valid"]
+288 |         epsilon = 1e-8 * max(1., abs(x["correct"]), abs(y["correct"]), abs(x["visual_gain"]), abs(y["visual_gain"]))
+289 |         gains.append(y["correct"] < x["correct"] - epsilon and y["visual_gain"] > x["visual_gain"] + epsilon)
+    |                                                                                                     ^^^^^^^^^
+290 |     nonregression = {}
+291 |     for horizon in ("chunk", "first_action"):
+    |
+
+E501 Line too long (101 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:293:101
+    |
+291 |     for horizon in ("chunk", "first_action"):
+292 |         for group in ("joint_radian", "gripper_normalized"):
+293 |             old = float(np.mean([v["standard"][horizon][group]["mse"] for v in ar["views"]["dev5"]]))
+    |                                                                                                     ^
+294 |             new = float(np.mean([v["standard"][horizon][group]["mse"] for v in br["views"]["dev5"]]))
+295 |             nonregression[f"{horizon}/{group}"] = new <= old + 1e-8 * max(1., abs(old), abs(new))
+    |
+
+E501 Line too long (101 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:294:101
+    |
+292 |         for group in ("joint_radian", "gripper_normalized"):
+293 |             old = float(np.mean([v["standard"][horizon][group]["mse"] for v in ar["views"]["dev5"]]))
+294 |             new = float(np.mean([v["standard"][horizon][group]["mse"] for v in br["views"]["dev5"]]))
+    |                                                                                                     ^
+295 |             nonregression[f"{horizon}/{group}"] = new <= old + 1e-8 * max(1., abs(old), abs(new))
+296 |     return {"A": ar, "B": br, "coverage_gain_conditions": gains,
+    |
+
+E501 Line too long (106 > 100)
+   --> src/rosetta_reality/vla/visual_coverage.py:298:101
+    |
+296 |     return {"A": ar, "B": br, "coverage_gain_conditions": gains,
+297 |             "coverage_gain_passed": sum(gains) >= 3, "physical_nonregression": nonregression,
+298 |             "offline_metric_criteria_passed": bool(ar["training_fit_passed"] and br["training_fit_passed"]
+    |                                                                                                     ^^^^^^
+299 |                 and br["development_passed"] and sum(gains) >= 3 and all(nonregression.values())),
+300 |             "full_acceptance_requires_external_integrity_and_reload": True,
+    |
+
+E501 Line too long (106 > 100)
+   --> tests/test_smolvla_visual_coverage.py:225:101
+    |
+223 |     assert main["optimizer_smoke"]["episodes"] == review["data"]["train40"]
+224 |     sampler = next(f for f in main["features"] if f["name"] == "fixed_frame_sampler")
+225 |     assert sampler["sample_identities"] == [{"episode": e, "frame": 0} for e in review["data"]["train40"]]
+    |                                                                                                     ^^^^^^
+226 |     assert plans["smoke2"]["optimizer_smoke"]["steps"] == 2
+227 |     assert main["optimizer_smoke"]["steps"] == 256
+    |
+
+E501 Line too long (101 > 100)
+   --> tests/test_smolvla_visual_coverage.py:240:101
+    |
+238 |     candidate = module.build_plans(control, review)["main256"]
+239 |     with pytest.raises(ValueError, match="preregistered"):
+240 |         validate_plan_structure(candidate, known_features={f["name"] for f in candidate["features"]})
+    |                                                                                                     ^
+
+Found 30 errors.
+........................................................                 [100%]
+56 passed in 15.56s
+RUFF_EXIT=1 PYTEST_EXIT=0

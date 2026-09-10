@@ -108,15 +108,16 @@ Current visual-utilization handoff and review plan (2026-09-10):
 and its JSON companion prepare the next fixed-budget frame-0 coverage comparison
 (8 to 40 train episodes, batch 4, 256 updates). Official-source interpretation is
 in `reports/training/m2-smolvla-visual-coverage-official-evidence-2026-09-10.md`.
-These remain non-executable review documents: new execution source/commands,
-real preflight and a fresh compute budget remain pending. A subsequent authorized
+These remain non-executable review documents: real preflight and a fresh compute
+budget remain pending. A subsequent authorized
 read-only session recovered the authoritative workspace and step-256 control;
 see `reports/training/m2-smolvla-native-visual-authority-2026-09-10.md` and JSON.
 The 13 final-audit files, 11 plan-bound implementation files and six historical
 evidence files match their recorded hashes; the checkpoint weight hash also
 matches. Nine exact source files are archived for review in
-`reports/training/visual-native-authority-20260910/`; they are not installed
-in the current source tree or a complete remote backup. The previous local
+`reports/training/visual-native-authority-20260910/`. The later no-card implementation
+module promoted all nine byte-exact files into the active source tree; this is
+still not a complete remote backup. The previous local
 recovery report and pre-format excerpts remain historical evidence.
 
 The authority is still `dev/visual-utilization-20260909-001` under the remote
@@ -126,8 +127,9 @@ reports have been archived at
 `reports/training/m2-smolvla-native-visual-small-2026-09-09.{md,json}`.
 Their train 4/4 and development-validation 0/4 results are unchanged. The old
 reload files prove equality of saved metrics and first-action predictions;
-they do not establish full-chunk parity. Historical 47 regression passes were
-not rerun. The inspected container returned `No devices were found`; this is
+they do not establish full-chunk parity. Historical 47 regression passes belong
+to the original pilot; current synthetic checks are reported separately below.
+The inspected container returned `No devices were found`; this is
 not independent proof of platform power or billing status.
 
 The old plan already lists 40 episodes in its training block, while actual
@@ -144,6 +146,38 @@ The user-requested shutdown was invoked after the recovery module at 11:21:35
 Asia/Shanghai on 2026-09-10; SSH closed and the follow-up connection also closed.
 See `reports/training/m2-smolvla-native-visual-authority-closeout-2026-09-10.md`.
 The instance was not released; platform billing was not independently verified.
+
+The user subsequently restarted the instance without a GPU and authorized the
+implementation module described in
+`reports/training/m2-smolvla-native-visual-coverage40-implementation-2026-09-10.md`
+and its JSON companion. Current code is pinned to
+`dfccd51f1a7117602d533a226618b8e9af06f63e` in the independent remote workspace
+`dev/visual-coverage40-20260910-dfccd51`. The original dirty authority is preserved.
+
+- `src/rosetta_reality/vla/visual_coverage.py` owns all-nonself **mean error**,
+  the finite-set mean floor, unit-resolved diagnostics, create-only full-chunk
+  evidence, exact reload comparison and between-arm criteria.
+- `scripts/evaluate_visual_coverage.py` collects actual native decoder inputs,
+  full normalized predictions and standard actions **before safety clipping**;
+  it rejects a draft/missing budget, missing identity, expired deadline, input
+  drift, illegal/nonfinite outputs and failed reload. Negative comparisons save
+  their evidence and exit nonzero. Real-model execution remains unmeasured.
+- `scripts/prepare_visual_coverage.py` generates the four non-launchable stage
+  drafts in `configs/vla/visual-coverage40-20260910-001/`; both active smoke
+  episodes and fixed sample identities expand to 40. Native learning fields
+  remain unchanged. The old control is neither retrained nor resumed.
+- `scripts/inspect_visual_coverage_sampler.py` verified the native 1024-exposure
+  order against an independent implementation using synthetic indices only:
+  A has eight counts of 128; B has 24 counts of 26 and 16 counts of 25.
+
+The implementation passed a 116-test synthetic/regression suite, followed by
+34 focused tests including one new negative-exit test; Ruff passed. These are
+117 distinct test cases across the two final suites, not model evaluation or
+proof of full-chunk model reload. No model/data load, optimizer or simulation
+ran in this module. Training smoke/reload, live resource estimates, all 45 real
+input contracts, A reproduction and the actual two-arm comparison are pending.
+The development five remain development data, hidden remains sealed, and M2
+is incomplete. See the module's separate closeout for its shutdown evidence.
 
 Local visual-grounding repair (2026-09-09):
 `reports/training/m2-smolvla-local-visual-grounding-preregistration-2026-09-09.md`
