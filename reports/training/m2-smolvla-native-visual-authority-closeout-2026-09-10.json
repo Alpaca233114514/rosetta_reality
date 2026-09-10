@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-native-visual-authority-closeout-2026-09-10",
+  "status": "documentation_identity_module_complete_official_shutdown_invoked",
+  "core_commit": "63221de6b318fa1797eb9901d332f18cdb11dd70",
+  "branch": "codex/smolvla-visual-conditioning-repair-20260909",
+  "main_unchanged_at": "14f320d981e7fdc53142a314e6d4cc9f3ea58940",
+  "authority_report": "reports/training/m2-smolvla-native-visual-authority-2026-09-10.json",
+  "review_plan": "reports/training/m2-smolvla-native-visual-coverage40-plan-2026-09-10.json",
+  "completed": [
+    "official_source_review_and_project_hypothesis_separation",
+    "authoritative_control_and_audited_source_identity_recovery",
+    "nine_byte_exact_source_archives_and_two_original_reports",
+    "review_plan_bound_to_actual_smoke_scope_seed_optimizer_scheduler",
+    "document_static_checks_and_current_branch_push",
+    "user_requested_shutdown_without_instance_release"
+  ],
+  "shutdown": {
+    "target": "authoritative_native_visual_worker",
+    "requested_utc": "2026-09-10T03:21:35.275184+00:00",
+    "requested_local": "2026-09-10 11:21:35 Asia/Shanghai",
+    "method": "official_platform_shutdown_wrapper_via_bash",
+    "wrapper_sha256": "0358e83eeeaf542aa98f64ba9e339c91df46f1e025892d52dba159f4fb1cf027",
+    "prechecks": {
+      "project_workers_found": false,
+      "tmux_sessions_found": false,
+      "gpu_visible": false,
+      "trash_absent": true,
+      "audited_files_unchanged": true,
+      "checkpoint_present": true
+    },
+    "durable_sync_completed": true,
+    "remote_record_relative_to_durable_root": "control/visual-authority-closeout-20260910-002.json",
+    "ssh_closed_by_remote": true,
+    "followup_ssh_success": false,
+    "followup_observation": "connection_closed",
+    "followup_completed_by_utc": "2026-09-10T03:21:56Z",
+    "platform_console_power_state_independently_verified": false,
+    "platform_billing_state_independently_verified": false,
+    "instance_release_requested": false,
+    "existing_files_deleted": false,
+    "prior_attempt": {
+      "requested_utc": "2026-09-10T03:20:40.401469+00:00",
+      "error": "OSError: [Errno 8] Exec format error",
+      "cause": "official_shell_wrapper_has_no_shebang_direct_exec_rejected",
+      "remote_record_relative_to_durable_root": "control/visual-authority-closeout-20260910-001.json",
+      "preserved": true
+    }
+  },
+  "validation": {
+    "document_checks": "passed",
+    "byte_exact_source_count": 9,
+    "byte_exact_original_report_count": 2,
+    "final_audit_hash_matches": 13,
+    "old_plan_implementation_hash_matches": 11,
+    "historical_evidence_hash_matches": 6,
+    "prerequisite_file_hash_matches": 6,
+    "hash_groups_overlap": true,
+    "staged_diff_check": "passed",
+    "historical_ml_regressions_rerun": false
+  },
+  "results": {
+    "new_optimizer_steps": 0,
+    "new_model_execution": false,
+    "all_nonself_evaluation": "not measured",
+    "coverage40_training": "not measured",
+    "full_chunk_independent_reload": "not measured",
+    "task_success": "not measured",
+    "visual_generalization_repaired": false,
+    "m2_complete": false
+  },
+  "next": {
+    "authorized_now": "documents_and_current_feature_branch_push_only_after_shutdown",
+    "new_compute_authorized": false,
+    "instance_restart_authorized": false,
+    "first_module": "Review and consolidate recovered source in a new server workspace; implement preregistered all-nonself evaluator and bind actual phase plans/commands without replacing the old workspace.",
+    "execution_gate": "Fresh explicit compute budget, visible CUDA, cache identity, disk budget, real preflight and separate two-step smoke.",
+    "experiment": "Reuse A step256 read-only; fresh base B with 40 frame-zero train episodes, batch4 steps256; same all-nonself protocol and full-chunk reload; keep hidden sealed; preserve negative evidence and stop after failure."
+  }
+}

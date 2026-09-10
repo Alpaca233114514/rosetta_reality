@@ -140,6 +140,11 @@ with full-chunk reload for both arms, keep hidden sealed, and do not add paired
 loss, dropout or unfreezing. No model execution or M2/Gate status change is
 authorized by this recovery.
 
+The user-requested shutdown was invoked after the recovery module at 11:21:35
+Asia/Shanghai on 2026-09-10; SSH closed and the follow-up connection also closed.
+See `reports/training/m2-smolvla-native-visual-authority-closeout-2026-09-10.md`.
+The instance was not released; platform billing was not independently verified.
+
 Local visual-grounding repair (2026-09-09):
 `reports/training/m2-smolvla-local-visual-grounding-preregistration-2026-09-09.md`
 and its JSON companion register a no-optimizer, train-only comparison of two

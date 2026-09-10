@@ -9,6 +9,7 @@
   "launchable_v2_plan": false,
   "human_readable_plan": "reports/training/m2-smolvla-native-visual-coverage40-plan-2026-09-10.md",
   "official_evidence_note": "reports/training/m2-smolvla-visual-coverage-official-evidence-2026-09-10.md",
+  "module_closeout": "reports/training/m2-smolvla-native-visual-authority-closeout-2026-09-10.json",
   "authorization": {
     "current_scope": [
       "public_technical_reading",
