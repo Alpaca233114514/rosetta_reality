@@ -17,6 +17,7 @@ Fail-closed boundaries:
 
 from __future__ import annotations
 
+import logging
 import os
 import sys
 from pathlib import Path
@@ -100,14 +101,22 @@ def main() -> None:
 
     stack = feature_stack_from_plan(plan)
     installed = stack.install_all(context)
+    trainer_failed = False
     try:
         print(f"Installed v2 training features: {', '.join(installed)}")
         lerobot_train.main()
+    except BaseException:
+        trainer_failed = True
+        raise
     finally:
         stack.restore_all(context)
-        # Only a run whose plan initialized Trackio owns its teardown.
         if FEATURE_TRACKIO_LOGGING in installed:
-            finish_trackio()
+            try:
+                finish_trackio()
+            except Exception:
+                if not trainer_failed:
+                    raise
+                logging.exception("Trackio teardown failed; preserving the trainer error.")
 
 
 if __name__ == "__main__":

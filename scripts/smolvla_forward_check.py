@@ -270,9 +270,17 @@ def main() -> int:
 
     started = time.perf_counter()
     torch.manual_seed(int(experiment["seed"]))
+    allowed_episodes = {int(value) for value in (cfg.dataset.episodes or [])}
+    if not allowed_episodes or not allowed_episodes.issubset(
+        set(experiment["dataset"]["train_episodes"])
+    ):
+        raise ValueError("Forward-check episodes must be explicit train-split members.")
+    hidden_test = {int(value) for value in experiment["dataset"]["test_episodes"]}
+    if allowed_episodes & hidden_test:
+        raise ValueError("The preregistered forward-check episode intersects hidden test data.")
     dataset = make_dataset(cfg)
     train_only_statistics = _validate_train_only_statistics(dataset)
-    batch_size = int(experiment["phases"]["smoke"]["batch_size"])
+    batch_size = int(cfg.batch_size)
     state_dimension = _feature_dimension(dataset, "observation.state")
     dataset_action_dimension = _feature_dimension(dataset, "action")
     if dataset_action_dimension != action_dimension:
@@ -281,10 +289,6 @@ def main() -> int:
         raise ValueError("Policy chunk size differs from the Action Contract.")
     if bool(cfg.policy.adapt_to_pi_aloha) != action_space.adapt_to_pi_aloha:
         raise ValueError("Policy ALOHA adaptation differs from the action-space contract.")
-    allowed_episodes = {int(value) for value in experiment["phases"]["smoke"]["episodes"]}
-    hidden_test = {int(value) for value in experiment["dataset"]["test_episodes"]}
-    if allowed_episodes & hidden_test:
-        raise ValueError("The preregistered forward-check episode intersects hidden test data.")
     loader = DataLoader(dataset, batch_size=batch_size, shuffle=False, num_workers=0)
     batch = next(iter(loader))
     episodes_loaded = _episode_indices(batch)

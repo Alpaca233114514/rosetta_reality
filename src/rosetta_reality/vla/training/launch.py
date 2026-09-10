@@ -67,6 +67,9 @@ def compose_runtime_experiment(
     resources = plan.get("resources")
     if isinstance(resources, dict):
         runtime_experiment.setdefault("resources", {}).update(resources)
+    tracking = plan.get("tracking")
+    if isinstance(tracking, dict):
+        runtime_experiment.setdefault("tracking", {}).update(copy.deepcopy(tracking))
     return runtime_experiment
 
 

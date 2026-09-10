@@ -236,6 +236,7 @@ class FixedFrameSamplerFeature(TrainingFeature):
         if phase not in {"smoke", "overfit", "overfit_resume"}:
             raise ValueError("fixed_frame_sampler requires a supported phase parameter.")
         self._phase = str(phase)
+        self._samples = parameters.get("sample_identities")
 
     def install(self, context: TrainingContext) -> None:
         import numpy as np
@@ -245,7 +246,16 @@ class FixedFrameSamplerFeature(TrainingFeature):
             resolve_fixed_dataset_indices,
         )
 
-        protocol = load_fixed_frame_protocol(context.experiment, self._phase)
+        if self._samples is None:
+            protocol = load_fixed_frame_protocol(context.experiment, self._phase)
+            samples = None
+        else:
+            from rosetta_reality.vla.fixed_visual_samples import validate_visual_samples
+
+            samples = validate_visual_samples(
+                self._samples, context.plan, context.experiment, context.phase
+            )
+            protocol = None
         lerobot_train = _lerobot_train_module()
         if getattr(lerobot_train, _marker(self.name), False):
             raise RuntimeError("fixed_frame_sampler is already installed.")
@@ -269,13 +279,26 @@ class FixedFrameSamplerFeature(TrainingFeature):
                     raise ValueError(
                         "Fixed-frame repair does not allow implicit frame dropping."
                     )
-                fixed_indices = resolve_fixed_dataset_indices(
-                    protocol,
-                    dataset_from_indices,
-                    dataset_to_indices,
-                    episode_indices_to_use,
-                    absolute_to_relative_idx,
-                )
+                if samples is None:
+                    fixed_indices = resolve_fixed_dataset_indices(
+                        protocol,
+                        dataset_from_indices,
+                        dataset_to_indices,
+                        episode_indices_to_use,
+                        absolute_to_relative_idx,
+                    )
+                else:
+                    from rosetta_reality.vla.fixed_visual_samples import (
+                        resolve_visual_sample_indices,
+                    )
+
+                    fixed_indices = resolve_visual_sample_indices(
+                        samples,
+                        dataset_from_indices,
+                        dataset_to_indices,
+                        episode_indices_to_use,
+                        absolute_to_relative_idx,
+                    )
                 self._fixed_indices = tuple(fixed_indices)
                 self._num_frames = len(self._fixed_indices)
                 self.shuffle = shuffle
@@ -864,8 +887,8 @@ class TrackioLoggingFeature(TrainingFeature):
 
     The historical ``trackio_lerobot`` module is hash-bound provenance for the
     completed runs, so this feature composes a plan-bound logger subclass
-    instead of patching module state.  The runtime experiment is resolved from
-    the file the launcher writes, never from an in-process overlay.
+    instead of patching module state. The resolved context and plan use the
+    same pure composition function as the launcher's runtime evidence file.
     """
 
     name = "trackio_logging"
@@ -944,7 +967,11 @@ class TrackioLoggingFeature(TrainingFeature):
 
                 import trackio
 
-                experiment = trackio_bridge._experiment_config()
+                from rosetta_reality.vla.training.launch import compose_runtime_experiment
+
+                # The context contains the checksum-validated, fully resolved parent.
+                # The legacy bridge reads raw YAML and loses inherited fields.
+                experiment = compose_runtime_experiment(context.experiment, context.plan)
                 phase = os.environ.get("ROSETTA_VLA_PHASE", "")
                 if phase not in {
                     "space_smoke",
