@@ -156,7 +156,12 @@ def standard_diagnostics(prediction, target, dimensions: list[dict]) -> dict:
 
 
 def validate_bundle(arrays: dict[str, np.ndarray], metadata: dict) -> None:
-    if set(arrays) != ARRAY_NAMES or metadata.get("protocol") != PROTOCOL:
+    _validate_prediction_evidence(arrays, metadata, protocol=PROTOCOL, arms={"A", "B"})
+
+
+def _validate_prediction_evidence(arrays, metadata, *, protocol, arms) -> None:
+    """Shared array checks; public experiment entry points supply fixed identities."""
+    if set(arrays) != ARRAY_NAMES or metadata.get("protocol") != protocol:
         raise ValueError("Missing full prediction evidence or wrong protocol.")
     if (
         metadata.get("hidden_test_loaded") is not False
@@ -170,7 +175,7 @@ def validate_bundle(arrays: dict[str, np.ndarray], metadata: dict) -> None:
         raise ValueError("Native inference contract changed.")
     if metadata.get("noise_conditions") != [None, 20260905, 20260906, 20260907]:
         raise ValueError("Noise registration changed.")
-    if metadata.get("arm") not in {"A", "B"}:
+    if metadata.get("arm") not in arms:
         raise ValueError("Unknown experimental arm.")
     if type(metadata.get("chunk_length")) is not int or metadata["chunk_length"] <= 0:
         raise ValueError("Invalid action horizon.")
@@ -240,6 +245,12 @@ def validate_bundle(arrays: dict[str, np.ndarray], metadata: dict) -> None:
 
 def summarize_bundle(arrays: dict[str, np.ndarray], metadata: dict) -> dict:
     validate_bundle(arrays, metadata)
+    fit_view = "train8" if metadata["arm"] == "A" else "train40"
+    return _summarize_prediction_evidence(arrays, metadata, fit_view=fit_view)
+
+
+def _summarize_prediction_evidence(arrays, metadata, *, fit_view) -> dict:
+    """Unchanged numerical formula, called only after experiment-specific validation."""
     dims = metadata["dimensions"]
     results = {}
     for view, episodes in metadata["views"].items():
@@ -273,7 +284,6 @@ def summarize_bundle(arrays: dict[str, np.ndarray], metadata: dict) -> dict:
         name: float(error[..., indices].mean())
         for name, indices in action_groups(dims).items()
     }
-    fit_view = "train8" if metadata["arm"] == "A" else "train40"
     fit = sum(row["normalized"]["all_valid"]["passed"] for row in results[fit_view])
     dev_pass = [
         all(g["passed"] for g in row["normalized"].values()) for row in results["dev5"]

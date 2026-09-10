@@ -1548,6 +1548,18 @@ backups. Available durable storage measured 12,650,205,184 bytes after cleanup, 
 11,831,765,228-byte candidate budget. Recheck capacity before any new execution.
 Athena GPU preflight, training, B/C evaluation and Gate 3/4 remain not measured.
 
+The newly named Hestia continuation is preregistered in
+`reports/training/m2-smolvla-hestia-gpu-preflight-plan-2026-09-10.md`.
+`training/observed_launch.py` composes the delivered/completed-update observer
+around the unchanged guarded v2 launcher. `visual_fit.py` owns the separate B/C
+evidence protocol, including simultaneous joint/gripper training-fit checks;
+the historical A/B collector retains its fixed 256-step identity gate.
+`scripts/run_hestia_preflight.py` limits the current GPU module to regression,
+real preflight, two optimizer updates and independent full-chunk reload with
+a 1200-second supervisor and requested shutdown. The 1280-update candidate
+and its model evidence collector remain pending; neither this registration
+nor synthetic tests change the negative visual-generalization or M2 result.
+
 Update this document in the same change whenever any of the following changes:
 
 - component ownership or a major entry point;
