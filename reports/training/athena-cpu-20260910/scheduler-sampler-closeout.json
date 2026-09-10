@@ -1,0 +1,39 @@
+{
+  "observed_unix": 1789028865.8814347,
+  "source_commit": "c42d8354c4ee1a178ab3d1b167c43c6ef30c27fe",
+  "checkpoint_size_basis": "full historical A checkpoint file sizes only, no weights loaded",
+  "checkpoint_bytes": 1614046416,
+  "available_bytes": 8344125440,
+  "candidate_checkpoint_copies_budgeted": 6,
+  "candidate_storage_required_bytes": 11831762144,
+  "B_checkpoint_present": false,
+  "evidence": {
+    "registration.json": {
+      "sha256": "6d0f1c95e073a9cb8828f4885bdefa5710df0e7ce3c53f5d2759e2e2154e1ef2",
+      "bytes": 317
+    },
+    "result.json": {
+      "sha256": "74e5645def9402979f622629bf9e634b3488d37cdf4e621ca282680d3f2f5ce4",
+      "bytes": 53717
+    },
+    "ruff.log": {
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "bytes": 19
+    },
+    "pytest.log": {
+      "sha256": "8138c4b4a5bc5bcf8f2cff9709a26ea53b94cd2ad12db412fdc68965c4e321a6",
+      "bytes": 179
+    },
+    "exit-code.txt": {
+      "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "bytes": 2
+    }
+  },
+  "pytest_summary": "79 passed in 3.76s",
+  "ruff_summary": "All checks passed!",
+  "model_loaded": false,
+  "real_dataset_loaded": false,
+  "GPU_training_started": false,
+  "m2_complete": false,
+  "candidate_storage_preflight_passed": false
+}

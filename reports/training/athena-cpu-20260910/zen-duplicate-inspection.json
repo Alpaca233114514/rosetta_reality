@@ -1,0 +1,72 @@
+{
+  "status": "read_only_inventory",
+  "started_unix": 1789033517.4565518,
+  "elapsed_seconds": 27.827614784240723,
+  "files": [
+    {
+      "path": "closed-axis-runtime-archive/zen-runtime/checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/formal/m2-smolvla450m-zen-cuda-b64-uniform-001/checkpoints/000316/pretrained_model/model.safetensors",
+      "sha256": "da0e68cea003775ba64466ecf9017ace1a0b94cbe3ff55c000ebaee6472d71fb",
+      "bytes": 1197789256,
+      "device": 2304,
+      "inode": 4343343721,
+      "links": 1,
+      "mode": "0o600"
+    },
+    {
+      "path": "rosetta/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001/pretrained_model/model.safetensors",
+      "sha256": "da0e68cea003775ba64466ecf9017ace1a0b94cbe3ff55c000ebaee6472d71fb",
+      "bytes": 1197789256,
+      "device": 2304,
+      "inode": 4311726149,
+      "links": 1,
+      "mode": "0o600"
+    },
+    {
+      "path": "rosetta/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001-superseded-20260827T142131Z/model.safetensors",
+      "sha256": "da0e68cea003775ba64466ecf9017ace1a0b94cbe3ff55c000ebaee6472d71fb",
+      "bytes": 1197789256,
+      "device": 2304,
+      "inode": 8633885838,
+      "links": 1,
+      "mode": "0o600"
+    },
+    {
+      "path": "rosetta/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001-superseded2-20260827T151304Z/pretrained_model/model.safetensors",
+      "sha256": "da0e68cea003775ba64466ecf9017ace1a0b94cbe3ff55c000ebaee6472d71fb",
+      "bytes": 1197789256,
+      "device": 2304,
+      "inode": 4295157024,
+      "links": 1,
+      "mode": "0o600"
+    },
+    {
+      "path": "rosetta/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001-superseded3-20260827T152529Z/pretrained_model/model.safetensors",
+      "sha256": "da0e68cea003775ba64466ecf9017ace1a0b94cbe3ff55c000ebaee6472d71fb",
+      "bytes": 1197789256,
+      "device": 2304,
+      "inode": 8615693510,
+      "links": 1,
+      "mode": "0o600"
+    },
+    {
+      "path": "closed-axis-runtime-archive/zen-runtime/checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/formal/m2-smolvla450m-zen-cuda-b64-firstaction-001/checkpoints/000316/pretrained_model/model.safetensors",
+      "sha256": "310a91fe9b36dc55e2312ec41e079fa52e95613658049edecb1d8003e249ccea",
+      "bytes": 1197789256,
+      "device": 2304,
+      "inode": 12929105650,
+      "links": 1,
+      "mode": "0o600"
+    },
+    {
+      "path": "rosetta/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-zen-cuda-b64-firstaction-001-step0316-deploy-001/pretrained_model/model.safetensors",
+      "sha256": "310a91fe9b36dc55e2312ec41e079fa52e95613658049edecb1d8003e249ccea",
+      "bytes": 1197789256,
+      "device": 2304,
+      "inode": 10767634162,
+      "links": 1,
+      "mode": "0o600"
+    }
+  ],
+  "weights_loaded": false,
+  "files_modified": false
+}

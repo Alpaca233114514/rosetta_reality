@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "native_trainer_sha256": "4d15d283ea54583f552b32088db0b6c195250905ca6daf06d4670383790e2059",
+  "python": "3.12.3",
+  "packages": {
+    "torch": "2.8.0+cu128",
+    "lerobot": "0.6.2",
+    "transformers": "5.5.4",
+    "accelerate": "1.14.0",
+    "numpy": "2.2.6"
+  },
+  "tests": 21,
+  "skips": 0,
+  "smolvla_weights_loaded": false,
+  "real_data_loaded": false,
+  "native_CPU_scalar_update_measured": true,
+  "GPU_training_started": false
+}

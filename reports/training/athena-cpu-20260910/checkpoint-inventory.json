@@ -1,0 +1,62 @@
+{
+  "observed_unix": 1789032953.1700866,
+  "scope": "read-only streaming hashes and file sizes; no tensor deserialization",
+  "checkpoints": {
+    "m2-smolvla450m-visual-coverage40-main256-003": {
+      "files": {
+        "rosetta_checkpoint_metrics.json": 572,
+        "pretrained_model/config.json": 2972,
+        "pretrained_model/model.safetensors": 1197789256,
+        "pretrained_model/train_config.json": 10051,
+        "pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors": 1384,
+        "pretrained_model/policy_preprocessor.json": 4952,
+        "pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors": 1384,
+        "pretrained_model/policy_postprocessor.json": 2241,
+        "pretrained_model/tokenizer/chat_template.jinja": 403,
+        "pretrained_model/tokenizer/tokenizer_config.json": 838,
+        "pretrained_model/tokenizer/tokenizer.json": 3548738,
+        "training_state/training_step.json": 223,
+        "training_state/rng_state.safetensors": 15708,
+        "training_state/scheduler_state.json": 237,
+        "training_state/optimizer_state.safetensors": 412659164,
+        "training_state/optimizer_param_groups.json": 8807
+      },
+      "bytes": 1614046930,
+      "model_sha256": "4e91624b34c3a16e22e0cbba19d8bcf3352a0d3835522ea6973ee22f0397accf",
+      "matches_prior_evidence": true
+    },
+    "m2-smolvla450m-visual-native-b4-pilot-003": {
+      "files": {
+        "rosetta_checkpoint_metrics.json": 571,
+        "pretrained_model/config.json": 2972,
+        "pretrained_model/model.safetensors": 1197789256,
+        "pretrained_model/train_config.json": 9538,
+        "pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors": 1384,
+        "pretrained_model/policy_preprocessor.json": 4952,
+        "pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors": 1384,
+        "pretrained_model/policy_postprocessor.json": 2241,
+        "pretrained_model/tokenizer/chat_template.jinja": 403,
+        "pretrained_model/tokenizer/tokenizer_config.json": 838,
+        "pretrained_model/tokenizer/tokenizer.json": 3548738,
+        "training_state/training_step.json": 223,
+        "training_state/rng_state.safetensors": 15708,
+        "training_state/scheduler_state.json": 237,
+        "training_state/optimizer_state.safetensors": 412659164,
+        "training_state/optimizer_param_groups.json": 8807
+      },
+      "bytes": 1614046416,
+      "model_sha256": "fd95a19ca8d8f9e1c6a5c477807aaf69fc3e19bb15e626bd53e4224da8ad3a5c",
+      "matches_prior_evidence": true
+    }
+  },
+  "available_bytes": 6661238784,
+  "candidate_checkpoint_copies_budgeted": 6,
+  "candidate_storage_required_bytes": 11831765228,
+  "candidate_storage_shortfall_bytes": 5170526444,
+  "candidate_storage_preflight_passed": false,
+  "weights_deserialized": false,
+  "checkpoints_modified": false,
+  "GPU_training_started": false,
+  "hidden_test_loaded": false,
+  "m2_complete": false
+}

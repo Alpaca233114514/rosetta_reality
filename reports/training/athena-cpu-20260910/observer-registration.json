@@ -1,0 +1,18 @@
+{
+  "started_unix": 1789032130.059621,
+  "budget_seconds": 600,
+  "source_commit": "016eb497e6a168db9c7edbf55190604d08aeef4b",
+  "file_sha256": {
+    "reports/training/m2-smolvla-athena-observer-cpu-plan-2026-09-10.md": "45ebda33a8f8890ab4123d9942829ef1c45a5f36213cdc87d458fd0ff6807821",
+    "src/rosetta_reality/vla/training/observation.py": "8cea2eb61a7f63a63c465d0e69c698f4ad76952381a1c8cf2a24e2a12bf88e02",
+    "tests/test_smolvla_training_observation.py": "a84af1117c6a708dd25e4883aec3ba465f4317357909fb6f6159922963b31ad2",
+    "configs/runtime/autodl_rtx4090.yaml": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992",
+    "scripts/run_autodl.sh": "bc1b1f913bc06efd7821ac330748c0c537e6491c58a8a4bc0c43214534f2c90a"
+  },
+  "scope": "CPU scalar optimizer and native update observer; read-only checkpoint hash",
+  "smolvla_weights_loaded": false,
+  "real_dataset_loaded": false,
+  "training_started": false,
+  "GPU_execution_started": false,
+  "nested_docker_used": false
+}

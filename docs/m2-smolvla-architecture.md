@@ -1531,7 +1531,22 @@ sample contract. No gate was relaxed. The revised, still non-launchable candidat
 `reports/training/m2-smolvla-athena-fit-strength-revised-draft-2026-09-10.md`:
 1280 updates with matched cosine decay, explicit joint intervention interpretation,
 and separate consumed/yielded sample auditing at exact epoch boundaries. Its real
-CPU contract checks and any GPU execution remain pending; historical B is unchanged.
+CPU contract checks are now recorded in
+`reports/training/m2-smolvla-athena-cpu-preflight-2026-09-10.{md,json}`.
+The schema/scheduler/sampler module passed 79 tests and a native synthetic CPU probe;
+the separate update-observation module passed 21 tests, including the pinned native
+update function with a CPU Accelerator. `training/observation.py` records delivered
+identities separately from successfully completed optimizer updates, preserves the
+original batches and wrappers, and rejects incomplete or skipped updates. It is not
+yet wired into an Athena training launcher. Historical B remains unchanged.
+The B worker's A/B weight hashes match their saved evidence. Its initial durable-storage
+shortfall of 5,170,526,444 bytes was subsequently resolved by the user-authorized cleanup in
+`reports/training/m2-smolvla-athena-storage-cleanup-2026-09-10.{md,json}`: five identical
+historical Zen export weight copies now use read-only hardlinks to their retained final
+checkpoint weights. All paths and distinct contents remain; these links are not independent
+backups. Available durable storage measured 12,650,205,184 bytes after cleanup, above the
+11,831,765,228-byte candidate budget. Recheck capacity before any new execution.
+Athena GPU preflight, training, B/C evaluation and Gate 3/4 remain not measured.
 
 Update this document in the same change whenever any of the following changes:
 

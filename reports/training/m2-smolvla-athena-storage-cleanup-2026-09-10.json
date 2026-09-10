@@ -1,0 +1,57 @@
+{
+  "status": "complete",
+  "completed_unix": 1789033674.861535,
+  "duplicate_file_copies_removed": 5,
+  "unique_weight_contents_removed": 0,
+  "original_paths_preserved": true,
+  "post_operation_sha256_verified": true,
+  "read_only_hardlinks": true,
+  "linked_copies_are_not_independent_backups": true,
+  "checkpoint_optimizer_rng_scheduler_untouched": true,
+  "A_B_checkpoints_untouched": true,
+  "available_bytes_before": 6661230592,
+  "available_bytes_after": 12650205184,
+  "actual_available_bytes_increase": 5988974592,
+  "logical_duplicate_bytes": 5988946280,
+  "candidate_storage_required_bytes": 11831765228,
+  "candidate_storage_preflight_passed": true,
+  "GPU_training_started": false,
+  "m2_complete": false,
+  "plan": [
+    {
+      "source": "closed-axis-runtime-archive/zen-runtime/checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/formal/m2-smolvla450m-zen-cuda-b64-uniform-001/checkpoints/000316/pretrained_model/model.safetensors",
+      "target": "rosetta/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001/pretrained_model/model.safetensors",
+      "sha256": "da0e68cea003775ba64466ecf9017ace1a0b94cbe3ff55c000ebaee6472d71fb",
+      "bytes": 1197789256,
+      "operation": "atomic replacement of duplicate regular file with read-only hardlink; original path retained"
+    },
+    {
+      "source": "closed-axis-runtime-archive/zen-runtime/checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/formal/m2-smolvla450m-zen-cuda-b64-uniform-001/checkpoints/000316/pretrained_model/model.safetensors",
+      "target": "rosetta/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001-superseded-20260827T142131Z/model.safetensors",
+      "sha256": "da0e68cea003775ba64466ecf9017ace1a0b94cbe3ff55c000ebaee6472d71fb",
+      "bytes": 1197789256,
+      "operation": "atomic replacement of duplicate regular file with read-only hardlink; original path retained"
+    },
+    {
+      "source": "closed-axis-runtime-archive/zen-runtime/checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/formal/m2-smolvla450m-zen-cuda-b64-uniform-001/checkpoints/000316/pretrained_model/model.safetensors",
+      "target": "rosetta/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001-superseded2-20260827T151304Z/pretrained_model/model.safetensors",
+      "sha256": "da0e68cea003775ba64466ecf9017ace1a0b94cbe3ff55c000ebaee6472d71fb",
+      "bytes": 1197789256,
+      "operation": "atomic replacement of duplicate regular file with read-only hardlink; original path retained"
+    },
+    {
+      "source": "closed-axis-runtime-archive/zen-runtime/checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/formal/m2-smolvla450m-zen-cuda-b64-uniform-001/checkpoints/000316/pretrained_model/model.safetensors",
+      "target": "rosetta/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-zen-cuda-b64-uniform-001-step0316-deploy-001-superseded3-20260827T152529Z/pretrained_model/model.safetensors",
+      "sha256": "da0e68cea003775ba64466ecf9017ace1a0b94cbe3ff55c000ebaee6472d71fb",
+      "bytes": 1197789256,
+      "operation": "atomic replacement of duplicate regular file with read-only hardlink; original path retained"
+    },
+    {
+      "source": "closed-axis-runtime-archive/zen-runtime/checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/formal/m2-smolvla450m-zen-cuda-b64-firstaction-001/checkpoints/000316/pretrained_model/model.safetensors",
+      "target": "rosetta/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-zen-cuda-b64-firstaction-001-step0316-deploy-001/pretrained_model/model.safetensors",
+      "sha256": "310a91fe9b36dc55e2312ec41e079fa52e95613658049edecb1d8003e249ccea",
+      "bytes": 1197789256,
+      "operation": "atomic replacement of duplicate regular file with read-only hardlink; original path retained"
+    }
+  ]
+}

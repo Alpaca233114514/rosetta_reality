@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "status": "cpu_contract_checks_passed_storage_blocked",
+  "scheduler_sampler_source_commit": "c42d8354c4ee1a178ab3d1b167c43c6ef30c27fe",
+  "observer_source_commit": "016eb497e6a168db9c7edbf55190604d08aeef4b",
+  "scheduler_sampler_tests": 79,
+  "observer_tests": 21,
+  "observer_skips": 0,
+  "observer_exit_code": 0,
+  "native_trainer_sha256": "4d15d283ea54583f552b32088db0b6c195250905ca6daf06d4670383790e2059",
+  "scheduler_sampler_probe_seconds": 11.49582576751709,
+  "scheduler_sampler_peak_rss_bytes": 845336576,
+  "observer_pytest_seconds": 12.28,
+  "observation_preserves_cpu_weights_rng_loss_and_lr": true,
+  "observer_integrated_in_athena_launcher": false,
+  "actual_smolvla_processor_or_cuda_observation_measured": false,
+  "historical_A_B_model_hashes_match": true,
+  "available_bytes": 6661238784,
+  "candidate_storage_required_bytes": 11831765228,
+  "candidate_storage_shortfall_bytes": 5170526444,
+  "candidate_storage_preflight_passed": false,
+  "execution_stage_split": {
+    "observer_timeout_seconds": 600,
+    "combined_contiguous_600_second_wallclock_met": false,
+    "observer_registered_unix": 1789032130.059621,
+    "checkpoint_inspection_timeout_seconds": 180,
+    "checkpoint_inspected_unix": 1789032953.1700866
+  },
+  "smolvla_training_started": false,
+  "real_dataset_loaded": false,
+  "weights_deserialized": false,
+  "hidden_test_loaded": false,
+  "candidate_B_C_evaluation": "not measured",
+  "gate3_gate4": "not measured",
+  "visual_ignoring_fixed": false,
+  "m2_complete": false,
+  "evidence": {
+    "checkpoint-inventory.json": {
+      "sha256": "a422f0341a9858396fad941c90ea9a5a4ef7cc2dcae78c1bf311acbab764f8f3",
+      "bytes": 2979
+    },
+    "observer-registration.json": {
+      "sha256": "4b21e087e7a02233904125df23162e439d079ce714d09841807034133e201000",
+      "bytes": 991
+    },
+    "observer-result.json": {
+      "sha256": "2b11777da79b6b32c59f05db298d3c27c53254a3f6ae099bba2cda1c078bf150",
+      "bytes": 463
+    },
+    "scheduler-sampler-closeout.json": {
+      "sha256": "e029c959b09cb9fbbd15f9cacc5e9ebff3c001cd8436954caf1552374cd5abaa",
+      "bytes": 1316
+    },
+    "scheduler-sampler-result.json": {
+      "sha256": "74e5645def9402979f622629bf9e634b3488d37cdf4e621ca282680d3f2f5ce4",
+      "bytes": 53717
+    }
+  }
+}
