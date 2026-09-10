@@ -1,0 +1,1120 @@
+{
+  "status": "complete",
+  "scope": "bounded_visual_overfit",
+  "branch": "codex/smolvla-visual-conditioning-repair-20260909",
+  "compute_wall_seconds": 1197,
+  "training_optimizer_steps_total": 258,
+  "formal_training_executed": false,
+  "full_trajectory_visual_repair_verified": false,
+  "task_success": "not measured",
+  "hidden_test_loaded": false,
+  "artifact_transfers": false,
+  "native_recipe_sources": [
+    "https://huggingface.co/docs/lerobot/smolvla",
+    "https://arxiv.org/html/2506.01844v1",
+    "https://huggingface.co/docs/lerobot/debug_processor_pipeline"
+  ],
+  "sample_identity": {
+    "train_episodes": [
+      49,
+      4,
+      23,
+      43,
+      21,
+      37,
+      18,
+      34
+    ],
+    "validation_episodes": [
+      22,
+      13,
+      7,
+      33,
+      45
+    ],
+    "frame": 0,
+    "noise_conditions": 4,
+    "pilot_sample_exposures": 1024,
+    "pilot_repetitions_per_anchor": 128
+  },
+  "engineering_fixes": [
+    "No-optimizer preflight uses active parsed batch size and validates episode scope before dataset construction.",
+    "Trackio uses the fully resolved parent plus plan metadata; original errors survive secondary cleanup failures.",
+    "Existing fixed-frame sampler supports explicit cross-episode identities only in bounded visual smoke scope."
+  ],
+  "summaries": {
+    "train": {
+      "base_mean_chunk_mse": 1.5833144640248047,
+      "pilot_mean_chunk_mse": 0.026302986440486214,
+      "pilot_mean_wrong_image_chunk_mse": 0.3753699440308513,
+      "image_invariant_mean_mse": 0.19262524052096472,
+      "base_positive_swap_gaps": 1,
+      "pilot_positive_swap_gaps": 4,
+      "pilot_beats_image_invariant_mean_count": 4,
+      "base_mean_centered_cosine": -0.04196511374952813,
+      "pilot_mean_centered_cosine": 0.9522363964812985,
+      "base_first_joint_mae_rad": 0.3227621807115308,
+      "pilot_first_joint_mae_rad": 0.022281638037384255,
+      "base_first_gripper_mae_normalized": 0.12682753708213568,
+      "pilot_first_gripper_mae_normalized": 0.009508096147328615
+    },
+    "validation": {
+      "base_mean_chunk_mse": 1.5598796968516033,
+      "pilot_mean_chunk_mse": 0.21734885635917822,
+      "pilot_mean_wrong_image_chunk_mse": 0.18471204009764872,
+      "image_invariant_mean_mse": 0.12143061699190126,
+      "base_positive_swap_gaps": 4,
+      "pilot_positive_swap_gaps": 0,
+      "pilot_beats_image_invariant_mean_count": 0,
+      "base_mean_centered_cosine": 0.06048874388021079,
+      "pilot_mean_centered_cosine": -0.12766363456419633,
+      "base_first_joint_mae_rad": 0.3181848053781626,
+      "pilot_first_joint_mae_rad": 0.021832001218960312,
+      "base_first_gripper_mae_normalized": 0.12854935675859452,
+      "pilot_first_gripper_mae_normalized": 0.014852982759475707
+    }
+  },
+  "registered_acceptance": {
+    "trained_samples_pass": true,
+    "validation_pass": false,
+    "independent_reload_exact": true
+  },
+  "pilot_updates": {
+    "status": "passed",
+    "step": 256,
+    "parameter_counts": {
+      "vlm": {
+        "total": 345,
+        "changed": 0
+      },
+      "expert": {
+        "total": 145,
+        "changed": 112
+      },
+      "projectors": {
+        "total": 10,
+        "changed": 10
+      }
+    },
+    "processor_identity": {
+      "normalizer_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "unnormalizer_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d"
+    },
+    "recovery_state_complete": true,
+    "exact_value_preserving_dtype_transitions": {
+      "model.vlm_with_expert.vlm.lm_head.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.connector.modality_projection.proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.embeddings.patch_embedding.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.embeddings.patch_embedding.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.embeddings.position_embedding.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.0.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.1.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.10.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.11.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.2.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.3.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.4.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.5.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.6.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.7.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.8.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.layer_norm1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.layer_norm1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.layer_norm2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.layer_norm2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.mlp.fc1.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.mlp.fc1.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.mlp.fc2.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.mlp.fc2.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.self_attn.k_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.self_attn.k_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.self_attn.out_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.self_attn.out_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.self_attn.q_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.self_attn.q_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.self_attn.v_proj.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.encoder.layers.9.self_attn.v_proj.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.post_layernorm.bias": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      },
+      "model.vlm_with_expert.vlm.model.vision_model.post_layernorm.weight": {
+        "from": "torch.bfloat16",
+        "to": "torch.float32",
+        "exact_values_equal": true
+      }
+    }
+  },
+  "pilot_resources": {
+    "elapsed_seconds": 131.7342020533979,
+    "peak_cuda_allocated_bytes": 2817605120,
+    "peak_host_rss_bytes": 3743199232
+  },
+  "preregistration_sha256": "23ab7d615d70d261d303e44430cb06f152cbbb0cf5f51c7d1b34fb71fbd14a79",
+  "pilot_source_sha256": "fd95a19ca8d8f9e1c6a5c477807aaf69fc3e19bb15e626bd53e4224da8ad3a5c",
+  "evidence_sha256": {
+    "base-eval.json": "f008cf8482f0edabebd1b134e9edeabc839aadae69980db4440e198c06cd27d8",
+    "pilot-eval-003.json": "7246b5b1bfbc1af2732cedf77ce85addaaafb26fcbe44b057538969364bbddb5",
+    "pilot-reload-eval-003.json": "c520ceb11bd0013d59c8674c92fb124ca35c7b71871fdffd792b65f0d95be765",
+    "pilot-update-check-003.json": "c8ec6cde4816a0bc32e18e4818c8a66407013a83ea8e4ee73ecf2162f84aff07",
+    "b4-pilot-resources-003.json": "509558ab2f31f003cc0d2a651d14d901266a83cec8dd437735a8fc073c38ae22",
+    "continuation-exit.json": "6d6c4272651410d8354b075888b1024b8c89afcc9cf889cad0ac4bd0513635e8"
+  },
+  "dtype_check_correction": "The initial inspection found an exact-value-preserving lm_head BF16-to-FP32 conversion. Full comparison additionally found native vision/connector upcasts; all frozen VLM numerical values remained exactly equal. Raw storage dtype is recorded separately from learned parameter changes.",
+  "shutdown_executed": false,
+  "shutdown_reason": "User conditioned shutdown on visual repair; full-trajectory repair is not established by this limited experiment."
+}

@@ -108,26 +108,37 @@ Current visual-utilization handoff and review plan (2026-09-10):
 and its JSON companion prepare the next fixed-budget frame-0 coverage comparison
 (8 to 40 train episodes, batch 4, 256 updates). Official-source interpretation is
 in `reports/training/m2-smolvla-visual-coverage-official-evidence-2026-09-10.md`.
-These are non-executable review documents; remote identity, actual commands,
-preflight and a fresh compute budget remain pending. A later authorized read-only
-SSH check identified a different older worker; the authoritative native workspace
-and control checkpoint remain unavailable. Local recovery evidence and historical
-source excerpts are indexed in
-`reports/training/m2-smolvla-native-visual-local-recovery-2026-09-10.md`;
-they are not verified final remote source files. The user authorized pushing the
-current feature branch, which does not authorize model execution. The user handoff
-records a completed native frozen-VLM pilot with 4/4 training checks and 0/4
-development-validation checks, 47 regression passes and unchanged frozen VLM
-values. Its authority is the remote `dev/visual-utilization-20260909-001`
-workspace under the durable root, with
-`reports/training/m2-smolvla-native-visual-small-2026-09-09.{md,json}` and
-`runs/visual-native-small-001/`; these remote files were not read in this
-documentation-only session. The local same-named branch is not a synchronized
-source identity. Current instance state is unverified; historical shutdown is
-not live evidence. Reuse the old checkpoint only as a read-only control; use
-the same newly registered all-nonself-image evaluation for both arms, keep
-hidden sealed, and do not add paired loss, dropout or unfreezing. This changes
-the next proposed diagnostic stage, not any historical Gate result or M2 status.
+These remain non-executable review documents: new execution source/commands,
+real preflight and a fresh compute budget remain pending. A subsequent authorized
+read-only session recovered the authoritative workspace and step-256 control;
+see `reports/training/m2-smolvla-native-visual-authority-2026-09-10.md` and JSON.
+The 13 final-audit files, 11 plan-bound implementation files and six historical
+evidence files match their recorded hashes; the checkpoint weight hash also
+matches. Nine exact source files are archived for review in
+`reports/training/visual-native-authority-20260910/`; they are not installed
+in the current source tree or a complete remote backup. The previous local
+recovery report and pre-format excerpts remain historical evidence.
+
+The authority is still `dev/visual-utilization-20260909-001` under the remote
+durable root: HEAD `14f320d981e7fdc53142a314e6d4cc9f3ea58940` with dirty files.
+Do not pull into or overwrite this tree from the local branch. Original native
+reports have been archived at
+`reports/training/m2-smolvla-native-visual-small-2026-09-09.{md,json}`.
+Their train 4/4 and development-validation 0/4 results are unchanged. The old
+reload files prove equality of saved metrics and first-action predictions;
+they do not establish full-chunk parity. Historical 47 regression passes were
+not rerun. The inspected container returned `No devices were found`; this is
+not independent proof of platform power or billing status.
+
+The old plan already lists 40 episodes in its training block, while actual
+execution uses the eight-episode smoke block and explicit fixed sampler.
+The new coverage plan must update both active smoke episodes and sampler
+identities. Preserve seed 20260809 and the verified optimizer/scheduler;
+keep the tighter 10 GiB host-RSS limit. Reuse the old checkpoint only as a
+read-only control. Use the same newly registered all-nonself-image evaluation
+with full-chunk reload for both arms, keep hidden sealed, and do not add paired
+loss, dropout or unfreezing. No model execution or M2/Gate status change is
+authorized by this recovery.
 
 Local visual-grounding repair (2026-09-09):
 `reports/training/m2-smolvla-local-visual-grounding-preregistration-2026-09-09.md`

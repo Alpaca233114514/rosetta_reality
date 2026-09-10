@@ -1,10 +1,10 @@
 # SmolVLA frame-0 覆盖 8→40：审阅计划 — 2026-09-10
 
 **文档模块已准备；实验未执行，尚不是可启动的 hash-bound 训练登记。**
-状态：`draft_requires_remote_identity_and_authorization`；`executable=false`。
+状态：`draft_control_identity_verified_execution_contract_and_budget_pending`；`executable=false`。
 同名 JSON 记录固定设计与待核验项，不兼容 v2 launcher，不得当作训练配置。
 本轮已完成公开资料查阅、本地静态核查、文档及另行授权的限时只读 SSH。
-用户随后授权 Git 拉取与推送当前功能分支。一个小时是本轮模块工作上限；
+用户随后授权 SSH 核验、Git 拉取、推送当前功能分支及做完关机。一个小时是模块工作上限；
 旧 30 分钟预算已用完，新的开机、模型执行或计算预算仍未获授权。
 
 ## 1. 依据与当前证据
@@ -15,8 +15,10 @@
 用户交接记录：原生 frozen-VLM + action-expert，8 个训练 episode 的 frame 0，
 batch 4、256 步；训练场景视觉对照 4/4 通过，5 个开发验证场景 0/4。
 工程回归 47 项通过；345 个 VLM 张量数值未变，expert/投影有更新，独立重载一致。
-这些历史结果已由本地保留的远端结果摘要交叉核对；本轮仍未取得远端
-原始报告、完整评估 JSON 和 checkpoint 哈希，未重新运行模型评估。
+原始报告、最终审计、checkpoint、评估/reload 文件哈希现已在原实例只读核验。
+历史 reload 逐值相等仅覆盖已保存的汇总指标和首动作，未证明完整 chunk；
+本轮未重新运行模型评估。完整核验与限制见
+`reports/training/m2-smolvla-native-visual-authority-2026-09-10.{md,json}`。
 它支持“训练图像与动作对应可学”，视觉泛化仍未修复，M2 未完成。
 
 | 历史结果（原 cyclic 协议） | 正确图 MSE | cyclic 错配 MSE | 视觉无关均值下限 |
@@ -24,8 +26,8 @@ batch 4、256 步；训练场景视觉对照 4/4 通过，5 个开发验证场�
 | 8 个训练场景 | 0.026303 | 0.375370 | 0.192625 |
 | 5 个开发验证场景 | 0.217349 | 0.184712 | 0.121431 |
 
-本地脚本及日志还保留了 episode 列表与逐噪声摘要；最终代码、指标有效维度、
-配置和权重哈希仍待远端原始证据核验。
+episode 列表、最终审计绑定源码、配置和权重哈希已由原始文件核实；
+新 evaluator 的有效维度、mask 与完整预测保存仍待实现及真实预检。
 这些聚合数字不得用作新 all-pairs 协议的实测结果或新阈值。
 
 权威工作副本：远端 durable root 下 `dev/visual-utilization-20260909-001`，
@@ -34,11 +36,14 @@ batch 4、256 步；训练场景视觉对照 4/4 通过，5 个开发验证场�
 与 `runs/visual-native-small-001/`。
 本地同名分支不是同步源码；本轮确认本地 `fixed_samples.py` 仍为单 episode
 合同，缺少交接所述跨 episode 扩展。禁止用本地树覆盖远端副本。
-关机发生于历史交接。新提供的 SSH 已核实属于另一台老实例，未找到本轮
-权威工作副本；该只读会话已退出。原实例当前状态和文件完好性仍待核验。
+先前提供的老实例未找到权威副本，已按用户指令关机；随后提供的原实例
+找到了文件。当前容器查询返回 `No devices were found`，未运行模型。
+原实例 HEAD 为 `14f320d981e7fdc53142a314e6d4cc9f3ea58940` 且 dirty，
+不能与本地已推送 HEAD 混同；不得在该副本直接 pull 覆盖。
 本地恢复清单及 5 份历史源码片段见
 `reports/training/m2-smolvla-native-visual-local-recovery-2026-09-10.md`；
-片段尚未与远端最终哈希对齐，不能宣称恢复了通过 47 项回归的源码身份。
+旧片段仍按历史记录保留。另在 `reports/training/visual-native-authority-20260910/`
+归档九份最终哈希一致的源码，尚未安装到当前代码树，也不是完整远端备份。
 
 ## 2. 假设、两臂与固定项
 
@@ -48,7 +53,7 @@ batch 4、256 步；训练场景视觉对照 4/4 通过，5 个开发验证场�
 | 项目 | A：旧 8 场景控制 | B：40 场景候选 |
 |---|---|---|
 | 优化 | 只复用原 step-256 checkpoint，不重训、不续 optimizer | 同一 pinned base 全新初始化，主试验只运行一次 |
-| 样本 | 原 8 个 train episodes，精确顺序待核验 | 既定 40 个 train episodes，各取 frame 0 |
+| 样本 | 原 8 个 train episodes，顺序已由 checkpoint 核实 | 既定 40 个 train episodes，各取 frame 0 |
 | 主试验预算 | 历史 batch 4 × 256 步 = 1,024 暴露 | batch 4 × 256 步 = 1,024 暴露 |
 | 平均重复 | 128 次/场景 | 25.6 次/场景；非整数不应伪称每场景完全相同 |
 | 评估 | 在新输出根重新评估 | 相同 evaluator、样本、非视觉条件和噪声 |
@@ -62,7 +67,7 @@ precision、compile 模式、相机优化、数据增强开关和已启用 featu
 不读取旧 optimizer 用于更新；smoke 也不作为 B 初始化，不启用 paired loss、
 dropout、jitter、unfreeze、新 pooling、augmentation、EMA 或不同 LR。
 
-40 个 train episodes 的本地登记顺序（须与远端身份逐项一致）：
+40 个 train episodes 的登记顺序（已与远端旧 plan 的 training 段逐项核对）：
 
 ```text
 49, 4, 23, 43, 21, 37, 18, 34, 0, 47,
@@ -84,7 +89,7 @@ hidden `[31, 6, 1, 24, 5]` 始终封存；读取 split 元数据不代表加载�
 完整轮次加 24 样本，即 24 个 episode 各 26 次、16 个各 25 次；8 场景每个
 128 次。若旧实现不是该算法，不按此假设擅自替换；先补充审阅登记。
 
-## 3. 身份核验：本地候选值不充当远端证明
+## 3. 身份核验：已恢复控制，执行身份仍需冻结
 
 下列内容本轮从本地 YAML/源码静态读取、计算 SHA-256。与远端不一致时停止，
 核对旧 A 真实合同；不得挑一个较方便的身份继续。
@@ -100,8 +105,9 @@ hidden `[31, 6, 1, 24, 5]` 始终封存；读取 split 元数据不代表加载�
 | physical Action Contract YAML SHA | `fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62` |
 | AutoDL runtime profile YAML SHA | `be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992` |
 
-在取得原实例或其完整迁移副本的访问方式后，先取得**小型清单和摘要**，
-大文件哈希在服务器计算。已完成的老实例检查不满足以下核验：
+原实例已取得**小型清单和摘要**，大文件哈希在服务器计算。核验报告区分了
+当前文件哈希、历史预检与未测运行时。以下清单仍约束新执行，不能将部分
+文件核验等同于整个执行链通过：
 
 1. 当前平台/实例身份和计费状态；工作副本分支、HEAD、dirty diff、untracked
    源文件清单及逐文件 SHA。HEAD 不能代表未提交修改；先保留远端 before 快照。
@@ -122,6 +128,15 @@ plans，再以预检证据生成主试验 resolved plan；任何阶段都不改�
 源码清单。只继承其已核实源码；不把本地 checkout 作为服务器替代包。
 本轮没有生成运行用配置、实现脚本或模拟通过的 preflight。
 
+已核实的控制值：seed `20260809`，AdamW `lr=1e-4`、betas `[0.9, 0.95]`、
+eps `1e-8`、weight decay `1e-10`、clip 10；cosine warmup 16、decay 256、
+末端 `2.5e-6`，梯度累积 1。Accelerator bf16 与 policy.use_amp=false 分别保留。
+**覆盖变更必须同时改 `optimizer_smoke.episodes` 和 fixed sampler 的显式身份**：
+旧 `training.episodes` 本来就有 40 个，实际 smoke 只有 8 个。新 plan 仍限 bounded
+smoke scope，并在主试验前单独通过两步门禁；不继承旧 plan 误导性的
+`formal_training_claim=true`。保存 config 中 state shape `[6]` 不能替代历史实际
+state/action 14（内部 padded 32）的合同；当前真实预检仍须通过。
+
 ## 4. 两臂共同评估协议（新登记，不改历史 cyclic）
 
 ### 样本、噪声与可复用预测
@@ -131,7 +146,7 @@ plans，再以预检证据生成主试验 resolved plan；任何阶段都不改�
   图像 donor 仅在当前视图内部交换，dev 不混入 train。
 - 新协议固定噪声：全零及 CPU generator seeds
   `[20260905, 20260906, 20260907]` 的标准 Gaussian。
-  这是本计划指定的新评估值，不声称已核实旧 pilot seeds。
+  已核对与旧 pilot 原预登记一致；全错配评分规则仍是新协议。
   每种条件只生成一份完整噪声张量，按原生输入 shape 扩展，A/B/所有场景
   复用相同值；记录生成器、shape、dtype、转换顺序和 tensor hash。
 - 必须运行原生 **10-step 去噪**，模型 eval/inference mode，逐样本 batch 1，
@@ -151,7 +166,8 @@ plans，再以预检证据生成主试验 resolved plan；任何阶段都不改�
 主评分空间：**模型归一化动作空间，在逆归一化/有界夹爪解码前**；取合同的
 有效 14 维、完整 50-step chunk，不计入 base policy padded action 维度。
 需要远端核实获得该张量的代码位置并绑定 SHA，不能从经过周期性解码的动作
-倒推 latent。本次定义与旧报告的可比性尚未核实，禁止直接比较其绝对数值。
+倒推 latent。旧源码也在 postprocessor 前评分，但未显式保存完整维度/mask 证据；
+新 accessor 与实际有效 14 维须通过预检，且新 all-pairs 与旧 cyclic 不能直接等同。
 评分运算转为 float64；所有目标/预测、共同有效 mask 和评估实现哈希保留。
 
 对某 arm、noise、视图 E（大小 N）及维度组 g：
@@ -217,7 +233,7 @@ epsilon 固定为 `1e-8 * max(1, abs(M_g), abs(B_g))`；
 | 阶段 | 必须产出 | 当前状态 / 下一步条件 |
 |---|---|---|
 | L0 本轮 | 官方核对、方案 md/json、本地静态一致性 | 文档工作；不访问 ML 运行时 |
-| R0 只读远端核验 | 第 3 节完整身份清单、实际入口和资源清单 | 老实例已查，权威副本与旧控制 checkpoint 仍缺；不加载模型/数据 |
+| R0 只读远端核验 | 第 3 节身份清单、实际入口和资源清单 | 原权威副本、控制 checkpoint、源码及旧配置已找回并核验；完整缓存 payload / 新执行身份仍待核验 |
 | R1 冻结实现/登记 | server versioned workspace、evaluator/sampler 与 plan/config SHA、命令清单、独立截止时间、守护记录 | 缺失任何事实或预算则不可执行 |
 | P0 当前环境/静态检查 | `python scripts/check_env.py`、实际 doctor/benchmark、原 47 项关联回归与 Ruff、评估算术/身份拒绝检查 | 新预算内在 AutoDL 平台容器执行；不嵌套 Docker，不安装依赖 |
 | P1 真实数据/forward 预检 | offline cache inspect、相关 `pytest -m data`、Gate 1/2 的匹配证据、40/5 frame-0 identities、dummy 与 batch-1 CPU/小样本路径、CUDA no-optimizer forward | 单样本起步，再 batch 4；记录 optimizer_created=false |
@@ -247,13 +263,14 @@ Gate 1/2 只有在证据身份与当前合同/adapter 匹配时才可复用；�
   5 分钟；共同评估/reload 8 分钟；落盘与小摘要 4 分钟。每阶段开始前检查
   剩余总时间是否足够；预检用尽预算便停止，不挤掉 reload，也不自动延时。
 - GPU 建议上限：allocated 8 GiB、reserved 10 GiB，且服从已登记运行时
-  更紧的限制；远端 CPU RSS 建议上限 16 GiB。均需当前 preflight 验证。
-  历史 pilot 约 132 秒、peak allocation 2.82 GB 仅是交接估计依据，不是预测。
+  更紧的限制；远端 CPU RSS 继承旧 plan 的 10 GiB 上限。均需当前 preflight 验证。
+  已核验旧报告记录 pilot 131.73 秒、peak allocation 2.82 GB，不能作为新链路预测。
 - 新评分基础成本：每臂 45 场景 × 4 噪声 = 180 次完整 chunk 预测；两臂
   首次评估加独立 reload 共 720 次、每次 10 个去噪步，即 7,200 个 expert
   去噪步。旧协议重现、smoke 和预检另计；不把 6,544 个有向错配评分/臂
   误当成同样数量的模型调用。完整预测复用，不改变 frozen features 缓存策略。
-- 磁盘不预填虚假空闲值。按实际 checkpoint 格式核算所有新保存点、smoke、
+- 原实例只读清点时空闲 8,404,463,616 bytes（约 7.83 GiB），磁盘门禁尚未通过。
+  按实际 checkpoint 格式核算所有新保存点、smoke、
   export/原子保存临时副本、源码/日志，再加 2 GiB 余量；创建前核对 durable
   mount 与空闲空间。预算不足就停，不删除旧 checkpoint 或迁走历史证据。
 - 所有模型/数据/预测/完整日志/checkpoint 保留服务器。仅传新小文档、审查过
@@ -280,8 +297,9 @@ Gate 1/2 只有在证据身份与当前合同/adapter 匹配时才可复用；�
 `plans/`（分阶段 hash-bound 登记与实际命令）、`preflight/`、`smoke/`、
 `training/`、`evaluation/`（A/B predictions、targets、masks、noise hashes、
 error matrices、group metrics）、`reload/`、`tracking/`、`closure.json`。
-当前 remote checkpoint/optimizer/scheduler/seed/normalization hashes、完整
-命令和最终资源许可全部为 pending；同名 JSON 里的 null 表示未知，不能默认。
+控制 checkpoint/optimizer/scheduler/seed/normalization 文件身份已核验；
+当前完整缓存、sample schedule、全非自身评估器、完整命令、磁盘门禁和
+新计算许可仍 pending。同名 JSON 里的 null 表示未知，不能默认。
 
 文档验收只检查 JSON 可解析、固定设计一致、split 不重叠、预算/评分数量
 算术、相对路径与引用、本轮新增 diff 和已有修改保留。后续增加了授权的

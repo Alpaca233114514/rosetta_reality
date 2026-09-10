@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "kind": "selective_byte_exact_source_archive_not_active_code",
+  "source_workspace": "dev/visual-utilization-20260909-001",
+  "source_head": "14f320d981e7fdc53142a314e6d4cc9f3ea58940",
+  "source_dirty": true,
+  "full_worktree_backup": false,
+  "files": [
+    {
+      "source_path": "src/rosetta_reality/vla/fixed_visual_samples.py",
+      "archive_path": "reports/training/visual-native-authority-20260910/fixed_visual_samples.py.txt",
+      "bytes": 3438,
+      "sha256": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c"
+    },
+    {
+      "source_path": "src/rosetta_reality/vla/training/features.py",
+      "archive_path": "reports/training/visual-native-authority-20260910/features.py.txt",
+      "bytes": 47931,
+      "sha256": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891"
+    },
+    {
+      "source_path": "src/rosetta_reality/vla/training/launch.py",
+      "archive_path": "reports/training/visual-native-authority-20260910/launch.py.txt",
+      "bytes": 9568,
+      "sha256": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0"
+    },
+    {
+      "source_path": "scripts/train_smolvla_v2.py",
+      "archive_path": "reports/training/visual-native-authority-20260910/train_smolvla_v2.py.txt",
+      "bytes": 4861,
+      "sha256": "f7aafb6a418ebb1032e862d614388bc87dee77011c63ab3b7873a43ac4d7101e"
+    },
+    {
+      "source_path": "scripts/smolvla_forward_check.py",
+      "archive_path": "reports/training/visual-native-authority-20260910/smolvla_forward_check.py.txt",
+      "bytes": 20667,
+      "sha256": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8"
+    },
+    {
+      "source_path": "scripts/evaluate_visual_native_small.py",
+      "archive_path": "reports/training/visual-native-authority-20260910/evaluate_visual_native_small.py.txt",
+      "bytes": 10909,
+      "sha256": "1b038e6a7753a59591a093c36fef32fd14a90fad884f0fda52a5090809d8f9ed"
+    },
+    {
+      "source_path": "tests/test_smolvla_fixed_visual_samples.py",
+      "archive_path": "reports/training/visual-native-authority-20260910/test_smolvla_fixed_visual_samples.py.txt",
+      "bytes": 2627,
+      "sha256": "d929cb853ab66d8acb88bd97979327d291f1011fb0f0e2e4727514c3446b1edf"
+    },
+    {
+      "source_path": "tests/test_smolvla_tracking_composition.py",
+      "archive_path": "reports/training/visual-native-authority-20260910/test_smolvla_tracking_composition.py.txt",
+      "bytes": 1017,
+      "sha256": "e78cd4a9caee3bbd0dda232e9841ff579d7d90fde21c186ef2fa0b000b3a05a7"
+    },
+    {
+      "source_path": "tests/test_smolvla_v2_error_boundaries.py",
+      "archive_path": "reports/training/visual-native-authority-20260910/test_smolvla_v2_error_boundaries.py.txt",
+      "bytes": 4673,
+      "sha256": "dc6dba91330bdf60755e9c87171a7592c89c4e3a8e6a2ef738e4e01de1d2cc04"
+    }
+  ]
+}

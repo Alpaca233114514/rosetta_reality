@@ -1,0 +1,1239 @@
+{
+  "schema_version": 1,
+  "report_id": "m2-smolvla-native-visual-authority-2026-09-10",
+  "status": "identity_recovered_execution_not_authorized",
+  "inspection_started_utc": "2026-09-10T02:58:33.395Z",
+  "scope": "read_only_remote_file_hashes_metadata_and_small_source_archival",
+  "verified_original_noise_seeds": [null, 20260905, 20260906, 20260907],
+  "static_document_validation": "passed_eight_checks_no_ml_tests",
+  "model_loaded": false,
+  "data_loaded": false,
+  "optimizer_steps": 0,
+  "new_ml_tests_executed": false,
+  "new_reload_executed": false,
+  "hidden_sample_access": false,
+  "model_or_data_transferred": false,
+  "source_identity": {
+    "workspace_relative_to_durable_root": "dev/visual-utilization-20260909-001",
+    "branch": "codex/smolvla-visual-conditioning-repair-20260909",
+    "head": "14f320d981e7fdc53142a314e6d4cc9f3ea58940",
+    "dirty": true,
+    "local_snapshot_before_inspection": "964871b4e46250061b8b4391aae8070e34aeebef",
+    "local_head_is_remote_source_identity": false,
+    "remote_workspace_mutated": false,
+    "full_remote_worktree_backup": false,
+    "final_audit_sha256": "c64cd0e866bdc42437ee01d36f91a3bfd9d29ce0d6bd746175df75eaec9babc0",
+    "final_audit_file_checks": {
+      "src/rosetta_reality/vla/fixed_visual_samples.py": {
+        "expected": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c",
+        "actual": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c"
+      },
+      "src/rosetta_reality/vla/training/features.py": {
+        "expected": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891",
+        "actual": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891"
+      },
+      "src/rosetta_reality/vla/training/launch.py": {
+        "expected": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0",
+        "actual": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0"
+      },
+      "scripts/train_smolvla_v2.py": {
+        "expected": "f7aafb6a418ebb1032e862d614388bc87dee77011c63ab3b7873a43ac4d7101e",
+        "actual": "f7aafb6a418ebb1032e862d614388bc87dee77011c63ab3b7873a43ac4d7101e"
+      },
+      "scripts/smolvla_forward_check.py": {
+        "expected": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8",
+        "actual": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8"
+      },
+      "scripts/evaluate_visual_native_small.py": {
+        "expected": "1b038e6a7753a59591a093c36fef32fd14a90fad884f0fda52a5090809d8f9ed",
+        "actual": "1b038e6a7753a59591a093c36fef32fd14a90fad884f0fda52a5090809d8f9ed"
+      },
+      "tests/test_smolvla_fixed_visual_samples.py": {
+        "expected": "d929cb853ab66d8acb88bd97979327d291f1011fb0f0e2e4727514c3446b1edf",
+        "actual": "d929cb853ab66d8acb88bd97979327d291f1011fb0f0e2e4727514c3446b1edf"
+      },
+      "tests/test_smolvla_tracking_composition.py": {
+        "expected": "e78cd4a9caee3bbd0dda232e9841ff579d7d90fde21c186ef2fa0b000b3a05a7",
+        "actual": "e78cd4a9caee3bbd0dda232e9841ff579d7d90fde21c186ef2fa0b000b3a05a7"
+      },
+      "tests/test_smolvla_v2_error_boundaries.py": {
+        "expected": "dc6dba91330bdf60755e9c87171a7592c89c4e3a8e6a2ef738e4e01de1d2cc04",
+        "actual": "dc6dba91330bdf60755e9c87171a7592c89c4e3a8e6a2ef738e4e01de1d2cc04"
+      },
+      "reports/training/m2-smolvla-native-visual-small-2026-09-09.md": {
+        "expected": "29df550014c27ff20410ce7d5abdcf7e7cb8886abe33b91af114bbb6e5d098d4",
+        "actual": "29df550014c27ff20410ce7d5abdcf7e7cb8886abe33b91af114bbb6e5d098d4"
+      },
+      "reports/training/m2-smolvla-native-visual-small-2026-09-09.json": {
+        "expected": "6163ff2624c0da8698175ba0c5d90a16c91f36ea7fbd6ff7b3f2980345d95c99",
+        "actual": "6163ff2624c0da8698175ba0c5d90a16c91f36ea7fbd6ff7b3f2980345d95c99"
+      },
+      "docs/m2-smolvla-architecture.md": {
+        "expected": "4a9e08bb1e9eb024f85fb96477af2a11caaac19d81945f9e4a7e3694ca1e814e",
+        "actual": "4a9e08bb1e9eb024f85fb96477af2a11caaac19d81945f9e4a7e3694ca1e814e"
+      },
+      "docs/m2-smolvla-training-harness-v2.md": {
+        "expected": "62677a2095a847aa40e35c5376699f92f4e16b0ef55b5a5bf92325b7dd31cdff",
+        "actual": "62677a2095a847aa40e35c5376699f92f4e16b0ef55b5a5bf92325b7dd31cdff"
+      }
+    },
+    "old_plan_implementation_checks": {
+      "scripts/run_smolvla_v2.py": {
+        "expected": "d703b63b8ebf96b9579cb7af41e3ec84645a9a225c21a72698451ee782559327",
+        "actual": "d703b63b8ebf96b9579cb7af41e3ec84645a9a225c21a72698451ee782559327"
+      },
+      "scripts/train_smolvla_v2.py": {
+        "expected": "f7aafb6a418ebb1032e862d614388bc87dee77011c63ab3b7873a43ac4d7101e",
+        "actual": "f7aafb6a418ebb1032e862d614388bc87dee77011c63ab3b7873a43ac4d7101e"
+      },
+      "scripts/smolvla_forward_check.py": {
+        "expected": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8",
+        "actual": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8"
+      },
+      "src/rosetta_reality/vla/training/plan.py": {
+        "expected": "16dcf9651634dcb17ce0fce219cc6e933ff1504c12c45bed69718b77b7bbe8ee",
+        "actual": "16dcf9651634dcb17ce0fce219cc6e933ff1504c12c45bed69718b77b7bbe8ee"
+      },
+      "src/rosetta_reality/vla/training/features.py": {
+        "expected": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891",
+        "actual": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891"
+      },
+      "src/rosetta_reality/vla/training/context.py": {
+        "expected": "3681409b19dbae403a22dbf5dcff64e8d767b0ffea59b4be1260c2f1538c68bd",
+        "actual": "3681409b19dbae403a22dbf5dcff64e8d767b0ffea59b4be1260c2f1538c68bd"
+      },
+      "src/rosetta_reality/vla/training/launch.py": {
+        "expected": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0",
+        "actual": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0"
+      },
+      "src/rosetta_reality/vla/fixed_samples.py": {
+        "expected": "1627cb54f4c352a8832f7fa4abb2ded76d3d960799dccec8460cdd0be82a954a",
+        "actual": "1627cb54f4c352a8832f7fa4abb2ded76d3d960799dccec8460cdd0be82a954a"
+      },
+      "src/rosetta_reality/vla/fixed_visual_samples.py": {
+        "expected": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c",
+        "actual": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c"
+      },
+      "src/rosetta_reality/vla/action_space.py": {
+        "expected": "4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb",
+        "actual": "4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb"
+      },
+      "src/rosetta_reality/vla/processor.py": {
+        "expected": "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384",
+        "actual": "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384"
+      }
+    },
+    "archive_files": [
+      {
+        "source_path": "src/rosetta_reality/vla/fixed_visual_samples.py",
+        "archive_path": "reports/training/visual-native-authority-20260910/fixed_visual_samples.py.txt",
+        "bytes": 3438,
+        "sha256": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c"
+      },
+      {
+        "source_path": "src/rosetta_reality/vla/training/features.py",
+        "archive_path": "reports/training/visual-native-authority-20260910/features.py.txt",
+        "bytes": 47931,
+        "sha256": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891"
+      },
+      {
+        "source_path": "src/rosetta_reality/vla/training/launch.py",
+        "archive_path": "reports/training/visual-native-authority-20260910/launch.py.txt",
+        "bytes": 9568,
+        "sha256": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0"
+      },
+      {
+        "source_path": "scripts/train_smolvla_v2.py",
+        "archive_path": "reports/training/visual-native-authority-20260910/train_smolvla_v2.py.txt",
+        "bytes": 4861,
+        "sha256": "f7aafb6a418ebb1032e862d614388bc87dee77011c63ab3b7873a43ac4d7101e"
+      },
+      {
+        "source_path": "scripts/smolvla_forward_check.py",
+        "archive_path": "reports/training/visual-native-authority-20260910/smolvla_forward_check.py.txt",
+        "bytes": 20667,
+        "sha256": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8"
+      },
+      {
+        "source_path": "scripts/evaluate_visual_native_small.py",
+        "archive_path": "reports/training/visual-native-authority-20260910/evaluate_visual_native_small.py.txt",
+        "bytes": 10909,
+        "sha256": "1b038e6a7753a59591a093c36fef32fd14a90fad884f0fda52a5090809d8f9ed"
+      },
+      {
+        "source_path": "tests/test_smolvla_fixed_visual_samples.py",
+        "archive_path": "reports/training/visual-native-authority-20260910/test_smolvla_fixed_visual_samples.py.txt",
+        "bytes": 2627,
+        "sha256": "d929cb853ab66d8acb88bd97979327d291f1011fb0f0e2e4727514c3446b1edf"
+      },
+      {
+        "source_path": "tests/test_smolvla_tracking_composition.py",
+        "archive_path": "reports/training/visual-native-authority-20260910/test_smolvla_tracking_composition.py.txt",
+        "bytes": 1017,
+        "sha256": "e78cd4a9caee3bbd0dda232e9841ff579d7d90fde21c186ef2fa0b000b3a05a7"
+      },
+      {
+        "source_path": "tests/test_smolvla_v2_error_boundaries.py",
+        "archive_path": "reports/training/visual-native-authority-20260910/test_smolvla_v2_error_boundaries.py.txt",
+        "bytes": 4673,
+        "sha256": "dc6dba91330bdf60755e9c87171a7592c89c4e3a8e6a2ef738e4e01de1d2cc04"
+      }
+    ],
+    "archive_total_bytes": 105691,
+    "archive_is_active_source": false
+  },
+  "historical_evidence": {
+    "report_files": [
+      {
+        "path": "reports/training/m2-smolvla-native-visual-small-2026-09-09.md",
+        "bytes": 4231,
+        "sha256": "29df550014c27ff20410ce7d5abdcf7e7cb8886abe33b91af114bbb6e5d098d4"
+      },
+      {
+        "path": "reports/training/m2-smolvla-native-visual-small-2026-09-09.json",
+        "bytes": 45062,
+        "sha256": "6163ff2624c0da8698175ba0c5d90a16c91f36ea7fbd6ff7b3f2980345d95c99"
+      }
+    ],
+    "preregistration_sha256": "23ab7d615d70d261d303e44430cb06f152cbbb0cf5f51c7d1b34fb71fbd14a79",
+    "preregistration_hash_matches": true,
+    "evidence_hash_checks": {
+      "base-eval.json": {
+        "expected": "f008cf8482f0edabebd1b134e9edeabc839aadae69980db4440e198c06cd27d8",
+        "actual": "f008cf8482f0edabebd1b134e9edeabc839aadae69980db4440e198c06cd27d8"
+      },
+      "pilot-eval-003.json": {
+        "expected": "7246b5b1bfbc1af2732cedf77ce85addaaafb26fcbe44b057538969364bbddb5",
+        "actual": "7246b5b1bfbc1af2732cedf77ce85addaaafb26fcbe44b057538969364bbddb5"
+      },
+      "pilot-reload-eval-003.json": {
+        "expected": "c520ceb11bd0013d59c8674c92fb124ca35c7b71871fdffd792b65f0d95be765",
+        "actual": "c520ceb11bd0013d59c8674c92fb124ca35c7b71871fdffd792b65f0d95be765"
+      },
+      "pilot-update-check-003.json": {
+        "expected": "c8ec6cde4816a0bc32e18e4818c8a66407013a83ea8e4ee73ecf2162f84aff07",
+        "actual": "c8ec6cde4816a0bc32e18e4818c8a66407013a83ea8e4ee73ecf2162f84aff07"
+      },
+      "b4-pilot-resources-003.json": {
+        "expected": "509558ab2f31f003cc0d2a651d14d901266a83cec8dd437735a8fc073c38ae22",
+        "actual": "509558ab2f31f003cc0d2a651d14d901266a83cec8dd437735a8fc073c38ae22"
+      },
+      "continuation-exit.json": {
+        "expected": "6d6c4272651410d8354b075888b1024b8c89afcc9cf889cad0ac4bd0513635e8",
+        "actual": "6d6c4272651410d8354b075888b1024b8c89afcc9cf889cad0ac4bd0513635e8"
+      }
+    },
+    "regression_record": "47 passed",
+    "regression_rerun": false,
+    "parameter_update_counts": {
+      "vlm": {
+        "total": 345,
+        "changed": 0
+      },
+      "expert": {
+        "total": 145,
+        "changed": 112
+      },
+      "projectors": {
+        "total": 10,
+        "changed": 10
+      }
+    },
+    "value_preserving_dtype_transitions_recorded": 199,
+    "summaries": {
+      "train": {
+        "base_mean_chunk_mse": 1.5833144640248047,
+        "pilot_mean_chunk_mse": 0.026302986440486214,
+        "pilot_mean_wrong_image_chunk_mse": 0.3753699440308513,
+        "image_invariant_mean_mse": 0.19262524052096472,
+        "base_positive_swap_gaps": 1,
+        "pilot_positive_swap_gaps": 4,
+        "pilot_beats_image_invariant_mean_count": 4,
+        "base_mean_centered_cosine": -0.04196511374952813,
+        "pilot_mean_centered_cosine": 0.9522363964812985,
+        "base_first_joint_mae_rad": 0.3227621807115308,
+        "pilot_first_joint_mae_rad": 0.022281638037384255,
+        "base_first_gripper_mae_normalized": 0.12682753708213568,
+        "pilot_first_gripper_mae_normalized": 0.009508096147328615
+      },
+      "validation": {
+        "base_mean_chunk_mse": 1.5598796968516033,
+        "pilot_mean_chunk_mse": 0.21734885635917822,
+        "pilot_mean_wrong_image_chunk_mse": 0.18471204009764872,
+        "image_invariant_mean_mse": 0.12143061699190126,
+        "base_positive_swap_gaps": 4,
+        "pilot_positive_swap_gaps": 0,
+        "pilot_beats_image_invariant_mean_count": 0,
+        "base_mean_centered_cosine": 0.06048874388021079,
+        "pilot_mean_centered_cosine": -0.12766363456419633,
+        "base_first_joint_mae_rad": 0.3181848053781626,
+        "pilot_first_joint_mae_rad": 0.021832001218960312,
+        "base_first_gripper_mae_normalized": 0.12854935675859452,
+        "pilot_first_gripper_mae_normalized": 0.014852982759475707
+      }
+    },
+    "metrics_protocol": "historical_cyclic_mismatch",
+    "all_pairs_results": "not measured",
+    "saved_eval_reload_results_equal": true,
+    "saved_reload_comparison_scope": "aggregate_metrics_and_standard_first_action_predictions_only",
+    "entire_chunk_reload_parity_proven": false
+  },
+  "control_checkpoint": {
+    "path_relative_to_durable_root": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256",
+    "model": {
+      "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/model.safetensors",
+      "bytes": 1197789256,
+      "sha256": "fd95a19ca8d8f9e1c6a5c477807aaf69fc3e19bb15e626bd53e4224da8ad3a5c"
+    },
+    "model_sha256_matches_historical_report": true,
+    "files": [
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/config.json",
+        "bytes": 2972,
+        "sha256": "7fad9d1cede618b76d7e98aae08b6aedc6ff1fd1cb374380b137f4d7ce7b0d55"
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/model.safetensors",
+        "bytes": 1197789256,
+        "sha256": "fd95a19ca8d8f9e1c6a5c477807aaf69fc3e19bb15e626bd53e4224da8ad3a5c"
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/policy_postprocessor.json",
+        "bytes": 2241,
+        "sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495"
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+        "bytes": 1384
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/policy_preprocessor.json",
+        "bytes": 4952,
+        "sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da"
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors",
+        "bytes": 1384
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/tokenizer/chat_template.jinja",
+        "bytes": 403
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/tokenizer/tokenizer.json",
+        "bytes": 3548738,
+        "sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5"
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/tokenizer/tokenizer_config.json",
+        "bytes": 838,
+        "sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3"
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model/train_config.json",
+        "bytes": 9538,
+        "sha256": "478308412f7aac5a418bbb38c18546b958706d3ae9c1c7c16fe3bb14e628bbd3"
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/rosetta_checkpoint_metrics.json",
+        "bytes": 571,
+        "sha256": "347f30b0b36839c26446023f2456b092a3ca5f1de4b1b25b47693962451f62bc"
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/training_state/optimizer_param_groups.json",
+        "bytes": 8807,
+        "sha256": "8cf0ce8e4ff2fbc4c8c64da4707fb9a8028d47ff001d8eca5cb4ef8f16f9b7fd"
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/training_state/optimizer_state.safetensors",
+        "bytes": 412659164
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/training_state/rng_state.safetensors",
+        "bytes": 15708
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/training_state/scheduler_state.json",
+        "bytes": 237,
+        "sha256": "f6ba6b93b6f3841fb1fd073b10c0820b83f0d3174f576b6fa84eaac4878713d7"
+      },
+      {
+        "path": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/training_state/training_step.json",
+        "bytes": 223,
+        "sha256": "0c2bc70f843e7843327cffeef057eab79a5ad4bc4a64e0695c3d84eb6a508a8d"
+      }
+    ],
+    "recovery_files": {
+      "training_state/optimizer_param_groups.json": {
+        "bytes": 8807,
+        "sha256": "8cf0ce8e4ff2fbc4c8c64da4707fb9a8028d47ff001d8eca5cb4ef8f16f9b7fd"
+      },
+      "training_state/optimizer_state.safetensors": {
+        "bytes": 412659164,
+        "sha256": "80990bcecc3dfd247c2c06e8e44609333355258c8142b67235922cdadd98eee4"
+      },
+      "training_state/rng_state.safetensors": {
+        "bytes": 15708,
+        "sha256": "98f596a0d87d01679f16c36b885e66ce5ddff90b7024ff7c3eb93dc84d480f40"
+      },
+      "training_state/scheduler_state.json": {
+        "bytes": 237,
+        "sha256": "f6ba6b93b6f3841fb1fd073b10c0820b83f0d3174f576b6fa84eaac4878713d7"
+      },
+      "training_state/training_step.json": {
+        "bytes": 223,
+        "sha256": "0c2bc70f843e7843327cffeef057eab79a5ad4bc4a64e0695c3d84eb6a508a8d"
+      }
+    },
+    "processor_stat_files": {
+      "pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors": {
+        "bytes": 1384,
+        "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d"
+      },
+      "pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors": {
+        "bytes": 1384,
+        "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d"
+      }
+    },
+    "training_step": {
+      "step": 256,
+      "dp_world_size": 1,
+      "batch_size": 4,
+      "grad_accum_steps": 1,
+      "parallelism": {
+        "dp_replicate": 1,
+        "dp_shard": 1,
+        "ring_degree": 1,
+        "ulysses_degree": 1
+      }
+    },
+    "optimizer_state_resume_allowed": false
+  },
+  "resolved_control": {
+    "old_plan_files": [
+      {
+        "path": "configs/vla/m2-smolvla450m-visual-native-b1-check-003.yaml",
+        "sha256": "01b0d59dc2d598b45afe6c815d71fa491280ef7f99d2085aeb3e19ac32f9641b",
+        "bytes": 6055
+      },
+      {
+        "path": "configs/vla/m2-smolvla450m-visual-native-b4-pilot-003.yaml",
+        "sha256": "17c350fdb85e5416ed60027b20d128ddd1a806716959133c1698840c78b71742",
+        "bytes": 6060
+      }
+    ],
+    "phase": "smoke",
+    "scope": "bounded_visual_overfit",
+    "seed": 20260809,
+    "train8": [
+      49,
+      4,
+      23,
+      43,
+      21,
+      37,
+      18,
+      34
+    ],
+    "declared_training_episodes": [
+      49,
+      4,
+      23,
+      43,
+      21,
+      37,
+      18,
+      34,
+      0,
+      47,
+      38,
+      29,
+      3,
+      26,
+      14,
+      17,
+      44,
+      30,
+      15,
+      42,
+      10,
+      35,
+      25,
+      32,
+      19,
+      36,
+      41,
+      28,
+      8,
+      27,
+      16,
+      11,
+      2,
+      20,
+      9,
+      39,
+      46,
+      48,
+      12,
+      40
+    ],
+    "active_smoke_episodes": [
+      49,
+      4,
+      23,
+      43,
+      21,
+      37,
+      18,
+      34
+    ],
+    "active_sampler_identities": [
+      {
+        "episode": 49,
+        "frame": 0
+      },
+      {
+        "episode": 4,
+        "frame": 0
+      },
+      {
+        "episode": 23,
+        "frame": 0
+      },
+      {
+        "episode": 43,
+        "frame": 0
+      },
+      {
+        "episode": 21,
+        "frame": 0
+      },
+      {
+        "episode": 37,
+        "frame": 0
+      },
+      {
+        "episode": 18,
+        "frame": 0
+      },
+      {
+        "episode": 34,
+        "frame": 0
+      }
+    ],
+    "batch_size": 4,
+    "steps": 256,
+    "gradient_accumulation": 1,
+    "optimizer": {
+      "type": "adamw",
+      "lr": 0.0001,
+      "weight_decay": 1e-10,
+      "grad_clip_norm": 10,
+      "betas": [
+        0.9,
+        0.95
+      ],
+      "eps": 1e-8
+    },
+    "scheduler": {
+      "type": "cosine_decay_with_warmup",
+      "num_warmup_steps": 16,
+      "num_decay_steps": 256,
+      "peak_lr": 0.0001,
+      "decay_lr": 0.0000025
+    },
+    "saved_scheduler_state": {
+      "base_lrs": [
+        0.0001
+      ],
+      "last_epoch": 256,
+      "_step_count": 257,
+      "_is_initial": false,
+      "_get_lr_called_within_step": false,
+      "_last_lr": [
+        0.0000025
+      ],
+      "lr_lambdas": [
+        null
+      ]
+    },
+    "saved_optimizer_group_count": 1,
+    "saved_optimizer_group_parameter_entry_counts": [
+      500
+    ],
+    "optimizer_entries_are_trainable_count": false,
+    "freeze_vision_encoder": true,
+    "train_expert_only": true,
+    "train_state_proj": true,
+    "chunk_size": 50,
+    "n_action_steps": 1,
+    "native_denoising_steps": 10,
+    "accelerator_mixed_precision": "bf16",
+    "policy_use_amp": false,
+    "num_workers": 0,
+    "augmentation_enabled": false,
+    "ema_enabled": false,
+    "compile_enabled": false,
+    "ordered_features": [
+      "train_only_statistics",
+      "action_boundary_projection",
+      "fixed_frame_sampler",
+      "checkpoint_memory_trim",
+      "gradient_clip_diagnostics",
+      "checkpoint_metric_snapshot",
+      "trackio_logging"
+    ],
+    "tracking": {
+      "project": "rosetta-reality-m2-smolvla",
+      "space_id": "",
+      "mode": "local_only",
+      "durable_store": "runs/trackio"
+    },
+    "old_formal_training_claim": true,
+    "old_formal_training_authorized": false,
+    "old_formal_training_executed": false,
+    "saved_config_state_feature_shape": [
+      6
+    ],
+    "historical_forward_state_dimension": 14,
+    "historical_forward_action_dimension": 14
+  },
+  "prerequisites": {
+    "file_checks": {
+      "parent": {
+        "path": "configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml",
+        "expected": "0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210",
+        "actual": "0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210"
+      },
+      "runtime": {
+        "path": "configs/runtime/autodl_rtx4090.yaml",
+        "expected": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992",
+        "actual": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992"
+      },
+      "gate1": {
+        "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate1-e41df36c5d90.json",
+        "expected": "858f6d3ce43484de5b7b50d0e68f5267d4b3fdb2ebf26e099c3adb3602d00c81",
+        "actual": "858f6d3ce43484de5b7b50d0e68f5267d4b3fdb2ebf26e099c3adb3602d00c81"
+      },
+      "gate2": {
+        "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate2-10fb9a9a364a.json",
+        "expected": "26f373a63becbcfa879505ecb1a82a1fc13d724ce0638e43cdc1e3455b75b0d6",
+        "actual": "26f373a63becbcfa879505ecb1a82a1fc13d724ce0638e43cdc1e3455b75b0d6"
+      },
+      "normalization": {
+        "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/normalization/train-only-3e3c6b9d347e5e71.json",
+        "expected": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988",
+        "actual": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988"
+      },
+      "train_view": {
+        "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/dataset_views/train-only-3e3c6b9d347e5e71/view_manifest.json",
+        "expected": "9853c191ae87016379fc1a16ebfbb87e05ab5147cd8a03d82f9c2a894c9b531e",
+        "actual": "9853c191ae87016379fc1a16ebfbb87e05ab5147cd8a03d82f9c2a894c9b531e"
+      }
+    },
+    "normalization_identity": {
+      "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+      "action_space": {
+        "adapt_to_pi_aloha": false,
+        "dataset_space": "standard_aloha_joint_position",
+        "explicit": true,
+        "model_internal_space": "normalized_pi_aloha_arms_bounded_sine_grippers",
+        "normalization": "train_only_mean_std_after_representation_adapter",
+        "reject_source_beyond_contract_tolerance": true,
+        "representation_adapter": "rosetta_pi_aloha_arms_bounded_sine_grippers",
+        "representation_adapter_stage": "after_target_projection_before_normalization",
+        "schema_version": 1,
+        "target_projection": "action_contract_clip",
+        "target_projection_stage": "before_normalization"
+      },
+      "dataset_config_sha256": "c35c6a3da68c571f9e1dc4879b56fbb29be1ce8fcda1e529c9eac5d8e09b1491",
+      "dataset_id": "lerobot/aloha_sim_insertion_human",
+      "dataset_manifest_sha256": "f3c03f7f60db66496d10e12f081c2bd9949a2f9f771148c7f159263dcea98140",
+      "dataset_revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "dataset_view": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/dataset_views/train-only-3e3c6b9d347e5e71",
+      "dataset_view_manifest": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/dataset_views/train-only-3e3c6b9d347e5e71/view_manifest.json",
+      "experiment_config_sha256": "0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210",
+      "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+      "hidden_test_loaded": false,
+      "population_standard_deviation": true,
+      "representation_adapter": {
+        "internal_action_range": {
+          "maximum": [
+            0.27765053510665894,
+            0.9556700587272644,
+            -0.38196122646331787,
+            0.28071850538253784,
+            0.9986215233802795,
+            0.4417864680290222,
+            1.5707963267948966,
+            0.3206019997596741,
+            0.9940195679664612,
+            -0.08897088468074799,
+            0.7056311964988708,
+            1.1458836793899536,
+            0.4801360070705414,
+            1.1387908651058238
+          ],
+          "minimum": [
+            -0.2883884012699127,
+            -0.04601942375302315,
+            -1.2225826978683472,
+            -0.2653786838054657,
+            -0.5445631742477417,
+            -0.4141748249530792,
+            -0.9873926397275187,
+            -0.4632622003555298,
+            -0.20555342733860016,
+            -1.2103108167648315,
+            -0.2208932340145111,
+            -0.4448544383049011,
+            -0.8452234268188477,
+            -1.5707963267948966
+          ]
+        },
+        "name": "rosetta_pi_aloha_arms_bounded_sine_grippers",
+        "stage": "after_target_projection_before_normalization",
+        "standard_action_range": {
+          "maximum": [
+            0.27765053510665894,
+            0.04601942375302315,
+            1.2225826978683472,
+            0.28071850538253784,
+            0.9986215233802795,
+            0.4417864680290222,
+            1,
+            0.3206019997596741,
+            0.20555342733860016,
+            1.2103108167648315,
+            0.7056311964988708,
+            1.1458836793899536,
+            0.4801360070705414,
+            0.9540639519691467
+          ],
+          "minimum": [
+            -0.2883884012699127,
+            -0.9556700587272644,
+            0.38196122646331787,
+            -0.2653786838054657,
+            -0.5445631742477417,
+            -0.4141748249530792,
+            0.08270374685525894,
+            -0.4632622003555298,
+            -0.9940195679664612,
+            0.08897088468074799,
+            -0.2208932340145111,
+            -0.4448544383049011,
+            -0.8452234268188477,
+            0
+          ]
+        },
+        "upstream_revision": "c903b114a90e703b3f7d0c46cb38727c328c55ff"
+      },
+      "schema_version": 1,
+      "source_cache_checksums_sha256": "273f89adc1389c8c04ac840ce11a459a2dbca6b806eb1ee7bf5dba35916f9050",
+      "source_metadata_stats_sha256": "a319b4bc3698c16f35bc1977c04dee00d05f53c83d6a4284600a8b2e28714982",
+      "source_split": "train",
+      "stage": "smolvla_train_only_normalization",
+      "status": "complete",
+      "target_projection": {
+        "mode": "action_contract_clip",
+        "per_dimension_maximum_overshoot": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.16246366500854492,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.06495711207389832
+        ],
+        "per_dimension_projected_count": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          686,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5801
+        ],
+        "projected_element_count": 6487,
+        "projected_element_rate": 0.023167857142857143,
+        "projected_row_count": 6487,
+        "source_element_count": 280000,
+        "stage": "before_normalization"
+      },
+      "train_episodes": [
+        49,
+        4,
+        23,
+        43,
+        21,
+        37,
+        18,
+        34,
+        0,
+        47,
+        38,
+        29,
+        3,
+        26,
+        14,
+        17,
+        44,
+        30,
+        15,
+        42,
+        10,
+        35,
+        25,
+        32,
+        19,
+        36,
+        41,
+        28,
+        8,
+        27,
+        16,
+        11,
+        2,
+        20,
+        9,
+        39,
+        46,
+        48,
+        12,
+        40
+      ],
+      "train_rows": 20000,
+      "validation_episodes_loaded": false,
+      "visual_features": [
+        "observation.images.top"
+      ],
+      "visual_statistics": {
+        "mean": [
+          [
+            [
+              0.485
+            ]
+          ],
+          [
+            [
+              0.456
+            ]
+          ],
+          [
+            [
+              0.406
+            ]
+          ]
+        ],
+        "std": [
+          [
+            [
+              0.229
+            ]
+          ],
+          [
+            [
+              0.224
+            ]
+          ],
+          [
+            [
+              0.225
+            ]
+          ]
+        ]
+      },
+      "visual_statistics_policy": "imagenet_constants",
+      "visual_statistics_source": "fixed_constants_not_dataset_rows"
+    },
+    "historical_preflight": {
+      "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/preflight/m2-smolvla450m-visual-native-b4-pilot-003-preflight.json",
+      "sha256": "a7d481aedb6e3cd1c712b12d5ff0a26f4c686a866770191ef43c35ff7d9e0bea",
+      "report": {
+        "accelerator_memory": {},
+        "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+        "action_dimension": 14,
+        "action_space": {
+          "adapt_to_pi_aloha": false,
+          "dataset_space": "standard_aloha_joint_position",
+          "explicit": true,
+          "model_internal_space": "normalized_pi_aloha_arms_bounded_sine_grippers",
+          "normalization": "train_only_mean_std_after_representation_adapter",
+          "reject_source_beyond_contract_tolerance": true,
+          "representation_adapter": "rosetta_pi_aloha_arms_bounded_sine_grippers",
+          "representation_adapter_stage": "after_target_projection_before_normalization",
+          "schema_version": 1,
+          "target_projection": "action_contract_clip",
+          "target_projection_stage": "before_normalization"
+        },
+        "camera_keys": [
+          "observation.images.top"
+        ],
+        "chunk_length": 50,
+        "dataset_manifest_sha256": "9853c191ae87016379fc1a16ebfbb87e05ab5147cd8a03d82f9c2a894c9b531e",
+        "dataset_revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+        "device": "cuda",
+        "elapsed_seconds": 20.023241966962814,
+        "episodes_loaded": [
+          49
+        ],
+        "experiment_config_sha256": "0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210",
+        "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+        "formal_plan_sha256": "17c350fdb85e5416ed60027b20d128ddd1a806716959133c1698840c78b71742",
+        "gradients_enabled": false,
+        "hidden_test_loaded": false,
+        "loss": 6.506730556488037,
+        "loss_details": {
+          "loss": 6.506730556488037,
+          "losses_after_forward": 6.506730556488037,
+          "losses_after_in_ep_bound": 6.506730556488037,
+          "losses_after_rm_padding": 6.506730556488037
+        },
+        "mixed_precision": "bf16",
+        "model_manifest_sha256": "9a5a0b33adaf4fba97ab032fd552f164c0d235d905517d1c448493e3bdf44428",
+        "model_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+        "network_disabled": true,
+        "normalization_report_sha256": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988",
+        "optimizer_created": false,
+        "padded_tensor_contract": {
+          "action": {
+            "device": "cuda",
+            "dtype": "float32",
+            "finite": true,
+            "shape": [
+              4,
+              50,
+              32
+            ]
+          },
+          "observation.state": {
+            "device": "cuda",
+            "dtype": "float32",
+            "finite": true,
+            "shape": [
+              4,
+              32
+            ]
+          }
+        },
+        "parameters": {
+          "total": 450046176,
+          "trainable": 99880992
+        },
+        "raw_tensor_contract": {
+          "action": {
+            "device": "cpu",
+            "dtype": "float32",
+            "finite": true,
+            "shape": [
+              4,
+              50,
+              14
+            ]
+          },
+          "action_is_pad": {
+            "device": "cpu",
+            "dtype": "bool",
+            "finite": true,
+            "shape": [
+              4,
+              50
+            ]
+          },
+          "episode_index": {
+            "device": "cpu",
+            "dtype": "int64",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          },
+          "frame_index": {
+            "device": "cpu",
+            "dtype": "int64",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          },
+          "index": {
+            "device": "cpu",
+            "dtype": "int64",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          },
+          "next.done": {
+            "device": "cpu",
+            "dtype": "bool",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          },
+          "observation.images.top": {
+            "device": "cpu",
+            "dtype": "uint8",
+            "finite": true,
+            "shape": [
+              4,
+              3,
+              480,
+              640
+            ]
+          },
+          "observation.images.top_is_pad": {
+            "device": "cpu",
+            "dtype": "bool",
+            "finite": true,
+            "shape": [
+              4,
+              1
+            ]
+          },
+          "observation.state": {
+            "device": "cpu",
+            "dtype": "float32",
+            "finite": true,
+            "shape": [
+              4,
+              1,
+              14
+            ]
+          },
+          "observation.state_is_pad": {
+            "device": "cpu",
+            "dtype": "bool",
+            "finite": true,
+            "shape": [
+              4,
+              1
+            ]
+          },
+          "task_index": {
+            "device": "cpu",
+            "dtype": "int64",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          },
+          "timestamp": {
+            "device": "cpu",
+            "dtype": "float32",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          }
+        },
+        "repair_protocol_sha256": null,
+        "run_name": "m2-smolvla450m-visual-native-b4-pilot-003-preflight",
+        "schema_version": 1,
+        "stage": "real_smolvla_no_optimizer_forward",
+        "state_dimension": 14,
+        "status": "passed",
+        "tensor_contract": {
+          "action": {
+            "device": "cuda",
+            "dtype": "float32",
+            "finite": true,
+            "shape": [
+              4,
+              50,
+              14
+            ]
+          },
+          "action_is_pad": {
+            "device": "cuda",
+            "dtype": "bool",
+            "finite": true,
+            "shape": [
+              4,
+              50
+            ]
+          },
+          "episode_index": {
+            "device": "cuda",
+            "dtype": "int64",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          },
+          "index": {
+            "device": "cuda",
+            "dtype": "int64",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          },
+          "next.done": {
+            "device": "cuda",
+            "dtype": "bool",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          },
+          "observation.images.camera1": {
+            "device": "cuda",
+            "dtype": "float32",
+            "finite": true,
+            "shape": [
+              4,
+              3,
+              480,
+              640
+            ]
+          },
+          "observation.images.top_is_pad": {
+            "device": "cuda",
+            "dtype": "bool",
+            "finite": true,
+            "shape": [
+              4,
+              1
+            ]
+          },
+          "observation.language.attention_mask": {
+            "device": "cuda",
+            "dtype": "bool",
+            "finite": true,
+            "shape": [
+              4,
+              48
+            ]
+          },
+          "observation.language.tokens": {
+            "device": "cuda",
+            "dtype": "int64",
+            "finite": true,
+            "shape": [
+              4,
+              48
+            ]
+          },
+          "observation.state": {
+            "device": "cuda",
+            "dtype": "float32",
+            "finite": true,
+            "shape": [
+              4,
+              1,
+              14
+            ]
+          },
+          "observation.state_is_pad": {
+            "device": "cuda",
+            "dtype": "bool",
+            "finite": true,
+            "shape": [
+              4,
+              1
+            ]
+          },
+          "task_index": {
+            "device": "cuda",
+            "dtype": "int64",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          },
+          "timestamp": {
+            "device": "cuda",
+            "dtype": "float32",
+            "finite": true,
+            "shape": [
+              4
+            ]
+          }
+        },
+        "train_only_statistics": {
+          "dataset_view_manifest_sha256": "9853c191ae87016379fc1a16ebfbb87e05ab5147cd8a03d82f9c2a894c9b531e",
+          "features": [
+            "action",
+            "observation.state"
+          ],
+          "hidden_test_loaded": false,
+          "normalization_report_sha256": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988",
+          "rows": 20000,
+          "source_split": "train",
+          "validation_episodes_loaded": false,
+          "visual_statistics_policy": "imagenet_constants"
+        },
+        "vlm_dependency_manifest_sha256": "f6d10e2a3b8ba46baefcb8ec8bc5af1421a0738be476c0f71e1f66bc7a42d843",
+        "vlm_dependency_revision": "7b375e1b73b11138ff12fe22c8f2822d8fe03467"
+      }
+    },
+    "current_base_and_dataset_payloads_fully_rehashed": false,
+    "current_model_preflight": "not measured"
+  },
+  "runtime": {
+    "package_metadata": {
+      "python": "3.12.3",
+      "torch": "2.8.0+cu128",
+      "lerobot": "0.6.2",
+      "trackio": "0.28.0",
+      "transformers": "5.5.4",
+      "accelerate": "1.14.0"
+    },
+    "lerobot_install_origin": {
+      "archive_info": {
+        "hash": "sha256=6376319ca59b95e9b26f849c4c4d3320fa8a808c1cc03fdabccd8215fb035cc8",
+        "hashes": {
+          "sha256": "6376319ca59b95e9b26f849c4c4d3320fa8a808c1cc03fdabccd8215fb035cc8"
+        }
+      },
+      "url": "https://github.com/huggingface/lerobot/archive/c903b114a90e703b3f7d0c46cb38727c328c55ff.zip"
+    },
+    "gpu_query": {
+      "returncode": 6,
+      "stdout": "No devices were found",
+      "stderr": ""
+    },
+    "gpu_available_in_container": false,
+    "platform_power_or_billing_state_independently_verified": false,
+    "durable_free_bytes": 8404463616,
+    "durable_free_gib": 7.827266693115234,
+    "historical_pilot_resources": {
+      "elapsed_seconds": 131.7342020533979,
+      "peak_cuda_allocated_bytes": 2817605120,
+      "peak_host_rss_bytes": 3743199232
+    },
+    "current_resource_preflight": "not measured",
+    "new_cpu_rss_limit_gib": 10,
+    "new_gpu_allocated_limit_gib": 8,
+    "new_gpu_reserved_limit_gib": 10,
+    "disk_budget_passed": false
+  },
+  "next_plan": "reports/training/m2-smolvla-native-visual-coverage40-plan-2026-09-10.json",
+  "remaining": [
+    "Reconcile exact remote and local source in a new versioned server workspace; do not git pull over the dirty authoritative tree.",
+    "Implement and statically verify the preregistered all-nonself evaluator; save entire normalized and standard action chunks.",
+    "Generate hash-bound new phase plans; change optimizer_smoke.episodes and fixed_frame_sampler.sample_identities to all 40 train frame-zero samples.",
+    "Preserve original seed, optimizer, scheduler and frozen scope; recreate B from base rather than A or a smoke checkpoint.",
+    "Obtain a new explicit compute budget and verify visible CUDA, cache payloads, sampling schedule, free disk and real preflight.",
+    "Run at most one registered candidate; keep hidden sealed, preserve negative evidence and stop on failure."
+  ],
+  "m2_complete": false,
+  "visual_generalization_repaired": false
+}

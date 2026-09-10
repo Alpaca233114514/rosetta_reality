@@ -55,3 +55,7 @@
 `reports/training/m2-smolvla-native-visual-coverage40-plan-2026-09-10.md`
 及同名 JSON。远端旧报告未在本轮读取；其状态和数值仅按用户交接标注，
 不以本地 HEAD、历史关机记录或本地回归结果替代远端事实。
+
+后续 SSH 核验已找回原始报告和控制 checkpoint，详见
+`reports/training/m2-smolvla-native-visual-authority-2026-09-10.md`。
+以上“未读取”描述保留为资料查阅阶段的范围，当前证据状态由后续核验报告更新。
