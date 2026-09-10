@@ -118,6 +118,7 @@ def prepare(output):
     sources = dict(control["implementation_files"])
     for name in (
         "scripts/prepare_visual_fit.py",
+        "scripts/run_hestia_fit.py",
         "scripts/evaluate_visual_fit.py",
         "scripts/evaluate_visual_native_small.py",
         "scripts/inspect_hestia_schedule.py",
@@ -125,6 +126,7 @@ def prepare(output):
         "scripts/evaluate_visual_fit_evidence.py",
         "src/rosetta_reality/vla/visual_fit.py",
         "src/rosetta_reality/vla/visual_fit_contract.py",
+        "src/rosetta_reality/vla/visual_fit_job.py",
         "src/rosetta_reality/vla/visual_coverage.py",
         "src/rosetta_reality/vla/vision_diagnostics.py",
         "src/rosetta_reality/vla/training/observation.py",

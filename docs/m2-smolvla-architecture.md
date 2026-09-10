@@ -1593,6 +1593,12 @@ and real B saved-config/recovery plus synthetic candidate native-config round
 trips passed. No model weights, real samples or optimizer updates were used.
 The historical A/B collector remains unchanged. Main supervisor integration,
 C training, real B/C collection/sealing and seven-array reload remain pending.
+The main chain is now implemented in `scripts/run_hestia_fit.py` with pre-model
+gates and historical B reproduction in `visual_fit_job.py`; registration and
+unexecuted commands are in
+`reports/training/m2-smolvla-hestia-main-plan-2026-09-10.md`.
+This newer main-chain source still needs Linux Ruff/regression and real execution.
+The user requested stopping at the SSH boundary; no main worker was dispatched.
 
 Update this document in the same change whenever any of the following changes:
 

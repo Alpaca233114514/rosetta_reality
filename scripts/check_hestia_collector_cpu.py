@@ -20,17 +20,21 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 FILES = [
     "scripts/check_hestia_collector_cpu.py",
+    "scripts/run_hestia_fit.py",
     "scripts/evaluate_visual_fit.py",
     "scripts/inspect_hestia_schedule.py",
     "scripts/prepare_visual_fit.py",
     "scripts/seal_visual_fit_candidate.py",
     "src/rosetta_reality/vla/visual_fit.py",
     "src/rosetta_reality/vla/visual_fit_contract.py",
+    "src/rosetta_reality/vla/visual_fit_job.py",
     "tests/test_smolvla_visual_fit.py",
     "tests/test_smolvla_visual_fit_contract.py",
+    "tests/test_smolvla_visual_fit_job.py",
 ]
 TESTS = [
     "visual_fit_contract",
+    "visual_fit_job",
     "visual_fit",
     "observed_launch",
     "training_observation",
