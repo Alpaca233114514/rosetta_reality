@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "tests": 184,
+  "source_commit": "e289f45bcb75fea7c5830d708808103846d484f2",
+  "source_manifest_sha256": "959524227d058107d81bd42486e0a066debdcd6bc60b6354ad73c7c8893132f2",
+  "upstream_files": {
+    "policies/smolvla/modeling_smolvla.py": "37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d",
+    "datasets/sampler.py": "f715aaaa1118ef8901928f92975f7bc08bca412860f072bbcca84555303cc38e",
+    "optim/schedulers.py": "05d57770348fbb3f412f52804a8d0f015f8128a37c55d5ce8ed9af6ed8522bc9",
+    "scripts/lerobot_train.py": "4d15d283ea54583f552b32088db0b6c195250905ca6daf06d4670383790e2059"
+  },
+  "packages": {
+    "torch": "2.8.0+cu128",
+    "lerobot": "0.6.2",
+    "accelerate": "1.14.0",
+    "numpy": "2.2.6",
+    "draccus": "0.11.6"
+  },
+  "runtime_profile_sha256": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992",
+  "python": "3.12.3",
+  "nested_docker_used": false,
+  "model_weights_loaded": false,
+  "real_samples_loaded": false,
+  "optimizer_steps": 0,
+  "main_training": "not measured",
+  "m2_complete": false
+}

@@ -1,0 +1,11 @@
+{
+  "source_commit": "e289f45bcb75fea7c5830d708808103846d484f2",
+  "supervisor_sha256": "385129f5c1fefc0ab6a4cb100d5fe9a442e64a4d8610ffcf754f1221d83b13ac",
+  "plan_sha256": "c762225fea16185b190f7f09727191f9a4f3f50ca229fa9f405da535e71a8544",
+  "mode": "cpu_no_model_no_real_samples",
+  "budget_seconds": 600,
+  "per_command_seconds": 180,
+  "shutdown_grace_seconds": 120,
+  "shutdown_authorized": true,
+  "instance_release_requested": false
+}

@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "tests": 184,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 15.356,
+  "test_modules": {
+    "tests.test_smolvla_fixed_visual_samples": 18,
+    "tests.test_smolvla_observed_launch": 4,
+    "tests.test_smolvla_tracking_composition": 1,
+    "tests.test_smolvla_training_launch": 13,
+    "tests.test_smolvla_training_observation": 21,
+    "tests.test_smolvla_training_plan_schema": 36,
+    "tests.test_smolvla_v2_error_boundaries": 4,
+    "tests.test_smolvla_visual_coverage": 34,
+    "tests.test_smolvla_visual_fit": 19,
+    "tests.test_smolvla_visual_fit_contract": 34
+  },
+  "raw_xml_sha256": "6508059f737fcb4cc514643e1a55282aae90f769b59795972d7ea9b3d5e9c9e4",
+  "raw_xml_published": false,
+  "raw_xml_not_published_reason": "contains_worker_hostname",
+  "source_commit": "e289f45bcb75fea7c5830d708808103846d484f2"
+}

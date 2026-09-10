@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "protocol": "frame0_all_nonself_mean_error_fit40_v1",
+  "status": "draft",
+  "model_execution_authorized": false,
+  "started_unix": null,
+  "deadline_unix": null,
+  "watchdog": null,
+  "review_plan": {
+    "path": "runs/hestia-collector-cpu-001/evidence/draft/review.json",
+    "sha256": "addafc347375e2cd335c69c80560b17aa3d712baf8b77707b561a389306b4354"
+  },
+  "implementation_files": {
+    "scripts/run_smolvla_v2.py": "d703b63b8ebf96b9579cb7af41e3ec84645a9a225c21a72698451ee782559327",
+    "scripts/train_smolvla_v2.py": "f7aafb6a418ebb1032e862d614388bc87dee77011c63ab3b7873a43ac4d7101e",
+    "scripts/smolvla_forward_check.py": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8",
+    "src/rosetta_reality/vla/training/plan.py": "16dcf9651634dcb17ce0fce219cc6e933ff1504c12c45bed69718b77b7bbe8ee",
+    "src/rosetta_reality/vla/training/features.py": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891",
+    "src/rosetta_reality/vla/training/context.py": "3681409b19dbae403a22dbf5dcff64e8d767b0ffea59b4be1260c2f1538c68bd",
+    "src/rosetta_reality/vla/training/launch.py": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0",
+    "src/rosetta_reality/vla/fixed_samples.py": "1627cb54f4c352a8832f7fa4abb2ded76d3d960799dccec8460cdd0be82a954a",
+    "src/rosetta_reality/vla/fixed_visual_samples.py": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c",
+    "src/rosetta_reality/vla/action_space.py": "4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb",
+    "src/rosetta_reality/vla/processor.py": "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384",
+    "scripts/prepare_visual_fit.py": "c862061f9adb0ec1bb63890143b9811ecf88c86b17c510e87c5041af7f488841",
+    "scripts/evaluate_visual_fit.py": "8fe2d05942ab036c9a8c9cd7cbbe1fe1eef7f81005644175be05ed3a433f5041",
+    "scripts/evaluate_visual_native_small.py": "1b038e6a7753a59591a093c36fef32fd14a90fad884f0fda52a5090809d8f9ed",
+    "scripts/inspect_hestia_schedule.py": "6152236b080dc50e4e6daa15330a487725696b14917bfe1d1b281cf63fe67a5d",
+    "scripts/seal_visual_fit_candidate.py": "db220ab8302d1b90b4d678dc9bf0fbb1af7119a24031e99d34983c69fcd35f18",
+    "scripts/evaluate_visual_fit_evidence.py": "f33e1c66600de991d7e66337bfecacc1c0f59fbb6f6aca44d2e4ad2032b756d6",
+    "src/rosetta_reality/vla/visual_fit.py": "8e25c2f0e117267bc8e5dce1ebe7e967b6fe6fba72f44859fec6d00a73468bc7",
+    "src/rosetta_reality/vla/visual_fit_contract.py": "a74ee6af7de3d7a8168964ccb6f4aad4d76dd9e717c504628ede3d28c60ad6aa",
+    "src/rosetta_reality/vla/visual_coverage.py": "4948b2f6abc1753b59fe0dab00e42b9e01ca3fbfe5855f99fad492635da37d02",
+    "src/rosetta_reality/vla/vision_diagnostics.py": "9bf5ab370be5f803a205b9e2a596bd25ed64b32514afcb5c9c39ef770a40fe63",
+    "src/rosetta_reality/vla/training/observation.py": "8cea2eb61a7f63a63c465d0e69c698f4ad76952381a1c8cf2a24e2a12bf88e02",
+    "src/rosetta_reality/vla/training/observed_launch.py": "bd63ea9f028c43ae7f70a02dcfd9c42d371a7acb2ec028025304a4b068ef47b3",
+    "reports/training/m2-smolvla-native-visual-coverage40-result-2026-09-10.json": "2a634134b102f7553e6caac55f9c945a2830d683c69e35dcb3a7db28a0955788"
+  },
+  "upstream_files": {
+    "policies/smolvla/modeling_smolvla.py": "37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d",
+    "datasets/sampler.py": "f715aaaa1118ef8901928f92975f7bc08bca412860f072bbcca84555303cc38e",
+    "optim/schedulers.py": "05d57770348fbb3f412f52804a8d0f015f8128a37c55d5ce8ed9af6ed8522bc9",
+    "scripts/lerobot_train.py": "4d15d283ea54583f552b32088db0b6c195250905ca6daf06d4670383790e2059"
+  },
+  "resource_limits": {
+    "cuda_allocated_bytes": 8589934592,
+    "cuda_reserved_bytes": 10737418240,
+    "host_rss_bytes": 10737418240
+  },
+  "prerequisite_evidence": {
+    "environment": null,
+    "sample_contract": null,
+    "resource_preflight": null,
+    "two_step_smoke_reload": null,
+    "B_training_integrity": null,
+    "C_training_integrity": null
+  },
+  "arms": {
+    "B": {
+      "run_name": "m2-smolvla450m-visual-coverage40-main256-003",
+      "plan": {
+        "path": "runs/visual-coverage40-unattended-003/plans/main256.yaml",
+        "sha256": "c800c4e47df8478429a1f24c2bfb89ea77babfb5d2041765496b2bbc884b0602"
+      },
+      "checkpoint_relative_to_root": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-coverage40-main256-003/checkpoints/000256/pretrained_model",
+      "checkpoint_files": {
+        "config.json": "7fad9d1cede618b76d7e98aae08b6aedc6ff1fd1cb374380b137f4d7ce7b0d55",
+        "model.safetensors": "4e91624b34c3a16e22e0cbba19d8bcf3352a0d3835522ea6973ee22f0397accf",
+        "policy_postprocessor.json": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+        "policy_postprocessor_step_0_unnormalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "policy_preprocessor.json": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+        "policy_preprocessor_step_7_normalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "tokenizer/chat_template.jinja": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+        "tokenizer/tokenizer.json": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+        "tokenizer/tokenizer_config.json": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+        "train_config.json": "d0e97dc80f3b887fd26853b516ad9f31d8e2f77c6a5bed362ffeddae729f0db1"
+      }
+    },
+    "C": {
+      "run_name": "m2-smolvla450m-visual-hestia-fit40-001",
+      "plan": {
+        "path": "runs/hestia-collector-cpu-001/evidence/draft/main1280.yaml",
+        "sha256": "70fb068fc732b02c4bfd3cf04e70e5465e3094e8d32750bb670009e2f2f2507b"
+      },
+      "checkpoint_relative_to_root": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-hestia-fit40-001/checkpoints/001280/pretrained_model",
+      "checkpoint_files": null
+    }
+  },
+  "m2_complete": false
+}

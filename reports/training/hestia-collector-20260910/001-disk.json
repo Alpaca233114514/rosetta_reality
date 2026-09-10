@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "available_bytes": 10977865728,
+  "B_complete_checkpoint_bytes": 1614046930,
+  "new_checkpoint_copies": 5,
+  "reserve_bytes": 2147483648,
+  "minimum_new_bytes": 10217718298,
+  "existing_smoke_counted_as_new": false,
+  "estimate_requires_prelaunch_recheck": true
+}

@@ -1585,8 +1585,14 @@ complete processor inventories, native recovery states and completed C updates.
 `scripts/seal_visual_fit_candidate.py` binds the frozen-parameter audit and all
 four retained candidate checkpoints. `scripts/prepare_visual_fit.py` writes the
 1280-step native YAML plus an intentionally non-launchable contract template.
-These new files still require Linux regression and actual saved-config checks;
-the historical A/B collector remains unchanged and main C training is not started.
+The collector module passed CPU acceptance at source
+`e289f45bcb75fea7c5830d708808103846d484f2`; see
+`reports/training/m2-smolvla-hestia-collector-result-2026-09-10.{md,json}`.
+Ruff and 184 regressions passed, all 5120 native sampler indices matched,
+and real B saved-config/recovery plus synthetic candidate native-config round
+trips passed. No model weights, real samples or optimizer updates were used.
+The historical A/B collector remains unchanged. Main supervisor integration,
+C training, real B/C collection/sealing and seven-array reload remain pending.
 
 Update this document in the same change whenever any of the following changes:
 

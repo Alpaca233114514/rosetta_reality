@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-10",
+  "status": "cpu_module_passed",
+  "source_commit": "e289f45bcb75fea7c5830d708808103846d484f2",
+  "branch": "codex/smolvla-visual-conditioning-repair-20260909",
+  "remote_workspace": "dev/hestia-collector-cpu-20260910-e289f45",
+  "run": "runs/hestia-collector-cpu-001",
+  "runtime": {
+    "status": "passed",
+    "tests": 184,
+    "source_commit": "e289f45bcb75fea7c5830d708808103846d484f2",
+    "source_manifest_sha256": "959524227d058107d81bd42486e0a066debdcd6bc60b6354ad73c7c8893132f2",
+    "upstream_files": {
+      "policies/smolvla/modeling_smolvla.py": "37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d",
+      "datasets/sampler.py": "f715aaaa1118ef8901928f92975f7bc08bca412860f072bbcca84555303cc38e",
+      "optim/schedulers.py": "05d57770348fbb3f412f52804a8d0f015f8128a37c55d5ce8ed9af6ed8522bc9",
+      "scripts/lerobot_train.py": "4d15d283ea54583f552b32088db0b6c195250905ca6daf06d4670383790e2059"
+    },
+    "packages": {
+      "torch": "2.8.0+cu128",
+      "lerobot": "0.6.2",
+      "accelerate": "1.14.0",
+      "numpy": "2.2.6",
+      "draccus": "0.11.6"
+    },
+    "runtime_profile_sha256": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992",
+    "python": "3.12.3",
+    "nested_docker_used": false,
+    "model_weights_loaded": false,
+    "real_samples_loaded": false,
+    "optimizer_steps": 0,
+    "main_training": "not measured",
+    "m2_complete": false
+  },
+  "validation": {
+    "ruff": "passed",
+    "pytest": {
+      "status": "passed",
+      "tests": 184,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 15.356,
+      "test_modules": {
+        "tests.test_smolvla_fixed_visual_samples": 18,
+        "tests.test_smolvla_observed_launch": 4,
+        "tests.test_smolvla_tracking_composition": 1,
+        "tests.test_smolvla_training_launch": 13,
+        "tests.test_smolvla_training_observation": 21,
+        "tests.test_smolvla_training_plan_schema": 36,
+        "tests.test_smolvla_v2_error_boundaries": 4,
+        "tests.test_smolvla_visual_coverage": 34,
+        "tests.test_smolvla_visual_fit": 19,
+        "tests.test_smolvla_visual_fit_contract": 34
+      },
+      "raw_xml_sha256": "6508059f737fcb4cc514643e1a55282aae90f769b59795972d7ea9b3d5e9c9e4",
+      "raw_xml_published": false,
+      "raw_xml_not_published_reason": "contains_worker_hostname",
+      "source_commit": "e289f45bcb75fea7c5830d708808103846d484f2"
+    },
+    "native_schedule": {
+      "status": "passed",
+      "count": 5120,
+      "per_train_episode": 128,
+      "native_order_verified": true,
+      "expected_schedule_sha256": "5fc9733f7ea2bb590f31f3b641d66f46bf378b517a3b881c660bd66fad574018"
+    },
+    "B_real_saved_config_inventory_recovery": "passed",
+    "candidate_native_config_roundtrip": "passed_synthetic_only",
+    "draft_model_import_rejected": true,
+    "historical_AB_collector_changed": false
+  },
+  "budget_seconds": 600,
+  "worker_elapsed_seconds": 57.72232270240784,
+  "worker_exit_code": 0,
+  "disk": {
+    "status": "passed",
+    "available_bytes": 10977865728,
+    "B_complete_checkpoint_bytes": 1614046930,
+    "new_checkpoint_copies": 5,
+    "reserve_bytes": 2147483648,
+    "minimum_new_bytes": 10217718298,
+    "existing_smoke_counted_as_new": false,
+    "estimate_requires_prelaunch_recheck": true
+  },
+  "transfer": {
+    "source_bundle_bytes": 72788,
+    "result_archive_bytes": 62399,
+    "model_or_dataset_transferred": false,
+    "checkpoint_transferred": false
+  },
+  "shutdown": {
+    "supervisor_shutdown_authorized": true,
+    "grace_seconds": 120,
+    "ssh_check_observed_utc": "2026-09-10T13:03:34Z",
+    "ssh_after_shutdown_window": "connection_closed",
+    "shutdown_request_artifact_retrieved": false,
+    "platform_power_and_billing_independently_verified": false,
+    "instance_release_requested": false
+  },
+  "pending": [
+    "main_supervisor_integration",
+    "C_1280_updates",
+    "C_real_parameter_and_quarter_checkpoint_seal",
+    "B_C_real_collection_and_historical_B_array_reproduction",
+    "B_C_seven_array_independent_reload",
+    "training_fit_and_development_acceptance",
+    "new_Gate3_Gate4"
+  ],
+  "hidden_test_loaded": false,
+  "development_is_independent_test": false,
+  "visual_ignoring_fixed": false,
+  "m2_complete": false,
+  "artifacts": {
+    "reports/training/hestia-collector-20260910/001-B-saved-recipe.json": "2f64b18829ae7c45466124210cebfef9a0d915c43d7739698e3ac895e0f5b18a",
+    "reports/training/hestia-collector-20260910/001-disk.json": "436c004a591d88940d522e10130a2251ad8a7e70464e6f2e3db48a9c74bb6891",
+    "reports/training/hestia-collector-20260910/001-execution-contract.template.json": "b90a23d48c070cc7641ef8d2c9d3b0051b3682d455b087cedf132aac2362c2d5",
+    "reports/training/hestia-collector-20260910/001-main1280.yaml": "70fb068fc732b02c4bfd3cf04e70e5465e3094e8d32750bb670009e2f2f2507b",
+    "reports/training/hestia-collector-20260910/001-native-config-roundtrip.json": "b27f332ffc440db914bbbc8e9c1056039586ef4d1e7b03692f4d89e24cbd7de2",
+    "reports/training/hestia-collector-20260910/001-prepare.log": "1ca68c14645893a869e2b71a3210ae6d98ddb2dd3266854b5177fb86bad2d73c",
+    "reports/training/hestia-collector-20260910/001-pytest-summary.json": "c8825ba8931800f04c133f6f42c5a2d84ff22339e9207f8be9d50dd2ce4a3479",
+    "reports/training/hestia-collector-20260910/001-pytest.log": "de65fd9c22fd71769bc7dfc854061b41e60b3317c9b308cb4faa13e4fca66275",
+    "reports/training/hestia-collector-20260910/001-raw-evidence-sha256.json": "be73ef81b1ba8af0a5c81d47195f7a41f76b0207c7c07d0d538fdbb223297493",
+    "reports/training/hestia-collector-20260910/001-registration.json": "949da513094d7c82073131ef7c64f5e840ec2ac261bf46b0b6c07caaccba9964",
+    "reports/training/hestia-collector-20260910/001-result.json": "ad361e76d445191d704453632ec505f84e5d474dceb228866cd3e25b9b0db9a5",
+    "reports/training/hestia-collector-20260910/001-review.json": "addafc347375e2cd335c69c80560b17aa3d712baf8b77707b561a389306b4354",
+    "reports/training/hestia-collector-20260910/001-ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "reports/training/hestia-collector-20260910/001-schedule.json": "8676a02fccd25b7426f938caf2ed28cf4e84d2a431b20cb686d07636ed1e2900",
+    "reports/training/hestia-collector-20260910/001-schedule.log": "f637ba0ed6839d33a7a9e92f0d6d756038e5b2c0280dd4e3c063976962092e0e",
+    "reports/training/hestia-collector-20260910/001-source.json": "959524227d058107d81bd42486e0a066debdcd6bc60b6354ad73c7c8893132f2",
+    "reports/training/hestia-collector-20260910/001-supervisor-exit.json": "4538c18c372f5bf5cd56c6e6bababb72bc5de26fa6b4b748995cc2a56cd3c58f",
+    "reports/training/hestia-collector-20260910/001-watchdog.json": "c36d2917c51af2235c8898e61ebbf44ac8c3a6797e4ef974fbe37f2981b64c72",
+    "reports/training/hestia-collector-20260910/001-worker-process.json": "d27c7fd6850e2270d2eb465e1fae62f69aaed480279e7561eefd80375b80f5ed",
+    "reports/training/hestia-collector-20260910/001-worker.log": "7448a3e79ad630f1a212347d64777a657efae39e50b6d23aed965f97143b9488"
+  }
+}
