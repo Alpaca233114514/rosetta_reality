@@ -82,4 +82,4 @@ python scripts/evaluate_visual_coverage.py compare --first "$O/A" --second "$O/B
 
 验收仍要求至少 3/4 相同噪声条件下三组正确图误差均低于平均错配与均值下限，并满足训练拟合、两臂增益、物理误差不退化及完整 reload。五个 dev episodes 不是独立测试，hidden 保持封存；即使全部离线条件通过，也只能称 frame-0 开发诊断进展。
 
-关机及推送收尾证据另见 `reports/training/m2-smolvla-native-visual-coverage40-closeout-2026-09-10.json`。
+本模块在 12:20:09（Asia/Shanghai）执行官方关机，距开始约 48.94 分钟。远端关闭 SSH，随后一次连接复核也关闭；平台电源/计费状态未独立核验，实例没有释放。关机前确认没有活动任务，原审计源码和最终评估器哈希匹配，旧 checkpoint 与恢复状态文件仍在。关机及推送收尾证据见 `reports/training/m2-smolvla-native-visual-coverage40-closeout-2026-09-10.json`。

@@ -177,7 +177,10 @@ proof of full-chunk model reload. No model/data load, optimizer or simulation
 ran in this module. Training smoke/reload, live resource estimates, all 45 real
 input contracts, A reproduction and the actual two-arm comparison are pending.
 The development five remain development data, hidden remains sealed, and M2
-is incomplete. See the module's separate closeout for its shutdown evidence.
+is incomplete. The module invoked the requested shutdown at 12:20:09
+Asia/Shanghai; SSH closed and one follow-up connection also closed. The instance
+was not released and platform power/billing was not independently verified.
+See `reports/training/m2-smolvla-native-visual-coverage40-closeout-2026-09-10.json`.
 
 Local visual-grounding repair (2026-09-09):
 `reports/training/m2-smolvla-local-visual-grounding-preregistration-2026-09-09.md`
