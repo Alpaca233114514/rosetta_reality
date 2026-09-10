@@ -1577,6 +1577,16 @@ completed in about 290 seconds and the subsequent SSH check found the
 connection closed after its registered shutdown window. Platform billing was
 not independently verified. Main Hestia training, real B/C evidence collection,
 visual-generalization acceptance and new Gate 3/4 remain pending.
+The next collector/sealing module is described in
+`reports/training/m2-smolvla-hestia-collector-plan-2026-09-10.md`.
+`scripts/evaluate_visual_fit.py` is a separate native B/C collector;
+`visual_fit_contract.py` binds actual saved recipes, live watchdog identity,
+complete processor inventories, native recovery states and completed C updates.
+`scripts/seal_visual_fit_candidate.py` binds the frozen-parameter audit and all
+four retained candidate checkpoints. `scripts/prepare_visual_fit.py` writes the
+1280-step native YAML plus an intentionally non-launchable contract template.
+These new files still require Linux regression and actual saved-config checks;
+the historical A/B collector remains unchanged and main C training is not started.
 
 Update this document in the same change whenever any of the following changes:
 

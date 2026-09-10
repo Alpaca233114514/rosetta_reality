@@ -30,6 +30,50 @@ RUN_NAMES = {
     "C": "m2-smolvla450m-visual-hestia-fit40-001",
 }
 UPDATES = {"B": 256, "C": 1280}
+TRAIN40 = [
+    49,
+    4,
+    23,
+    43,
+    21,
+    37,
+    18,
+    34,
+    0,
+    47,
+    38,
+    29,
+    3,
+    26,
+    14,
+    17,
+    44,
+    30,
+    15,
+    42,
+    10,
+    35,
+    25,
+    32,
+    19,
+    36,
+    41,
+    28,
+    8,
+    27,
+    16,
+    11,
+    2,
+    20,
+    9,
+    39,
+    46,
+    48,
+    12,
+    40,
+]
+DEV5 = [22, 13, 7, 33, 45]
+HIDDEN5 = [31, 6, 1, 24, 5]
 GROUPS = ("all_valid", "joint_radian", "gripper_normalized")
 REVISIONS = {
     "base_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
@@ -57,10 +101,9 @@ def validate_bundle(arrays: dict, metadata: dict) -> None:
         raise ValueError("Fit-strength scoring must retain the registered numerical formula.")
     views = metadata["views"]
     if (
-        [len(views[name]) for name in ("train8", "train40", "dev5")] != [8, 40, 5]
-        or views["train8"] != views["train40"][:8]
-        or len(metadata["hidden_episodes"]) != 5
-        or len(set(metadata["hidden_episodes"])) != 5
+        views != {"train8": TRAIN40[:8], "train40": TRAIN40, "dev5": DEV5}
+        or metadata["episodes"] != TRAIN40 + DEV5
+        or metadata["hidden_episodes"] != HIDDEN5
         or metadata["chunk_length"] != 50
         or metadata["max_action_dim"] != 32
     ):
