@@ -1,0 +1,25 @@
+{"time": 1789041974.5046096, "kind": "prior_code_validation_verified"}
+{"time": 1789041974.5051646, "kind": "stage_started", "stage": "check-env"}
+{"time": 1789041976.3261578, "kind": "stage_passed", "stage": "check-env"}
+{"time": 1789041976.3689344, "kind": "stage_started", "stage": "doctor"}
+{"time": 1789041979.290391, "kind": "stage_passed", "stage": "doctor"}
+{"time": 1789041979.2912853, "kind": "stage_started", "stage": "data-check"}
+{"time": 1789041987.1730018, "kind": "stage_passed", "stage": "data-check"}
+{"time": 1789041987.1736214, "kind": "stage_started", "stage": "benchmark"}
+{"time": 1789041989.4431717, "kind": "stage_passed", "stage": "benchmark"}
+{"time": 1789041989.4437551, "kind": "stage_started", "stage": "preflight-b1"}
+{"time": 1789042017.1374452, "kind": "stage_passed", "stage": "preflight-b1"}
+{"time": 1789042017.1380672, "kind": "stage_started", "stage": "preflight-b4"}
+{"time": 1789042044.8774495, "kind": "stage_passed", "stage": "preflight-b4"}
+{"time": 1789042044.8781428, "kind": "stage_started", "stage": "sampler"}
+{"time": 1789042050.8622086, "kind": "stage_passed", "stage": "sampler"}
+{"time": 1789042050.86294, "kind": "stage_started", "stage": "sample-contract"}
+{"time": 1789042084.85835, "kind": "stage_passed", "stage": "sample-contract"}
+{"time": 1789042084.8589826, "kind": "stage_started", "stage": "smoke2"}
+{"time": 1789042115.9131682, "kind": "stage_passed", "stage": "smoke2"}
+{"time": 1789042115.9140334, "kind": "stage_started", "stage": "smoke-update-audit"}
+{"time": 1789042125.1247633, "kind": "stage_passed", "stage": "smoke-update-audit"}
+{"time": 1789042125.1257277, "kind": "stage_started", "stage": "smoke-first"}
+{"time": 1789042194.6215868, "kind": "stage_passed", "stage": "smoke-first"}
+{"time": 1789042194.6221557, "kind": "stage_started", "stage": "smoke-reload"}
+{"time": 1789042264.1565456, "kind": "stage_passed", "stage": "smoke-reload"}

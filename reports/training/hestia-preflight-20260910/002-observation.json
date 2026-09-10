@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "error_type": null,
+  "expected_schedule_sha256": "4520fcad587f1b11dff5c6ba2b9061ac4b5dfce71c991f5b5e8540ef0d54bf25",
+  "observation": {
+    "status": "complete",
+    "expected_samples": 8,
+    "delivered_samples": 8,
+    "completed_samples": 8,
+    "completed_updates": 2,
+    "successful_optimizer_step_calls": 2,
+    "learning_rates": [
+      [
+        0.0001
+      ],
+      [
+        5.125e-05
+      ]
+    ],
+    "pending_samples": [],
+    "errors": []
+  },
+  "m2_complete": false,
+  "task_success": "not measured"
+}

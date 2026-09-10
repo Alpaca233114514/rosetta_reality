@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "status": "gpu_preflight_passed",
+  "date": "2026-09-10",
+  "source_commit": "31f3c0b1fea272d8f82d93d4e6b0533bbe09d672",
+  "remote_workspace_relative_to_durable_root": "dev/hestia-gpu-preflight-20260910-31f3c0b",
+  "job": "runs/hestia-gpu-preflight-002",
+  "gpu": "NVIDIA GeForce RTX 4090 D",
+  "gpu_uuid": "GPU-45d20714-c545-b781-2e5e-4bde16c2f7f5",
+  "nested_docker_used": false,
+  "cpu_regressions_passed": 101,
+  "cpu_regressions_seconds": 6.3,
+  "data_tests_passed": 1,
+  "cpu_skips": 0,
+  "ruff_passed": true,
+  "worker_elapsed_seconds": 289.9171645641327,
+  "shared_budget_seconds": 1200,
+  "optimizer_updates": 2,
+  "delivered_samples": 8,
+  "completed_samples": 8,
+  "observed_smoke_learning_rates": [
+    0.0001,
+    5.125E-05
+  ],
+  "smoke_scheduler_is_not_main1280_schedule": true,
+  "parameter_counts": {
+    "projectors": {
+      "changed": 10,
+      "total": 10
+    },
+    "vlm": {
+      "changed": 0,
+      "total": 345
+    },
+    "expert": {
+      "changed": 112,
+      "total": 145
+    }
+  },
+  "checkpoint": "checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-hestia-smoke2-002/checkpoints/000002",
+  "checkpoint_model_sha256": "deabafebcc11cfca939d6b3940bf1421b90bebfa4648709cd15a854d954b987a",
+  "recovery_state_complete": true,
+  "reload": {
+    "cases_per_process": 180,
+    "scenes": 45,
+    "noise_conditions": 4,
+    "reload_metadata_sha256": "7f499645c9302a01749951998d6870c687821a487b257b95f5a6a1ed681c8d7b",
+    "normalized_and_standard_arrays_exact": true,
+    "independent_processes": [
+      33292,
+      44860
+    ],
+    "first_metadata_sha256": "2ca2c2d3dfc45b1135f016bd6caf7b99991e64716b1a0bcc9f3bb9043ed4f8a8",
+    "chunk_length": 50
+  },
+  "resources": [
+    {
+      "stage": "preflight-b1-resources",
+      "status": "passed",
+      "elapsed_seconds": 24.768024921417236,
+      "peak_cuda_allocated_bytes": 1263628288,
+      "peak_cuda_reserved_bytes": 1325400064,
+      "peak_host_rss_bytes": 3363291136,
+      "source_sha256": "26a147d80f1a0ff8d8f223cd77b627fcccf561bb4900114930fdf741a21973a5"
+    },
+    {
+      "stage": "preflight-b4-resources",
+      "status": "passed",
+      "elapsed_seconds": 24.855143547058105,
+      "peak_cuda_allocated_bytes": 1372765184,
+      "peak_cuda_reserved_bytes": 1461714944,
+      "peak_host_rss_bytes": 3379167232,
+      "source_sha256": "95d87683e9097bce576050cf2ccb2865757d06179e200247a0c694f1dc06431c"
+    },
+    {
+      "stage": "sample-contract-resources",
+      "status": "passed",
+      "elapsed_seconds": 30.863060474395752,
+      "peak_cuda_allocated_bytes": 1405105664,
+      "peak_cuda_reserved_bytes": 1470103552,
+      "peak_host_rss_bytes": 3964018688,
+      "source_sha256": "2b42af5594fd90fe59eb9da02566eedd9986370be1a89676eae14c0d03172fbc"
+    },
+    {
+      "stage": "smoke-first-resources",
+      "status": "passed",
+      "elapsed_seconds": 66.53671145439148,
+      "peak_cuda_allocated_bytes": 1442316800,
+      "peak_cuda_reserved_bytes": 1549795328,
+      "peak_host_rss_bytes": 3962867712,
+      "source_sha256": "6663b9bcd0cad3eacc0a068efcaeb15070d396f7524e4bdfabef9373d9bbd63a"
+    },
+    {
+      "stage": "smoke-reload-resources",
+      "status": "passed",
+      "elapsed_seconds": 66.60621786117554,
+      "peak_cuda_allocated_bytes": 1442316800,
+      "peak_cuda_reserved_bytes": 1549795328,
+      "peak_host_rss_bytes": 3964416000,
+      "source_sha256": "09fc8409875e391aae23feb690df08ccf9de600021867e19613a9ddcbed0209c"
+    },
+    {
+      "stage": "smoke2-resources",
+      "status": "passed",
+      "elapsed_seconds": 27.991665840148926,
+      "peak_cuda_allocated_bytes": 2812718592,
+      "peak_cuda_reserved_bytes": 2910846976,
+      "peak_host_rss_bytes": 3627700224,
+      "source_sha256": "8d189e7bc56a01658fc8e89a5799a9bb9b9414784ce51f1c26751bc6a8908481"
+    }
+  ],
+  "shutdown": {
+    "shutdown_request_file_retrieved": false,
+    "followup_ssh_connection": "closed",
+    "automatic_shutdown_after_worker_exit_seconds": 120,
+    "platform_power_and_billing_independently_verified": false,
+    "instance_release_requested": false
+  },
+  "main_training_steps": 0,
+  "development_visual_acceptance": "not measured",
+  "gate3": "not measured",
+  "gate4": "not measured",
+  "m2_complete": false,
+  "hidden_test_loaded": false,
+  "model_data_checkpoint_downloaded_locally": false,
+  "evidence_sha256": {
+    "reports/training/hestia-preflight-20260910/002-result.json": "b225b5010013aa67b72d347b3aab44aed4ad9c324f354ae58570535baea38306",
+    "reports/training/hestia-preflight-20260910/002-observation.json": "285413af10e7c70a02bcaa15135727b559e3a108676b68cfe2f1996b737f8ca0",
+    "reports/training/hestia-preflight-20260910/002-cpu-result.json": "c979a764576d2b68ac2c3783b7c23471b4ad91abcb9282cdfa406af8532b5d09",
+    "reports/training/hestia-preflight-20260910/002-watchdog.json": "cfa6d7586008c96de8d76c4be3ee4dcbe7d50a4958501797525e201e714924bf",
+    "reports/training/hestia-preflight-20260910/002-ruff.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "reports/training/hestia-preflight-20260910/002-supervisor-exit.json": "6e1240f5fcce53aa5309b332f2c917076fbad705704de2011a00324a55fb2faf",
+    "reports/training/hestia-preflight-20260910/002-events.jsonl": "a6e1befdc453b0fec921eb90cbcc25e8dd74956a985b7dfefe1c47135ebe7869",
+    "reports/training/hestia-preflight-20260910/002-update-audit.json": "49bbdc2627a590de92cff8ed34a1c5d072f2323e532a11bec9c55d3707fadc3e",
+    "reports/training/hestia-preflight-20260910/002-registration.json": "276afc468ec96096ef0dc6127a3cc54e0a842004f7eb976f1800f86ab5a8f6f3"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "completed_stage": "smoke-independent-reload",
+  "optimizer_updates": 2,
+  "full_chunk_reload_exact": true,
+  "main_training_steps": 0,
+  "development_visual_acceptance": "not measured",
+  "hidden_test_loaded": false,
+  "m2_complete": false
+}

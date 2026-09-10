@@ -1566,6 +1566,17 @@ Revision 002 is registered in
 `verify-code` must pass CPU regressions and source checks before a GPU job can
 be prepared; the GPU worker rechecks the sealed prior result. This source repair
 does not change any learning or acceptance criterion.
+Hestia revision 002 subsequently passed at source
+`31f3c0b1fea272d8f82d93d4e6b0533bbe09d672`; see
+`reports/training/m2-smolvla-hestia-gpu-preflight-result-2026-09-10.{md,json}`.
+There were 101 CPU regression passes, one real-data pass, batch-1/4 CUDA
+forward passes, exactly two successful observed updates and exact normalized/
+standard full-chunk reload in independent processes. The 345 frozen VLM tensors
+remain unchanged; 112 expert and 10 projection tensors changed. The worker
+completed in about 290 seconds and the subsequent SSH check found the
+connection closed after its registered shutdown window. Platform billing was
+not independently verified. Main Hestia training, real B/C evidence collection,
+visual-generalization acceptance and new Gate 3/4 remain pending.
 
 Update this document in the same change whenever any of the following changes:
 

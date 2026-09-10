@@ -1,0 +1,8 @@
+{
+  "pid": 1811,
+  "started_unix": 1789041974.3038306,
+  "deadline_unix": 1789043174.3038306,
+  "registration_sha256": "276afc468ec96096ef0dc6127a3cc54e0a842004f7eb976f1800f86ab5a8f6f3",
+  "external_watchdog_verified": true,
+  "shutdown_grace_seconds": 120
+}
