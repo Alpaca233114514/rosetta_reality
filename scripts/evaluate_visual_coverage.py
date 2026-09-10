@@ -611,6 +611,8 @@ def main() -> None:
         write_json(args.output, result)
         if args.mode == "reload" and not result["passed"]:
             raise SystemExit(1)
+        if args.mode == "compare" and not result["offline_metric_criteria_passed"]:
+            raise SystemExit(1)
     print(
         json.dumps(result if args.mode == "collect" else {"status": "comparison_saved"})
     )

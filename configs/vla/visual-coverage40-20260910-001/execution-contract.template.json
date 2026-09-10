@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "protocol": "frame0_all_nonself_mean_error_v1",
+  "status": "draft_no_compute_authorization",
+  "model_execution_authorized": false,
+  "deadline_unix": null,
+  "started_unix": null,
+  "external_watchdog_verified": false,
+  "review_plan": {
+    "path": "reports/training/m2-smolvla-native-visual-coverage40-plan-2026-09-10.json",
+    "sha256": "fe6db62363d002a8159da6a8c36c52ae6dd979dd4053f6c3ac4588161b231af7"
+  },
+  "implementation_files": {
+    "scripts/run_smolvla_v2.py": "d703b63b8ebf96b9579cb7af41e3ec84645a9a225c21a72698451ee782559327",
+    "scripts/train_smolvla_v2.py": "f7aafb6a418ebb1032e862d614388bc87dee77011c63ab3b7873a43ac4d7101e",
+    "scripts/smolvla_forward_check.py": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8",
+    "src/rosetta_reality/vla/training/plan.py": "16dcf9651634dcb17ce0fce219cc6e933ff1504c12c45bed69718b77b7bbe8ee",
+    "src/rosetta_reality/vla/training/features.py": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891",
+    "src/rosetta_reality/vla/training/context.py": "3681409b19dbae403a22dbf5dcff64e8d767b0ffea59b4be1260c2f1538c68bd",
+    "src/rosetta_reality/vla/training/launch.py": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0",
+    "src/rosetta_reality/vla/fixed_samples.py": "1627cb54f4c352a8832f7fa4abb2ded76d3d960799dccec8460cdd0be82a954a",
+    "src/rosetta_reality/vla/fixed_visual_samples.py": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c",
+    "src/rosetta_reality/vla/action_space.py": "4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb",
+    "src/rosetta_reality/vla/processor.py": "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384",
+    "scripts/evaluate_visual_native_small.py": "1b038e6a7753a59591a093c36fef32fd14a90fad884f0fda52a5090809d8f9ed",
+    "scripts/evaluate_visual_coverage.py": "d92d496e072fc83df4c543fbbbb4fe4ea8f069b9cafc55a22e1f68520c13fee1",
+    "scripts/prepare_visual_coverage.py": "abdddda17118e8fa4904c852ebb8245f61680a93fce3b1af7dbabe9dfface0fe",
+    "scripts/inspect_visual_coverage_sampler.py": "6f7ac9b856a4fbc863e22c24ea3c3ab6411589d18f0d46a507ac346911b6909a",
+    "src/rosetta_reality/vla/visual_coverage.py": "c20f2cce9b69aec029cbf785e7586ac500362a5e9a4a39728ff78017c9caa259",
+    "src/rosetta_reality/vla/vision_diagnostics.py": "9bf5ab370be5f803a205b9e2a596bd25ed64b32514afcb5c9c39ef770a40fe63"
+  },
+  "upstream_files": {
+    "policies/smolvla/modeling_smolvla.py": "37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d",
+    "datasets/sampler.py": "f715aaaa1118ef8901928f92975f7bc08bca412860f072bbcca84555303cc38e",
+    "optim/schedulers.py": "05d57770348fbb3f412f52804a8d0f015f8128a37c55d5ce8ed9af6ed8522bc9"
+  },
+  "stages": {
+    "preflight-b1": {
+      "path": "configs/vla/visual-coverage40-20260910-001/preflight-b1.json",
+      "sha256": "dcca7f360c9876433a15fdf1e8f7f76b3b1d76c507cc333aaf507a418bd5b58a"
+    },
+    "preflight-b4": {
+      "path": "configs/vla/visual-coverage40-20260910-001/preflight-b4.json",
+      "sha256": "2c1ab02116278f6fd7cf9d2c5798c412883c1fb017018d9696c3ad64f4df6168"
+    },
+    "smoke2": {
+      "path": "configs/vla/visual-coverage40-20260910-001/smoke2.json",
+      "sha256": "0a26cb63b453cf4fa9b84fbea8953af40c93ec0742eee5272ccdcfe22d99fb1d"
+    },
+    "main256": {
+      "path": "configs/vla/visual-coverage40-20260910-001/main256.json",
+      "sha256": "bbc05a641d9731d9c7350aa251df3a2be476c2462886ed06ffb5e3f033438da8"
+    }
+  },
+  "stage_order": [
+    "doctor_and_static_checks",
+    "benchmark",
+    "preflight-b1",
+    "preflight-b4",
+    "smoke2",
+    "smoke2_independent_reload",
+    "control_reproduction",
+    "main256_fresh_base",
+    "frozen_and_optimizer_audit",
+    "seal_checkpoints",
+    "A_collect",
+    "A_fresh_process_collect",
+    "A_reload_compare",
+    "B_collect",
+    "B_fresh_process_collect",
+    "B_reload_compare",
+    "compare_arms"
+  ],
+  "prerequisite_evidence": {
+    "environment": null,
+    "sample_contract": null,
+    "resource_preflight": null,
+    "control_reproduction": null,
+    "two_step_smoke_reload": null,
+    "B_training_integrity": null
+  },
+  "resource_limits": {
+    "cuda_allocated_bytes": 8589934592,
+    "cuda_reserved_bytes": 10737418240,
+    "host_rss_bytes": 10737418240
+  },
+  "pending": [
+    "fresh GPU/compute authorization and shared deadline/watchdog",
+    "live device, disk budget, benchmark, preflight and smoke/reload",
+    "remaining control tokenizer hash and actual consumed processor dependency inventory",
+    "full sample/nonvisual contract and 1024-exposure schedule before optimization",
+    "fresh B checkpoint identity and frozen/updated tensor audit after training"
+  ],
+  "arms": {
+    "A": {
+      "run_name": "m2-smolvla450m-visual-native-b4-pilot-003",
+      "plan": {
+        "path": "configs/vla/m2-smolvla450m-visual-native-b4-pilot-003.yaml",
+        "sha256": "17c350fdb85e5416ed60027b20d128ddd1a806716959133c1698840c78b71742"
+      },
+      "checkpoint_relative_to_root": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-native-b4-pilot-003/checkpoints/000256/pretrained_model",
+      "checkpoint_files": {
+        "config.json": "7fad9d1cede618b76d7e98aae08b6aedc6ff1fd1cb374380b137f4d7ce7b0d55",
+        "model.safetensors": "fd95a19ca8d8f9e1c6a5c477807aaf69fc3e19bb15e626bd53e4224da8ad3a5c",
+        "policy_postprocessor.json": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+        "policy_postprocessor_step_0_unnormalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "policy_preprocessor.json": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+        "policy_preprocessor_step_7_normalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "tokenizer/chat_template.jinja": null,
+        "tokenizer/tokenizer.json": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+        "tokenizer/tokenizer_config.json": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+        "train_config.json": "478308412f7aac5a418bbb38c18546b958706d3ae9c1c7c16fe3bb14e628bbd3"
+      }
+    },
+    "B": {
+      "run_name": "m2-smolvla450m-visual-coverage40-main256-001",
+      "plan": {
+        "path": "configs/vla/visual-coverage40-20260910-001/main256.json",
+        "sha256": "bbc05a641d9731d9c7350aa251df3a2be476c2462886ed06ffb5e3f033438da8"
+      },
+      "checkpoint_relative_to_root": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/smoke/m2-smolvla450m-visual-coverage40-main256-001/checkpoints/000256/pretrained_model",
+      "checkpoint_files": null
+    }
+  },
+  "main_phase": "smoke",
+  "B_initialization": "revision_pinned_base_model",
+  "A_retrained": false,
+  "old_optimizer_resumed": false,
+  "sampler_exposures": 1024,
+  "equal_wall_time_claim": false,
+  "m2_complete": false
+}

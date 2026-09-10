@@ -245,6 +245,24 @@ def test_draft_refuses_execution_before_model_import(monkeypatch):
         )
 
 
+def test_negative_comparison_cli_saves_evidence_and_stops(tmp_path, monkeypatch):
+    import sys
+
+    module = load_script("evaluate_visual_coverage")
+    for name in ("A", "B"):
+        arrays, meta = evidence(name)
+        write_bundle(tmp_path / name, arrays, meta)
+    output = tmp_path / "comparison.json"
+    monkeypatch.setattr(sys, "argv", ["evaluate_visual_coverage.py", "compare",
+        "--first", str(tmp_path / "A"), "--second", str(tmp_path / "B"),
+        "--output", str(output)])
+    with pytest.raises(SystemExit) as error:
+        module.main()
+    assert error.value.code == 1
+    result = json.loads(output.read_text())
+    assert not result["coverage_gain_passed"] and not result["m2_complete"]
+
+
 def test_plan_changes_active_scope_and_preserves_native_recipe():
     module = load_script("prepare_visual_coverage")
     control = yaml.safe_load((ROOT / module.CONTROL).read_text())

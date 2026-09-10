@@ -1,0 +1,48 @@
+{
+  "created_utc": "2026-09-10T12:07:46.79438+08:00",
+  "source_commit": "05291439c01fd0ea5444e80702831d70e152481a",
+  "workspace_relative_to_durable_root": "dev/visual-coverage40-20260910-0529143",
+  "promoted_sources": {
+    "src/rosetta_reality/vla/fixed_visual_samples.py": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c",
+    "src/rosetta_reality/vla/training/features.py": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891",
+    "src/rosetta_reality/vla/training/launch.py": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0",
+    "scripts/train_smolvla_v2.py": "f7aafb6a418ebb1032e862d614388bc87dee77011c63ab3b7873a43ac4d7101e",
+    "scripts/smolvla_forward_check.py": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8",
+    "scripts/evaluate_visual_native_small.py": "1b038e6a7753a59591a093c36fef32fd14a90fad884f0fda52a5090809d8f9ed",
+    "tests/test_smolvla_fixed_visual_samples.py": "d929cb853ab66d8acb88bd97979327d291f1011fb0f0e2e4727514c3446b1edf",
+    "tests/test_smolvla_tracking_composition.py": "e78cd4a9caee3bbd0dda232e9841ff579d7d90fde21c186ef2fa0b000b3a05a7",
+    "tests/test_smolvla_v2_error_boundaries.py": "dc6dba91330bdf60755e9c87171a7592c89c4e3a8e6a2ef738e4e01de1d2cc04"
+  },
+  "original_final_audit_source_hashes_unchanged": true,
+  "staged_prerequisites": {
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate1-e41df36c5d90.json": "858f6d3ce43484de5b7b50d0e68f5267d4b3fdb2ebf26e099c3adb3602d00c81",
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate2-10fb9a9a364a.json": "26f373a63becbcfa879505ecb1a82a1fc13d724ce0638e43cdc1e3455b75b0d6",
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/normalization/train-only-3e3c6b9d347e5e71.json": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988",
+    "runs/visual-native-small-001/preregistration.json": "23ab7d615d70d261d303e44430cb06f152cbbb0cf5f51c7d1b34fb71fbd14a79"
+  },
+  "view_uses_existing_durable_cache": true,
+  "plan_structure_checks": {
+    "preflight-b1": {
+      "candidate_schema_valid_after_status_only_activation": true,
+      "actual_draft_rejected": true
+    },
+    "preflight-b4": {
+      "candidate_schema_valid_after_status_only_activation": true,
+      "actual_draft_rejected": true
+    },
+    "smoke2": {
+      "candidate_schema_valid_after_status_only_activation": true,
+      "actual_draft_rejected": true
+    },
+    "main256": {
+      "candidate_schema_valid_after_status_only_activation": true,
+      "actual_draft_rejected": true
+    }
+  },
+  "free_disk_bytes": 8379719680,
+  "model_loaded": false,
+  "data_loaded": false,
+  "optimizer_steps": 0,
+  "nested_docker_used": false,
+  "gpu": "No devices were found"
+}
