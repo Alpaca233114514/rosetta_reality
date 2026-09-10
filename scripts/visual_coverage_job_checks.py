@@ -22,6 +22,7 @@ def main():
     import evaluate_visual_native_small as n
     import numpy as np
     import torch
+
     from rosetta_reality.vla.fixed_visual_samples import resolve_visual_sample_indices
     from rosetta_reality.vla.processor import PiAlohaPostprocessorStep
 
