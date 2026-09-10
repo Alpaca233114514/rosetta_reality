@@ -1,4 +1,5 @@
 """Exercise real process-group termination and evidence-preserving writes."""
+
 import importlib.util
 import subprocess
 import sys
@@ -7,14 +8,20 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-SPEC = importlib.util.spec_from_file_location("coverage_job", ROOT / "scripts/run_visual_coverage_job.py")
+SPEC = importlib.util.spec_from_file_location(
+    "coverage_job", ROOT / "scripts/run_visual_coverage_job.py"
+)
 JOB = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(JOB)
 
 
 def test_termination_targets_only_owned_process_group():
-    owned = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(60)"], start_new_session=True)
-    unrelated = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(60)"], start_new_session=True)
+    owned = subprocess.Popen(
+        [sys.executable, "-c", "import time; time.sleep(60)"], start_new_session=True
+    )
+    unrelated = subprocess.Popen(
+        [sys.executable, "-c", "import time; time.sleep(60)"], start_new_session=True
+    )
     try:
         JOB.terminate_group(owned)
         assert owned.poll() is not None
