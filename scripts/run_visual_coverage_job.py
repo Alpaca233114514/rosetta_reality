@@ -22,7 +22,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 SELF = Path(__file__).resolve()
-JOB_REL = Path("runs/visual-coverage40-unattended-002")
+JOB_REL = Path("runs/visual-coverage40-unattended-003")
 JOB = ROOT / JOB_REL
 TEMPLATE = ROOT / "configs/vla/visual-coverage40-20260910-001/execution-contract.template.json"
 CONTROL = "configs/vla/m2-smolvla450m-visual-native-b4-pilot-003.yaml"
@@ -122,7 +122,7 @@ def prepare():
         plan = load(ROOT / item["path"])
         plan["status"] = "preregistered"
         for key in ("run_name", "plan_id"):
-            plan[key] = plan[key].removesuffix("-001") + "-002"
+            plan[key] = plan[key].removesuffix("-001") + "-003"
         plan["optimizer_smoke"]["run_name"] = plan["run_name"]
         plan["preflight"]["run_name"] = plan["run_name"] + "-preflight"
         for entry in plan["prerequisites"].values():
@@ -349,13 +349,15 @@ def supervise():
     registration = load(JOB / "registration.json")
     for name, sha in registration["job_sources"].items():
         assert digest(ROOT / name) == sha
-    started = time.time()
+    started = float(os.environ.get("ROSETTA_JOB_STARTED_UNIX", time.time()))
+    deadline = float(os.environ.get("ROSETTA_JOB_DEADLINE_UNIX", started + 1800))
+    assert started <= time.time() < deadline and 0 < deadline - started <= 1800
     save(
         JOB / "watchdog.json",
         {
             "pid": os.getpid(),
             "started_unix": started,
-            "deadline_unix": started + 1800,
+            "deadline_unix": deadline,
             "registration_sha256": digest(JOB / "registration.json"),
             "external_watchdog_verified": True,
             "shutdown_grace_seconds": 120,
@@ -374,7 +376,7 @@ def supervise():
             {"pid": process.pid, "pgid": process.pid, "supervisor_pid": os.getpid()},
         )
         try:
-            code = process.wait(timeout=1800)
+            code = process.wait(timeout=max(1, deadline - time.time()))
         except subprocess.TimeoutExpired:
             event("shared_deadline_reached")
             terminate_group(process)
@@ -403,8 +405,8 @@ def supervise():
         time.sleep(2)
     os.sync()
     if code != 0:
-        event("failed_job_held_for_inspection", shutdown_at_unix=started + 1800)
-        time.sleep(max(0, started + 1800 - time.time()))
+        event("failed_job_held_for_inspection", shutdown_at_unix=deadline)
+        time.sleep(max(0, deadline - time.time()))
     try:
         shutdown()
     except Exception:

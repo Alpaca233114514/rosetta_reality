@@ -18,6 +18,17 @@ def save(path, value):
         json.dump(value, stream, indent=2, allow_nan=False)
 
 
+def validate_state_action_shapes(batch, *, n_obs_steps, chunk_size, action_dimension):
+    expected = {
+        "observation.state": (1, n_obs_steps, action_dimension),
+        "action": (1, chunk_size, action_dimension),
+    }
+    for key, shape in expected.items():
+        actual = tuple(batch[key].shape)
+        if actual != shape:
+            raise ValueError(f"Native {key} shape differs: expected {shape}, received {actual}")
+
+
 def main():
     import evaluate_visual_native_small as n
     import numpy as np
@@ -131,7 +142,12 @@ def main():
         }
         raw[camera] = raw[camera].float() / 255
         batch = pre(raw)
-        assert batch["observation.state"].shape == (1, 14) and batch["action"].shape == (1, 50, 14)
+        validate_state_action_shapes(
+            batch,
+            n_obs_steps=cfg.n_obs_steps,
+            chunk_size=cfg.chunk_size,
+            action_dimension=physical.dimension,
+        )
         images, masks = policy.prepare_images(batch)
         state = policy.prepare_state(batch)
         assert len(images) == len(masks) == 3 and state.shape == (1, 32)

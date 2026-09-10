@@ -5,6 +5,7 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -89,3 +90,25 @@ def test_stage_writer_preserves_failure_for_invalid_numeric_value(tmp_path, monk
     with pytest.raises(ValueError, match="AdamW optimizer contract"):
         JOB.save_stage_plan(target, plan)
     assert target.is_file()
+
+
+@pytest.mark.parametrize("state_shape", [(1, 14), (1, 2, 14), (1, 1, 6)])
+def test_state_contract_rejects_missing_history_or_wrong_dimensions(state_shape):
+    from visual_coverage_job_checks import validate_state_action_shapes
+
+    batch = {
+        "observation.state": SimpleNamespace(shape=state_shape),
+        "action": SimpleNamespace(shape=(1, 50, 14)),
+    }
+    with pytest.raises(ValueError, match="Native observation.state shape differs"):
+        validate_state_action_shapes(batch, n_obs_steps=1, chunk_size=50, action_dimension=14)
+
+
+def test_state_contract_accepts_registered_single_frame_history():
+    from visual_coverage_job_checks import validate_state_action_shapes
+
+    batch = {
+        "observation.state": SimpleNamespace(shape=(1, 1, 14)),
+        "action": SimpleNamespace(shape=(1, 50, 14)),
+    }
+    validate_state_action_shapes(batch, n_obs_steps=1, chunk_size=50, action_dimension=14)
