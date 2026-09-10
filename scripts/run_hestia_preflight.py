@@ -25,6 +25,7 @@ JOB = ROOT / JOB_REL
 job.SELF, job.JOB_REL, job.JOB = SELF, JOB_REL, JOB
 PLAN_DOC = "reports/training/m2-smolvla-hestia-preflight-amendment-002-2026-09-10.md"
 QA = ROOT / "runs/hestia-code-validation-002"
+NATIVE_TRAINER_SHA = "4d15d283ea54583f552b32088db0b6c195250905ca6daf06d4670383790e2059"
 CHECK_FILES = [
     "scripts/run_hestia_preflight.py",
     "scripts/evaluate_visual_fit_evidence.py",
@@ -56,7 +57,7 @@ def verify_code():
     identity = code_identity()
     upstream = {
         **UPSTREAM,
-        "scripts/lerobot_train.py": "4d15d283ea54583f552b32088db0b6c195250905ca6daf06d4670383790e2059",
+        "scripts/lerobot_train.py": NATIVE_TRAINER_SHA,
     }
     installed = Path(next(iter(find_spec("lerobot").submodule_search_locations)))
     for name, sha in upstream.items():

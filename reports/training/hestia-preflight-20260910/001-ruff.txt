@@ -1,0 +1,72 @@
+E402 Module level import not at top of file
+  --> scripts/run_hestia_preflight.py:16:1
+   |
+14 | sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
+15 |
+16 | import run_visual_coverage_job as job
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+17 | from prepare_visual_coverage import CONTROL, REVIEW, UPSTREAM, build_plans
+   |
+help: Move module level imports to top of file
+
+E402 Module level import not at top of file
+  --> scripts/run_hestia_preflight.py:17:1
+   |
+16 | import run_visual_coverage_job as job
+17 | from prepare_visual_coverage import CONTROL, REVIEW, UPSTREAM, build_plans
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+18 |
+19 | SELF = Path(__file__).resolve()
+   |
+help: Move module level imports to top of file
+
+E501 Line too long (113 > 100)
+   --> scripts/run_hestia_preflight.py:121:101
+    |
+119 |         plan.update(status="preregistered", plan_id=name, run_name=name)
+120 |         plan["hypothesis"] = (
+121 |             "Verify native Hestia inputs and observed two-step update/reload before the fit-strength diagnostic."
+    |                                                                                                     ^^^^^^^^^^^^^
+122 |         )
+123 |         plan["training"].update(steps=1280, save_freq=320, checkpoint_steps=[320, 640, 960, 1280])
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+   --> scripts/run_hestia_preflight.py:169:5
+    |
+168 |   def observed_smoke():
+169 | /     import run_smolvla_v2
+170 | |     import torch
+171 | |     from lerobot.scripts import lerobot_train
+172 | |     from rosetta_reality.vla.training.observed_launch import run_observed_launch
+    | |________________________________________________________________________________^
+173 |
+174 |       watchdog = job.load(JOB / "watchdog.json")
+    |
+help: Organize imports
+    |
+171 |     from lerobot.scripts import lerobot_train
+172 +
+173 |     from rosetta_reality.vla.training.observed_launch import run_observed_launch
+    |
+
+I001 [*] Import block is un-sorted or un-formatted
+ --> tests/test_smolvla_observed_launch.py:3:1
+  |
+1 |   """Observer wiring must cover native feature teardown and incomplete launches."""
+2 |
+3 | / import json
+4 | | from types import SimpleNamespace
+5 | |
+6 | | import pytest
+7 | | from rosetta_reality.vla.training.observed_launch import run_observed_launch
+  | |____________________________________________________________________________^
+help: Organize imports
+  |
+6 | import pytest
+7 +
+8 | from rosetta_reality.vla.training.observed_launch import run_observed_launch
+  |
+
+Found 5 errors.
+[*] 2 fixable with the `--fix` option.

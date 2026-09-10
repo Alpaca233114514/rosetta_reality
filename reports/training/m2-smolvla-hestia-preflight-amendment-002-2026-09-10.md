@@ -13,3 +13,5 @@
 各 GPU 子阶段名称后缀使用 `-002`，不覆盖 001。Hestia 主候选炉名保持 `m2-smolvla450m-visual-hestia-fit40-001`；当前仍不运行 1280-step 主训练。完整候选协议与解释见 `reports/training/m2-smolvla-hestia-gpu-preflight-plan-2026-09-10.md`。
 
 如果 CPU 代码验收失败，只保留日志、修复代码并重新登记源码；不启动 GPU 模型。GPU 前置失败后停止本模块，保留结果并按授权关机。M2 和视觉泛化尚未修复。
+
+首次 CPU 门禁源码 `127873e0d0def330c3e99d2edb42c36e208a3974` 被新增 trainer hash 的 103 字符行触发 E501 阻断，pytest/GPU 尚未执行。修正为模块级 hash 常量，数值不变；新 clean commit 工作区重新做 CPU 验收，保留原工作区日志，不创建或续跑失败 GPU job。
