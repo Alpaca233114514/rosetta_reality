@@ -119,9 +119,9 @@
     "reports/training/hestia-collector-20260910/001-main1280.yaml": "70fb068fc732b02c4bfd3cf04e70e5465e3094e8d32750bb670009e2f2f2507b",
     "reports/training/hestia-collector-20260910/001-native-config-roundtrip.json": "b27f332ffc440db914bbbc8e9c1056039586ef4d1e7b03692f4d89e24cbd7de2",
     "reports/training/hestia-collector-20260910/001-prepare.log": "1ca68c14645893a869e2b71a3210ae6d98ddb2dd3266854b5177fb86bad2d73c",
-    "reports/training/hestia-collector-20260910/001-pytest-summary.json": "c8825ba8931800f04c133f6f42c5a2d84ff22339e9207f8be9d50dd2ce4a3479",
+    "reports/training/hestia-collector-20260910/001-pytest-summary.json": "94b05f8915953b2023d56c28e794b99504d9ffb884bf9a2cb6719fdb876ede11",
     "reports/training/hestia-collector-20260910/001-pytest.log": "de65fd9c22fd71769bc7dfc854061b41e60b3317c9b308cb4faa13e4fca66275",
-    "reports/training/hestia-collector-20260910/001-raw-evidence-sha256.json": "be73ef81b1ba8af0a5c81d47195f7a41f76b0207c7c07d0d538fdbb223297493",
+    "reports/training/hestia-collector-20260910/001-raw-evidence-sha256.json": "dd72119066b57e425eb5142c9a6937a424085eb3cf62ad112c9c546ba9ee44f3",
     "reports/training/hestia-collector-20260910/001-registration.json": "949da513094d7c82073131ef7c64f5e840ec2ac261bf46b0b6c07caaccba9964",
     "reports/training/hestia-collector-20260910/001-result.json": "ad361e76d445191d704453632ec505f84e5d474dceb228866cd3e25b9b0db9a5",
     "reports/training/hestia-collector-20260910/001-review.json": "addafc347375e2cd335c69c80560b17aa3d712baf8b77707b561a389306b4354",
@@ -133,5 +133,6 @@
     "reports/training/hestia-collector-20260910/001-watchdog.json": "c36d2917c51af2235c8898e61ebbf44ac8c3a6797e4ef974fbe37f2981b64c72",
     "reports/training/hestia-collector-20260910/001-worker-process.json": "d27c7fd6850e2270d2eb465e1fae62f69aaed480279e7561eefd80375b80f5ed",
     "reports/training/hestia-collector-20260910/001-worker.log": "7448a3e79ad630f1a212347d64777a657efae39e50b6d23aed965f97143b9488"
-  }
+  },
+  "artifact_hash_basis": "Published file bytes; local derived JSON normalized to Git LF. Raw remote evidence files unchanged."
 }
