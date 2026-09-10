@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "status": "static_audit_complete_runtime_pending",
+  "source_commit": "d3fb016419d20fcd560959d41b7fac4c6987b80b",
+  "upstream_revision": "c903b114a90e703b3f7d0c46cb38727c328c55ff",
+  "upstream_sha256": {
+    "optim/schedulers.py": "05d57770348fbb3f412f52804a8d0f015f8128a37c55d5ce8ed9af6ed8522bc9",
+    "scripts/lerobot_train.py": "4d15d283ea54583f552b32088db0b6c195250905ca6daf06d4670383790e2059",
+    "datasets/sampler.py": "f715aaaa1118ef8901928f92975f7bc08bca412860f072bbcca84555303cc38e"
+  },
+  "official_downloads_match_prior_worker_hashes": true,
+  "local_sources": {
+    "src/rosetta_reality/vla/training/plan.py": "16dcf9651634dcb17ce0fce219cc6e933ff1504c12c45bed69718b77b7bbe8ee",
+    "src/rosetta_reality/vla/fixed_visual_samples.py": "7b82fed9ab4503065ee7d812848ea033ae81784288ff7d072cccc36dade32f4c",
+    "src/rosetta_reality/vla/training/features.py": "2a9116252e59958c633672da132d0b52a53f71beb45d473fa670d23901e99891",
+    "src/rosetta_reality/vla/training/launch.py": "c8247d928547e0b86bbc128ff8a9fee733581f9ff8b5c9c41e46b5cf57f24fa0",
+    "scripts/run_smolvla_v2.py": "d703b63b8ebf96b9579cb7af41e3ec84645a9a225c21a72698451ee782559327",
+    "scripts/evaluate_visual_coverage.py": "d92d496e072fc83df4c543fbbbb4fe4ea8f069b9cafc55a22e1f68520c13fee1"
+  },
+  "original_draft_can_launch": false,
+  "rejection_reasons": [
+    "schema requires decay steps equal training steps",
+    "explicit visual samples reject formal phase"
+  ],
+  "original_draft_modified_to_bypass_guards": false,
+  "candidate_intervention": "1280 updates with matched 1280-step cosine decay, warmup 16 unchanged",
+  "candidate_is_pure_repetition_comparison": false,
+  "candidate_first256_weights_expected_equal": false,
+  "candidate_same_lr_prefix_updates": 16,
+  "lr_grid_derivation": "Arithmetic transcription of SHA-matched upstream formula; no optimizer executed",
+  "lr_grid": [
+    {
+      "optimizer_update_index_zero_based": 0,
+      "B_decay256_lr": 5.882352941176472E-06,
+      "candidate_decay1280_lr": 5.882352941176472E-06
+    },
+    {
+      "optimizer_update_index_zero_based": 15,
+      "B_decay256_lr": 9.411764705882353E-05,
+      "candidate_decay1280_lr": 9.411764705882353E-05
+    },
+    {
+      "optimizer_update_index_zero_based": 16,
+      "B_decay256_lr": 9.90632824196575E-05,
+      "candidate_decay1280_lr": 9.996241551673525E-05
+    },
+    {
+      "optimizer_update_index_zero_based": 128,
+      "B_decay256_lr": 5.125E-05,
+      "candidate_decay1280_lr": 9.761400516938874E-05
+    },
+    {
+      "optimizer_update_index_zero_based": 255,
+      "B_decay256_lr": 2.503670785341706E-06,
+      "candidate_decay1280_lr": 9.0759788414814E-05
+    },
+    {
+      "optimizer_update_index_zero_based": 256,
+      "B_decay256_lr": 2.5E-06,
+      "candidate_decay1280_lr": 9.06895784757787E-05
+    },
+    {
+      "optimizer_update_index_zero_based": 320,
+      "B_decay256_lr": 2.5E-06,
+      "candidate_decay1280_lr": 8.572145558284418E-05
+    },
+    {
+      "optimizer_update_index_zero_based": 640,
+      "B_decay256_lr": 2.5E-06,
+      "candidate_decay1280_lr": 5.125E-05
+    },
+    {
+      "optimizer_update_index_zero_based": 960,
+      "B_decay256_lr": 2.5E-06,
+      "candidate_decay1280_lr": 1.677854441715581E-05
+    },
+    {
+      "optimizer_update_index_zero_based": 1279,
+      "B_decay256_lr": 2.5E-06,
+      "candidate_decay1280_lr": 2.5001468331826876E-06
+    },
+    {
+      "optimizer_update_index_zero_based": 1280,
+      "B_decay256_lr": 2.5E-06,
+      "candidate_decay1280_lr": 2.5E-06
+    }
+  ],
+  "lr_sum_B256": 0.012373293623447964,
+  "lr_sum_candidate1280": 0.0648489320600951,
+  "lr_sum_ratio": 5.241040424127927,
+  "candidate_exposures": 5120,
+  "candidate_train_episodes": 40,
+  "candidate_repetitions_per_episode": 128,
+  "candidate_expected_unused_prefetch_at_final_epoch_boundary": 0,
+  "candidate_prefetch_runtime_verified": false,
+  "candidate_executed": false,
+  "model_loaded": false,
+  "dataset_loaded": false,
+  "runtime_tests_executed": false,
+  "hidden_test_loaded": false,
+  "m2_complete": false,
+  "local_source_hash_mode": "UTF-8 text with LF newlines, matching Linux source files",
+  "prior_verified_accelerate_source_sha256": "e08c5f5cd3f7a8b8aaece03ad51f1c37994e390faf47d368281ad49c31bc84d1"
+}

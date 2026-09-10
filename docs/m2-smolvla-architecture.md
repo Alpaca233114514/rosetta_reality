@@ -1523,6 +1523,15 @@ intervention therefore failed; M2 remains incomplete and no new Gate 3/4 was mea
 Historical stopped reports remain unchanged. The optional next fit-strength design is
 `reports/training/m2-smolvla-athena-fit-strength-draft-2026-09-10.md`; it is a non-launchable
 draft with unresolved scheduler/entry-point checks, not an active training run.
+The follow-up static audit in
+`reports/training/m2-smolvla-athena-static-audit-2026-09-10.{md,json}` rejects that
+draft's 1280-training / 256-decay combination under the existing step-matched
+optimizer schema, and confirms that formal mode cannot use the smoke-only visual
+sample contract. No gate was relaxed. The revised, still non-launchable candidate is
+`reports/training/m2-smolvla-athena-fit-strength-revised-draft-2026-09-10.md`:
+1280 updates with matched cosine decay, explicit joint intervention interpretation,
+and separate consumed/yielded sample auditing at exact epoch boundaries. Its real
+CPU contract checks and any GPU execution remain pending; historical B is unchanged.
 
 Update this document in the same change whenever any of the following changes:
 
