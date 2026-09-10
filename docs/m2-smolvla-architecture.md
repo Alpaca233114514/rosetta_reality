@@ -1559,6 +1559,13 @@ real preflight, two optimizer updates and independent full-chunk reload with
 a 1200-second supervisor and requested shutdown. The 1280-update candidate
 and its model evidence collector remain pending; neither this registration
 nor synthetic tests change the negative visual-generalization or M2 result.
+The first Hestia dispatch stopped at Ruff before any model execution. Its exact
+static failure is retained under `reports/training/hestia-preflight-20260910/`.
+Revision 002 is registered in
+`reports/training/m2-smolvla-hestia-preflight-amendment-002-2026-09-10.md`:
+`verify-code` must pass CPU regressions and source checks before a GPU job can
+be prepared; the GPU worker rechecks the sealed prior result. This source repair
+does not change any learning or acceptance criterion.
 
 Update this document in the same change whenever any of the following changes:
 

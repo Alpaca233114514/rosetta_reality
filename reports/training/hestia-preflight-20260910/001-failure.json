@@ -1,0 +1,7 @@
+{
+  "stage": "ruff",
+  "error_type": "CalledProcessError",
+  "status": "failed",
+  "main_training_steps": 0,
+  "m2_complete": false
+}

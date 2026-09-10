@@ -4,6 +4,7 @@ import json
 from types import SimpleNamespace
 
 import pytest
+
 from rosetta_reality.vla.training.observed_launch import run_observed_launch
 
 

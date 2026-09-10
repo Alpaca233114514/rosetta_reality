@@ -8,19 +8,108 @@ import signal
 import subprocess
 import sys
 import time
+import xml.etree.ElementTree as ET
+from importlib.metadata import version
+from importlib.util import find_spec
 from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[1]
-sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 
 import run_visual_coverage_job as job
 from prepare_visual_coverage import CONTROL, REVIEW, UPSTREAM, build_plans
 
+ROOT = Path(__file__).resolve().parents[1]
+sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
+
 SELF = Path(__file__).resolve()
-JOB_REL = Path("runs/hestia-gpu-preflight-001")
+JOB_REL = Path("runs/hestia-gpu-preflight-002")
 JOB = ROOT / JOB_REL
 job.SELF, job.JOB_REL, job.JOB = SELF, JOB_REL, JOB
-PLAN_DOC = "reports/training/m2-smolvla-hestia-gpu-preflight-plan-2026-09-10.md"
+PLAN_DOC = "reports/training/m2-smolvla-hestia-preflight-amendment-002-2026-09-10.md"
+QA = ROOT / "runs/hestia-code-validation-002"
+CHECK_FILES = [
+    "scripts/run_hestia_preflight.py",
+    "scripts/evaluate_visual_fit_evidence.py",
+    "src/rosetta_reality/vla/visual_fit.py",
+    "src/rosetta_reality/vla/visual_coverage.py",
+    "src/rosetta_reality/vla/training/observed_launch.py",
+    "tests/test_smolvla_visual_fit.py",
+    "tests/test_smolvla_observed_launch.py",
+]
+TESTS = [
+    "visual_fit",
+    "observed_launch",
+    "training_observation",
+    "visual_coverage",
+    "fixed_visual_samples",
+    "tracking_composition",
+    "v2_error_boundaries",
+]
+
+
+def code_identity():
+    paths = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode().split("\0")
+    return {p: job.digest(ROOT / p) for p in paths if p.endswith((".py", ".yaml", ".json"))}
+
+
+def verify_code():
+    """CPU-only acceptance must complete before preparing a GPU job."""
+    QA.mkdir(parents=True, exist_ok=False)
+    identity = code_identity()
+    upstream = {
+        **UPSTREAM,
+        "scripts/lerobot_train.py": "4d15d283ea54583f552b32088db0b6c195250905ca6daf06d4670383790e2059",
+    }
+    installed = Path(next(iter(find_spec("lerobot").submodule_search_locations)))
+    for name, sha in upstream.items():
+        assert job.digest(installed / name) == sha, "Native source changed: " + name
+    for name, command in (
+        ("ruff", [sys.executable, "-m", "ruff", "check", *CHECK_FILES]),
+        (
+            "regressions",
+            [
+                sys.executable,
+                "-m",
+                "pytest",
+                "-q",
+                *["tests/test_smolvla_" + x + ".py" for x in TESTS],
+                "--junitxml=" + str(QA / "pytest.xml"),
+            ],
+        ),
+    ):
+        with (QA / (name + ".log")).open("x") as log:
+            subprocess.run(
+                command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, check=True, timeout=180
+            )
+    suite = ET.parse(QA / "pytest.xml").getroot()
+    assert not any(
+        int(s.attrib.get(k, 0))
+        for s in suite.iter("testsuite")
+        for k in ("failures", "errors", "skipped")
+    )
+    assert identity == code_identity(), "Source changed during CPU validation"
+    job.save(
+        QA / "result.json",
+        {
+            "status": "passed",
+            "source_files": identity,
+            "upstream_files": upstream,
+            "tests": sum(int(s.attrib["tests"]) for s in suite.iter("testsuite")),
+            "packages": {p: version(p) for p in ("torch", "lerobot", "accelerate", "numpy")},
+            "smolvla_weights_loaded": False,
+            "real_data_loaded": False,
+            "gpu_model_execution": False,
+            "m2_complete": False,
+        },
+    )
+
+
+def check_code_validation():
+    result = job.load(QA / "result.json")
+    assert result["status"] == "passed" and result["source_files"] == code_identity()
+    installed = Path(next(iter(find_spec("lerobot").submodule_search_locations)))
+    for name, sha in result["upstream_files"].items():
+        assert job.digest(installed / name) == sha, "Native source changed: " + name
+    for name, expected in result["packages"].items():
+        assert version(name) == expected, "Environment changed since CPU validation"
 
 
 def supervise():
@@ -86,6 +175,7 @@ def prepare():
     """Seal source, original inputs and three unique plans before execution."""
     if subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT).strip():
         raise ValueError("A clean immutable source checkout is required")
+    check_code_validation()
     control = job.load(ROOT / CONTROL)
     for name, sha in control["implementation_files"].items():
         assert job.digest(ROOT / name) == sha, name
@@ -115,10 +205,11 @@ def prepare():
     stages = build_plans(control, job.load(ROOT / REVIEW))
     for stage in ("preflight-b1", "preflight-b4", "smoke2"):
         plan = stages[stage]
-        name = "m2-smolvla450m-visual-hestia-" + stage + "-001"
+        name = "m2-smolvla450m-visual-hestia-" + stage + "-002"
         plan.update(status="preregistered", plan_id=name, run_name=name)
         plan["hypothesis"] = (
-            "Verify native Hestia inputs and observed two-step update/reload before the fit-strength diagnostic."
+            "Verify native Hestia inputs and observed two-step update/reload "
+            "before the fit-strength diagnostic."
         )
         plan["training"].update(steps=1280, save_freq=320, checkpoint_steps=[320, 640, 960, 1280])
         plan["training"]["scheduler"]["num_decay_steps"] = 1280
@@ -144,6 +235,7 @@ def prepare():
         {
             "schema_version": 1,
             "scope": "GPU preflight and exactly two optimizer updates",
+            "prior_cpu_validation_sha256": job.digest(QA / "result.json"),
             "source_commit": subprocess.check_output(
                 ["git", "rev-parse", "HEAD"], text=True
             ).strip(),
@@ -169,6 +261,7 @@ def observed_smoke():
     import run_smolvla_v2
     import torch
     from lerobot.scripts import lerobot_train
+
     from rosetta_reality.vla.training.observed_launch import run_observed_launch
 
     watchdog = job.load(JOB / "watchdog.json")
@@ -233,50 +326,12 @@ def worker():
         job.event("stage_passed", stage=name)
 
     try:
-        run(
-            "ruff",
-            [
-                sys.executable,
-                "-m",
-                "ruff",
-                "check",
-                "scripts/run_hestia_preflight.py",
-                "scripts/evaluate_visual_fit_evidence.py",
-                "src/rosetta_reality/vla/visual_fit.py",
-                "src/rosetta_reality/vla/visual_coverage.py",
-                "src/rosetta_reality/vla/training/observed_launch.py",
-                "tests/test_smolvla_visual_fit.py",
-                "tests/test_smolvla_observed_launch.py",
-            ],
+        check_code_validation()
+        assert (
+            job.digest(QA / "result.json")
+            == job.load(JOB / "registration.json")["prior_cpu_validation_sha256"]
         )
-        tests = [
-            "visual_fit",
-            "observed_launch",
-            "training_observation",
-            "visual_coverage",
-            "fixed_visual_samples",
-            "tracking_composition",
-            "v2_error_boundaries",
-        ]
-        run(
-            "regressions",
-            [
-                sys.executable,
-                "-m",
-                "pytest",
-                "-q",
-                *["tests/test_smolvla_" + x + ".py" for x in tests],
-                "--junitxml=" + str(JOB / "pytest.xml"),
-            ],
-        )
-        import xml.etree.ElementTree as ET
-
-        suite = ET.parse(JOB / "pytest.xml").getroot()
-        assert not any(
-            int(s.attrib.get(k, 0))
-            for s in suite.iter("testsuite")
-            for k in ("failures", "errors", "skipped")
-        )
+        job.event("prior_code_validation_verified")
         run("check-env", [sys.executable, "scripts/check_env.py"])
         isolated_root = JOB / "environment-runs"
         (isolated_root / "trackio").mkdir(parents=True)
@@ -411,6 +466,7 @@ def worker():
 
 if __name__ == "__main__":
     {
+        "verify-code": verify_code,
         "prepare": prepare,
         "supervise": supervise,
         "worker": worker,
