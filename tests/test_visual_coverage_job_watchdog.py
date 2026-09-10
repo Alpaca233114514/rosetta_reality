@@ -1,6 +1,7 @@
 """Exercise real process-group termination and evidence-preserving writes."""
 
 import importlib.util
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -47,3 +48,44 @@ def test_shutdown_rejects_changed_platform_wrapper(monkeypatch):
     monkeypatch.setattr(JOB, "digest", lambda _path: "unrecognized")
     with pytest.raises(AssertionError, match="wrapper changed"):
         JOB.shutdown()
+
+
+@pytest.mark.parametrize("stage", ["preflight-b1", "preflight-b4", "smoke2", "main256"])
+def test_generated_plan_roundtrips_through_real_launcher(tmp_path, monkeypatch, stage):
+    from run_smolvla_v2 import _resolve_plan
+
+    draft = ROOT / "configs/vla/visual-coverage40-20260910-001" / f"{stage}.json"
+    plan = json.loads(draft.read_text())
+    plan["status"] = "preregistered"
+    monkeypatch.setattr(JOB, "ROOT", tmp_path)
+    target = tmp_path / f"{stage}.yaml"
+    record = JOB.save_stage_plan(target, plan)
+    loaded, _, _ = _resolve_plan(target)
+    assert loaded == plan
+    assert record["sha256"] == JOB.digest(target)
+    assert type(loaded["training"]["optimizer"]["eps"]) is float
+    assert type(loaded["training"]["optimizer"]["weight_decay"]) is float
+
+
+def test_old_json_scientific_notation_reproduces_actual_failure(tmp_path):
+    from run_smolvla_v2 import _resolve_plan
+
+    draft = ROOT / "configs/vla/visual-coverage40-20260910-001/preflight-b1.json"
+    plan = json.loads(draft.read_text())
+    plan["status"] = "preregistered"
+    target = tmp_path / "old-format.json"
+    target.write_text(json.dumps(plan))
+    with pytest.raises(ValueError, match="AdamW optimizer contract"):
+        _resolve_plan(target)
+
+
+def test_stage_writer_preserves_failure_for_invalid_numeric_value(tmp_path, monkeypatch):
+    draft = ROOT / "configs/vla/visual-coverage40-20260910-001/preflight-b1.json"
+    plan = json.loads(draft.read_text())
+    plan["status"] = "preregistered"
+    plan["training"]["optimizer"]["eps"] = "1e-08"
+    monkeypatch.setattr(JOB, "ROOT", tmp_path)
+    target = tmp_path / "invalid.yaml"
+    with pytest.raises(ValueError, match="AdamW optimizer contract"):
+        JOB.save_stage_plan(target, plan)
+    assert target.is_file()

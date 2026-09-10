@@ -1503,6 +1503,10 @@ optimizer values were parsed as strings by the YAML plan reader. The failure and
 required plan-loader regression are recorded in
 `reports/training/m2-smolvla-coverage40-execution-failure-2026-09-10.md`.
 No candidate optimization or new visual evaluation ran; automatic retries remain disabled.
+Revision 002 uses native YAML plans and validates each persisted stage through the real
+launcher before dispatch. Its independent registration is
+`reports/training/m2-smolvla-coverage40-execution-amendment-002-2026-09-10.md`;
+the historical reader, trainer and visual acceptance thresholds remain unchanged.
 
 Update this document in the same change whenever any of the following changes:
 

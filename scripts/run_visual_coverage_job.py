@@ -17,10 +17,12 @@ import time
 import traceback
 from pathlib import Path
 
+import yaml
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 SELF = Path(__file__).resolve()
-JOB_REL = Path("runs/visual-coverage40-unattended-001")
+JOB_REL = Path("runs/visual-coverage40-unattended-002")
 JOB = ROOT / JOB_REL
 TEMPLATE = ROOT / "configs/vla/visual-coverage40-20260910-001/execution-contract.template.json"
 CONTROL = "configs/vla/m2-smolvla450m-visual-native-b4-pilot-003.yaml"
@@ -45,7 +47,26 @@ def save(path, value):
 
 
 def load(path):
-    return json.loads(Path(path).read_text())
+    path = Path(path)
+    if path.suffix == ".yaml":
+        return yaml.safe_load(path.read_text())
+    return json.loads(path.read_text())
+
+
+def save_stage_plan(path, plan):
+    """Persist the native YAML format and check the real file-loader boundary."""
+    from run_smolvla_v2 import _resolve_plan
+
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("x") as stream:
+        yaml.safe_dump(plan, stream, sort_keys=False)
+        stream.flush()
+        os.fsync(stream.fileno())
+    loaded, _, _ = _resolve_plan(path.resolve())
+    if loaded != plan:
+        raise ValueError("Written stage plan changed at the real launcher input boundary")
+    return {"path": path.relative_to(ROOT).as_posix(), "sha256": digest(path)}
 
 
 def evidence(path):
@@ -90,14 +111,20 @@ def prepare():
         Path(os.environ["ROSETTA_CHECKPOINT_ROOT"])
         / Path(template["arms"]["A"]["checkpoint_relative_to_root"]).parent
     )
-    assert not cp.exists() and not cp.is_symlink()
-    cp.parent.mkdir(parents=True, exist_ok=True)
-    cp.symlink_to(incoming / "000256", target_is_directory=True)
+    if cp.exists() or cp.is_symlink():
+        assert cp.resolve() == (incoming / "000256").resolve(), "A checkpoint path changed"
+    else:
+        cp.parent.mkdir(parents=True, exist_ok=True)
+        cp.symlink_to(incoming / "000256", target_is_directory=True)
     shutil.copytree(incoming / "visual-native-small-001", ROOT / "runs/visual-native-small-001")
     for stage, item in template["stages"].items():
         assert digest(ROOT / item["path"]) == item["sha256"]
         plan = load(ROOT / item["path"])
         plan["status"] = "preregistered"
+        for key in ("run_name", "plan_id"):
+            plan[key] = plan[key].removesuffix("-001") + "-002"
+        plan["optimizer_smoke"]["run_name"] = plan["run_name"]
+        plan["preflight"]["run_name"] = plan["run_name"] + "-preflight"
         for entry in plan["prerequisites"].values():
             target = ROOT / entry["path"]
             source = durable / entry["path"]
@@ -117,7 +144,7 @@ def prepare():
         if not link.exists():
             link.symlink_to(durable / "runs" / EXP / "dataset_views", target_is_directory=True)
         assert digest(ROOT / norm["dataset_view_manifest"]) == norm["dataset_view_manifest_sha256"]
-        save(JOB / "plans" / f"{stage}.json", plan)
+        save_stage_plan(JOB / "plans" / f"{stage}.yaml", plan)
     size = sum(p.stat().st_size for p in (incoming / "000256").rglob("*") if p.is_file())
     needed = size * 3 + 2 * 1024**3
     free = shutil.disk_usage(durable).free
@@ -134,7 +161,8 @@ def prepare():
             p.relative_to(ROOT).as_posix(): digest(p)
             for p in (SELF, ROOT / "scripts/visual_coverage_job_checks.py")
         },
-        "stage_plans": {p.name: digest(p) for p in (JOB / "plans").glob("*.json")},
+        "stage_plans": {p.name: digest(p) for p in (JOB / "plans").glob("*.yaml")},
+        "real_launcher_plan_roundtrip_verified": True,
         "review_plan_sha256": template["review_plan"]["sha256"],
         "disk_free_bytes": free,
         "disk_required_bytes": needed,
@@ -145,6 +173,7 @@ def prepare():
             "a task-length watchdog and shutdown afterward."
         ),
         "no_retry": True,
+        "failed_job_shutdown": "retain stopped evidence until the same shared deadline",
         "B_fresh_base_only": True,
         "hidden_test_loaded": False,
         "m2_complete": False,
@@ -295,6 +324,7 @@ def shutdown():
                         b"diagnose_",
                         b"pytest",
                         b"visual_coverage_job_checks",
+                        b"run_visual_coverage_job.py",
                     )
                 )
                 for x in argv
@@ -372,6 +402,9 @@ def supervise():
             pass
         time.sleep(2)
     os.sync()
+    if code != 0:
+        event("failed_job_held_for_inspection", shutdown_at_unix=started + 1800)
+        time.sleep(max(0, started + 1800 - time.time()))
     try:
         shutdown()
     except Exception:
@@ -423,7 +456,7 @@ def worker():
         prerequisites[name] = evidence(path)
 
     def checkpoint(stage_name):
-        plan = load(JOB / "plans" / f"{stage_name}.json")
+        plan = load(JOB / "plans" / f"{stage_name}.yaml")
         smoke = plan["optimizer_smoke"]
         return (
             Path(os.environ["ROSETTA_CHECKPOINT_ROOT"])
@@ -440,11 +473,17 @@ def worker():
         for arm in ("A", "B") if include_b else ("A",):
             identity = contract["arms"][arm]
             if arm == "B":
-                plan = JOB / "plans/main256.json"
+                plan = JOB / "plans/main256.yaml"
                 identity["plan"] = {
                     "path": plan.relative_to(ROOT).as_posix(),
                     "sha256": digest(plan),
                 }
+                identity["run_name"] = load(plan)["optimizer_smoke"]["run_name"]
+                identity["checkpoint_relative_to_root"] = (
+                    (checkpoint("main256") / "pretrained_model")
+                    .relative_to(Path(os.environ["ROSETTA_CHECKPOINT_ROOT"]))
+                    .as_posix()
+                )
             source = (
                 Path(os.environ["ROSETTA_CHECKPOINT_ROOT"])
                 / identity["checkpoint_relative_to_root"]
@@ -486,7 +525,7 @@ def worker():
                 "--profile",
                 "configs/runtime/autodl_rtx4090.yaml",
                 "--config",
-                load(JOB / "plans/main256.json")["parent_experiment"]["config"],
+                load(JOB / "plans/main256.yaml")["parent_experiment"]["config"],
             ],
             env=isolated,
         )
@@ -526,7 +565,7 @@ def worker():
                 "nested_docker_used": False,
             },
         )
-        parent = load(JOB / "plans/main256.json")["parent_experiment"]["config"]
+        parent = load(JOB / "plans/main256.yaml")["parent_experiment"]["config"]
         run(
             "benchmark",
             [sys.executable, "scripts/benchmark_smolvla.py", "--config", parent],
@@ -539,7 +578,7 @@ def worker():
                     "scripts/run_smolvla_v2.py",
                     "preflight",
                     "--plan",
-                    str(JOB / "plans" / f"{name}.json"),
+                    str(JOB / "plans" / f"{name}.yaml"),
                 ],
                 heavy=True,
             )
@@ -582,7 +621,7 @@ def worker():
                 "schedule": evidence(JOB / "sampler.json"),
             },
         )
-        smoke_plan = str(JOB / "plans/smoke2.json")
+        smoke_plan = str(JOB / "plans/smoke2.yaml")
         run(
             "smoke2",
             ["scripts/run_smolvla_v2.py", "smoke", "--plan", smoke_plan],
@@ -661,7 +700,7 @@ def worker():
         assert load(JOB / "A-fit/metrics.json")["training_fit_passed"], (
             "A train8 prerequisite failed"
         )
-        main_plan = str(JOB / "plans/main256.json")
+        main_plan = str(JOB / "plans/main256.yaml")
         run(
             "main256",
             ["scripts/run_smolvla_v2.py", "smoke", "--plan", main_plan],
