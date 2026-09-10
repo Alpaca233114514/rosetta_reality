@@ -1492,6 +1492,13 @@ These are code/protocol checks, not authorization to launch another formal run.
 
 ## 13. Architecture update rule
 
+The authorized coverage-40 unattended execution is coordinated by
+`scripts/run_visual_coverage_job.py`; real input and smoke reload checks live in
+`scripts/visual_coverage_job_checks.py`. Its separate supervisor enforces the
+shared deadline, prerequisite order, no retry and requested shutdown. See
+`reports/training/m2-smolvla-coverage40-unattended-2026-09-10.md` for the registration.
+Execution and metrics remain unmeasured until its durable reports exist; M2 is incomplete.
+
 Update this document in the same change whenever any of the following changes:
 
 - component ownership or a major entry point;
