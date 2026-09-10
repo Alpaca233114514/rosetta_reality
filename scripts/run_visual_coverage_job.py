@@ -471,7 +471,13 @@ def worker():
 
     try:
         run("check-env", [sys.executable, "scripts/check_env.py"])
-        isolated = dict(os.environ, ROSETTA_RUN_ROOT=str(JOB / "environment-runs"))
+        environment_runs = JOB / "environment-runs"
+        (environment_runs / "trackio").mkdir(parents=True, exist_ok=False)
+        isolated = dict(
+            os.environ,
+            ROSETTA_RUN_ROOT=str(environment_runs),
+            TRACKIO_DIR=str(environment_runs / "trackio"),
+        )
         run(
             "doctor",
             [
