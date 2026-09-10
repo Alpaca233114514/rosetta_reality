@@ -1,0 +1,714 @@
+{
+  "schema_version": 1,
+  "stage": "A_all_nonself_visual_control_before_B",
+  "observed_unix": 1789025369.155637,
+  "code_commit": "e11c7aaddc8c1eab84365d399ef8696cb5d0f83b",
+  "checkpoint_model_sha256": "fd95a19ca8d8f9e1c6a5c477807aaf69fc3e19bb15e626bd53e4224da8ad3a5c",
+  "protocol": "frame0_all_nonself_mean_error_v1",
+  "historical_control_reproduction": {
+    "sha256": "53ab98479021f297e7044d06fae7d30d65efc338dd8e538ab976541337621bf7",
+    "value": {
+      "status": "passed",
+      "exact_saved_values": true,
+      "reproduction": {
+        "path": "runs/visual-coverage40-unattended-003/control-reproduction.json",
+        "sha256": "31eb073ec1b7268b8145d38532c644f711a214ace2220c02aa0e90471415cedb",
+        "accepted": true
+      }
+    }
+  },
+  "smoke_full_reload": {
+    "sha256": "50d6d0bba0c5d7ff60e1645f0246c9d77fabb452ea811a922ecbb1376fa1b770",
+    "value": {
+      "status": "passed",
+      "full_chunk_exact": true,
+      "smoke_audit": {
+        "path": "runs/visual-coverage40-unattended-003/smoke-update-audit.json",
+        "sha256": "49bbdc2627a590de92cff8ed34a1c5d072f2323e532a11bec9c55d3707fadc3e",
+        "accepted": true
+      },
+      "predictions_sha256": [
+        "2cad0b7ed70d095650b9d0ea64ae155ff2471d4cc3a024162440bf8ec8e839ce",
+        "2cad0b7ed70d095650b9d0ea64ae155ff2471d4cc3a024162440bf8ec8e839ce"
+      ]
+    }
+  },
+  "A": {
+    "train40_mean_on_dev5_mse": {
+      "all_valid": 0.13954882366539295,
+      "joint_radian": 0.13425283541566185,
+      "gripper_normalized": 0.1713247531637796
+    },
+    "training_fit_conditions": 4,
+    "training_fit_passed": true,
+    "development_conditions": [
+      false,
+      false,
+      false,
+      false
+    ],
+    "development_passed": false,
+    "m2_complete": false,
+    "task_success": "not measured",
+    "peak_cuda_allocated_bytes": 1428158976,
+    "peak_cuda_reserved_bytes": 1528823808,
+    "views": {
+      "train8": [
+        {
+          "noise_seed": null,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.018165236458236218,
+              "mismatch": 0.4045057267924652,
+              "mean_floor": 0.1926252405209647,
+              "visual_gain": 0.386340490334229,
+              "below_mean_gain": 0.17446000406272846,
+              "measurable": true,
+              "passed": true
+            },
+            "joint_radian": {
+              "correct": 0.016662258001639955,
+              "mismatch": 0.43950874673710444,
+              "mean_floor": 0.2069292587821681,
+              "visual_gain": 0.4228464887354645,
+              "below_mean_gain": 0.19026700078052816,
+              "measurable": true,
+              "passed": true
+            },
+            "gripper_normalized": {
+              "correct": 0.027183107197813788,
+              "mismatch": 0.1944876071246293,
+              "mean_floor": 0.10680113095374394,
+              "visual_gain": 0.16730449992681554,
+              "below_mean_gain": 0.07961802375593015,
+              "measurable": true,
+              "passed": true
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.019213582569742964,
+                "mse": 0.0009226542870533227
+              },
+              "gripper_normalized": {
+                "mae": 0.02060580354183912,
+                "mse": 0.0019705180047419977
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.015836796553533834,
+                "mse": 0.0014692734669658283
+              },
+              "gripper_normalized": {
+                "mae": 0.009735599160194397,
+                "mse": 0.00014914577542279872
+              }
+            }
+          }
+        },
+        {
+          "noise_seed": 20260905,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.028812594890267468,
+              "mismatch": 0.4069268669912573,
+              "mean_floor": 0.1926252405209647,
+              "visual_gain": 0.3781142721009898,
+              "below_mean_gain": 0.16381264563069722,
+              "measurable": true,
+              "passed": true
+            },
+            "joint_radian": {
+              "correct": 0.02746883886398445,
+              "mismatch": 0.4435762825630108,
+              "mean_floor": 0.2069292587821681,
+              "visual_gain": 0.41610744369902636,
+              "below_mean_gain": 0.17946041991818368,
+              "measurable": true,
+              "passed": true
+            },
+            "gripper_normalized": {
+              "correct": 0.036875131047965554,
+              "mismatch": 0.18703037356073643,
+              "mean_floor": 0.10680113095374394,
+              "visual_gain": 0.15015524251277088,
+              "below_mean_gain": 0.06992599990577839,
+              "measurable": true,
+              "passed": true
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.024991236641265763,
+                "mse": 0.0014624214073831509
+              },
+              "gripper_normalized": {
+                "mae": 0.024454738199710845,
+                "mse": 0.00307363737919788
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.023298866845531545,
+                "mse": 0.0018157459983118253
+              },
+              "gripper_normalized": {
+                "mae": 0.008211852982640266,
+                "mse": 0.00014819392578419022
+              }
+            }
+          }
+        },
+        {
+          "noise_seed": 20260906,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.028458989388590976,
+              "mismatch": 0.41074773982694424,
+              "mean_floor": 0.1926252405209647,
+              "visual_gain": 0.38228875043835325,
+              "below_mean_gain": 0.1641662511323737,
+              "measurable": true,
+              "passed": true
+            },
+            "joint_radian": {
+              "correct": 0.026628775802001414,
+              "mismatch": 0.44742356401020145,
+              "mean_floor": 0.2069292587821681,
+              "visual_gain": 0.42079478820820004,
+              "below_mean_gain": 0.1803004829801667,
+              "measurable": true,
+              "passed": true
+            },
+            "gripper_normalized": {
+              "correct": 0.03944027090812837,
+              "mismatch": 0.19069279472740122,
+              "mean_floor": 0.10680113095374394,
+              "visual_gain": 0.15125252381927284,
+              "below_mean_gain": 0.06736086004561556,
+              "measurable": true,
+              "passed": true
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.024911258533781316,
+                "mse": 0.0014504500290250738
+              },
+              "gripper_normalized": {
+                "mae": 0.026716706976294517,
+                "mse": 0.002974383295634084
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.02646962313641173,
+                "mse": 0.002181459668835519
+              },
+              "gripper_normalized": {
+                "mae": 0.009555349126458168,
+                "mse": 0.00016306455478304338
+              }
+            }
+          }
+        },
+        {
+          "noise_seed": 20260907,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.029775125024850205,
+              "mismatch": 0.41264268967628115,
+              "mean_floor": 0.1926252405209647,
+              "visual_gain": 0.38286756465143096,
+              "below_mean_gain": 0.1628501154961145,
+              "measurable": true,
+              "passed": true
+            },
+            "joint_radian": {
+              "correct": 0.028446874552925334,
+              "mismatch": 0.4497225354837826,
+              "mean_floor": 0.2069292587821681,
+              "visual_gain": 0.4212756609308573,
+              "below_mean_gain": 0.17848238422924279,
+              "measurable": true,
+              "passed": true
+            },
+            "gripper_normalized": {
+              "correct": 0.03774462785639943,
+              "mismatch": 0.19016361483127264,
+              "mean_floor": 0.10680113095374394,
+              "visual_gain": 0.15241898697487322,
+              "below_mean_gain": 0.06905650309734451,
+              "measurable": true,
+              "passed": true
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.02565549556942036,
+                "mse": 0.0014895054825050265
+              },
+              "gripper_normalized": {
+                "mae": 0.024778059870004653,
+                "mse": 0.002891122130881112
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.02352126561405991,
+                "mse": 0.0016278144285318862
+              },
+              "gripper_normalized": {
+                "mae": 0.01052958332002163,
+                "mse": 0.00018789623613996165
+              }
+            }
+          }
+        }
+      ],
+      "train40": [
+        {
+          "noise_seed": null,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.14158788961574773,
+              "mismatch": 0.278754566494338,
+              "mean_floor": 0.1861568241633384,
+              "visual_gain": 0.13716667687859027,
+              "below_mean_gain": 0.04456893454759067,
+              "measurable": true,
+              "passed": true
+            },
+            "joint_radian": {
+              "correct": 0.14700848168497965,
+              "mismatch": 0.30127193119788764,
+              "mean_floor": 0.19933032592008448,
+              "visual_gain": 0.154263449512908,
+              "below_mean_gain": 0.05232184423510483,
+              "measurable": true,
+              "passed": true
+            },
+            "gripper_normalized": {
+              "correct": 0.10906433720035595,
+              "mismatch": 0.1436503782730402,
+              "mean_floor": 0.10711581362286171,
+              "visual_gain": 0.034586041072684245,
+              "below_mean_gain": -0.0019485235774942405,
+              "measurable": true,
+              "passed": false
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.04714890627684266,
+                "mse": 0.006548946767310605
+              },
+              "gripper_normalized": {
+                "mae": 0.03900891042500734,
+                "mse": 0.009041416126839365
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.014417452656683356,
+                "mse": 0.0006424551632593651
+              },
+              "gripper_normalized": {
+                "mae": 0.015381915122270584,
+                "mse": 0.0004139698679336279
+              }
+            }
+          }
+        },
+        {
+          "noise_seed": 20260905,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.15546614071493475,
+              "mismatch": 0.28895476751537363,
+              "mean_floor": 0.1861568241633384,
+              "visual_gain": 0.13348862680043888,
+              "below_mean_gain": 0.030690683448403644,
+              "measurable": true,
+              "passed": true
+            },
+            "joint_radian": {
+              "correct": 0.16164182933691112,
+              "mismatch": 0.3123200993179844,
+              "mean_floor": 0.19933032592008448,
+              "visual_gain": 0.15067826998107325,
+              "below_mean_gain": 0.03768849658317336,
+              "measurable": true,
+              "passed": true
+            },
+            "gripper_normalized": {
+              "correct": 0.11841200898307665,
+              "mismatch": 0.148762776699709,
+              "mean_floor": 0.10711581362286171,
+              "visual_gain": 0.03035076771663235,
+              "below_mean_gain": -0.011296195360214936,
+              "measurable": true,
+              "passed": false
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.05065529457860005,
+                "mse": 0.007031625458605256
+              },
+              "gripper_normalized": {
+                "mae": 0.040126411274075506,
+                "mse": 0.00976653084192773
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.02139968723010194,
+                "mse": 0.0009899824402074616
+              },
+              "gripper_normalized": {
+                "mae": 0.014286351203918458,
+                "mse": 0.0004659907398897545
+              }
+            }
+          }
+        },
+        {
+          "noise_seed": 20260906,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.1473552854595019,
+              "mismatch": 0.2851146016550244,
+              "mean_floor": 0.1861568241633384,
+              "visual_gain": 0.13775931619552248,
+              "below_mean_gain": 0.038801538703836486,
+              "measurable": true,
+              "passed": true
+            },
+            "joint_radian": {
+              "correct": 0.15222809387784095,
+              "mismatch": 0.30771634774086587,
+              "mean_floor": 0.19933032592008448,
+              "visual_gain": 0.15548825386302492,
+              "below_mean_gain": 0.047102232042243536,
+              "measurable": true,
+              "passed": true
+            },
+            "gripper_normalized": {
+              "correct": 0.11811843494946783,
+              "mismatch": 0.14950412513997563,
+              "mean_floor": 0.10711581362286171,
+              "visual_gain": 0.0313856901905078,
+              "below_mean_gain": -0.011002621326606121,
+              "measurable": true,
+              "passed": false
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.049705407100516213,
+                "mse": 0.006756723013766059
+              },
+              "gripper_normalized": {
+                "mae": 0.04266047615557909,
+                "mse": 0.009618880201768527
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.025917373506429916,
+                "mse": 0.0016729821563668734
+              },
+              "gripper_normalized": {
+                "mae": 0.014209771156311035,
+                "mse": 0.0004385307783103309
+              }
+            }
+          }
+        },
+        {
+          "noise_seed": 20260907,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.14605883651747337,
+              "mismatch": 0.28153012161867536,
+              "mean_floor": 0.1861568241633384,
+              "visual_gain": 0.135471285101202,
+              "below_mean_gain": 0.04009798764586503,
+              "measurable": true,
+              "passed": true
+            },
+            "joint_radian": {
+              "correct": 0.15148143393569874,
+              "mismatch": 0.30413300288597,
+              "mean_floor": 0.19933032592008448,
+              "visual_gain": 0.15265156895027127,
+              "below_mean_gain": 0.047848891984385744,
+              "measurable": true,
+              "passed": true
+            },
+            "gripper_normalized": {
+              "correct": 0.11352325200812093,
+              "mismatch": 0.1459128340149073,
+              "mean_floor": 0.10711581362286171,
+              "visual_gain": 0.03238958200678636,
+              "below_mean_gain": -0.006407438385259215,
+              "measurable": true,
+              "passed": false
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.05003116271774828,
+                "mse": 0.00666451562990305
+              },
+              "gripper_normalized": {
+                "mae": 0.04015064346045256,
+                "mse": 0.009230305032341011
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.021207604032436697,
+                "mse": 0.0009477649085433931
+              },
+              "gripper_normalized": {
+                "mae": 0.015426370501518249,
+                "mse": 0.0004291080129942504
+              }
+            }
+          }
+        }
+      ],
+      "dev5": [
+        {
+          "noise_seed": null,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.21174745612884155,
+              "mismatch": 0.19358360848673076,
+              "mean_floor": 0.12143061699190125,
+              "visual_gain": -0.018163847642110792,
+              "below_mean_gain": -0.0903168391369403,
+              "measurable": true,
+              "passed": false
+            },
+            "joint_radian": {
+              "correct": 0.21735652424754903,
+              "mismatch": 0.19252314228441503,
+              "mean_floor": 0.11386516856219533,
+              "visual_gain": -0.024833381963134005,
+              "below_mean_gain": -0.1034913556853537,
+              "measurable": true,
+              "passed": false
+            },
+            "gripper_normalized": {
+              "correct": 0.17809304741659654,
+              "mismatch": 0.19994640570062477,
+              "mean_floor": 0.1668233075701367,
+              "visual_gain": 0.021853358284028235,
+              "below_mean_gain": -0.011269739846459847,
+              "measurable": true,
+              "passed": false
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.06519871568485784,
+                "mse": 0.010555665258565203
+              },
+              "gripper_normalized": {
+                "mae": 0.05140556228160858,
+                "mse": 0.019287713483545906
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.01605615703544269,
+                "mse": 0.0006031819806302211
+              },
+              "gripper_normalized": {
+                "mae": 0.015328583121299744,
+                "mse": 0.0004131759258075185
+              }
+            }
+          }
+        },
+        {
+          "noise_seed": 20260905,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.22723618582141492,
+              "mismatch": 0.20840809204415028,
+              "mean_floor": 0.12143061699190125,
+              "visual_gain": -0.018828093777264632,
+              "below_mean_gain": -0.10580556882951367,
+              "measurable": true,
+              "passed": false
+            },
+            "joint_radian": {
+              "correct": 0.23462333662124077,
+              "mismatch": 0.20864788282236196,
+              "mean_floor": 0.11386516856219533,
+              "visual_gain": -0.025975453798878806,
+              "below_mean_gain": -0.12075816805904543,
+              "measurable": true,
+              "passed": false
+            },
+            "gripper_normalized": {
+              "correct": 0.18291328102245963,
+              "mismatch": 0.20696934737488032,
+              "mean_floor": 0.1668233075701367,
+              "visual_gain": 0.02405606635242069,
+              "below_mean_gain": -0.016089973452322937,
+              "measurable": true,
+              "passed": false
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.06766183421745275,
+                "mse": 0.010966831062665638
+              },
+              "gripper_normalized": {
+                "mae": 0.0518494964838028,
+                "mse": 0.019725937368944475
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.021972281819519896,
+                "mse": 0.0008945070261946485
+              },
+              "gripper_normalized": {
+                "mae": 0.013778352737426757,
+                "mse": 0.00039026534801660516
+              }
+            }
+          }
+        },
+        {
+          "noise_seed": 20260906,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.2228711618686078,
+              "mismatch": 0.20430199311859748,
+              "mean_floor": 0.12143061699190125,
+              "visual_gain": -0.01856916875001033,
+              "below_mean_gain": -0.10144054487670656,
+              "measurable": true,
+              "passed": false
+            },
+            "joint_radian": {
+              "correct": 0.2298909004552976,
+              "mismatch": 0.20400083171477346,
+              "mean_floor": 0.11386516856219533,
+              "visual_gain": -0.02589006874052413,
+              "below_mean_gain": -0.11602573189310225,
+              "measurable": true,
+              "passed": false
+            },
+            "gripper_normalized": {
+              "correct": 0.18075273034846917,
+              "mismatch": 0.2061089615415414,
+              "mean_floor": 0.1668233075701367,
+              "visual_gain": 0.02535623119307223,
+              "below_mean_gain": -0.013929422778332479,
+              "measurable": true,
+              "passed": false
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.06923776290457075,
+                "mse": 0.01118712078839521
+              },
+              "gripper_normalized": {
+                "mae": 0.05378296226263046,
+                "mse": 0.01933829103945571
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.02531871198055645,
+                "mse": 0.0015764763066846326
+              },
+              "gripper_normalized": {
+                "mae": 0.01438157558441162,
+                "mse": 0.00041816925174682497
+              }
+            }
+          }
+        },
+        {
+          "noise_seed": 20260907,
+          "normalized": {
+            "all_valid": {
+              "correct": 0.20754062161784875,
+              "mismatch": 0.18895409195040766,
+              "mean_floor": 0.12143061699190125,
+              "visual_gain": -0.018586529667441093,
+              "below_mean_gain": -0.0861100046259475,
+              "measurable": true,
+              "passed": false
+            },
+            "joint_radian": {
+              "correct": 0.2119844896928071,
+              "mismatch": 0.1860682932842211,
+              "mean_floor": 0.11386516856219533,
+              "visual_gain": -0.025916196408586,
+              "below_mean_gain": -0.09811932113061175,
+              "measurable": true,
+              "passed": false
+            },
+            "gripper_normalized": {
+              "correct": 0.18087741316809855,
+              "mismatch": 0.2062688839475272,
+              "mean_floor": 0.1668233075701367,
+              "visual_gain": 0.02539147077942866,
+              "below_mean_gain": -0.014054105597961858,
+              "measurable": true,
+              "passed": false
+            }
+          },
+          "standard": {
+            "chunk": {
+              "joint_radian": {
+                "mae": 0.0646304237387764,
+                "mse": 0.009823734166297105
+              },
+              "gripper_normalized": {
+                "mae": 0.05285142225027084,
+                "mse": 0.01921087137625792
+              }
+            },
+            "first_action": {
+              "joint_radian": {
+                "mae": 0.023980854040322203,
+                "mse": 0.0011376625652362701
+              },
+              "gripper_normalized": {
+                "mae": 0.01592341959476471,
+                "mse": 0.000460895370590908
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "hidden_test_loaded": false,
+  "m2_complete": false
+}

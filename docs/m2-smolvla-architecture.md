@@ -1508,6 +1508,22 @@ launcher before dispatch. Its independent registration is
 `reports/training/m2-smolvla-coverage40-execution-amendment-002-2026-09-10.md`;
 the historical reader, trainer and visual acceptance thresholds remain unchanged.
 
+The completed coverage result is now recorded in
+`reports/training/m2-smolvla-native-visual-coverage40-result-2026-09-10.{md,json}`.
+Revision 003 completed native B training at 256 updates. Its sampler observer then
+mistook Accelerate's one-batch lookahead (1028 emitted, 1024 consumed) for order drift.
+`scripts/run_visual_coverage_post.py` owns the separately registered Hermes evaluation-only
+continuation: it verifies the real lookahead behavior, all consumed and prefetched indices,
+optimizer/scheduler evidence and checkpoint identity before collecting A/B and independent
+reload. No optimizer state was resumed and no additional training steps were taken.
+Both arms have exact full-array independent reload and aggregate training-fit 4/4, but
+development visual acceptance remains 0/4 for both. B's train40 gripper group passes only
+1/4, and its standard first-action joint/gripper MSE regresses. The fixed-budget coverage
+intervention therefore failed; M2 remains incomplete and no new Gate 3/4 was measured.
+Historical stopped reports remain unchanged. The optional next fit-strength design is
+`reports/training/m2-smolvla-athena-fit-strength-draft-2026-09-10.md`; it is a non-launchable
+draft with unresolved scheduler/entry-point checks, not an active training run.
+
 Update this document in the same change whenever any of the following changes:
 
 - component ownership or a major entry point;
