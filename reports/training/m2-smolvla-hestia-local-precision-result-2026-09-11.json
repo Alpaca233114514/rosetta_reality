@@ -1,0 +1,323 @@
+{
+  "status": "completed_repeatable_not_cuda_equivalent",
+  "evidence_sha256": {
+    "runs/hestia-local-precision-20260911-001/independent-comparison.json": "894e907caa61c2c1e1cc36294554aed9f93d007f90692be0fe229e2b52942550",
+    "runs/hestia-local-precision-20260911-001/1/result.json": "d23a5d07f099cd32eb2bcf1cba61767a7284645ef11ab8017ec426b464259312",
+    "runs/hestia-local-precision-20260911-001/2/result.json": "609c30c904378c458efb0a50ba160e5e1b13ffa5ad96fefa69ac767417265a82",
+    "runs/hestia-local-precision-preflight-20260911-001/model-1.log": "08707e450d584946c10e45acc358479530ef107b1af091186598cf99eb783630",
+    "runs/hestia-local-precision-preflight-20260911-001/model-2.log": "b56c55bf9d3beb1ec9fc327d78d27790b5033b61a4eb3963b603f45c869e6b36"
+  },
+  "id": "hestia-local-precision-20260911-001",
+  "independent_comparison": {
+    "array_keys": [
+      "bf16_normalized",
+      "bf16_standard",
+      "fp32_normalized",
+      "fp32_standard"
+    ],
+    "optimizer_steps": 0,
+    "historical_cuda_equivalence": false,
+    "status": "passed",
+    "sha256": "6dde0aea0e30616369cf7e5c1ba2c0f1a9a55bf93246551bd4fcc96763fc3936",
+    "total_forwards": 32,
+    "independent_process_npz_bytes_exact": true
+  },
+  "invocations": [
+    {
+      "status": "completed",
+      "prior_xpu_failure_reproduced_exactly": true,
+      "all_same_process_repeats_exact": true,
+      "all_parameter_tensors_unchanged": 500,
+      "forwards": 16,
+      "optimizer_steps": 0,
+      "episode": 49,
+      "development_images_loaded": false,
+      "hidden_loaded": false,
+      "records": {
+        "bf16": {
+          "None": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.037109375,
+              "mean_abs": 0.006118926916803632,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.008386075496673584,
+              "mean_abs": 0.001383091481069901,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260905": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.029296875,
+              "mean_abs": 0.005332292829241071,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.007647335529327393,
+              "mean_abs": 0.0011914501312587943,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260906": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.03515625,
+              "mean_abs": 0.005208449534007481,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.007886111736297607,
+              "mean_abs": 0.0011665604093910329,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260907": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.02734375,
+              "mean_abs": 0.00511878890650613,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.006470859050750732,
+              "mean_abs": 0.0011414558210942362,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          }
+        },
+        "fp32": {
+          "None": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.0418933629989624,
+              "mean_abs": 0.007808030196465552,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.012617766857147217,
+              "mean_abs": 0.0017456901229784957,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260905": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.028996825218200684,
+              "mean_abs": 0.006752999084336417,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.008733481168746948,
+              "mean_abs": 0.0014559924336416381,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260906": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.03104346990585327,
+              "mean_abs": 0.0067290520401937625,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.00934988260269165,
+              "mean_abs": 0.0014663925397742008,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260907": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.03162717819213867,
+              "mean_abs": 0.006942606211772987,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.009525716304779053,
+              "mean_abs": 0.001501839132646897,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "seconds": 88.95947150999996,
+      "peak_xpu_allocated": 1298383872,
+      "array_sha256": "6dde0aea0e30616369cf7e5c1ba2c0f1a9a55bf93246551bd4fcc96763fc3936"
+    },
+    {
+      "status": "completed",
+      "prior_xpu_failure_reproduced_exactly": true,
+      "all_same_process_repeats_exact": true,
+      "all_parameter_tensors_unchanged": 500,
+      "forwards": 16,
+      "optimizer_steps": 0,
+      "episode": 49,
+      "development_images_loaded": false,
+      "hidden_loaded": false,
+      "records": {
+        "bf16": {
+          "None": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.037109375,
+              "mean_abs": 0.006118926916803632,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.008386075496673584,
+              "mean_abs": 0.001383091481069901,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260905": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.029296875,
+              "mean_abs": 0.005332292829241071,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.007647335529327393,
+              "mean_abs": 0.0011914501312587943,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260906": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.03515625,
+              "mean_abs": 0.005208449534007481,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.007886111736297607,
+              "mean_abs": 0.0011665604093910329,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260907": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.02734375,
+              "mean_abs": 0.00511878890650613,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.006470859050750732,
+              "mean_abs": 0.0011414558210942362,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          }
+        },
+        "fp32": {
+          "None": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.0418933629989624,
+              "mean_abs": 0.007808030196465552,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.012617766857147217,
+              "mean_abs": 0.0017456901229784957,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260905": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.028996825218200684,
+              "mean_abs": 0.006752999084336417,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.008733481168746948,
+              "mean_abs": 0.0014559924336416381,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260906": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.03104346990585327,
+              "mean_abs": 0.0067290520401937625,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.00934988260269165,
+              "mean_abs": 0.0014663925397742008,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          },
+          "20260907": {
+            "normalized_difference": {
+              "passed": false,
+              "max_abs": 0.03162717819213867,
+              "mean_abs": 0.006942606211772987,
+              "atol": 0.01,
+              "rtol": 0.01
+            },
+            "standard_difference": {
+              "passed": false,
+              "max_abs": 0.009525716304779053,
+              "mean_abs": 0.001501839132646897,
+              "atol": 0.005,
+              "rtol": 0.01
+            }
+          }
+        }
+      },
+      "seconds": 88.75344782599996,
+      "peak_xpu_allocated": 1298383872,
+      "array_sha256": "6dde0aea0e30616369cf7e5c1ba2c0f1a9a55bf93246551bd4fcc96763fc3936"
+    }
+  ]
+}
