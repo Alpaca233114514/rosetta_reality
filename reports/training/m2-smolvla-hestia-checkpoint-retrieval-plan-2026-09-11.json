@@ -248,7 +248,7 @@
     }
   ],
   "file_count": 40,
-  "total_bytes": 0,
+  "total_bytes": 4805448844,
   "remote_session_max_seconds": 900,
   "shutdown_grace_seconds": 120,
   "fresh_live_inventory_required": true,
