@@ -103,6 +103,18 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Authoritative Hestia main-run recovery (2026-09-11):
+`reports/training/m2-smolvla-hestia-main-recovery-result-2026-09-11.{md,json}`
+supersedes the earlier local assumption that Hestia was unexecuted. Read-only SSH
+found the completed source-`1e669b7` run with 1280 updates and four recovery
+checkpoints. C passes train40 in all groups under all four noise conditions, but
+development remains 0/4; full-chunk physical errors worsen. The recovered B/C
+comparison reproduces byte-for-byte, both historical independent reloads and B's
+Hermes reproduction pass, and actual samples/LRs validate. No new training was
+started, no checkpoint was deleted, and the idle instance received the registered
+shutdown command after evidence recovery. Next work must investigate C's failed
+development mapping rather than repeat Hestia or assume B underfitting is sufficient.
+
 Actual A/B action-component decomposition (2026-09-11):
 `reports/training/m2-smolvla-coverage40-action-components-result-2026-09-11.{md,json}`
 records all fixed noise/view/space/window comparisons. B train40 gripper scene
@@ -110,8 +122,9 @@ variance is only 1.37–2.13% (left) and 4.99–6.89% (right) of normalized targ
 variance. Left-gripper development correlation is negative under every noise;
 joint development correlations also approach zero. Late gripper errors dominate
 the full chunk. These facts support separating fit strength from development
-mapping; they do not prove a training bug or a generalization repair. Hestia's
-registered budget experiment remains unexecuted and needs separate GPU approval.
+mapping; they do not prove a training bug or a generalization repair. The later
+Hestia recovery above establishes that its registered budget experiment already
+completed with fitted training scenes but failed development generalization.
 
 Actual coverage40 B time-shift diagnostic (2026-09-11):
 `reports/training/m2-smolvla-coverage40-time-shift-result-2026-09-11.{md,json}`
@@ -1742,8 +1755,11 @@ This newer main-chain source passed the local Linux synthetic subset on
 2026-09-11: 197 checks and the exact native sampler order, followed by AST-equivalent
 formatting and final Ruff/format verification. See
 `reports/training/m2-smolvla-hestia-local-regression-2026-09-11.{md,json}`.
-Current AutoDL saved-artifact/config/environment acceptance and real execution
-remain pending. The SSH boundary remains in place; no main worker was dispatched.
+The subsequently recovered source-`1e669b7` AutoDL run completed its 197-case CPU
+acceptance, real preflight, 1280 updates, C integrity seal, B/C independent reloads
+and historical B reproduction. See the authoritative main-recovery result above.
+Its scientific result is negative (C train40 all groups 4/4, dev5 0/4). The attempted
+new dispatch stopped at the existing-candidate gate; no duplicate run was started.
 
 Update this document in the same change whenever any of the following changes:
 
