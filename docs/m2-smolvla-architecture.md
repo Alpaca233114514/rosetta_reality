@@ -103,6 +103,17 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Socket-position positive control (2026-09-11):
+`reports/training/m2-smolvla-socket-position-result-2026-09-11.{md,json}`
+records a successful frozen-KV readout of the visible blue socket centroid.
+`scripts/diagnose_socket_position.py` verifies the same 45 frame-zero image
+identities and applies fixed color extraction with full visual inspection.
+Both pixel coordinates beat both constant baselines by more than 50% in nested
+train folds and development; development scene correlations are 0.904/0.939.
+Thirty-five checks and one real-cache test passed. This establishes a readable
+2D socket-position signal in this representation, not policy improvement.
+No model forward or Gate ran. Next: position-to-demonstration-action relation.
+
 Saved-feature regularization diagnostic (2026-09-11):
 `reports/training/m2-smolvla-kv-regularization-result-2026-09-11.{md,json}`
 records a CPU-only comparison on the unchanged early-layer KV arrays.
