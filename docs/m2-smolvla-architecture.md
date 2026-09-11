@@ -103,6 +103,16 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Consolidated local diagnosis and next evidence boundary (2026-09-11):
+`reports/training/m2-smolvla-local-generalization-diagnosis-2026-09-11.md`
+separates eight completed historical-Zen diagnostic axes from actual coverage40 B.
+Socket position is accessible, but none of the tested readout, bias, noise or
+global timing changes establishes a generalization fix. Retrieve the immutable
+A/B prediction bundles before applying these diagnostics to B; the pending plan
+`reports/training/m2-smolvla-coverage40-prediction-retrieval-plan-2026-09-11.md`
+limits transfer to 19 files and 32 MiB, with no weights or new GPU computation.
+Current SSH details and authorization are required; no connection has been made.
+
 Local Hestia main-chain regression (2026-09-11):
 `reports/training/m2-smolvla-hestia-local-regression-2026-09-11.{md,json}`
 records 197 synthetic checks, including the 13 main-chain counterexamples, and
