@@ -103,6 +103,15 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Retrieval update after the earlier preparation snapshot:
+`reports/training/m2-smolvla-hestia-checkpoint-retrieval-result-2026-09-11.{md,json}`
+records explicit authorization, completed CPU-mode retrieval of all 40 Hestia
+native files with historical SHA parity, and cleanup of two fully duplicated
+archives. Unique checkpoints were preserved. Platform shutdown was invoked within
+15 minutes; SSH closed, without an independent billing check. Local model reload
+and checkpoint-curve diagnosis are next. This completed result supersedes pending
+retrieval statements in the earlier preparation snapshot below.
+
 The local array-diagnosis closure and next evidence boundary are recorded in
 `reports/training/m2-smolvla-hestia-local-diagnosis-closure-2026-09-11.md`.
 The four existing Hestia native checkpoints remain remote; a 40-file read-only

@@ -1,0 +1,621 @@
+{
+  "remote_training": false,
+  "cleanup": {
+    "unique_checkpoint_trees_deleted": false,
+    "deleted_logical_bytes": 1963400410,
+    "first_attempt_failed_before_mutation": "JSON boolean parsing; logs retained",
+    "archives": [
+      {
+        "time": 1789133516.2930975,
+        "deleted_relative_path": "artifact_backups/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-way-b64-default-step0316-002-export001.tar",
+        "retained_relative_path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-way-b64-default-step0316-002-export001",
+        "deleted_file_sha256": "5d7af747dc7094cbc2ac51d53e63c46da17ca98ee94b048b9f3bf99302c13663",
+        "deleted_logical_bytes": 1201387520,
+        "retained_members": [
+          {
+            "path": "MODEL_CARD.md",
+            "bytes": 983,
+            "archive_member_sha256": "c1ae959e987368af98dcaf0e8d4f1548e2dd94fc519f3292e29f3483ce9d6121",
+            "retained_sha256": "c1ae959e987368af98dcaf0e8d4f1548e2dd94fc519f3292e29f3483ce9d6121",
+            "identical": true
+          },
+          {
+            "path": "action_contract.json",
+            "bytes": 3246,
+            "archive_member_sha256": "ef0c8ce81dec7203bfecf37233282c36fc9ae0e5abd9a93b2c0125a4fe420b13",
+            "retained_sha256": "ef0c8ce81dec7203bfecf37233282c36fc9ae0e5abd9a93b2c0125a4fe420b13",
+            "identical": true
+          },
+          {
+            "path": "config.json",
+            "bytes": 5208,
+            "archive_member_sha256": "b72b68189bd6a5d6d50b1ff81182e71061332b476fd3a3c8d0a637a9d2d12ce2",
+            "retained_sha256": "b72b68189bd6a5d6d50b1ff81182e71061332b476fd3a3c8d0a637a9d2d12ce2",
+            "identical": true
+          },
+          {
+            "path": "manifest.json",
+            "bytes": 4179,
+            "archive_member_sha256": "49effbbd3d4802e36e148a43ef42a20feb31518ab5e550b2b3a447d07c0c9fb1",
+            "retained_sha256": "49effbbd3d4802e36e148a43ef42a20feb31518ab5e550b2b3a447d07c0c9fb1",
+            "identical": true
+          },
+          {
+            "path": "normalization.json",
+            "bytes": 4180,
+            "archive_member_sha256": "76fe32c99931cc965aa4885e9cd3d9e134ec542ae3b010c1723207b6c181e31b",
+            "retained_sha256": "76fe32c99931cc965aa4885e9cd3d9e134ec542ae3b010c1723207b6c181e31b",
+            "identical": true
+          },
+          {
+            "path": "pretrained_model/config.json",
+            "bytes": 2966,
+            "archive_member_sha256": "ae3a7e950241712e929d28775cc43b9a23d90e13ebe0c06e90ef09b07f76a7c0",
+            "retained_sha256": "ae3a7e950241712e929d28775cc43b9a23d90e13ebe0c06e90ef09b07f76a7c0",
+            "identical": true
+          },
+          {
+            "path": "pretrained_model/model.safetensors",
+            "bytes": 1197789256,
+            "archive_member_sha256": "31ec390248862919cd90457815d7c00cfbe9e28fcc12c6c5d217fea1013bad0b",
+            "retained_sha256": "31ec390248862919cd90457815d7c00cfbe9e28fcc12c6c5d217fea1013bad0b",
+            "identical": true
+          },
+          {
+            "path": "pretrained_model/policy_postprocessor.json",
+            "bytes": 2241,
+            "archive_member_sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+            "retained_sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+            "identical": true
+          },
+          {
+            "path": "pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+            "bytes": 1384,
+            "archive_member_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+            "retained_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+            "identical": true
+          },
+          {
+            "path": "pretrained_model/policy_preprocessor.json",
+            "bytes": 4952,
+            "archive_member_sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+            "retained_sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+            "identical": true
+          },
+          {
+            "path": "pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors",
+            "bytes": 1384,
+            "archive_member_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+            "retained_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+            "identical": true
+          },
+          {
+            "path": "pretrained_model/tokenizer/chat_template.jinja",
+            "bytes": 403,
+            "archive_member_sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+            "retained_sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+            "identical": true
+          },
+          {
+            "path": "pretrained_model/tokenizer/tokenizer.json",
+            "bytes": 3548738,
+            "archive_member_sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+            "retained_sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+            "identical": true
+          },
+          {
+            "path": "pretrained_model/tokenizer/tokenizer_config.json",
+            "bytes": 838,
+            "archive_member_sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+            "retained_sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+            "identical": true
+          }
+        ],
+        "before_free_bytes": 4488650752,
+        "only_redundant_archive": true,
+        "checkpoint_trees_deleted": false,
+        "after_free_bytes": 5690036224,
+        "removed_verified": true
+      },
+      {
+        "time": 1789133656.09277,
+        "deleted_relative_path": "transfers/prometheus-evidence-20260813.tar.gz",
+        "deleted_file_sha256": "7f6468f2f77d1f4cd9c34f0b09abcd3ccf3bc3f57a635ccb388d8a3fc9083f79",
+        "deleted_logical_bytes": 762012890,
+        "retained_members": [
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/pretrained_model/config.json",
+            "bytes": 2972,
+            "sha256": "fc6ef84ecb2b97b119b807ecdd9d05405e51645e2f7f524bb25a8eddadd4c214",
+            "retained_sha256": "fc6ef84ecb2b97b119b807ecdd9d05405e51645e2f7f524bb25a8eddadd4c214",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/pretrained_model/model.safetensors",
+            "bytes": 1197789256,
+            "sha256": "78b15bf337e249d279b3e311330b77e9828393df213c41ccb0bb375f86403c97",
+            "retained_sha256": "78b15bf337e249d279b3e311330b77e9828393df213c41ccb0bb375f86403c97",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/pretrained_model/policy_postprocessor.json",
+            "bytes": 2241,
+            "sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+            "retained_sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+            "bytes": 1384,
+            "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+            "retained_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/pretrained_model/policy_preprocessor.json",
+            "bytes": 4952,
+            "sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+            "retained_sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors",
+            "bytes": 1384,
+            "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+            "retained_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/pretrained_model/tokenizer/chat_template.jinja",
+            "bytes": 403,
+            "sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+            "retained_sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/pretrained_model/tokenizer/tokenizer_config.json",
+            "bytes": 838,
+            "sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+            "retained_sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/pretrained_model/tokenizer/tokenizer.json",
+            "bytes": 3548738,
+            "sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+            "retained_sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/normalization.json",
+            "bytes": 4180,
+            "sha256": "76fe32c99931cc965aa4885e9cd3d9e134ec542ae3b010c1723207b6c181e31b",
+            "retained_sha256": "76fe32c99931cc965aa4885e9cd3d9e134ec542ae3b010c1723207b6c181e31b",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/action_contract.json",
+            "bytes": 3246,
+            "sha256": "ef0c8ce81dec7203bfecf37233282c36fc9ae0e5abd9a93b2c0125a4fe420b13",
+            "retained_sha256": "ef0c8ce81dec7203bfecf37233282c36fc9ae0e5abd9a93b2c0125a4fe420b13",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/config.json",
+            "bytes": 4575,
+            "sha256": "3f85918822e673796ac5d32507fb1ba9c3c7a10240a0f8c4c76e76146c73e353",
+            "retained_sha256": "3f85918822e673796ac5d32507fb1ba9c3c7a10240a0f8c4c76e76146c73e353",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/MODEL_CARD.md",
+            "bytes": 984,
+            "sha256": "62c8171de6fa0b1d44989c2126227a593cb00842c59ddb200e9fdfdcceda8609",
+            "retained_sha256": "62c8171de6fa0b1d44989c2126227a593cb00842c59ddb200e9fdfdcceda8609",
+            "identical": true
+          },
+          {
+            "path": "artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-prometheus-early-b64-step313-deploy-001/manifest.json",
+            "bytes": 3546,
+            "sha256": "2de01560286f6a4ea79439ad53db205e98b3b10cda8601a892b28af8a96a6f78",
+            "retained_sha256": "2de01560286f6a4ea79439ad53db205e98b3b10cda8601a892b28af8a96a6f78",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-prometheus-selection-001.json",
+            "bytes": 32769,
+            "sha256": "75f44cee5cd3d24007c5d0184d629cbeba8c53ebd0ce178bdc6603dc9dfe90b6",
+            "retained_sha256": "75f44cee5cd3d24007c5d0184d629cbeba8c53ebd0ce178bdc6603dc9dfe90b6",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/acceptance/m2-smolvla450m-prometheus-cuda-b64-smoke-001.json",
+            "bytes": 3064,
+            "sha256": "3e70d5f199c5e8da8d09a2de9219665b163a5f97d876ba4725e8fb2915109913",
+            "retained_sha256": "3e70d5f199c5e8da8d09a2de9219665b163a5f97d876ba4725e8fb2915109913",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/validation/m2-smolvla450m-prometheus-uniform_control-step-000080.json",
+            "bytes": 4963,
+            "sha256": "0e1bace99d5f262185001e7d74074fdbbe50941ec6ec3582af7c3603fec681b2",
+            "retained_sha256": "0e1bace99d5f262185001e7d74074fdbbe50941ec6ec3582af7c3603fec681b2",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/validation/m2-smolvla450m-prometheus-uniform_control-step-000160.json",
+            "bytes": 4966,
+            "sha256": "771a3ce2d4b3d5307ae54e16507b77ab29d1498647f62baabdee1bab1c3bb25e",
+            "retained_sha256": "771a3ce2d4b3d5307ae54e16507b77ab29d1498647f62baabdee1bab1c3bb25e",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/validation/m2-smolvla450m-prometheus-uniform_control-step-000240.json",
+            "bytes": 4966,
+            "sha256": "f141e0ef724c8ee56d6f03717362ff52950ca1ab5f6d74557afbc0e1a022d33c",
+            "retained_sha256": "f141e0ef724c8ee56d6f03717362ff52950ca1ab5f6d74557afbc0e1a022d33c",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/validation/m2-smolvla450m-prometheus-uniform_control-step-000313.json",
+            "bytes": 4964,
+            "sha256": "3ed494679a05557634f520e48968f11ef72973fe28ab65e1162fa773a70877ab",
+            "retained_sha256": "3ed494679a05557634f520e48968f11ef72973fe28ab65e1162fa773a70877ab",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/validation/m2-smolvla450m-prometheus-early_horizon-step-000080.json",
+            "bytes": 4967,
+            "sha256": "0b3f9bb5162cf6eee02d74d0e7e542949f428776baf5b4d056e6bddfb173f10a",
+            "retained_sha256": "0b3f9bb5162cf6eee02d74d0e7e542949f428776baf5b4d056e6bddfb173f10a",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/validation/m2-smolvla450m-prometheus-early_horizon-step-000160.json",
+            "bytes": 4969,
+            "sha256": "96e82e0ba4cd2a57205bafa33d71517c6816a10b5bbc231c842b74928c1213bb",
+            "retained_sha256": "96e82e0ba4cd2a57205bafa33d71517c6816a10b5bbc231c842b74928c1213bb",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/validation/m2-smolvla450m-prometheus-early_horizon-step-000240.json",
+            "bytes": 4969,
+            "sha256": "d7d746d31e9da29e96c1091d416ed19d029e25fecdd8d9524824fd96b812dc5e",
+            "retained_sha256": "d7d746d31e9da29e96c1091d416ed19d029e25fecdd8d9524824fd96b812dc5e",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/validation/m2-smolvla450m-prometheus-early_horizon-step-000313.json",
+            "bytes": 4970,
+            "sha256": "9b869034f1a19050c4fdea97bde0af2e2fa2aa9d08b8e8a16aa492d7605a6e6a",
+            "retained_sha256": "9b869034f1a19050c4fdea97bde0af2e2fa2aa9d08b8e8a16aa492d7605a6e6a",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/verification/m2-smolvla450m-prometheus-cuda-b64-reload-a-001.json",
+            "bytes": 17675,
+            "sha256": "f13e6fa39c9d983978578d1560edf24ecfb7ab65ecfeb9b900030ad16428fb35",
+            "retained_sha256": "f13e6fa39c9d983978578d1560edf24ecfb7ab65ecfeb9b900030ad16428fb35",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/verification/m2-smolvla450m-prometheus-cuda-b64-reload-b-001.json",
+            "bytes": 17676,
+            "sha256": "bbe3e8efbfe3fa130ffd9acd3172cca4142832ac183d813926a67fc5eca06e2d",
+            "retained_sha256": "bbe3e8efbfe3fa130ffd9acd3172cca4142832ac183d813926a67fc5eca06e2d",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/launch/m2-smolvla450m-prometheus-cuda-b64-smoke-001.json",
+            "bytes": 1044,
+            "sha256": "8693de014f4d112c85f26732256b065884af8dbfd99676e612a44301f8d63aa0",
+            "retained_sha256": "8693de014f4d112c85f26732256b065884af8dbfd99676e612a44301f8d63aa0",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/launch/m2-smolvla450m-prometheus-uniform-b64-001.json",
+            "bytes": 1105,
+            "sha256": "1082355a1c685e83d80fbe90bd9c02dc0dda56979c7edf165c9f0dd64ee6eec1",
+            "retained_sha256": "1082355a1c685e83d80fbe90bd9c02dc0dda56979c7edf165c9f0dd64ee6eec1",
+            "identical": true
+          },
+          {
+            "path": "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/launch/m2-smolvla450m-prometheus-early-b64-001.json",
+            "bytes": 1101,
+            "sha256": "2468a33df7ebca945dfadd47e0cde5f69ec5e3be7f9f14ecfe69fe173b5ceaff",
+            "retained_sha256": "2468a33df7ebca945dfadd47e0cde5f69ec5e3be7f9f14ecfe69fe173b5ceaff",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-b64-smoke-001.log",
+            "bytes": 22201,
+            "sha256": "09244147cda3dd0e420877521f23d63cf32d2da292e09be43f79f6fb607360e5",
+            "retained_sha256": "09244147cda3dd0e420877521f23d63cf32d2da292e09be43f79f6fb607360e5",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-b64-smoke-001.status",
+            "bytes": 50,
+            "sha256": "ee8bb577c66645f6f39dbe3d0aef53bd1a88274d4065093be944be115aa37455",
+            "retained_sha256": "ee8bb577c66645f6f39dbe3d0aef53bd1a88274d4065093be944be115aa37455",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-uniform-b64-001.log",
+            "bytes": 153688,
+            "sha256": "1f9b1347dd9e3b2ec97277093a85a541c690a7e35134973114104eead2fb233a",
+            "retained_sha256": "1f9b1347dd9e3b2ec97277093a85a541c690a7e35134973114104eead2fb233a",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-uniform-b64-001.status",
+            "bytes": 50,
+            "sha256": "4982b1e7031a28d645b0c923d989b728b86e079646bc830ca3160530ac0fe995",
+            "retained_sha256": "4982b1e7031a28d645b0c923d989b728b86e079646bc830ca3160530ac0fe995",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-early-b64-001.log",
+            "bytes": 153670,
+            "sha256": "4346b5175b8efb8ace65319aa0e692618f03c900902521fb039a90c21034d56b",
+            "retained_sha256": "4346b5175b8efb8ace65319aa0e692618f03c900902521fb039a90c21034d56b",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-early-b64-001.status",
+            "bytes": 50,
+            "sha256": "2e155ec2a2f4175767c1000d852d73bcac2594a4492da6ef6b9153d3017e35a3",
+            "retained_sha256": "2e155ec2a2f4175767c1000d852d73bcac2594a4492da6ef6b9153d3017e35a3",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-validation-001.log",
+            "bytes": 2129,
+            "sha256": "2ec8c01f3622d29728439512c4f5ad61f4fc80f2358c427a184846928bde29c6",
+            "retained_sha256": "2ec8c01f3622d29728439512c4f5ad61f4fc80f2358c427a184846928bde29c6",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-validation-002.log",
+            "bytes": 81294,
+            "sha256": "0d928a881df11956ac831fc04443f797cae38e4ae0a843ee457bfa0cf1ed9bc8",
+            "retained_sha256": "0d928a881df11956ac831fc04443f797cae38e4ae0a843ee457bfa0cf1ed9bc8",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-validation-002.status",
+            "bytes": 50,
+            "sha256": "0ecf362b543ef423db026b5d08e60d399d091f1328cbe7678b204b5a281840b6",
+            "retained_sha256": "0ecf362b543ef423db026b5d08e60d399d091f1328cbe7678b204b5a281840b6",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-selection-001.log",
+            "bytes": 770,
+            "sha256": "c0164aa464a4c627241e8e5699aedb71c980e0f67c72614035dc032b94e34e2b",
+            "retained_sha256": "c0164aa464a4c627241e8e5699aedb71c980e0f67c72614035dc032b94e34e2b",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-selection-002.log",
+            "bytes": 32900,
+            "sha256": "a8de825d5b55da6e9ff965b28a68764252b83ec1fbc53fa3d623edd33e342932",
+            "retained_sha256": "a8de825d5b55da6e9ff965b28a68764252b83ec1fbc53fa3d623edd33e342932",
+            "identical": true
+          },
+          {
+            "path": "runs/orchestration/prometheus-export-001.log",
+            "bytes": 8361,
+            "sha256": "7182520e6593f887ffdccf69072de2701bdf291c085b0b39a1a9e91cd3d30796",
+            "retained_sha256": "7182520e6593f887ffdccf69072de2701bdf291c085b0b39a1a9e91cd3d30796",
+            "identical": true
+          }
+        ],
+        "before_free_bytes": 5690028032,
+        "all_retained_members_rehashed": true,
+        "checkpoint_trees_deleted": false,
+        "after_free_bytes": 6452031488,
+        "removed_verified": true
+      }
+    ],
+    "after_free_bytes": 6452031488
+  },
+  "id": "hestia-checkpoint-retrieval-20260911-001",
+  "evidence_sha256": {
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/stream.stderr": "e53be72c16cdb7d3b3834cd047d21915e17514decf5c8ab7d0c758f13dfcb946",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/cpu-shutdown.py": "383e1971cd6a901a8912880615b5a145897b22030fcdaa684f4f5e0792ff0a53",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/unpack.py": "afee3f6ffd806f799909bc80ea2139bfe9ef5ebd030083c7d1b53db772a25ee8",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/inventory.json": "d0f36b0dfa74ee15561638c9296bdbf4ee56b5216fe689da3c539b6f7183afad",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/prometheus-verify.json": "464b11e9de5dec9c48fe387342326edeb810622fb70109150a622099ed684d7c",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/cleanup-prometheus-result.json": "4af2350a99ea375dfc5fa58755f51c8150bb0daed2a05cbeff76a26e9b13ade7",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/duplicate-verify.json": "b008ea4cce7f6ea2a15706acfe36eaeaf79deb4498bc38fc30c1738fcf83ef9e",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/deadline.json": "2c046d7670c7c6cb540fafff579fa7392fe56fdcbee1bf552bd1bb7606e36b84",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/duplicate-audit.json": "1394c004b480316f1a8696c93cc2f4bd883fc64e8fdf43af21821be9363b7f85",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/shutdown.stderr": "7677b58cea522af3687e7a853db9b47e755d8603e6fd73836ab840c7f701261c",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/cleanup-result-002.json": "2380fcc875c940cd69a0047a4916086c50b98da2821c51d36dbf6b6b35f3f39b",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/shutdown.log": "8ace810d829b50813c6a43b14368d95dc8f1eb6ebdc248bf9cb25f20f7f4e61a",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/post-shutdown.stderr": "e87e8eaa5645e7cf083e56f995499f6af8ce83870e4e647b3a52da722aa6ad1a",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/cleanup.stderr": "9ff5105e78d2daef290f69b9cee0e53650eb61e0cc238e3896dc4fe4ddd1d2cf",
+    "runs/hestia-checkpoint-retrieval-control-20260911-001/transfer-verified.json": "718650e69e7c289fda844dbf6faf104051841dbc282ba06258c9efe1984f99e3"
+  },
+  "model_file_verification": {
+    "status": "passed",
+    "file_count": 40,
+    "total_bytes": 4805448844,
+    "files": {
+      "000320/pretrained_model/config.json": {
+        "sha256": "4a9e6fb39d7fc2583df089bba24406f72862e3e8179e0bff74f176d82cdee8e3",
+        "bytes": 2973
+      },
+      "000320/pretrained_model/model.safetensors": {
+        "sha256": "d20222f676f2b481c321eb3a7894a8d86baadbbd134da6abd615d65ad2258688",
+        "bytes": 1197789256
+      },
+      "000320/pretrained_model/policy_postprocessor.json": {
+        "sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+        "bytes": 2241
+      },
+      "000320/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors": {
+        "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "bytes": 1384
+      },
+      "000320/pretrained_model/policy_preprocessor.json": {
+        "sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+        "bytes": 4952
+      },
+      "000320/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors": {
+        "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "bytes": 1384
+      },
+      "000320/pretrained_model/tokenizer/chat_template.jinja": {
+        "sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+        "bytes": 403
+      },
+      "000320/pretrained_model/tokenizer/tokenizer.json": {
+        "sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+        "bytes": 3548738
+      },
+      "000320/pretrained_model/tokenizer/tokenizer_config.json": {
+        "sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+        "bytes": 838
+      },
+      "000320/pretrained_model/train_config.json": {
+        "sha256": "4a4e0fcd7c2d06a91adbc418154f246235d7e3c861e51d9bc8378aa2c595800e",
+        "bytes": 10042
+      },
+      "000640/pretrained_model/config.json": {
+        "sha256": "4a9e6fb39d7fc2583df089bba24406f72862e3e8179e0bff74f176d82cdee8e3",
+        "bytes": 2973
+      },
+      "000640/pretrained_model/model.safetensors": {
+        "sha256": "151e9cd18679989f90add5468bc27c555ed43975996c6a200415a69ae96c83ca",
+        "bytes": 1197789256
+      },
+      "000640/pretrained_model/policy_postprocessor.json": {
+        "sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+        "bytes": 2241
+      },
+      "000640/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors": {
+        "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "bytes": 1384
+      },
+      "000640/pretrained_model/policy_preprocessor.json": {
+        "sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+        "bytes": 4952
+      },
+      "000640/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors": {
+        "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "bytes": 1384
+      },
+      "000640/pretrained_model/tokenizer/chat_template.jinja": {
+        "sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+        "bytes": 403
+      },
+      "000640/pretrained_model/tokenizer/tokenizer.json": {
+        "sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+        "bytes": 3548738
+      },
+      "000640/pretrained_model/tokenizer/tokenizer_config.json": {
+        "sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+        "bytes": 838
+      },
+      "000640/pretrained_model/train_config.json": {
+        "sha256": "4a4e0fcd7c2d06a91adbc418154f246235d7e3c861e51d9bc8378aa2c595800e",
+        "bytes": 10042
+      },
+      "000960/pretrained_model/config.json": {
+        "sha256": "4a9e6fb39d7fc2583df089bba24406f72862e3e8179e0bff74f176d82cdee8e3",
+        "bytes": 2973
+      },
+      "000960/pretrained_model/model.safetensors": {
+        "sha256": "ac0b2d38a0d59a4f839cfaca65f8281afa5a1c8dcf645235a709c7bcf88f175b",
+        "bytes": 1197789256
+      },
+      "000960/pretrained_model/policy_postprocessor.json": {
+        "sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+        "bytes": 2241
+      },
+      "000960/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors": {
+        "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "bytes": 1384
+      },
+      "000960/pretrained_model/policy_preprocessor.json": {
+        "sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+        "bytes": 4952
+      },
+      "000960/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors": {
+        "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "bytes": 1384
+      },
+      "000960/pretrained_model/tokenizer/chat_template.jinja": {
+        "sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+        "bytes": 403
+      },
+      "000960/pretrained_model/tokenizer/tokenizer.json": {
+        "sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+        "bytes": 3548738
+      },
+      "000960/pretrained_model/tokenizer/tokenizer_config.json": {
+        "sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+        "bytes": 838
+      },
+      "000960/pretrained_model/train_config.json": {
+        "sha256": "4a4e0fcd7c2d06a91adbc418154f246235d7e3c861e51d9bc8378aa2c595800e",
+        "bytes": 10042
+      },
+      "001280/pretrained_model/config.json": {
+        "sha256": "4a9e6fb39d7fc2583df089bba24406f72862e3e8179e0bff74f176d82cdee8e3",
+        "bytes": 2973
+      },
+      "001280/pretrained_model/model.safetensors": {
+        "sha256": "21b4dd9335596c96376e24e902fc2b7f0531c6b738cbfd4dd19683e973bd9b84",
+        "bytes": 1197789256
+      },
+      "001280/pretrained_model/policy_postprocessor.json": {
+        "sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+        "bytes": 2241
+      },
+      "001280/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors": {
+        "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "bytes": 1384
+      },
+      "001280/pretrained_model/policy_preprocessor.json": {
+        "sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+        "bytes": 4952
+      },
+      "001280/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors": {
+        "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+        "bytes": 1384
+      },
+      "001280/pretrained_model/tokenizer/chat_template.jinja": {
+        "sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+        "bytes": 403
+      },
+      "001280/pretrained_model/tokenizer/tokenizer.json": {
+        "sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+        "bytes": 3548738
+      },
+      "001280/pretrained_model/tokenizer/tokenizer_config.json": {
+        "sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+        "bytes": 838
+      },
+      "001280/pretrained_model/train_config.json": {
+        "sha256": "4a4e0fcd7c2d06a91adbc418154f246235d7e3c861e51d9bc8378aa2c595800e",
+        "bytes": 10042
+      }
+    },
+    "all_historical_quarter_sha256_matched": true,
+    "new_model_reload": false
+  },
+  "status": "completed",
+  "shutdown": {
+    "post_ssh_exit": 255,
+    "deadline_unix": 1789133795,
+    "platform_billing_independently_verified": false,
+    "instance_released": false,
+    "command_invoked_unix": 1789133782
+  },
+  "new_model_reload": false,
+  "remote_mode": "cpu_no_card",
+  "remote_model_compute": false
+}
