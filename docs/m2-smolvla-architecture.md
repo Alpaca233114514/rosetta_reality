@@ -1841,3 +1841,11 @@ Keep dated audits and machine evidence append-only. If the stable path ever
 changes, update `AGENTS.md`, `README.md` and `docs/architecture.md` together.
 Tracked architecture and handoff files must contain only repository-relative
 paths.
+
+### Hestia保存点曲线002部署修复（2026-09-11）
+
+原001因新workspace缺失normalization入口在权重加载前停止。新增
+`scripts/prepare_hestia_checkpoint_workspace.py`按原SHA绑定既有report/view，并在
+看门狗保护内、权重加载前运行完整native normalization检查。002现场检查已通过，
+1280首个控制与原CUDA逐值相同；完整曲线及其余保存点尚待封闭结果，Gate状态不变。
+证据见`reports/training/m2-smolvla-hestia-cuda-checkpoint-curve-repair-dispatch-2026-09-11.md`。
