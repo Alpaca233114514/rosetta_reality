@@ -103,6 +103,17 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Socket-position to action-horizon diagnostic (2026-09-11):
+`reports/training/m2-smolvla-socket-action-horizon-result-2026-09-11.{md,json}`
+compares first versus last native-chunk left-arm action labels using only the
+same initial socket centroid and a fixed quadratic readout family.
+Development joint error relative to the best constant is 1.270 at frame 0 and
+0.816 at frame 49; nested ratios are 1.067/0.643. The registered development
+threshold is below 0.8, so the full hypothesis does not pass. Twenty-five checks
+and one real-cache test passed; duplicate front-end row accounting is documented.
+This narrows interpretation of first-action probes, not policy failure causality.
+No label shift, model execution, new training or Gate is authorized by the result.
+
 Socket-position positive control (2026-09-11):
 `reports/training/m2-smolvla-socket-position-result-2026-09-11.{md,json}`
 records a successful frozen-KV readout of the visible blue socket centroid.
