@@ -1,0 +1,125 @@
+{
+  "id": "contextual-kv-regularization-20260911-001",
+  "status": "preregistered_saved_feature_cpu_analysis",
+  "single_axis": "ridge_alpha_search_range",
+  "source_result": "runs/contextual-kv-depth-20260911-001/result.json",
+  "features": "runs/contextual-kv-depth-20260911-001/features.npz",
+  "output": "runs/contextual-kv-regularization-20260911-001",
+  "train_episodes": [
+    49,
+    4,
+    23,
+    43,
+    21,
+    37,
+    18,
+    34,
+    0,
+    47,
+    38,
+    29,
+    3,
+    26,
+    14,
+    17,
+    44,
+    30,
+    15,
+    42,
+    10,
+    35,
+    25,
+    32,
+    19,
+    36,
+    41,
+    28,
+    8,
+    27,
+    16,
+    11,
+    2,
+    20,
+    9,
+    39,
+    46,
+    48,
+    12,
+    40
+  ],
+  "development_episodes": [
+    22,
+    13,
+    7,
+    33,
+    45
+  ],
+  "hidden_episodes": [
+    31,
+    6,
+    1,
+    24,
+    5
+  ],
+  "groups": {
+    "radian": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "normalized": [
+      6,
+      13
+    ]
+  },
+  "grids": {
+    "historical_grid": [
+      0.001,
+      0.1,
+      1,
+      10,
+      100
+    ],
+    "expanded_grid": [
+      0.001,
+      0.1,
+      1,
+      10,
+      100,
+      1000,
+      10000,
+      100000,
+      1000000,
+      100000000
+    ]
+  },
+  "seed": 20260911,
+  "epsilon": 1E-08,
+  "runtime": {
+    "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+    "cpus": 2,
+    "memory_bytes": 2147483648,
+    "memory_and_swap_bytes": 2147483648,
+    "maximum_seconds": 180,
+    "network": "none",
+    "device": "cpu"
+  },
+  "input_and_code_sha256": {
+    "runs/contextual-kv-depth-20260911-001/result.json": "fd857bff560ea889342e69358d5a5f50de707089594d421b8ceba980de5e37c9",
+    "runs/contextual-kv-depth-20260911-001/features.npz": "8882b15d60d5670fa8d475ee4ec1d764cae13ae1aff5ed639e0e70f5299797c7",
+    "scripts/diagnose_kv_regularization.py": "7a037539e5c420d98039c90eea5cdd20729ce6d876f1c0478fecdd3dce1de69d",
+    "tests/test_kv_regularization.py": "c7818735b9533ec184e626f81aa85dcbe8966158393ec2246a8dce01371b35bb",
+    "src/rosetta_reality/vla/contextual_kv_probe.py": "61bd2acc1bef576fe87d139fd0e66a245a70daf2322c0aa38e1bfe202e6328e7",
+    "src/rosetta_reality/vla/vision_diagnostics.py": "9bf5ab370be5f803a205b9e2a596bd25ed64b32514afcb5c9c39ef770a40fe63",
+    "reports/training/m2-smolvla-kv-regularization-plan-2026-09-11.md": "821dfe6f01fffdf44d0b98c2453d83cc44cb13f5639920e8d25c0514335909f7"
+  }
+}

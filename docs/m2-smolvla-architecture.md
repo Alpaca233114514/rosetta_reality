@@ -103,6 +103,19 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Saved-feature regularization diagnostic (2026-09-11):
+`reports/training/m2-smolvla-kv-regularization-result-2026-09-11.{md,json}`
+records a CPU-only comparison on the unchanged early-layer KV arrays.
+`scripts/diagnose_kv_regularization.py` expands only the ridge alpha grid,
+with train-only selection and nested train-fold evaluation. The selected alpha
+increases from 100 to 10000. Development joint MAE improves but remains worse
+than constants and loses positive image-pair gain; gripper MAE regresses.
+Neither nested readout beats both constant baselines. Thirty-one checks passed,
+historical predictions reproduce exactly and saved-array reload is exact.
+No new model/data execution or Gate occurred. Regularization sensitivity is
+established for this probe; policy improvement and a unique root cause are not.
+The next diagnostic boundary is supervision identifiability and time alignment.
+
 Local contextual-KV depth diagnostic (2026-09-11):
 `reports/training/m2-smolvla-contextual-kv-depth-result-2026-09-11.{md,json}`
 records the registered early-layer-1 versus late-layer-15 readout on the unchanged
