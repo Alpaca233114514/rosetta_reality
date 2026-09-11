@@ -5,7 +5,7 @@ SmolVLA M2 work. It is intentionally not named after a furnace or date. Update
 this file when component ownership, execution boundaries, the current evidence
 source, or the next repair stage changes.
 
-Document updated: 2026-09-10. Current Faust evidence snapshot: 2026-08-12;
+Document updated: 2026-09-11. Current Faust evidence snapshot: 2026-08-12;
 current Aster implementation audit: 2026-08-13; current Way CUDA evidence:
 2026-08-14; current object-geometry teacher/official planner evidence:
 2026-08-16; current Zen two-arm campaign completion audit: 2026-08-27; current
@@ -102,6 +102,22 @@ to make a later result appear successful.
 ## 2. Current M2 status
 
 The current work line is **VLA / System 1**, not Qwen ER.
+
+Local contextual-KV depth diagnostic (2026-09-11):
+`reports/training/m2-smolvla-contextual-kv-depth-result-2026-09-11.{md,json}`
+records the registered early-layer-1 versus late-layer-15 readout on the unchanged
+local Zen-uniform artifact. `scripts/diagnose_contextual_kv_depth.py` observes
+the native expert K/V projection inputs;
+`src/rosetta_reality/vla/contextual_kv_probe.py` owns the
+paired readouts with one early-train-selected alpha shared across arms. Both
+fit train first actions closely but fail to beat development joint constant
+baselines. Both do beat development gripper constants. Late depth does not
+improve either group's MAE, so this readout intervention is negative; visual
+information absence and a unique cause of policy failure remain unproven.
+Twenty-four synthetic checks, one real-cache test and 46 local XPU forwards
+completed. Hook full-chunk parity, 345 unchanged frozen VLM tensors and exact
+saved-array reload passed. There was no policy optimizer, SSH, new Gate 3/4 or
+independent model-process reload. Hestia remains pending; M2 is incomplete.
 
 Current visual-utilization handoff and review plan (2026-09-10):
 `reports/training/m2-smolvla-native-visual-coverage40-plan-2026-09-10.md`
