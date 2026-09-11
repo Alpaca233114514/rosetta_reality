@@ -111,7 +111,12 @@ global timing changes establishes a generalization fix. Retrieve the immutable
 A/B prediction bundles before applying these diagnostics to B; the pending plan
 `reports/training/m2-smolvla-coverage40-prediction-retrieval-plan-2026-09-11.md`
 limits transfer to 19 files and 32 MiB, with no weights or new GPU computation.
-Current SSH details and authorization are required; no connection has been made.
+After the user supplied current SSH details, retrieval completed at 5,515,092 bytes;
+see `reports/training/m2-smolvla-coverage40-prediction-retrieval-result-2026-09-11.{md,json}`.
+All 19 hashes passed and the locally recomputed full comparison JSON has the exact
+historical SHA. The existing 34 bundle/metric checks passed. No new model forward,
+training, remote write or power-state change occurred. Actual B arrays are now
+available for the registered train-only bias/time-shift diagnostics.
 
 Local Hestia main-chain regression (2026-09-11):
 `reports/training/m2-smolvla-hestia-local-regression-2026-09-11.{md,json}`
