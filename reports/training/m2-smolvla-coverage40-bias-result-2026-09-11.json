@@ -1,0 +1,2365 @@
+{
+  "id": "coverage40-bias-20260911-001",
+  "status": "completed",
+  "method": "bias",
+  "plan_sha256": "dd50f6f9bd78d272ff1705b37b1b4e7268c994b570ff686cb10f238345d265fc",
+  "conditions": [
+    {
+      "noise_seed": null,
+      "selection": {
+        "bias_mean_by_dimension": [
+          -0.0001012210426852108,
+          -0.0008601800650358212,
+          -0.017685809314250945,
+          0.0016591438901377845,
+          0.03820371859520674,
+          -0.0018407244355184954,
+          0.00866464599967003,
+          -0.004489798346534372,
+          0.006877741500735282,
+          -0.007419174879789352,
+          -0.005550630051642656,
+          0.021081801801919934,
+          -0.00037714832276105904,
+          0.014824841856956483
+        ]
+      },
+      "metrics": {
+        "full": {
+          "control": {
+            "radian": {
+              "mae": 0.05581615579663776,
+              "mse": 0.007776847142415304,
+              "per_episode_mae": [
+                0.08726915905252099,
+                0.05845653874062312,
+                0.041529580861873305,
+                0.05139399293111637,
+                0.040431507397055005
+              ],
+              "all_nonself_image_mae": 0.05530936242993145,
+              "paired_mae_gain": -0.0005067933667063096,
+              "train_mean_baseline_mae": 0.051545371695429394,
+              "train_median_baseline_mae": 0.050388966940886654,
+              "prediction_scene_variance": 0.0005641067992480086,
+              "target_scene_variance": 0.005754356310265126,
+              "scene_covariance": -7.621309862714802E-05,
+              "scene_correlation": -0.04230099443451591,
+              "squared_mean_bias": 0.0013059578356478738
+            },
+            "normalized": {
+              "mae": 0.055576178193092345,
+              "mse": 0.017867878727685367,
+              "per_episode_mae": [
+                0.16625069350004196,
+                0.030349041521549224,
+                0.02342086613178253,
+                0.030657679736614228,
+                0.027202610075473786
+              ],
+              "all_nonself_image_mae": 0.05831177628040314,
+              "paired_mae_gain": 0.0027355980873107963,
+              "train_mean_baseline_mae": 0.0608858475163579,
+              "train_median_baseline_mae": 0.0530929998755455,
+              "prediction_scene_variance": 0.00012125828161948105,
+              "target_scene_variance": 0.01595129637217779,
+              "scene_covariance": -7.992309873235862E-05,
+              "scene_correlation": -0.05746701204838422,
+              "squared_mean_bias": 0.0016354778764233757
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.055579023212962785,
+              "mse": 0.007681365241819144,
+              "per_episode_mae": [
+                0.08172217635181736,
+                0.061687877561217935,
+                0.03960788993921594,
+                0.05311823719693348,
+                0.04175893501562916
+              ],
+              "all_nonself_image_mae": 0.05536341128826511,
+              "paired_mae_gain": -0.00021561192469767704,
+              "train_mean_baseline_mae": 0.051545371695429394,
+              "train_median_baseline_mae": 0.050388966940886654,
+              "prediction_scene_variance": 0.0005641067992480086,
+              "target_scene_variance": 0.005754356310265126,
+              "scene_covariance": -7.621309862714806E-05,
+              "scene_correlation": -0.04230099443451594,
+              "squared_mean_bias": 0.0012104759350517135
+            },
+            "normalized": {
+              "mae": 0.060941513520479204,
+              "mse": 0.01712176494873761,
+              "per_episode_mae": [
+                0.15450594957172867,
+                0.04206670944392679,
+                0.0344861916154623,
+                0.03624103677272796,
+                0.037407680198550224
+              ],
+              "all_nonself_image_mae": 0.06181127400845288,
+              "paired_mae_gain": 0.0008697604879736726,
+              "train_mean_baseline_mae": 0.0608858475163579,
+              "train_median_baseline_mae": 0.0530929998755455,
+              "prediction_scene_variance": 0.00012125828161948105,
+              "target_scene_variance": 0.01595129637217779,
+              "scene_covariance": -7.992309873235859E-05,
+              "scene_correlation": -0.0574670120483842,
+              "squared_mean_bias": 0.0008893640974756186
+            }
+          }
+        },
+        "first": {
+          "control": {
+            "radian": {
+              "mae": 0.01710540904508283,
+              "mse": 0.0006429680519042184,
+              "per_episode_mae": [
+                0.025316304177977145,
+                0.015801435569301248,
+                0.01164577043770502,
+                0.021776361158117652,
+                0.010987173882313073
+              ],
+              "all_nonself_image_mae": 0.015748255280777813,
+              "paired_mae_gain": -0.001357153764305015,
+              "train_mean_baseline_mae": 0.01372849423089065,
+              "train_median_baseline_mae": 0.012719260396746297,
+              "prediction_scene_variance": 2.941562203129874E-05,
+              "target_scene_variance": 0.00038096651136803445,
+              "scene_covariance": -4.710778146843004E-05,
+              "scene_correlation": -0.44500022745067724,
+              "squared_mean_bias": 0.00013837035556802472
+            },
+            "normalized": {
+              "mae": 0.01514858305454254,
+              "mse": 0.0004625905550331488,
+              "per_episode_mae": [
+                0.02539488673210144,
+                0.009674951434135437,
+                0.020130053162574768,
+                0.018216177821159363,
+                0.0023268461227416992
+              ],
+              "all_nonself_image_mae": 0.016228297352790834,
+              "paired_mae_gain": 0.001079714298248293,
+              "train_mean_baseline_mae": 0.01734176397323609,
+              "train_median_baseline_mae": 0.01530347317457199,
+              "prediction_scene_variance": 4.216254250621886E-06,
+              "target_scene_variance": 0.0004883884370164183,
+              "scene_covariance": 2.430178818007889E-05,
+              "scene_correlation": 0.5355402889243023,
+              "squared_mean_bias": 1.8589440126266508E-05
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.014829307812421274,
+              "mse": 0.0006000321209079777,
+              "per_episode_mae": [
+                0.02460680077783764,
+                0.011042539496944913,
+                0.012781707514659514,
+                0.01807500830618664,
+                0.007640482966477676
+              ],
+              "all_nonself_image_mae": 0.013922914641637668,
+              "paired_mae_gain": -0.0009063931707836061,
+              "train_mean_baseline_mae": 0.01372849423089065,
+              "train_median_baseline_mae": 0.012719260396746297,
+              "prediction_scene_variance": 2.941562203129874E-05,
+              "target_scene_variance": 0.00038096651136803445,
+              "scene_covariance": -4.710778146843004E-05,
+              "scene_correlation": -0.44500022745067724,
+              "squared_mean_bias": 9.543442457178396E-05
+            },
+            "normalized": {
+              "mae": 0.01657138183712959,
+              "mse": 0.00047973211724830646,
+              "per_episode_mae": [
+                0.02143326252698899,
+                0.013636575639247889,
+                0.02409167736768722,
+                0.018252445012331003,
+                0.005442948639392847
+              ],
+              "all_nonself_image_mae": 0.01759646590799093,
+              "paired_mae_gain": 0.0010250840708613401,
+              "train_mean_baseline_mae": 0.01734176397323609,
+              "train_median_baseline_mae": 0.01530347317457199,
+              "prediction_scene_variance": 4.216254250621887E-06,
+              "target_scene_variance": 0.0004883884370164183,
+              "scene_covariance": 2.430178818007889E-05,
+              "scene_correlation": 0.5355402889243023,
+              "squared_mean_bias": 3.573100234142437E-05
+            }
+          }
+        },
+        "early": {
+          "control": {
+            "radian": {
+              "mae": 0.022977063535557438,
+              "mse": 0.0017290047470552117,
+              "per_episode_mae": [
+                0.05050197582847128,
+                0.01725419399832996,
+                0.01378511728447241,
+                0.022634133838194733,
+                0.010709896728318806
+              ],
+              "all_nonself_image_mae": 0.020669360703517062,
+              "paired_mae_gain": -0.002307702832040376,
+              "train_mean_baseline_mae": 0.018483447340646914,
+              "train_median_baseline_mae": 0.018763141239372394,
+              "prediction_scene_variance": 5.066768195046832E-05,
+              "target_scene_variance": 0.0010771363645513583,
+              "scene_covariance": -0.0001481774931575329,
+              "scene_correlation": -0.6342805312466469,
+              "squared_mean_bias": 0.0003048457142383193
+            },
+            "normalized": {
+              "mae": 0.014905114769935607,
+              "mse": 0.00045674551098317195,
+              "per_episode_mae": [
+                0.025794398784637452,
+                0.008960974216461182,
+                0.019406621158123017,
+                0.01839616149663925,
+                0.001967418193817139
+              ],
+              "all_nonself_image_mae": 0.016196397691965105,
+              "paired_mae_gain": 0.0012912829220294974,
+              "train_mean_baseline_mae": 0.017281973391771316,
+              "train_median_baseline_mae": 0.01523135468363762,
+              "prediction_scene_variance": 5.851487360679641E-06,
+              "target_scene_variance": 0.00048576907870799964,
+              "scene_covariance": 2.7602550352124663E-05,
+              "scene_correlation": 0.5177273902316659,
+              "squared_mean_bias": 2.0330045618742098E-05
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.021572985820540146,
+              "mse": 0.0016100765624084252,
+              "per_episode_mae": [
+                0.04742336298237206,
+                0.01621891022810208,
+                0.011454342783496644,
+                0.02251502346242584,
+                0.01025328964630414
+              ],
+              "all_nonself_image_mae": 0.019174688604262587,
+              "paired_mae_gain": -0.002398297216277559,
+              "train_mean_baseline_mae": 0.018483447340646914,
+              "train_median_baseline_mae": 0.018763141239372394,
+              "prediction_scene_variance": 5.066768195046832E-05,
+              "target_scene_variance": 0.0010771363645513583,
+              "scene_covariance": -0.0001481774931575329,
+              "scene_correlation": -0.6342805312466469,
+              "squared_mean_bias": 0.00018591752959153256
+            },
+            "normalized": {
+              "mae": 0.01641455280035734,
+              "mse": 0.000469964613785744,
+              "per_episode_mae": [
+                0.021781880743801597,
+                0.01297349225729704,
+                0.023419139198958872,
+                0.018111628331243988,
+                0.005786623470485208
+              ],
+              "all_nonself_image_mae": 0.01750297103077173,
+              "paired_mae_gain": 0.0010884182304143931,
+              "train_mean_baseline_mae": 0.017281973391771316,
+              "train_median_baseline_mae": 0.01523135468363762,
+              "prediction_scene_variance": 5.851487360679641E-06,
+              "target_scene_variance": 0.00048576907870799964,
+              "scene_covariance": 2.7602550352124663E-05,
+              "scene_correlation": 0.5177273902316659,
+              "squared_mean_bias": 3.354914842131414E-05
+            }
+          }
+        },
+        "middle": {
+          "control": {
+            "radian": {
+              "mae": 0.0543391169850818,
+              "mse": 0.00974280630382445,
+              "per_episode_mae": [
+                0.11993017140258518,
+                0.04901645855926391,
+                0.03313262826090472,
+                0.03183760334892819,
+                0.037778723353727
+              ],
+              "all_nonself_image_mae": 0.04882430471505762,
+              "paired_mae_gain": -0.0055148122700241775,
+              "train_mean_baseline_mae": 0.04861572736487465,
+              "train_median_baseline_mae": 0.04677618590157686,
+              "prediction_scene_variance": 0.0001686183930798251,
+              "target_scene_variance": 0.006716338079388186,
+              "scene_covariance": -0.0007532394372890888,
+              "scene_correlation": -0.7078061024383705,
+              "squared_mean_bias": 0.0013513709567782614
+            },
+            "normalized": {
+              "mae": 0.01526203433672587,
+              "mse": 0.0004607568932234329,
+              "per_episode_mae": [
+                0.027068932851155598,
+                0.008215775092442831,
+                0.018588075041770936,
+                0.019320284326871235,
+                0.0031171043713887534
+              ],
+              "all_nonself_image_mae": 0.01680076857407888,
+              "paired_mae_gain": 0.0015387342373530087,
+              "train_mean_baseline_mae": 0.017648852884769438,
+              "train_median_baseline_mae": 0.015580365260442097,
+              "prediction_scene_variance": 1.0231890199577266E-05,
+              "target_scene_variance": 0.0004948000824556805,
+              "scene_covariance": 3.6772698074355976E-05,
+              "scene_correlation": 0.5168121067197271,
+              "squared_mean_bias": 2.9270316716887165E-05
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.055356332961631574,
+              "mse": 0.009171662359412084,
+              "per_episode_mae": [
+                0.10889469246732511,
+                0.05781510353738361,
+                0.03070615301894981,
+                0.03185819011547005,
+                0.04750752566902923
+              ],
+              "all_nonself_image_mae": 0.04929405825149862,
+              "paired_mae_gain": -0.006062274710132952,
+              "train_mean_baseline_mae": 0.04861572736487465,
+              "train_median_baseline_mae": 0.04677618590157686,
+              "prediction_scene_variance": 0.0001686183930798251,
+              "target_scene_variance": 0.006716338079388186,
+              "scene_covariance": -0.0007532394372890888,
+              "scene_correlation": -0.7078061024383705,
+              "squared_mean_bias": 0.0007802270123658951
+            },
+            "normalized": {
+              "mae": 0.016465557838479677,
+              "mse": 0.00046117644482525274,
+              "per_episode_mae": [
+                0.0233610728631417,
+                0.01192363508045674,
+                0.022295935029784834,
+                0.01863609251876672,
+                0.006111053700248401
+              ],
+              "all_nonself_image_mae": 0.01781619677444299,
+              "paired_mae_gain": 0.0013506389359633116,
+              "train_mean_baseline_mae": 0.017648852884769438,
+              "train_median_baseline_mae": 0.015580365260442097,
+              "prediction_scene_variance": 1.0231890199577266E-05,
+              "target_scene_variance": 0.0004948000824556805,
+              "scene_covariance": 3.6772698074355976E-05,
+              "scene_correlation": 0.5168121067197271,
+              "squared_mean_bias": 2.9689868318706945E-05
+            }
+          }
+        },
+        "late": {
+          "control": {
+            "radian": {
+              "mae": 0.06983801598800346,
+              "mse": 0.009016408603713853,
+              "per_episode_mae": [
+                0.08237942493210236,
+                0.08060152474635592,
+                0.057665537853414814,
+                0.07463177031759793,
+                0.05391182209054629
+              ],
+              "all_nonself_image_mae": 0.07305639774942149,
+              "paired_mae_gain": 0.003218381761418032,
+              "train_mean_baseline_mae": 0.06652792803567524,
+              "train_median_baseline_mae": 0.06520696584507824,
+              "prediction_scene_variance": 0.001006775489867935,
+              "target_scene_variance": 0.007048055227076797,
+              "scene_covariance": 0.0003587884623821704,
+              "scene_correlation": 0.1346906667181561,
+              "squared_mean_bias": 0.0016791548115334624
+            },
+            "normalized": {
+              "mae": 0.09603308987617493,
+              "mse": 0.03527660511504341,
+              "per_episode_mae": [
+                0.30594226777553557,
+                0.052184228301048276,
+                0.027926238775253295,
+                0.04236472427845001,
+                0.05174799025058746
+              ],
+              "all_nonself_image_mae": 0.10006453233957291,
+              "paired_mae_gain": 0.004031442463397983,
+              "train_mean_baseline_mae": 0.1042695939451456,
+              "train_median_baseline_mae": 0.09074523872137069,
+              "prediction_scene_variance": 0.0002340368341749439,
+              "target_scene_variance": 0.03141140506339898,
+              "scene_covariance": -0.00019295083645018066,
+              "scene_correlation": -0.07116408612234743,
+              "squared_mean_bias": 0.0032452615445691217
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.06931505232073057,
+              "mse": 0.009215702443027668,
+              "per_episode_mae": [
+                0.07913819203029075,
+                0.08219912890876489,
+                0.056210350953663356,
+                0.07811555093961459,
+                0.05091203877131924
+              ],
+              "all_nonself_image_mae": 0.07348051218392597,
+              "paired_mae_gain": 0.0041654598631954,
+              "train_mean_baseline_mae": 0.06652792803567524,
+              "train_median_baseline_mae": 0.06520696584507824,
+              "prediction_scene_variance": 0.001006775489867935,
+              "target_scene_variance": 0.007048055227076797,
+              "scene_covariance": 0.0003587884623821702,
+              "scene_correlation": 0.13469066671815605,
+              "squared_mean_bias": 0.0018784486508472767
+            },
+            "normalized": {
+              "mae": 0.10543787121772766,
+              "mse": 0.03377883818506577,
+              "per_episode_mae": [
+                0.2862825031280517,
+                0.07178984093666077,
+                0.04622716653347014,
+                0.054055766701698295,
+                0.06883407878875732
+              ],
+              "all_nonself_image_mae": 0.10593164153993129,
+              "paired_mae_gain": 0.0004937703222036294,
+              "train_mean_baseline_mae": 0.1042695939451456,
+              "train_median_baseline_mae": 0.09074523872137069,
+              "prediction_scene_variance": 0.0002340368341749439,
+              "target_scene_variance": 0.03141140506339898,
+              "scene_covariance": -0.00019295083645018069,
+              "scene_correlation": -0.07116408612234744,
+              "squared_mean_bias": 0.0017474946145914871
+            }
+          }
+        },
+        "last": {
+          "control": {
+            "radian": {
+              "mae": 0.07419268255277227,
+              "mse": 0.008897837231224151,
+              "per_episode_mae": [
+                0.07562113363140573,
+                0.07699539947013061,
+                0.06884053070098162,
+                0.0849763296234111,
+                0.06453001933793227
+              ],
+              "all_nonself_image_mae": 0.09294809626881033,
+              "paired_mae_gain": 0.01875541371603806,
+              "train_mean_baseline_mae": 0.08258313148263066,
+              "train_median_baseline_mae": 0.08133933215091625,
+              "prediction_scene_variance": 0.0015204513823292686,
+              "target_scene_variance": 0.010002011950381539,
+              "scene_covariance": 0.0022254655873725176,
+              "scene_correlation": 0.5706777360606137,
+              "squared_mean_bias": 0.0018263050732583762
+            },
+            "normalized": {
+              "mae": 0.21143099665641785,
+              "mse": 0.09533383314695901,
+              "per_episode_mae": [
+                0.6273884624242783,
+                0.1777721345424652,
+                0.016097113490104675,
+                0.10491091012954712,
+                0.13098636269569397
+              ],
+              "all_nonself_image_mae": 0.22005135267972947,
+              "paired_mae_gain": 0.008620356023311626,
+              "train_mean_baseline_mae": 0.24637923963367941,
+              "train_median_baseline_mae": 0.2101704329252243,
+              "prediction_scene_variance": 0.000809438028344971,
+              "target_scene_variance": 0.08774512475241233,
+              "scene_covariance": -0.00032710109538200513,
+              "scene_correlation": -0.038813132824885854,
+              "squared_mean_bias": 0.006125068175437676
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.06906654606980737,
+              "mse": 0.008249809514909532,
+              "per_episode_mae": [
+                0.08193600620046103,
+                0.06550624272495041,
+                0.06587174614639177,
+                0.07798837982603192,
+                0.05403035545120171
+              ],
+              "all_nonself_image_mae": 0.09189467156985,
+              "paired_mae_gain": 0.022828125500042623,
+              "train_mean_baseline_mae": 0.08258313148263066,
+              "train_median_baseline_mae": 0.08133933215091625,
+              "prediction_scene_variance": 0.0015204513823292689,
+              "target_scene_variance": 0.010002011950381539,
+              "scene_covariance": 0.0022254655873725176,
+              "scene_correlation": 0.5706777360606136,
+              "squared_mean_bias": 0.0011782773569437583
+            },
+            "normalized": {
+              "mae": 0.25389439195394514,
+              "mse": 0.09316044867803605,
+              "per_episode_mae": [
+                0.5440724089741706,
+                0.2610881879925728,
+                0.06721893996000289,
+                0.18279000669717788,
+                0.21430241614580153
+              ],
+              "all_nonself_image_mae": 0.25037368610501287,
+              "paired_mae_gain": -0.0035207058489322707,
+              "train_mean_baseline_mae": 0.24637923963367941,
+              "train_median_baseline_mae": 0.2101704329252243,
+              "prediction_scene_variance": 0.000809438028344971,
+              "target_scene_variance": 0.08774512475241233,
+              "scene_covariance": -0.00032710109538200513,
+              "scene_correlation": -0.038813132824885854,
+              "squared_mean_bias": 0.00395168370651475
+            }
+          }
+        }
+      },
+      "loo": {
+        "radian": {
+          "mae": 0.04380933361050811,
+          "mean_mae": 0.05439971442521813,
+          "median_mae": 0.053960650205845014
+        },
+        "normalized": {
+          "mae": 0.04167951957613994,
+          "mean_mae": 0.04478845969797709,
+          "median_mae": 0.039681189797818664
+        }
+      },
+      "criteria": {
+        "radian": {
+          "full_dev_reduction_at_least_20_percent": false,
+          "dev_beats_both_constants": false,
+          "dev_positive_image_gain": false,
+          "loo_beats_both_constants": true,
+          "first_action_not_regressed": true
+        },
+        "normalized": {
+          "full_dev_reduction_at_least_20_percent": false,
+          "dev_beats_both_constants": false,
+          "dev_positive_image_gain": true,
+          "loo_beats_both_constants": false,
+          "first_action_not_regressed": false
+        }
+      },
+      "passed": false,
+      "first_actions_exactly_unchanged": false,
+      "candidate_clipped_by_dimension": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "noise_seed": 20260905,
+      "selection": {
+        "bias_mean_by_dimension": [
+          0.015476681253407147,
+          0.005746926993131637,
+          -0.003967172890901564,
+          0.014127898331382314,
+          0.037543288007378564,
+          0.017848539203987455,
+          0.019570368856191633,
+          -0.0007005688641220331,
+          0.009404441744089128,
+          -0.0016518438458442675,
+          -0.003402138791978362,
+          0.031870302870869636,
+          0.006357723705470561,
+          0.020407153487205506
+        ]
+      },
+      "metrics": {
+        "full": {
+          "control": {
+            "radian": {
+              "mae": 0.062059709870411706,
+              "mse": 0.009334813852747925,
+              "per_episode_mae": [
+                0.09663461659220048,
+                0.06229702555690892,
+                0.05141096051627149,
+                0.05649544748244807,
+                0.043460499204229563
+              ],
+              "all_nonself_image_mae": 0.06188861536622668,
+              "paired_mae_gain": -0.0001710945041850237,
+              "train_mean_baseline_mae": 0.051545371695429394,
+              "train_median_baseline_mae": 0.050388966940886654,
+              "prediction_scene_variance": 0.0005147029223090304,
+              "target_scene_variance": 0.005754356310265126,
+              "scene_covariance": -4.5142615773904254E-05,
+              "scene_correlation": -0.02623070894384665,
+              "squared_mean_bias": 0.002975469388625962
+            },
+            "normalized": {
+              "mae": 0.0565796086192131,
+              "mse": 0.01926227463037992,
+              "per_episode_mae": [
+                0.1748489546775818,
+                0.02739383727312088,
+                0.021489979326725007,
+                0.034264398515224455,
+                0.024900873303413392
+              ],
+              "all_nonself_image_mae": 0.05810069432854653,
+              "paired_mae_gain": 0.0015210857093334307,
+              "train_mean_baseline_mae": 0.0608858475163579,
+              "train_median_baseline_mae": 0.0530929998755455,
+              "prediction_scene_variance": 6.680427373367834E-05,
+              "target_scene_variance": 0.01595129637217779,
+              "scene_covariance": -8.204932973954514E-05,
+              "scene_correlation": -0.07948312287190964,
+              "squared_mean_bias": 0.0030800753249893547
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.05573459666819933,
+              "mse": 0.0076597476300269045,
+              "per_episode_mae": [
+                0.0816262036969225,
+                0.06182376180922926,
+                0.041348108092516996,
+                0.05196168270606238,
+                0.04191322703626552
+              ],
+              "all_nonself_image_mae": 0.05558009546892523,
+              "paired_mae_gain": -0.00015450119927409856,
+              "train_mean_baseline_mae": 0.051545371695429394,
+              "train_median_baseline_mae": 0.050388966940886654,
+              "prediction_scene_variance": 0.0005147029223090304,
+              "target_scene_variance": 0.005754356310265126,
+              "scene_covariance": -4.5142615773904214E-05,
+              "scene_correlation": -0.026230708943846624,
+              "squared_mean_bias": 0.00130040316590494
+            },
+            "normalized": {
+              "mae": 0.060823130071163176,
+              "mse": 0.01704997891778289,
+              "per_episode_mae": [
+                0.15483862616121769,
+                0.04302371136844158,
+                0.035051751658320425,
+                0.035573945492506025,
+                0.03562761567533017
+              ],
+              "all_nonself_image_mae": 0.06122545141354204,
+              "paired_mae_gain": 0.00040232134237886547,
+              "train_mean_baseline_mae": 0.0608858475163579,
+              "train_median_baseline_mae": 0.0530929998755455,
+              "prediction_scene_variance": 6.680427373367835E-05,
+              "target_scene_variance": 0.01595129637217779,
+              "scene_covariance": -8.204932973954514E-05,
+              "scene_correlation": -0.07948312287190963,
+              "squared_mean_bias": 0.0008677796123923305
+            }
+          }
+        },
+        "first": {
+          "control": {
+            "radian": {
+              "mae": 0.023765730710389715,
+              "mse": 0.0009496907779466255,
+              "per_episode_mae": [
+                0.03409613482654095,
+                0.024669479307097692,
+                0.019979411813740928,
+                0.021826584396573406,
+                0.018257043207995594
+              ],
+              "all_nonself_image_mae": 0.023086795338895173,
+              "paired_mae_gain": -0.000678935371494542,
+              "train_mean_baseline_mae": 0.01372849423089065,
+              "train_median_baseline_mae": 0.012719260396746297,
+              "prediction_scene_variance": 2.9742305396555447E-05,
+              "target_scene_variance": 0.00038096651136803445,
+              "scene_covariance": -4.7099551027828534E-05,
+              "scene_correlation": -0.4424722639491743,
+              "squared_mean_bias": 0.0004447828591263786
+            },
+            "normalized": {
+              "mae": 0.014900687336921691,
+              "mse": 0.00048022228668687106,
+              "per_episode_mae": [
+                0.02805560827255249,
+                0.00799541175365448,
+                0.017903029918670654,
+                0.019121617078781128,
+                0.001427769660949707
+              ],
+              "all_nonself_image_mae": 0.015584857761859893,
+              "paired_mae_gain": 0.0006841704249382023,
+              "train_mean_baseline_mae": 0.01734176397323609,
+              "train_median_baseline_mae": 0.01530347317457199,
+              "prediction_scene_variance": 3.4101079195991693E-06,
+              "target_scene_variance": 0.0004883884370164183,
+              "scene_covariance": 1.8821651616285352E-05,
+              "scene_correlation": 0.4612017879451009,
+              "squared_mean_bias": 2.606704498342442E-05
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.015033634729140133,
+              "mse": 0.0006079128553159496,
+              "per_episode_mae": [
+                0.024506164739917336,
+                0.0110655975508659,
+                0.013451103332530108,
+                0.01810649357697305,
+                0.008038814445414278
+              ],
+              "all_nonself_image_mae": 0.014143399570796956,
+              "paired_mae_gain": -0.0008902351583431767,
+              "train_mean_baseline_mae": 0.01372849423089065,
+              "train_median_baseline_mae": 0.012719260396746297,
+              "prediction_scene_variance": 2.9742305396555447E-05,
+              "target_scene_variance": 0.00038096651136803445,
+              "scene_covariance": -4.709955102782852E-05,
+              "scene_correlation": -0.4424722639491742,
+              "squared_mean_bias": 0.0001030049364957022
+            },
+            "normalized": {
+              "mae": 0.01696946270763874,
+              "mse": 0.0004924719611282605,
+              "per_episode_mae": [
+                0.021647977456450463,
+                0.014403042569756507,
+                0.02431066073477268,
+                0.01900431774556637,
+                0.005481315031647682
+              ],
+              "all_nonself_image_mae": 0.01757489912211895,
+              "paired_mae_gain": 0.000605436414480208,
+              "train_mean_baseline_mae": 0.01734176397323609,
+              "train_median_baseline_mae": 0.01530347317457199,
+              "prediction_scene_variance": 3.41010791959917E-06,
+              "target_scene_variance": 0.0004883884370164183,
+              "scene_covariance": 1.8821651616285352E-05,
+              "scene_correlation": 0.4612017879451009,
+              "squared_mean_bias": 3.831671942481394E-05
+            }
+          }
+        },
+        "early": {
+          "control": {
+            "radian": {
+              "mae": 0.0332801020789581,
+              "mse": 0.0029276426544579777,
+              "per_episode_mae": [
+                0.06127552681718953,
+                0.024320124316727743,
+                0.027777399739716203,
+                0.029613005366021145,
+                0.0234144541551359
+              ],
+              "all_nonself_image_mae": 0.03207048465342572,
+              "paired_mae_gain": -0.0012096174255323833,
+              "train_mean_baseline_mae": 0.018483447340646914,
+              "train_median_baseline_mae": 0.018763141239372394,
+              "prediction_scene_variance": 4.825829031670553E-05,
+              "target_scene_variance": 0.0010771363645513583,
+              "scene_covariance": -0.0001370628549245168,
+              "scene_correlation": -0.6011716108605952,
+              "squared_mean_bias": 0.0015281222897408804
+            },
+            "normalized": {
+              "mae": 0.01601179748773575,
+              "mse": 0.0005817917495250402,
+              "per_episode_mae": [
+                0.03155765980482102,
+                0.007776801288127899,
+                0.014128755033016204,
+                0.019385093450546266,
+                0.007210677862167359
+              ],
+              "all_nonself_image_mae": 0.016697698980569838,
+              "paired_mae_gain": 0.0006859014928340887,
+              "train_mean_baseline_mae": 0.017281973391771316,
+              "train_median_baseline_mae": 0.01523135468363762,
+              "prediction_scene_variance": 5.213524045039719E-06,
+              "target_scene_variance": 0.00048576907870799964,
+              "scene_covariance": 2.2564122983203204E-05,
+              "scene_correlation": 0.44837132944198244,
+              "squared_mean_bias": 0.00013593739273840737
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.021479276776701837,
+              "mse": 0.0015880676739591698,
+              "per_episode_mae": [
+                0.0470281203885679,
+                0.015990131721385602,
+                0.011713460039560837,
+                0.022182068144708557,
+                0.010482603589286259
+              ],
+              "all_nonself_image_mae": 0.019259286569994098,
+              "paired_mae_gain": -0.0022199902067077393,
+              "train_mean_baseline_mae": 0.018483447340646914,
+              "train_median_baseline_mae": 0.018763141239372394,
+              "prediction_scene_variance": 4.8258290316705535E-05,
+              "target_scene_variance": 0.0010771363645513583,
+              "scene_covariance": -0.0001370628549245168,
+              "scene_correlation": -0.6011716108605951,
+              "squared_mean_bias": 0.00018854730924207242
+            },
+            "normalized": {
+              "mae": 0.01676724499464035,
+              "mse": 0.000479930526239258,
+              "per_episode_mae": [
+                0.021956516429781914,
+                0.013794596865773199,
+                0.023729898408055304,
+                0.01866501972079277,
+                0.005690193548798558
+              ],
+              "all_nonself_image_mae": 0.017426020078361033,
+              "paired_mae_gain": 0.0006587750837206835,
+              "train_mean_baseline_mae": 0.017281973391771316,
+              "train_median_baseline_mae": 0.01523135468363762,
+              "prediction_scene_variance": 5.213524045039719E-06,
+              "target_scene_variance": 0.00048576907870799964,
+              "scene_covariance": 2.2564122983203207E-05,
+              "scene_correlation": 0.4483713294419825,
+              "squared_mean_bias": 3.4076169452625255E-05
+            }
+          }
+        },
+        "middle": {
+          "control": {
+            "radian": {
+              "mae": 0.058920095895624,
+              "mse": 0.0112286601198766,
+              "per_episode_mae": [
+                0.12328187524237566,
+                0.04868343738425109,
+                0.0385263112709961,
+                0.04332186916015214,
+                0.04078698642034498
+              ],
+              "all_nonself_image_mae": 0.05426468671558219,
+              "paired_mae_gain": -0.004655409180041807,
+              "train_mean_baseline_mae": 0.04861572736487465,
+              "train_median_baseline_mae": 0.04677618590157686,
+              "prediction_scene_variance": 0.0001425543537458789,
+              "target_scene_variance": 0.006716338079388186,
+              "scene_covariance": -0.0006712510057487455,
+              "scene_correlation": -0.6860068180832947,
+              "squared_mean_bias": 0.0030272656752450464
+            },
+            "normalized": {
+              "mae": 0.016281276146570843,
+              "mse": 0.0005474806561231441,
+              "per_episode_mae": [
+                0.029313501715660096,
+                0.00929823915163676,
+                0.016945469379425048,
+                0.019163366158803305,
+                0.006685804327329
+              ],
+              "all_nonself_image_mae": 0.017429135739803314,
+              "paired_mae_gain": 0.0011478595932324712,
+              "train_mean_baseline_mae": 0.017648852884769438,
+              "train_median_baseline_mae": 0.015580365260442097,
+              "prediction_scene_variance": 8.51151073542174E-06,
+              "target_scene_variance": 0.0004948000824556805,
+              "scene_covariance": 2.957455869703078E-05,
+              "scene_correlation": 0.45572207446915447,
+              "squared_mean_bias": 0.00010331818032610348
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.05484614224039251,
+              "mse": 0.008983361171384398,
+              "per_episode_mae": [
+                0.1078289299200535,
+                0.05690261198036346,
+                0.03095206043246435,
+                0.031050664179913146,
+                0.047496444689168124
+              ],
+              "all_nonself_image_mae": 0.04936564587064398,
+              "paired_mae_gain": -0.005480496369748532,
+              "train_mean_baseline_mae": 0.04861572736487465,
+              "train_median_baseline_mae": 0.04677618590157686,
+              "prediction_scene_variance": 0.0001425543537458789,
+              "target_scene_variance": 0.006716338079388186,
+              "scene_covariance": -0.0006712510057487455,
+              "scene_correlation": -0.6860068180832947,
+              "squared_mean_bias": 0.0007819667267528424
+            },
+            "normalized": {
+              "mae": 0.016795838966965675,
+              "mse": 0.00047343290924748907,
+              "per_episode_mae": [
+                0.02355273825426896,
+                0.013077255462606746,
+                0.022627266620596255,
+                0.019064313893516857,
+                0.005657620603839554
+              ],
+              "all_nonself_image_mae": 0.01767433631668488,
+              "paired_mae_gain": 0.0008784973497192039,
+              "train_mean_baseline_mae": 0.017648852884769438,
+              "train_median_baseline_mae": 0.015580365260442097,
+              "prediction_scene_variance": 8.511510735421742E-06,
+              "target_scene_variance": 0.0004948000824556805,
+              "scene_covariance": 2.9574558697030776E-05,
+              "scene_correlation": 0.45572207446915436,
+              "squared_mean_bias": 2.9270433450448283E-05
+            }
+          }
+        },
+        "late": {
+          "control": {
+            "radian": {
+              "mae": 0.07545532137186577,
+              "mse": 0.010761374571786698,
+              "per_episode_mae": [
+                0.09478989731209973,
+                0.08565593895657608,
+                0.06859517437405885,
+                0.0751525713223964,
+                0.053083024894197785
+              ],
+              "all_nonself_image_mae": 0.07839022484173377,
+              "paired_mae_gain": 0.002934903469868008,
+              "train_mean_baseline_mae": 0.06652792803567524,
+              "train_median_baseline_mae": 0.06520696584507824,
+              "prediction_scene_variance": 0.0009245699162438512,
+              "target_scene_variance": 0.007048055227076797,
+              "scene_covariance": 0.0003672905138712457,
+              "scene_correlation": 0.14388157510479666,
+              "squared_mean_bias": 0.0035233304562085435
+            },
+            "normalized": {
+              "mae": 0.0969857325553894,
+              "mse": 0.03796334416727592,
+              "per_episode_mae": [
+                0.3194867444038391,
+                0.04609801054000855,
+                0.027161175012588502,
+                0.049276739954948426,
+                0.04290599286556244
+              ],
+              "all_nonself_image_mae": 0.09906482762098312,
+              "paired_mae_gain": 0.002079095065593714,
+              "train_mean_baseline_mae": 0.1042695939451456,
+              "train_median_baseline_mae": 0.09074523872137069,
+              "prediction_scene_variance": 0.00012641623140808775,
+              "target_scene_variance": 0.03141140506339898,
+              "scene_covariance": -0.00019086904389059,
+              "scene_correlation": -0.09578343256398922,
+              "squared_mean_bias": 0.006043784784687685
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.06996979728148241,
+              "mse": 0.009294251487639502,
+              "per_episode_mae": [
+                0.07974380128638586,
+                0.08310990374168613,
+                0.059439595909731,
+                0.07642013964629348,
+                0.051135545823315615
+              ],
+              "all_nonself_image_mae": 0.07383708878746643,
+              "paired_mae_gain": 0.0038672915059840274,
+              "train_mean_baseline_mae": 0.06652792803567524,
+              "train_median_baseline_mae": 0.06520696584507824,
+              "prediction_scene_variance": 0.0009245699162438512,
+              "target_scene_variance": 0.007048055227076797,
+              "scene_covariance": 0.0003672905138712457,
+              "scene_correlation": 0.14388157510479666,
+              "squared_mean_bias": 0.002056207372061346
+            },
+            "normalized": {
+              "mae": 0.10486185876429081,
+              "mse": 0.033623925879521586,
+              "per_episode_mae": [
+                0.28676300279796124,
+                0.07268323071300985,
+                0.04703518398106099,
+                0.05224329476058484,
+                0.06558458156883717
+              ],
+              "all_nonself_image_mae": 0.10487589300572872,
+              "paired_mae_gain": 1.4034241437907435E-05,
+              "train_mean_baseline_mae": 0.1042695939451456,
+              "train_median_baseline_mae": 0.09074523872137069,
+              "prediction_scene_variance": 0.00012641623140808778,
+              "target_scene_variance": 0.03141140506339898,
+              "scene_covariance": -0.00019086904389059003,
+              "scene_correlation": -0.0957834325639892,
+              "squared_mean_bias": 0.0017043664969333418
+            }
+          }
+        },
+        "last": {
+          "control": {
+            "radian": {
+              "mae": 0.08000674538780003,
+              "mse": 0.011229742112441547,
+              "per_episode_mae": [
+                0.09037316338314365,
+                0.08738964299360912,
+                0.07148086372762918,
+                0.08643231603006522,
+                0.06435774080455303
+              ],
+              "all_nonself_image_mae": 0.09612158039429534,
+              "paired_mae_gain": 0.016114835006495312,
+              "train_mean_baseline_mae": 0.08258313148263066,
+              "train_median_baseline_mae": 0.08133933215091625,
+              "prediction_scene_variance": 0.0014045629831527075,
+              "target_scene_variance": 0.010002011950381539,
+              "scene_covariance": 0.002021418961500353,
+              "scene_correlation": 0.5393144310763242,
+              "squared_mean_bias": 0.003866005101908002
+            },
+            "normalized": {
+              "mae": 0.2391601413488388,
+              "mse": 0.09470971220991364,
+              "per_episode_mae": [
+                0.5710855573415756,
+                0.23864857852458954,
+                0.041219562292099,
+                0.15645433962345123,
+                0.18839266896247864
+              ],
+              "all_nonself_image_mae": 0.24021906703710555,
+              "paired_mae_gain": 0.0010589256882667375,
+              "train_mean_baseline_mae": 0.24637923963367941,
+              "train_median_baseline_mae": 0.2101704329252243,
+              "prediction_scene_variance": 0.000743674730545898,
+              "target_scene_variance": 0.08774512475241233,
+              "scene_covariance": -0.00065072088071906,
+              "scene_correlation": -0.08055485728816289,
+              "squared_mean_bias": 0.004919470965517278
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.07072401331640625,
+              "mse": 0.008582354218816451,
+              "per_episode_mae": [
+                0.08577162365642532,
+                0.06824861133645753,
+                0.0689179178395231,
+                0.07730591948396372,
+                0.053375994265661565
+              ],
+              "all_nonself_image_mae": 0.09149152507365216,
+              "paired_mae_gain": 0.020767511757245907,
+              "train_mean_baseline_mae": 0.08258313148263066,
+              "train_median_baseline_mae": 0.08133933215091625,
+              "prediction_scene_variance": 0.0014045629831527077,
+              "target_scene_variance": 0.010002011950381539,
+              "scene_covariance": 0.002021418961500353,
+              "scene_correlation": 0.5393144310763242,
+              "squared_mean_bias": 0.0012186172082829067
+            },
+            "normalized": {
+              "mae": 0.25331219427287577,
+              "mse": 0.09366049560138269,
+              "per_episode_mae": [
+                0.5474988024681806,
+                0.2622353333979845,
+                0.06480631716549397,
+                0.18004109449684622,
+                0.21197942383587362
+              ],
+              "all_nonself_image_mae": 0.24913452543318265,
+              "paired_mae_gain": -0.004177668839693116,
+              "train_mean_baseline_mae": 0.24637923963367941,
+              "train_median_baseline_mae": 0.2101704329252243,
+              "prediction_scene_variance": 0.0007436747305458983,
+              "target_scene_variance": 0.08774512475241233,
+              "scene_covariance": -0.0006507208807190604,
+              "scene_correlation": -0.08055485728816293,
+              "squared_mean_bias": 0.003870254356986315
+            }
+          }
+        }
+      },
+      "loo": {
+        "radian": {
+          "mae": 0.04402820160470278,
+          "mean_mae": 0.05439971442521813,
+          "median_mae": 0.053960650205845014
+        },
+        "normalized": {
+          "mae": 0.042361375743379955,
+          "mean_mae": 0.04478845969797709,
+          "median_mae": 0.039681189797818664
+        }
+      },
+      "criteria": {
+        "radian": {
+          "full_dev_reduction_at_least_20_percent": false,
+          "dev_beats_both_constants": false,
+          "dev_positive_image_gain": false,
+          "loo_beats_both_constants": true,
+          "first_action_not_regressed": true
+        },
+        "normalized": {
+          "full_dev_reduction_at_least_20_percent": false,
+          "dev_beats_both_constants": false,
+          "dev_positive_image_gain": true,
+          "loo_beats_both_constants": false,
+          "first_action_not_regressed": false
+        }
+      },
+      "passed": false,
+      "first_actions_exactly_unchanged": false,
+      "candidate_clipped_by_dimension": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "noise_seed": 20260906,
+      "selection": {
+        "bias_mean_by_dimension": [
+          0.005222205220954492,
+          -0.004936322525143623,
+          -0.0018395493924617773,
+          0.0033755628318758685,
+          0.005564861565828328,
+          0.01563283433462493,
+          0.02692965944111347,
+          0.005253199525177475,
+          -0.004603511363267898,
+          0.010498512476682662,
+          -0.01171445990353823,
+          -0.030746849462389945,
+          0.011102042984217401,
+          0.01471445795893669
+        ]
+      },
+      "metrics": {
+        "full": {
+          "control": {
+            "radian": {
+              "mae": 0.066321108840794,
+              "mse": 0.009719577622154195,
+              "per_episode_mae": [
+                0.0829676708606227,
+                0.07637720517581328,
+                0.053427329063415525,
+                0.06414547483126322,
+                0.05468786427285522
+              ],
+              "all_nonself_image_mae": 0.0651085619542282,
+              "paired_mae_gain": -0.001212546886565788,
+              "train_mean_baseline_mae": 0.051545371695429394,
+              "train_median_baseline_mae": 0.050388966940886654,
+              "prediction_scene_variance": 0.0005751512781515046,
+              "target_scene_variance": 0.005754356310265126,
+              "scene_covariance": -0.00011210345861101464,
+              "scene_correlation": -0.061621120628326094,
+              "squared_mean_bias": 0.0031658631165155343
+            },
+            "normalized": {
+              "mae": 0.055418140709400175,
+              "mse": 0.01892478683114782,
+              "per_episode_mae": [
+                0.1760256713628769,
+                0.026489920914173126,
+                0.019719524681568144,
+                0.028710092306137084,
+                0.026145494282245635
+              ],
+              "all_nonself_image_mae": 0.05776768878102301,
+              "paired_mae_gain": 0.0023495480716228326,
+              "train_mean_baseline_mae": 0.0608858475163579,
+              "train_median_baseline_mae": 0.0530929998755455,
+              "prediction_scene_variance": 8.899968520527111E-05,
+              "target_scene_variance": 0.01595129637217779,
+              "scene_covariance": -5.0965715801158835E-05,
+              "scene_correlation": -0.04277459446269496,
+              "squared_mean_bias": 0.0027825593421624416
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.056447256129326225,
+              "mse": 0.007851611211410052,
+              "per_episode_mae": [
+                0.08217745019896143,
+                0.06413120575717768,
+                0.041239143467207556,
+                0.052433138674386995,
+                0.04225534254889744
+              ],
+              "all_nonself_image_mae": 0.055819781683590065,
+              "paired_mae_gain": -0.0006274744457361592,
+              "train_mean_baseline_mae": 0.051545371695429394,
+              "train_median_baseline_mae": 0.050388966940886654,
+              "prediction_scene_variance": 0.0005751512781515046,
+              "target_scene_variance": 0.005754356310265126,
+              "scene_covariance": -0.00011210345861101464,
+              "scene_correlation": -0.061621120628326094,
+              "squared_mean_bias": 0.0012978967057713934
+            },
+            "normalized": {
+              "mae": 0.06008585296720267,
+              "mse": 0.017021701588800894,
+              "per_episode_mae": [
+                0.1547104998603463,
+                0.04135036712139845,
+                0.03423087602108717,
+                0.03423748029023409,
+                0.03590004154294729
+              ],
+              "all_nonself_image_mae": 0.06136538294777274,
+              "paired_mae_gain": 0.001279529980570071,
+              "train_mean_baseline_mae": 0.0608858475163579,
+              "train_median_baseline_mae": 0.0530929998755455,
+              "prediction_scene_variance": 8.874346312750642E-05,
+              "target_scene_variance": 0.01595129637217779,
+              "scene_covariance": -5.116555431750249E-05,
+              "scene_correlation": -0.043004262596419006,
+              "squared_mean_bias": 0.0008793306448605935
+            }
+          }
+        },
+        "first": {
+          "control": {
+            "radian": {
+              "mae": 0.0313703259297957,
+              "mse": 0.0021623005002024687,
+              "per_episode_mae": [
+                0.046873002972764276,
+                0.030524293465229373,
+                0.03336887321590135,
+                0.021536598719346028,
+                0.024548861275737483
+              ],
+              "all_nonself_image_mae": 0.03112934681897362,
+              "paired_mae_gain": -0.00024097911082208295,
+              "train_mean_baseline_mae": 0.01372849423089065,
+              "train_median_baseline_mae": 0.012719260396746297,
+              "prediction_scene_variance": 2.8888998557362843E-05,
+              "target_scene_variance": 0.00038096651136803445,
+              "scene_covariance": -3.356411574501969E-05,
+              "scene_correlation": -0.3199378087440435,
+              "squared_mean_bias": 0.0016853167587870326
+            },
+            "normalized": {
+              "mae": 0.014680340886116028,
+              "mse": 0.00047451452965185936,
+              "per_episode_mae": [
+                0.029434815049171448,
+                0.006887003779411316,
+                0.016991153359413147,
+                0.01627516746520996,
+                0.0038135647773742676
+              ],
+              "all_nonself_image_mae": 0.015314695239067078,
+              "paired_mae_gain": 0.0006343543529510505,
+              "train_mean_baseline_mae": 0.01734176397323609,
+              "train_median_baseline_mae": 0.01530347317457199,
+              "prediction_scene_variance": 4.3562914569506E-06,
+              "target_scene_variance": 0.0004883884370164183,
+              "scene_covariance": 1.7001854217681963E-05,
+              "scene_correlation": 0.3685998356230428,
+              "squared_mean_bias": 1.5773509613854486E-05
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.014763621356202442,
+              "mse": 0.0005754810699958164,
+              "per_episode_mae": [
+                0.0236444855647278,
+                0.011147312541046015,
+                0.01255429251226208,
+                0.018359964103729007,
+                0.008112052059247308
+              ],
+              "all_nonself_image_mae": 0.014245056486203486,
+              "paired_mae_gain": -0.0005185648699989557,
+              "train_mean_baseline_mae": 0.01372849423089065,
+              "train_median_baseline_mae": 0.012719260396746297,
+              "prediction_scene_variance": 2.8888998557362843E-05,
+              "target_scene_variance": 0.00038096651136803445,
+              "scene_covariance": -3.356411574501969E-05,
+              "scene_correlation": -0.3199378087440435,
+              "squared_mean_bias": 9.849732858037961E-05
+            },
+            "normalized": {
+              "mae": 0.016914431229233744,
+              "mse": 0.0004928043076756486,
+              "per_episode_mae": [
+                0.021855931356549257,
+                0.014465887472033506,
+                0.024570037052035337,
+                0.019043293222785,
+                0.004637007042765623
+              ],
+              "all_nonself_image_mae": 0.01744412910193205,
+              "paired_mae_gain": 0.0005296978726983051,
+              "train_mean_baseline_mae": 0.01734176397323609,
+              "train_median_baseline_mae": 0.01530347317457199,
+              "prediction_scene_variance": 4.3562914569506E-06,
+              "target_scene_variance": 0.0004883884370164183,
+              "scene_covariance": 1.7001854217681967E-05,
+              "scene_correlation": 0.36859983562304294,
+              "squared_mean_bias": 3.406328763764381E-05
+            }
+          }
+        },
+        "early": {
+          "control": {
+            "radian": {
+              "mae": 0.03198373691062443,
+              "mse": 0.0024589112125182992,
+              "per_episode_mae": [
+                0.05241434076063645,
+                0.0280473664868623,
+                0.023676895858564726,
+                0.032062667782884094,
+                0.023717413664174576
+              ],
+              "all_nonself_image_mae": 0.03018891013925895,
+              "paired_mae_gain": -0.0017948267713654778,
+              "train_mean_baseline_mae": 0.018483447340646914,
+              "train_median_baseline_mae": 0.018763141239372394,
+              "prediction_scene_variance": 4.616339311448238E-05,
+              "target_scene_variance": 0.0010771363645513583,
+              "scene_covariance": -0.0001340998129874898,
+              "scene_correlation": -0.6013730569144854,
+              "squared_mean_bias": 0.0010674118288774791
+            },
+            "normalized": {
+              "mae": 0.018230264186859132,
+              "mse": 0.0006170064712848244,
+              "per_episode_mae": [
+                0.0234862819314003,
+                0.013882899284362793,
+                0.02272358536720276,
+                0.02090631127357483,
+                0.010152243077754974
+              ],
+              "all_nonself_image_mae": 0.019263244867324832,
+              "paired_mae_gain": 0.0010329806804657005,
+              "train_mean_baseline_mae": 0.017281973391771316,
+              "train_median_baseline_mae": 0.01523135468363762,
+              "prediction_scene_variance": 6.5896387992623306E-06,
+              "target_scene_variance": 0.00048576907870799964,
+              "scene_covariance": 2.72488537230302E-05,
+              "scene_correlation": 0.48161776634253095,
+              "squared_mean_bias": 0.00017914546122362306
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.021425269742991075,
+              "mse": 0.0015807806337426375,
+              "per_episode_mae": [
+                0.04678685969202587,
+                0.015926412002154392,
+                0.011782515584927754,
+                0.02227286550182423,
+                0.010357695934023164
+              ],
+              "all_nonself_image_mae": 0.01918578877681769,
+              "paired_mae_gain": -0.0022394809661733864,
+              "train_mean_baseline_mae": 0.018483447340646914,
+              "train_median_baseline_mae": 0.018763141239372394,
+              "prediction_scene_variance": 4.616339311448238E-05,
+              "target_scene_variance": 0.0010771363645513583,
+              "scene_covariance": -0.0001340998129874898,
+              "scene_correlation": -0.6013730569144854,
+              "squared_mean_bias": 0.00018928125010181737
+            },
+            "normalized": {
+              "mae": 0.016434750974178316,
+              "mse": 0.0004717105576167495,
+              "per_episode_mae": [
+                0.022000200450420372,
+                0.012803489565849304,
+                0.02318327188491822,
+                0.018133158385753637,
+                0.006053634583950045
+              ],
+              "all_nonself_image_mae": 0.01752320697158575,
+              "paired_mae_gain": 0.001088455997407433,
+              "train_mean_baseline_mae": 0.017281973391771316,
+              "train_median_baseline_mae": 0.01523135468363762,
+              "prediction_scene_variance": 6.5896387992623306E-06,
+              "target_scene_variance": 0.00048576907870799964,
+              "scene_covariance": 2.7248853723030208E-05,
+              "scene_correlation": 0.48161776634253106,
+              "squared_mean_bias": 3.3849547555548E-05
+            }
+          }
+        },
+        "middle": {
+          "control": {
+            "radian": {
+              "mae": 0.06358959988872004,
+              "mse": 0.010492198131388778,
+              "per_episode_mae": [
+                0.10053609264755828,
+                0.07408452870634695,
+                0.03861607748549432,
+                0.04222978597584491,
+                0.0624815146283557
+              ],
+              "all_nonself_image_mae": 0.05741733133068516,
+              "paired_mae_gain": -0.006172268558034877,
+              "train_mean_baseline_mae": 0.04861572736487465,
+              "train_median_baseline_mae": 0.04677618590157686,
+              "prediction_scene_variance": 0.0001897775197054868,
+              "target_scene_variance": 0.006716338079388186,
+              "scene_covariance": -0.0007931953386386709,
+              "scene_correlation": -0.7025730645109525,
+              "squared_mean_bias": 0.0019996918550177637
+            },
+            "normalized": {
+              "mae": 0.016207331816355388,
+              "mse": 0.0005456176558748401,
+              "per_episode_mae": [
+                0.028140701850255332,
+                0.009167028466860454,
+                0.018063174684842427,
+                0.015763481458028156,
+                0.009902272621790569
+              ],
+              "all_nonself_image_mae": 0.018145862321058907,
+              "paired_mae_gain": 0.0019385305047035194,
+              "train_mean_baseline_mae": 0.017648852884769438,
+              "train_median_baseline_mae": 0.015580365260442097,
+              "prediction_scene_variance": 1.3042335188577188E-05,
+              "target_scene_variance": 0.0004948000824556805,
+              "scene_covariance": 4.064707966272134E-05,
+              "scene_correlation": 0.5059840050052123,
+              "squared_mean_bias": 0.00011906939755602507
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.055767362614330414,
+              "mse": 0.009274745390528404,
+              "per_episode_mae": [
+                0.10913407467680772,
+                0.05937333365410773,
+                0.030945147004224266,
+                0.03134620891508852,
+                0.04803804882142384
+              ],
+              "all_nonself_image_mae": 0.04950799480880636,
+              "paired_mae_gain": -0.006259367805524052,
+              "train_mean_baseline_mae": 0.04861572736487465,
+              "train_median_baseline_mae": 0.04677618590157686,
+              "prediction_scene_variance": 0.00018977751970548678,
+              "target_scene_variance": 0.006716338079388186,
+              "scene_covariance": -0.0007931953386386709,
+              "scene_correlation": -0.7025730645109525,
+              "squared_mean_bias": 0.0007822391141573897
+            },
+            "normalized": {
+              "mae": 0.01611062328517437,
+              "mse": 0.0004555942838488462,
+              "per_episode_mae": [
+                0.02363523888091246,
+                0.011283542215824125,
+                0.021640384693940477,
+                0.01782117687165737,
+                0.006172773763537406
+              ],
+              "all_nonself_image_mae": 0.017846133460601175,
+              "paired_mae_gain": 0.0017355101754268042,
+              "train_mean_baseline_mae": 0.017648852884769438,
+              "train_median_baseline_mae": 0.015580365260442097,
+              "prediction_scene_variance": 1.274890864052895E-05,
+              "target_scene_variance": 0.0004948000824556805,
+              "scene_covariance": 4.047008119812438E-05,
+              "scene_correlation": 0.5095451704214616,
+              "squared_mean_bias": 2.8985455148885565E-05
+            }
+          }
+        },
+        "late": {
+          "control": {
+            "radian": {
+              "mae": 0.0816949629841062,
+              "mse": 0.012160271880467801,
+              "per_episode_mae": [
+                0.08464794982845585,
+                0.09708474653307349,
+                0.07421425329210858,
+                0.09012801096386587,
+                0.06239985430302719
+              ],
+              "all_nonself_image_mae": 0.08369116105434174,
+              "paired_mae_gain": 0.001996198070235544,
+              "train_mean_baseline_mae": 0.06652792803567524,
+              "train_median_baseline_mae": 0.06520696584507824,
+              "prediction_scene_variance": 0.0010179706872339243,
+              "target_scene_variance": 0.007048055227076797,
+              "scene_covariance": 0.0003053502111561693,
+              "scene_correlation": 0.11399766062374696,
+              "squared_mean_bias": 0.00470494638846942
+            },
+            "normalized": {
+              "mae": 0.09381977665424347,
+              "mse": 0.03727540048025681,
+              "per_episode_mae": [
+                0.3257724088430405,
+                0.04192646503448486,
+                0.01951171040534973,
+                0.03959957122802735,
+                0.04228872776031494
+              ],
+              "all_nonself_image_mae": 0.09694256222248077,
+              "paired_mae_gain": 0.0031227855682372935,
+              "train_mean_baseline_mae": 0.1042695939451456,
+              "train_median_baseline_mae": 0.09074523872137069,
+              "prediction_scene_variance": 0.00016753811377769094,
+              "target_scene_variance": 0.03141140506339898,
+              "scene_covariance": -0.00013721922088916257,
+              "scene_correlation": -0.05981559907164259,
+              "squared_mean_bias": 0.005422018861301819
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.07086398679285776,
+              "mse": 0.009506062935006008,
+              "per_episode_mae": [
+                0.08015971171502798,
+                0.08626784652102892,
+                0.05919819249790939,
+                0.07714940579899121,
+                0.05154477743133124
+              ],
+              "all_nonself_image_mae": 0.07426045097116926,
+              "paired_mae_gain": 0.0033964641783115063,
+              "train_mean_baseline_mae": 0.06652792803567524,
+              "train_median_baseline_mae": 0.06520696584507824,
+              "prediction_scene_variance": 0.0010179706872339243,
+              "target_scene_variance": 0.007048055227076797,
+              "scene_covariance": 0.00030535021115616923,
+              "scene_correlation": 0.11399766062374693,
+              "squared_mean_bias": 0.002050737443007626
+            },
+            "normalized": {
+              "mae": 0.10393143157362938,
+              "mse": 0.033581362384245785,
+              "per_episode_mae": [
+                0.28643977621197697,
+                0.0708092130869627,
+                0.04620421247184277,
+                0.050528991103172306,
+                0.06567496499419213
+              ],
+              "all_nonself_image_mae": 0.10501380303055048,
+              "paired_mae_gain": 0.0010823714569210968,
+              "train_mean_baseline_mae": 0.1042695939451456,
+              "train_median_baseline_mae": 0.09074523872137069,
+              "prediction_scene_variance": 0.00016720172555099059,
+              "target_scene_variance": 0.03141140506339898,
+              "scene_covariance": -0.00013751269884309167,
+              "scene_correlation": -0.06000379884754259,
+              "squared_mean_bias": 0.0017277301976096366
+            }
+          }
+        },
+        "last": {
+          "control": {
+            "radian": {
+              "mae": 0.07967388219355295,
+              "mse": 0.010721383301061541,
+              "per_episode_mae": [
+                0.08992973276569198,
+                0.085652194917202,
+                0.0687235069150726,
+                0.08816050582875808,
+                0.06590347054104011
+              ],
+              "all_nonself_image_mae": 0.09405658666510136,
+              "paired_mae_gain": 0.014382704471548408,
+              "train_mean_baseline_mae": 0.08258313148263066,
+              "train_median_baseline_mae": 0.08133933215091625,
+              "prediction_scene_variance": 0.0013085691135935706,
+              "target_scene_variance": 0.010002011950381539,
+              "scene_covariance": 0.0019559419134458954,
+              "scene_correlation": 0.5406471724034206,
+              "squared_mean_bias": 0.0033226860639782203
+            },
+            "normalized": {
+              "mae": 0.24351225197315216,
+              "mse": 0.10582744252218293,
+              "per_episode_mae": [
+                0.603032797574997,
+                0.21652720868587494,
+                0.07254837453365326,
+                0.17047877609729767,
+                0.154974102973938
+              ],
+              "all_nonself_image_mae": 0.2454242929816246,
+              "paired_mae_gain": 0.0019120410084724482,
+              "train_mean_baseline_mae": 0.24637923963367941,
+              "train_median_baseline_mae": 0.2101704329252243,
+              "prediction_scene_variance": 0.0005974689452723326,
+              "target_scene_variance": 0.08774512475241233,
+              "scene_covariance": -0.0009042398710784383,
+              "scene_correlation": -0.12488621010855176,
+              "squared_mean_bias": 0.01567636908234137
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.07070436980633531,
+              "mse": 0.008606029230867538,
+              "per_episode_mae": [
+                0.08676997119230995,
+                0.06774640701187307,
+                0.06895737583884816,
+                0.0774663572073526,
+                0.05258173778129275
+              ],
+              "all_nonself_image_mae": 0.09088692481416123,
+              "paired_mae_gain": 0.020182555007825925,
+              "train_mean_baseline_mae": 0.08258313148263066,
+              "train_median_baseline_mae": 0.08133933215091625,
+              "prediction_scene_variance": 0.0013085691135935708,
+              "target_scene_variance": 0.010002011950381539,
+              "scene_covariance": 0.0019559419134458954,
+              "scene_correlation": 0.5406471724034206,
+              "squared_mean_bias": 0.0012073319937842182
+            },
+            "normalized": {
+              "mae": 0.25470857322216034,
+              "mse": 0.09397449929473092,
+              "per_episode_mae": [
+                0.5464464426040649,
+                0.27311356365680695,
+                0.0732099562883377,
+                0.1692124456167221,
+                0.21156045794487
+              ],
+              "all_nonself_image_mae": 0.2493581538274884,
+              "paired_mae_gain": -0.005350419394671929,
+              "train_mean_baseline_mae": 0.24637923963367941,
+              "train_median_baseline_mae": 0.2101704329252243,
+              "prediction_scene_variance": 0.0005974689452723328,
+              "target_scene_variance": 0.08774512475241233,
+              "scene_covariance": -0.0009042398710784388,
+              "scene_correlation": -0.1248862101085518,
+              "squared_mean_bias": 0.0038234258548893478
+            }
+          }
+        }
+      },
+      "loo": {
+        "radian": {
+          "mae": 0.044035984769333195,
+          "mean_mae": 0.05439971442521813,
+          "median_mae": 0.053960650205845014
+        },
+        "normalized": {
+          "mae": 0.0419596314949867,
+          "mean_mae": 0.04478845969797709,
+          "median_mae": 0.039681189797818664
+        }
+      },
+      "criteria": {
+        "radian": {
+          "full_dev_reduction_at_least_20_percent": false,
+          "dev_beats_both_constants": false,
+          "dev_positive_image_gain": false,
+          "loo_beats_both_constants": true,
+          "first_action_not_regressed": true
+        },
+        "normalized": {
+          "full_dev_reduction_at_least_20_percent": false,
+          "dev_beats_both_constants": false,
+          "dev_positive_image_gain": true,
+          "loo_beats_both_constants": false,
+          "first_action_not_regressed": false
+        }
+      },
+      "passed": false,
+      "first_actions_exactly_unchanged": false,
+      "candidate_clipped_by_dimension": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        29
+      ]
+    },
+    {
+      "noise_seed": 20260907,
+      "selection": {
+        "bias_mean_by_dimension": [
+          -0.001878820053767413,
+          0.019684969186782836,
+          0.00884816947579384,
+          0.0036486572434660043,
+          0.009023805283010012,
+          -0.006019427688093857,
+          0.011868061274290085,
+          -0.00625484963878989,
+          0.01440379223227501,
+          -0.015694625139236452,
+          -7.146606221795099E-05,
+          0.015807800486683843,
+          0.0008802280500531215,
+          0.015106054782867431
+        ]
+      },
+      "metrics": {
+        "full": {
+          "control": {
+            "radian": {
+              "mae": 0.0615474999207072,
+              "mse": 0.00838709756244554,
+              "per_episode_mae": [
+                0.08504973594564945,
+                0.06968621960608289,
+                0.04595473108851972,
+                0.05229861163728249,
+                0.05474820132600144
+              ],
+              "all_nonself_image_mae": 0.06094306526239962,
+              "paired_mae_gain": -0.000604434658307576,
+              "train_mean_baseline_mae": 0.051545371695429394,
+              "train_median_baseline_mae": 0.050388966940886654,
+              "prediction_scene_variance": 0.0005279109963618143,
+              "target_scene_variance": 0.005754356310265126,
+              "scene_covariance": -0.000161225007255582,
+              "scene_correlation": -0.09250254381300795,
+              "squared_mean_bias": 0.0017823802413074348
+            },
+            "normalized": {
+              "mae": 0.05859957706928253,
+              "mse": 0.018916903557166853,
+              "per_episode_mae": [
+                0.16902047038078308,
+                0.033496306240558625,
+                0.02853319525718689,
+                0.03420366615056992,
+                0.027744247317314147
+              ],
+              "all_nonself_image_mae": 0.0593999941945076,
+              "paired_mae_gain": 0.0008004171252250711,
+              "train_mean_baseline_mae": 0.0608858475163579,
+              "train_median_baseline_mae": 0.0530929998755455,
+              "prediction_scene_variance": 8.367906519814596E-05,
+              "target_scene_variance": 0.01595129637217779,
+              "scene_covariance": -0.00012237657526326727,
+              "scene_correlation": -0.10592339525170251,
+              "squared_mean_bias": 0.0026371749692643788
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.056360954248229976,
+              "mse": 0.00784472602206811,
+              "per_episode_mae": [
+                0.08246914996703471,
+                0.064245994895619,
+                0.040196996406458005,
+                0.052217119150542814,
+                0.04267551082149537
+              ],
+              "all_nonself_image_mae": 0.055364557601165154,
+              "paired_mae_gain": -0.000996396647064822,
+              "train_mean_baseline_mae": 0.051545371695429394,
+              "train_median_baseline_mae": 0.050388966940886654,
+              "prediction_scene_variance": 0.0005279109963618143,
+              "target_scene_variance": 0.005754356310265126,
+              "scene_covariance": -0.000161225007255582,
+              "scene_correlation": -0.09250254381300795,
+              "squared_mean_bias": 0.0012400087009300054
+            },
+            "normalized": {
+              "mae": 0.0614380402714014,
+              "mse": 0.01711970227344166,
+              "per_episode_mae": [
+                0.15497909452021122,
+                0.045130343109369274,
+                0.035694705516099934,
+                0.034654498830437655,
+                0.03673155938088894
+              ],
+              "all_nonself_image_mae": 0.061491315799206504,
+              "paired_mae_gain": 5.327552780510364E-05,
+              "train_mean_baseline_mae": 0.0608858475163579,
+              "train_median_baseline_mae": 0.0530929998755455,
+              "prediction_scene_variance": 8.359927857528374E-05,
+              "target_scene_variance": 0.01595129637217779,
+              "scene_covariance": -0.00012243767453954155,
+              "scene_correlation": -0.10602683939047605,
+              "squared_mean_bias": 0.0008399312736094998
+            }
+          }
+        },
+        "first": {
+          "control": {
+            "radian": {
+              "mae": 0.03025788578670472,
+              "mse": 0.0016906046219444559,
+              "per_episode_mae": [
+                0.02495682775042951,
+                0.029537050790774327,
+                0.02664960901408146,
+                0.04213008043977121,
+                0.028015860938467085
+              ],
+              "all_nonself_image_mae": 0.029366999298023683,
+              "paired_mae_gain": -0.0008908864886810371,
+              "train_mean_baseline_mae": 0.01372849423089065,
+              "train_median_baseline_mae": 0.012719260396746297,
+              "prediction_scene_variance": 2.5220418256163826E-05,
+              "target_scene_variance": 0.00038096651136803445,
+              "scene_covariance": -4.1308568932352244E-05,
+              "scene_correlation": -0.42142530229505165,
+              "squared_mean_bias": 0.0012018005544555523
+            },
+            "normalized": {
+              "mae": 0.015244263410568237,
+              "mse": 0.00048432132352349555,
+              "per_episode_mae": [
+                0.025926396250724792,
+                0.00927630066871643,
+                0.02022308111190796,
+                0.019731566309928894,
+                0.0010639727115631104
+              ],
+              "all_nonself_image_mae": 0.016252470016479493,
+              "paired_mae_gain": 0.0010082066059112563,
+              "train_mean_baseline_mae": 0.01734176397323609,
+              "train_median_baseline_mae": 0.01530347317457199,
+              "prediction_scene_variance": 4.551287682623694E-06,
+              "target_scene_variance": 0.0004883884370164183,
+              "scene_covariance": 1.9753195953704504E-05,
+              "scene_correlation": 0.41897445198052324,
+              "squared_mean_bias": 3.088799073186272E-05
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.014675796985199368,
+              "mse": 0.0005867456083185088,
+              "per_episode_mae": [
+                0.024064505811353845,
+                0.010593482548332154,
+                0.013281107368917822,
+                0.017834796146295653,
+                0.007605093051097353
+              ],
+              "all_nonself_image_mae": 0.013843483156718624,
+              "paired_mae_gain": -0.0008323138284807435,
+              "train_mean_baseline_mae": 0.01372849423089065,
+              "train_median_baseline_mae": 0.012719260396746297,
+              "prediction_scene_variance": 2.5220418256163826E-05,
+              "target_scene_variance": 0.00038096651136803445,
+              "scene_covariance": -4.1308568932352244E-05,
+              "scene_correlation": -0.42142530229505165,
+              "squared_mean_bias": 9.794154082960625E-05
+            },
+            "normalized": {
+              "mae": 0.016704179644584656,
+              "mse": 0.0004885000035908527,
+              "per_episode_mae": [
+                0.02165313512086868,
+                0.013549561798572543,
+                0.02449634224176407,
+                0.01848462522029877,
+                0.005337233841419223
+              ],
+              "all_nonself_image_mae": 0.017561070248484613,
+              "paired_mae_gain": 0.0008568906038999569,
+              "train_mean_baseline_mae": 0.01734176397323609,
+              "train_median_baseline_mae": 0.01530347317457199,
+              "prediction_scene_variance": 4.551287682623694E-06,
+              "target_scene_variance": 0.0004883884370164183,
+              "scene_covariance": 1.9753195953704504E-05,
+              "scene_correlation": 0.41897445198052324,
+              "squared_mean_bias": 3.506667079921991E-05
+            }
+          }
+        },
+        "early": {
+          "control": {
+            "radian": {
+              "mae": 0.0351818819801944,
+              "mse": 0.0025553016779397237,
+              "per_episode_mae": [
+                0.042516410944517705,
+                0.03562237473282342,
+                0.028921016422100366,
+                0.036075215646997096,
+                0.03277439215453341
+              ],
+              "all_nonself_image_mae": 0.03255602045566775,
+              "paired_mae_gain": -0.0026258615245266514,
+              "train_mean_baseline_mae": 0.018483447340646914,
+              "train_median_baseline_mae": 0.018763141239372394,
+              "prediction_scene_variance": 7.316638671193771E-05,
+              "target_scene_variance": 0.0010771363645513583,
+              "scene_covariance": -0.00017239727706531014,
+              "scene_correlation": -0.6141002213925644,
+              "squared_mean_bias": 0.0010602043725458068
+            },
+            "normalized": {
+              "mae": 0.016890133321285247,
+              "mse": 0.0006760818857649564,
+              "per_episode_mae": [
+                0.03072299510240555,
+                0.008312457799911499,
+                0.016753679513931273,
+                0.02037104070186615,
+                0.008290493488311767
+              ],
+              "all_nonself_image_mae": 0.01807324633002281,
+              "paired_mae_gain": 0.0011831130087375623,
+              "train_mean_baseline_mae": 0.017281973391771316,
+              "train_median_baseline_mae": 0.01523135468363762,
+              "prediction_scene_variance": 6.816941812807899E-06,
+              "target_scene_variance": 0.00048576907870799964,
+              "scene_covariance": 2.811298762320824E-05,
+              "scene_correlation": 0.488536790095722,
+              "squared_mean_bias": 0.00023972184049056541
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.02224450478006232,
+              "mse": 0.0016807871334293808,
+              "per_episode_mae": [
+                0.048335337753912126,
+                0.017453346897576313,
+                0.012047645815861572,
+                0.022436770947533654,
+                0.01094942248542793
+              ],
+              "all_nonself_image_mae": 0.019561551660372066,
+              "paired_mae_gain": -0.0026829531196902526,
+              "train_mean_baseline_mae": 0.018483447340646914,
+              "train_median_baseline_mae": 0.018763141239372394,
+              "prediction_scene_variance": 7.316638671193772E-05,
+              "target_scene_variance": 0.0010771363645513583,
+              "scene_covariance": -0.00017239727706531014,
+              "scene_correlation": -0.6141002213925643,
+              "squared_mean_bias": 0.00018568982803546477
+            },
+            "normalized": {
+              "mae": 0.016428117379546164,
+              "mse": 0.0004681348746907299,
+              "per_episode_mae": [
+                0.0217031579464674,
+                0.012931535020470616,
+                0.02364908196032047,
+                0.018384091928601264,
+                0.0054727200418710695
+              ],
+              "all_nonself_image_mae": 0.017450288526713847,
+              "paired_mae_gain": 0.001022171147167683,
+              "train_mean_baseline_mae": 0.017281973391771316,
+              "train_median_baseline_mae": 0.01523135468363762,
+              "prediction_scene_variance": 6.816941812807898E-06,
+              "target_scene_variance": 0.00048576907870799964,
+              "scene_covariance": 2.811298762320824E-05,
+              "scene_correlation": 0.488536790095722,
+              "squared_mean_bias": 3.177482941633896E-05
+            }
+          }
+        },
+        "middle": {
+          "control": {
+            "radian": {
+              "mae": 0.061752507763190405,
+              "mse": 0.009965633342423133,
+              "per_episode_mae": [
+                0.10502433088194164,
+                0.07055146608553413,
+                0.03545490984235787,
+                0.03773742834520009,
+                0.05999440366091827
+              ],
+              "all_nonself_image_mae": 0.05506513368027906,
+              "paired_mae_gain": -0.006687374082911347,
+              "train_mean_baseline_mae": 0.04861572736487465,
+              "train_median_baseline_mae": 0.04677618590157686,
+              "prediction_scene_variance": 0.00022336857185838388,
+              "target_scene_variance": 0.006716338079388186,
+              "scene_covariance": -0.0008779131277782823,
+              "scene_correlation": -0.7167607826062687,
+              "squared_mean_bias": 0.0012701004356199977
+            },
+            "normalized": {
+              "mae": 0.01878481189409892,
+              "mse": 0.0006571754210236354,
+              "per_episode_mae": [
+                0.02258033255736033,
+                0.014309114217758179,
+                0.02354142169157664,
+                0.02475500007470449,
+                0.00873819092909495
+              ],
+              "all_nonself_image_mae": 0.01961759626865387,
+              "paired_mae_gain": 0.0008327843745549526,
+              "train_mean_baseline_mae": 0.017648852884769438,
+              "train_median_baseline_mae": 0.015580365260442097,
+              "prediction_scene_variance": 9.873656208372475E-06,
+              "target_scene_variance": 0.0004948000824556805,
+              "scene_covariance": 2.9531453853424005E-05,
+              "scene_correlation": 0.4225041175214801,
+              "squared_mean_bias": 0.00021156459006643055
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.05653865915258777,
+              "mse": 0.00947601252616982,
+              "per_episode_mae": [
+                0.11031185834791454,
+                0.06111040511129734,
+                0.03119548964158943,
+                0.031155785174665267,
+                0.04891975748747225
+              ],
+              "all_nonself_image_mae": 0.04958769606054476,
+              "paired_mae_gain": -0.00695096309204301,
+              "train_mean_baseline_mae": 0.04861572736487465,
+              "train_median_baseline_mae": 0.04677618590157686,
+              "prediction_scene_variance": 0.00022336857185838388,
+              "target_scene_variance": 0.006716338079388186,
+              "scene_covariance": -0.0008779131277782823,
+              "scene_correlation": -0.7167607826062687,
+              "squared_mean_bias": 0.000780479619366686
+            },
+            "normalized": {
+              "mae": 0.016825576255718868,
+              "mse": 0.00047410849829962134,
+              "per_episode_mae": [
+                0.023965571870406467,
+                0.012827903479337693,
+                0.022060210953156155,
+                0.019131686538457877,
+                0.006142508437236151
+              ],
+              "all_nonself_image_mae": 0.01766480275988579,
+              "paired_mae_gain": 0.000839226504166922,
+              "train_mean_baseline_mae": 0.017648852884769438,
+              "train_median_baseline_mae": 0.015580365260442097,
+              "prediction_scene_variance": 9.873656208372475E-06,
+              "target_scene_variance": 0.0004948000824556805,
+              "scene_covariance": 2.9531453853424005E-05,
+              "scene_correlation": 0.4225041175214801,
+              "squared_mean_bias": 2.849766734241645E-05
+            }
+          }
+        },
+        "late": {
+          "control": {
+            "radian": {
+              "mae": 0.07197074239142238,
+              "mse": 0.009772694448261308,
+              "per_episode_mae": [
+                0.09007830898432682,
+                0.08279260966771593,
+                0.05906810970278457,
+                0.0675246800086461,
+                0.06039000359363854
+              ],
+              "all_nonself_image_mae": 0.0758246421343647,
+              "paired_mae_gain": 0.0038538997429423127,
+              "train_mean_baseline_mae": 0.06652792803567524,
+              "train_median_baseline_mae": 0.06520696584507824,
+              "prediction_scene_variance": 0.0008925342949238233,
+              "target_scene_variance": 0.007048055227076797,
+              "scene_covariance": 0.0002732567729819296,
+              "scene_correlation": 0.1089491458442555,
+              "squared_mean_bias": 0.002378618472224548
+            },
+            "normalized": {
+              "mae": 0.09917221367359161,
+              "mse": 0.037169069107413535,
+              "per_episode_mae": [
+                0.31220354318618776,
+                0.055082160830497745,
+                0.03624006569385529,
+                0.04540591597557068,
+                0.04692938268184662
+              ],
+              "all_nonself_image_mae": 0.09980013209581373,
+              "paired_mae_gain": 0.0006279184222221235,
+              "train_mean_baseline_mae": 0.1042695939451456,
+              "train_median_baseline_mae": 0.09074523872137069,
+              "prediction_scene_variance": 0.00015870715994614531,
+              "target_scene_variance": 0.03141140506339898,
+              "scene_covariance": -0.0002737172178878723,
+              "scene_correlation": -0.12259144818746504,
+              "squared_mean_bias": 0.005051522448292672
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.06990091109288235,
+              "mse": 0.009331529675062573,
+              "per_episode_mae": [
+                0.07941704982375569,
+                0.08484440796542915,
+                0.056857640701617695,
+                0.07676605881727298,
+                0.051619398156336226
+              ],
+              "all_nonself_image_mae": 0.07315187690185462,
+              "paired_mae_gain": 0.0032509658089722726,
+              "train_mean_baseline_mae": 0.06652792803567524,
+              "train_median_baseline_mae": 0.06520696584507824,
+              "prediction_scene_variance": 0.0008925342949238233,
+              "target_scene_variance": 0.007048055227076797,
+              "scene_covariance": 0.00027325677298192954,
+              "scene_correlation": 0.10894914584425548,
+              "squared_mean_bias": 0.0019374536990258136
+            },
+            "normalized": {
+              "mae": 0.10620948783755303,
+              "mse": 0.03376768549802726,
+              "per_episode_mae": [
+                0.2868975827395916,
+                0.0773913301229477,
+                0.048693651676177986,
+                0.050476348966360114,
+                0.06758852568268776
+              ],
+              "all_nonself_image_mae": 0.10540363453179598,
+              "paired_mae_gain": -0.0008058533057570538,
+              "train_mean_baseline_mae": 0.1042695939451456,
+              "train_median_baseline_mae": 0.09074523872137069,
+              "prediction_scene_variance": 0.00015854758670042084,
+              "target_scene_variance": 0.03141140506339898,
+              "scene_covariance": -0.0002738394164404209,
+              "scene_correlation": -0.12270788229189347,
+              "squared_mean_bias": 0.0016500540150470142
+            }
+          }
+        },
+        "last": {
+          "control": {
+            "radian": {
+              "mae": 0.08689772814201811,
+              "mse": 0.011690704912271524,
+              "per_episode_mae": [
+                0.08927439211402088,
+                0.09050559842338164,
+                0.08910331684940805,
+                0.0918468777090311,
+                0.07375845561424892
+              ],
+              "all_nonself_image_mae": 0.10255481991140794,
+              "paired_mae_gain": 0.015657091769389828,
+              "train_mean_baseline_mae": 0.08258313148263066,
+              "train_median_baseline_mae": 0.08133933215091625,
+              "prediction_scene_variance": 0.0012996411236916782,
+              "target_scene_variance": 0.010002011950381539,
+              "scene_covariance": 0.0018771630296526229,
+              "scene_correlation": 0.5206508541861448,
+              "squared_mean_bias": 0.004143377897503549
+            },
+            "normalized": {
+              "mae": 0.20343588888645173,
+              "mse": 0.09765100407092389,
+              "per_episode_mae": [
+                0.6693820655345917,
+                0.1474030464887619,
+                0.05427107214927673,
+                0.05993981659412384,
+                0.08618344366550446
+              ],
+              "all_nonself_image_mae": 0.20828132927417756,
+              "paired_mae_gain": 0.00484544038772583,
+              "train_mean_baseline_mae": 0.24637923963367941,
+              "train_median_baseline_mae": 0.2101704329252243,
+              "prediction_scene_variance": 0.0005717605489945399,
+              "target_scene_variance": 0.08774512475241233,
+              "scene_covariance": -0.0006363583113793504,
+              "scene_correlation": -0.08984276924140355,
+              "squared_mean_bias": 0.008061402146758306
+            }
+          },
+          "candidate": {
+            "radian": {
+              "mae": 0.07085435487892634,
+              "mse": 0.00867684573247526,
+              "per_episode_mae": [
+                0.08299234343285206,
+                0.07414448537262314,
+                0.06339659594523256,
+                0.07802958468770765,
+                0.05570876495621634
+              ],
+              "all_nonself_image_mae": 0.09065337414969692,
+              "paired_mae_gain": 0.019799019270770574,
+              "train_mean_baseline_mae": 0.08258313148263066,
+              "train_median_baseline_mae": 0.08133933215091625,
+              "prediction_scene_variance": 0.001299641123691678,
+              "target_scene_variance": 0.010002011950381539,
+              "scene_covariance": 0.0018771630296526229,
+              "scene_correlation": 0.5206508541861448,
+              "squared_mean_bias": 0.001129518717707287
+            },
+            "normalized": {
+              "mae": 0.2523364306986332,
+              "mse": 0.09290951116416205,
+              "per_episode_mae": [
+                0.5467266388237477,
+                0.27005847319960596,
+                0.06838435456156731,
+                0.16767381653189659,
+                0.2088388703763485
+              ],
+              "all_nonself_image_mae": 0.24804717119783168,
+              "paired_mae_gain": -0.004289259500801529,
+              "train_mean_baseline_mae": 0.24637923963367941,
+              "train_median_baseline_mae": 0.2101704329252243,
+              "prediction_scene_variance": 0.0005717605489945395,
+              "target_scene_variance": 0.08774512475241233,
+              "scene_covariance": -0.0006363583113793498,
+              "scene_correlation": -0.08984276924140348,
+              "squared_mean_bias": 0.003319909239996447
+            }
+          }
+        }
+      },
+      "loo": {
+        "radian": {
+          "mae": 0.04426094208986391,
+          "mean_mae": 0.05439971442521813,
+          "median_mae": 0.053960650205845014
+        },
+        "normalized": {
+          "mae": 0.04260545778599305,
+          "mean_mae": 0.04478845969797709,
+          "median_mae": 0.039681189797818664
+        }
+      },
+      "criteria": {
+        "radian": {
+          "full_dev_reduction_at_least_20_percent": false,
+          "dev_beats_both_constants": false,
+          "dev_positive_image_gain": false,
+          "loo_beats_both_constants": true,
+          "first_action_not_regressed": true
+        },
+        "normalized": {
+          "full_dev_reduction_at_least_20_percent": false,
+          "dev_beats_both_constants": false,
+          "dev_positive_image_gain": true,
+          "loo_beats_both_constants": false,
+          "first_action_not_regressed": false
+        }
+      },
+      "passed": false,
+      "first_actions_exactly_unchanged": false,
+      "candidate_clipped_by_dimension": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        21
+      ]
+    }
+  ],
+  "passed_conditions": 0,
+  "registered_diagnostic_supported": false,
+  "arrays_sha256": "f6c9bda124304b50ad3b665514cf051affcf08543042eb6635813efb81ef9ef1",
+  "array_reload_exact": true,
+  "model_forwards": 0,
+  "optimizer_steps": 0,
+  "policy_modified": false,
+  "hidden_test_loaded": false,
+  "task_success": "not measured",
+  "m2_complete": false,
+  "tests_passed": 9,
+  "evidence_sha256": {
+    "runs/coverage40-bias-20260911-001/result.json": "182f990100e8741b9feca4d3890a4146d7795c2352b1701801ad003cb5e7d957",
+    "runs/coverage40-bias-20260911-001/arrays.npz": "f6c9bda124304b50ad3b665514cf051affcf08543042eb6635813efb81ef9ef1",
+    "runs/coverage40-calibration-preflight-20260911-001/tests.log": "5934960265a9f661d85289894616cacc0d308c1dff7eafdecc548276c4201a82",
+    "runs/coverage40-calibration-preflight-20260911-001/bias.log": "15c824129300b57c33ebddb4b63593776466bc7ad2f5352b5db0ce46e4214308"
+  }
+}

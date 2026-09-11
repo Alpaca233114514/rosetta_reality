@@ -103,6 +103,13 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Actual coverage40 B bias diagnostic (2026-09-11):
+`reports/training/m2-smolvla-coverage40-bias-result-2026-09-11.{md,json}`
+records 0/4 conditions passing the fixed train-only calibration criteria.
+Gripper full-chunk and first-action MAE worsen under every noise condition;
+joint image MAE gains remain negative. This directly tests B rather than Zen.
+The unchanged historical arrays were analyzed offline with no model or optimizer.
+
 Consolidated local diagnosis and next evidence boundary (2026-09-11):
 `reports/training/m2-smolvla-local-generalization-diagnosis-2026-09-11.md`
 separates eight completed historical-Zen diagnostic axes from actual coverage40 B.
