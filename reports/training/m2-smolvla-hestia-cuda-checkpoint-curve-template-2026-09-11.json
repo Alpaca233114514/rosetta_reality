@@ -73,7 +73,6 @@
     "tests/test_hestia_checkpoint_supervisor.py": "bf63fd0f2a4998f613266d4e161b4b9940a2a1916fa981430848eb6e123cc28c",
     "src/rosetta_reality/vla/visual_coverage.py": "4948b2f6abc1753b59fe0dab00e42b9e01ca3fbfe5855f99fad492635da37d02",
     "tests/test_hestia_cuda_checkpoints.py": "d308ff1af4134f26a92e0292912768e8e09281db921fc872c80fb798819ceea3",
-    "scripts/run_hestia_checkpoint_curve.py": "beb063e56673b8ad99b530437608118b6a9eca1e4038dd78e88653d17e9b1ed8",
     "scripts/diagnose_kv_full_chunk.py": "99ecd0192780638153283c0b3c7834460bca846b39529864f9be3b6cb50ead5e",
     "runs/hestia-recovered-20260911-001/cpu/draft/main1280.yaml": "70fb068fc732b02c4bfd3cf04e70e5465e3094e8d32750bb670009e2f2f2507b",
     "scripts/smolvla_forward_check.py": "0086ff0703955707714719e64f6fdd28244cf570b0852d94d70713fd82c877d8",
@@ -84,15 +83,20 @@
     "configs/vla/smolvla_450m_aloha_insertion.yaml": "7306014717eb3fe5a5997a92406ec18cb251f1c17cc9d46ed74d75ac71d8b19f",
     "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
     "configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml": "0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210",
-    "scripts/diagnose_hestia_cuda_checkpoints.py": "19fe3d45cbaec79b1f8a121d407a88345eaba3c400a0f99e79168d0fabdeda39",
-    "reports/training/m2-smolvla-hestia-cuda-checkpoint-curve-plan-2026-09-11.md": "d636d620c9f4cb494e3212a8899fc19093a3b17436ffca5c079415b209a5f254",
     "src/rosetta_reality/vla/vision_diagnostics.py": "9bf5ab370be5f803a205b9e2a596bd25ed64b32514afcb5c9c39ef770a40fe63",
     "scripts/diagnose_zen_noise_transfer.py": "d4386dfd4516b31099b86f5e86608ca0954895fe6954ecdc8e9bba1ce57473d7",
     "src/rosetta_reality/vla/visual_fit.py": "8e25c2f0e117267bc8e5dce1ebe7e967b6fe6fba72f44859fec6d00a73468bc7",
     "scripts/run_smolvla_v2.py": "d703b63b8ebf96b9579cb7af41e3ec84645a9a225c21a72698451ee782559327",
     "scripts/evaluate_visual_native_small.py": "1b038e6a7753a59591a093c36fef32fd14a90fad884f0fda52a5090809d8f9ed",
     "scripts/diagnose_hestia_local_checkpoint.py": "c0542d988999d8b930d6e49dcf5c9f468fe8e200299244c6f81718d43b1f945a",
-    "configs/data/aloha_sim_insertion_m2.yaml": "c35c6a3da68c571f9e1dc4879b56fbb29be1ce8fcda1e529c9eac5d8e09b1491"
+    "configs/data/aloha_sim_insertion_m2.yaml": "c35c6a3da68c571f9e1dc4879b56fbb29be1ce8fcda1e529c9eac5d8e09b1491",
+    "scripts/run_hestia_checkpoint_curve.py": "d2ba80e047f4f2b97bc609f5057c792e50556a16401ba26d853652dcab6f67fa",
+    "scripts/diagnose_hestia_cuda_checkpoints.py": "7d6c14e9d5635f6f36c8bb48ea5616fcfb00f1c19253c4337d8976c1d6c5bfb9",
+    "scripts/stream_hestia_checkpoint_results.py": "b4c0a31f2c81858e584aa66ab686a14587482f61008957e5fb8283f87fc553f9",
+    "scripts/verify_hestia_checkpoint_results.py": "3e63246914e920be7a973f3e860cabdc30cfd4edfbaf40b53ae3cb950869b170",
+    "scripts/receive_hestia_checkpoint_results.sh": "63c3fd07d2483cc93d66a8271169023e729d9e05215a2f5a62962c69e56b5c96",
+    "tests/test_hestia_result_transfer.py": "b832c17b38666d02a2ac6d22188ab4c2cb28008c30a27f0b45b23addaf07a0b1",
+    "reports/training/m2-smolvla-hestia-cuda-checkpoint-curve-plan-2026-09-11.md": "47de0e88085f63763a8ed585bf473954f80df99c54ac38e1e60556b97252ae3f"
   },
   "checkpoints": {
     "1280": {

@@ -44,7 +44,7 @@ python scripts/run_hestia_checkpoint_curve.py supervise \
 
 长进程以nohup/tmux等价守护启动；独立watchdog绑定父/子PID及启动tick，
 失效或到期只停止本次子进程。运行前拒绝其他GPU/项目任务，再执行现场doctor
-及15项CPU反例。每个collector验证活跃watchdog、模板、源码、profile、原环境
+及20项CPU反例。每个collector验证活跃watchdog、模板、源码、profile、原环境
 版本及模型SHA后才加载模型。XPU/CUDA原collector的历史保护不修改。
 
 supervisor总窗口600秒：最多480秒预检/推理，最多120秒取回与关机。每模型
@@ -60,6 +60,16 @@ supervisor总窗口600秒：最多480秒预检/推理，最多120秒取回与关
 ## 准备验证与限制
 
 本地固定离线CPU容器已检查许可缺失/扩大、过期、错误步数、路径逃逸、旧PID
-不误杀和数值单元素越界等15项反例，Ruff/格式及CLI检查通过。它们不代表真实
+不误杀和数值单元素越界等20项反例，Ruff/格式及CLI检查通过。新增5项包含回传
+路径越界、Windows数据流路径、总量错误和缺失退出记录的拒绝检查。它们不代表真实
 CUDA控制通过，也不代表完整watchdog/传输握手在远端实测通过。运行时再次核验。
 原hidden、Gate3/4和M2状态保持不变。
+
+## 一次性无人值守编排
+
+按用户最新要求，连接后一次性启动supervisor、独立watchdog及本地隐藏后台接收端，
+确认PID和登记身份后结束交互，不持续人工轮询。GPU开机后的当次SSH入口仍待提供。
+`receive_hestia_checkpoint_results.sh`调用远端`stream_hestia_checkpoint_results.py`，
+只回传封闭manifest列出的常规文件；`verify_hestia_checkpoint_results.py`在固定离线
+CPU容器内执行create-only解包、路径白名单、文件集合/长度/SHA核验。全部通过才
+原子写入远端回传收据；接收端退出状态落本地新目录。无人值守SSH握手尚未远端实测。

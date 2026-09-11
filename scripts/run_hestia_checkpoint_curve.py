@@ -191,6 +191,7 @@ def supervise(args, template):
                 "tests/test_hestia_cuda_checkpoints.py",
                 "tests/test_hestia_checkpoint_supervisor.py",
                 "tests/test_hestia_local_checkpoint.py",
+                "tests/test_hestia_result_transfer.py",
             ],
             capture_output=True,
             text=True,
@@ -235,9 +236,14 @@ def supervise(args, template):
                 completed.append(step)
     except Exception as exc:
         error = {"type": type(exc).__name__, "message": str(exc)}
-        stop_child(job)
-        if child is not None:
-            child.wait(timeout=10)
+        # Popen owns this child even if the atomic PID record was interrupted.
+        if child is not None and child.poll() is None:
+            os.killpg(child.pid, signal.SIGTERM)
+            try:
+                child.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                os.killpg(child.pid, signal.SIGKILL)
+                child.wait(timeout=5)
     finally:
         save(
             job / "worker-exited.json",
@@ -251,7 +257,11 @@ def supervise(args, template):
         )
         files = {}
         for path in job.rglob("*"):
-            if not path.is_file() or path.name in {"watchdog.log", "active-child.json"}:
+            if not path.is_file() or path.name in {
+                "watchdog.log",
+                "active-child.json",
+                "active-child.tmp",
+            }:
                 continue
             if path.is_symlink() or not path.resolve().is_relative_to(job.resolve()):
                 raise ValueError("Result path escaped")

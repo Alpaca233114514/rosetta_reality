@@ -395,6 +395,10 @@ def main():
     )
     if actual_ticks != permit["watchdog_ticks"]:
         raise ValueError("Registered watchdog process identity changed")
+    active_child = json.loads((Path(plan["output"]) / "active-child.json").read_text())
+    own_ticks = Path(f"/proc/{os.getpid()}/stat").read_text().rsplit(")", 1)[1].split()[19]
+    if active_child != {"pid": os.getpid(), "ticks": own_ticks, "step": args.step}:
+        raise ValueError("Collector identity was not registered before model loading")
     profile = os.environ.get("ROSETTA_AUTODL_RUNTIME_PROFILE")
     if (
         not profile
