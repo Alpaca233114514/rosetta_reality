@@ -103,6 +103,17 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Train-only common-bias diagnostic (2026-09-11):
+`reports/training/m2-smolvla-chunk-bias-result-2026-09-11.{md,json}`
+records a saved-output correction using only mean train residuals per chunk slot.
+`scripts/diagnose_chunk_bias.py` compares both arms after the same contract bounds.
+Development full-chunk MAE drops from 0.07690/0.09531 to 0.05315/0.05273
+(joint/gripper), but joints still lose to constants, gripper calibration LOO
+fails and first-action gripper error regresses. The registered diagnostic fails.
+The correction requires 253 right-gripper projections and is not a policy patch.
+Thirteen checks passed; no raw data, model forward or Gate ran. Shared bias
+explains part of the offline error but does not establish a generalization fix.
+
 Full-chunk matched-target diagnostic (2026-09-11):
 `reports/training/m2-smolvla-kv-full-chunk-result-2026-09-11.{md,json}`
 compares the same early KV readout with saved native 50-step outputs, using the
