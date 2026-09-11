@@ -103,6 +103,17 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Global prediction-time-shift diagnostic (2026-09-11):
+`reports/training/m2-smolvla-chunk-time-shift-result-2026-09-11.{md,json}`
+records train-selected lag -7, identical in all 40 calibration LOO selections.
+Both full-chunk development MAEs improve by over 20%, but remain worse than
+train constants; gripper LOO also fails. First actions are exactly unchanged.
+The registered sufficient-explanation criteria fail; this does not establish
+mislabelled data or improve receding-first-action execution. The unchanged
+historical Zen arrays were reused without new model forwards or raw data reads.
+`scripts/diagnose_chunk_time_shift.py` owns this diagnostic; nine checks passed.
+No policy change or Gate ran; M2 remains incomplete.
+
 Native inference-noise diagnostic (2026-09-11):
 `reports/training/m2-smolvla-zen-noise-transfer-result-2026-09-11.{md,json}`
 records 136 local XPU forwards on the unchanged Zen artifact: one exact full-chunk
