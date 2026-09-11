@@ -84,25 +84,46 @@ def supervise(execute_authorized: bool, shutdown_authorized: bool):
         if not os.environ.get(key):
             raise ValueError("Use the registered AutoDL runner")
     JOB.mkdir(parents=True, exist_ok=False)
-    io.save(JOB / "registration.json", {
-        "status": "authorized_worker", "run_name": fit.RUN_NAMES["C"],
-        "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
-        "source_files": source_identity(), "resource_limits": gates.LIMITS,
-        "model_execution_authorized": True, "shutdown_authorized": True,
-        "compute_seconds": 1800, "no_retry": True, "instance_release_requested": False,
-        "hidden_test_loaded": False, "nested_docker_used": False, "m2_complete": False,
-    })
+    io.save(
+        JOB / "registration.json",
+        {
+            "status": "authorized_worker",
+            "run_name": fit.RUN_NAMES["C"],
+            "source_commit": subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], text=True
+            ).strip(),
+            "source_files": source_identity(),
+            "resource_limits": gates.LIMITS,
+            "model_execution_authorized": True,
+            "shutdown_authorized": True,
+            "compute_seconds": 1800,
+            "no_retry": True,
+            "instance_release_requested": False,
+            "hidden_test_loaded": False,
+            "nested_docker_used": False,
+            "m2_complete": False,
+        },
+    )
     start = time.time()
-    io.save(JOB / "watchdog.json", {
-        "pid": os.getpid(), "process_start_ticks": checks.process_start_ticks(os.getpid()),
-        "started_unix": start, "deadline_unix": start + 1800,
-        "registration_sha256": io.digest(JOB / "registration.json"),
-        "external_watchdog_verified": True, "shutdown_grace_seconds": 120,
-    })
+    io.save(
+        JOB / "watchdog.json",
+        {
+            "pid": os.getpid(),
+            "process_start_ticks": checks.process_start_ticks(os.getpid()),
+            "started_unix": start,
+            "deadline_unix": start + 1800,
+            "registration_sha256": io.digest(JOB / "registration.json"),
+            "external_watchdog_verified": True,
+            "shutdown_grace_seconds": 120,
+        },
+    )
     with (JOB / "worker.log").open("x") as stream:
         process = subprocess.Popen(
-            [sys.executable, str(SELF), "worker"], cwd=ROOT, stdout=stream,
-            stderr=subprocess.STDOUT, start_new_session=True,
+            [sys.executable, str(SELF), "worker"],
+            cwd=ROOT,
+            stdout=stream,
+            stderr=subprocess.STDOUT,
+            start_new_session=True,
         )
         io.save(JOB / "worker-process.json", {"pid": process.pid, "pgid": process.pid})
         try:
@@ -114,10 +135,14 @@ def supervise(execute_authorized: bool, shutdown_authorized: bool):
             os.killpg(process.pid, signal.SIGTERM)
         except ProcessLookupError:
             pass
-    io.save(JOB / "supervisor-exit.json", {
-        "worker_exit_code": code, "elapsed_seconds": time.time() - start,
-        "m2_complete": False,
-    })
+    io.save(
+        JOB / "supervisor-exit.json",
+        {
+            "worker_exit_code": code,
+            "elapsed_seconds": time.time() - start,
+            "m2_complete": False,
+        },
+    )
     os.sync()
     time.sleep(120)
     try:
@@ -137,9 +162,13 @@ def supervise(execute_authorized: bool, shutdown_authorized: bool):
                 raise RuntimeError("Another Hestia worker remains active")
         io.shutdown()
     except BaseException as error:
-        io.save(JOB / "shutdown-failed.json", {
-            "error_type": type(error).__name__, "instance_release_requested": False,
-        })
+        io.save(
+            JOB / "shutdown-failed.json",
+            {
+                "error_type": type(error).__name__,
+                "instance_release_requested": False,
+            },
+        )
         raise
 
 
@@ -172,8 +201,11 @@ def observed_train():
     sys.argv = ["scripts/run_smolvla_v2.py", "smoke", "--plan", str(plan_path)]
     try:
         run_observed_launch(
-            lerobot_train, run_smolvla_v2.main, expected_samples=samples,
-            batch_size=4, output=JOB / "observation",
+            lerobot_train,
+            run_smolvla_v2.main,
+            expected_samples=samples,
+            batch_size=4,
+            output=JOB / "observation",
         )
     finally:
         torch.optim.AdamW.step = original
@@ -196,8 +228,13 @@ def worker():
             command = [sys.executable, str(SELF), "wrap", report, *command]
         with (JOB / (name + ".log")).open("x") as stream:
             subprocess.run(
-                command, cwd=ROOT, env=env, stdout=stream, stderr=subprocess.STDOUT,
-                check=True, timeout=min(limit, remaining),
+                command,
+                cwd=ROOT,
+                env=env,
+                stdout=stream,
+                stderr=subprocess.STDOUT,
+                check=True,
+                timeout=min(limit, remaining),
             )
         io.event("stage_passed", stage=name)
 
@@ -212,9 +249,12 @@ def worker():
         candidate = checkpoint_root / io.EXP / "smoke" / fit.RUN_NAMES["C"]
         if candidate.exists() or candidate.is_symlink():
             raise FileExistsError("Hestia candidate already exists; no resume or retry")
-        run("cpu", [sys.executable, "scripts/check_hestia_collector_cpu.py",
-                    "--output", str(JOB / "cpu")],
-            env=dict(os.environ, ROSETTA_TORCH_DEVICE="cpu"), limit=600)
+        run(
+            "cpu",
+            [sys.executable, "scripts/check_hestia_collector_cpu.py", "--output", str(JOB / "cpu")],
+            env=dict(os.environ, ROSETTA_TORCH_DEVICE="cpu"),
+            limit=600,
+        )
         if io.load(JOB / "cpu/result.json")["status"] != "passed":
             raise ValueError("Current CPU acceptance failed")
         if io.load(JOB / "cpu/disk.json")["status"] != "passed":
@@ -248,32 +288,66 @@ def worker():
         if not gpu.startswith(proof["gpu"] + ",") or "\n" in gpu:
             raise ValueError("Expected one GPU of the previously verified model")
         if subprocess.check_output(
-            ["nvidia-smi", "--query-compute-apps=pid", "--format=csv,noheader"], text=True,
+            ["nvidia-smi", "--query-compute-apps=pid", "--format=csv,noheader"],
+            text=True,
         ).strip():
             raise ValueError("GPU is already in use")
         environment_root = JOB / "environment-runs"
         (environment_root / "trackio").mkdir(parents=True)
-        isolated = dict(os.environ, ROSETTA_RUN_ROOT=str(environment_root),
-                        TRACKIO_DIR=str(environment_root / "trackio"))
+        isolated = dict(
+            os.environ,
+            ROSETTA_RUN_ROOT=str(environment_root),
+            TRACKIO_DIR=str(environment_root / "trackio"),
+        )
         run("check-env", [sys.executable, "scripts/check_env.py"])
-        run("doctor", [sys.executable, "scripts/autodl_doctor_cuda.py", "--profile",
-                       "configs/runtime/autodl_rtx4090.yaml", "--config", checks.PARENT_CONFIG],
-            env=isolated)
-        run("data", [sys.executable, "-m", "pytest", "-q", "-m", "data",
-                     "tests/test_smolvla_visual_grounding_data.py",
-                     "--junitxml=" + str(JOB / "data.xml")])
+        run(
+            "doctor",
+            [
+                sys.executable,
+                "scripts/autodl_doctor_cuda.py",
+                "--profile",
+                "configs/runtime/autodl_rtx4090.yaml",
+                "--config",
+                checks.PARENT_CONFIG,
+            ],
+            env=isolated,
+        )
+        run(
+            "data",
+            [
+                sys.executable,
+                "-m",
+                "pytest",
+                "-q",
+                "-m",
+                "data",
+                "tests/test_smolvla_visual_grounding_data.py",
+                "--junitxml=" + str(JOB / "data.xml"),
+            ],
+        )
         suites = ET.parse(JOB / "data.xml").getroot()
-        if any(int(s.attrib.get(k, 0)) for s in suites.iter("testsuite")
-               for k in ("failures", "errors", "skipped")):
+        if any(
+            int(s.attrib.get(k, 0))
+            for s in suites.iter("testsuite")
+            for k in ("failures", "errors", "skipped")
+        ):
             raise ValueError("Real-data check failed or skipped")
-        run("benchmark", [sys.executable, "scripts/benchmark_smolvla.py",
-                          "--config", checks.PARENT_CONFIG], env=isolated)
-        prerequisites = {"environment": passed("environment", gpu=gpu,
-            runtime_profile_sha256=io.digest(ROOT / "configs/runtime/autodl_rtx4090.yaml"),
-            check_env_log=io.evidence(JOB / "check-env.log"),
-            doctor_log=io.evidence(JOB / "doctor.log"),
-            benchmark_log=io.evidence(JOB / "benchmark.log"),
-            data_log=io.evidence(JOB / "data.log"))}
+        run(
+            "benchmark",
+            [sys.executable, "scripts/benchmark_smolvla.py", "--config", checks.PARENT_CONFIG],
+            env=isolated,
+        )
+        prerequisites = {
+            "environment": passed(
+                "environment",
+                gpu=gpu,
+                runtime_profile_sha256=io.digest(ROOT / "configs/runtime/autodl_rtx4090.yaml"),
+                check_env_log=io.evidence(JOB / "check-env.log"),
+                doctor_log=io.evidence(JOB / "doctor.log"),
+                benchmark_log=io.evidence(JOB / "benchmark.log"),
+                data_log=io.evidence(JOB / "data.log"),
+            )
+        }
         for batch in (1, 4):
             forward = copy.deepcopy(plan)
             name = fit.RUN_NAMES["C"] + f"-forward-b{batch}"
@@ -281,75 +355,147 @@ def worker():
             forward["preflight"].update(run_name=name, batch_size=batch)
             path = JOB / "plans" / f"forward-b{batch}.yaml"
             io.save_stage_plan(path, forward)
-            run(f"forward-b{batch}", ["scripts/run_smolvla_v2.py", "preflight",
-                                     "--plan", str(path)], heavy=True)
+            run(
+                f"forward-b{batch}",
+                ["scripts/run_smolvla_v2.py", "preflight", "--plan", str(path)],
+                heavy=True,
+            )
         history = io.load(ROOT / checks.HISTORY)
         b = history["checkpoint_identities"]["B"]
-        run("samples", ["scripts/visual_coverage_job_checks.py", "samples",
-                        b["plan"]["path"], str(JOB / "samples.json")], heavy=True)
+        run(
+            "samples",
+            [
+                "scripts/visual_coverage_job_checks.py",
+                "samples",
+                b["plan"]["path"],
+                str(JOB / "samples.json"),
+            ],
+            heavy=True,
+        )
         if io.load(JOB / "samples.json")["status"] != "passed":
             raise ValueError("Current sample contract failed")
         prerequisites["sample_contract"] = io.evidence(JOB / "samples.json")
         for name in ("forward-b1", "forward-b4", "samples"):
             if io.load(JOB / (name + "-resources.json"))["status"] != "passed":
                 raise ValueError("Preflight resource check failed")
-        prerequisites["resource_preflight"] = passed("resource-preflight",
-            reports=[io.evidence(JOB / (name + "-resources.json"))
-                     for name in ("forward-b1", "forward-b4", "samples")])
-        prerequisites["two_step_smoke_reload"] = passed("prior-smoke-reused",
+        prerequisites["resource_preflight"] = passed(
+            "resource-preflight",
+            reports=[
+                io.evidence(JOB / (name + "-resources.json"))
+                for name in ("forward-b1", "forward-b4", "samples")
+            ],
+        )
+        prerequisites["two_step_smoke_reload"] = passed(
+            "prior-smoke-reused",
             prior_report=io.evidence(ROOT / gates.SMOKE_REPORT),
             model_sha256=proof["checkpoint_model_sha256"],
-            current_native_training_source_equal=True, optimizer_resumed=False, new_smoke_updates=0)
-        prerequisites["B_training_integrity"] = passed("B-integrity",
+            current_native_training_source_equal=True,
+            optimizer_resumed=False,
+            new_smoke_updates=0,
+        )
+        prerequisites["B_training_integrity"] = passed(
+            "B-integrity",
             historical_report_sha256=io.digest(ROOT / checks.HISTORY),
             model_sha256=fit.CONTROL_MODEL_SHA256,
-            saved_recipe=io.evidence(JOB / "cpu/B-saved-recipe.json"))
+            saved_recipe=io.evidence(JOB / "cpu/B-saved-recipe.json"),
+        )
         needed = io.load(JOB / "cpu/disk.json")["minimum_new_bytes"]
         stage = "training-permit"
         if shutil.disk_usage(checkpoint_root).free < needed:
             raise ValueError("Disk budget changed before main training")
-        io.save(JOB / "training-permit.json", {
-            "status": "authorized_sealed",
-            "registration_sha256": io.digest(JOB / "registration.json"),
-            "watchdog_sha256": io.digest(JOB / "watchdog.json"), "plan": io.evidence(main_plan),
-            "schedule": io.evidence(JOB / "cpu/schedule.json"),
-            "prerequisite_evidence": prerequisites,
-        })
+        io.save(
+            JOB / "training-permit.json",
+            {
+                "status": "authorized_sealed",
+                "registration_sha256": io.digest(JOB / "registration.json"),
+                "watchdog_sha256": io.digest(JOB / "watchdog.json"),
+                "plan": io.evidence(main_plan),
+                "schedule": io.evidence(JOB / "cpu/schedule.json"),
+                "prerequisite_evidence": prerequisites,
+            },
+        )
         gates.authorize_training(ROOT, JOB)
         run("main1280", [str(SELF), "train"], heavy=True, limit=900)
-        run("seal-C", ["scripts/seal_visual_fit_candidate.py", "--plan", str(main_plan),
-            "--observation", str(JOB / "observation/result.json"),
-            "--schedule", str(JOB / "cpu/schedule.json"),
-            "--resources", str(JOB / "main1280-resources.json"),
-            "--output", str(JOB / "C-integrity.json")], heavy=True)
+        run(
+            "seal-C",
+            [
+                "scripts/seal_visual_fit_candidate.py",
+                "--plan",
+                str(main_plan),
+                "--observation",
+                str(JOB / "observation/result.json"),
+                "--schedule",
+                str(JOB / "cpu/schedule.json"),
+                "--resources",
+                str(JOB / "main1280-resources.json"),
+                "--output",
+                str(JOB / "C-integrity.json"),
+            ],
+            heavy=True,
+        )
         prerequisites["C_training_integrity"] = io.evidence(JOB / "C-integrity.json")
         contract = io.load(JOB / "cpu/draft/execution-contract.template.json")
-        contract.update(status="authorized_sealed", model_execution_authorized=True,
-            started_unix=watch["started_unix"], deadline_unix=deadline,
-            watchdog=io.evidence(JOB / "watchdog.json"), prerequisite_evidence=prerequisites,
-            implementation_files=registration["source_files"])
+        contract.update(
+            status="authorized_sealed",
+            model_execution_authorized=True,
+            started_unix=watch["started_unix"],
+            deadline_unix=deadline,
+            watchdog=io.evidence(JOB / "watchdog.json"),
+            prerequisite_evidence=prerequisites,
+            implementation_files=registration["source_files"],
+        )
         files = io.load(JOB / "C-integrity.json")["checkpoint_files"]
         contract["arms"]["C"]["checkpoint_files"] = {
-            name.removeprefix("pretrained_model/"): sha for name, sha in files.items()
+            name.removeprefix("pretrained_model/"): sha
+            for name, sha in files.items()
             if name.startswith("pretrained_model/")
         }
         io.save(JOB / "execution-contract.json", contract)
         checks.check_execution(ROOT, contract)
-        io.save(JOB / "selection-export.json", {
-            "selection_rule": "preregistered_fixed_final_step_1280", "selected_step": 1280,
-            "artifact": contract["arms"]["C"], "export_mode": "native_pretrained_artifact_in_place",
-            "validation_checkpoint_search_used": False, "reload": "pending",
-            "public_upload": False, "m2_complete": False,
-        })
+        io.save(
+            JOB / "selection-export.json",
+            {
+                "selection_rule": "preregistered_fixed_final_step_1280",
+                "selected_step": 1280,
+                "artifact": contract["arms"]["C"],
+                "export_mode": "native_pretrained_artifact_in_place",
+                "validation_checkpoint_search_used": False,
+                "reload": "pending",
+                "public_upload": False,
+                "m2_complete": False,
+            },
+        )
         for arm in ("B", "C"):
             for suffix in ("first", "reload"):
                 name = arm + "-" + suffix
-                run(name, ["scripts/evaluate_visual_fit.py", "collect",
-                    "--contract", str(JOB / "execution-contract.json"),
-                    "--arm", arm, "--output", str(JOB / name)], heavy=True)
-            run(arm + "-reload-check", [sys.executable, "scripts/evaluate_visual_fit.py", "reload",
-                "--first", str(JOB / (arm + "-first")), "--second", str(JOB / (arm + "-reload")),
-                "--output", str(JOB / (arm + "-reload-check.json"))])
+                run(
+                    name,
+                    [
+                        "scripts/evaluate_visual_fit.py",
+                        "collect",
+                        "--contract",
+                        str(JOB / "execution-contract.json"),
+                        "--arm",
+                        arm,
+                        "--output",
+                        str(JOB / name),
+                    ],
+                    heavy=True,
+                )
+            run(
+                arm + "-reload-check",
+                [
+                    sys.executable,
+                    "scripts/evaluate_visual_fit.py",
+                    "reload",
+                    "--first",
+                    str(JOB / (arm + "-first")),
+                    "--second",
+                    str(JOB / (arm + "-reload")),
+                    "--output",
+                    str(JOB / (arm + "-reload-check.json")),
+                ],
+            )
         stage = "historical-B-reproduction"
         from rosetta_reality.vla import visual_coverage
 
@@ -369,20 +515,36 @@ def worker():
         io.save(JOB / "comparison.json", comparison)
         outcome = (
             "offline_criteria_passed"
-            if comparison["offline_metric_criteria_passed"] else "negative_result"
+            if comparison["offline_metric_criteria_passed"]
+            else "negative_result"
         )
-        io.save(JOB / "result.json", {
-            "status": outcome,
-            "completed_optimizer_updates": 1280, "completed_sample_exposures": 5120,
-            "B_and_C_independent_reload": "passed", "historical_B_reproduction": "passed",
-            "comparison": io.evidence(JOB / "comparison.json"),
-            "candidate_integrity": prerequisites["C_training_integrity"],
-            "hidden_test_loaded": False, "task_success": "not measured", "m2_complete": False,
-        })
+        io.save(
+            JOB / "result.json",
+            {
+                "status": outcome,
+                "completed_optimizer_updates": 1280,
+                "completed_sample_exposures": 5120,
+                "B_and_C_independent_reload": "passed",
+                "historical_B_reproduction": "passed",
+                "comparison": io.evidence(JOB / "comparison.json"),
+                "candidate_integrity": prerequisites["C_training_integrity"],
+                "hidden_test_loaded": False,
+                "task_success": "not measured",
+                "m2_complete": False,
+            },
+        )
     except BaseException as error:
-        io.save(JOB / "failure.json", {"status": "failed", "stage": stage,
-            "error_type": type(error).__name__, "no_automatic_retry": True,
-            "main_completion": "inspect_actual_observation_and_checkpoints", "m2_complete": False})
+        io.save(
+            JOB / "failure.json",
+            {
+                "status": "failed",
+                "stage": stage,
+                "error_type": type(error).__name__,
+                "no_automatic_retry": True,
+                "main_completion": "inspect_actual_observation_and_checkpoints",
+                "m2_complete": False,
+            },
+        )
         raise
 
 

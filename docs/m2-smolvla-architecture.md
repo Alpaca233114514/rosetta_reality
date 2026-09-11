@@ -103,6 +103,14 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Local Hestia main-chain regression (2026-09-11):
+`reports/training/m2-smolvla-hestia-local-regression-2026-09-11.{md,json}`
+records 197 synthetic checks, including the 13 main-chain counterexamples, and
+the exact 5120-sample native order on the existing offline Linux CPU container.
+Three formatting-only edits preserve ASTs; final Ruff and format checks pass.
+This is a local subset, not the AutoDL acceptance runner or a current B artifact
+check. No model/data load, SSH, C training or Gate occurred.
+
 Global prediction-time-shift diagnostic (2026-09-11):
 `reports/training/m2-smolvla-chunk-time-shift-result-2026-09-11.{md,json}`
 records train-selected lag -7, identical in all 40 calibration LOO selections.
@@ -1692,8 +1700,12 @@ The main chain is now implemented in `scripts/run_hestia_fit.py` with pre-model
 gates and historical B reproduction in `visual_fit_job.py`; registration and
 unexecuted commands are in
 `reports/training/m2-smolvla-hestia-main-plan-2026-09-10.md`.
-This newer main-chain source still needs Linux Ruff/regression and real execution.
-The user requested stopping at the SSH boundary; no main worker was dispatched.
+This newer main-chain source passed the local Linux synthetic subset on
+2026-09-11: 197 checks and the exact native sampler order, followed by AST-equivalent
+formatting and final Ruff/format verification. See
+`reports/training/m2-smolvla-hestia-local-regression-2026-09-11.{md,json}`.
+Current AutoDL saved-artifact/config/environment acceptance and real execution
+remain pending. The SSH boundary remains in place; no main worker was dispatched.
 
 Update this document in the same change whenever any of the following changes:
 

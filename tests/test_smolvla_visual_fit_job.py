@@ -45,8 +45,10 @@ def live_gate(tmp_path, monkeypatch):
     run = tmp_path / "run"
     run.mkdir()
     names = [
-        "scripts/run_hestia_fit.py", "scripts/check_hestia_collector_cpu.py",
-        "src/rosetta_reality/vla/visual_fit_job.py", job.PLAN_DOC,
+        "scripts/run_hestia_fit.py",
+        "scripts/check_hestia_collector_cpu.py",
+        "src/rosetta_reality/vla/visual_fit_job.py",
+        job.PLAN_DOC,
     ]
     sources = {}
     for name in names:
@@ -58,16 +60,30 @@ def live_gate(tmp_path, monkeypatch):
     def save(name, data):
         path = run / name
         path.write_text(json.dumps(data))
-        return {"path": path.relative_to(tmp_path).as_posix(),
-                "sha256": fit.file_hash(path), "accepted": True}
+        return {
+            "path": path.relative_to(tmp_path).as_posix(),
+            "sha256": fit.file_hash(path),
+            "accepted": True,
+        }
 
-    registration = {"status": "authorized_worker", "run_name": fit.RUN_NAMES["C"],
-        "model_execution_authorized": True, "shutdown_authorized": True,
-        "compute_seconds": 1800, "resource_limits": job.LIMITS, "source_files": sources}
+    registration = {
+        "status": "authorized_worker",
+        "run_name": fit.RUN_NAMES["C"],
+        "model_execution_authorized": True,
+        "shutdown_authorized": True,
+        "compute_seconds": 1800,
+        "resource_limits": job.LIMITS,
+        "source_files": sources,
+    }
     save("registration.json", registration)
-    watch = {"pid": 1234, "process_start_ticks": 77, "started_unix": 1000,
-        "deadline_unix": 2800, "external_watchdog_verified": True,
-        "registration_sha256": fit.file_hash(run / "registration.json")}
+    watch = {
+        "pid": 1234,
+        "process_start_ticks": 77,
+        "started_unix": 1000,
+        "deadline_unix": 2800,
+        "external_watchdog_verified": True,
+        "registration_sha256": fit.file_hash(run / "registration.json"),
+    }
     save("watchdog.json", watch)
     monkeypatch.setattr(job.time, "time", lambda: 1100)
     monkeypatch.setattr(job.checks, "process_start_ticks", lambda pid: 77)
@@ -75,16 +91,24 @@ def live_gate(tmp_path, monkeypatch):
     monkeypatch.setenv("HF_HUB_OFFLINE", "1")
     monkeypatch.setenv("HF_DATASETS_OFFLINE", "1")
     samples = [[ep, 0] for _ in range(128) for ep in fit.TRAIN40]
-    schedule = {"status": "passed", "native_order_verified": True, "sample_identities": samples,
+    schedule = {
+        "status": "passed",
+        "native_order_verified": True,
+        "sample_identities": samples,
         "expected_schedule_sha256": hashlib.sha256(
-            json.dumps(samples, separators=(",", ":")).encode()).hexdigest()}
-    permit = {"status": "authorized_sealed",
+            json.dumps(samples, separators=(",", ":")).encode()
+        ).hexdigest(),
+    }
+    permit = {
+        "status": "authorized_sealed",
         "registration_sha256": fit.file_hash(run / "registration.json"),
         "watchdog_sha256": fit.file_hash(run / "watchdog.json"),
         "plan": save("plan.yaml", {"synthetic": True}),
         "schedule": save("schedule.json", schedule),
-        "prerequisite_evidence": {name: save(name + ".json", {"status": "passed"})
-                                  for name in job.REQUIRED_BEFORE_TRAIN}}
+        "prerequisite_evidence": {
+            name: save(name + ".json", {"status": "passed"}) for name in job.REQUIRED_BEFORE_TRAIN
+        },
+    }
     save("training-permit.json", permit)
     return run, save, registration, watch, permit
 
@@ -95,10 +119,20 @@ def test_live_complete_training_gate(tmp_path, monkeypatch):
     assert plan.name == "plan.yaml" and len(samples) == 5120
 
 
-@pytest.mark.parametrize("failure", [
-    "no_authorization", "reused_pid", "too_late", "expired", "source_changed",
-    "missing_prerequisite", "failed_prerequisite", "changed_plan", "hidden_sample",
-])
+@pytest.mark.parametrize(
+    "failure",
+    [
+        "no_authorization",
+        "reused_pid",
+        "too_late",
+        "expired",
+        "source_changed",
+        "missing_prerequisite",
+        "failed_prerequisite",
+        "changed_plan",
+        "hidden_sample",
+    ],
+)
 def test_pretraining_gate_rejects_incomplete_or_changed_evidence(tmp_path, monkeypatch, failure):
     run, save, registration, _watch, permit = live_gate(tmp_path, monkeypatch)
     if failure == "no_authorization":

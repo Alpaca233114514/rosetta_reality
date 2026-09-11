@@ -25,8 +25,11 @@ HISTORICAL_B = (
     "runs/visual-hermes-coverage40-eval-001/B-first/manifest.json"
 )
 REQUIRED_BEFORE_TRAIN = {
-    "environment", "sample_contract", "resource_preflight",
-    "two_step_smoke_reload", "B_training_integrity",
+    "environment",
+    "sample_contract",
+    "resource_preflight",
+    "two_step_smoke_reload",
+    "B_training_integrity",
 }
 LIMITS = {
     "cuda_allocated_bytes": 8 * 1024**3,
@@ -52,8 +55,10 @@ def verify_live_job(root: Path, job: Path) -> tuple[dict, dict]:
         raise ValueError("A separately authorized Hestia main job is required")
     sources = registration.get("source_files", {})
     required = {
-        "scripts/run_hestia_fit.py", "scripts/check_hestia_collector_cpu.py",
-        "src/rosetta_reality/vla/visual_fit_job.py", PLAN_DOC,
+        "scripts/run_hestia_fit.py",
+        "scripts/check_hestia_collector_cpu.py",
+        "src/rosetta_reality/vla/visual_fit_job.py",
+        PLAN_DOC,
     }
     if not required <= set(sources):
         raise ValueError("Main supervisor source identity is incomplete")
@@ -112,8 +117,13 @@ def authorize_training(root: Path, job: Path) -> tuple[Path, list]:
     samples = schedule["sample_identities"]
     counts = {ep: 0 for ep in fit.TRAIN40}
     for pair in samples:
-        if (not isinstance(pair, list) or len(pair) != 2
-                or any(type(v) is not int for v in pair) or pair[0] not in counts or pair[1] != 0):
+        if (
+            not isinstance(pair, list)
+            or len(pair) != 2
+            or any(type(v) is not int for v in pair)
+            or pair[0] not in counts
+            or pair[1] != 0
+        ):
             raise ValueError("Native main schedule contains an unregistered identity")
         counts[pair[0]] += 1
     digest = hashlib.sha256(json.dumps(samples, separators=(",", ":")).encode()).hexdigest()
@@ -135,7 +145,8 @@ def verify_smoke_reuse(report: dict, prior_sources: dict, current_sources: dict)
     ):
         raise ValueError("Prior two-step smoke/reload was not accepted")
     required = {
-        "scripts/run_smolvla_v2.py", "scripts/train_smolvla_v2.py",
+        "scripts/run_smolvla_v2.py",
+        "scripts/train_smolvla_v2.py",
         "src/rosetta_reality/vla/processor.py",
         "src/rosetta_reality/vla/training/observed_launch.py",
         "src/rosetta_reality/vla/training/observation.py",
@@ -173,6 +184,11 @@ def compare_historical_control(old_arrays, old_metadata, new_arrays, new_metadat
         and np.array_equal(old_arrays[name], new_arrays[name])
         for name in legacy.ARRAY_NAMES
     }
-    return {"status": "passed" if all(exact.values()) else "failed", "exact_arrays": exact,
-            "entire_chunk_compared": True, "historical_evidence_modified": False,
-            "additional_optimizer_steps": 0, "m2_complete": False}
+    return {
+        "status": "passed" if all(exact.values()) else "failed",
+        "exact_arrays": exact,
+        "entire_chunk_compared": True,
+        "historical_evidence_modified": False,
+        "additional_optimizer_steps": 0,
+        "m2_complete": False,
+    }
