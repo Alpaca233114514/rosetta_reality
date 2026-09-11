@@ -103,6 +103,17 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Latest local-model boundary (after retrieval):
+`reports/training/m2-smolvla-hestia-local-reload-result-2026-09-11.{md,json}`
+preserves the first XPU-to-CUDA control failure. The subsequent
+`m2-smolvla-hestia-local-precision-result-2026-09-11.{md,json}` establishes exact
+same-process and independent-process repeats for one training image under both
+BF16 and FP32, with unchanged parameters, but neither mode matches the original
+CUDA tolerance. Full local/quarter collection remains stopped. A guarded original
+CUDA checkpoint-curve implementation and 10-minute plan are prepared, with 15 CPU
+counterexamples passed; fresh GPU authorization is still required. This supersedes
+older statements that a new local model-process check is entirely unmeasured.
+
 Retrieval update after the earlier preparation snapshot:
 `reports/training/m2-smolvla-hestia-checkpoint-retrieval-result-2026-09-11.{md,json}`
 records explicit authorization, completed CPU-mode retrieval of all 40 Hestia
