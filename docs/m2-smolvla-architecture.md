@@ -103,6 +103,16 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Hestia B-to-C transfer decomposition (2026-09-11):
+`reports/training/m2-smolvla-hestia-transfer-decomposition-result-2026-09-11.{md,json}`
+shows C restores train40 scene response and correspondence (joint/gripper mean
+correlations 0.981/0.958), while development correspondence remains weak. C's
+standard-space full-chunk left-joint correlation is negative under all four noises,
+and its MSE worsens in each. Increased scene variance outweighs covariance/bias
+benefits; a larger response alone is not a repair. Next diagnosis should focus on
+the fitted C's left-arm mapping/spatial representation. No new training axis is
+authorized by this decomposition; no model or policy was changed.
+
 Authoritative Hestia main-run recovery (2026-09-11):
 `reports/training/m2-smolvla-hestia-main-recovery-result-2026-09-11.{md,json}`
 supersedes the earlier local assumption that Hestia was unexecuted. Read-only SSH
