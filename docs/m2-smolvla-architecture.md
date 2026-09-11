@@ -103,6 +103,16 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Native inference-noise diagnostic (2026-09-11):
+`reports/training/m2-smolvla-zen-noise-transfer-result-2026-09-11.{md,json}`
+records 136 local XPU forwards on the unchanged Zen artifact: one exact full-chunk
+zero-control reproduction and three fixed Gaussian seeds across 45 scenes.
+Gaussian noise does not consistently reduce joint mean bias and worsens average
+first-action MAE in both groups. The zero-specific-bias hypothesis fails.
+All 500 parameter tensors remain unchanged; 32 checks and one cache test passed.
+`scripts/diagnose_zen_noise_transfer.py` owns this bounded native collector.
+No optimizer, SSH or new Gate ran; M2 remains incomplete.
+
 Train-only common-bias diagnostic (2026-09-11):
 `reports/training/m2-smolvla-chunk-bias-result-2026-09-11.{md,json}`
 records a saved-output correction using only mean train residuals per chunk slot.
