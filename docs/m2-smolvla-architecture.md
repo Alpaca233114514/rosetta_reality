@@ -103,6 +103,15 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Hestia geometric support (2026-09-11):
+`reports/training/m2-smolvla-hestia-geometric-support-result-2026-09-11.{md,json}`
+cross-binds all 45 local images to C's actual inputs. Four of five development
+socket centroids lie inside the train40 convex hull; fixed 2D/5D geometric
+nearest-neighbor action readouts fail full-chunk constants and train leave-one-out.
+Socket position extrapolation alone is insufficient to explain failure. These
+proxies do not establish full scene/3D coverage or rule out smooth interpolation.
+The instance remains off, as confirmed by the user; diagnosis continues locally.
+
 Hestia B-to-C transfer decomposition (2026-09-11):
 `reports/training/m2-smolvla-hestia-transfer-decomposition-result-2026-09-11.{md,json}`
 shows C restores train40 scene response and correspondence (joint/gripper mean
