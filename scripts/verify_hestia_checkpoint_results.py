@@ -14,7 +14,7 @@ def validate_manifest(value):
     if not isinstance(value, dict) or not isinstance(value.get("files"), dict):
         raise ValueError("Result manifest missing")
     pattern = re.compile(
-        r"(?:(?:registration|permit|cpu-check|doctor-check|worker-exited)\.json|step-(?:001280|000320|000640|000960)\.log|(?:001280|000320|000640|000960)/(?:arrays\.npz|result\.json|failure\.json|first-control\.json|first-control-failure\.npz))"
+        r"(?:(?:registration|permit|cpu-check|doctor-check|normalization-check|worker-exited)\.json|step-(?:001280|000320|000640|000960)\.log|(?:001280|000320|000640|000960)/(?:arrays\.npz|result\.json|failure\.json|first-control\.json|first-control-failure\.npz))"
     )
     total = 0
     for name, item in value["files"].items():

@@ -180,6 +180,28 @@ def supervise(args, template):
         )
         if doctor.returncode != 0:
             raise ValueError("Fresh AutoDL doctor failed")
+        normalization = subprocess.run(
+            [
+                sys.executable,
+                "scripts/prepare_hestia_checkpoint_workspace.py",
+                "--template",
+                str(args.template),
+                "--bind-existing",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+        save(
+            job / "normalization-check.json",
+            {
+                "exit_code": normalization.returncode,
+                "stdout": normalization.stdout,
+                "stderr": normalization.stderr,
+            },
+        )
+        if normalization.returncode != 0:
+            raise ValueError("Native normalization workspace preflight failed")
         check = subprocess.run(
             [
                 sys.executable,

@@ -12,7 +12,7 @@ from pathlib import Path, PurePosixPath
 
 
 def main():
-    job = Path("runs/hestia-cuda-checkpoint-curve-20260911-001")
+    job = Path("runs/hestia-cuda-checkpoint-curve-20260911-002")
     deadline = time.time() + 600
     manifest_path = job / "handoff-manifest.json"
     while not manifest_path.exists():
