@@ -103,6 +103,14 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+The local array-diagnosis closure and next evidence boundary are recorded in
+`reports/training/m2-smolvla-hestia-local-diagnosis-closure-2026-09-11.md`.
+The four existing Hestia native checkpoints remain remote; a 40-file read-only
+CPU-mode retrieval plan is prepared but not authorized or executed. Inspecting
+intermediate checkpoints can distinguish deterioration with fitting from an
+already-failed early mapping; current final-checkpoint arrays cannot answer that.
+Do not restart training or reinterpret the completed Hestia run as pending.
+
 Hestia timing bound (2026-09-11):
 `reports/training/m2-smolvla-hestia-timing-bound-result-2026-09-11.{md,json}`
 shows train-selected shared lags 0/+1/0/0 do not repair C. Even target-informed
