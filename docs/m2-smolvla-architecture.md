@@ -103,6 +103,12 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Actual coverage40 B time-shift diagnostic (2026-09-11):
+`reports/training/m2-smolvla-coverage40-time-shift-result-2026-09-11.{md,json}`
+records train-selected lags 0/0/-2/0 and 0/4 passing conditions. Unlike historical
+Zen, B does not show a common -7 lag. Every final first action is exactly unchanged;
+neither group beats its full-chunk train constant. No model or policy changed.
+
 Actual coverage40 B bias diagnostic (2026-09-11):
 `reports/training/m2-smolvla-coverage40-bias-result-2026-09-11.{md,json}`
 records 0/4 conditions passing the fixed train-only calibration criteria.
