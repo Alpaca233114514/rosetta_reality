@@ -103,6 +103,18 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Full-chunk matched-target diagnostic (2026-09-11):
+`reports/training/m2-smolvla-kv-full-chunk-result-2026-09-11.{md,json}`
+compares the same early KV readout with saved native 50-step outputs, using the
+actual training target projection. `scripts/diagnose_kv_full_chunk.py` reads
+2250 non-hidden numeric rows once. Full-chunk ridge MAE improves on native but
+does not beat development constants or show positive full-chunk image gain;
+the registered joint/gripper comparison fails. Native error has substantial
+shared mean bias (62.44% of joint MSE, 48.06% of gripper MSE), a diagnostic lead
+requiring train-only calibration evidence. Twenty-eight checks and one cache
+test passed. Raw gripper labels differ from projected targets; prior raw-label
+probes remain auxiliary evidence. No model forward or Gate ran.
+
 Socket-position to action-horizon diagnostic (2026-09-11):
 `reports/training/m2-smolvla-socket-action-horizon-result-2026-09-11.{md,json}`
 compares first versus last native-chunk left-arm action labels using only the
