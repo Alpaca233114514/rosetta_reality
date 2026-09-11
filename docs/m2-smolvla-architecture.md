@@ -103,6 +103,15 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Hestia timing bound (2026-09-11):
+`reports/training/m2-smolvla-hestia-timing-bound-result-2026-09-11.{md,json}`
+shows train-selected shared lags 0/+1/0/0 do not repair C. Even target-informed
+per-scene/group shifts within +/-200 ms leave left-joint errors worse than equally
+aligned constants under all four noises. Gripper oracle errors do improve beyond
+aligned constants, separating a removable timing component from the unresolved
+left-arm mapping. This oracle uses development labels and is not validation,
+deployment, or evidence that human timing noise is the cause.
+
 Hestia object-coordinate control (2026-09-11):
 `reports/training/m2-smolvla-hestia-object-readout-result-2026-09-11.{md,json}`
 finds a partial spatial correspondence: fixed quadratic two-object coordinates
