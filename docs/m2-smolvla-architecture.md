@@ -103,6 +103,16 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Actual A/B action-component decomposition (2026-09-11):
+`reports/training/m2-smolvla-coverage40-action-components-result-2026-09-11.{md,json}`
+records all fixed noise/view/space/window comparisons. B train40 gripper scene
+variance is only 1.37–2.13% (left) and 4.99–6.89% (right) of normalized target
+variance. Left-gripper development correlation is negative under every noise;
+joint development correlations also approach zero. Late gripper errors dominate
+the full chunk. These facts support separating fit strength from development
+mapping; they do not prove a training bug or a generalization repair. Hestia's
+registered budget experiment remains unexecuted and needs separate GPU approval.
+
 Actual coverage40 B time-shift diagnostic (2026-09-11):
 `reports/training/m2-smolvla-coverage40-time-shift-result-2026-09-11.{md,json}`
 records train-selected lags 0/0/-2/0 and 0/4 passing conditions. Unlike historical
