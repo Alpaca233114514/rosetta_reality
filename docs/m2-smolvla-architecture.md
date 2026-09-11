@@ -103,6 +103,16 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Hestia object-coordinate control (2026-09-11):
+`reports/training/m2-smolvla-hestia-object-readout-result-2026-09-11.{md,json}`
+finds a partial spatial correspondence: fixed quadratic two-object coordinates
+improve last-action joints versus constants in development and nested train folds.
+Full-chunk joints/grippers do not jointly pass, nor does the first action. This
+rules out interpreting geometric nearest-neighbor failure as absent spatial signal;
+it does not establish that a coordinate adapter repairs C. Per-scene timing remains
+an untested explanation of the horizon-dependent gap; the human dataset identity
+must not be confused with deterministic scripted demonstrations.
+
 Hestia geometric support (2026-09-11):
 `reports/training/m2-smolvla-hestia-geometric-support-result-2026-09-11.{md,json}`
 cross-binds all 45 local images to C's actual inputs. Four of five development
