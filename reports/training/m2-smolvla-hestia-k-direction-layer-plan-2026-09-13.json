@@ -1,0 +1,73 @@
+{
+  "id": "hestia-k-direction-layer-20260913-001",
+  "registered_utc": "2026-09-13T04:12:41.2421902Z",
+  "status": "scientific_protocol_frozen_before_execution",
+  "hypothesis": "Harmful scene-dependent image-key direction effects can be localized to particular expert cross-attention layers and related to native token/head attention changes.",
+  "backbone_scale": "existing SmolVLA450M",
+  "adaptation": "frozen VLM and all existing trained parameters unchanged; inference only",
+  "action_expert": "existing native expert",
+  "dataset": "fixed train40/dev5 frame-zero, full50 chunk, 4 historical noises",
+  "checkpoint": 640,
+  "checkpoint_selection": false,
+  "conditions": [
+    "base640_native",
+    "base640_krestore",
+    "base640_kdirection",
+    "base640_kd01",
+    "base640_kd03",
+    "base640_kd05",
+    "base640_kd07",
+    "base640_kd09",
+    "base640_kd11",
+    "base640_kd13",
+    "base640_kd15"
+  ],
+  "model_forwards": 1980,
+  "optimizer_steps": 0,
+  "hidden_loaded": false,
+  "single_axis": "which of eight odd expert layers receives train-only mean image-K direction while retaining per-scene per-token per-head native norm",
+  "calibration": "same native train40-only calibration and float64 factor arithmetic / final BF16 cast as previous exact-validated key-factor experiment",
+  "controls": "native, direct restore, all-layer direction must exactly replay prior arrays before any single-layer condition",
+  "control_atol": 0,
+  "control_rtol": 0,
+  "attention_observer": "Capture unchanged original eager softmax return, cast observational copy to native V dtype. Only first noise / first denoise step; all 45 rows and eight odd layers. Save query-mean image probabilities and per-head category masses/entropies/image-logit mean+std. No Q clamp and no replacement attention kernel.",
+  "attention_capture_count_per_condition": 360,
+  "capture_shape_image": [
+    45,
+    8,
+    15,
+    64
+  ],
+  "capture_shape_summary": [
+    45,
+    8,
+    15,
+    8
+  ],
+  "head_dim": 64,
+  "kv_heads": 5,
+  "query_heads": 15,
+  "fixed": "V, other seven layers in single-layer arms, non-image prefix, all parameters, image/label/noise/input identities unchanged",
+  "primary": "dev5 full standard left-joint MAE and MSE, all four noise signs; compare each single-layer effect with all-layer direction effect, do not force additive attribution",
+  "secondary": "right joint and both grippers; normalized/standard, train40/dev5, first/full; head/modality attention and within-image probability redistribution only observational",
+  "next_step": "Continue autonomously after analysis. If a single layer reproduces >=60% of all-layer direction MSE improvement and improves both MAE/MSE 4/4, preregister head isolation at the strongest qualifying layer using the frozen primary metric. Otherwise test bounded layer interactions after reviewing all effects. No training or hidden tuning.",
+  "limits": {
+    "worker_seconds": 1800,
+    "condition_seconds": 180,
+    "rss_bytes": 5368709120,
+    "shutdown_seconds": 2100,
+    "cuda_bytes": 4294967296,
+    "transfer_bytes": 67108864
+  },
+  "stop": "Any SHA, full control parity, observer coverage, finite value, resource or protected runtime prerequisite failure stops subsequent conditions; retain evidence, transfer and shut down.",
+  "authorization": "User repeatedly authorized autonomous root-cause diagnosis and Chrome/SSH startup of only matched instance44db45aec7-cd880eb6, unchanged CNY1.88/hour and protected shutdown; no additional routine confirmation.",
+  "previous_report_sha256": "73160f0fd828e664f601af693e4d11a3ed608eb1206149fe0bbd31cd70619e3f",
+  "upstream_attention_sha256": "996d3b0c713c0ed42b383aa2cf89b2e6f9868e337747c480a64adaecdc1073cf",
+  "scientific_limits": [
+    "dev5 reused, no hidden confirmation",
+    "no unique K-parameter blame",
+    "Q activations may change",
+    "attention association is not causal proof by itself",
+    "M2/Gate3/4 not measured"
+  ]
+}

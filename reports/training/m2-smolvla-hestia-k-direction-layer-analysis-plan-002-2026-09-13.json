@@ -1,0 +1,58 @@
+{
+  "id": "hestia-k-direction-layer-analysis-20260913-002",
+  "registered_utc": "2026-09-13T04:45:42.3949274Z",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "original_plan": "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json",
+  "recovered": "runs/hestia-k-direction-layer-recovered-20260913-001/verified",
+  "output": "runs/hestia-k-direction-layer-analysis-20260913-002/verified",
+  "template": "reports/training/m2-smolvla-hestia-k-direction-layer-template-2026-09-13.json",
+  "conditions": [
+    "base640_native",
+    "base640_krestore",
+    "base640_kdirection",
+    "base640_kd01",
+    "base640_kd03",
+    "base640_kd05",
+    "base640_kd07",
+    "base640_kd09",
+    "base640_kd11",
+    "base640_kd13",
+    "base640_kd15"
+  ],
+  "controls": [
+    "base640_native",
+    "base640_krestore"
+  ],
+  "windows": {
+    "first": [
+      0,
+      1
+    ],
+    "full": [
+      0,
+      50
+    ]
+  },
+  "source_sha256": {
+    "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json": "e1f3dd8d9213b98cd5a607156da9d550ee97e8285ada2b666ea91199951d489a",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "scripts/diagnose_hestia_early_gap.py": "dcceb7374ffb812f82dc7a6fd22305bcce45a95e1c3788f5c4b73da721259309"
+  },
+  "local_sha256": {
+    "scripts/analyze_hestia_k_direction_layer.py": "11e895f1b2904143ab39fea1dfc1ca62b493e30269355acf4025e2afca7eb731",
+    "scripts/analyze_hestia_layer_attention.py": "d9807a78bc24ef26bd1e3efebf7eae9a97d678a36e173c466bf1966aaa049775",
+    "scripts/verify_hestia_scene_kv_mean_analysis.py": "713dabce57d6044ef3a0d3d5ceb4d7511c5265b065d86cc2d2329e9be192e4ce",
+    "tests/test_hestia_k_direction_layer_analysis.py": "41dd38daf06607ab51a0bec34cf12cddc41899adcb98006fda83c3295b13c0cf",
+    "reports/training/m2-smolvla-hestia-k-direction-layer-template-2026-09-13.json": "9aed66ccb3fdad82f128d1fb6d84a2d0754fde55f28dbdb30b4771cf28185092",
+    "runs/hestia-k-factor-recovered-20260913-001/verified/base640_kdirection/arrays.npz": "6a75b1d3cc6225cb593a10e5232d4332e151f3092f9581fe2060aab0a0c1e969",
+    "reports/training/m2-smolvla-hestia-k-direction-layer-plan-2026-09-13.json": "aaeec43e77567dff74644cb3070e7e05e3995c46997b95f7d2f6c952694e6fec",
+    "runs/hestia-k-direction-layer-analysis-20260913-002/local.sh": "94b6d2e722269d377edee69b71bca3bbd56fc708cd6d7482e25e999014ca21c5",
+    "runs/hestia-k-direction-layer-analysis-20260913-002/independent.sh": "f3390021ed57f2265185635b80c647e4d5c466e964507b0f1895ec4cefdbb567",
+    "runs/hestia-k-direction-layer-analysis-20260913-002/summarize.py": "762b9a2184e8610b5357d31893035570b25394d7c35a62f51966cb8b31b5c5e1",
+    "runs/hestia-k-direction-layer-analysis-20260913-002/summarize.sh": "fbaaf54ea148703804090b668eadb41e12f5cd2adfef9edcc51710f7ad6d0ba1",
+    "runs/hestia-k-direction-layer-analysis-20260913-002/attention.sh": "7b205cc81af6853ac4734b17bf9a41f7269129f4ebba3f9b7a82c8770af661c5"
+  },
+  "receipt": "runs/hestia-k-direction-layer-receiver-20260913-002/receipt.json",
+  "reference_direction": "runs/hestia-k-factor-recovered-20260913-001/verified/base640_kdirection/arrays.npz",
+  "amendment": "Only receiver receipt and fresh local analysis output identity changed after SSH receiver001 disconnect (exit255,0-byte archive). Model protocol, conditions, metrics and selection rules unchanged; no model rerun."
+}
