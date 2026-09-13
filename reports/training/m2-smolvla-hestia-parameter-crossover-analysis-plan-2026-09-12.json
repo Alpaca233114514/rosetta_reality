@@ -1,0 +1,23 @@
+{
+  "id": "hestia-parameter-crossover-analysis-20260912-001",
+  "registered_utc": "2026-09-12T11:58:45.3396974Z",
+  "registered_remote_run": "hestia-parameter-crossover-20260912-002",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "sha256": {
+    "scripts/analyze_hestia_parameter_crossover.py": "8b1526d5f7504b83b4ab2b984fc7053a6a00804bc8dec64fbe8e42276b0f7bc4",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "scripts/diagnose_hestia_command_pose.py": "ea018e12f683238fa52515d9884e8e09c8ef0dc73ac5026b98bfc53cf62e98a7",
+    "scripts/hestia_parameter_crossover.py": "10564f741296a31e87ab519131461e796de6c4175d363ded7f1eaf0020c4ae8b",
+    "runs/hestia-command-pose-preflight-20260912-001/runtime.json": "bfba25a2fa07f627ed253b43766460cca68a29836ff5a69b84f7a8ff146ab708",
+    "reports/training/m2-smolvla-hestia-parameter-crossover-v2-template-2026-09-12.json": "2615126e707692bac338217e7d81f7bb6d55a9cb097dd55c4e62ac8371cdafcf"
+  },
+  "cpu": 2,
+  "memory_bytes": 2147483648,
+  "deadline_seconds": 300,
+  "network": "none",
+  "method": "Registered four-condition errors and paired D/recovery/damage/interaction; both splits, first/full, four noises, every episode; per-slot train40 mean and median constants",
+  "no_model_execution": true,
+  "no_hidden": true,
+  "no_gate_change": true,
+  "analysis_output": "runs/hestia-parameter-crossover-analysis-20260912-001/verified"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "hestia-parameter-crossover-20260912-001",
+  "status": "blocked_by_automatic_approval_review",
+  "review_rejections": [
+    "full repository source archive upload not explicitly authorized",
+    "reduced 14-file source/config/result payload upload to the specified SSH host not explicitly authorized"
+  ],
+  "payload_file_count": 14,
+  "payload_bytes": 2447360,
+  "payload_sha256": "fd34c59724249d2d9d8ec21dd31fcec6ad4f5b8c9986f880d90d0a7a354c878d",
+  "remote_model_forwards": 0,
+  "optimizer_steps": 0,
+  "experiment_files_uploaded": 0,
+  "new_experiment_workspace_created": false,
+  "protected_shutdown_helper_invoked": true,
+  "ssh_closed_by_remote": true,
+  "platform_billing_independently_verified": false,
+  "instance_released": false,
+  "unique_root_cause_established": false,
+  "m2_complete": false,
+  "evidence_sha256": {
+    "reports/training/m2-smolvla-hestia-parameter-crossover-dispatch-blocked-2026-09-12.md": "ed0e7347214175242d2acda85fde1dfd47cdf9021d496c495364bbbe3e818a21",
+    "runs/hestia-parameter-crossover-dispatch-20260912-001/delta-inventory.json": "f96b7d2d253a15612a7a7f1bba4f509ebead6629b8d2c0003a9358aca4cc745d",
+    "runs/hestia-parameter-crossover-dispatch-20260912-001/delta-files.txt": "d0c5b0e815b71dd1e1426e9baea4366bb81af6e90f8868c1237a5582283df136",
+    "runs/hestia-parameter-crossover-dispatch-20260912-001/delta.tar": "fd34c59724249d2d9d8ec21dd31fcec6ad4f5b8c9986f880d90d0a7a354c878d",
+    "runs/hestia-parameter-crossover-dispatch-20260912-001/current-delta.sh": "abe2633432d89e1fc9758f2bcb0c11fdecab3d67d51378f55bf36cc2f37016ba",
+    "runs/hestia-parameter-crossover-dispatch-20260912-001/launch-delta.sh": "f9261e0ab46a7353c6984e5efa6971588a1af3ea587dda3b9fd35da0be9a6626",
+    "runs/hestia-parameter-crossover-dispatch-20260912-001/stage-delta.sh": "1fba7338fc8d8b12458ebfcd4237af36b45efd1e61780305fdf1650aab70acba",
+    "runs/hestia-parameter-crossover-dispatch-20260912-001/close-blocked-window.sh": "0fe2cb72473a327df128fb8623230cce802f86b78e21e5aa6f868e477fb19d34",
+    "scripts/stage_autodl_from_wsl.sh": "13548dc72dcd72b617fc10984785caca09ae3357ee551f8cc1602571d5be97c0",
+    "scripts/stage_autodl_delta_from_wsl.sh": "d44fd4d383664567fab688442b5a27a4a0c62768641dcf99d9efb7c85e5c200d"
+  }
+}

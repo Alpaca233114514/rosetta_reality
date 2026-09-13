@@ -1,0 +1,183 @@
+{
+  "id": "hestia-projection-spectrum-20260912-001",
+  "status": "completed",
+  "plan_sha256": "6c896e02b8df82c6be19aba5c452c04992024f4c1867847a4a200c79e553b529",
+  "metrics": {
+    "640": {
+      "model.vlm_with_expert.lm_expert.layers.1.self_attn.k_proj.weight": {
+        "shape": [
+          320,
+          320
+        ],
+        "rank": 320,
+        "rank_threshold": 1.4094388936511507E-13,
+        "maximum_singular": 1.983608898827752,
+        "minimum_singular": 0.0005190401454776472,
+        "condition": 3821.6868504503327,
+        "stable_rank": 30.97030205057303,
+        "dimensions_below_one_percent_max": 7,
+        "frobenius_norm": 11.038975474224975,
+        "reconstruction_l2_error": 2.7836906372475456E-14
+      },
+      "model.vlm_with_expert.lm_expert.layers.1.self_attn.v_proj.weight": {
+        "shape": [
+          320,
+          320
+        ],
+        "rank": 320,
+        "rank_threshold": 1.2343965140570833E-13,
+        "maximum_singular": 1.7372586502296625,
+        "minimum_singular": 0.0004152926653425967,
+        "condition": 4183.215344765375,
+        "stable_rank": 44.455364918291345,
+        "dimensions_below_one_percent_max": 7,
+        "frobenius_norm": 11.583147124045313,
+        "reconstruction_l2_error": 2.8043796418830477E-14
+      },
+      "model.vlm_with_expert.lm_expert.layers.15.self_attn.k_proj.weight": {
+        "shape": [
+          320,
+          320
+        ],
+        "rank": 320,
+        "rank_threshold": 1.254496920714804E-13,
+        "maximum_singular": 1.7655474577089458,
+        "minimum_singular": 0.0018488260979321416,
+        "condition": 954.9559364634995,
+        "stable_rank": 42.14942644928373,
+        "dimensions_below_one_percent_max": 7,
+        "frobenius_norm": 11.462391307814265,
+        "reconstruction_l2_error": 3.082419106651563E-14
+      },
+      "model.vlm_with_expert.lm_expert.layers.15.self_attn.v_proj.weight": {
+        "shape": [
+          320,
+          320
+        ],
+        "rank": 320,
+        "rank_threshold": 8.877080737953306E-14,
+        "maximum_singular": 1.24933804698701,
+        "minimum_singular": 0.002338413615749129,
+        "condition": 534.267350554566,
+        "stable_rank": 72.6727437744562,
+        "dimensions_below_one_percent_max": 5,
+        "frobenius_norm": 10.650395726788828,
+        "reconstruction_l2_error": 2.7483082590832294E-14
+      }
+    },
+    "1280": {
+      "model.vlm_with_expert.lm_expert.layers.1.self_attn.k_proj.weight": {
+        "shape": [
+          320,
+          320
+        ],
+        "rank": 320,
+        "rank_threshold": 1.4201297318754769E-13,
+        "maximum_singular": 1.9986549160288,
+        "minimum_singular": 0.0005348047221804982,
+        "condition": 3737.167667256027,
+        "stable_rank": 30.57864940460601,
+        "dimensions_below_one_percent_max": 7,
+        "frobenius_norm": 11.05215497259121,
+        "reconstruction_l2_error": 2.6281569140218424E-14
+      },
+      "model.vlm_with_expert.lm_expert.layers.1.self_attn.v_proj.weight": {
+        "shape": [
+          320,
+          320
+        ],
+        "rank": 320,
+        "rank_threshold": 1.2363733463052605E-13,
+        "maximum_singular": 1.7400407942847451,
+        "minimum_singular": 0.0010564195243626764,
+        "condition": 1647.1115443786296,
+        "stable_rank": 44.4594447271551,
+        "dimensions_below_one_percent_max": 7,
+        "frobenius_norm": 11.6022293795402,
+        "reconstruction_l2_error": 2.779625564202583E-14
+      },
+      "model.vlm_with_expert.lm_expert.layers.15.self_attn.k_proj.weight": {
+        "shape": [
+          320,
+          320
+        ],
+        "rank": 320,
+        "rank_threshold": 1.262147710512631E-13,
+        "maximum_singular": 1.7763149871097528,
+        "minimum_singular": 0.0019876437383130325,
+        "condition": 893.6787578529338,
+        "stable_rank": 41.750815519075985,
+        "dimensions_below_one_percent_max": 7,
+        "frobenius_norm": 11.477636371393784,
+        "reconstruction_l2_error": 2.8058284921114426E-14
+      },
+      "model.vlm_with_expert.lm_expert.layers.15.self_attn.v_proj.weight": {
+        "shape": [
+          320,
+          320
+        ],
+        "rank": 320,
+        "rank_threshold": 8.8994266919231E-14,
+        "maximum_singular": 1.2524829604236225,
+        "minimum_singular": 0.002130978976015411,
+        "condition": 587.7500315679158,
+        "stable_rank": 72.38389358094159,
+        "dimensions_below_one_percent_max": 5,
+        "frobenius_norm": 10.655965269805051,
+        "reconstruction_l2_error": 2.8061397067767472E-14
+      }
+    }
+  },
+  "changes": {
+    "model.vlm_with_expert.lm_expert.layers.1.self_attn.k_proj.weight": {
+      "relative_frobenius_change": 0.01881256902836866,
+      "condition_ratio": 0.9778843252988281,
+      "tenfold_condition_worsening": false
+    },
+    "model.vlm_with_expert.lm_expert.layers.1.self_attn.v_proj.weight": {
+      "relative_frobenius_change": 0.01570943085504436,
+      "condition_ratio": 0.3937429485765599,
+      "tenfold_condition_worsening": false
+    },
+    "model.vlm_with_expert.lm_expert.layers.15.self_attn.k_proj.weight": {
+      "relative_frobenius_change": 0.018951678170018294,
+      "condition_ratio": 0.9358324543879016,
+      "tenfold_condition_worsening": false
+    },
+    "model.vlm_with_expert.lm_expert.layers.15.self_attn.v_proj.weight": {
+      "relative_frobenius_change": 0.01323331652726947,
+      "condition_ratio": 1.1001047152850256,
+      "tenfold_condition_worsening": false
+    }
+  },
+  "array_sha256": "34c1d96b3d2260d350688dfc544677db6f3b1d1e1b9aecf51db924a7dc9200a6",
+  "array_reload_exact": true,
+  "seconds": 60.756709517999994,
+  "peak_rss_bytes": 698986496,
+  "weight_matrices_materialized": 8,
+  "weight_values_materialized": 819200,
+  "policy_constructed": false,
+  "policy_forwards": 0,
+  "optimizer_steps": 0,
+  "raw_sample_rows": 0,
+  "hidden_loaded": false,
+  "ssh_used": false,
+  "unique_root_cause_established": false,
+  "m2_complete": false,
+  "local_tests_passed": 5,
+  "evidence_sha256": {
+    "reports/training/m2-smolvla-hestia-projection-spectrum-plan-2026-09-12.md": "c83c035b59827984c4b03ff7039f6e0a5903dcfe840794107d3ad6237608a2a1",
+    "reports/training/m2-smolvla-hestia-projection-spectrum-plan-2026-09-12.json": "6c896e02b8df82c6be19aba5c452c04992024f4c1867847a4a200c79e553b529",
+    "reports/training/m2-smolvla-hestia-projection-spectrum-result-2026-09-12.md": "a8a7a0abce7ea08d40c8be96c1502f84219892f4c4a1725de53ce907719222ee",
+    "scripts/diagnose_hestia_projection_spectrum.py": "0a1a3cfedde20b735ec3af97877099ca2e398ec6c23ca9e0eefdc077a34993db",
+    "tests/test_hestia_projection_spectrum.py": "6cf78dfb7fe2e70e8d2c496f5aa4629d48ee327255b591c3fca07f74bd56a9ef",
+    "runs/hestia-projection-spectrum-20260912-001/result.json": "acede7b2779472610762d0e5075c722bc4c9301e5dbe14a87f6904bc24a14c3d",
+    "runs/hestia-projection-spectrum-20260912-001/spectra.npz": "34c1d96b3d2260d350688dfc544677db6f3b1d1e1b9aecf51db924a7dc9200a6",
+    "runs/hestia-projection-spectrum-preflight-20260912-001/analyze.log": "c8a5e88d306a02011dbc83939af3c705cbd7cfc7c084f1e082ebabd8acc5ae48",
+    "runs/hestia-projection-spectrum-preflight-20260912-001/check-env.log": "bb2f7b5f5f14bf92de21f2b3c00bbae535807cea8008a051290b035db4cd09df",
+    "runs/hestia-projection-spectrum-preflight-20260912-001/execute.sh": "19f91cb5f120e66e927b9ddeb238d0be3979ffc20e435bb9aa8bd0827d6406f1",
+    "runs/hestia-projection-spectrum-preflight-20260912-001/format.log": "96a977f329ec3c59092d40e041a019b49dcf03ca04055e177aa0ccb8c27234df",
+    "runs/hestia-projection-spectrum-preflight-20260912-001/ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "runs/hestia-projection-spectrum-preflight-20260912-001/tests.log": "e81cca5123bb093cdcdf9ba3f43b3b537ec28b284abc055c170ceceaf571a358"
+  }
+}

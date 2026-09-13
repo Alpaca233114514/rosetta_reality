@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+if [[ "${1:-}" == --verified-base-delta ]]; then
+    shift
+    exec bash "$(dirname -- "${BASH_SOURCE[0]}")/stage_autodl_delta_from_wsl.sh" "$@"
+fi
+
 readonly SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 readonly REPOSITORY_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd -P)"
 

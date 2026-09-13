@@ -1,0 +1,24 @@
+{
+  "id": "hestia-v-layer-analysis-20260912-001",
+  "registered_utc": "2026-09-12T13:21:11.8517053Z",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "sha256": {
+    "scripts/analyze_hestia_v_layer.py": "62b4bee55e65a81040988f9a9c082d77c44270a550a1a0ad1b7c7537f6e4b0aa",
+    "tests/test_hestia_v_layer_analysis.py": "aaa5988206b400d53e63d7328dbe4463e170c2fefa3f2fbf7b40ebdc3d3fa375",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "scripts/diagnose_hestia_command_pose.py": "ea018e12f683238fa52515d9884e8e09c8ef0dc73ac5026b98bfc53cf62e98a7",
+    "scripts/hestia_v_layer.py": "c57c4e59aeb178fb0915d1b5a8b6b812d25ad9c634e4d0042ce84679b79c4eba",
+    "runs/hestia-command-pose-preflight-20260912-001/runtime.json": "bfba25a2fa07f627ed253b43766460cca68a29836ff5a69b84f7a8ff146ab708",
+    "reports/training/m2-smolvla-hestia-v-layer-template-2026-09-12.json": "827f17be38df02f7b5384daf5e6e5cad43efeef13cf968f62712efd2e2eb894a",
+    "runs/hestia-kv-split-recovered-20260912-003/verified/handoff-manifest.json": "8742adee3ce885c7cc11a2efad2b5df10ca6c7093519277f12da36d539a6ff47",
+    "runs/hestia-kv-split-receiver-20260912-003/receipt.json": "e587e93aca45ab00a48bddf7cc38b7c3743e14c04081d884228d1e513b39c42a"
+  },
+  "cpu": 2,
+  "memory_bytes": 2147483648,
+  "deadline_seconds": 300,
+  "network": "none",
+  "method": "All eight V layers, both directions, exact endpoints and paired earlier V-only arrays; report all split/window/arm/noise/episode errors, causal effects, group-versus-sum residual, and exact MSE scene bias/variance/covariance decomposition for first/full/five ten-slot windows",
+  "no_model_execution": true,
+  "no_hidden": true,
+  "analysis_output": "runs/hestia-v-layer-analysis-20260912-001/verified"
+}

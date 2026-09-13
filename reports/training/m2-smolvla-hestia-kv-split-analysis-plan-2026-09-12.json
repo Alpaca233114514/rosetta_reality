@@ -1,0 +1,24 @@
+{
+  "id": "hestia-kv-split-analysis-20260912-001",
+  "registered_utc": "2026-09-12T12:41:06.8144780Z",
+  "registered_remote_run": "hestia-kv-split-20260912-001",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "sha256": {
+    "scripts/analyze_hestia_kv_split.py": "e16981c4ed5fda9702c2c404d81500c96bbead33d8c504085fcc4e94592dcd02",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "scripts/diagnose_hestia_command_pose.py": "ea018e12f683238fa52515d9884e8e09c8ef0dc73ac5026b98bfc53cf62e98a7",
+    "scripts/hestia_kv_split.py": "47dbb6a254f5347332c5fcc4128f4813694ff5571aae077aa5a6187f743b174a",
+    "runs/hestia-command-pose-preflight-20260912-001/runtime.json": "bfba25a2fa07f627ed253b43766460cca68a29836ff5a69b84f7a8ff146ab708",
+    "reports/training/m2-smolvla-hestia-kv-split-template-2026-09-12.json": "8f24def423cf6a34487af0cb471542d715a5949bdd4575acb77cc82744f80800",
+    "runs/hestia-parameter-crossover-v2-recovered-20260912-002/verified/handoff-manifest.json": "ab9141d0890f836800530419bdc002f4cdceda76306e48eff47f48cd62f56d2a",
+    "runs/hestia-parameter-crossover-v2-receiver-20260912-002/receipt.json": "8dbecb1f49fa2f79ce4a6ebb2fa882f40add4ee1a79a8756c06dabf75ed4c49e"
+  },
+  "cpu": 2,
+  "memory_bytes": 2147483648,
+  "deadline_seconds": 300,
+  "network": "none",
+  "method": "Both splits, first/full, four noises, every episode: K-only and V-only D/recovery/damage/interaction; compare paired previous joint-KV arrays to measure nonadditivity at both base checkpoints",
+  "no_model_execution": true,
+  "no_hidden": true,
+  "analysis_output": "runs/hestia-kv-split-analysis-20260912-001/verified"
+}

@@ -68,6 +68,20 @@ training regularizer and sealed checkpoint/evaluation boundaries. Calibration,
 the complete two-arm supervisor and live CUDA admission remain pending;
 Iris is not launchable, no training started, and M2/Gate status is unchanged.
 
+Latest completed Hestia Q replay (2026-09-13):
+`reports/training/m2-smolvla-hestia-q-replay-result-2026-09-13.{md,json}` records
+2160 forwards, zero optimizer, 1800 exact controls and 336 verified returned files.
+Fixed native Q retains 91.92%/86.80% of the measured 640/1280 K-mean left-joint
+MAE benefit; natural Q feedback further enhances it. Independent action arithmetic
+(148224 scalars), replay identities (172800 events) and saved CUDA tensor hashes
+(1920) passed. The extra float64/BF16 one-ULP numerical check FAILED and remains
+unrelaxed; the full verification chain must not be called passed. The instance was
+observed off in Chrome. Owners are the `hestia_q_replay` modules under `scripts/`.
+The next experimental K-scene regularization design is explicitly non-launchable
+in `m2-smolvla-hestia-k-scene-regularization-design-2026-09-13.{md,json}` under the
+same reports directory. Policy repair, unique underlying cause and new Gate passes
+remain unproven; no new training or checkpoint selection occurred.
+
 Latest completed Hestia scene K/V diagnosis (2026-09-13):
 `reports/training/m2-smolvla-hestia-scene-kv-result-2026-09-13.{md,json}`
 records 1800 CUDA forwards, 720 exact controls, 54 returned files, 459456
@@ -109,14 +123,16 @@ SmolVLA M2 work. It is intentionally not named after a furnace or date. Update
 this file when component ownership, execution boundaries, the current evidence
 source, or the next repair stage changes.
 
-Document updated: 2026-09-11. Current Faust evidence snapshot: 2026-08-12;
+Document updated: 2026-09-12. Current Faust evidence snapshot: 2026-08-12;
 current Aster implementation audit: 2026-08-13; current Way CUDA evidence:
 2026-08-14; current object-geometry teacher/official planner evidence:
 2026-08-16; current Zen two-arm campaign completion audit: 2026-08-27; current
 visual-conditioning furnace execution and gradient-gate pass: 2026-08-28;
 current vcdropout Gate 3/4 registered comparison: 2026-08-29; current T2
 teacher-gate candidate closures (scripted adapter, geometric command layer):
-2026-08-30 / 2026-09-02.
+2026-08-30 / 2026-09-02; latest policy Gate 3/4 closure: 2026-09-06;
+Hestia main-run recovery: 2026-09-11; CUDA curve, local error localization,
+scene/phase, commanded-pose and readout-family diagnostics: 2026-09-12.
 
 ## 1. Mandatory reading order and authority
 
@@ -126,11 +142,11 @@ exports, evaluation or simulation, read in this order:
 1. `AGENTS.md` — safety, runtime, stage-gate and repository rules;
 2. this file — stable component, control-flow and evidence map;
 3. `reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md`
-   — current empirical interpretation and repair order;
+   — Faust empirical interpretation and original repair framework;
 4. `reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.json`
    — machine-readable result and finding registry;
 5. `reports/training/m2-smolvla-zen-formal-audit-2026-08-27.md` and its JSON
-   companion — the newest completed formal campaign (two-arm Zen) and its
+   companion — the historical two-arm Zen campaign and its
    Gate 4 negative results, superseding nothing above but extending the
    failure tally and next-step options; the follow-up diagnostic is
    preregistered in
@@ -187,6 +203,25 @@ exports, evaluation or simulation, read in this order:
 8. immutable `runs/` and `artifacts/` evidence referenced by those reports;
 9. implementation code and tests for the component being changed.
 
+For the current Hestia line, also read
+`reports/training/m2-smolvla-hestia-main-recovery-result-2026-09-11.{md,json}`,
+then `reports/training/m2-smolvla-hestia-cuda-checkpoint-curve-closure-2026-09-12.{md,json}`
+then `reports/training/m2-smolvla-hestia-checkpoint-localization-result-2026-09-12.{md,json}`
+then `reports/training/m2-smolvla-hestia-scene-phase-result-2026-09-12.{md,json}`
+then `reports/training/m2-smolvla-hestia-command-pose-result-2026-09-12.{md,json}`
+then `reports/training/m2-smolvla-hestia-pose-readout-result-2026-09-12.{md,json}`
+and `reports/training/m2-smolvla-hestia-phase-bridge-result-2026-09-12.{md,json}`.
+The subsequent local weight check is
+`reports/training/m2-smolvla-hestia-projection-spectrum-result-2026-09-12.{md,json}`.
+The native collection and latest readouts are now completed in
+`reports/training/m2-smolvla-hestia-prefix-path-closure-2026-09-12.{md,json}` and
+`reports/training/m2-smolvla-hestia-prefix-readout-result-2026-09-12.{md,json}`.
+The September 11 local closure and retrieval plan are earlier stages, now completed.
+The latest completed policy Gate 3/4
+authority remains `reports/training/m2-smolvla-vfunfreeze-gate34-closure-2026-09-06.{md,json}`.
+Earlier plans and stage-local pending statements below are historical context;
+they do not override the completed results or authorize another dispatch.
+
 Authority is layered rather than interchangeable:
 
 | Question | Source of truth |
@@ -207,33 +242,283 @@ to make a later result appear successful.
 
 The current work line is **VLA / System 1**, not Qwen ER.
 
+Latest Hestia phase-mechanism bridge (2026-09-12):
+`reports/training/m2-smolvla-hestia-phase-bridge-result-2026-09-12.{md,json}`
+tests native C's own left-opening event against the true event and restores
+phase-domain readouts to the same original 50-slot targets. Event-aligned
+native left orientation remains 0.154977 rad versus the better equally
+phase-informed constant at 0.136225; every noise fails both constants.
+Even true-event reconstruction fails the joint full-action comparison. A
+single left-opening phase is therefore insufficient, without ruling out all
+temporal mechanisms. Seventeen synthetic checks and 764 independently
+recomputed fields passed; no model forward, raw-row load or SSH ran.
+Owner: `scripts/diagnose_hestia_phase_bridge.py`. Root-cause work remains
+ongoing. The subsequent native prefix collection is complete: 180 normalized
+and standard outputs exactly reproduce C, 500 parameter hashes are unchanged,
+and 45 unpooled prefix files passed transfer verification. Its 155.672-second
+worker ran 0 optimizer steps. A matching shutdown receipt was delivered and SSH
+then closed; platform power/billing was not independently measured.
+
+The eight fixed layer-1/15, input/projected, mean/2x2 readouts all beat both
+object-position constants in train outer holdouts and development. Neither
+onset beats both constants in train holdouts, and no arm jointly improves all
+development action groups. Fourteen relevant synthetic/FK checks and 4,704
+independently recomputed fields passed. This refutes complete object-position
+erasure at the inspected projections, not every representation limitation.
+Owners: `scripts/diagnose_hestia_prefix_path.py` and
+`scripts/diagnose_hestia_prefix_readout.py`. No causal parameter intervention,
+policy repair, checkpoint selection or new Gate has run.
+
+The next reciprocal K/V substitution is prepared in
+`reports/training/m2-smolvla-hestia-parameter-crossover-preparation-2026-09-12.{md,json}`.
+A 500-tensor byte audit finds all 345 frozen VLM tensors identical at 640/1280;
+16 cross-attention K/V and 106 other tensors changed. Four fixed conditions
+will require exact endpoints before either hybrid, with no optimizer. This
+tests the later regression and cannot alone explain both endpoints' failures.
+The first original-card dispatch has now occurred, but failed in admission before
+any model forward. The registered experiment remains 720 forwards, no optimizer
+and the same protected shutdown window. This preparation is superseded by the completed crossover, split and layer results below.
+The subsequent dispatch attempt was blocked by automatic approval review,
+including a reduced 14-file, 2,447,360-byte payload. No transfer or inference
+ran; the idle window entered the existing protected shutdown and SSH closed.
+The user subsequently authorized that concrete payload to the specified SSH
+destination and provided no-card access. Staging is now complete: an interrupted
+partial array was preserved and the two arrays were restored from SHA-identical
+originals on the same host. All 79 source/input/checkpoint/upstream/normalization
+identities matched and 34 CPU tests passed; four evidence files were recovered
+and verified. No policy was constructed or run in that preparation. Workspace
+`20260912T102718Z-bd007f5402bf-c3091a190b62` now preserves the failed 001 run;
+do not rerun or modify its registered code. The preparation authority is
+`reports/training/m2-smolvla-hestia-parameter-crossover-nocard-preflight-2026-09-12.{md,json}`.
+Earlier authorization context is in
+`reports/training/m2-smolvla-hestia-parameter-crossover-transfer-authorization-2026-09-12.md`.
+The earlier rejection remains historical evidence in
+`reports/training/m2-smolvla-hestia-parameter-crossover-dispatch-blocked-2026-09-12.{md,json}`.
+
+Latest execution status:
+`reports/training/m2-smolvla-hestia-parameter-crossover-first-attempt-2026-09-12.{md,json}`.
+Doctor, normalization and CPU checks returned 0. Worker exited after 27.966 seconds
+because the CLI passed a string profile path to the Path-only file-hash helper;
+template filenames had the same defect. No condition reached model loading.
+Retrieval found SSH closed and produced an empty archive, so the full failure
+bundle and shutdown wrapper record still need recovery. Do not claim billing state.
+The unchanged old collector reproduces this error in a new CLI test. Versioned
+002 fixes only the two path conversions and changes its run ID; all four synthetic
+CLI paths, tampering rejection and no-card rejection now pass, 43 tests total.
+The six-file, 71,680-byte repair package has 59 registered scientific identities.
+The existing workspace is reused as a read-only base for a fresh repair identity,
+without retransmitting the original 14-file payload. Restore old results first,
+then dispatch the correction under `parameter-crossover-v2-plan/template`.
+Receiver connection is now prepared before launch, rather than after worker exit.
+Actual corrected CUDA execution remains not measured; this implementation defect
+is not a root cause of Hestia's visual generalization failure.
+
+Subsequent no-card recovery is recorded in
+`reports/training/m2-smolvla-hestia-parameter-crossover-v2-nocard-preflight-2026-09-12.md`.
+All seven old failure files and the separate old shutdown request are now recovered
+and hash-verified. The six-file repair was staged into fresh workspace identity
+`20260912T113534Z-bd007f5402bf-1cd3c7fc0c28`; all 84 identities and 43 CPU tests passed.
+Reuse this new workspace for the registered CUDA correction. No new normalization
+binding, model loading, inference, shutdown or instance release occurred in this
+no-card recovery. The earlier empty receiver and failed workspace remain preserved.
+
+Latest completed causal evidence supersedes the pending GPU status above:
+`reports/training/m2-smolvla-hestia-parameter-crossover-result-2026-09-12.{md,json}`.
+Corrected 002 completed all 720 forwards in 560.374 seconds. Both 180-forward native
+endpoints reproduced exactly; each hybrid changed only the registered 16 K/V tensors.
+All 22 files are recovered and the matching receipt was sent. K/V updates have
+bidirectional causal contributions to seven full-trajectory development regressions
+under all four noises. Older K/V recover 74.7% of left-joint regression; newer K/V
+recreate 89.7% reciprocally, dominated by episode 13 and left wrist angle. Hybrids
+still fail joint/gripper/orientation constant baselines, and first-action effects
+differ. This is partial causal localization, not a complete generalization root cause.
+Independent local verification checked 28,992 fields. The 002 shutdown request was
+not retrieved; a closed SSH connection is not independent billing confirmation.
+
+Next registered axis: `m2-smolvla-hestia-kv-split-plan/template-2026-09-12` with
+`scripts/hestia_kv_split.py`, `scripts/diagnose_hestia_kv_split.py`, and
+`scripts/run_hestia_kv_split.py`. Six conditions retain both fresh exact endpoints
+and add K-only/V-only reciprocal substitutions of eight tensors each. 69 local
+checks passed; nine-file delta is prepared, not uploaded or executed. Registration
+allows 1080 forwards, zero optimizer, 1200-second work and 1500-second protected
+shutdown limits, subject to the next authorized CUDA window. No Gate status changed.
+
+The K-only/V-only split is now completed; see
+`reports/training/m2-smolvla-hestia-kv-split-result-2026-09-12.{md,json}`.
+All 1080 forwards completed in 825.581 seconds. Both native endpoints reproduce
+exactly; each intervention changes exactly eight registered tensors. All 30 files
+are recovered and independently verified. V-only left-joint recovery/damage is
+59.1%/69.7%, versus K-only 19.5%/13.8%. K and V both contribute; K's newer weights
+improve left commanded position, so no blanket K-failure claim is supported.
+V-only hybrids still fail relevant constants. All 69,440 independent numeric
+checks passed, including cross-run paired arrays and K/V nonadditivity.
+The current shutdown request and matching receipt were recovered. Earlier
+crossover 002 shutdown evidence was also recovered in the separate
+`parameter-crossover-shutdown-recovery-2026-09-12.json` report. Billing is not
+independently verified; no instance release was requested.
+
+The per-layer V test is completed: eighteen conditions, 3240 forwards, zero optimizer,
+78 verified files, and 193,664 independently recomputed scalar fields. See
+`reports/training/m2-smolvla-hestia-v-layer-result-2026-09-12.{md,json}`.
+Seven of eight layers contribute bidirectionally to left-joint late regression under
+all four noises. Layer 7 has the largest individual left/right joint recovery, but
+only recovers 17.52% of left-joint regression. Scene covariance and global bias both
+contribute; gripper timing and full-action generalization remain unsuccessful.
+The shutdown request and matching receipt have since been recovered; see the
+separate v-layer-shutdown-recovery report. The matched instance was observed off
+and subsequently restarted for the user's authorized continuing diagnosis.
+The first value-component attempt failed before a completed forward because its
+observer confused the 64 real-camera token slice with the complete prefix. All
+eight failure files are preserved. Pinned upstream source confirms 241 prefix
+positions: 3 x 64 image, 48 language, and one trainable state-projection token.
+The value-route plan passed 150 local checks and completed ten guarded conditions
+to separate exact V-output substitutions by image/language/state positions. These
+are contextual token routes, not pure modality-isolated features.
+
+The V-route diagnostic has completed all ten conditions (1800 forwards), with all
+50 files verified and 95,744 independent scalar checks passed. Both native and
+full-V positive controls are exact. Image-position V updates recover 47.7% of
+left-joint late regression and cause 50.8% reciprocal damage; language contributes
+13.1%/9.4%, state 1.4%/3.4%. This is route-localized causality, not a unique root or
+successful generalization. See `m2-smolvla-hestia-value-route-result-2026-09-12`.
+The image-value-component diagnostic completed all ten conditions (1195.953 s):
+1800 forwards, zero optimizer, 152 local checks and 85 identity checks. It keeps
+the complete 241-position CUDA GEMM and alters only the real-image 64-position
+slice, separating train-only global mean, shared token pattern and scene residual.
+Native and complete-image positive controls exactly reproduced all 720 saved outputs. All 52 files were verified; 95,744 independent scalar checks passed. The shared image-V offset accounts for 35.9% recovery / 33.8% reciprocal damage of left-joint late regression. Scene residual updates are beneficial for right joints and both grippers. The generalization gap already present at step 640 remains unexplained. See `reports/training/m2-smolvla-hestia-image-value-component-result-2026-09-12.{md,json}`. The provider console shows the instance off; the newest shutdown-request remains to be recovered in the next authorized window. Tonight is closed; resume from `reports/training/m2-smolvla-hestia-next-session-handoff-2026-09-12.md`.
+
+While waiting for current SSH, the local projection-spectrum check
+(`reports/training/m2-smolvla-hestia-projection-spectrum-result-2026-09-12.{md,json}`)
+read only the four layer-1/15 K/V matrices at 640 and 1280. All eight have
+float64 numerical rank 320/320; three condition numbers improve and one grows
+by 10%, with unchanged counts below 1% of the largest singular value. No new
+rank collapse was found in these matrices. This does not establish BF16
+information preservation or correct attention routing. Five synthetic checks,
+SVD/Frobenius identities and spectrum reload passed; no model was constructed
+or run. Owner: `scripts/diagnose_hestia_projection_spectrum.py`. The native
+collection has since completed as recorded above; the root-cause goal remains open.
+
+Preceding Hestia pose/readout-family check (2026-09-12):
+`reports/training/m2-smolvla-hestia-pose-readout-result-2026-09-12.{md,json}`
+keeps the same initial two-object coordinates and replaces 3-NN with quadratic
+ridge, using outer train leave-one-out and train-only inner alpha selection.
+Under the true-phase oracle, both arms' orientation beats both constants and
+3-NN in train holdouts and development; left development error is 0.114397 rad
+versus 0.160336 for 3-NN and 0.134469 for the better constant. The earlier
+neighbor orientation deficit is therefore readout-dependent, not proof of
+unreadable geometry. Onset prediction still fails the train-holdout constants,
+and original-clock full-chunk actions fail to improve all groups. Native
+640-to-1280 FK separately shows worse full-chunk orientation in both arms but
+better right-palm position; episode 13 dominates left-orientation regression.
+No oracle was deployed or checkpoint selected. Fourteen synthetic checks,
+48 historical pose metrics and 288 independently recomputed metrics passed.
+Owner: `scripts/diagnose_hestia_pose_readout.py`. The next gap is converting
+conditional pose correspondence into clock-time actions using observable phase;
+no model forward, raw-row load, optimizer, SSH or new Gate ran.
+
+Preceding Hestia commanded-pose check (2026-09-12):
+`reports/training/m2-smolvla-hestia-command-pose-result-2026-09-12.{md,json}`
+uses native Gym-ALOHA FK on the unchanged clock/event-oracle arrays. Under the
+event oracle, fixed geometric neighbors improve development left-palm position
+error by 24.4% versus the best joint-constant reference, but orientation remains
+19.2% worse. Averaging poses directly preserves this difference. Episode 45
+dominates the orientation deficit; episode 13 improves in both pose quantities
+for this neighbor predictor. This is distinct from native C checkpoint regression.
+Joint-angle errors alone therefore do not locate physical-pose errors, while
+converting labels to task space alone has not repaired the measured deficit.
+These are commanded, not achieved, poses; true query phases remain nondeployable.
+Eight synthetic checks, native chain/range/FK sanity and array reload passed.
+Owner: `scripts/diagnose_hestia_command_pose.py`. No policy forward, optimizer,
+new raw data, hidden rows, simulation steps or Gate ran. The remaining repair
+question is joint improvement of phase and orientation from deployable inputs,
+with all scenes retained; no new training objective has been validated.
+
+Hestia scene/phase check (2026-09-12):
+`reports/training/m2-smolvla-hestia-scene-phase-result-2026-09-12.{md,json}`
+binds 4500 local non-hidden action rows (frames 0--99), reviewed two-object
+coordinates and the unchanged C predictions. Every scene's grippers open within
+100 frames; the previous four development left-gripper false events within the
+50-slot chunk are early predictions by 2--20 frames, while episode 22 is late
+by 4--7. Fixed train-only 3-NN fails to beat constant onset-time references in
+train leave-one-out and development. A separately registered target-phase oracle
+improves development left-joint neighbor/best-constant MAE ratio from 1.042 to
+0.861, but left-wrist angle remains 1.689. This separates part of the timing
+problem from residual joint correspondence under the fixed geometry proxy;
+it proves neither irreducible human noise nor absent information in full images.
+The oracle uses true query event times and is not deployable policy evidence.
+Owners: `scripts/diagnose_hestia_scene_phase.py` (bounded labels/geometry) and
+`scripts/diagnose_hestia_phase_alignment.py` (clock/event coordinate control).
+Sixteen synthetic checks, one real-cache check, full cache checksums and array
+reloads passed. No model forward, policy optimizer, hidden row or Gate ran.
+The subsequent commanded-pose check above measures the joint/pose distinction;
+joint redundancy is not an established explanation of the development failure.
+
+Hestia checkpoint localization (2026-09-12):
+`reports/training/m2-smolvla-hestia-checkpoint-localization-result-2026-09-12.{md,json}`
+compares only saved 640/1280 arrays. Last-ten-slot errors account for 92.25% of
+net gripper MAE regression. Episode 13 contributes 116.01% of net left-joint
+regression (other scenes partly offset it); removing it reverses the mean left
+regression, but right-joint and combined-joint regression persist after removing
+any one development scene. At 1280, all five development images produce a left
+gripper 0.5 upcrossing in all noises although only episode 22's target does so
+within the observed chunk. First-action left-joint MAE still improves. These
+are offline localization findings, not evidence of a unique cause or executed
+closed-loop gripper behavior. The next gap is train-only initial-scene versus
+action-phase consistency; hidden stays sealed and no new training is authorized.
+`scripts/diagnose_hestia_checkpoint_localization.py` owns this read-only analysis.
+Seven synthetic counterexamples, 19 recovered file checks, 144 historical metric
+group reproductions and additive identities passed. The failed 001 schema
+assumption and corrected 002 evidence are preserved separately.
+
+Latest Hestia checkpoint-curve closure (2026-09-12):
+`reports/training/m2-smolvla-hestia-cuda-checkpoint-curve-closure-2026-09-12.{md,json}`
+records CPU-mode recovery of all 19 closed 002 result files and local offline
+array analysis. All four checkpoints completed; full 1280 normalized/standard
+arrays exactly reproduce historical CUDA. Ninety-six saved metric groups were
+independently recomputed. Training MAE decreases, while development full-chunk
+MAE improves to 640 then regresses; no checkpoint beats both train-derived
+constant baselines in either action group under any of the four noises.
+This supersedes older pending curve/retrieval statements below. It does not
+select a checkpoint, repair generalization, or change Gate 3/4 or M2 acceptance.
+
 Latest local-model boundary (after retrieval):
 `reports/training/m2-smolvla-hestia-local-reload-result-2026-09-11.{md,json}`
 preserves the first XPU-to-CUDA control failure. The subsequent
 `m2-smolvla-hestia-local-precision-result-2026-09-11.{md,json}` establishes exact
 same-process and independent-process repeats for one training image under both
 BF16 and FP32, with unchanged parameters, but neither mode matches the original
-CUDA tolerance. Full local/quarter collection remains stopped. A guarded original
-CUDA checkpoint-curve implementation and 10-minute plan are prepared, with 15 CPU
-counterexamples passed; fresh GPU authorization is still required. This supersedes
-older statements that a new local model-process check is entirely unmeasured.
+CUDA tolerance. Full XPU quarter collection remains stopped. The subsequently
+authorized original-CUDA curve completed and was recovered as recorded above;
+it does not repair XPU/CUDA numerical equivalence.
 
 Retrieval update after the earlier preparation snapshot:
 `reports/training/m2-smolvla-hestia-checkpoint-retrieval-result-2026-09-11.{md,json}`
 records explicit authorization, completed CPU-mode retrieval of all 40 Hestia
 native files with historical SHA parity, and cleanup of two fully duplicated
 archives. Unique checkpoints were preserved. Platform shutdown was invoked within
-15 minutes; SSH closed, without an independent billing check. Local model reload
-and checkpoint-curve diagnosis are next. This completed result supersedes pending
-retrieval statements in the earlier preparation snapshot below.
+15 minutes; SSH closed, without an independent billing check. The later local
+reload boundary and completed CUDA curve are recorded above. The 40-file transfer
+excludes optimizer/RNG/scheduler state and is not a full training-recovery backup.
 
-The local array-diagnosis closure and next evidence boundary are recorded in
-`reports/training/m2-smolvla-hestia-local-diagnosis-closure-2026-09-11.md`.
-The four existing Hestia native checkpoints remain remote; a 40-file read-only
-CPU-mode retrieval plan is prepared but not authorized or executed. Inspecting
-intermediate checkpoints can distinguish deterioration with fitting from an
-already-failed early mapping; current final-checkpoint arrays cannot answer that.
-Do not restart training or reinterpret the completed Hestia run as pending.
+| Current boundary (2026-09-12) | Evidence-backed state |
+|---|---|
+| Policy task acceptance | Seven identities failed Gate 4 `0/5`; M2 is incomplete |
+| Hestia C training | Completed 1280 updates / 5120 exposures; train40 all action groups pass `4/4` fixed inference noise conditions |
+| Hestia C development | dev5 all groups fail `0/4`; these are offline noise-condition counts, not task successes or independent training repetitions |
+| Hestia reload | Historical B/C reload evidence reproduced; new XPU repeats are stable but fail CUDA parity; recovered original-CUDA 1280 arrays match exactly |
+| Hestia Gate 3/4 | Not measured |
+| Next evidence gap | Crossover, K/V split, V-layer, route and image-component interventions completed. Shared image-V offset contributes to late regression; investigate the gap already present at 320/640 next. Unique root remains unresolved; no new training or checkpoint selection |
+
+The Hestia budget intervention changed both update count and cosine-decay length
+from 256 to 1280; it is not an isolated repetition-count change. Its fixed final
+checkpoint remains the registered negative result even if a later diagnostic
+finds a better intermediate checkpoint. Development data have informed diagnosis;
+hidden-test data remain sealed.
+
+The September 11 local closure and checkpoint-retrieval plan remain historical
+preparation records. Their pending statements are superseded by the completed
+retrieval and CUDA curve above. Neither result justifies deleting remote recovery
+checkpoints, restarting training or reinterpreting the fixed final Hestia result.
 
 Hestia timing bound (2026-09-11):
 `reports/training/m2-smolvla-hestia-timing-bound-result-2026-09-11.{md,json}`
@@ -250,9 +535,10 @@ finds a partial spatial correspondence: fixed quadratic two-object coordinates
 improve last-action joints versus constants in development and nested train folds.
 Full-chunk joints/grippers do not jointly pass, nor does the first action. This
 rules out interpreting geometric nearest-neighbor failure as absent spatial signal;
-it does not establish that a coordinate adapter repairs C. Per-scene timing remains
-an untested explanation of the horizon-dependent gap; the human dataset identity
-must not be confused with deterministic scripted demonstrations.
+it does not establish that a coordinate adapter repairs C. The subsequent timing
+bound above tests per-scene shifts and still fails to repair left-joint errors;
+the human dataset identity must not be confused with deterministic scripted
+demonstrations.
 
 Hestia geometric support (2026-09-11):
 `reports/training/m2-smolvla-hestia-geometric-support-result-2026-09-11.{md,json}`
@@ -425,7 +711,8 @@ information absence and a unique cause of policy failure remain unproven.
 Twenty-four synthetic checks, one real-cache test and 46 local XPU forwards
 completed. Hook full-chunk parity, 345 unchanged frozen VLM tensors and exact
 saved-array reload passed. There was no policy optimizer, SSH, new Gate 3/4 or
-independent model-process reload. Hestia remains pending; M2 is incomplete.
+independent model-process reload. Hestia was considered pending at this diagnostic
+boundary; the later recovered completion above supersedes that status. M2 is incomplete.
 
 Current visual-utilization handoff and review plan (2026-09-10):
 `reports/training/m2-smolvla-native-visual-coverage40-plan-2026-09-10.md`
@@ -607,10 +894,11 @@ ineffective `freeze_vision_encoder=false` plus
 | dataset revision | `cc571a3c661df81b566dbfde3d5c1e85fcdf7884` |
 | split | 40 train / 5 validation / 5 sealed hidden test episodes |
 | repaired experiment | `m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003` |
-| completed formal runs | Faust `-002`; corrected Aster `-003`; Way CUDA batch-64/default `formal-002`; Zen two-arm `uniform-002` / `firstaction-001` |
-| latest selected checkpoint | Zen uniform step 316, validation first-action MAE `0.021572770214905695`; Zen firstaction step 316 `0.022150604739519103`; Way step 316 `0.030136355795964066`; Aster remains the `0.02250973408226855` read-only offline control |
-| export/reload | Faust, Aster, Way and both Zen arms passed with exact action equality |
-| Gate 3 | Faust, Aster, Way and both Zen arms passed |
+| completed formal runs | Faust `-002`; corrected Aster `-003`; Way CUDA batch-64/default `formal-002`; Zen two-arm `uniform-002` / `firstaction-001`; vcdropout `-001`; vfunfreeze `-003` |
+| latest selected formal checkpoint | vfunfreeze step 632, validation first-action MAE `0.019603`; Gate 4 failed `0/5`. Earlier selections and differing training regimes remain historical comparisons, not a controlled ranking |
+| latest bounded frame-0 fit experiment | Hestia C fixed final step 1280; train40 all groups `4/4`, dev5 all groups `0/4`; no new policy Gate 3/4 |
+| export/reload | Completed for all seven policy identities; retain each dated report's proof scope (vfunfreeze records seven deterministic metrics with zero difference) |
+| Gate 3 | Faust, Aster, Way, both Zen arms, vcdropout and vfunfreeze passed |
 | Gate 4 | Faust, Aster, Way, Zen-uniform (`411`), Zen-firstaction (`422`), vcdropout (`433`) and vfunfreeze (`444`) all failed `0/5` |
 | Aster T1 attempt | `aster-b8-002` completed, but is not valid single-axis evidence |
 | current T1 result | `aster-b8-003` selected/exported and Gate 3 passed; Gate 4 failed |
@@ -1625,11 +1913,23 @@ needs its own registered comparison.
 
 ## 10. Next safe work sequence
 
-For the current visual-utilization request, follow the September 10 review plan
-linked in section 2: documentation first, then separately authorized remote
-identity verification and new compute registration. The fixed-budget coverage
-hypothesis does not reopen the completed learning axes below. The following
-sequence records the historical post-Zen work and its authorization boundaries:
+For the current Hestia line, follow the September 12 prefix-readout report
+in section 2. Retrieval, original-CUDA comparisons, scene/phase and kinematic
+diagnostics are complete. Single-left-event alignment and same-clock oracle
+reconstruction do not suffice. Native prefix collection is complete and object
+positions remain readable after the inspected projections. Continue with the
+prepared reciprocal K/V parameter substitution; its fixed workspace and no-card
+preflight are complete, and it requires current original-GPU access. Retain the
+registered inference/shutdown scope and do not restage. No XPU/CUDA
+parity relaxation is allowed. Fix any candidate method using
+independent train holdouts before assessing the unchanged development protocol.
+No new training objective has yet been validated. Freeze identities and scope
+before execution, retain cache/hidden-exclusion checks and the 16 GB budget.
+Stop on drift, nonfinite values or resource overruns. Do not select a checkpoint
+post hoc, deploy the label oracle or reopen hidden.
+
+The following sequence records the historical post-Zen work and its stage-local
+authorization boundaries; it is not the current execution queue:
 
 1. completed 2026-08-28: both selected Zen deploy artifacts transferred to the
    local artifact root (SHA256-verified; the AutoDL instance was shut down
@@ -1816,6 +2116,13 @@ These are code/protocol checks, not authorization to launch another formal run.
 
 ## 13. Architecture update rule
 
+### Historical coverage/Hestia implementation sequence
+
+The following records successive preparation and execution boundaries. Pending
+statements describe those stages only; the recovered Hestia completion in
+section 2 is the current authority. None of these earlier registrations is a
+new execution authorization.
+
 The authorized coverage-40 unattended execution is coordinated by
 `scripts/run_visual_coverage_job.py`; real input and smoke reload checks live in
 `scripts/visual_coverage_job_checks.py`. Its separate supervisor enforces the
@@ -1931,6 +2238,8 @@ and historical B reproduction. See the authoritative main-recovery result above.
 Its scientific result is negative (C train40 all groups 4/4, dev5 0/4). The attempted
 new dispatch stopped at the existing-candidate gate; no duplicate run was started.
 
+### Maintenance requirements
+
 Update this document in the same change whenever any of the following changes:
 
 - component ownership or a major entry point;
@@ -1951,5 +2260,5 @@ paths.
 原001因新workspace缺失normalization入口在权重加载前停止。新增
 `scripts/prepare_hestia_checkpoint_workspace.py`按原SHA绑定既有report/view，并在
 看门狗保护内、权重加载前运行完整native normalization检查。002现场检查已通过，
-1280首个控制与原CUDA逐值相同；完整曲线及其余保存点尚待封闭结果，Gate状态不变。
+1280首个控制与原CUDA逐值相同；完整曲线随后已于9月12日取回并封闭，见第2节，Gate状态不变。
 证据见`reports/training/m2-smolvla-hestia-cuda-checkpoint-curve-repair-dispatch-2026-09-11.md`。

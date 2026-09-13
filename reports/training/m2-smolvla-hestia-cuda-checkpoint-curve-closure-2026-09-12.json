@@ -1,0 +1,90 @@
+{
+  "status": "completed_retrieval_and_local_array_analysis",
+  "transfer": {
+    "all_file_sha256_matched": true,
+    "on_disk_sha256_rechecked": true,
+    "manifest_sha256": "a76841d3db797e6d02f793ecab04c0284cba62c545f8ac292b8b48c813beb943",
+    "archive_sha256": "63abd353b61575b3e7756c21366b28220e7504b082e6489ed08f6d930d099886",
+    "file_count": 19,
+    "total_bytes": 5377538,
+    "worker_result": {
+      "completed_steps": [
+        1280,
+        320,
+        640,
+        960
+      ],
+      "error": null,
+      "optimizer_steps": 0,
+      "time": 1789139831.8853807,
+      "elapsed_seconds": 326.20298624038696
+    },
+    "verified_utc": "2026-09-12T00:45:32.4097192Z",
+    "verification_method": "PowerShell .NET TarReader static path/type/size/SHA256 checks; no model or arrays loaded"
+  },
+  "summary": [
+    {
+      "step": 320,
+      "train_full_joint_mae": 0.044796712120570494,
+      "train_full_gripper_mae": 0.03648440251126886,
+      "dev_full_joint_mae": 0.07004635426029562,
+      "dev_full_gripper_mae": 0.06274351871013642,
+      "dev_first_joint_mae": 0.0256431430199882,
+      "dev_first_gripper_mae": 0.014226478338241578,
+      "dev_last_joint_mae": 0.08408798191230744,
+      "dev_last_gripper_mae": 0.31525395289063457,
+      "dev_full_joint_constant_wins": 0,
+      "dev_full_gripper_constant_wins": 0
+    },
+    {
+      "step": 640,
+      "train_full_joint_mae": 0.02548264003069441,
+      "train_full_gripper_mae": 0.02566294158063829,
+      "dev_full_joint_mae": 0.058224982744684295,
+      "dev_full_gripper_mae": 0.05850020730495453,
+      "dev_first_joint_mae": 0.020521809844649398,
+      "dev_first_gripper_mae": 0.014465489983558654,
+      "dev_last_joint_mae": 0.07142061311751605,
+      "dev_last_gripper_mae": 0.26990227252244947,
+      "dev_full_joint_constant_wins": 0,
+      "dev_full_gripper_constant_wins": 0
+    },
+    {
+      "step": 960,
+      "train_full_joint_mae": 0.01803894098061816,
+      "train_full_gripper_mae": 0.017674914129078387,
+      "dev_full_joint_mae": 0.06253617413378865,
+      "dev_full_gripper_mae": 0.06569861562550068,
+      "dev_first_joint_mae": 0.018465977198987578,
+      "dev_first_gripper_mae": 0.01543964222073555,
+      "dev_last_joint_mae": 0.0773969414915579,
+      "dev_last_gripper_mae": 0.33145720064640044,
+      "dev_full_joint_constant_wins": 0,
+      "dev_full_gripper_constant_wins": 0
+    },
+    {
+      "step": 1280,
+      "train_full_joint_mae": 0.016774401619955217,
+      "train_full_gripper_mae": 0.01650027106516063,
+      "dev_full_joint_mae": 0.06194368872382135,
+      "dev_full_gripper_mae": 0.06634714967012406,
+      "dev_first_joint_mae": 0.018357087067367196,
+      "dev_first_gripper_mae": 0.015236824750900269,
+      "dev_last_joint_mae": 0.07552272447113259,
+      "dev_last_gripper_mae": 0.3348279319703579,
+      "dev_full_joint_constant_wins": 0,
+      "dev_full_gripper_constant_wins": 0
+    }
+  ],
+  "independent_metric_group_checks": 96,
+  "final_checkpoint_historical_arrays_exact": true,
+  "analysis_source": "runs/hestia-cuda-curve-analysis-20260912-001/summary.json",
+  "analysis_sha256": "0f9242caa8b008e5b477c36cf07ccfffc52d0a5886cee2f35ccec6f1d697038f",
+  "new_model_forwards": 0,
+  "new_optimizer_steps": 0,
+  "hidden_loaded": false,
+  "new_gate34": "not measured",
+  "m2_complete": false,
+  "remote_files_deleted": false,
+  "remote_shutdown_invoked_this_session": false
+}

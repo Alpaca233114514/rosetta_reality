@@ -1,0 +1,20 @@
+{
+  "id": "hestia-image-value-component-events-20260912-001",
+  "registered_utc": "2026-09-12T15:21:19.2712638Z",
+  "sha256": {
+    "tests/test_hestia_image_value_component_events.py": "cbbeb237aa46601adb82c5b932f720ef3f4d578e79c270fc3ae5bb49ff65b6ae",
+    "reports/training/m2-smolvla-hestia-scene-phase-plan-2026-09-12.json": "2a5cfdd16eae0b904282be91395d7aff9a368b6eecc88f8fa7d14a4172aac6b5",
+    "runs/hestia-scene-phase-consistency-20260912-001/arrays.npz": "e28ab0e9fabad8c58e0d0422d33ef5ee851614c2c16422f34fee651992c41322",
+    "scripts/analyze_hestia_image_value_component_events.py": "c6a521941fe6684d002066a0a4a4fdfc7fb044165f311843cc07fb4cb02c3f20",
+    "runs/hestia-recovered-20260911-001/C-first/manifest.json": "5ed6b8a88d2ece25df267475af598dd53033f911fe2dcce219dece5ebce81d13",
+    "scripts/analyze_hestia_image_value_component.py": "623896711f2e9240bb361c03205ff5ccd8bfbb9d657977ede61928f64dc3fd68"
+  },
+  "scene_arrays": "runs/hestia-scene-phase-consistency-20260912-001/arrays.npz",
+  "threshold": 0.5,
+  "prediction_horizon": 50,
+  "target_horizon": 100,
+  "method": "All image-scoped component conditions and prior image-only route; both splits/arms/noises with right censoring; no policy execution",
+  "cpu": 2,
+  "memory_bytes": 2147483648,
+  "deadline_seconds": 300
+}

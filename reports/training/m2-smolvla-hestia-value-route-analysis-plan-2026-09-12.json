@@ -1,0 +1,30 @@
+{
+  "deadline_seconds": 300,
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "cpu": 2,
+  "conditions": [
+    "native",
+    "full",
+    "image",
+    "language",
+    "state"
+  ],
+  "metrics": "same train/dev first/full joint/gripper/command-FK plus MSE decomposition; independent arrays and rotation formula; native route input SHA equality by row",
+  "sha256": {
+    "runs/hestia-recovered-20260911-001/C-first/manifest.json": "5ed6b8a88d2ece25df267475af598dd53033f911fe2dcce219dece5ebce81d13",
+    "scripts/hestia_value_route.py": "03f341ed13dc2ec527e85677a928ecc1d4eed87916ee7a1e85290c06eaef5cad",
+    "runs/hestia-value-route-analysis-20260912-001/verify.py": "88a37b554139216472f0ca47b462e78b158450ab69be6f1c51339a897250ffe9",
+    "runs/hestia-value-route-analysis-20260912-001/run.sh": "71a2cd8f3107a6398e142a3de4978c6e73377a0abd6e85f71f11148b2c7b983e",
+    "scripts/analyze_hestia_value_route.py": "5578a3a7041bb37cd1afecc9299b74f8ac1b72b6dfbb5829a3de398ec7d2ac87",
+    "tests/test_hestia_value_route_events.py": "c05d122cbc3e3f38747f9c141d95d0e65d2001dc3f0b4f84af2ad7ec940bfaac",
+    "reports/training/m2-smolvla-hestia-value-route-template-2026-09-12.json": "0397c87da0beea86ea0a544dc0d248dafb2eba704faa8fe4579a8d812d3faa1e",
+    "tests/test_hestia_value_route_analysis.py": "93e5fff5502f7bfc550aebd2822001149d9cdd4eef555921000c529598897056",
+    "runs/hestia-command-pose-preflight-20260912-001/runtime.json": "bfba25a2fa07f627ed253b43766460cca68a29836ff5a69b84f7a8ff146ab708",
+    "scripts/analyze_hestia_value_route_events.py": "4444801fe7c47678ebe7825bfa76ad04cb82b047ac6609c91cbffaa0d76d7149"
+  },
+  "memory_bytes": 2147483648,
+  "id": "hestia-value-route-analysis-20260912-001",
+  "optimizer_steps": 0,
+  "local_policy_forwards": 0,
+  "registered_utc": "2026-09-12T14:32:34.1029669Z"
+}

@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "id": "hestia-q-replay-20260913-001",
+  "status": "completed_inference_with_partial_verification_failure",
+  "scientific_verdict": "Fixed-native-Q preserves most measured K-mean left-joint improvement; natural Q feedback further enhances it. K-side direct scene dependence remains the priority repair candidate; unique underlying cause and deployable repair are unproven.",
+  "full_verification_passed": false,
+  "model_forwards": 2160,
+  "exact_control_forwards": 1800,
+  "optimizer_steps": 0,
+  "worker_seconds": 1448.1551394462585,
+  "returned_files": 336,
+  "archive_bytes": 317982720,
+  "manifest_sha256": "551ad3d1c985de911edb7c88969ee169358e624617faa99371918c815d49bce3",
+  "local_tests_passed": 174,
+  "action_and_identity_verification": {
+    "status": "passed",
+    "independent_scalar_checks": 148224,
+    "attention_event_checks": 172800,
+    "new_model_forwards": 0,
+    "optimizer_steps": 0,
+    "sentinel_verification": "failed_original_float64_one_ulp_check"
+  },
+  "snapshot_identity_and_effects": {
+    "snapshot_tensor_hash_checks": 1920,
+    "snapshot_exact_to_cuda_event_hashes": true,
+    "cpu_probability_unequal_values": 761,
+    "cpu_probability_values": 57840000,
+    "cpu_output_unequal_values": 2112,
+    "cpu_output_values": 15360000,
+    "original_float64_one_ulp_acceptance": "failed_not_relaxed",
+    "ratios": {
+      "640": {
+        "mae": {
+          "fixed_q_gain": 0.00691751636983827,
+          "natural_q_additional_gain": 0.0006080474793755675,
+          "retained_fraction_of_kmean_gain": 0.9192024024300733,
+          "removed_fraction_of_better_constant_gap": 0.6375825582751053
+        },
+        "mse": {
+          "fixed_q_gain": 0.002195096398273356,
+          "natural_q_additional_gain": 0.00014586032105494938,
+          "retained_fraction_of_kmean_gain": 0.9376920043627285,
+          "removed_fraction_of_better_constant_gap": 0.8488946920674164
+        }
+      },
+      "1280": {
+        "mae": {
+          "fixed_q_gain": 0.007930225389893159,
+          "natural_q_additional_gain": 0.001205908940251306,
+          "retained_fraction_of_kmean_gain": 0.8680066539441701,
+          "removed_fraction_of_better_constant_gap": 0.5658591712228326
+        },
+        "mse": {
+          "fixed_q_gain": 0.0027693816812513284,
+          "natural_q_additional_gain": 0.0002767175055427189,
+          "retained_fraction_of_kmean_gain": 0.9091567645786486,
+          "removed_fraction_of_better_constant_gap": 0.7335603486046569
+        }
+      }
+    },
+    "optimizer_steps": 0,
+    "new_model_forwards": 0
+  },
+  "primary": {
+    "640": {
+      "fixed_q_consistent_improvement": true,
+      "live_q_consistent_improvement": true,
+      "feedback_consistently_enhances": true,
+      "feedback_consistently_offsets": false
+    },
+    "1280": {
+      "fixed_q_consistent_improvement": true,
+      "live_q_consistent_improvement": true,
+      "feedback_consistently_enhances": true,
+      "feedback_consistently_offsets": false
+    }
+  },
+  "control_results": {
+    "640": {
+      "model_forwards": 1080,
+      "exact_control_forwards": 900,
+      "all_parameters_unchanged": true,
+      "parameter_tensors": 500,
+      "seconds": 732.8991157114506,
+      "peak_cuda_allocated": 1478167552,
+      "peak_rss_bytes": 3976286208
+    },
+    "1280": {
+      "model_forwards": 1080,
+      "exact_control_forwards": 900,
+      "all_parameters_unchanged": true,
+      "parameter_tensors": 500,
+      "seconds": 676.2548632919788,
+      "peak_cuda_allocated": 1478167552,
+      "peak_rss_bytes": 3977154560
+    }
+  },
+  "left_joint_scene_terms": {
+    "640": {
+      "native": {
+        "bias": 0.0014736548215678756,
+        "variance": 0.0019724395294879356,
+        "minus_twice_covariance": -0.0001818745583523286
+      },
+      "kmean": {
+        "bias": 0.0014925292620725542,
+        "variance": 0.0006384920218732468,
+        "minus_twice_covariance": -0.0012077582105706236
+      },
+      "kmean_qnative": {
+        "bias": 0.0014762583281269842,
+        "variance": 0.000650077766401858,
+        "minus_twice_covariance": -0.001057212700098714
+      }
+    },
+    "1280": {
+      "native": {
+        "bias": 0.0013974128577488845,
+        "variance": 0.002485012073410258,
+        "minus_twice_covariance": 0.0005712268682141954
+      },
+      "kmean": {
+        "bias": 0.0018799746303507735,
+        "variance": 0.0007781570106926636,
+        "minus_twice_covariance": -0.001250579028464148
+      },
+      "kmean_qnative": {
+        "bias": 0.0018229720427084455,
+        "variance": 0.0007866214143242024,
+        "minus_twice_covariance": -0.000925323338910639
+      }
+    }
+  },
+  "platform_closure": {
+    "observed_utc": "2026-09-13T11:52:13.5610533Z",
+    "shutdown_request_recovered": false,
+    "instance_released": false,
+    "shutdown_observer_connection_closed": true,
+    "instance": "44db45aec7-cd880eb6",
+    "matching_receipt_sent": true,
+    "ssh_port": 20497,
+    "method": "Chrome refresh and exact instance row",
+    "status": "已关机"
+  },
+  "policy_repaired": false,
+  "checkpoint_selected": false,
+  "hidden_loaded": false,
+  "m2_complete": false,
+  "gate3": "not measured",
+  "gate4": "not measured",
+  "next_design": "reports/training/m2-smolvla-hestia-k-scene-regularization-design-2026-09-13.md",
+  "training_authorized": false,
+  "committed": false,
+  "pushed": false,
+  "evidence_sha256": {
+    "reports/training/m2-smolvla-hestia-q-replay-plan-2026-09-13.md": "7720ba85fa3cd978ddb633d1cd722e45f0001b342319b616fbdca34678ae8c40",
+    "reports/training/m2-smolvla-hestia-q-replay-template-2026-09-13.json": "efdae61b406280eb42f769b9a172d3f4e41aac4735860f17dddfd9037c824146",
+    "runs/hestia-q-replay-analysis-20260913-001/result.json": "0f6f1b3180b22c73c10fabbc509bd0c87686f9e82b500c817e4d59bc2b1a80fa",
+    "runs/hestia-q-replay-analysis-20260913-001/summary.json": "bc789f3394e6dc9e5d80e5ac171c938472cfba170add952ee92b4c1dfa57f895",
+    "runs/hestia-q-replay-analysis-20260913-001/action-and-identity-verification.json": "a1747f1ff682caf87bb8f728290791301a18063d942f2046a89b1cea1a92fcd2",
+    "runs/hestia-q-replay-analysis-20260913-001/sentinel-diagnostic.json": "d0ba7334a4e782006fb69511fa9bc8a2c94942e9f02bf028091bfe6cbade80ff",
+    "runs/hestia-q-replay-analysis-20260913-001/snapshot-identity-and-effect-summary.json": "bea225e366f64433a10a416123715bad901fc44f1b1df5553e869cc27447cf39",
+    "runs/hestia-q-replay-preparation-20260913-001/check-final.log": "8f5521bfdd87b8050e22856645c7703032e551d82e982a01fbd1d1d0d8b9a0e5",
+    "runs/hestia-q-replay-preparation-20260913-001/analysis.log": "45770a13e9089c195ddcabe432da5f2c5c4e42d0c470f021f9f963d22ea4727a",
+    "runs/hestia-q-replay-preparation-20260913-001/sentinel-audit.log": "477c01e0f292f52e67bd20eec5dd9d68ba33fb1f69d9ceb164d8f4462c98e460",
+    "runs/hestia-q-replay-preparation-20260913-001/evidence-closure.log": "61fd6f93dc5301984477a59bfad3897a886f23a9914989caa2c53fb8e4b6cc7b",
+    "runs/hestia-q-replay-preparation-20260913-001/platform-closure.json": "162575b320b9841d8fd9f16efeeda1a9d42a3ac6f5e83f7f23e58db534f71f38",
+    "runs/hestia-q-replay-preparation-20260913-001/closure.log": "562706c668d42cff881f0d26a314961662bd8b81784d99a8d1c3123d7f4fa3c9",
+    "runs/hestia-q-replay-receiver-20260913-001/receipt.json": "2fd2ca0d1f9a59ae454b80069774c22f335984fb74fdd75bedb33e5728270b65",
+    "reports/training/hestia-q-replay-local-audit-20260913/audit_sentinels.py": "9ebfebc1f0c44666c59828cac7be6aff95721c64c6eccce029b7df240d66ea10",
+    "reports/training/hestia-q-replay-local-audit-20260913/close_evidence.py": "ee0c1b15d0b24eb936abc8b770920ef72daa797ffa4003302919d6d735625f61",
+    "reports/training/hestia-q-replay-local-audit-20260913/summarize.py": "bf216f2e61d905e6c423313f267b1effa034521005f3157400cc1e6de8e65e61"
+  }
+}

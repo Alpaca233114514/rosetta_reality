@@ -1,0 +1,28 @@
+{
+  "id": "hestia-command-pose-20260912-001",
+  "registered_utc": "2026-09-12T07:01:19.1540478Z",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "k": 3,
+  "nearest_pair_count": 10,
+  "runtime_identity": "runs/hestia-command-pose-preflight-20260912-001/runtime.json",
+  "metadata": "runs/hestia-recovered-20260911-001/C-first/manifest.json",
+  "scene_arrays": "runs/hestia-scene-phase-consistency-20260912-001/arrays.npz",
+  "aligned_arrays": "runs/hestia-scene-phase-alignment-20260912-001/arrays.npz",
+  "output": "runs/hestia-command-pose-20260912-001",
+  "maximum_seconds": 120,
+  "maximum_rss_bytes": 2147483648,
+  "sha256": {
+    "scripts/diagnose_hestia_command_pose.py": "ea018e12f683238fa52515d9884e8e09c8ef0dc73ac5026b98bfc53cf62e98a7",
+    "tests/test_hestia_command_pose.py": "d245048067f3706287bb195029a650914bcb440a47cf93462543c4bda8378130",
+    "scripts/diagnose_hestia_scene_phase.py": "424fa69a3d186447dbc0847e603b3009b26776d70d6c14bf8ae3c542e52e588c",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "reports/training/m2-smolvla-hestia-command-pose-plan-2026-09-12.md": "79abf36f70afffbe5ad7a393374a9c1f1c8233ecca9ef614f782d6647b28a9a4",
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+    "runs/hestia-command-pose-preflight-20260912-001/runtime.json": "bfba25a2fa07f627ed253b43766460cca68a29836ff5a69b84f7a8ff146ab708",
+    "runs/hestia-recovered-20260911-001/C-first/manifest.json": "5ed6b8a88d2ece25df267475af598dd53033f911fe2dcce219dece5ebce81d13",
+    "runs/hestia-scene-phase-consistency-20260912-001/arrays.npz": "e28ab0e9fabad8c58e0d0422d33ef5ee851614c2c16422f34fee651992c41322",
+    "runs/hestia-scene-phase-consistency-20260912-001/result.json": "770b34173d886268419cdd215910a53714faa1c4ef3303d644b5fbf19bfd0193",
+    "runs/hestia-scene-phase-alignment-20260912-001/arrays.npz": "91cbb6fa492022e0564fd36d84d812c71bff50a00ec18d8a255b856e5d62524a",
+    "runs/hestia-scene-phase-alignment-20260912-001/result.json": "fa56d10745efd9a95f17202f6ab9f9b9ae585000b5f4af4096c0af847634f47a"
+  }
+}

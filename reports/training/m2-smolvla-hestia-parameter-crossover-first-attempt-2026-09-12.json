@@ -1,0 +1,70 @@
+{
+  "id": "hestia-parameter-crossover-20260912-001",
+  "status": "worker_failed_before_model_loading",
+  "observation_source": "live status-cuda snapshot; closed result bundle not yet recovered",
+  "observed_unix": 1789210713.7512248,
+  "workspace_id": "20260912T102718Z-bd007f5402bf-c3091a190b62",
+  "registration": {
+    "started_unix": 1789210655.7487993,
+    "deadline_unix": 1789211555.7487993,
+    "shutdown_deadline_unix": 1789211855.7487993,
+    "parent_pid": 1523,
+    "parent_ticks": "4105261812",
+    "watchdog_pid": 1524,
+    "watchdog_ticks": "4105261819",
+    "watchdog_verified_alive": true
+  },
+  "worker": {
+    "completed_conditions": [],
+    "error": {
+      "type": "RuntimeError",
+      "message": "Condition base1280 collector exit 1"
+    },
+    "elapsed_seconds": 27.96639919281006,
+    "exited_unix": 1789210683.715198,
+    "child_alive": false
+  },
+  "checks": {
+    "doctor_exit": 0,
+    "normalization_exit": 0,
+    "cpu_exit": 0
+  },
+  "actual_error": "AttributeError: 'str' object has no attribute 'open'",
+  "model_forwards": 0,
+  "optimizer_steps": 0,
+  "full_failure_bundle_recovered": false,
+  "receiver_archive_bytes": 0,
+  "shutdown_wrapper_record_recovered": false,
+  "platform_billing_independently_verified": false,
+  "unique_root_cause_established": false,
+  "m2_complete": false,
+  "repair": {
+    "id": "hestia-parameter-crossover-20260912-002",
+    "status": "prepared_not_dispatched",
+    "local_tests_passed": 43,
+    "actual_cuda": "not measured",
+    "scientific_identity_count": 59,
+    "payload_files": 6,
+    "payload_bytes": 71680,
+    "payload_sha256": "a7bafef3e5a30f4c41b1fe41719c3c72e64633bfc39d42c73bcfc97af6aadd5e"
+  },
+  "evidence_sha256": {
+    "reports/training/m2-smolvla-hestia-parameter-crossover-first-attempt-2026-09-12.md": "40e06db246c8ee77a943c556280eb104c920703da532f012e22deb587859fb98",
+    "reports/training/m2-smolvla-hestia-parameter-crossover-v2-plan-2026-09-12.md": "1bc21625fb4e1188cecd288a4960848e91d4fd9d1cec9997be085ff01c556bea",
+    "reports/training/m2-smolvla-hestia-parameter-crossover-v2-template-2026-09-12.json": "2615126e707692bac338217e7d81f7bb6d55a9cb097dd55c4e62ac8371cdafcf",
+    "runs/hestia-parameter-crossover-v2-preflight-20260912-001/final-tests.log": "cc655df39094686978e72280b8864adc83d7b8da46550b2221d430df76dd859c",
+    "runs/hestia-parameter-crossover-v2-preflight-20260912-001/final-ruff.log": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "runs/hestia-parameter-crossover-v2-preflight-20260912-001/check.sh": "a0509d95c117b5301dfe2c4eecdd2d3e2f35c0bf0f3bdccd673ecd55690e3c68",
+    "runs/hestia-parameter-crossover-receiver-20260912-001/results.tar": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/hestia-parameter-crossover-receiver-20260912-001/stream.log": "e87e8eaa5645e7cf083e56f995499f6af8ce83870e4e647b3a52da722aa6ad1a",
+    "runs/hestia-parameter-crossover-v2-dispatch-20260912-001/delta.tar": "a7bafef3e5a30f4c41b1fe41719c3c72e64633bfc39d42c73bcfc97af6aadd5e",
+    "runs/hestia-parameter-crossover-v2-dispatch-20260912-001/inventory.json": "c2e9500adbd923059627a9985a9836c433d7909a550c8f32375aacc0ac89f2a3",
+    "runs/hestia-parameter-crossover-v2-dispatch-20260912-001/original-stage-helper.sh": "d44fd4d383664567fab688442b5a27a4a0c62768641dcf99d9efb7c85e5c200d",
+    "runs/hestia-parameter-crossover-v2-dispatch-20260912-001/stage.sh": "63202f8a25228ce4a7e7bdd678d0d02eed7028c874267fc4b85adb4b3a50fa77",
+    "runs/hestia-parameter-crossover-v2-dispatch-20260912-001/receive.sh": "fd5f1b7eaf4c87435f1cbaa837331ba4eb91b109b6f794791f6ef3b0da6261d5",
+    "runs/hestia-parameter-crossover-v2-dispatch-20260912-001/launch.sh": "3ee4c6ff1ae6d3e17f8f76ac49c66d6c48dcacebc6316592231bf1c406a4607c",
+    "runs/hestia-parameter-crossover-v2-dispatch-20260912-001/run.sh": "e69d99581b01ca09575fbd600ef9aa5be0c99c569a7d944b8d47cf24a6443048",
+    "runs/hestia-parameter-crossover-v2-dispatch-20260912-001/verify-transfer.sh": "f0f53f7596356b7ba52c19fb810cd876a64505cee311602372817189d4202084",
+    "scripts/stage_autodl_delta_from_wsl.sh": "20d07ce92e565c8fd61e8545cde0538f4b3b08d29847f3f3e03a5e1e37cb4c3f"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "hestia-image-value-component-analysis-20260912-001",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "local_policy_forwards": 0,
+  "sha256": {
+    "runs/hestia-image-value-component-analysis-20260912-001/verify.py": "60409e9d001fd419bc525dc0d3fcf823ea8f9cbb0af546072dc4633838901eef",
+    "reports/training/m2-smolvla-hestia-image-value-component-template-2026-09-12.json": "090d81a2e46e57377896086582a811a02a3414998b70d918fefc393f80aa3dc8",
+    "tests/test_hestia_image_value_component_events.py": "cbbeb237aa46601adb82c5b932f720ef3f4d578e79c270fc3ae5bb49ff65b6ae",
+    "tests/test_hestia_image_value_component_analysis.py": "340e68a884b86cc292b8ad6a1030c709224361dc69f97db982abc5df79ff57db",
+    "scripts/hestia_image_value_component.py": "144020a880b785a1330ca23c3fed68f0b269c5a0466555cda4d00ea321b3fb3b",
+    "runs/hestia-recovered-20260911-001/C-first/manifest.json": "5ed6b8a88d2ece25df267475af598dd53033f911fe2dcce219dece5ebce81d13",
+    "scripts/analyze_hestia_image_value_component_events.py": "c6a521941fe6684d002066a0a4a4fdfc7fb044165f311843cc07fb4cb02c3f20",
+    "scripts/analyze_hestia_image_value_component.py": "623896711f2e9240bb361c03205ff5ccd8bfbb9d657977ede61928f64dc3fd68",
+    "runs/hestia-command-pose-preflight-20260912-001/runtime.json": "bfba25a2fa07f627ed253b43766460cca68a29836ff5a69b84f7a8ff146ab708",
+    "runs/hestia-image-value-component-analysis-20260912-001/run.sh": "2fd6edb94743a763abea7bb7a80c33273aa69ab21cd54fbbbe1a25c671ffe65d"
+  },
+  "optimizer_steps": 0,
+  "metrics": "same train/dev first/full joint/gripper/command-FK plus scene MSE decomposition; independent arrays and rotation formula; exact prior image-only controls",
+  "cpu": 2,
+  "conditions": [
+    "native",
+    "full_image",
+    "global",
+    "token",
+    "scene"
+  ],
+  "deadline_seconds": 300,
+  "memory_bytes": 2147483648,
+  "registered_utc": "2026-09-12T15:21:19.4149558Z"
+}

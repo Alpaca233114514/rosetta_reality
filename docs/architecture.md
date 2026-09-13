@@ -38,6 +38,14 @@ Historical Qwen frozen-feature action policies remain in their original paths
 as negative VLA evidence. They do not initialize SmolVLA and are not accepted
 as ER checkpoints.
 
+Hestia's current diagnostic path is documented in `m2-smolvla-architecture.md`.
+The completed reciprocal K/V and K-only/V-only interventions localize a causal
+component of late development regression, with a larger V contribution to the
+left-joint regression, without repairing generalization. The next prepared
+per-layer V test uses `scripts/hestia_v_layer.py` and `scripts/run_hestia_v_layer.py`;
+this diagnostic path does not change production policy interfaces or establish
+M2 acceptance.
+
 ## M0 implementation
 
 M0 uses a pooled `[batch, hidden_size]` representation from the backbone. The

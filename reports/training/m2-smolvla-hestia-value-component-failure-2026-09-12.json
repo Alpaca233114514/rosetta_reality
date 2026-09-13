@@ -1,0 +1,30 @@
+{
+  "failure": {
+    "error_type": "ValueError",
+    "message": "Native V prefix shape changed",
+    "optimizer_steps": 0
+  },
+  "receipt": {
+    "all_file_sha256_matched": true,
+    "manifest_sha256": "7a23ae60147dc1b39c687f48c02bad777828e42d1a03107adda5e4ededee2254",
+    "file_count": 8,
+    "worker_result": {
+      "completed_conditions": [],
+      "error": {
+        "type": "RuntimeError",
+        "message": "Condition base1280 collector exit 1"
+      },
+      "optimizer_steps": 0,
+      "time": 1789222649.0601778,
+      "elapsed_seconds": 81.20820593833923
+    }
+  },
+  "attempted_first_forward": true,
+  "platform_off_observed": true,
+  "cause": "Observer incorrectly treated saved 64 real-camera token slice as complete prefix; pinned upstream appends two empty cameras, 48 language tokens and one state token",
+  "followup": "reports/training/m2-smolvla-hestia-value-route-plan-2026-09-12.md",
+  "optimizer_steps": 0,
+  "status": "first_forward_shape_assertion_failed",
+  "historical_results_altered": false,
+  "completed_policy_forwards": 0
+}

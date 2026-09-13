@@ -1,0 +1,2174 @@
+{
+  "id": "hestia-prefix-path-20260912-001",
+  "status": "completed",
+  "collection": {
+    "status": "passed",
+    "records": [
+      {
+        "row": 0,
+        "file": "prefix-row-000.npz",
+        "sha256": "3d5e4cab08b7525da1b43c44401617e8b9f3922d6a3aed73f42de97f9e68971c",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 1,
+        "file": "prefix-row-001.npz",
+        "sha256": "5d6ca3663f2dc1d1afe0b52a100cf7901df200bf526c132f2491186e6aad3f8b",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 2,
+        "file": "prefix-row-002.npz",
+        "sha256": "d0f136234af78b186d6921af800217afba963fa96958c1e4d162f9dee1840c20",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 3,
+        "file": "prefix-row-003.npz",
+        "sha256": "1b4aaf1ca06f6acab68f209e90872a00746b30d0fafa738eef3bd85e61f13637",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 4,
+        "file": "prefix-row-004.npz",
+        "sha256": "9b39a243e42699be4f4b8f5837259ea10b58f04810eefba94a759d66b335d2ce",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 5,
+        "file": "prefix-row-005.npz",
+        "sha256": "2ac68e60ed5ba49386bd928a2e2e516e71a513481edd3a7e7383bcacf93cb496",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 6,
+        "file": "prefix-row-006.npz",
+        "sha256": "06f02705892ba1c64aa6125ecc59fc6b00ffed3ab177f741a14dd6fffad2b598",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 7,
+        "file": "prefix-row-007.npz",
+        "sha256": "41f8505472c9149ce8abf05afea6b60c3661196e634451305686b14431ce5f67",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 8,
+        "file": "prefix-row-008.npz",
+        "sha256": "a72bf5038fc368903f00917ebca73c1924dc70d11de5073eca6eae480a061185",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 9,
+        "file": "prefix-row-009.npz",
+        "sha256": "5dd2dbfe79514a276c4ad68bd92c9a52255364e04526dd7b65b0abd733dfce49",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 10,
+        "file": "prefix-row-010.npz",
+        "sha256": "a13add672c181adac9c94a145d973b50c6b78e312a2417a0d4b55b029b69a365",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 11,
+        "file": "prefix-row-011.npz",
+        "sha256": "d8aafcfe4ff5a4a458d167084a3fe4dbfb2fd994bef57fb2331400c9e35f7a9d",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 12,
+        "file": "prefix-row-012.npz",
+        "sha256": "aba01b393b0ef4bf177370a67e9088ccd940c73551830d9125baf480d790f0cd",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 13,
+        "file": "prefix-row-013.npz",
+        "sha256": "532ec62f776e1c42547717d3b9f4dc8e38f9052d9086de17f2e38ce61779eb73",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 14,
+        "file": "prefix-row-014.npz",
+        "sha256": "c3c95c40ced319931f6718a4645528a31213d25726faec5a8e8b4c07b6ec98a9",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 15,
+        "file": "prefix-row-015.npz",
+        "sha256": "5bf6b0e29f48fa4e37a4882d075a48a1673d8e2b4fa2d49effe338611bbe233c",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 16,
+        "file": "prefix-row-016.npz",
+        "sha256": "61a5e064f5fad65a8248ab2ad59d25d83e47e07f3f80eda5b10d1c08848d9055",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 17,
+        "file": "prefix-row-017.npz",
+        "sha256": "b7f0dddc5e67e13cff9e10f94a2133b0f572a1ea6fc13db7e56dacfa431a77ca",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 18,
+        "file": "prefix-row-018.npz",
+        "sha256": "095caecc9993d5e6215ac872fa82799f91dc0e588679343971f31cd79cf6af49",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 19,
+        "file": "prefix-row-019.npz",
+        "sha256": "bbb8afbe561821713e2abcf0b2b236830d20748a47a51cb9b9e415a2bb73d022",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 20,
+        "file": "prefix-row-020.npz",
+        "sha256": "33215dd09f7e2667464f0b19af4cb53c34c449258bfef3886729d2822ea52960",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 21,
+        "file": "prefix-row-021.npz",
+        "sha256": "62eb09ac96474d8467556eea12196f1c5aeece5fda0873578749ca61bafe2457",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 22,
+        "file": "prefix-row-022.npz",
+        "sha256": "38c1e3c7172478bfc11e269ecdecced435a5d7667d7b2c948b46cebbc160e2ef",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 23,
+        "file": "prefix-row-023.npz",
+        "sha256": "eea23535695c13984c648a95b95224b81a4e14d620505f19159d2b1aa02f6f49",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 24,
+        "file": "prefix-row-024.npz",
+        "sha256": "8dba299626fa65d949e0931f1cbc9ca1b1ed241251e73c32f534cb9b7993aaa3",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 25,
+        "file": "prefix-row-025.npz",
+        "sha256": "2b8e44529ed84da10eb423c35df3fd097d88a43f69d8f0f1e3c1eac8fb7a741f",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 26,
+        "file": "prefix-row-026.npz",
+        "sha256": "76c35d781c03fbd5f59e9f85dc892989eeabd368be56a92395f15a50fe6a4e42",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 27,
+        "file": "prefix-row-027.npz",
+        "sha256": "caf1e382b49e23f370b67a49b01a6d7e598dd9c642fc325f4f9a656d6647bc22",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 28,
+        "file": "prefix-row-028.npz",
+        "sha256": "2622b0d68d81a3e9b883ddac6cb215dbfcaf6638b2b326fcbaaf2cabe694ee50",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 29,
+        "file": "prefix-row-029.npz",
+        "sha256": "99a327671d329ab384892897054a210a73c3c9f00b70b71eebf74e2ce5cb69d8",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 30,
+        "file": "prefix-row-030.npz",
+        "sha256": "98373f2777a4dd61158f2316441d59475c0756db0668c4a5d3420c58b103b025",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 31,
+        "file": "prefix-row-031.npz",
+        "sha256": "c8dc3eaa135d9c84da01daa8c4ed56129c0a9671f00c2ff3ff047d32730c1091",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 32,
+        "file": "prefix-row-032.npz",
+        "sha256": "1feaef3e3341d9ccf7162fbd6beac7f27f8ce2137b1926c590207985a2ee0cef",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 33,
+        "file": "prefix-row-033.npz",
+        "sha256": "2402d4e6649f815e36eaa30ae07ee88f52db5089ba870c8014d4b2dcb4faaf17",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 34,
+        "file": "prefix-row-034.npz",
+        "sha256": "cd4672e248fa6731b40d0acc94392d174277c531ca6d6e52b1a50d9da6f123f7",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 35,
+        "file": "prefix-row-035.npz",
+        "sha256": "b71a7a6b32c912a9d24f609bcf2d55acffc7523f8cc903ac59c948ea6f05271e",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 36,
+        "file": "prefix-row-036.npz",
+        "sha256": "cfc342d0bfe268d3f688d7e295aae8275dbb41382091399f1788d3856219577e",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 37,
+        "file": "prefix-row-037.npz",
+        "sha256": "9ed992629aa980d6496a1189c548d632dc019cc0a922d953d106fac1f35c07fc",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 38,
+        "file": "prefix-row-038.npz",
+        "sha256": "7e627d3b905beaeaea550dce38506f9ea8ef8abe2d2e549fd484b5b0cc4ef5e8",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 39,
+        "file": "prefix-row-039.npz",
+        "sha256": "3bc9cc03fbe930d89dbc01e07e002f5d988902e281733d07031c462ab2dc91b5",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 40,
+        "file": "prefix-row-040.npz",
+        "sha256": "8a47c18813c7875b68ccabb0fcb6e99015df8c102acca31086247d7a7e27ffc8",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 41,
+        "file": "prefix-row-041.npz",
+        "sha256": "dfa7c2e9b6ce1a70e4ccb180408c42c70b606fdd8061dd721289f598f20c3a97",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 42,
+        "file": "prefix-row-042.npz",
+        "sha256": "4f4a49bfb511e93769b7b83b2f2dd46a6e1a1bd5890888beda2872cba49113a5",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 43,
+        "file": "prefix-row-043.npz",
+        "sha256": "6f8ff11f2a6f393122f272900e621376f7d54bca17f6fa07dbd9ce536fa3886a",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      },
+      {
+        "row": 44,
+        "file": "prefix-row-044.npz",
+        "sha256": "f003baa67836cdd945c36cce08a9a02f2a62ecc9183910d1310feb6a16ee9899",
+        "shapes": {
+          "layer1_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer1_v_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_k_projected": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_input": [
+            1,
+            64,
+            320
+          ],
+          "layer15_v_projected": [
+            1,
+            64,
+            320
+          ]
+        }
+      }
+    ],
+    "real_camera_tokens": 64,
+    "unpooled_tokens_retained": true,
+    "within_denoising_exact": true,
+    "across_four_noises_exact": true,
+    "native_full_arrays_exact": true,
+    "raw_array_bytes": 29491200,
+    "policy_forwards": 180,
+    "optimizer_steps": 0
+  },
+  "worker": {
+    "completed_steps": [
+      1280
+    ],
+    "error": null,
+    "optimizer_steps": 0,
+    "time": 1789202285.0316284,
+    "elapsed_seconds": 155.67219877243042
+  },
+  "receipt": {
+    "all_file_sha256_matched": true,
+    "manifest_sha256": "4db3c3737800313bdc1b3417068cb5f50054e6c100fb34df0cb8bb24e0e29773",
+    "file_count": 56,
+    "worker_result": {
+      "completed_steps": [
+        1280
+      ],
+      "error": null,
+      "optimizer_steps": 0,
+      "time": 1789202285.0316284,
+      "elapsed_seconds": 155.67219877243042
+    }
+  },
+  "remote_cpu_tests": 23,
+  "parameters_unchanged": 500,
+  "full_normalized_and_standard_max_abs": 0,
+  "shutdown_receipt_delivered": true,
+  "followup_ssh": "connection_closed",
+  "platform_billing": "not independently verified",
+  "unique_root_cause_established": false,
+  "m2_complete": false,
+  "evidence_sha256": {
+    "runs/hestia-prefix-recovered-20260912-001/verified/001280/result.json": "ac45eb7df0a427cb683d81e7827bf8dcd6d05de1d1ddf682e3640c3b2b07b90f",
+    "runs/hestia-prefix-recovered-20260912-001/verified/001280/prefix-observer.json": "0b2515ea667ea00641adf8ea6eaff5862450303aa6da10af9fa3e1e43735a719",
+    "runs/hestia-prefix-recovered-20260912-001/verified/handoff-manifest.json": "4db3c3737800313bdc1b3417068cb5f50054e6c100fb34df0cb8bb24e0e29773",
+    "runs/hestia-prefix-recovered-20260912-001/verified/worker-exited.json": "88ad0195eabbac2cf9295fbb8460797acdb7f19d9473986955fc45a58c63aa55",
+    "runs/hestia-prefix-recovered-20260912-001/verified/cpu-check.json": "642d7e90c58052a649a03b1f5f9cab32462047e805a20445895f309905c9f5b7",
+    "runs/hestia-prefix-receiver-20260912-001/receipt.json": "1826893326b2c1158ea882208fb4e1080d3a4e3decb94626e4b14efab333e9f5",
+    "runs/hestia-prefix-receiver-20260912-001/completed.txt": "3066f3532c466db74936f4515f237347588c78a12e67e7e4973b18182281e6d6",
+    "runs/hestia-prefix-dispatch-20260912-001/dispatch-registration.json": "d18553caac8c834e32ae08d7e52f3e9b7288cf150fe1b86f555b9f2061e301e7",
+    "reports/training/m2-smolvla-hestia-prefix-path-closure-2026-09-12.md": "7f6b494f1503294f5abbd6f60cc2f27e92af2db3fff2a6f98351f9970890e2ff"
+  }
+}
