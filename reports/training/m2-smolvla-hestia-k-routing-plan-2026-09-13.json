@@ -1,0 +1,49 @@
+{
+  "id": "hestia-k-routing-20260913-001",
+  "registered_utc": "2026-09-13T06:43:13.6604664Z",
+  "parent_commit": "acb46d3a7468bd631c592a4cb47230c65c58cfdf",
+  "parent_result_sha256": "1c4ad01f58265733be26e4c02265a4fe18de0b75ff9aa7e11bcab179045b6ae5",
+  "hypothesis": "Separate the causal effect of image-internal attention distribution from image versus nonimage probability mass in the validated first-layer head1+2 key-direction mechanism.",
+  "backbone_scale": "existing SmolVLA450M checkpoint640",
+  "adaptation": "all parameters unchanged; inference only",
+  "action_expert": "native first expert cross-attention layer1, KV heads1+2, Q heads3..8",
+  "dataset": "unchanged train40/dev5 frame-zero full50, four saved noises",
+  "selected_layer": 1,
+  "conditions": [
+    "base640_native",
+    "base640_rrestore",
+    "base640_rfull",
+    "base640_rintra",
+    "base640_rmass"
+  ],
+  "model_forwards": 900,
+  "optimizer_steps": 0,
+  "hidden_loaded": false,
+  "axis": "2x2 probability factorization of native versus direction-replaced image mass and image-conditional distribution",
+  "controls": "native and routing-restore reproduce original640 exactly; routing-full reproduces prior actual head1+2 arrays exactly before hybrids",
+  "implementation": "Use original pinned eager attention twice with identical current Q and V: native K gives P0, mean-direction/native-norm pair K gives P1. Override only returned softmax probabilities for selected Q heads, preserve original V multiplication kernel and other heads. No direct recomputation of native QK kernel.",
+  "within_image": "P0 image mass times P1 image-conditional distribution; nonimage probabilities remain P0",
+  "modality_mass": "P1 image mass times P0 image-conditional distribution; nonimage probabilities remain P1",
+  "precision": "Factor algebra in float64, return original float32 softmax dtype, original eager BF16 cast and V product unchanged. Record actual post-BF16 component leakage.",
+  "numerical_gates": {
+    "probability_sum_error": 0.004,
+    "post_bf16_mass_conditional_tv_leak": 0.004,
+    "post_bf16_intra_mass_leak": 0.004,
+    "zero_image_mass_stop": 1E-30,
+    "pre_mass_error": 1E-12
+  },
+  "primary": "dev5 full standard left_joint MAE/MSE four-noise paired effects and share of actual full-pair MSE benefit",
+  "secondary": "all groups/spaces/views/windows; train fit cost; MSE bias/variance/covariance; effect interaction; first-noise first-denoise actual attention; all1800 selected attention calls and maximal numeric leakage",
+  "dominant_rule": "A component explains >=80% of full-pair mean MSE benefit with MAE/MSE improvement in all4 noises. Classify both qualifying as redundant, neither as mixed/interaction; never force a unique component.",
+  "closure_rule": "End this mechanism diagnosis only after exact controls and factor isolation pass, a concrete routing component or bounded mixed mechanism is supported, and train/dev tradeoff plus remaining unknowns are documented. If ambiguous between heads, preregister one head-specific component check; never change thresholds after observing results. No repair/training is authorized by this diagnostic.",
+  "limits": {
+    "transfer_bytes": 67108864,
+    "cuda_bytes": 4294967296,
+    "rss_bytes": 5368709120,
+    "worker_seconds": 1800,
+    "shutdown_seconds": 2100,
+    "condition_seconds": 180
+  },
+  "stop": "Any identity, exact-control, factorization, finite, coverage or resource failure stops subsequent conditions; preserve failure and protected shutdown",
+  "authorization": "User authorized ongoing same-project diagnostic sources/tests/plans uploads to existing AutoDL instance44db45aec7-cd880eb6 SSH20497 and autonomous diagnosis/protected shutdown; excludes passwords, keys, personal sensitive information, dataset/weight upload and any repair."
+}

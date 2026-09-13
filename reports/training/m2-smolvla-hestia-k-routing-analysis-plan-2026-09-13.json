@@ -1,0 +1,55 @@
+{
+  "id": "hestia-k-routing-analysis-20260913-001",
+  "registered_utc": "2026-09-13T07:16:52.2376844Z",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "original_plan": "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json",
+  "recovered": "runs/hestia-k-routing-recovered-20260913-001/verified",
+  "output": "runs/hestia-k-routing-analysis-20260913-001/verified",
+  "template": "reports/training/m2-smolvla-hestia-k-routing-template-002-2026-09-13.json",
+  "conditions": [
+    "base640_native",
+    "base640_rrestore",
+    "base640_rfull",
+    "base640_rintra",
+    "base640_rmass"
+  ],
+  "controls": [
+    "base640_native",
+    "base640_rrestore"
+  ],
+  "windows": {
+    "first": [
+      0,
+      1
+    ],
+    "full": [
+      0,
+      50
+    ]
+  },
+  "source_sha256": {
+    "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json": "e1f3dd8d9213b98cd5a607156da9d550ee97e8285ada2b666ea91199951d489a",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "scripts/diagnose_hestia_early_gap.py": "dcceb7374ffb812f82dc7a6fd22305bcce45a95e1c3788f5c4b73da721259309"
+  },
+  "local_sha256": {
+    "scripts/analyze_hestia_k_routing.py": "0bc313ab9c74895e8291cfd779bcdaa96e5c94085374b5e21d94adc7ef398602",
+    "scripts/analyze_hestia_routing_effects.py": "2bb4cba9faf3e6abce0cbcfb7bb663bbe9d3ef62ef59e7297c018bb58a6f9690",
+    "scripts/analyze_hestia_k_head_interaction.py": "6f563cf8c26b04dbed4e51ea39b3d1c669b4ff259c592e08a15349e43a53c8f4",
+    "scripts/analyze_hestia_joint_attention.py": "421e9abddf230be85b98c7be6b42a4781ad0d3987870da978ba4d89cc3fae3d2",
+    "scripts/analyze_hestia_layer_attention.py": "d9807a78bc24ef26bd1e3efebf7eae9a97d678a36e173c466bf1966aaa049775",
+    "scripts/verify_hestia_scene_kv_mean_analysis.py": "713dabce57d6044ef3a0d3d5ceb4d7511c5265b065d86cc2d2329e9be192e4ce",
+    "tests/test_hestia_routing_analysis.py": "ebb34ff024f2ff70e7ca490b6de8abe3c7eb2a652a9d3a17e7761cc33fc349c8",
+    "reports/training/m2-smolvla-hestia-k-routing-template-002-2026-09-13.json": "8358511b7521245d43023488f458514757372a0ee9c7c2dbf0a6b65e89aafde7",
+    "reports/training/m2-smolvla-hestia-k-routing-plan-2026-09-13.json": "f606139f59a211623af3c61e9aca026d7f0c59e7545eeeaeef5b538e60138872",
+    "runs/hestia-k-head-interaction-recovered-20260913-001/verified/base640_kh12/arrays.npz": "7d5d48b4c29cd823094f3642f98da3facaa7497dd6616fd6da7fa5db324b6a22",
+    "runs/hestia-k-routing-analysis-20260913-001/local.sh": "1e5815f313c75704164adf7bcd3218ef5b463bb82c0b9d32b6074efc12fe4d67",
+    "runs/hestia-k-routing-analysis-20260913-001/independent.sh": "223c850e3e025234015c804f82fc66bfa44a47e8f3b9f4cbdd856fe23833a99d",
+    "runs/hestia-k-routing-analysis-20260913-001/attention-002.sh": "01cc5395bb13b68e5c1c8d633f675e1db75c27597321be97ac3cff32a2c06c32",
+    "runs/hestia-k-routing-analysis-20260913-001/summarize.sh": "8f0a643a4dd5aa1300dbf24f930b42366c0bbe40b0b9862d27a26eb0d781e25e",
+    "runs/hestia-k-routing-analysis-20260913-001/summarize.py": "e143cafadd2f54574cb42a0d44cd4d6a0955157cc10d009392e6a8501826471f"
+  },
+  "receipt": "runs/hestia-k-routing-receiver-20260913-001/receipt.json",
+  "reference_direction": "runs/hestia-k-head-interaction-recovered-20260913-001/verified/base640_kh12/arrays.npz",
+  "qualification": "Each component qualifies only if it recovers >=80% of full-pair mean MSE benefit and improves MAE and MSE in all four noises. Retain both or mixed classification when required; thresholds fixed in science plan before execution."
+}

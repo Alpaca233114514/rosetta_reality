@@ -1,0 +1,73 @@
+{
+  "id": "hestia-k-routing-20260913-001",
+  "status": "stopped_at_preregistered_numerical_gate",
+  "worker": {
+    "completed_conditions": [
+      "base640_native",
+      "base640_rrestore",
+      "base640_rfull"
+    ],
+    "error": {
+      "type": "RuntimeError",
+      "message": "Condition base640_rintra collector exit 1"
+    },
+    "optimizer_steps": 0,
+    "time": 1789283225.5598078,
+    "elapsed_seconds": 450.6066610813141
+  },
+  "failure": {
+    "error_type": "ValueError",
+    "message": "Post-BF16 image mass leakage exceeds bound",
+    "optimizer_steps": 0
+  },
+  "transfer": {
+    "all_file_sha256_matched": true,
+    "manifest_sha256": "eb66cdac4873cec0bd16754c1de3d45967fb515711afd48c41cd960ecf93a94e",
+    "file_count": 38,
+    "worker_result": {
+      "completed_conditions": [
+        "base640_native",
+        "base640_rrestore",
+        "base640_rfull"
+      ],
+      "error": {
+        "type": "RuntimeError",
+        "message": "Condition base640_rintra collector exit 1"
+      },
+      "optimizer_steps": 0,
+      "time": 1789283225.5598078,
+      "elapsed_seconds": 450.6066610813141
+    }
+  },
+  "verification": {
+    "all_file_sha256_matched": true,
+    "exact_control_array_counts": {
+      "base640_native": 5,
+      "base640_rrestore": 5,
+      "base640_rfull": 5
+    },
+    "completed_control_forwards": 540,
+    "hybrid_action_metrics": "not measured",
+    "optimizer_steps": 0
+  },
+  "hybrid_action_metrics": "not measured",
+  "failure_maximum": "not recorded by original failure handler",
+  "local_synthetic_checks": 103,
+  "analysis_synthetic_checks": 2,
+  "remote_cpu_checks_exit_code": 0,
+  "instance_observation": "Fresh Chrome reload confirmed powered off after evidence-only recovery",
+  "recovery": "Original job protected shutdown before result reception; authorized restart only recovered sealed evidence under600-second independent guard, then powered off; no inference rerun",
+  "optimizer_steps": 0,
+  "model_repair": false,
+  "hidden_loaded": false,
+  "new_gate34": "not measured",
+  "m2_complete": false,
+  "next": "New preregistered quantization-aware factor instrumentation, same scientific comparison and thresholds; retain original failed run",
+  "evidence_sha256": {
+    "reports/training/m2-smolvla-hestia-k-routing-plan-2026-09-13.json": "f606139f59a211623af3c61e9aca026d7f0c59e7545eeeaeef5b538e60138872",
+    "reports/training/m2-smolvla-hestia-k-routing-template-002-2026-09-13.json": "8358511b7521245d43023488f458514757372a0ee9c7c2dbf0a6b65e89aafde7",
+    "scripts/hestia_k_routing.py": "2952d45f454a4bd3baf99cfe864e6209f16c8f7ba3e463d7cc5cc7f7c01c90f9",
+    "runs/hestia-k-routing-analysis-20260913-001/failure-verification.json": "07fd3a6e61fc11efdc6a6ab8af99838aba26c9bcf45fa09bb64b7c628da7d9d4",
+    "runs/hestia-k-routing-receiver-20260913-001/receipt.json": "64f6c397d04dab4d9f54eb83ce4dac9bc0d03a7784f358e1d621401a651c5848"
+  }
+}
