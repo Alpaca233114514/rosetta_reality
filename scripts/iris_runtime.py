@@ -410,6 +410,7 @@ def collect_native(context, output, deadline):
             "processor_verification": context.processor_verification,
             "independent_saved_processor_reload": False,
             "collector_pid": os.getpid(),
+            "action_dimensions": dimensions,
             "policy_forwards": 4 * len(context.episodes),
             "optimizer_steps": 0,
             "hidden_test_loaded": False,

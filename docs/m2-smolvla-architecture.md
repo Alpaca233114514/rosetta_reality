@@ -1,5 +1,14 @@
 # M2 SmolVLA architecture and navigation
 
+Iris furnace pipeline module (2026-09-13):
+`reports/training/m2-smolvla-iris-furnace-local-2026-09-13.{md,json}` records
+117 local tests plus Ruff, formatting and shell syntax checks. `iris_protocol.py`,
+`iris_calibration.py`, `iris_stage.py`, `run_iris_furnace.py`, `iris_delivery.py`
+and `analyze_iris.py` now own the guarded two-arm pipeline and sealed handoff.
+This supersedes the local implementation pending items below. CUDA admission,
+calibration and training remain unmeasured; the worker awaits the user SSH window.
+No Iris optimizer step or new Gate 3/4 result exists; M2 remains incomplete.
+
 Iris local repair module (2026-09-13):
 `reports/training/m2-smolvla-iris-local-repair-2026-09-13.{md,json}` records
 91 synthetic/container checks plus Ruff and formatting. The opt-in
