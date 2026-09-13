@@ -1,5 +1,14 @@
 # M2 SmolVLA architecture and navigation
 
+Iris 002 completed result (2026-09-13):
+`reports/training/m2-smolvla-iris-result-002-2026-09-13.{md,json}` records both
+fresh 1280-step arms plus separate smokes (2564 updates total). All 27 stages,
+saved-processor independent reloads, 125-file recovery and local numeric checks
+passed; the console confirmed protected shutdown. Both arms fit train40 4/4,
+but development acceptance failed. Image K scene regularization reduced full
+left-joint MAE/MSE by 1.04%/2.21% averaged across four noises, still worse than
+train-only constant baselines. No new Gate 3/4; M2 remains incomplete.
+
 Iris CUDA smoke result (2026-09-13):
 `reports/training/m2-smolvla-iris-smoke-failure-2026-09-13.{md,json}` records
 passed calibration/control smoke/reload, then a treatment metric-name rejection.

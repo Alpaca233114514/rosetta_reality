@@ -1,0 +1,517 @@
+{
+  "schema_version": 1,
+  "run": "iris-k-scene-20260913-002",
+  "status": "negative_result",
+  "training_completed": true,
+  "optimizer_updates": 2564,
+  "control_main_steps": 1280,
+  "treatment_main_steps": 1280,
+  "completed_stages": 27,
+  "worker_seconds": 2714.8055860996246,
+  "source_commit": "5d285f5",
+  "workspace_identity": "20260913T135230Z-5d285f5c8297-3ba03ac32579",
+  "workspace_archive_sha256": "3ba03ac32579b5c403014f32c69192aa2145f083fd4e943b666e9e089a41893a",
+  "template_sha256": "35516b4302714971db57ef50da3dc14b53ee48bf40240f517ac6db2633beb1b2",
+  "train_fit_passed": true,
+  "train_fit_pass_counts": {
+    "treatment": {
+      "all_valid": 4,
+      "joint_radian": 4,
+      "gripper_normalized": 4
+    },
+    "control": {
+      "all_valid": 4,
+      "joint_radian": 4,
+      "gripper_normalized": 4
+    }
+  },
+  "metrics": {
+    "first/left_joint/mae": {
+      "by_noise": {
+        "control": [
+          0.013166376917312544,
+          0.014555543242022396,
+          0.015910108612539865,
+          0.015026906489705047
+        ],
+        "treatment": [
+          0.013147682595687608,
+          0.014607702925180394,
+          0.015784133365377782,
+          0.015170675818808377
+        ]
+      },
+      "constants": {
+        "mean": 0.010653503499149036,
+        "median": 0.008845957849795619
+      },
+      "nonregression": false,
+      "beats_both_constants": false
+    },
+    "first/left_joint/mse": {
+      "by_noise": {
+        "control": [
+          0.0004026023442579749,
+          0.00035152781839735376,
+          0.0004728532700250464,
+          0.0005282670693125249
+        ],
+        "treatment": [
+          0.00039709123001413943,
+          0.00036098525365878384,
+          0.000462976568367183,
+          0.000531193195744271
+        ]
+      },
+      "constants": {
+        "mean": 0.00023611762446690057,
+        "median": 0.00021719101395216935
+      },
+      "nonregression": false,
+      "beats_both_constants": false
+    },
+    "first/left_gripper/mae": {
+      "by_noise": {
+        "control": [
+          0.02256239056587219,
+          0.024233311414718628,
+          0.021170574426651,
+          0.025066810846328735
+        ],
+        "treatment": [
+          0.0230255663394928,
+          0.02483784556388855,
+          0.021294254064559936,
+          0.025313526391983032
+        ]
+      },
+      "constants": {
+        "mean": 0.026343939155340203,
+        "median": 0.0236216276884079
+      },
+      "nonregression": false,
+      "beats_both_constants": false
+    },
+    "first/left_gripper/mse": {
+      "by_noise": {
+        "control": [
+          0.0006945386611958426,
+          0.000736023919637141,
+          0.0006704357062242039,
+          0.0007787078488894039
+        ],
+        "treatment": [
+          0.0007066341942474352,
+          0.0007542538064297943,
+          0.0006624894003566695,
+          0.0007835840976545327
+        ]
+      },
+      "constants": {
+        "mean": 0.0009391208656773885,
+        "median": 0.000866907365888503
+      },
+      "nonregression": false,
+      "beats_both_constants": true
+    },
+    "first/right_joint/mae": {
+      "by_noise": {
+        "control": [
+          0.019733208666245144,
+          0.01982250461975733,
+          0.022385265678167343,
+          0.02625678231318792
+        ],
+        "treatment": [
+          0.019682441403468448,
+          0.01989860286315282,
+          0.02222689762711525,
+          0.02579618071516355
+        ]
+      },
+      "constants": {
+        "mean": 0.016803484962632263,
+        "median": 0.016592562943696976
+      },
+      "nonregression": false,
+      "beats_both_constants": false
+    },
+    "first/right_joint/mse": {
+      "by_noise": {
+        "control": [
+          0.0009088309856158588,
+          0.000824872021274951,
+          0.0011367073952867862,
+          0.0013680192164412187
+        ],
+        "treatment": [
+          0.0009075980687982561,
+          0.0008247494538862716,
+          0.001125911147327191,
+          0.0013351201909228244
+        ]
+      },
+      "constants": {
+        "mean": 0.0007486098675088496,
+        "median": 0.0007721492898272267
+      },
+      "nonregression": true,
+      "beats_both_constants": false
+    },
+    "first/right_gripper/mae": {
+      "by_noise": {
+        "control": [
+          0.007277935743331909,
+          0.007237154245376587,
+          0.0072426021099090574,
+          0.007103818655014038
+        ],
+        "treatment": [
+          0.007232922315597534,
+          0.007210570573806763,
+          0.007196420431137085,
+          0.00709836483001709
+        ]
+      },
+      "constants": {
+        "mean": 0.008339588791131973,
+        "median": 0.006985318660736084
+      },
+      "nonregression": true,
+      "beats_both_constants": false
+    },
+    "first/right_gripper/mse": {
+      "by_noise": {
+        "control": [
+          0.00011729641903546195,
+          0.00013197574011716284,
+          0.0001513622982519891,
+          0.0001328583531430283
+        ],
+        "treatment": [
+          0.00011571505249587943,
+          0.00013145024533525173,
+          0.00015135410346527322,
+          0.0001326630122473915
+        ]
+      },
+      "constants": {
+        "mean": 0.00011138197623649817,
+        "median": 0.00016013087071975463
+      },
+      "nonregression": true,
+      "beats_both_constants": false
+    },
+    "full/left_joint/mae": {
+      "by_noise": {
+        "control": [
+          0.062353698708427455,
+          0.06169169331481681,
+          0.06134212772035972,
+          0.06130434979296599
+        ],
+        "treatment": [
+          0.0614973197017486,
+          0.06119100896765789,
+          0.06078268945915625,
+          0.06066607226912553
+        ]
+      },
+      "constants": {
+        "mean": 0.0476584814604527,
+        "median": 0.04803149469057098
+      },
+      "nonregression": true,
+      "beats_both_constants": false,
+      "leave_one_scene_out_gain": [
+        [
+          0.001067204699502328,
+          0.0006346850846117979,
+          0.0006792989939761618,
+          0.0007731959303297758
+        ],
+        [
+          0.0008066672507751112,
+          0.00047098257249065904,
+          0.0005020301148761057,
+          0.0006022364787835015
+        ],
+        [
+          0.0008112013501037543,
+          0.00045985337327389755,
+          0.0004989273167060031,
+          0.0005730503886782895
+        ],
+        [
+          0.0007023396127624447,
+          0.00042739670316222986,
+          0.0004926369785486391,
+          0.0005676535941893258
+        ],
+        [
+          0.0008944821202506639,
+          0.0005105040022560063,
+          0.0006242979019104172,
+          0.0006752512272214534
+        ]
+      ],
+      "strict_left_improvement": true
+    },
+    "full/left_joint/mse": {
+      "by_noise": {
+        "control": [
+          0.010153231071456166,
+          0.00922520931859656,
+          0.009327841955636119,
+          0.009221076017051338
+        ],
+        "treatment": [
+          0.009878322595937539,
+          0.009051404092029296,
+          0.009140344433043932,
+          0.009018738663082379
+        ]
+      },
+      "constants": {
+        "mean": 0.00570657871880298,
+        "median": 0.006103089014476701
+      },
+      "nonregression": true,
+      "beats_both_constants": false,
+      "leave_one_scene_out_gain": [
+        [
+          0.00032842687492670654,
+          0.0002060605702837075,
+          0.0002152627040302856,
+          0.00023373803864028134
+        ],
+        [
+          0.00022387154967327635,
+          0.00013354914416566048,
+          0.0001535834834570733,
+          0.00016511326200216968
+        ],
+        [
+          0.0002860102070727723,
+          0.00017254774945424053,
+          0.0001887787843589746,
+          0.00020246496808881318
+        ],
+        [
+          0.0002494627985691587,
+          0.00016546409793269119,
+          0.00017879691407998656,
+          0.00019390898822296073
+        ],
+        [
+          0.00028677094735122025,
+          0.00019140457100001013,
+          0.00020106572703461876,
+          0.00021646151289057185
+        ]
+      ],
+      "strict_left_improvement": true
+    },
+    "full/left_gripper/mae": {
+      "by_noise": {
+        "control": [
+          0.08076186680793762,
+          0.061227657675743105,
+          0.05632813966274262,
+          0.06149707090854646
+        ],
+        "treatment": [
+          0.08042463684082031,
+          0.06098302590847014,
+          0.05610089969635009,
+          0.061189290165901175
+        ]
+      },
+      "constants": {
+        "mean": 0.06188979458510875,
+        "median": 0.05147231441736221
+      },
+      "nonregression": true,
+      "beats_both_constants": false
+    },
+    "full/left_gripper/mse": {
+      "by_noise": {
+        "control": [
+          0.022253910405792325,
+          0.011878790796085332,
+          0.01174680708678014,
+          0.01197870682859904
+        ],
+        "treatment": [
+          0.02180026322098098,
+          0.011623954870159745,
+          0.0115123748203944,
+          0.011693715016126366
+        ]
+      },
+      "constants": {
+        "mean": 0.011606839470977329,
+        "median": 0.01192518323198875
+      },
+      "nonregression": true,
+      "beats_both_constants": false
+    },
+    "full/right_joint/mae": {
+      "by_noise": {
+        "control": [
+          0.06317608440667391,
+          0.05958554306377968,
+          0.06613392792890468,
+          0.05996208485464255
+        ],
+        "treatment": [
+          0.06278558317571878,
+          0.05934972571333249,
+          0.06595888431370259,
+          0.05978918938090404
+        ]
+      },
+      "constants": {
+        "mean": 0.055432261930406096,
+        "median": 0.052746439191202324
+      },
+      "nonregression": true,
+      "beats_both_constants": false
+    },
+    "full/right_joint/mse": {
+      "by_noise": {
+        "control": [
+          0.009908127079417307,
+          0.008371151940472296,
+          0.010265978979812527,
+          0.008710594329376929
+        ],
+        "treatment": [
+          0.009758834580629453,
+          0.008290887109745853,
+          0.010187072175592582,
+          0.008634674013183012
+        ]
+      },
+      "constants": {
+        "mean": 0.007696940748587693,
+        "median": 0.007614004852323482
+      },
+      "nonregression": true,
+      "beats_both_constants": false
+    },
+    "full/right_gripper/mae": {
+      "by_noise": {
+        "control": [
+          0.07603615617752076,
+          0.06446581709384919,
+          0.06612248528003692,
+          0.06433800375461578
+        ],
+        "treatment": [
+          0.07558206629753113,
+          0.06393808662891387,
+          0.0656244728565216,
+          0.06380692434310913
+        ]
+      },
+      "constants": {
+        "mean": 0.059881900447607044,
+        "median": 0.05471368533372879
+      },
+      "nonregression": true,
+      "beats_both_constants": false
+    },
+    "full/right_gripper/mse": {
+      "by_noise": {
+        "control": [
+          0.03228824734005507,
+          0.026049546357270158,
+          0.025955545497752273,
+          0.026902551143513143
+        ],
+        "treatment": [
+          0.03207901965167176,
+          0.02580080217783548,
+          0.025683598752671295,
+          0.026632434983778562
+        ]
+      },
+      "constants": {
+        "mean": 0.021734517430320597,
+        "median": 0.02431600323638749
+      },
+      "nonregression": true,
+      "beats_both_constants": false
+    }
+  },
+  "reload": {
+    "control": {
+      "status": "passed",
+      "exact_arrays": [
+        "internal_grippers",
+        "noise",
+        "normalized_predictions",
+        "normalized_targets",
+        "standard_predictions",
+        "standard_targets",
+        "valid_mask"
+      ],
+      "scalar_checks": 370900,
+      "independent_processes": true,
+      "saved_processor_state_loaded": true,
+      "maximum_absolute_difference": 0.0,
+      "m2_complete": false
+    },
+    "treatment": {
+      "status": "passed",
+      "exact_arrays": [
+        "internal_grippers",
+        "noise",
+        "normalized_predictions",
+        "normalized_targets",
+        "standard_predictions",
+        "standard_targets",
+        "valid_mask"
+      ],
+      "scalar_checks": 370900,
+      "independent_processes": true,
+      "saved_processor_state_loaded": true,
+      "maximum_absolute_difference": 0.0,
+      "m2_complete": false
+    }
+  },
+  "source_arrays_sha256": {
+    "control": "16018238ce1c8a481bcbd57cbf43e712df20970bf241004020babbe3a6c525b6",
+    "treatment": "21440380e23eb864fdaaeaac11b193ee03e745efeaa5d044c6b0346d4456f6b0"
+  },
+  "delivery": {
+    "archive_sha256": "0839eb1f2827ee8f69a0804c15391cfe12e43bd85daaea3ca16710ade32c24da",
+    "manifest_sha256": "8f1f80d9676c2a8f25c587d9bf7462fe41778c6fa992681096f7284dbcb9812b",
+    "archive_bytes": 2414888960,
+    "files": 125,
+    "total_bytes": 2414642244
+  },
+  "all_file_sha256_matched": true,
+  "transfer_receipt_delivered": true,
+  "local_numeric_verification": {
+    "status": "passed",
+    "physical_metric_scalar_checks": 200,
+    "both_reload_array_sets_exact": true,
+    "all_slots_valid": true,
+    "reported_scientific_status": "negative_result",
+    "m2_complete": false
+  },
+  "local_verifier": "reports/training/iris-002-validation-20260913/verify_results.py",
+  "local_verifier_sha256": "e1ce00c3939be01b56addf09e7b7af1a23f1d5208c20fb839e0b4f9b3f4fe43a",
+  "local_model_forward_executed": false,
+  "selected_exports_recovered": true,
+  "full_optimizer_checkpoints_recovered": false,
+  "platform_powered_off_observed": true,
+  "instance_released": false,
+  "shutdown_request_recovered": false,
+  "hidden_test_loaded": false,
+  "gate3": "not measured",
+  "gate4": "not measured",
+  "m2_complete": false
+}
