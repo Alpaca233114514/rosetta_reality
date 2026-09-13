@@ -18,6 +18,12 @@ specifies same-checkpoint image K/V mean ablations with native/self-copy control
 It is non-launchable: implementation, source/cache seals and current CUDA runtime
 checks remain pending. No execution or new result is implied by this design.
 
+The implementation now passed 161 offline tests and is separately registered in
+`reports/training/m2-smolvla-hestia-scene-kv-plan-2026-09-13.md` and its template.
+`scripts/hestia_scene_kv.py` owns train-only K/V calibration and image-slice hooks;
+the new collector/supervisor retains exact controls, identity and shutdown gates.
+CUDA controls and scientific results remain pending until the new run completes.
+
 This is the stable architecture and navigation entry point for the current
 SmolVLA M2 work. It is intentionally not named after a furnace or date. Update
 this file when component ownership, execution boundaries, the current evidence
