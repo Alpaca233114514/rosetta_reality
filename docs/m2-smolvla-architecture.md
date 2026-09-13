@@ -1,5 +1,17 @@
 # M2 SmolVLA architecture and navigation
 
+Latest completed Hestia scene K/V diagnosis (2026-09-13):
+`reports/training/m2-smolvla-hestia-scene-kv-result-2026-09-13.{md,json}`
+records 1800 CUDA forwards, 720 exact controls, 54 returned files, 459456
+independent scalar checks and 7200 projection-identity checks. At 640, image
+K-mean improves left-joint MAE from 0.058508 to 0.050983 and strengthens correct
+scene covariance; V-mean worsens MSE under three noises, and removing V after
+K makes both metrics worse under all four noises. Early evidence now favors
+K-side scene dependence/query-key matching, while historical late V-update harm
+remains valid. No strict offline candidate or new Gate passes; M2 is incomplete.
+The platform was observed off. This completed result supersedes the pending
+execution statements and tentative early V prioritization below.
+
 Latest Hestia root-evidence audit (2026-09-13):
 `reports/training/m2-smolvla-hestia-root-evidence-result-2026-09-13.{md,json}`
 recomputes both fixed-remainder K/V factorial tables from saved CUDA arrays.

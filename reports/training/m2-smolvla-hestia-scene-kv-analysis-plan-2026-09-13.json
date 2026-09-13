@@ -1,0 +1,22 @@
+{
+  "id": "hestia-scene-kv-independent-analysis-20260913-001",
+  "registered_utc": "2026-09-13T10:08:44.2795463Z",
+  "remote_run": "hestia-scene-kv-ablation-20260913-001",
+  "template_sha256": "ce9ab25293c3dfd56c08622f35c5c7f65f3069cb19020cb58a284561ca1c3c41",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "source_sha256": {
+    "scripts/verify_hestia_scene_kv_analysis.py": "3063308183c5d282f629eed3513296041f345d3d85a9c359f46dfae957a5dc7d",
+    "tests/test_hestia_scene_kv_analysis_verification.py": "2a6b4fd299abf279c52daa2c74f8057116d006097b6f640a56537b2e2024b50a",
+    "scripts/analyze_hestia_scene_kv.py": "0d00b9ec9b63cdf1765cefb366f9f5f1233c93f2acbc0d62c476ef7e18869771",
+    "runs/hestia-scene-kv-preparation-20260913-001/analysis.sh": "ccef5899b052ac7ddf05a912f4e87f13618f6f71296d2a1839a07693034bef40"
+  },
+  "cpu": 2,
+  "memory_bytes": 2147483648,
+  "seconds_limit": 300,
+  "new_model_forwards": 0,
+  "optimizer_steps": 0,
+  "hidden_loaded": false,
+  "method": "Frozen analysis on complete returned arrays; independently recompute every reported metric with explicit scene/noise indexing, direct omitted-scene means and uncentered covariance expansion. No development selection or changed thresholds.",
+  "output": "runs/hestia-scene-kv-analysis-20260913-001",
+  "synthetic_test_passed": 1
+}
