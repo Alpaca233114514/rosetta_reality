@@ -100,6 +100,7 @@ def _context(
 
 def test_registry_covers_the_declared_feature_set() -> None:
     assert set(FEATURE_FACTORIES) == {
+        "image_key_scene_regularization",
         "trackio_logging",
         "train_only_statistics",
         "masked_camera_skip",
@@ -160,7 +161,7 @@ def test_train_only_statistics_wraps_and_restores_the_dataset_builder(
                 },
             }
         ),
-        encoding="utf-8"
+        encoding="utf-8",
     )
     module = FakeTrainModule()
     monkeypatch.setattr(features_module, "_lerobot_train_module", lambda: module)
@@ -170,16 +171,12 @@ def test_train_only_statistics_wraps_and_restores_the_dataset_builder(
     feature.install(context)
     with pytest.raises(RuntimeError, match="already installed"):
         feature.install(context)
-    cfg = types.SimpleNamespace(
-        dataset=types.SimpleNamespace(episodes=[49])
-    )
+    cfg = types.SimpleNamespace(dataset=types.SimpleNamespace(episodes=[49]))
     dataset, eval_dataset = module.make_train_eval_datasets(cfg)
     expected = torch.tensor([10], dtype=torch.int64)
     assert torch.equal(dataset.meta.stats["action"]["count"], expected)
     assert "observation.state" in eval_dataset.meta.stats
-    out_of_scope = types.SimpleNamespace(
-        dataset=types.SimpleNamespace(episodes=[49, 4])
-    )
+    out_of_scope = types.SimpleNamespace(dataset=types.SimpleNamespace(episodes=[49, 4]))
     with pytest.raises(ValueError, match="outside the train-only normalization scope"):
         module.make_train_eval_datasets(out_of_scope)
     feature.restore(context)
@@ -224,17 +221,13 @@ def test_action_boundary_projection_installs_the_registered_boundary(
 
     feature.install(context)
     preprocessor, _ = module.make_pre_post_processors()
-    installed = [
-        getattr(step.__class__, "_registry_name", None) for step in preprocessor.steps
-    ]
+    installed = [getattr(step.__class__, "_registry_name", None) for step in preprocessor.steps]
     assert REGISTRY_NAME in installed
     with pytest.raises(RuntimeError, match="already installed"):
         feature.install(context)
     feature.restore(context)
     preprocessor, _ = module.make_pre_post_processors()
-    installed = [
-        getattr(step.__class__, "_registry_name", None) for step in preprocessor.steps
-    ]
+    installed = [getattr(step.__class__, "_registry_name", None) for step in preprocessor.steps]
     assert REGISTRY_NAME not in installed
 
 
@@ -254,9 +247,7 @@ def _fake_modeling_module(tmp_path: Path, filename: str) -> types.ModuleType:
             self.model = VLAFlowMatching()
 
         def forward(self, batch, noise=None, time=None, reduction="mean"):
-            losses = self.model.forward(
-                None, None, None, None, None, batch["action"], noise, time
-            )
+            losses = self.model.forward(None, None, None, None, None, batch["action"], noise, time)
             if reduction == "none":
                 return losses.mean(dim=(1, 2)), {"loss": 0.0}
             return losses.mean(), {"loss": 0.0}
@@ -320,9 +311,7 @@ def test_state_robustness_feature_installs_and_restores(
     module = _fake_modeling_module(tmp_path, "state_modeling.py")
     monkeypatch.setattr(features_module, "_load_modeling_module", lambda: module)
     fake_sha = file_sha256(Path(module.__file__))
-    monkeypatch.setattr(
-        state_robustness_module, "UPSTREAM_IMPLEMENTATION_SHA256", fake_sha
-    )
+    monkeypatch.setattr(state_robustness_module, "UPSTREAM_IMPLEMENTATION_SHA256", fake_sha)
     original_install = state_robustness_module.install_state_robustness_profile
     monkeypatch.setattr(
         state_robustness_module,
@@ -345,13 +334,12 @@ def test_state_robustness_feature_installs_and_restores(
     feature = FEATURE_FACTORIES["state_robustness_jitter"]({})
 
     feature.install(context)
-    assert getattr(
-        module.SmolVLAPolicy.forward, "_rosetta_state_robustness_profile", None
-    ) == "normalized_gaussian_state_jitter"
+    assert (
+        getattr(module.SmolVLAPolicy.forward, "_rosetta_state_robustness_profile", None)
+        == "normalized_gaussian_state_jitter"
+    )
     feature.restore(context)
-    assert getattr(
-        module.SmolVLAPolicy.forward, "_rosetta_state_robustness_profile", None
-    ) is None
+    assert getattr(module.SmolVLAPolicy.forward, "_rosetta_state_robustness_profile", None) is None
 
 
 def test_visual_conditioning_feature_installs_and_restores(
@@ -362,9 +350,7 @@ def test_visual_conditioning_feature_installs_and_restores(
     module = _fake_modeling_module(tmp_path, "visual_conditioning_modeling.py")
     monkeypatch.setattr(features_module, "_load_modeling_module", lambda: module)
     fake_sha = file_sha256(Path(module.__file__))
-    monkeypatch.setattr(
-        visual_conditioning_module, "UPSTREAM_IMPLEMENTATION_SHA256", fake_sha
-    )
+    monkeypatch.setattr(visual_conditioning_module, "UPSTREAM_IMPLEMENTATION_SHA256", fake_sha)
     original_install = visual_conditioning_module.install_visual_conditioning_profile
     monkeypatch.setattr(
         visual_conditioning_module,
@@ -392,13 +378,14 @@ def test_visual_conditioning_feature_installs_and_restores(
     feature = FEATURE_FACTORIES["state_conditioning_dropout"]({})
 
     feature.install(context)
-    assert getattr(
-        module.SmolVLAPolicy.forward, "_rosetta_visual_conditioning_profile", None
-    ) == "samplewise_normalized_state_dropout"
+    assert (
+        getattr(module.SmolVLAPolicy.forward, "_rosetta_visual_conditioning_profile", None)
+        == "samplewise_normalized_state_dropout"
+    )
     feature.restore(context)
-    assert getattr(
-        module.SmolVLAPolicy.forward, "_rosetta_visual_conditioning_profile", None
-    ) is None
+    assert (
+        getattr(module.SmolVLAPolicy.forward, "_rosetta_visual_conditioning_profile", None) is None
+    )
 
 
 def test_fixed_frame_sampler_restricts_to_registered_frames(
@@ -462,9 +449,7 @@ def test_trackio_logging_swaps_the_logger_class_without_module_patching(
     assert module.WandBLogger is not original_logger
     extension = feature._public_extension(context)
     assert extension["temporal_loss_profile"] == "first_action_only"
-    assert extension["visual_conditioning_profile"] == (
-        "samplewise_normalized_state_dropout"
-    )
+    assert extension["visual_conditioning_profile"] == ("samplewise_normalized_state_dropout")
     assert extension["state_dropout_probability"] == pytest.approx(0.5)
     assert extension["state_dropout_granularity"] == "whole_sample"
     assert extension["state_dropout_training_only"] is True
@@ -479,9 +464,7 @@ def test_install_failure_rolls_back_already_installed_features(
 ) -> None:
     module = FakeTrainModule()
     monkeypatch.setattr(features_module, "_lerobot_train_module", lambda: module)
-    context = _context(
-        tmp_path, normalization_report=tmp_path / "missing-normalization.json"
-    )
+    context = _context(tmp_path, normalization_report=tmp_path / "missing-normalization.json")
     stack = FeatureStack.from_plan(
         {
             "features": [
@@ -494,7 +477,5 @@ def test_install_failure_rolls_back_already_installed_features(
     with pytest.raises(FileNotFoundError):
         stack.install_all(context)
     assert stack.installed == []
-    assert getattr(module, "_rosetta_v2_feature_checkpoint_memory_trim_installed", False) is (
-        False
-    )
+    assert getattr(module, "_rosetta_v2_feature_checkpoint_memory_trim_installed", False) is (False)
     assert module.save_checkpoint() == "saved"

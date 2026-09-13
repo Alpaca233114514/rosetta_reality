@@ -1,0 +1,29 @@
+{
+  "id": "iris-local-repair-20260913-001",
+  "status": "local_static_and_synthetic_passed",
+  "tests_passed": 91,
+  "ruff": "passed",
+  "format": "passed",
+  "python": "3.12.3",
+  "torch": "2.11.0+xpu",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "network": "none",
+  "new_policy_forwards": 0,
+  "optimizer_steps": 0,
+  "ssh_used_in_local_repair_module": false,
+  "launchable": false,
+  "real_cuda_feature_smoke": "not measured",
+  "independent_real_checkpoint_reload": "not measured",
+  "m2_complete": false,
+  "source_sha256": {
+    "src/rosetta_reality/vla/image_key_regularization.py": "8039d9ddfe944d4782eb96ac4022650b82a0e845c54670bd79abade31ac888a1",
+    "src/rosetta_reality/vla/training/features.py": "461256a1af9f6f1f3fdeb728943d7577ef919d4eb73e59a22e967c3885414af4",
+    "src/rosetta_reality/vla/training/plan.py": "415ab4af4d660b91ee5df45dc13d00c6335028a66aad86380b7df46abaf2348c",
+    "scripts/audit_iris_attention_backend.py": "9db39e152752a5fc2b7659c468ba2fa2188d88acfa59e603f9c05cb840696948",
+    "scripts/iris_runtime.py": "1f04d67dbca4f3e292f159c99fe0f95e416647892db7368e0cd97c87f6140666",
+    "scripts/check_iris_preparation.sh": "88cf4691d5085ae8be6af0d62d0bae1c83521af4f123a1ea67aaf32693aa3957",
+    "tests/test_image_key_regularization.py": "55186be98c0d97fedd2f2dcee99e2683329801b575d1b180c7889bb7d7f60221",
+    "tests/test_iris_runtime.py": "3edba386f0c2b1e2a6eb561370585ddfe5cc6996cac9b31d8196efc30ca18caf",
+    "tests/test_smolvla_training_features.py": "5f110b9511e6e32aca01157897222857f388f7052f4516e9a2714daa17ca929d"
+  }
+}

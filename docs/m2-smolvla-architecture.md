@@ -1,5 +1,13 @@
 # M2 SmolVLA architecture and navigation
 
+Iris local repair module (2026-09-13):
+`reports/training/m2-smolvla-iris-local-repair-2026-09-13.{md,json}` records
+91 synthetic/container checks plus Ruff and formatting. The opt-in
+`image_key_regularization.py` feature and `scripts/iris_runtime.py` own the
+training regularizer and sealed checkpoint/evaluation boundaries. Calibration,
+the complete two-arm supervisor and live CUDA admission remain pending;
+Iris is not launchable, no training started, and M2/Gate status is unchanged.
+
 Latest completed Hestia scene K/V diagnosis (2026-09-13):
 `reports/training/m2-smolvla-hestia-scene-kv-result-2026-09-13.{md,json}`
 records 1800 CUDA forwards, 720 exact controls, 54 returned files, 459456

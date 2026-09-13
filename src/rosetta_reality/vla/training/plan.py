@@ -223,9 +223,7 @@ def validate_optimizer_contract(training: dict[str, Any]) -> dict[str, Any] | No
         or float(peak_lr) != float(numeric_optimizer["lr"])
         or not 0.0 < float(decay_lr) < float(peak_lr)
     ):
-        raise ValueError(
-            "The version-2 cosine LR schedule is invalid or not step-matched."
-        )
+        raise ValueError("The version-2 cosine LR schedule is invalid or not step-matched.")
 
     return {
         "optimizer": {
@@ -274,9 +272,7 @@ def training_coverage(training: dict[str, Any], train_rows: int) -> dict[str, in
         "optimizer_steps": steps,
         "sample_exposures": sample_exposures,
         "dataset_passes": dataset_passes,
-        "minimum_dataset_passes": (
-            0.0 if minimum_passes is None else float(minimum_passes)
-        ),
+        "minimum_dataset_passes": (0.0 if minimum_passes is None else float(minimum_passes)),
     }
 
 
@@ -292,9 +288,7 @@ def _validate_training(plan: dict[str, Any]) -> None:
             "Training save frequency must be a multiple of the log frequency so "
             "every checkpoint has an exact metric row (audit finding T9)."
         )
-    num_workers = _non_negative_int(
-        training.get("num_workers", 0), "Training worker count"
-    )
+    num_workers = _non_negative_int(training.get("num_workers", 0), "Training worker count")
     persistent_workers = _boolean(
         training.get("persistent_workers", False), "Training persistent workers"
     )
@@ -400,60 +394,72 @@ def _validate_features(plan: dict[str, Any], known_features: Container[str]) -> 
         _mapping(plan.get("training"), "Plan section 'training'").get("policy"),
         "Training policy overlay",
     )
-    if FEATURE_MASKED_CAMERA_SKIP in names and training_policy.get(
-        "skip_fully_masked_camera_encoding"
-    ) is not True:
+    if (
+        FEATURE_MASKED_CAMERA_SKIP in names
+        and training_policy.get("skip_fully_masked_camera_encoding") is not True
+    ):
         raise ValueError(
             "Declaring masked_camera_skip requires "
             "training.policy.skip_fully_masked_camera_encoding: true."
         )
     resources = _mapping(plan.get("resources"), "Plan section 'resources'")
-    if FEATURE_CHECKPOINT_MEMORY_TRIM in names and resources.get(
-        "checkpoint_memory_trim"
-    ) is not True:
+    if (
+        FEATURE_CHECKPOINT_MEMORY_TRIM in names
+        and resources.get("checkpoint_memory_trim") is not True
+    ):
         raise ValueError(
             "Declaring checkpoint_memory_trim requires resources.checkpoint_memory_trim: true."
         )
-    if FEATURE_HORIZON_WEIGHT_PROFILE in names and not isinstance(
-        plan.get("loss_contract"), dict
-    ):
+    if FEATURE_HORIZON_WEIGHT_PROFILE in names and not isinstance(plan.get("loss_contract"), dict):
         raise ValueError("Declaring horizon_weight_profile requires a loss contract.")
     if FEATURE_STATE_ROBUSTNESS_JITTER in names and not isinstance(
         plan.get("state_robustness_contract"), dict
     ):
-        raise ValueError(
-            "Declaring state_robustness_jitter requires a state-robustness contract."
-        )
+        raise ValueError("Declaring state_robustness_jitter requires a state-robustness contract.")
     if FEATURE_STATE_CONDITIONING_DROPOUT in names and not isinstance(
         plan.get("visual_conditioning_contract"), dict
     ):
         raise ValueError(
-            "Declaring state_conditioning_dropout requires a visual-conditioning "
-            "contract."
+            "Declaring state_conditioning_dropout requires a visual-conditioning contract."
         )
     if FEATURE_VISION_FRONT_END_UNFREEZE in names and not isinstance(
         plan.get("vision_front_end_contract"), dict
     ):
         raise ValueError(
-            "Declaring vision_front_end_unfreeze requires a vision front-end "
-            "treatment contract."
+            "Declaring vision_front_end_unfreeze requires a vision front-end treatment contract."
         )
-    if (
-        FEATURE_STATE_ROBUSTNESS_JITTER in names
-        and FEATURE_STATE_CONDITIONING_DROPOUT in names
-    ):
+    if FEATURE_STATE_ROBUSTNESS_JITTER in names and FEATURE_STATE_CONDITIONING_DROPOUT in names:
         raise ValueError(
             "Features state_robustness_jitter and state_conditioning_dropout are "
             "mutually exclusive: both patch the pinned policy forward and mutate "
             "the same training-time observation.state."
         )
+    if "image_key_scene_regularization" in names:
+        contract = _mapping(plan.get("image_key_scene_contract"), "Image key scene contract")
+        coefficient = contract.get("coefficient")
+        if isinstance(coefficient, bool) or coefficient not in (0, 0.01):
+            raise ValueError("Image key coefficient must be the registered 0 or 0.01")
+        repository_relative_path(contract.get("calibration_path"), context="K calibration")
+        if not is_sha256(contract.get("calibration_sha256")):
+            raise ValueError("Image key calibration requires a SHA-256 identity")
+        if contract.get("layers") != list(range(1, 16, 2)) or contract.get("image_token_range") != [
+            0,
+            64,
+        ]:
+            raise ValueError("Registered image key layer/token scope differs")
+        conflicting = {
+            FEATURE_HORIZON_WEIGHT_PROFILE,
+            FEATURE_STATE_ROBUSTNESS_JITTER,
+            FEATURE_STATE_CONDITIONING_DROPOUT,
+            FEATURE_VISION_FRONT_END_UNFREEZE,
+        }
+        if conflicting.intersection(names):
+            raise ValueError("Iris registration permits only the image-key learning axis")
+        if plan["training"]["policy"].get("compile_model"):
+            raise ValueError("Image-key hook compilation has not been validated")
     if FEATURE_GRADIENT_CLIP_DIAGNOSTICS in names:
-        optimizer = _mapping(plan.get("training"), "Plan section 'training'").get(
-            "optimizer"
-        )
-        clip_norm = (
-            optimizer.get("grad_clip_norm") if isinstance(optimizer, dict) else None
-        )
+        optimizer = _mapping(plan.get("training"), "Plan section 'training'").get("optimizer")
+        clip_norm = optimizer.get("grad_clip_norm") if isinstance(optimizer, dict) else None
         if (
             not isinstance(clip_norm, int | float)
             or isinstance(clip_norm, bool)

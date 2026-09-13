@@ -136,9 +136,7 @@ class TrainOnlyStatisticsFeature(TrainingFeature):
             dataset, eval_dataset = original(cfg)
             dataset.meta.stats.update(_convert_statistics(report["effective_stats"]))
             if eval_dataset is not None:
-                eval_dataset.meta.stats.update(
-                    _convert_statistics(report["effective_stats"])
-                )
+                eval_dataset.meta.stats.update(_convert_statistics(report["effective_stats"]))
             return dataset, eval_dataset
 
         make_train_eval_datasets._rosetta_v2_original = original  # type: ignore[attr-defined]
@@ -150,9 +148,9 @@ class TrainOnlyStatisticsFeature(TrainingFeature):
         if getattr(lerobot_train, _marker(self.name), False) is not True:
             raise RuntimeError("No train-only statistics wrapper is installed.")
         current = lerobot_train.make_train_eval_datasets
-        lerobot_train.make_train_eval_datasets = getattr(
-            current, "_rosetta_v2_original", None
-        ) or current
+        lerobot_train.make_train_eval_datasets = (
+            getattr(current, "_rosetta_v2_original", None) or current
+        )
         setattr(lerobot_train, _marker(self.name), False)
 
 
@@ -220,9 +218,9 @@ class ActionBoundaryProjectionFeature(TrainingFeature):
         if getattr(lerobot_train, _marker(self.name), False) is not True:
             raise RuntimeError("No action-boundary projection wrapper is installed.")
         current = lerobot_train.make_pre_post_processors
-        lerobot_train.make_pre_post_processors = getattr(
-            current, "_rosetta_v2_original", None
-        ) or current
+        lerobot_train.make_pre_post_processors = (
+            getattr(current, "_rosetta_v2_original", None) or current
+        )
         setattr(lerobot_train, _marker(self.name), False)
 
 
@@ -276,9 +274,7 @@ class FixedFrameSamplerFeature(TrainingFeature):
                 absolute_to_relative_idx: dict[int, int] | None = None,
             ) -> None:
                 if drop_n_first_frames != 0 or drop_n_last_frames != 0:
-                    raise ValueError(
-                        "Fixed-frame repair does not allow implicit frame dropping."
-                    )
+                    raise ValueError("Fixed-frame repair does not allow implicit frame dropping.")
                 if samples is None:
                     fixed_indices = resolve_fixed_dataset_indices(
                         protocol,
@@ -320,9 +316,7 @@ class FixedFrameSamplerFeature(TrainingFeature):
                 import torch
 
                 epoch_seed = int(
-                    np.random.SeedSequence([self.seed, epoch]).generate_state(
-                        1, dtype=np.uint64
-                    )[0]
+                    np.random.SeedSequence([self.seed, epoch]).generate_state(1, dtype=np.uint64)[0]
                 )
                 return torch.Generator().manual_seed(epoch_seed)
 
@@ -336,9 +330,9 @@ class FixedFrameSamplerFeature(TrainingFeature):
         if getattr(lerobot_train, _marker(self.name), False) is not True:
             raise RuntimeError("No fixed-frame sampler is installed.")
         current = lerobot_train.EpisodeAwareSampler
-        lerobot_train.EpisodeAwareSampler = getattr(
-            current, "_rosetta_v2_original", None
-        ) or current
+        lerobot_train.EpisodeAwareSampler = (
+            getattr(current, "_rosetta_v2_original", None) or current
+        )
         setattr(lerobot_train, _marker(self.name), False)
 
 
@@ -366,6 +360,50 @@ class HorizonWeightProfileFeature(TrainingFeature):
         from rosetta_reality.vla.horizon_loss import restore_horizon_weight_profile
 
         restore_horizon_weight_profile(_load_modeling_module())
+
+
+class ImageKeySceneRegularizationFeature(TrainingFeature):
+    """Bind train-only fresh-base calibration before installing the Iris loss."""
+
+    name = "image_key_scene_regularization"
+
+    def __init__(self, parameters: Mapping[str, Any]) -> None:
+        if parameters:
+            raise ValueError("image_key_scene_regularization declares no inline parameters.")
+
+    def install(self, context: TrainingContext) -> None:
+        from rosetta_reality.vla.image_key_regularization import install, load_calibration
+        from rosetta_reality.vla.training.plan import repository_relative_path
+
+        contract = context.plan["image_key_scene_contract"]
+        relative = repository_relative_path(contract["calibration_path"], context="K calibration")
+        root = Path(__file__).resolve().parents[4]
+        source = (root / relative).resolve()
+        if not source.is_relative_to(root):
+            raise ValueError("K calibration path escaped the workspace")
+        expected = {
+            "status": "passed",
+            "source": "fresh_pinned_base_train40",
+            "labels_used": False,
+            "dev_loaded": False,
+            "hidden_loaded": False,
+            "optimizer_steps": 0,
+            "model_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+            "dataset_revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+            "normalization_sha256": context.plan["normalization"]["report_sha256"],
+            "dataset_view_manifest_sha256": context.plan["normalization"][
+                "dataset_view_manifest_sha256"
+            ],
+            "episodes": context.plan["training"]["episodes"],
+            "frame_offset": 0,
+        }
+        scales = load_calibration(source, contract["calibration_sha256"], expected)
+        install(_load_modeling_module(), scales, contract["coefficient"])
+
+    def restore(self, context: TrainingContext) -> None:
+        from rosetta_reality.vla.image_key_regularization import restore
+
+        restore(_load_modeling_module())
 
 
 class StateRobustnessJitterFeature(TrainingFeature):
@@ -463,10 +501,7 @@ class VisionFrontEndUnfreezeFeature(TrainingFeature):
         contract = context.plan.get("vision_front_end_contract")
         if not isinstance(contract, dict) or contract.get("profile") != "visual_front_end_unfreeze":
             raise ValueError("The vision front-end treatment contract is missing.")
-        if (
-            contract.get("activation_checkpointing")
-            != "per_module_nonreentrant_vision_front_end"
-        ):
+        if contract.get("activation_checkpointing") != "per_module_nonreentrant_vision_front_end":
             raise ValueError(
                 "The vision front-end contract must declare the registered "
                 "per-module non-reentrant activation checkpointing."
@@ -519,9 +554,7 @@ class VisionFrontEndUnfreezeFeature(TrainingFeature):
         if getattr(lerobot_train, _marker(self.name), False) is not True:
             raise RuntimeError("No vision front-end unfreeze wrapper is installed.")
         current = lerobot_train.make_policy
-        lerobot_train.make_policy = getattr(
-            current, "_rosetta_v2_original", None
-        ) or current
+        lerobot_train.make_policy = getattr(current, "_rosetta_v2_original", None) or current
         setattr(lerobot_train, _marker(self.name), False)
 
 
@@ -549,9 +582,7 @@ def _diagnostics_destination(context: TrainingContext, filename: str) -> Path:
     if not run_root:
         raise RuntimeError("Training diagnostics require ROSETTA_RUN_ROOT.")
 
-    directory = (
-        Path(run_root) / str(context.experiment["experiment_id"]) / "diagnostics"
-    )
+    directory = Path(run_root) / str(context.experiment["experiment_id"]) / "diagnostics"
     directory.mkdir(parents=True, exist_ok=True)
     return directory / filename
 
@@ -603,9 +634,7 @@ class GradientClipDiagnosticsFeature(TrainingFeature):
                 continue
             gradient = parameter.grad.detach()
             if not bool(torch.isfinite(gradient).all()):
-                raise FloatingPointError(
-                    "Non-finite gradient observed by clip diagnostics."
-                )
+                raise FloatingPointError("Non-finite gradient observed by clip diagnostics.")
             group = (
                 names.get(id(parameter), "unresolved").split(".", 1)[0]
                 if names is not None
@@ -614,9 +643,7 @@ class GradientClipDiagnosticsFeature(TrainingFeature):
             squared[group] = squared.get(group, 0.0) + float(
                 gradient.to(torch.float64).square().sum()
             )
-        module_norms = {
-            group: math.sqrt(value) for group, value in squared.items()
-        }
+        module_norms = {group: math.sqrt(value) for group, value in squared.items()}
         module_norms["global"] = math.sqrt(sum(squared.values()))
         return module_norms
 
@@ -637,9 +664,7 @@ class GradientClipDiagnosticsFeature(TrainingFeature):
                 "gradient_clip_diagnostics requires a positive registered "
                 "grad_clip_norm; the zero-clip fallback path is not instrumented."
             )
-        destination = _diagnostics_destination(
-            context, f"gradient-clip-{context.run_name}.jsonl"
-        )
+        destination = _diagnostics_destination(context, f"gradient-clip-{context.run_name}.jsonl")
         if destination.exists():
             raise FileExistsError(f"Clip diagnostics are create-only: {destination.name}.")
         self._original_clip = accelerate.Accelerator.clip_grad_norm_
@@ -653,8 +678,7 @@ class GradientClipDiagnosticsFeature(TrainingFeature):
             if policy is not None and state["policy"] is not policy:
                 state["policy"] = policy
                 state["names"] = {
-                    id(parameter): name
-                    for name, parameter in policy.named_parameters()
+                    id(parameter): name for name, parameter in policy.named_parameters()
                 }
             return self._original_update(*args, **kwargs)
 
@@ -669,9 +693,7 @@ class GradientClipDiagnosticsFeature(TrainingFeature):
             # exhausted iterator.
             materialized = list(parameters)
             pre_clip = self._norms(materialized, state["names"])
-            total_norm = self._original_clip(
-                self_accelerator, materialized, max_norm, **kwargs
-            )
+            total_norm = self._original_clip(self_accelerator, materialized, max_norm, **kwargs)
             post_clip = self._norms(materialized, state["names"])
             state["update"] = int(state["update"]) + 1
             with open(state["destination"], "a", encoding="utf-8") as handle:
@@ -705,9 +727,9 @@ class GradientClipDiagnosticsFeature(TrainingFeature):
         if self._original_clip is not None:
             accelerate.Accelerator.clip_grad_norm_ = self._original_clip
         current_update = lerobot_train.update_policy
-        lerobot_train.update_policy = getattr(
-            current_update, "_rosetta_v2_original", None
-        ) or current_update
+        lerobot_train.update_policy = (
+            getattr(current_update, "_rosetta_v2_original", None) or current_update
+        )
         setattr(accelerate.Accelerator, self._CLIP_MARKER, False)
 
 
@@ -781,15 +803,12 @@ class CheckpointMetricSnapshotFeature(TrainingFeature):
             step = int(step)
             if step not in captured:
                 raise ValueError(
-                    "Checkpoint step has no exact captured metric row (finding T9): "
-                    f"{step}."
+                    f"Checkpoint step has no exact captured metric row (finding T9): {step}."
                 )
             result = original_save(*args, **kwargs)
             import json
 
-            checkpoint_dir = (
-                kwargs.get("checkpoint_dir") if "checkpoint_dir" in kwargs else args[0]
-            )
+            checkpoint_dir = kwargs.get("checkpoint_dir") if "checkpoint_dir" in kwargs else args[0]
             payload = {
                 "schema_version": 1,
                 "stage": "smolvla_v2_checkpoint_metric_snapshot",
@@ -819,12 +838,12 @@ class CheckpointMetricSnapshotFeature(TrainingFeature):
             raise RuntimeError("No checkpoint metric snapshot is installed.")
         current_update = lerobot_train.update_policy
         current_save = lerobot_train.save_checkpoint
-        lerobot_train.update_policy = getattr(
-            current_update, "_rosetta_v2_original", None
-        ) or current_update
-        lerobot_train.save_checkpoint = getattr(
-            current_save, "_rosetta_v2_original", None
-        ) or current_save
+        lerobot_train.update_policy = (
+            getattr(current_update, "_rosetta_v2_original", None) or current_update
+        )
+        lerobot_train.save_checkpoint = (
+            getattr(current_save, "_rosetta_v2_original", None) or current_save
+        )
         setattr(lerobot_train, _marker(self.name), False)
 
 
@@ -873,12 +892,12 @@ class CheckpointMemoryTrimFeature(TrainingFeature):
             raise RuntimeError("No checkpoint memory trim is installed.")
         current_resume = lerobot_train.resume_after_prepare
         current_save = lerobot_train.save_checkpoint
-        lerobot_train.resume_after_prepare = getattr(
-            current_resume, "_rosetta_v2_original", None
-        ) or current_resume
-        lerobot_train.save_checkpoint = getattr(
-            current_save, "_rosetta_v2_original", None
-        ) or current_save
+        lerobot_train.resume_after_prepare = (
+            getattr(current_resume, "_rosetta_v2_original", None) or current_resume
+        )
+        lerobot_train.save_checkpoint = (
+            getattr(current_save, "_rosetta_v2_original", None) or current_save
+        )
         setattr(lerobot_train, _marker(self.name), False)
 
 
@@ -925,20 +944,14 @@ class TrackioLoggingFeature(TrainingFeature):
         visual_contract = context.plan.get("visual_conditioning_contract")
         if isinstance(visual_contract, dict):
             extension["visual_conditioning_profile"] = visual_contract.get("profile")
-            extension["state_dropout_probability"] = visual_contract.get(
-                "dropout_probability"
-            )
-            extension["state_dropout_granularity"] = visual_contract.get(
-                "granularity"
-            )
+            extension["state_dropout_probability"] = visual_contract.get("dropout_probability")
+            extension["state_dropout_granularity"] = visual_contract.get("granularity")
             extension["state_dropout_training_only"] = True
         vision_scope = context.plan.get("vision_front_end_contract")
         if isinstance(vision_scope, dict):
             extension["vision_front_end_profile"] = vision_scope.get("profile")
             extension["vision_front_end_scope"] = vision_scope.get("scope")
-            extension["vision_front_end_language_model"] = vision_scope.get(
-                "language_model"
-            )
+            extension["vision_front_end_language_model"] = vision_scope.get("language_model")
             extension["vision_front_end_training_only"] = True
         return extension
 
@@ -1006,9 +1019,7 @@ class TrackioLoggingFeature(TrainingFeature):
                 self._trackio = trackio
                 self._last_step = 0
                 cfg.wandb.run_id = str(getattr(self._run, "id", name))
-                logging.info(
-                    "Metrics are stored in local Trackio for sanitized static-Space sync."
-                )
+                logging.info("Metrics are stored in local Trackio for sanitized static-Space sync.")
 
         PlanBoundTrackioLogger.__name__ = "PlanBoundTrackioLogger"
         return PlanBoundTrackioLogger
@@ -1037,6 +1048,7 @@ FEATURE_FACTORIES: dict[str, Callable[[Mapping[str, Any]], TrainingFeature]] = {
     ActionBoundaryProjectionFeature.name: ActionBoundaryProjectionFeature,
     FixedFrameSamplerFeature.name: FixedFrameSamplerFeature,
     HorizonWeightProfileFeature.name: HorizonWeightProfileFeature,
+    ImageKeySceneRegularizationFeature.name: ImageKeySceneRegularizationFeature,
     StateRobustnessJitterFeature.name: StateRobustnessJitterFeature,
     StateConditioningDropoutFeature.name: StateConditioningDropoutFeature,
     VisionFrontEndUnfreezeFeature.name: VisionFrontEndUnfreezeFeature,
@@ -1073,9 +1085,7 @@ class FeatureStack:
             if name in names:
                 raise ValueError(f"Training feature declared twice: {name!r}.")
             names.add(name)
-            parameters = {
-                key: value for key, value in declaration.items() if key != "name"
-            }
+            parameters = {key: value for key, value in declaration.items() if key != "name"}
             features.append(factory(parameters))
         if not features:
             raise ValueError("Version-2 plans must declare at least one feature.")
