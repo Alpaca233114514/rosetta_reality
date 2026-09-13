@@ -23,8 +23,8 @@ def test_ratio_of_means_threshold_also_requires_all_four_noise_signs():
         error = {k: dict(mean=float(np.mean(values)), by_noise=values) for k in ("mae", "mse")}
         return dict(standard=dict(dev5=dict(full=dict(left_joint=dict(errors=dict(model=error))))))
 
-    metrics = {"base640_native": entry([10]*4), "base640_kdirection": entry([5]*4)}
-    metrics.update({f"base640_kh{h}": entry([7]*4) for h in range(5)})
+    metrics = {"base640_native": entry([10] * 4), "base640_kdirection": entry([5] * 4)}
+    metrics.update({f"base640_kh{h}": entry([7] * 4) for h in range(5)})
     assert all(r["qualifies_for_routing_isolation"] for r in head_effects(metrics))
     other = copy.deepcopy(metrics)
     other["base640_kh2"] = entry([11, 5, 5, 5])
