@@ -1,5 +1,14 @@
 # M2 SmolVLA architecture and navigation
 
+Latest completed policy Gates: Iris 002 (closure 2026-09-14).
+`reports/training/m2-smolvla-iris-gate34-result-2026-09-14.{md,json}` records
+control/treatment suffixes 451/452: both Gate 3 passed, both Gate 4 failed 0/5,
+maximum reward 0 on all ten 500-step episodes. Safety counts were zero; only
+task success failed. All 5040 closed-loop actions plus eight bridge inferences
+used unchanged weights (zero optimizer). 46 evidence files and independent
+report/binding/arithmetic checks passed; platform shutdown was observed.
+Earlier pending Gate statements below are superseded. M2 remains incomplete.
+
 Iris Gate state-contract correction (2026-09-13):
 `reports/training/m2-smolvla-iris-gate34-recovery-003-2026-09-13.md` records
 attempt 002 stopping before inference on the upstream config's placeholder
