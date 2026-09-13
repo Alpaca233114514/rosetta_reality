@@ -1,5 +1,12 @@
 # M2 SmolVLA architecture and navigation
 
+Iris Gate state-contract correction (2026-09-13):
+`reports/training/m2-smolvla-iris-gate34-recovery-003-2026-09-13.md` records
+attempt 002 stopping before inference on the upstream config's placeholder
+state dimension. The wrapper now uses the original engine's dataset-state and
+action-contract helpers; 52 relevant local checks passed. Attempt 003 preserves
+the same two checkpoints and all thresholds. No Gate outcome is claimed yet.
+
 Iris Gate runtime correction (2026-09-13):
 `reports/training/m2-smolvla-iris-gate34-recovery-002-2026-09-13.md` preserves
 the first attempt's pre-inference data-root identity failure (21 files recovered,

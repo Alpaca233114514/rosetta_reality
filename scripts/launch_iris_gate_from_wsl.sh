@@ -10,11 +10,11 @@ expected=${3:?Sealed template SHA required}
  -p 20497 root@connect.cqa1.seetacloud.com "bash -s -- '$workspace' '$template' '$expected'" <<'REMOTE'
 set -Eeuo pipefail
 cd "$1"
-test ! -e runs/iris-002-gate34-20260913-002
-test ! -e runs/iris-002-gate34-20260913-002-supervisor.log
+test ! -e runs/iris-002-gate34-20260913-003
+test ! -e runs/iris-002-gate34-20260913-003-supervisor.log
 test "$(sha256sum "$2" | cut -d' ' -f1)" = "$3"
 mkdir -p runs
 nohup bash scripts/launch_iris_gate_worker.sh "$2" "$3" \
- >runs/iris-002-gate34-20260913-002-supervisor.log 2>&1 </dev/null &
+ >runs/iris-002-gate34-20260913-003-supervisor.log 2>&1 </dev/null &
 printf 'IRIS_SUPERVISOR_PID=%s\n' "$!"
 REMOTE

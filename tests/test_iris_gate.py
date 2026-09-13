@@ -4,6 +4,7 @@ import json
 import os
 import sys
 import time
+from types import SimpleNamespace
 
 import pytest
 
@@ -86,3 +87,17 @@ def test_native_loader_uses_data_root_and_restores_gate_output_root(tmp_path, mo
     else:
         assert iris_gate.load_gate_context() == "context"
     assert os.environ["ROSETTA_RUN_ROOT"] == str(tmp_path / "gate-results")
+
+
+def test_deployment_uses_dataset_state_not_upstream_placeholder():
+    policy = SimpleNamespace(
+        chunk_size=50,
+        input_features={"observation.state": SimpleNamespace(shape=(6,))},
+        output_features={"action": SimpleNamespace(shape=(14,))},
+    )
+    contract = SimpleNamespace(chunk_length=50, dimension=14)
+    features = {"observation.state": {"shape": [14]}}
+    assert iris_gate.deployment_state_dimension(policy, contract, features) == 14
+    policy.output_features["action"].shape = (13,)
+    with pytest.raises(ValueError, match="policy dimensions"):
+        iris_gate.deployment_state_dimension(policy, contract, features)

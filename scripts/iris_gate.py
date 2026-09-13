@@ -15,7 +15,7 @@ sys.path[:0] = [str(ROOT), str(ROOT / "src"), str(ROOT / "scripts")]
 
 from scripts.iris_runtime import budget, load_native, save, sha, verify_reload  # noqa: E402
 
-NAME = "iris-002-gate34-20260913-002"
+NAME = "iris-002-gate34-20260913-003"
 SOURCE_WORKSPACE = "20260913T135230Z-5d285f5c8297-3ba03ac32579"
 SOURCE_RUN = "iris-k-scene-20260913-002"
 MANIFEST_SHA = "8f1f80d9676c2a8f25c587d9bf7462fe41778c6fa992681096f7284dbcb9812b"
@@ -48,6 +48,14 @@ def load_gate_context(*args, **kwargs):
             os.environ.pop("ROSETTA_RUN_ROOT", None)
         else:
             os.environ["ROSETTA_RUN_ROOT"] = previous
+
+
+def deployment_state_dimension(policy_config, contract, dataset_features):
+    from scripts import smolvla_sim_gate as engine
+
+    return engine._validate_policy_contract_shape(
+        policy_config, contract, engine._dataset_state_dimension(dataset_features)
+    )
 
 
 def check_source(source):
@@ -245,10 +253,9 @@ def run_gate(job, arm, gate):
                 context.post,
             )
             self.device, self.mixed_precision = torch.device("cuda"), "bf16"
-            shape = context.policy.config.input_features["observation.state"].shape
-            if len(shape) != 1:
-                raise ValueError("State dimension differs")
-            self.state_dimension = shape[0]
+            self.state_dimension = deployment_state_dimension(
+                self.policy.config, contract, config["dataset_features"]
+            )
             self.action_dimension, self.chunk_length = contract.dimension, contract.chunk_length
             self._noise_mode, self._noise_seed = "zeros", None
             self._noise_generator = torch.Generator(device="cpu")
