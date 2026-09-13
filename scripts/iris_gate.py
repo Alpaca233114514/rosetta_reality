@@ -15,7 +15,7 @@ sys.path[:0] = [str(ROOT), str(ROOT / "src"), str(ROOT / "scripts")]
 
 from scripts.iris_runtime import budget, load_native, save, sha, verify_reload  # noqa: E402
 
-NAME = "iris-002-gate34-20260913-001"
+NAME = "iris-002-gate34-20260913-002"
 SOURCE_WORKSPACE = "20260913T135230Z-5d285f5c8297-3ba03ac32579"
 SOURCE_RUN = "iris-k-scene-20260913-002"
 MANIFEST_SHA = "8f1f80d9676c2a8f25c587d9bf7462fe41778c6fa992681096f7284dbcb9812b"
@@ -34,6 +34,20 @@ def source_job():
         / "runs"
         / SOURCE_RUN
     )
+
+
+def load_gate_context(*args, **kwargs):
+    """Keep the native data-view root separate from the gate report root."""
+    previous = os.environ.get("ROSETTA_RUN_ROOT")
+    native_root = (Path(os.environ["ROSETTA_AUTODL_ROOT"]) / "runs").resolve(strict=True)
+    os.environ["ROSETTA_RUN_ROOT"] = str(native_root)
+    try:
+        return load_native(*args, **kwargs)
+    finally:
+        if previous is None:
+            os.environ.pop("ROSETTA_RUN_ROOT", None)
+        else:
+            os.environ["ROSETTA_RUN_ROOT"] = previous
 
 
 def check_source(source):
@@ -216,7 +230,7 @@ def run_gate(job, arm, gate):
 
     class Online(Base):
         def __init__(self, artifact, config, normalization, contract):
-            context = load_native(
+            context = load_gate_context(
                 source / "plans" / (arm + "-main.yaml"),
                 checkpoint=source / "exports" / arm,
                 checkpoint_files=load(source / (arm + "-main-checkpoint.json"))["files"],

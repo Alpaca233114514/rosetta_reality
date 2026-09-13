@@ -12,8 +12,8 @@ if [[ "$mode" == format ]]; then
   mounts+=(--mount "type=bind,source=$repo/$file,target=/workspace/$file")
  done
 elif [[ "$mode" == prepare ]]; then
- mkdir -p runs/iris-gate-preparation-20260913-001
- mounts+=(--mount "type=bind,source=$repo/runs/iris-gate-preparation-20260913-001,target=/workspace/runs/iris-gate-preparation-20260913-001")
+ mkdir -p runs/iris-gate-preparation-20260913-002
+ mounts+=(--mount "type=bind,source=$repo/runs/iris-gate-preparation-20260913-002,target=/workspace/runs/iris-gate-preparation-20260913-002")
 fi
 docker.exe run --rm --network none --memory 2g --memory-swap 2g --cpus 2 --pids-limit 128 \
  --read-only --tmpfs /tmp:rw,nosuid,size=128m \
@@ -28,7 +28,7 @@ if [[ "$MODE" == format ]]; then
  python -m ruff format --no-cache "${files[@]}"
  python -m ruff check --fix --no-cache "${files[@]}"
 elif [[ "$MODE" == prepare ]]; then
- python scripts/run_iris_gate.py prepare --template runs/iris-gate-preparation-20260913-001/template.json
+ python scripts/run_iris_gate.py prepare --template runs/iris-gate-preparation-20260913-002/template.json
 else
  python scripts/check_env.py
  python -m pytest -q -p no:cacheprovider tests/test_iris_gate.py tests/test_sim_gate_protocol.py tests/test_iris_runtime.py

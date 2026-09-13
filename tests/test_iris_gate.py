@@ -1,6 +1,7 @@
 """Iris gates require the actual completed, backed-up source artifact."""
 
 import json
+import os
 import sys
 import time
 
@@ -64,3 +65,24 @@ def test_gate_dispatch_requires_live_registration(tmp_path, monkeypatch, failure
     monkeypatch.setattr(sys, "argv", ["iris_gate.py", "render", "--job", str(job)])
     with pytest.raises(ValueError, match="expired or independent watchdog absent"):
         iris_gate.main()
+
+
+@pytest.mark.parametrize("raises", [False, True])
+def test_native_loader_uses_data_root_and_restores_gate_output_root(tmp_path, monkeypatch, raises):
+    (tmp_path / "runs").mkdir()
+    monkeypatch.setenv("ROSETTA_AUTODL_ROOT", str(tmp_path))
+    monkeypatch.setenv("ROSETTA_RUN_ROOT", str(tmp_path / "gate-results"))
+
+    def native(*args, **kwargs):
+        assert os.environ["ROSETTA_RUN_ROOT"] == str(tmp_path / "runs")
+        if raises:
+            raise ValueError("native failure")
+        return "context"
+
+    monkeypatch.setattr(iris_gate, "load_native", native)
+    if raises:
+        with pytest.raises(ValueError, match="native failure"):
+            iris_gate.load_gate_context()
+    else:
+        assert iris_gate.load_gate_context() == "context"
+    assert os.environ["ROSETTA_RUN_ROOT"] == str(tmp_path / "gate-results")

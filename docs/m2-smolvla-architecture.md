@@ -1,5 +1,13 @@
 # M2 SmolVLA architecture and navigation
 
+Iris Gate runtime correction (2026-09-13):
+`reports/training/m2-smolvla-iris-gate34-recovery-002-2026-09-13.md` preserves
+the first attempt's pre-inference data-root identity failure (21 files recovered,
+shutdown confirmed). Native data loading now temporarily uses the durable run
+root and restores the isolated Gate output root. 51 relevant local tests passed;
+fresh Gate identity 002 is registered with unchanged checkpoints and thresholds.
+No actual Gate pass/fail outcome exists yet; M2 remains incomplete.
+
 Iris 002 Gate 3/4 registration (2026-09-13):
 `reports/training/m2-smolvla-iris-gate34-plan-2026-09-13.md` registers the two
 fixed 1280-step artifacts under report suffixes 451/452, with zero optimizer
