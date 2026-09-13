@@ -1,0 +1,60 @@
+{
+  "id": "hestia-k-routing-quantized-partial-analysis-20260913-001",
+  "registered_utc": "2026-09-13T07:48:23.5639776Z",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "original_plan": "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json",
+  "recovered": "runs/hestia-k-routing-quantized-recovered-20260913-001/verified",
+  "output": "runs/hestia-k-routing-quantized-partial-analysis-20260913-001/verified",
+  "template": "reports/training/m2-smolvla-hestia-k-routing-quantized-template-2026-09-13.json",
+  "conditions": [
+    "base640_native",
+    "base640_rrestore",
+    "base640_rfull",
+    "base640_rintra"
+  ],
+  "controls": [
+    "base640_native",
+    "base640_rrestore"
+  ],
+  "windows": {
+    "first": [
+      0,
+      1
+    ],
+    "full": [
+      0,
+      50
+    ]
+  },
+  "source_sha256": {
+    "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json": "e1f3dd8d9213b98cd5a607156da9d550ee97e8285ada2b666ea91199951d489a",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "scripts/diagnose_hestia_early_gap.py": "dcceb7374ffb812f82dc7a6fd22305bcce45a95e1c3788f5c4b73da721259309"
+  },
+  "local_sha256": {
+    "scripts/analyze_hestia_k_routing_quantized.py": "0bc313ab9c74895e8291cfd779bcdaa96e5c94085374b5e21d94adc7ef398602",
+    "scripts/analyze_hestia_routing_quantized_effects.py": "fac67036e7675960b223387d815f45749ba9da6ab7a6bcb5b724dc1cb3247434",
+    "scripts/analyze_hestia_k_head_interaction.py": "6f563cf8c26b04dbed4e51ea39b3d1c669b4ff259c592e08a15349e43a53c8f4",
+    "scripts/analyze_hestia_joint_attention.py": "421e9abddf230be85b98c7be6b42a4781ad0d3987870da978ba4d89cc3fae3d2",
+    "scripts/analyze_hestia_layer_attention.py": "d9807a78bc24ef26bd1e3efebf7eae9a97d678a36e173c466bf1966aaa049775",
+    "scripts/verify_hestia_scene_kv_mean_analysis.py": "713dabce57d6044ef3a0d3d5ceb4d7511c5265b065d86cc2d2329e9be192e4ce",
+    "tests/test_hestia_routing_quantized_analysis.py": "d0ae5912bf20e3f106b26d43b779ec7a79ec4c15b13e24c39ed983239b8b2d02",
+    "reports/training/m2-smolvla-hestia-k-routing-quantized-template-2026-09-13.json": "ca5895d0c8e46bb9173da69e8ad729326300cd184f9df43daa81793cf3ffd3f8",
+    "reports/training/m2-smolvla-hestia-k-routing-quantized-plan-2026-09-13.json": "d54d17da7cb727ea2c0a8afb2320cf210ce899027c784c23d8cddb468255218c",
+    "runs/hestia-k-head-interaction-recovered-20260913-001/verified/base640_kh12/arrays.npz": "7d5d48b4c29cd823094f3642f98da3facaa7497dd6616fd6da7fa5db324b6a22",
+    "runs/hestia-k-routing-quantized-analysis-20260913-001/local.sh": "57c2e7091db642821c358606dba54cd4b6a188b2dddcb22aa5616cbfc2170272",
+    "runs/hestia-k-routing-quantized-analysis-20260913-001/independent.sh": "09799d07462e994b18442dfc54b213c38926e974db8055c3fb8c740386d43462",
+    "runs/hestia-k-routing-quantized-analysis-20260913-001/attention-002.sh": "bfebbc84e0115340406cbfd7752ec6869d1f2d19f8a816c33a3af6564a752d2a",
+    "runs/hestia-k-routing-quantized-analysis-20260913-001/summarize.sh": "d8f72c18e5814f7304b400c38ab18ca8e950c954a173eb1653401910d6204121",
+    "runs/hestia-k-routing-quantized-analysis-20260913-001/summarize.py": "2ddc500d8feb8048be2bb9379aa1c06771857a74a02173275a6522479ce1c56d",
+    "scripts/analyze_hestia_k_routing_quantized_partial.py": "fe1b2de6bb02013a13bc41d7639858f51731645c689851ddb1fe9492a263d0bd",
+    "runs/hestia-k-routing-quantized-partial-analysis-20260913-001/local.sh": "1fb7866ec8554e95310b4eb8025fdcdcaab95ab98463b5dd5416c3af54f1279a",
+    "runs/hestia-k-routing-quantized-partial-analysis-20260913-001/independent.sh": "a9500ba217ebc7f103d42320b9dd8a038cc79b908017375395af7bc7eff95a96",
+    "runs/hestia-k-routing-quantized-partial-analysis-20260913-001/summarize.sh": "fa9f22daaf9ca1f35589bb0afbfa4c660bac8dc47d6fc3cd78cda478f70df603",
+    "runs/hestia-k-routing-quantized-partial-analysis-20260913-001/summarize.py": "39ed46e90a296247f5ae6bdacc7c61768e5f16ba3e034f60c64671eeab89a203"
+  },
+  "receipt": "runs/hestia-k-routing-quantized-receiver-20260913-001/receipt.json",
+  "reference_direction": "runs/hestia-k-head-interaction-recovered-20260913-001/verified/base640_kh12/arrays.npz",
+  "qualification": "Descriptive analysis of the completed predeclared intra condition using unchanged80%/four-noise criteria. rmass failed isolation and remains not measured; no claim of a complete2x2 comparison or exclusion of a mass contribution. Full original analysis remains unexecuted.",
+  "partial_analysis_reason": "Worker completed four conditions then stopped at rmass conditional TV0.005945380041824335>0.004; preserve failure and full-plan prerequisite. Frozen before inspecting intra action metrics."
+}
