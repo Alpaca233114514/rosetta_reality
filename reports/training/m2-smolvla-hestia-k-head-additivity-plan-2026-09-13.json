@@ -1,0 +1,33 @@
+{
+  "id": "hestia-k-head-additivity-20260913-001",
+  "registered_utc": "2026-09-13T05:58:44.4947716Z",
+  "parent_commit": "6594217e2dbd8928e1b9b7ba84030261a5ac59f0",
+  "hypothesis": "The measured all-head action change may be approximately reconstructed from separately measured head effects; quantify residual nonadditivity before proposing a real joint intervention.",
+  "backbone_scale": "existing SmolVLA450M checkpoint640",
+  "adaptation": "unchanged inference artifacts; no model loaded",
+  "action_expert": "native expert layer1 projected K heads",
+  "dataset": "existing train40/dev5 frame-zero full50 and first1, four saved noises",
+  "source": "runs/hestia-k-direction-head-recovered-20260913-001/verified",
+  "metadata": "runs/hestia-recovered-20260911-001/C-first/manifest.json",
+  "source_metadata_sha256": "5ed6b8a88d2ece25df267475af598dd53033f911fe2dcce219dece5ebce81d13",
+  "sha256": {
+    "runs/hestia-k-direction-head-analysis-20260913-001/verified/result.json": "84d979f741bed489c221abf5a095be863d518ec802ea4c4a0220dc0fb4331ee0",
+    "runs/hestia-k-direction-head-recovered-20260913-001/verified/handoff-manifest.json": "f65269fc464e47c3c470a658e7a607e11b7e044e81800611ba86aa3c5c024be1",
+    "reports/training/m2-smolvla-hestia-k-direction-head-result-2026-09-13.json": "72e8f44023266d290b331024a93aae733301ae5cf0509f82f5fb2e76246a1427"
+  },
+  "metrics": "for every action group/view/window/space and noise: actual all-head delta energy; sum-single-head reconstruction residual energy ratio and cosine; additive head1+2 proxy error (not measured joint output); gap to actual all-head output",
+  "primary": "dev5 full standard left_joint",
+  "approximate_additivity_rule": "residual energy/full delta energy <=0.10 and cosine>=0.95 in each of four noises; denominator zero gives null, never automatic pass",
+  "next_step": "If approximate additivity fails, do not sum causal fractions or use linear proxy to choose a joint intervention; real head1+2 and complementary intervention remains separately required. If it passes, only call the first-order approximation adequate for this endpoint, never actual joint success.",
+  "model_forwards": 0,
+  "optimizer_steps": 0,
+  "hidden_loaded": false,
+  "limits": {
+    "network": "none",
+    "memory_bytes": 2147483648,
+    "seconds": 120,
+    "cpus": 2
+  },
+  "stop": "Any input SHA, exact target/noise, finite, shape, arithmetic identity or resource failure stops analysis. Preserve outputs; no GPU escalation.",
+  "output": "runs/hestia-k-head-additivity-20260913-001/result.json"
+}
