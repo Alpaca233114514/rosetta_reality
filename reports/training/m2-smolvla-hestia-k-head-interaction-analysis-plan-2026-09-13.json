@@ -1,0 +1,61 @@
+{
+  "id": "hestia-k-head-interaction-analysis-20260913-001",
+  "registered_utc": "2026-09-13T06:16:13.3285975Z",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "original_plan": "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json",
+  "recovered": "runs/hestia-k-head-interaction-recovered-20260913-001/verified",
+  "output": "runs/hestia-k-head-interaction-analysis-20260913-001/verified",
+  "template": "reports/training/m2-smolvla-hestia-k-head-interaction-template-2026-09-13.json",
+  "conditions": [
+    "base640_native",
+    "base640_krestore",
+    "base640_kdirection",
+    "base640_kh1",
+    "base640_kh2",
+    "base640_kh12",
+    "base640_kh034"
+  ],
+  "controls": [
+    "base640_native",
+    "base640_krestore"
+  ],
+  "windows": {
+    "first": [
+      0,
+      1
+    ],
+    "full": [
+      0,
+      50
+    ]
+  },
+  "source_sha256": {
+    "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json": "e1f3dd8d9213b98cd5a607156da9d550ee97e8285ada2b666ea91199951d489a",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "scripts/diagnose_hestia_early_gap.py": "dcceb7374ffb812f82dc7a6fd22305bcce45a95e1c3788f5c4b73da721259309"
+  },
+  "local_sha256": {
+    "scripts/analyze_hestia_k_head_interaction.py": "6f563cf8c26b04dbed4e51ea39b3d1c669b4ff259c592e08a15349e43a53c8f4",
+    "scripts/analyze_hestia_joint_attention.py": "421e9abddf230be85b98c7be6b42a4781ad0d3987870da978ba4d89cc3fae3d2",
+    "scripts/analyze_hestia_layer_attention.py": "d9807a78bc24ef26bd1e3efebf7eae9a97d678a36e173c466bf1966aaa049775",
+    "scripts/verify_hestia_scene_kv_mean_analysis.py": "713dabce57d6044ef3a0d3d5ceb4d7511c5265b065d86cc2d2329e9be192e4ce",
+    "tests/test_hestia_joint_analysis.py": "6574bcee4ee1c55527d3717030042444a8e7d7fa8fb52c646aac81cf373a77d8",
+    "reports/training/m2-smolvla-hestia-k-head-interaction-template-2026-09-13.json": "7c6d77d339055844c49067c50af38bb93f846ee43a2f357da42434882624a64b",
+    "reports/training/m2-smolvla-hestia-k-head-interaction-plan-2026-09-13.json": "8994cc59373ea66bea6a0e5467769853479e32b630ba37fc8167a38b3a970f16",
+    "runs/hestia-k-direction-layer-recovered-20260913-001/verified/base640_kd01/arrays.npz": "edffe2f2448cdf3288e1c92e18cb4dd8068c42c79f03f2f12fb8e2c3fc353b2f",
+    "runs/hestia-k-direction-head-recovered-20260913-001/verified/base640_kh1/arrays.npz": "42a2db444d2f7caf153cfa9944746cb68b985cce4dbe8553c817ebdc0363efeb",
+    "runs/hestia-k-direction-head-recovered-20260913-001/verified/base640_kh2/arrays.npz": "bf12f8dc6fa4cbd0dbd5b191f8994062cf383f086cb4cf8e6bf08800a45de4a3",
+    "runs/hestia-k-head-interaction-analysis-20260913-001/local.sh": "ee10524a362b41366b5eb2c21a7784db6fb84420e5ef639a5e5183d29f2a4ac2",
+    "runs/hestia-k-head-interaction-analysis-20260913-001/independent.sh": "8ead99c38071ee43bab36ef8784a88a1a6574a6fc3dc9c57cb591a4fa59842ea",
+    "runs/hestia-k-head-interaction-analysis-20260913-001/attention-002.sh": "3a2fb1d604dfc9e12f9284a398039fd592e2ead5077e340bcf04304e15e0b06e",
+    "runs/hestia-k-head-interaction-analysis-20260913-001/summarize.sh": "2bc8a2812bb70ef0d85275b0a45ad10d466b44ac6593fbb14db619b85b364f2a",
+    "runs/hestia-k-head-interaction-analysis-20260913-001/summarize.py": "4e07e4a3f10565d93c1ecdd931c79d62ee5e67397f5f793cc228c861a3c2a20e"
+  },
+  "receipt": "runs/hestia-k-head-interaction-receiver-20260913-001/receipt.json",
+  "reference_direction": "runs/hestia-k-direction-layer-recovered-20260913-001/verified/base640_kd01/arrays.npz",
+  "reference_heads": {
+    "base640_kh1": "runs/hestia-k-direction-head-recovered-20260913-001/verified/base640_kh1/arrays.npz",
+    "base640_kh2": "runs/hestia-k-direction-head-recovered-20260913-001/verified/base640_kh2/arrays.npz"
+  },
+  "qualification": "Actual pair recovers >=80% of all-five-head mean MSE benefit and MAE/MSE improve in all four noises. Otherwise reject pair-dominance hypothesis; do not redefine threshold."
+}

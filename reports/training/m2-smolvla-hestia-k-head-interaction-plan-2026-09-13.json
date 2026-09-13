@@ -1,0 +1,49 @@
+{
+  "id": "hestia-k-head-interaction-20260913-001",
+  "registered_utc": "2026-09-13T06:03:06.2470693Z",
+  "parent_commit": "369ba74daf1ae35b2887e6e4a4b225c63405ce6d",
+  "parent_head_analysis_sha256": "4e904d2c5c9b5e30ade8e22cf6f2a88003fc2c80b743df4398396db13eb2636d",
+  "hypothesis": "Joint direction replacement of heads1+2 at first expert cross-attention accounts for most observed all-head dev benefit; compare complementary heads0+3+4 and quantify real interaction beyond separate head1/head2 outputs.",
+  "backbone_scale": "existing SmolVLA450M checkpoint640",
+  "adaptation": "all existing parameters unchanged; inference only",
+  "action_expert": "native expert first cross-attention layer1",
+  "dataset": "unchanged train40/dev5 frame-zero full50 chunks, four saved noises",
+  "selected_layer": 1,
+  "selected_pair": [
+    1,
+    2
+  ],
+  "complement": [
+    0,
+    3,
+    4
+  ],
+  "conditions": [
+    "base640_native",
+    "base640_krestore",
+    "base640_kdirection",
+    "base640_kh1",
+    "base640_kh2",
+    "base640_kh12",
+    "base640_kh034"
+  ],
+  "model_forwards": 1260,
+  "optimizer_steps": 0,
+  "hidden_loaded": false,
+  "single_axis": "subset of five projected K heads receiving train-only mean image direction with per-scene norm retained",
+  "controls": "First five conditions must reproduce prior head module full arrays exactly; pair and complement only after those controls pass",
+  "primary": "dev5 full standard left_joint paired MAE/MSE, ratio of actual pair MSE benefit to all-five-head benefit",
+  "secondary": "all groups train/dev first/full standard/normalized; actual joint delta versus head1+head2 summed deltas; complement effect; untouched layer1 query groups exact",
+  "qualification": "Actual pair recovers >=80% of all-five-head mean MSE benefit and MAE/MSE improve in all four noises. Otherwise reject pair-dominance hypothesis; do not redefine threshold.",
+  "next_step": "Only a qualified pair permits a separately preregistered image-internal versus modality-mass routing decomposition. Failed pair hypothesis is retained without expanding head search or changing data.",
+  "limits": {
+    "worker_seconds": 1800,
+    "cuda_bytes": 4294967296,
+    "transfer_bytes": 67108864,
+    "rss_bytes": 5368709120,
+    "shutdown_seconds": 2100,
+    "condition_seconds": 180
+  },
+  "stop": "Stop at identity/control/finite/budget failure; preserve results and protected shutdown; no model or dataset download, training, hidden evaluation or Gate3/4",
+  "authorization": "Continuation of user-authorized diagnosis on existing instance44db45aec7-cd880eb6 SSH20497 with protected shutdown; new source transfer remains subject to Auto Review. Sensitive contents not read or uploaded."
+}

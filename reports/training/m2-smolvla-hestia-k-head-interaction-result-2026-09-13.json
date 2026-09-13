@@ -1,0 +1,147 @@
+{
+  "id": "hestia-k-head-interaction-20260913-001",
+  "parent_commit": "369ba74daf1ae35b2887e6e4a4b225c63405ce6d",
+  "primary": {
+    "fraction_of_all_head_mse_benefit": 0.8807468447719862,
+    "mae_delta_by_noise": [
+      -0.0030937459665971515,
+      -0.0021599187945636616,
+      -0.0027374257210952546,
+      -0.0028895795466378354
+    ],
+    "mse_delta_by_noise": [
+      -0.001115015653072521,
+      -0.000664482029950824,
+      -0.0008639859307520087,
+      -0.0008836816680252713
+    ],
+    "pair_dominance_qualified": true
+  },
+  "primary_mse_term_changes": {
+    "squared_scene_mean_bias_difference": 0.00010077977897859631,
+    "prediction_scene_variance": -0.00023591697799237163,
+    "minus_twice_scene_covariance": -0.0007466541214363793
+  },
+  "conditions": [
+    "base640_native",
+    "base640_krestore",
+    "base640_kdirection",
+    "base640_kh1",
+    "base640_kh2",
+    "base640_kh12",
+    "base640_kh034"
+  ],
+  "model_forwards": 1260,
+  "optimizer_steps": 0,
+  "control_forwards": 900,
+  "native_and_parent_controls_exact": true,
+  "parameters_unchanged": true,
+  "unselected_query_heads_exact": {
+    "kh1": [
+      0,
+      1,
+      2,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "kh2": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "kh12": [
+      0,
+      1,
+      2,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "kh034": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "elapsed_seconds": 918.7672221660614,
+  "receipt": {
+    "all_file_sha256_matched": true,
+    "manifest_sha256": "8a9f590d7cb6aeb8ef5a0efab1ee0af9d1845cf7a74779433198f9c1a36fd590",
+    "file_count": 63,
+    "worker_result": {
+      "completed_conditions": [
+        "base640_native",
+        "base640_krestore",
+        "base640_kdirection",
+        "base640_kh1",
+        "base640_kh2",
+        "base640_kh12",
+        "base640_kh034"
+      ],
+      "error": null,
+      "optimizer_steps": 0,
+      "time": 1789280830.298868,
+      "elapsed_seconds": 918.7672221660614
+    }
+  },
+  "closure": {
+    "console_state": "off",
+    "verified_by": "Chrome target row after reload",
+    "instance": "44db45aec7-cd880eb6",
+    "verified_utc": "2026-09-13T06:31:25.4461121Z",
+    "receipt_sent": true,
+    "archive_bytes": 33372160,
+    "model_rerun": false,
+    "billing": "not independently verified"
+  },
+  "independent_verification": {
+    "status": "passed",
+    "scalar_comparisons": 145152,
+    "maximum_absolute_difference": 1.0685896612017132E-15,
+    "fixed_native_train_templates_verified": true,
+    "local_model_forwards": 0,
+    "optimizer_steps": 0
+  },
+  "tests": {
+    "remote_diagnostic": 100,
+    "ruff": "passed",
+    "analysis": 3,
+    "local_diagnostic": 100
+  },
+  "hidden_loaded": false,
+  "new_gate34": "not measured",
+  "m2_complete": false,
+  "sha256": {
+    "reports/training/m2-smolvla-hestia-k-head-interaction-plan-2026-09-13.json": "8994cc59373ea66bea6a0e5467769853479e32b630ba37fc8167a38b3a970f16",
+    "reports/training/m2-smolvla-hestia-k-head-interaction-template-2026-09-13.json": "7c6d77d339055844c49067c50af38bb93f846ee43a2f357da42434882624a64b",
+    "reports/training/m2-smolvla-hestia-k-head-interaction-analysis-plan-2026-09-13.json": "3a3d617e473a18ca6ad2fe7d72944522947c66b265f0261b2b2a3d6907776afe",
+    "runs/hestia-k-head-interaction-analysis-20260913-001/verified/result.json": "3f49e3e966bda0306bf330c2ae0a360ca2949b79792968def8866689dfdc8db8",
+    "runs/hestia-k-head-interaction-analysis-20260913-001/attention-analysis.json": "1c4ad01f58265733be26e4c02265a4fe18de0b75ff9aa7e11bcab179045b6ae5",
+    "runs/hestia-k-head-interaction-analysis-20260913-001/independent-verification.json": "58e7f80ae189019be7c98392611461bd2c1b0493bd3620bdcae0271c66d9c88f",
+    "runs/hestia-k-head-interaction-analysis-20260913-001/effect-summary.json": "d7da90a626647a41e64fd510cf1e7b9ac5009b34107090ccfd8674e277099992",
+    "runs/hestia-k-head-interaction-recovered-20260913-001/verified/handoff-manifest.json": "8a9f590d7cb6aeb8ef5a0efab1ee0af9d1845cf7a74779433198f9c1a36fd590",
+    "runs/hestia-k-head-interaction-receiver-20260913-001/receipt.json": "c6c19b79a970eec4276f3d184ccbbd7ad33b2cfa4d61acd442dc8cc8db0a9825"
+  }
+}
