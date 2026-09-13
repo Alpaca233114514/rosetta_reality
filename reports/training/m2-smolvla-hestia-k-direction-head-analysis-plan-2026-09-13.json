@@ -1,0 +1,57 @@
+{
+  "id": "hestia-k-direction-head-analysis-20260913-001",
+  "registered_utc": "2026-09-13T05:51:52.6383256Z",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "original_plan": "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json",
+  "recovered": "runs/hestia-k-direction-head-recovered-20260913-001/verified",
+  "output": "runs/hestia-k-direction-head-analysis-20260913-001/verified",
+  "template": "reports/training/m2-smolvla-hestia-k-direction-head-template-2026-09-13.json",
+  "conditions": [
+    "base640_native",
+    "base640_krestore",
+    "base640_kdirection",
+    "base640_kh0",
+    "base640_kh1",
+    "base640_kh2",
+    "base640_kh3",
+    "base640_kh4"
+  ],
+  "controls": [
+    "base640_native",
+    "base640_krestore"
+  ],
+  "windows": {
+    "first": [
+      0,
+      1
+    ],
+    "full": [
+      0,
+      50
+    ]
+  },
+  "source_sha256": {
+    "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json": "e1f3dd8d9213b98cd5a607156da9d550ee97e8285ada2b666ea91199951d489a",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "scripts/diagnose_hestia_early_gap.py": "dcceb7374ffb812f82dc7a6fd22305bcce45a95e1c3788f5c4b73da721259309"
+  },
+  "local_sha256": {
+    "scripts/analyze_hestia_k_direction_head.py": "07521b35467212f812a95c76298a43a31ba90ae8508b9bda3c972b9882fcbf4f",
+    "scripts/analyze_hestia_head_attention.py": "645e76f16e68bae4f405f0bda4dac5e811fd8c45c392f7c77a722a9840508487",
+    "scripts/analyze_hestia_layer_attention.py": "d9807a78bc24ef26bd1e3efebf7eae9a97d678a36e173c466bf1966aaa049775",
+    "scripts/verify_hestia_scene_kv_mean_analysis.py": "713dabce57d6044ef3a0d3d5ceb4d7511c5265b065d86cc2d2329e9be192e4ce",
+    "tests/test_hestia_k_direction_head_analysis.py": "c70f5f231a15754db812a2c96bce8ce284be47397f9e8dd3a1469ed412831bed",
+    "reports/training/m2-smolvla-hestia-k-direction-head-template-2026-09-13.json": "d1baa004ec441377059c831cf3cd29f384332686eb1aae3853cf0eca8d1364cf",
+    "reports/training/m2-smolvla-hestia-k-direction-head-plan-2026-09-13.json": "10af497ffe636560aa9838f1793b85a3f0580c7ba53baeb0f8301297a28efa8e",
+    "runs/hestia-k-direction-layer-recovered-20260913-001/verified/base640_kd01/arrays.npz": "edffe2f2448cdf3288e1c92e18cb4dd8068c42c79f03f2f12fb8e2c3fc353b2f",
+    "runs/hestia-k-direction-head-analysis-20260913-001/local.sh": "d73c9c8d334074121f29b6d3022a28469a1748cb386e1ef9f2fe094d94f4166c",
+    "runs/hestia-k-direction-head-analysis-20260913-001/independent.sh": "866b35582a759eb534aff5a0066fc775d11ff5e33d79acd63d04978b2641935c",
+    "runs/hestia-k-direction-head-analysis-20260913-001/attention.sh": "c2ecc53ea5748d869de6a2d251404bcffc8575e7342456295650d776e372da24",
+    "runs/hestia-k-direction-head-analysis-20260913-001/summarize.sh": "25903a5e2fd3b2ff561ac71c092ce3c82f9ef80ba3f4969b807dfd9a050198f2",
+    "runs/hestia-k-direction-head-analysis-20260913-001/summarize.py": "b0c75dbdacd50aac63afc50c937aa20aa7d09cb0c13e8fd483db53c819ae1f83"
+  },
+  "receipt": "runs/hestia-k-direction-head-receiver-20260913-003/receipt.json",
+  "reference_direction": "runs/hestia-k-direction-layer-recovered-20260913-001/verified/base640_kd01/arrays.npz",
+  "receiver_note": "Receivers001 and002 disconnected with zero-byte archives. Receiver003 downloaded full archive; local verification succeeded after Docker IPC recovery. Shutdown receipt could not be sent because protected remote shutdown already occurred; Chrome confirmed off. No model rerun.",
+  "selection_rule": "Continue autonomous diagnosis after checking all five heads. A head recovering >=60% of the layer1 MSE benefit with MAE/MSE improvement4/4 is eligible for a separately preregistered token/modality-routing decomposition; otherwise inspect bounded head interactions. No training, hidden tuning or checkpoint selection."
+}

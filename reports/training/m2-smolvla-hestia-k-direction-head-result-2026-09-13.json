@@ -1,0 +1,189 @@
+{
+  "id": "hestia-k-direction-head-20260913-001",
+  "date_utc": "2026-09-13T05:55:21.3403426Z",
+  "parent_commit": "1383becab39f2ac3843f17bc1afc0fd57c7b9066",
+  "conditions": [
+    "base640_native",
+    "base640_krestore",
+    "base640_kdirection",
+    "base640_kh0",
+    "base640_kh1",
+    "base640_kh2",
+    "base640_kh3",
+    "base640_kh4"
+  ],
+  "remote_model_forwards": 1440,
+  "optimizer_steps": 0,
+  "parameters_unchanged": true,
+  "control_forwards": 540,
+  "controls_exact": true,
+  "head_effects": [
+    {
+      "condition": "base640_kh0",
+      "layer": 1,
+      "kv_head": 0,
+      "mae": 0.058378948591921165,
+      "mse": 0.00822407177764289,
+      "mae_delta_by_noise": [
+        -0.0001994654185449099,
+        -4.372801072895921E-05,
+        -0.00015255897662912882,
+        -0.00012078311837588479
+      ],
+      "mse_delta_by_noise": [
+        -9.876301089853899E-05,
+        -4.0224878840632375E-05,
+        -6.503663248703245E-05,
+        -6.931870326300042E-05
+      ],
+      "fraction_of_layer1_mse_benefit": 0.06825486308555202,
+      "qualifies_for_routing_isolation": false
+    },
+    {
+      "condition": "base640_kh1",
+      "layer": 1,
+      "kv_head": 1,
+      "mae": 0.057003384689528806,
+      "mse": 0.007919104563543623,
+      "mae_delta_by_noise": [
+        -0.0016888321757627042,
+        -0.0012669002710220742,
+        -0.0014758534175343813,
+        -0.001587205269529171
+      ],
+      "mse_delta_by_noise": [
+        -0.0004672322010766342,
+        -0.00029381496890386674,
+        -0.0003578823024400161,
+        -0.0003742826094657531
+      ],
+      "fraction_of_layer1_mse_benefit": 0.37286084564354705,
+      "qualifies_for_routing_isolation": false
+    },
+    {
+      "condition": "base640_kh2",
+      "layer": 1,
+      "kv_head": 2,
+      "mae": 0.05723457186649709,
+      "mse": 0.00775575129900155,
+      "mae_delta_by_noise": [
+        -0.0014234937340952478,
+        -0.0009287873452218862,
+        -0.0013230424900539245,
+        -0.001418718856604148
+      ],
+      "mse_delta_by_noise": [
+        -0.0006859607296407465,
+        -0.0003814850683104866,
+        -0.0005270486285587029,
+        -0.0005521307135446258
+      ],
+      "fraction_of_layer1_mse_benefit": 0.5360206193813821,
+      "qualifies_for_routing_isolation": false
+    },
+    {
+      "condition": "base640_kh3",
+      "layer": 1,
+      "kv_head": 3,
+      "mae": 0.05870414587777729,
+      "mse": 0.0083773356381421,
+      "mae_delta_by_noise": [
+        0.0002694240614461371,
+        0.00016746080387383677,
+        0.00017205263037855384,
+        0.00017531612344707376
+      ],
+      "mse_delta_by_noise": [
+        9.469906726032248E-05,
+        9.119836675505408E-05,
+        7.56978892589976E-05,
+        7.811689323326126E-05
+      ],
+      "fraction_of_layer1_mse_benefit": -0.08482745743824494,
+      "qualifies_for_routing_isolation": false
+    },
+    {
+      "condition": "base640_kh4",
+      "layer": 1,
+      "kv_head": 4,
+      "mae": 0.058554909885783366,
+      "mse": 0.008219859120391157,
+      "mae_delta_by_noise": [
+        0.00020474675732354286,
+        -9.177757349486393E-05,
+        6.858689074094176E-05,
+        5.753576600306398E-06
+      ],
+      "mse_delta_by_noise": [
+        5.250204589779192E-06,
+        -0.00014247693824713178,
+        -4.718544394795472E-05,
+        -0.00010578167689083082
+      ],
+      "fraction_of_layer1_mse_benefit": 0.07246253047410828,
+      "qualifies_for_routing_isolation": false
+    }
+  ],
+  "next_registered_routing_head": null,
+  "next_step": "Preregister bounded head1/head2 joint and complementary intervention; no unique head attribution",
+  "tests": {
+    "ruff": "two E501 failures; formatting denied by Auto Review; explicit path permission pending",
+    "local_diagnostic": 98,
+    "analysis_synthetic": 2,
+    "remote_diagnostic": 98
+  },
+  "independent_verification": {
+    "status": "passed",
+    "scalar_comparisons": 165888,
+    "maximum_absolute_difference": 1.0685896612017132E-15,
+    "fixed_native_train_templates_verified": true,
+    "local_model_forwards": 0,
+    "optimizer_steps": 0
+  },
+  "receipt": {
+    "all_file_sha256_matched": true,
+    "manifest_sha256": "f65269fc464e47c3c470a658e7a607e11b7e044e81800611ba86aa3c5c024be1",
+    "file_count": 68,
+    "worker_result": {
+      "completed_conditions": [
+        "base640_native",
+        "base640_krestore",
+        "base640_kdirection",
+        "base640_kh0",
+        "base640_kh1",
+        "base640_kh2",
+        "base640_kh3",
+        "base640_kh4"
+      ],
+      "error": null,
+      "optimizer_steps": 0,
+      "time": 1789278173.220946,
+      "elapsed_seconds": 1031.2989225387573
+    }
+  },
+  "archive_bytes": 36075520,
+  "runtime_recovery": "Docker IPC directories retained without deletion or content reads; same offline image",
+  "shutdown": {
+    "receipt_sent": false,
+    "verified_by": "fresh Chrome target-row power cell",
+    "billing": "not independently verified",
+    "reason": "local verification completed after guarded remote shutdown",
+    "console_state": "off"
+  },
+  "hidden_loaded": false,
+  "new_gate34": "not measured",
+  "closed_loop": "not measured",
+  "m2_complete": false,
+  "sha256": {
+    "reports/training/m2-smolvla-hestia-k-direction-head-plan-2026-09-13.json": "10af497ffe636560aa9838f1793b85a3f0580c7ba53baeb0f8301297a28efa8e",
+    "reports/training/m2-smolvla-hestia-k-direction-head-template-2026-09-13.json": "d1baa004ec441377059c831cf3cd29f384332686eb1aae3853cf0eca8d1364cf",
+    "reports/training/m2-smolvla-hestia-k-direction-head-analysis-plan-2026-09-13.json": "0f2c8d8e5bee6087cd7703018af0638df117ed9d84e41ec13475d384de5c1dea",
+    "runs/hestia-k-direction-head-analysis-20260913-001/verified/result.json": "84d979f741bed489c221abf5a095be863d518ec802ea4c4a0220dc0fb4331ee0",
+    "runs/hestia-k-direction-head-analysis-20260913-001/attention-analysis.json": "4e904d2c5c9b5e30ade8e22cf6f2a88003fc2c80b743df4398396db13eb2636d",
+    "runs/hestia-k-direction-head-analysis-20260913-001/independent-verification.json": "cbb7173b0164a58e6a2f300dfcacbd04bf5294939a197a9011161eb1bddd5f4f",
+    "runs/hestia-k-direction-head-analysis-20260913-001/effect-summary.json": "dc493da51a4bca60d92092744b9f1152a0f1d5e8987dc11832bc1f0aa0050195",
+    "runs/hestia-k-direction-head-analysis-20260913-001/attention-002.sh": "1a6c6e57e1462f4a492cbfaeca23161729e57529e44d1c21f32c42afdb4c9505",
+    "runs/hestia-k-direction-head-receiver-20260913-003/receipt.json": "f0929eebd542b3ee52df06ceb61c5d0cbda3f81595206313dbf59ef0d70e41a9",
+    "runs/hestia-k-direction-head-recovered-20260913-001/verified/handoff-manifest.json": "f65269fc464e47c3c470a658e7a607e11b7e044e81800611ba86aa3c5c024be1"
+  }
+}
