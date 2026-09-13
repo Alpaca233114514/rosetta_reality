@@ -173,11 +173,11 @@ def regularized_forward(policy, native, args, kwargs, scales, coefficient):
         details.update(
             loss=float(total.detach()),
             flow_loss=float(loss.detach()),
-            image_key_scene_loss=float(penalty.detach()),
+            image_k_scene_loss=float(penalty.detach()),
             total_loss=float(total.detach()),
         )
         for layer in LAYERS:
-            details[f"image_key_scene_layer_{layer}"] = float(captured[layer].detach())
+            details[f"image_k_scene_layer_{layer}"] = float(captured[layer].detach())
         return total, details
     finally:
         for handle in handles:

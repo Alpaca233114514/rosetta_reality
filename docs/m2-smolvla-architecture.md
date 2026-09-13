@@ -1,5 +1,15 @@
 # M2 SmolVLA architecture and navigation
 
+Iris CUDA smoke result (2026-09-13):
+`reports/training/m2-smolvla-iris-smoke-failure-2026-09-13.{md,json}` records
+passed calibration/control smoke/reload, then a treatment metric-name rejection.
+Control/treatment executed 2/1 optimizer steps; main training did not start.
+49 evidence files passed SHA verification and the console confirmed shutdown.
+Metric names now use `image_k_scene_*`; the public sanitizer is unchanged and
+118 local checks passed. The repair has not run on CUDA. Preserve the failed
+run/template; a fresh registered identity is needed before further execution.
+M2 remains incomplete, with no new Gate 3/4 result.
+
 Iris furnace pipeline module (2026-09-13):
 `reports/training/m2-smolvla-iris-furnace-local-2026-09-13.{md,json}` records
 117 local tests plus Ruff, formatting and shell syntax checks. `iris_protocol.py`,

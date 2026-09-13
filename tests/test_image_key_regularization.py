@@ -105,6 +105,23 @@ def test_full_forward_gradient_and_only_real_image_slice():
     assert not getattr(policy, MARKER)
 
 
+def test_actual_regularizer_metrics_pass_unchanged_public_sanitizer():
+    from rosetta_reality.tracking.public_payload import sanitize_metrics
+
+    policy = Policy()
+    _, metrics = regularized_forward(
+        policy, native, (torch.randn(4, 241, 320),), {}, dict.fromkeys(LAYERS, 1.0), 0.01
+    )
+    public = sanitize_metrics(metrics, mode="train")
+    assert public["train/image_k_scene_loss"] == metrics["image_k_scene_loss"]
+    for layer in LAYERS:
+        name = f"image_k_scene_layer_{layer}"
+        assert public["train/" + name] == metrics[name]
+    assert public["train/total_loss"] == metrics["total_loss"]
+    with pytest.raises(ValueError, match="forbidden sensitive"):
+        sanitize_metrics({**metrics, "api_key": 1.0}, mode="train")
+
+
 @pytest.mark.parametrize(
     "mode,error", [("missing", ValueError), ("duplicate", ValueError), ("error", RuntimeError)]
 )
