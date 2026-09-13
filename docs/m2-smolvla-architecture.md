@@ -1,5 +1,17 @@
 # M2 SmolVLA architecture and navigation
 
+Latest Hestia root-evidence audit (2026-09-13):
+`reports/training/m2-smolvla-hestia-root-evidence-result-2026-09-13.{md,json}`
+recomputes both fixed-remainder K/V factorial tables from saved CUDA arrays.
+Both parameter groups contribute to measured late left-joint regression; V is
+larger on the full dev5 cohort, with scene-removal exceptions. The 640 left-joint
+gap is 77.42% of the final gap to the better train constant; joint K/V rollback
+removes only 16.88% of that final gap. These are different denominators from
+late-regression recovery rates, not unique causal shares. Owner:
+`scripts/analyze_hestia_root_evidence.py`; 52 source files, 192 historical
+metric groups and nine synthetic tests verified. No new model forward, SSH,
+optimizer, checkpoint selection or Gate ran. Early root cause remains unresolved.
+
 This is the stable architecture and navigation entry point for the current
 SmolVLA M2 work. It is intentionally not named after a furnace or date. Update
 this file when component ownership, execution boundaries, the current evidence

@@ -1,0 +1,118 @@
+{
+  "id": "hestia-root-evidence-20260913-002",
+  "status": "completed_local_evidence_audit",
+  "source": "runs/hestia-root-evidence-20260913-002/result.json",
+  "source_sha256": "fe05c0b5483b4afc118ab3e16c68746e5b5d4f045d870a47065d3f52f47b5b8a",
+  "plan_sha256": "cad7953f20bd58a23f3222e07784a2e0498118b7afdc08bca9189168a724d261",
+  "source_files_verified": 52,
+  "historical_metric_checks": 192,
+  "synthetic_tests_passed": 9,
+  "ruff": "passed",
+  "format": "passed",
+  "seconds": 1.738036766999997,
+  "maximum_rss_bytes": 96595968,
+  "new_model_forwards": 0,
+  "new_optimizer_steps": 0,
+  "ssh_used": false,
+  "hidden_loaded": false,
+  "m2_complete": false,
+  "gate3": "not measured",
+  "gate4": "not measured",
+  "unique_root_cause": "not identified",
+  "verdict": "Both K and V updates causally contribute to measured late regression, with V larger on full dev5. Neither this nor their joint rollback identifies the pre-existing generalization root.",
+  "summary": {
+    "left_joint": {
+      "gap640": 0.010849601012538193,
+      "gap1280": 0.014014485923689778,
+      "early_gap_fraction": 0.7741704598809627,
+      "rollback_fraction": {
+        "k": 0.04409965989716279,
+        "v": 0.13345080939624612,
+        "kv": 0.16878166520588644
+      },
+      "factorial": {
+        "640": {
+          "k_order_average": 0.0005358130595025922,
+          "v_order_average": 0.0023036063170681414,
+          "interaction": 0.00019643016400126278
+        },
+        "1280": {
+          "k_order_average": 0.0005565889221422062,
+          "v_order_average": 0.0018087993490626098,
+          "interaction": 0.00012289028145217665
+        }
+      }
+    },
+    "right_joint": {
+      "gap640": 0.00519544382517536,
+      "gap1280": 0.009467970872297879,
+      "early_gap_fraction": 0.5487388898054799,
+      "rollback_fraction": {
+        "k": 0.0902423231551083,
+        "v": 0.12318806367443919,
+        "kv": 0.21303708184027692
+      },
+      "factorial": {
+        "640": {
+          "k_order_average": 0.000815068107098341,
+          "v_order_average": 0.0014965491301069658,
+          "interaction": 0.00012231075142821022
+        },
+        "1280": {
+          "k_order_average": 0.0008525497869898864,
+          "v_order_average": 0.0011644790985931952,
+          "interaction": 3.7238001823427026E-06
+        }
+      }
+    },
+    "left_gripper": {
+      "gap640": 0.003339729458093646,
+      "gap1280": 0.013481369346380237,
+      "early_gap_fraction": 0.2477292456192788,
+      "rollback_fraction": {
+        "k": 0.037769472700431225,
+        "v": 0.3912063177176411,
+        "kv": 0.4221278836270139
+      },
+      "factorial": {
+        "640": {
+          "k_order_average": 0.0003430333584547047,
+          "v_order_average": 0.0034754579812288286,
+          "interaction": 0.00013440456986427396
+        },
+        "1280": {
+          "k_order_average": 0.00046302463114261655,
+          "v_order_average": 0.005227837279438972,
+          "interaction": 9.231916069984449E-05
+        }
+      }
+    },
+    "right_gripper": {
+      "gap640": 0.0074746854007244,
+      "gap1280": 0.013026930242776874,
+      "early_gap_fraction": 0.5737871671546669,
+      "rollback_fraction": {
+        "k": 0.19513516519118607,
+        "v": 0.2509928107660556,
+        "kv": 0.43083125440984693
+      },
+      "factorial": {
+        "640": {
+          "k_order_average": 0.002505284577608108,
+          "v_order_average": 0.003651808172464373,
+          "interaction": 0.0003205108046531676
+        },
+        "1280": {
+          "k_order_average": 0.002442377522587776,
+          "v_order_average": 0.0031700311750173563,
+          "interaction": 0.0001992693245410934
+        }
+      }
+    }
+  },
+  "verification_hashes": {
+    "runs/hestia-root-evidence-20260913-001/check.log": "bd3779540ca0a4478ad26511881cc7a848dc63db85456c4ffa608a2bc6004221",
+    "runs/hestia-root-evidence-20260913-002/check.log": "d3f7d8f45946a5c9ce646a4a8df44f038c91983d226528dd34ebfd1c1be5c97a",
+    "runs/hestia-root-evidence-20260913-002/run.log": "a26d167ae1b65c4c9bf0cb3798b4c709aca6abee267c38e66cf58676800c2e1b"
+  }
+}
