@@ -1,5 +1,13 @@
 # M2 SmolVLA architecture and navigation
 
+Iris 002 Gate 3/4 registration (2026-09-13):
+`reports/training/m2-smolvla-iris-gate34-plan-2026-09-13.md` registers the two
+fixed 1280-step artifacts under report suffixes 451/452, with zero optimizer
+updates and the unchanged simulation engine. `scripts/iris_gate.py` owns the
+saved-processor adapter/identity checks; `scripts/run_iris_gate.py` owns the
+guarded lifecycle. 49 relevant local tests passed; CUDA Gates remain pending.
+The previous offline negative result remains authoritative; M2 is incomplete.
+
 Iris 002 completed result (2026-09-13):
 `reports/training/m2-smolvla-iris-result-002-2026-09-13.{md,json}` records both
 fresh 1280-step arms plus separate smokes (2564 updates total). All 27 stages,
