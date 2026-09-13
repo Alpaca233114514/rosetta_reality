@@ -1,0 +1,37 @@
+{
+  "id": "hestia-scene-kv-mean-20260913-001",
+  "status": "local_preparation_complete_awaiting_ssh",
+  "new_tests_passed": 41,
+  "source_regression_tests_passed": 69,
+  "total_tests_passed": 110,
+  "static_checks_passed": true,
+  "format_checks_passed": true,
+  "source_identity_matches": 83,
+  "unused_old_remote_aliases_omitted": 2,
+  "executable_input_hashes": 93,
+  "payload": {
+    "archive_sha256": "0cb431b543ee98b0bccef6e0e065020819da82127b2785d6a27f8c3516b36532",
+    "archive_bytes": 112640,
+    "regular_files": 11,
+    "payload_bytes": 101938,
+    "all_member_sha256_matched": true,
+    "members_exactly_match_allowlist": true,
+    "transfer_attempted": false
+  },
+  "sha256": {
+    "runs\\hestia-scene-kv-mean-preparation-20260913-001\\check-002.log": "e8846886df0fa0c0c335225ac6f45d4ccc1a8667739a023047c0b9d63f05fd37",
+    "runs\\hestia-scene-kv-mean-preparation-20260913-001\\payload-manifest.json": "c585b85350c2db1b2232e2be86bcaf7721740b170f023ceb62c74c18469d13c1",
+    "runs\\hestia-scene-kv-mean-preparation-20260913-001\\source-identity-check.json": "df075b36cb9f6a1a6180eb581ebacc8172d14106e047a694f60783671171810e",
+    "reports/training/m2-smolvla-hestia-scene-kv-mean-template-2026-09-13.json": "d8b863a32cd49ab26a7255ac7e3442160df1382bd0dd0ab0247474ab3ee1e4ae",
+    "scripts/check_hestia_scene_kv_mean.sh": "85ed7d3dbec8c70bc210bbb5d7221dcae6a14b6d14f47a48c5b1483dbd91cb7a"
+  },
+  "model_forwards": 0,
+  "optimizer_steps": 0,
+  "hidden_loaded": false,
+  "ssh_attempted": false,
+  "remote_transfer_attempted": false,
+  "gpu_result": "not measured",
+  "unique_root_established": false,
+  "m2_complete": false,
+  "new_gate34": "not measured"
+}

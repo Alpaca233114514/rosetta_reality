@@ -1,0 +1,131 @@
+{
+  "id": "hestia-scene-kv-mean-20260913-001",
+  "status": "scientific_protocol_frozen_not_launchable",
+  "registered_utc": "2026-09-13T02:03:58.6478905Z",
+  "hypothesis": "At step 640, scene-dependent image K or V activations contribute to wrong scene-action response",
+  "primary_checkpoint": 640,
+  "comparison_checkpoint": 1280,
+  "single_axis": "real_image_projection_scene_component_removed: none, K, V",
+  "conditions": [
+    "base640_native",
+    "base1280_native",
+    "base640_krestore",
+    "base640_vrestore",
+    "base1280_krestore",
+    "base1280_vrestore",
+    "base640_kmean",
+    "base640_vmean",
+    "base1280_kmean",
+    "base1280_vmean"
+  ],
+  "policy_forwards": 1800,
+  "optimizer_steps": 0,
+  "hidden_loaded": false,
+  "checkpoint_selection": false,
+  "calibration_rows": "train40_only",
+  "mean_axes": "scene only, independently for each checkpoint, layer, projection, token and channel",
+  "calibration_rounding": "float64 accumulation then one BF16 cast",
+  "layers": [
+    1,
+    3,
+    5,
+    7,
+    9,
+    11,
+    13,
+    15
+  ],
+  "replacement_positions": [
+    0,
+    64
+  ],
+  "preserved_positions": [
+    64,
+    241
+  ],
+  "full_prefix_positions": 241,
+  "controls_before_intervention": [
+    "base640_native",
+    "base1280_native",
+    "base640_krestore",
+    "base640_vrestore",
+    "base1280_krestore",
+    "base1280_vrestore"
+  ],
+  "control_atol": 0,
+  "control_rtol": 0,
+  "restore_interpretation": "Exact direct restore is a reversible implementation positive control, not an independent cross-checkpoint reciprocal causal intervention",
+  "maximum_worker_seconds": 1800,
+  "maximum_shutdown_seconds": 2100,
+  "maximum_condition_seconds": 180,
+  "maximum_cuda_allocated_bytes": 4294967296,
+  "maximum_rss_bytes": 5368709120,
+  "maximum_transfer_bytes": 67108864,
+  "source_head": "bd007f5402bf2a3bd7c7c473c55b62da1cadd4e8",
+  "working_head": "14f320d981e7fdc53142a314e6d4cc9f3ea58940",
+  "source_sha256": {
+    "reports/training/m2-smolvla-hestia-image-value-component-template-2026-09-12.json": "090d81a2e46e57377896086582a811a02a3414998b70d918fefc393f80aa3dc8",
+    "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json": "e1f3dd8d9213b98cd5a607156da9d550ee97e8285ada2b666ea91199951d489a",
+    "runs/hestia-early-gap-20260913-001/result.json": "249b3c798d8833d8f59ebdb9665d0640ff934ea3051f42e731ea300eca796e23",
+    "runs/hestia-cuda-curve-recovered-20260912-001/000640/arrays.npz": "575313fac58e0b46a6a814be00f39a9aa54a1b0149e651f6fe2201ba695a016b",
+    "runs/hestia-cuda-curve-recovered-20260912-001/001280/arrays.npz": "e4a21f2085dfc80636f45c8c61730a51074fc1df5e940b46f9efaef57e844f3b",
+    "runs/hestia-parameter-crossover-audit-20260912-001/result.json": "63c5976eaa05aa2d2e06db8a61c7acc18f70e4c70d7e2cb8917114b5418fafec",
+    "scripts/hestia_image_value_component.py": "144020a880b785a1330ca23c3fed68f0b269c5a0466555cda4d00ea321b3fb3b",
+    "scripts/diagnose_hestia_image_value_component.py": "99e05552efdd2234fcb1782f99ceec10c83d47616ed7324d440e522282bc70fc",
+    "scripts/run_hestia_image_value_component.py": "c0c83ad5c98481101a8442a1a728f6c803d33c2afc48e97004e573510144cbc9"
+  },
+  "checkpoint_files": {
+    "640": {
+      "config.json": "4a9e6fb39d7fc2583df089bba24406f72862e3e8179e0bff74f176d82cdee8e3",
+      "tokenizer/chat_template.jinja": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+      "policy_preprocessor_step_7_normalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "tokenizer/tokenizer.json": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+      "model.safetensors": "151e9cd18679989f90add5468bc27c555ed43975996c6a200415a69ae96c83ca",
+      "train_config.json": "4a4e0fcd7c2d06a91adbc418154f246235d7e3c861e51d9bc8378aa2c595800e",
+      "policy_preprocessor.json": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+      "policy_postprocessor_step_0_unnormalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "tokenizer/tokenizer_config.json": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+      "policy_postprocessor.json": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495"
+    },
+    "1280": {
+      "config.json": "4a9e6fb39d7fc2583df089bba24406f72862e3e8179e0bff74f176d82cdee8e3",
+      "tokenizer/chat_template.jinja": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+      "policy_preprocessor_step_7_normalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "tokenizer/tokenizer.json": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+      "model.safetensors": "21b4dd9335596c96376e24e902fc2b7f0531c6b738cbfd4dd19683e973bd9b84",
+      "train_config.json": "4a4e0fcd7c2d06a91adbc418154f246235d7e3c861e51d9bc8378aa2c595800e",
+      "policy_preprocessor.json": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+      "policy_postprocessor_step_0_unnormalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "tokenizer/tokenizer_config.json": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+      "policy_postprocessor.json": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495"
+    }
+  },
+  "historical_runtime": {
+    "python": "3.12.3",
+    "torch": "2.8.0+cu128",
+    "numpy": "2.2.6",
+    "lerobot": "0.6.2",
+    "cuda": "12.8",
+    "device_name": "NVIDIA GeForce RTX 4090 D"
+  },
+  "upstream_files": {
+    "policies/smolvla/modeling_smolvla.py": "37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d",
+    "policies/smolvla/smolvlm_with_expert.py": "996d3b0c713c0ed42b383aa2cf89b2e6f9868e337747c480a64adaecdc1073cf"
+  },
+  "scientific_protocol_sha256": "b67b7beda453c122b4e0f3cd3a0119b4cdcc5b53587487ee564fb91e7c8f1852",
+  "verified_evidence_sha256": "7448451e70a2955960d1359580b57c206e6cea2eea76a1e8c9a89bc575983dff",
+  "required_before_launch": [
+    "independent new implementation",
+    "source dependencies matched by SHA",
+    "synthetic and CLI integration tests",
+    "fresh executable template with all source/config/identity SHA",
+    "calibration provenance contract",
+    "versioned transfer allowlist and checksum",
+    "protected watchdog receiver and shutdown transaction"
+  ],
+  "runtime_permit_issued": false,
+  "implementation_completed": false,
+  "gpu_execution": "not measured",
+  "new_gate34": "not measured",
+  "m2_complete": false
+}

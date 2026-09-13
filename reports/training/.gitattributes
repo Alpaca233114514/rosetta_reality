@@ -1,0 +1,3 @@
+# These sealed experiment JSON files are referenced by exact file SHA-256.
+# Preserve their original bytes; never normalize historical evidence on checkout.
+m2-smolvla-hestia-*.json -text

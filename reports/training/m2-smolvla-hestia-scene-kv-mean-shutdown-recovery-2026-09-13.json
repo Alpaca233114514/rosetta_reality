@@ -1,0 +1,15 @@
+{
+  "recovered_during": "hestia-k-factor-20260913-001",
+  "previous_run": "hestia-scene-kv-mean-20260913-001",
+  "raw_file": "runs/hestia-k-factor-dispatch-20260913-001/prior-scene-mean-shutdown.json",
+  "raw_sha256": "de33dc6c4d458b67de38c4a4a490530b9bc4751014239cddd700dd4e1b0a3015",
+  "shutdown_request": {
+    "time": 1789268108.5618358,
+    "shutdown_wrapper_sha256": "0358e83eeeaf542aa98f64ba9e339c91df46f1e025892d52dba159f4fb1cf027",
+    "instance_release_requested": false,
+    "platform_billing_independently_verified": false
+  },
+  "extra_boot_for_log": false,
+  "previously_observed_platform_state": "已关机",
+  "billing_verified": false
+}

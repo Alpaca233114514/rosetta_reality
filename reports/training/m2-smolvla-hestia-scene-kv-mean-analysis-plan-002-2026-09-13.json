@@ -1,0 +1,52 @@
+{
+  "id": "hestia-scene-kv-mean-analysis-20260913-002",
+  "registered_utc": "2026-09-13T02:45:56.6219453Z",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "original_plan": "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json",
+  "recovered": "runs/hestia-scene-kv-mean-recovered-20260913-001/verified",
+  "output": "runs/hestia-scene-kv-mean-analysis-20260913-002/verified",
+  "template": "reports/training/m2-smolvla-hestia-scene-kv-mean-template-2026-09-13.json",
+  "conditions": [
+    "base640_native",
+    "base1280_native",
+    "base640_krestore",
+    "base640_vrestore",
+    "base1280_krestore",
+    "base1280_vrestore",
+    "base640_kmean",
+    "base640_vmean",
+    "base1280_kmean",
+    "base1280_vmean"
+  ],
+  "controls": [
+    "base640_native",
+    "base1280_native",
+    "base640_krestore",
+    "base640_vrestore",
+    "base1280_krestore",
+    "base1280_vrestore"
+  ],
+  "windows": {
+    "first": [
+      0,
+      1
+    ],
+    "full": [
+      0,
+      50
+    ]
+  },
+  "source_sha256": {
+    "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json": "e1f3dd8d9213b98cd5a607156da9d550ee97e8285ada2b666ea91199951d489a",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "scripts/diagnose_hestia_early_gap.py": "dcceb7374ffb812f82dc7a6fd22305bcce45a95e1c3788f5c4b73da721259309"
+  },
+  "local_sha256": {
+    "reports/training/m2-smolvla-hestia-scene-kv-mean-template-2026-09-13.json": "d8b863a32cd49ab26a7255ac7e3442160df1382bd0dd0ab0247474ab3ee1e4ae",
+    "tests/test_hestia_scene_kv_mean_analysis.py": "cd639d5c1d13c816b4906a9fd53c50c89e1519d90082dc2988e55693c1844410",
+    "reports/training/m2-smolvla-hestia-scene-kv-mean-analysis-plan-2026-09-13.md": "fb6d3e3ee12cfe0f10dd7ecf0889ca0286cc40471d45dbd7a080fcb8ae6c7c5a",
+    "scripts/analyze_hestia_scene_kv_mean_v2.py": "dde03002621caefa263fde79dfa6c4376c36ffea5f46cb8941524ce704e375c7",
+    "runs/hestia-scene-kv-mean-analysis-20260913-002/local.sh": "e4838139d205ca37db02bb13df38cd7ac70d5ba1c0b0504262cc11c950a76594",
+    "reports/training/m2-smolvla-hestia-scene-kv-mean-analysis-amendment-002-2026-09-13.md": "10654ee9693c152a244642b1fd8cfb89a58d5818950318cb7520658b71d8710c"
+  }
+}
