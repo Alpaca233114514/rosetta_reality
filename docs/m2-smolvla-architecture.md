@@ -12,6 +12,12 @@ late-regression recovery rates, not unique causal shares. Owner:
 metric groups and nine synthetic tests verified. No new model forward, SSH,
 optimizer, checkpoint selection or Gate ran. Early root cause remains unresolved.
 
+Next scientific design:
+`reports/training/m2-smolvla-hestia-scene-kv-ablation-design-2026-09-13.{md,json}`
+specifies same-checkpoint image K/V mean ablations with native/self-copy controls.
+It is non-launchable: implementation, source/cache seals and current CUDA runtime
+checks remain pending. No execution or new result is implied by this design.
+
 This is the stable architecture and navigation entry point for the current
 SmolVLA M2 work. It is intentionally not named after a furnace or date. Update
 this file when component ownership, execution boundaries, the current evidence
