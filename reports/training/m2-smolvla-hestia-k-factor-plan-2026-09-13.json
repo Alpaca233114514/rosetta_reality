@@ -1,0 +1,62 @@
+{
+  "id": "hestia-k-factor-20260913-001",
+  "registered_utc": "2026-09-13T03:24:29.2040727Z",
+  "status": "scientific_protocol_frozen_before_execution",
+  "hypothesis": "The benefit of replacing scene-dependent image K by train40 mean can be localized to per-head direction, magnitude shrinkage, or scene-dependent magnitude.",
+  "backbone_scale": "SmolVLA 450M existing checkpoint",
+  "adaptation": "frozen VLM; existing trained native expert and state projections; inference only",
+  "action_expert": "unchanged native expert",
+  "dataset": "fixed non-hidden train40/dev5 frame-zero, 50-action chunk, four saved noises",
+  "checkpoint": 640,
+  "checkpoint_selection": false,
+  "conditions": [
+    "base640_native",
+    "base640_krestore",
+    "base640_kmean",
+    "base640_kdirection",
+    "base640_kmagnitude",
+    "base640_knormavg",
+    "base640_kdiravg"
+  ],
+  "model_forwards": 1260,
+  "optimizer_steps": 0,
+  "hidden_loaded": false,
+  "key_coordinate": "Expert K projection output after upstream VLM RoPE, before GQA replication; reshape using actual expert head_dim and KV head count; validate all eight odd layers and native attention scale.",
+  "factors": {
+    "native": "k",
+    "krestore": "assign mean then restore original bytes",
+    "kmean": "m=BF16(train40 float64 mean of native K)",
+    "kdirection": "unit(m)*norm(k)",
+    "kmagnitude": "unit(k)*norm(m)",
+    "knormavg": "unit(k)*train40_mean(norm(k))",
+    "kdiravg": "unit(m)*train40_mean(norm(k))"
+  },
+  "calibration": "Train40 only, independently by layer, image position, KV head; norms in float64; directional interventions float64 with one final BF16 cast; zero/nonfinite norms stop; no label calibration.",
+  "controls": "Entire native and restore normalized/standard arrays must exactly equal recovered 640; mean arrays must exactly replay preceding K-mean experiment before novel factors.",
+  "fixed_fields": "V, image positions 64:241, raw images, noise, labels, nonvisual inputs, all parameters, 8 selected odd layers remain verified; no hyperparameter tuning.",
+  "primary": "dev5 full-chunk standard left-joint MSE delta from native, paired by all four noises; report MAE, covariance decomposition and two-factor interaction without hiding contradictory results.",
+  "secondary": "right joints, both grippers, first action, train40 costs, normalized metrics; norm-average controls distinguish mean-vector shortening from scene-dependent scale.",
+  "decision": "An isolated factor supports localization only if MAE and MSE improve in all four noises; interaction = mean-native - (direction-native) - (magnitude-native), reported without linear attribution. No independent-test significance claim for four noises on five reused scenes.",
+  "baseline": "Fixed native train-prediction template and train-label mean/median; never refit baseline from intervention predictions.",
+  "limits": {
+    "cuda_bytes": 4294967296,
+    "transfer_bytes": 67108864,
+    "rss_bytes": 5368709120,
+    "condition_seconds": 180,
+    "shutdown_seconds": 2100,
+    "worker_seconds": 1800
+  },
+  "stop": "Any identity/parity/nonfinite/zero-direction/coverage/budget failure stops all subsequent factors; preserve evidence and transfer before protected shutdown.",
+  "authorization": "User authorized continued root-cause narrowing, autonomous Chrome startup of exact 44db45aec7-cd880eb6, SSH 20497 and previous unchanged CNY 1.88/hour fee; existing protected shutdown authorization retained.",
+  "upstream_attention_sha256": "996d3b0c713c0ed42b383aa2cf89b2e6f9868e337747c480a64adaecdc1073cf",
+  "previous_result_sha256": "6de4a49e29a094fa6bb4c257bf0b4c42dd2e0375ef81919e558b291dcf198900",
+  "not_claimed": [
+    "new training",
+    "parameter bug",
+    "Gate 3 or 4",
+    "M2 complete",
+    "checkpoint selection",
+    "closed-loop success",
+    "unique root cause"
+  ]
+}

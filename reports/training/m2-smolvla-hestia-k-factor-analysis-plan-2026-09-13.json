@@ -1,0 +1,53 @@
+{
+  "id": "hestia-k-factor-analysis-20260913-001",
+  "registered_utc": "2026-09-13T03:36:50.8284392Z",
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "original_plan": "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json",
+  "recovered": "runs/hestia-k-factor-recovered-20260913-001/verified",
+  "output": "runs/hestia-k-factor-analysis-20260913-001/verified",
+  "template": "reports/training/m2-smolvla-hestia-k-factor-template-2026-09-13.json",
+  "conditions": [
+    "base640_native",
+    "base640_krestore",
+    "base640_kmean",
+    "base640_kdirection",
+    "base640_kmagnitude",
+    "base640_knormavg",
+    "base640_kdiravg"
+  ],
+  "controls": [
+    "base640_native",
+    "base640_krestore"
+  ],
+  "windows": {
+    "first": [
+      0,
+      1
+    ],
+    "full": [
+      0,
+      50
+    ]
+  },
+  "source_sha256": {
+    "reports/training/m2-smolvla-hestia-early-gap-plan-2026-09-13.json": "e1f3dd8d9213b98cd5a607156da9d550ee97e8285ada2b666ea91199951d489a",
+    "scripts/diagnose_hestia_checkpoint_localization.py": "fd5e6ca57400b5660ee5fa1a061c833120393d3492083f9031cbf330f83b8816",
+    "scripts/diagnose_hestia_early_gap.py": "dcceb7374ffb812f82dc7a6fd22305bcce45a95e1c3788f5c4b73da721259309"
+  },
+  "local_sha256": {
+    "scripts/analyze_hestia_k_factor.py": "edc262d4d43b0eb56f012d6936235ab9b539b5b1243791daf85bdac18db3d590",
+    "scripts/analyze_hestia_k_geometry.py": "ee736fc95a255a983f5da137f657aed2270a83ed0fe65504d60519b5294563a5",
+    "scripts/verify_hestia_scene_kv_mean_analysis.py": "713dabce57d6044ef3a0d3d5ceb4d7511c5265b065d86cc2d2329e9be192e4ce",
+    "tests/test_hestia_k_factor_analysis.py": "6285d1d322e972fcbeb8b48e61cea535e5fae197a8008a5b64012a2d68f6b31f",
+    "reports/training/m2-smolvla-hestia-k-factor-template-2026-09-13.json": "aff9ad6692ec4b522aa3c9eb5ecdc734d589bdc7cbd12ecc8be5b25eb4413a6a",
+    "runs/hestia-k-factor-reference-20260913-001/mean640.npz": "76e65bcda3c7b96ad3690a9122c5b7a7517ac64bd6c04f01c9643b15d92a9e34",
+    "reports/training/m2-smolvla-hestia-k-factor-plan-2026-09-13.json": "7c282ad6f3d19c635288142917879bb00f82892932404062ba3563fd7dbeaf61",
+    "runs/hestia-k-factor-analysis-20260913-001/local.sh": "3989148c653f890dcc4d3cce1d6445c264b8d3c2ac6b5f1d5f6c9dc1034a46e1",
+    "runs/hestia-k-factor-analysis-20260913-001/independent.sh": "b8b7d5d789b80587efe4fbe5cd009f98d67edaadebb035b56df7ac14ba0dc2aa",
+    "runs/hestia-k-factor-analysis-20260913-001/summarize.py": "228f2b3362dc359de365ccb823823af90ff6d450035de866f7026801cc157772",
+    "runs/hestia-k-factor-analysis-20260913-001/summarize.sh": "3fe5e8e0f5d6d05c01b138b2269d39d9de8bf19ff2462bc6d2d456ff8d10d544",
+    "runs/hestia-k-factor-analysis-20260913-001/geometry.sh": "b7998688eb86d47f846d44af50e83f9a1ac8abba25e146237e61dc1f2451ef18"
+  },
+  "reference_mean": "runs/hestia-k-factor-reference-20260913-001/mean640.npz",
+  "receipt": "runs/hestia-k-factor-receiver-20260913-001/receipt.json"
+}
