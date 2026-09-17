@@ -42,38 +42,34 @@ def install_masked_camera_encoder_skip(modeling_module: Any) -> None:
             )
         empty_cameras = int(self.config.empty_cameras)
         real_cameras = len(images) - empty_cameras
-        if (
-            empty_cameras <= 0
-            or real_cameras <= 0
-            or len(images) != len(img_masks)
-        ):
+        if empty_cameras <= 0 or real_cameras <= 0 or len(images) != len(img_masks):
             raise RuntimeError("Masked-camera skipping received an invalid camera layout.")
-        if (
-            not getattr(self, "_rosetta_mask_contract_validated", False)
-            and not torch.compiler.is_compiling()
-        ):
-            present = [bool(mask.any().item()) for mask in img_masks]
-            if present != [True] * real_cameras + [False] * empty_cameras:
-                raise RuntimeError(
-                    "Only trailing, fully masked placeholder cameras may skip encoding."
-                )
-            self._rosetta_mask_contract_validated = True
+        # Every call must prove that discarded camera encodings are masked.
+        # Async tensor assertions remain in compiled graphs; no cached first-call
+        # result may authorize a later batch with a different mask.
+        for index, mask in enumerate(img_masks):
+            if (
+                mask.dtype != torch.bool
+                or mask.ndim != 1
+                or mask.shape[0] != images[index].shape[0]
+            ):
+                raise RuntimeError("Camera masks must be boolean batch vectors.")
+            valid = mask.any() if index < real_cameras else ~mask.any()
+            torch._assert_async(
+                valid, "Only trailing, fully masked placeholder cameras may skip encoding."
+            )
 
         embs: list[torch.Tensor] = []
         pad_masks: list[torch.Tensor] = []
         attention_pattern: list[int] = []
         image_template: torch.Tensor | None = None
-        for image_index, (image, image_mask) in enumerate(
-            zip(images, img_masks, strict=True)
-        ):
+        for image_index, (image, image_mask) in enumerate(zip(images, img_masks, strict=True)):
             if image_index < real_cameras:
                 image_embedding = self.vlm_with_expert.embed_image(image)
                 image_template = image_embedding
             else:
                 if image_template is None:
-                    raise RuntimeError(
-                        "A real camera embedding must precede placeholders."
-                    )
+                    raise RuntimeError("A real camera embedding must precede placeholders.")
                 image_embedding = torch.zeros_like(image_template)
             image_dimension = image_embedding.shape[-1]
             image_embedding = image_embedding * torch.tensor(
@@ -110,9 +106,9 @@ def install_masked_camera_encoder_skip(modeling_module: Any) -> None:
         attention_pattern += [1] * state_tokens
         embeddings = torch.cat(embs, dim=1)
         padding = torch.cat(pad_masks, dim=1)
-        attention = torch.tensor(
-            attention_pattern, dtype=torch.bool, device=padding.device
-        )[None, :].expand(batch_size, -1)
+        attention = torch.tensor(attention_pattern, dtype=torch.bool, device=padding.device)[
+            None, :
+        ].expand(batch_size, -1)
         return embeddings, padding, attention
 
     embed_prefix._rosetta_masked_camera_skip = True  # type: ignore[attr-defined]

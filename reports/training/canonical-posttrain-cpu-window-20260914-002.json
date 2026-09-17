@@ -1,0 +1,31 @@
+{
+  "id": "canonical-posttrain-cpu-qa-002",
+  "status": "preregistered",
+  "instance": "44db45aec7-cd880eb6",
+  "mode": "no_gpu",
+  "purpose": "Verify personally repaired post-training code before Luna CUDA Gates",
+  "optimizer_steps": 0,
+  "model_forwards": 0,
+  "maximum_seconds": 1800,
+  "memory_gib": 2,
+  "dependencies": "existing registered AutoDL Python, Ruff, pytest, torch and pyarrow; no installs",
+  "checks": [
+    "Ruff static source checks",
+    "source and schema counterexamples",
+    "CPU synthetic regression",
+    "endpoint metadata preparation with pinned existing checkpoint files"
+  ],
+  "shutdown": "after CPU QA or deadline; separate CUDA admission after readiness",
+  "sources": {
+    "test_canonical_posttrain_repairs.py": "802db601db1283da3dc4fc051c80119f4f822f0b3844ebca9c6a98407791a16b",
+    "canonical_fullframes_endpoint.py": "41739f4f2775f8ba3e272ed4faf258f44166b01c45ee452a9b3875d15be97232",
+    "canonical_fullframes_contract.py": "de3fc5ac73adfdbc5fa395f822af4735bc93b307781047471d4e802a45e9348f",
+    "canonical_fullframes_sim_gate.py": "b6bd9f7bd71e6c6437bebe3c3fd09e1ac16fc932a8f7199d0af1d3702219445f",
+    "canonical_fullframes_stages.py": "4ae25d78a8e4752d99462303b0bc481c88a72086c2fc4495e287ffc2bed22a6b",
+    "canonical_fullframes_posttrain.py": "7f557c07c4302e9836b697f0b2ec4554289ae7802c9be007e338d6212775e7e5",
+    "canonical_fullframes_gate_runtime.py": "66996cae15cb9703638262f4466884fa6582cc0b18bbe05553a47bedb378b332",
+    "run_canonical_fullframes_posttrain.py": "9e67e09443ab3cf16f92ecdd1fa08405643689fa95d8c43ed44dc967351837b6",
+    "canonical_fullframes_offline.py": "05ebedbdabe32fdabd0d2d5b57bf3aeb380bf155abd60546059614ad94c39409",
+    "canonical_fullframes_runtime.py": "2a07ec9165f4b3d58aae67cae40523427be32f3412f54501624d4c9f0dc14e57"
+  }
+}

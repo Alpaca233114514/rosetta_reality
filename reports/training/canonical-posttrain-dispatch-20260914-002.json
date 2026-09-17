@@ -1,0 +1,17 @@
+{
+  "status": "cpu_verified_cuda_pending",
+  "timestamp_utc": "2026-09-14T14:17:16.5563751Z",
+  "workspace": "20260914T141523Z-95cf9cf9483b-09a6afcda1cf",
+  "composite_sha256": "09a6afcda1cfa8a8fa2f7c62307cb14da784c91d53b44baa8dabb2bf3435b111",
+  "template": "reports/training/canonical-posttrain-template-20260914-002.json",
+  "template_sha256": "6bfbccb1fc348280b9dfdd0db34981c10f5bb5a09ce04d1930e0433428361b88",
+  "plan_sha256": "e012afd526118e86c89080c0fe3856281ba4aa5ca8feff2aa4a6d26ea2887810",
+  "source_files_verified": 1078,
+  "cpu_tests_passed": 37,
+  "endpoint_metadata_verified": true,
+  "primary_agent_authored_repair": true,
+  "executor": "luna_max_monitor",
+  "gate3": "pending",
+  "gate4": "pending",
+  "m2_complete": false
+}

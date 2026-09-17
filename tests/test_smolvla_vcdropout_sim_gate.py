@@ -49,9 +49,7 @@ def _write_manifest(artifact_dir: Path, artifact_id: str) -> None:
     )
 
 
-def _write_gate_report(
-    run_root: Path, artifact_id: str, *, passed: bool = True
-) -> Path:
+def _write_gate_report(run_root: Path, artifact_id: str, *, passed: bool = True) -> Path:
     directory = run_root / protocol.EXPERIMENT_ID / "diagnostics"
     directory.mkdir(parents=True, exist_ok=True)
     report = {
@@ -71,9 +69,7 @@ def _write_gate_report(
 
 
 @pytest.fixture()
-def gate_environment(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> dict[str, Path]:
+def gate_environment(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> dict[str, Path]:
     artifact_dir = tmp_path / "artifacts" / protocol.EXPERIMENT_ID / ARTIFACT_ID
     run_root = tmp_path / "runs"
     _write_manifest(artifact_dir, ARTIFACT_ID)
@@ -81,6 +77,18 @@ def gate_environment(
     monkeypatch.setenv("ROSETTA_ARTIFACT_ROOT", str(tmp_path / "artifacts"))
     monkeypatch.setenv("ROSETTA_RUN_ROOT", str(run_root))
     return {"artifact_dir": artifact_dir, "run_root": run_root}
+
+
+@pytest.fixture()
+def synthetic_formal_plan(tmp_path):
+    # Isolated unit-test plan bound to actual current files, never the historical
+    # YAML. Historical dirty source bytes are unavailable for two files.
+    from test_smolvla_vcdropout_protocol import _candidate_plan
+
+    path = tmp_path / "synthetic-vcd-plan.yaml"
+    path.write_text(yaml.safe_dump(_candidate_plan()), encoding="utf-8")
+    protocol.resolve_plan(path)  # All real digest checks remain enabled.
+    return path
 
 
 def test_template_freezes_registered_protocol() -> None:
@@ -111,9 +119,7 @@ def test_template_freezes_registered_protocol() -> None:
         "candidate": "samplewise_normalized_state_dropout_p0.5_dedicated_rng",
     }
     assert plan["prior_failure"]["failed_criterion"] == "raw_actions_within_contract"
-    assert (
-        plan["prior_task_failure"]["failed_criterion"] == "minimum_task_success_rate"
-    )
+    assert plan["prior_task_failure"]["failed_criterion"] == "minimum_task_success_rate"
     assert plan["action_contract"]["sha256"] == wrapper.CONTRACT_SHA
     assert len(plan["collision_policy"]["allowed_task_contacts"]) == 5
     assert plan["inference"]["noise"] == "seeded_standard_normal"
@@ -140,7 +146,10 @@ def test_template_freezes_registered_protocol() -> None:
 
 
 def test_gradient_gate_entry_permit_is_fail_closed(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, gate_environment: dict[str, Path]
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    gate_environment: dict[str, Path],
+    synthetic_formal_plan,
 ) -> None:
     directory = gate_environment["run_root"] / protocol.EXPERIMENT_ID / "diagnostics"
     (directory / "vcdropout-gradient-gate-0000000000000002.json").write_text(
@@ -154,21 +163,20 @@ def test_gradient_gate_entry_permit_is_fail_closed(
         encoding="utf-8",
     )
     with pytest.raises(FileNotFoundError, match="entry permit"):
-        wrapper._prepare_gate_evidence(FORMAL_PLAN, ARTIFACT_ID)
+        wrapper._prepare_gate_evidence(synthetic_formal_plan, ARTIFACT_ID)
     (directory / "vcdropout-gradient-gate-0000000000000002.json").unlink()
-    failed = _write_gate_report(
-        gate_environment["run_root"], ARTIFACT_ID, passed=False
-    )
+    failed = _write_gate_report(gate_environment["run_root"], ARTIFACT_ID, passed=False)
     failed.rename(failed.with_name("stale.json"))
     _write_gate_report(gate_environment["run_root"], ARTIFACT_ID, passed=False)
     with pytest.raises(ValueError, match="entry permit"):
-        wrapper._prepare_gate_evidence(FORMAL_PLAN, ARTIFACT_ID)
+        wrapper._prepare_gate_evidence(synthetic_formal_plan, ARTIFACT_ID)
 
 
 def test_prepare_writes_records_and_content_binds_artifact(
     gate_environment: dict[str, Path],
+    synthetic_formal_plan,
 ) -> None:
-    evidence = wrapper._prepare_gate_evidence(FORMAL_PLAN, ARTIFACT_ID)
+    evidence = wrapper._prepare_gate_evidence(synthetic_formal_plan, ARTIFACT_ID)
     assert evidence["selected_step"] == 237
     assert evidence["model_sha"] == "a" * 64
     assert evidence["plan_id"] == "m2-smolvla450m-vcdropout-001"
@@ -187,9 +195,10 @@ def test_prepare_writes_records_and_content_binds_artifact(
         "model_safetensors_sha256": "a" * 64,
     }
     assert selection["hidden_test_loaded"] is False
-    assert selection["derived_from"]["artifact_manifest_sha256"] == evidence[
-        "artifact_manifest_sha256"
-    ]
+    assert (
+        selection["derived_from"]["artifact_manifest_sha256"]
+        == evidence["artifact_manifest_sha256"]
+    )
 
     backup = json.loads(
         (
@@ -203,7 +212,7 @@ def test_prepare_writes_records_and_content_binds_artifact(
     assert backup["artifact_manifest_sha256"] == evidence["artifact_manifest_sha256"]
     assert backup["file_count"] == 1
 
-    first = wrapper._prepare_gate_evidence(FORMAL_PLAN, ARTIFACT_ID)
+    first = wrapper._prepare_gate_evidence(synthetic_formal_plan, ARTIFACT_ID)
     assert first["selection_sha"] == evidence["selection_sha"]
     assert first["backup_sha"] == evidence["backup_sha"]
 
@@ -217,3 +226,8 @@ def test_prepare_writes_records_and_content_binds_artifact(
 
 def test_report_suffix_continues_campaign_series() -> None:
     assert wrapper.REPORT_SUFFIX == "433"
+
+
+def test_historical_vcd_plan_still_rejects_current_source_drift():
+    with pytest.raises(ValueError, match="Implementation file changed"):
+        protocol.resolve_plan(FORMAL_PLAN)

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "checked_at_utc": "2026-09-14T10:11:30.6983973Z",
+  "request": "Start a fresh furnace with the repaired training chain; stop if no GPU",
+  "status": "not_started_no_gpu",
+  "instance": "44db45aec7-cd880eb6",
+  "list_badge": "GPU sufficient",
+  "actual_start_response": "Insufficient idle GPUs on host",
+  "required_gpus": 1,
+  "available_gpus": 0,
+  "platform_state": "powered_off",
+  "new_optimizer_steps": 0,
+  "no_gpu_start_attempted": false,
+  "clone_attempted": false,
+  "retry_scheduled": false,
+  "sampling_choice": "not finalized; question superseded by no-GPU stop condition",
+  "prior_repair_result": "reports/training/m2-smolvla-training-chain-canonical-result-2026-09-14.json"
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "completed",
+  "authorization": "User explicitly approved deleting the named backed-up diagnostic checkpoint directory",
+  "checkpoint_experiment": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "checkpoint_relative_path": "smoke/training-chain-gpu-audit-20260914-006-smoke/checkpoints/000002",
+  "local_backup": "runs/training-chain-checkpoint-recovered-20260914-006/verified",
+  "local_archive": "runs/training-chain-checkpoint-recovered-20260914-006/checkpoint.tar",
+  "sha256_inventory": "runs/training-chain-checkpoint-recovered-20260914-006/sha256sums.txt",
+  "verified_files": 16,
+  "removed_directory_bytes_du_sb": 1614050801,
+  "pre_delete_realpath_exact": true,
+  "pre_delete_no_symlinks": true,
+  "pre_delete_file_count_and_all_sha256_matched": true,
+  "post_delete_absence_checked": true,
+  "data_disk_available_gib_final_rounded": 6.8,
+  "system_disk_modified": false,
+  "gate_endpoint_removed": false,
+  "unique_data_removed": false,
+  "restoration": "Upload the retained complete verified local diagnostic checkpoint if needed"
+}

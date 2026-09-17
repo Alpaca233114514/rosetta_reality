@@ -80,9 +80,7 @@ def _load_yaml(path: Path) -> dict[str, Any]:
 
 def _declared_feature_names(plan: dict[str, Any]) -> list[str]:
     return [
-        declaration["name"]
-        for declaration in plan["features"]
-        if isinstance(declaration, dict)
+        declaration["name"] for declaration in plan["features"] if isinstance(declaration, dict)
     ]
 
 
@@ -90,9 +88,7 @@ def _resolve_plan(plan_path: Path) -> tuple[dict[str, Any], Path, dict[str, Any]
     plan = load_v2_plan(plan_path, REPOSITORY_ROOT)
     validate_plan_structure(plan, known_features=FEATURE_FACTORIES)
     parent = plan["parent_experiment"]
-    base_relative = repository_relative_path(
-        parent["config"], context="Parent experiment config"
-    )
+    base_relative = repository_relative_path(parent["config"], context="Parent experiment config")
     base_path = (REPOSITORY_ROOT / base_relative).resolve()
     if not base_path.is_relative_to(REPOSITORY_ROOT):
         raise ValueError("Parent experiment path escaped the repository root.")
@@ -128,12 +124,12 @@ def _validate_split(plan: dict[str, Any], experiment: dict[str, Any], mode: str)
     elif not episode_set.issubset(set(train_episodes)):
         raise ValueError("Version-2 smoke/preflight episodes must come from the train split.")
     validation = plan["validation"]
-    if set(int(value) for value in validation["episodes"]) & (
-        set(train_episodes) | episode_set
-    ):
+    if set(int(value) for value in validation["episodes"]) & (set(train_episodes) | episode_set):
         raise ValueError("Version-2 validation episodes must stay disjoint from training.")
     if set(int(value) for value in validation["episodes"]) & test_episodes:
         raise ValueError("Version-2 validation episodes must stay disjoint from hidden test.")
+    if not set(validation["episodes"]).issubset(validation_episodes):
+        raise ValueError("Version-2 validation must use the registered parent validation split.")
 
 
 def _validate_prerequisites(
@@ -142,9 +138,7 @@ def _validate_prerequisites(
     prerequisites = plan.get("prerequisites", {})
     paths: dict[str, Path] = {}
     for name, declaration in sorted(prerequisites.items()):
-        relative = repository_relative_path(
-            declaration["path"], context=f"Prerequisite '{name}'"
-        )
+        relative = repository_relative_path(declaration["path"], context=f"Prerequisite '{name}'")
         path = (REPOSITORY_ROOT / relative).resolve()
         if not path.is_relative_to(REPOSITORY_ROOT) or not path.is_file():
             raise FileNotFoundError(relative.as_posix())
@@ -152,9 +146,7 @@ def _validate_prerequisites(
             raise ValueError(f"Version-2 prerequisite checksum changed: {name}.")
         paths[name] = path
     if "benchmark" in paths:
-        phase_runner._validate_benchmark(
-            paths["benchmark"], experiment, base_path, contract_sha256
-        )
+        phase_runner._validate_benchmark(paths["benchmark"], experiment, base_path, contract_sha256)
     allowed_replay = [
         *experiment["dataset"]["train_episodes"],
         *experiment["dataset"]["validation_episodes"],
@@ -186,12 +178,12 @@ def _validate_normalization(
 ) -> tuple[Path, Path]:
     normalization = plan["normalization"]
     report_path = (
-        REPOSITORY_ROOT / repository_relative_path(
-            normalization["report"], context="Normalization report"
-        )
+        REPOSITORY_ROOT
+        / repository_relative_path(normalization["report"], context="Normalization report")
     ).resolve()
     manifest_path = (
-        REPOSITORY_ROOT / repository_relative_path(
+        REPOSITORY_ROOT
+        / repository_relative_path(
             normalization["dataset_view_manifest"], context="Normalization view manifest"
         )
     ).resolve()
@@ -209,9 +201,7 @@ def _validate_normalization(
         raise ValueError("Train-only dataset view path is unsafe.")
     view_root = (run_root / relative_view).resolve()
     if not view_root.is_relative_to(run_root) or manifest_path.parent.resolve() != view_root:
-        raise ValueError(
-            "Train-only dataset view identity differs from the normalization report."
-        )
+        raise ValueError("Train-only dataset view identity differs from the normalization report.")
     train_episodes = experiment["dataset"]["train_episodes"]
     effective_stats = report.get("effective_stats", {})
     if (
@@ -223,8 +213,7 @@ def _validate_normalization(
         or report.get("action_contract_sha256") != contract_sha256
         or report.get("source_split") != "train"
         or report.get("train_episodes") != train_episodes
-        or report.get("train_rows")
-        != effective_stats.get("action", {}).get("count", [None])[0]
+        or report.get("train_rows") != effective_stats.get("action", {}).get("count", [None])[0]
         or report.get("train_rows")
         != effective_stats.get("observation.state", {}).get("count", [None])[0]
         or report.get("validation_episodes_loaded") is not False
@@ -322,8 +311,7 @@ def _validate_base_validation(
         or report.get("action_contract_sha256") != contract_sha256
         or report.get("normalization_report_sha256") != normalization_sha256
         or report.get("model_source", {}).get("kind") != "base"
-        or report.get("model_source", {}).get("model_revision")
-        != experiment["model"]["revision"]
+        or report.get("model_source", {}).get("model_revision") != experiment["model"]["revision"]
         or report.get("validation_episodes") != validation["episodes"]
         or report.get("frame_offsets") != validation["frame_offsets"]
         or report.get("materialized_episodes") != sorted(validation["episodes"])
@@ -377,9 +365,7 @@ def _write_launch_manifest(
         "model_revision": experiment["model"]["revision"],
         "dataset_revision": experiment["dataset"]["revision"],
         "features": _declared_feature_names(plan),
-        "prerequisites": {
-            name: file_sha256(path) for name, path in sorted(prerequisites.items())
-        },
+        "prerequisites": {name: file_sha256(path) for name, path in sorted(prerequisites.items())},
         "base_validation_sha256": (
             file_sha256(base_validation) if base_validation is not None else None
         ),
@@ -388,9 +374,7 @@ def _write_launch_manifest(
         "plan_inheritance": plan.get("plan_inheritance"),
         "hidden_test_loaded": False,
     }
-    destination = (
-        run_root / str(experiment["experiment_id"]) / "launch" / f"{run_name}.json"
-    )
+    destination = run_root / str(experiment["experiment_id"]) / "launch" / f"{run_name}.json"
     create_json(destination, report)
     return destination
 
@@ -402,19 +386,18 @@ def main() -> int:
     parser.add_argument("--preflight-report", type=Path)
     parser.add_argument("--base-validation-report", type=Path)
     args = parser.parse_args()
-    if (
-        os.environ.get("HF_HUB_OFFLINE") != "1"
-        or os.environ.get("HF_DATASETS_OFFLINE") != "1"
-    ):
+    if os.environ.get("HF_HUB_OFFLINE") != "1" or os.environ.get("HF_DATASETS_OFFLINE") != "1":
         raise RuntimeError("Version-2 SmolVLA work must run with networking disabled.")
 
     plan_path = args.plan.resolve()
     plan, base_path, experiment = _resolve_plan(plan_path)
+    from rosetta_reality.vla.training.integrity import validate_local_implementation
+
+    validate_local_implementation(plan, REPOSITORY_ROOT)
     resources = plan["resources"]
     if (
         os.environ.get("ROSETTA_DOCKER_MEMORY_LIMIT") != resources["memory_limit"]
-        or os.environ.get("ROSETTA_DOCKER_MEMORY_SWAP_LIMIT")
-        != resources["memory_swap_limit"]
+        or os.environ.get("ROSETTA_DOCKER_MEMORY_SWAP_LIMIT") != resources["memory_swap_limit"]
     ):
         raise ValueError("The active Docker memory limits differ from the version-2 plan.")
     _validate_split(plan, experiment, args.mode)
@@ -509,13 +492,9 @@ def main() -> int:
     os.environ["ROSETTA_VLA_FORMAL_PLAN_SHA256"] = plan_sha256
     os.environ["ROSETTA_VLA_NORMALIZATION_SHA256"] = normalization_sha256
     os.environ["ROSETTA_VLA_CODE_REVISION"] = str(code_identity["revision"])
-    os.environ["ROSETTA_VLA_WORKSPACE_TREE_SHA256"] = str(
-        code_identity["workspace_tree_sha256"]
-    )
+    os.environ["ROSETTA_VLA_WORKSPACE_TREE_SHA256"] = str(code_identity["workspace_tree_sha256"])
     os.environ["ROSETTA_VLA_WORKSPACE_DIRTY"] = str(bool(code_identity["dirty"])).lower()
-    os.environ["ROSETTA_VLA_WORKSPACE_FILE_COUNT"] = str(
-        code_identity["workspace_file_count"]
-    )
+    os.environ["ROSETTA_VLA_WORKSPACE_FILE_COUNT"] = str(code_identity["workspace_file_count"])
     os.environ["ROSETTA_VLA_SKIP_FULLY_MASKED_CAMERA_ENCODING"] = (
         "1" if FEATURE_MASKED_CAMERA_SKIP in _declared_feature_names(plan) else "0"
     )

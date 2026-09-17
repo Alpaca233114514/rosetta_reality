@@ -24,6 +24,7 @@ from __future__ import annotations
 import ctypes
 import gc
 import json
+import logging
 from abc import ABC, abstractmethod
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, field
@@ -168,6 +169,49 @@ class MaskedCameraSkipFeature(TrainingFeature):
 
     def restore(self, context: TrainingContext) -> None:
         restore_masked_camera_encoder_skip(_load_modeling_module())
+
+
+class CanonicalImageScalingFeature(TrainingFeature):
+    """Convert native CUDA uint8 batches using the canonical CPU pixel values."""
+
+    name = "canonical_image_scaling"
+
+    def __init__(self, parameters: Mapping[str, Any]) -> None:
+        if parameters:
+            raise ValueError("canonical_image_scaling declares no parameters")
+
+    def install(self, context: TrainingContext) -> None:
+        from rosetta_reality.vla.image_scaling import canonical_rgb_uint8
+
+        module = _lerobot_train_module()
+        if getattr(module, _marker(self.name), False):
+            raise RuntimeError("canonical_image_scaling is already installed")
+        camera_keys = tuple(
+            source for source, target in context.experiment["dataset"]["rename_map"].items()
+            if target.startswith("observation.images.")
+        )
+        if not camera_keys:
+            raise ValueError("Canonical scaling requires explicit camera mappings")
+        self.original_cycle = module.cycle
+
+        @wraps(self.original_cycle)
+        def cycle(*args: Any, **kwargs: Any):
+            for batch in self.original_cycle(*args, **kwargs):
+                converted = dict(batch)
+                for key in camera_keys:
+                    converted[key] = canonical_rgb_uint8(batch[key])
+                yield converted
+
+        self.installed_cycle = cycle
+        module.cycle = cycle
+        setattr(module, _marker(self.name), True)
+
+    def restore(self, context: TrainingContext) -> None:
+        module = _lerobot_train_module()
+        if module.cycle is not self.installed_cycle:
+            raise RuntimeError("Canonical image scaling hook changed during execution")
+        module.cycle = self.original_cycle
+        setattr(module, _marker(self.name), False)
 
 
 class ActionBoundaryProjectionFeature(TrainingFeature):
@@ -635,11 +679,16 @@ class GradientClipDiagnosticsFeature(TrainingFeature):
             gradient = parameter.grad.detach()
             if not bool(torch.isfinite(gradient).all()):
                 raise FloatingPointError("Non-finite gradient observed by clip diagnostics.")
-            group = (
-                names.get(id(parameter), "unresolved").split(".", 1)[0]
-                if names is not None
-                else "unresolved"
-            )
+            name = names.get(id(parameter), "unresolved") if names is not None else "unresolved"
+            parts = name.split(".")
+            while parts and parts[0] in {"module", "_orig_mod", "model"}:
+                parts.pop(0)
+            if "lm_expert" in parts:
+                group = "action_expert"
+            elif parts and parts[0] == "vlm_with_expert":
+                group = "vlm"
+            else:
+                group = parts[0] if parts else "unresolved"
             squared[group] = squared.get(group, 0.0) + float(
                 gradient.to(torch.float64).square().sum()
             )
@@ -1042,11 +1091,45 @@ class TrackioLoggingFeature(TrainingFeature):
         setattr(lerobot_train, _marker(self.name), False)
 
 
+class ExplicitSampleScheduleFeature(TrainingFeature):
+    """Use a separately sealed full temporal order; never alter historical samplers."""
+
+    name = "explicit_sample_schedule"
+
+    def __init__(self, parameters: Mapping[str, Any]) -> None:
+        if set(parameters) != {"path", "sha256"}:
+            raise ValueError("Explicit sample schedule requires path and sha256")
+        self.declaration = dict(parameters)
+
+    def install(self, context: TrainingContext) -> None:
+        from rosetta_reality.vla.training.temporal_sampler import load_schedule, sampler_class
+
+        module = _lerobot_train_module()
+        if getattr(module, _marker(self.name), False) or getattr(
+            module, _marker("fixed_frame_sampler"), False
+        ):
+            raise RuntimeError("A registered sampler is already installed")
+        samples = load_schedule(context, self.declaration)
+        self.original = module.EpisodeAwareSampler
+        self.wrapper = sampler_class(self.original, samples, context.experiment["seed"])
+        module.EpisodeAwareSampler = self.wrapper
+        setattr(module, _marker(self.name), True)
+
+    def restore(self, context: TrainingContext) -> None:
+        module = _lerobot_train_module()
+        if module.EpisodeAwareSampler is not self.wrapper:
+            raise RuntimeError("Temporal sampler wrapper changed before restore")
+        module.EpisodeAwareSampler = self.original
+        setattr(module, _marker(self.name), False)
+
+
 FEATURE_FACTORIES: dict[str, Callable[[Mapping[str, Any]], TrainingFeature]] = {
     TrainOnlyStatisticsFeature.name: TrainOnlyStatisticsFeature,
     MaskedCameraSkipFeature.name: MaskedCameraSkipFeature,
+    CanonicalImageScalingFeature.name: CanonicalImageScalingFeature,
     ActionBoundaryProjectionFeature.name: ActionBoundaryProjectionFeature,
     FixedFrameSamplerFeature.name: FixedFrameSamplerFeature,
+    ExplicitSampleScheduleFeature.name: ExplicitSampleScheduleFeature,
     HorizonWeightProfileFeature.name: HorizonWeightProfileFeature,
     ImageKeySceneRegularizationFeature.name: ImageKeySceneRegularizationFeature,
     StateRobustnessJitterFeature.name: StateRobustnessJitterFeature,
@@ -1094,11 +1177,18 @@ class FeatureStack:
     def install_all(self, context: TrainingContext) -> list[str]:
         """Install every feature in declaration order, rolling back on failure."""
 
+        if self.installed:
+            raise RuntimeError("This feature stack is already installed.")
         for feature in self.features:
             try:
                 feature.install(context)
-            except BaseException:
-                self._rollback(context)
+            except BaseException as primary:
+                try:
+                    self._rollback(context)
+                except BaseException as cleanup:
+                    if hasattr(primary, "add_note"):
+                        primary.add_note(f"Feature rollback also failed: {cleanup!r}")
+                    logging.exception("Feature rollback failed; preserving the install error.")
                 raise
             self.installed.append(feature.name)
         return list(self.installed)
@@ -1106,20 +1196,28 @@ class FeatureStack:
     def restore_all(self, context: TrainingContext) -> None:
         """Restore every installed feature in reverse installation order."""
 
+        failures = []
+        remaining = []
         while self.installed:
             name = self.installed.pop()
             for feature in self.features:
                 if feature.name == name:
-                    feature.restore(context)
+                    try:
+                        feature.restore(context)
+                    except BaseException as exc:
+                        if hasattr(exc, "add_note"):
+                            exc.add_note(f"Feature restore failed: {name}")
+                        failures.append(exc)
+                        remaining.append(name)
                     break
+        self.installed.extend(reversed(remaining))
+        if failures:
+            error = RuntimeError("Training feature restore failed")
+            error.cleanup_errors = tuple(failures)
+            raise error from failures[0]
 
     def _rollback(self, context: TrainingContext) -> None:
-        while self.installed:
-            name = self.installed.pop()
-            for feature in self.features:
-                if feature.name == name:
-                    feature.restore(context)
-                    break
+        self.restore_all(context)
 
 
 def feature_stack_from_plan(plan: dict[str, Any]) -> FeatureStack:

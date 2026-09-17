@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "status": "audit_completed_with_repairs_and_retained_limitations",
+  "all_code_proven_error_free": false,
+  "source_head": "95cf9cf9483b901d7fac556181274cfdbcb75067",
+  "branch": "codex/iris-k-scene-20260913",
+  "preexisting_dirty_work_preserved": true,
+  "committed": false,
+  "pushed": false,
+  "runtime": {
+    "entry": "wsl_bash_linux_docker",
+    "image_id": "sha256:2696f8e0430050951ffdd16721e41af19473bd741de4c5547cfb330d6f08580b",
+    "network": "none",
+    "device": "cpu",
+    "memory_limit": "6g",
+    "memory_swap_limit": "6g",
+    "cpus": 2
+  },
+  "repairs": {
+    "classes": 6,
+    "counterexamples_failed_before_and_passed_after": 16,
+    "missing_action_boundary": 1,
+    "orphan_learning_contracts": 5,
+    "ignored_phase_and_training_policy_overlays": 7,
+    "fractional_episode_identity": 1,
+    "disabled_registered_checkpoints": 1,
+    "installable_draft_temporal_schedule": 1
+  },
+  "verification": {
+    "regression_junit": "runs/training-chain-rescan-20260914-001/regression-sealed.xml",
+    "passed": 512,
+    "failed": 8,
+    "skipped": 1,
+    "deselected": 2,
+    "retained_failure_reason": "historical_implementation_sha_mismatch_scripts/run_smolvla_v2.py",
+    "data_junit": "runs/training-chain-rescan-20260914-001/data-test.xml",
+    "data_passed": 1,
+    "native_temporal_feature_loader_update_observer_cases": 4,
+    "ruff": "passed",
+    "format": "passed",
+    "git_diff_check": "passed"
+  },
+  "data": {
+    "evidence": "runs/training-chain-audit-20260914-002/result.json",
+    "train_numeric_frames": 20000,
+    "development_numeric_frames": 2500,
+    "decoded_image_samples": 405,
+    "full_action_chunks_verified": 405,
+    "full_action_chunk_scalars_verified": 283500,
+    "hidden_rows_materialized": 0,
+    "source_action_elements_requiring_registered_clipping": 6973,
+    "all_image_frames_verified": false,
+    "independent_video_pts_semantics": "not measured"
+  },
+  "normalization": {
+    "evidence": "runs/training-chain-processors-20260914-002/result.json",
+    "train_frames": 20000,
+    "maximum_recomputed_statistic_error": 4.785061236134425e-14,
+    "saved_arrays_exact": true,
+    "saved_chain_evidence": "runs/training-chain-saved-chain-20260914-001/result.json",
+    "saved_chain_samples_per_arm": 6,
+    "maximum_normalized_tensor_error": 0.0,
+    "maximum_action_roundtrip_error": 1.1920928955078125e-7
+  },
+  "coverage": {
+    "control_exposures": 5120,
+    "control_unique_input_frames": 40,
+    "control_unique_target_frames": 2000,
+    "temporal_draft_unique_input_frames": 5120,
+    "full_input_traversal": false,
+    "new_training_authorized": false
+  },
+  "limits": {
+    "pretrained_policy_weights_loaded": false,
+    "synthetic_tiny_optimizer_updates_executed": true,
+    "formal_policy_optimizer_updates": 0,
+    "formal_model_resume": "not measured",
+    "cuda_equivalence": "not measured",
+    "full_policy_forward_backward_reload": "not measured",
+    "new_gate34": "not measured",
+    "m2_complete": false,
+    "historical_selector_tiebreak": "earlier_declared_but_later_selected_retained_unmodified",
+    "historical_metric_reload": "metric_equality_does_not_prove_full_tensor_equality"
+  },
+  "source_sha256": {
+    "src/rosetta_reality/vla/training/plan.py": "6de6f150060cc4a86c6124197370c0911c511b51904377d88734d99ecf6bc265",
+    "src/rosetta_reality/vla/training/temporal_sampler.py": "eb499b2c69cfdd70477dfd065a64b92d36c62d766566d30e235f1275bb29363c",
+    "scripts/audit_smolvla_dataset.py": "eae30d404868d2d7a0a5e1ce1b2fe6c897f8d00fdfde39dc82c68f6bf59e8ae4",
+    "scripts/audit_smolvla_saved_chain.py": "2d42555f897aa15984be0370e4630f8a0accfab72e68af52de24a4a2c9eb362c",
+    "tests/test_smolvla_rescan_contracts.py": "81967ab2fe9e4f901f798d7af081ddd6e685f4e9eacabc2ba7e73c03e83a7e4d",
+    "tests/test_smolvla_temporal_integration.py": "75de5f674857914cfbc42febebd266d0911b8355de055191cb8f784d593eedfb",
+    "tests/test_smolvla_optimizer_diagnostics.py": "efb9f376b9fa9c4b271d270e581061fbd1fdefc27e614a6674cdd46b441e4f7f",
+    "tests/test_smolvla_training_plan_schema.py": "7bc5840b19193be47d3d2e5a5d311826ac6b5bcb698ed0e4bdb454d169be955a"
+  }
+}

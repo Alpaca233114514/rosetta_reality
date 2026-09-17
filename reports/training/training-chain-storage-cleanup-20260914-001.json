@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "status": "completed",
+  "authorization": "User explicitly approved deleting this one backed-up archive",
+  "remote_workspace": "20260913T135230Z-5d285f5c8297-3ba03ac32579",
+  "removed_relative_path": "runs/iris-k-scene-20260913-002.tar",
+  "local_backup": "runs/iris-recovered-20260913-002/archive.tar",
+  "bytes": 2414888960,
+  "remote_and_local_sha256": "0839eb1f2827ee8f69a0804c15391cfe12e43bd85daaea3ca16710ade32c24da",
+  "pre_delete_realpath_size_sha_checked": true,
+  "post_delete_absence_checked": true,
+  "data_disk_available_before_gib_rounded": 4.8,
+  "data_disk_available_after_gib_rounded": 7.1,
+  "system_disk_modified": false,
+  "checkpoint_or_unique_data_removed": false,
+  "restoration": "Upload the retained identical local archive if needed"
+}

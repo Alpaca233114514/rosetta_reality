@@ -5,6 +5,10 @@ branch `codex/smolvla-training-harness-v2`. It complements
 `docs/m2-smolvla-architecture.md` (the stable M2 navigation map) and does not
 replace it.
 
+Versioned checkpoint selection and complete tensor-evidence contracts are in
+`docs/m2-smolvla-posttrain-v2.md`. These entries require new source identities;
+they do not enable formal resume or replace independent model execution evidence.
+
 ## 1. Why the harness was rebuilt
 
 The historical SmolVLA training path grew one launcher plus one trainer entry

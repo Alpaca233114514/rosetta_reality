@@ -300,14 +300,29 @@ def _validate_training(plan: dict[str, Any]) -> None:
             "quarter-checkpoint monitoring policy."
         )
     expected_checkpoints = list(range(save_freq, steps + 1, save_freq))
+    if steps % save_freq:
+        raise ValueError("Training save frequency must include the final step.")
     if training.get("checkpoint_steps") != expected_checkpoints:
         raise ValueError("Training checkpoint steps differ from the save-frequency grid.")
+    if training.get("save_checkpoint", True) is not True:
+        raise ValueError("Training must save its registered checkpoints.")
     if training.get("eval_split") != 0.0:
         raise ValueError("Version-2 training must not carve an eval split from train data.")
     _false(training.get("validation_gradients"), "Training validation gradients")
     _false(training.get("hidden_test_loaded"), "Training hidden-test boundary")
 
     policy = _mapping(training.get("policy"), "Training policy overlay")
+    supported_policy_overlay = {
+        "empty_cameras",
+        "compile_model",
+        "compile_mode",
+        "skip_fully_masked_camera_encoding",
+    }
+    if policy.keys() - supported_policy_overlay:
+        raise ValueError(
+            "Training policy overlay contains unsupported fields; "
+            "chunk/history/action semantics belong to the pinned parent experiment."
+        )
     _non_negative_int(policy.get("empty_cameras"), "Training empty camera count")
     _boolean(policy.get("compile_model"), "Training compile flag")
     compile_mode = policy.get("compile_mode", "default")
@@ -329,6 +344,8 @@ def _validate_validation_section(plan: dict[str, Any]) -> None:
     for offset in offsets:
         if not isinstance(offset, int) or isinstance(offset, bool) or offset < 0:
             raise ValueError("Validation frame offsets must be non-negative integers.")
+    if len(set(offsets)) != len(offsets):
+        raise ValueError("Validation frame offsets must not repeat.")
     if validation.get("total_samples") != len(episodes) * len(offsets):
         raise ValueError("Validation total samples differ from episodes times offsets.")
     _false(validation.get("hidden_test_loaded"), "Validation hidden-test boundary")
@@ -389,6 +406,18 @@ def _validate_features(plan: dict[str, Any], known_features: Container[str]) -> 
             phase = _required(declaration, "phase", "The fixed-frame sampler declaration")
             if phase not in SAMPLER_PHASES:
                 raise ValueError("The fixed-frame sampler declared an unsupported phase.")
+
+    if "action_boundary_projection" not in names:
+        raise ValueError("Version-2 training requires action_boundary_projection.")
+    for contract, feature in (
+        ("loss_contract", FEATURE_HORIZON_WEIGHT_PROFILE),
+        ("state_robustness_contract", FEATURE_STATE_ROBUSTNESS_JITTER),
+        ("visual_conditioning_contract", FEATURE_STATE_CONDITIONING_DROPOUT),
+        ("vision_front_end_contract", FEATURE_VISION_FRONT_END_UNFREEZE),
+        ("image_key_scene_contract", "image_key_scene_regularization"),
+    ):
+        if contract in plan and feature not in names:
+            raise ValueError(f"Declared {contract} requires the {feature} feature.")
 
     training_policy = _mapping(
         _mapping(plan.get("training"), "Plan section 'training'").get("policy"),
@@ -457,6 +486,19 @@ def _validate_features(plan: dict[str, Any], known_features: Container[str]) -> 
             raise ValueError("Iris registration permits only the image-key learning axis")
         if plan["training"]["policy"].get("compile_model"):
             raise ValueError("Image-key hook compilation has not been validated")
+    if "explicit_sample_schedule" in names:
+        if plan.get("scope") != "bounded_temporal_sampling":
+            raise ValueError("Explicit temporal sampling requires its own bounded scope")
+        if FEATURE_FIXED_FRAME_SAMPLER in names or "image_key_scene_regularization" in names:
+            raise ValueError(
+                "Temporal sampling cannot be combined with a fixed sampler or K regularizer"
+            )
+        declaration = next(
+            item for item in declarations if item["name"] == "explicit_sample_schedule"
+        )
+        repository_relative_path(declaration.get("path"), context="Temporal schedule")
+        if not is_sha256(declaration.get("sha256")):
+            raise ValueError("Temporal schedule must be checksum sealed")
     if FEATURE_GRADIENT_CLIP_DIAGNOSTICS in names:
         optimizer = _mapping(plan.get("training"), "Plan section 'training'").get("optimizer")
         clip_norm = optimizer.get("grad_clip_norm") if isinstance(optimizer, dict) else None
@@ -525,6 +567,24 @@ def validate_plan_structure(
 ) -> list[str]:
     """Validate one version-2 plan mapping and return the ordered feature names."""
 
+    # These fields used to be accepted but never reached the native CLI.
+    # Do not pretend to resume or accumulate while launching fresh one-step updates.
+    for label, section in (
+        ("plan", plan),
+        *((key, plan.get(key, {})) for key in ("training", "optimizer_smoke", "preflight")),
+    ):
+        if not isinstance(section, dict):
+            raise ValueError(f"{label} must be a mapping.")
+        if "resume" in section and section["resume"] is not False:
+            raise ValueError("Formal resume parity is unimplemented; resume must be false.")
+        if any(key in section for key in ("resume_from", "resume_path", "checkpoint_path")):
+            raise ValueError("An unimplemented resume source cannot be registered.")
+        if "gradient_accumulation_steps" in section and (
+            type(section["gradient_accumulation_steps"]) is not int
+            or section["gradient_accumulation_steps"] != 1
+        ):
+            raise ValueError("Only gradient_accumulation_steps=1 is implemented.")
+
     if plan.get("schema_version") != PLAN_SCHEMA_VERSION:
         raise ValueError("Version-2 plans must set schema_version: 2.")
     if plan.get("role") != "vla":
@@ -547,6 +607,30 @@ def validate_plan_structure(
         raise ValueError("Parent experiment must declare its experiment id.")
 
     _validate_training(plan)
+    for label in ("preflight", "optimizer_smoke"):
+        if label not in plan:
+            continue
+        section = _mapping(plan[label], label)
+        # These overlays never reach the native CLI. Preserve the shared
+        # training optimizer and parent policy; reject misleading declarations.
+        if any(key in section for key in ("optimizer", "scheduler", "policy")):
+            raise ValueError(f"{label} optimizer/scheduler/policy overlays are not implemented.")
+        _episode_list(section.get("episodes"), f"{label} episodes")
+        _positive_int(section.get("batch_size"), f"{label} batch size")
+        _positive_int(section.get("steps", 1), f"{label} steps")
+        for key in ("save_freq", "log_freq", "prefetch_factor"):
+            if key in section:
+                _positive_int(section[key], f"{label} {key}")
+        workers = _non_negative_int(section.get("num_workers", 0), f"{label} workers")
+        persistent = _boolean(section.get("persistent_workers", False), f"{label} workers")
+        if persistent and not workers:
+            raise ValueError(f"{label} persistent workers require a positive worker count.")
+        if "save_checkpoint" in section:
+            _boolean(section["save_checkpoint"], f"{label} save_checkpoint")
+        if not isinstance(section.get("run_name"), str) or not RUN_NAME_PATTERN.fullmatch(
+            section["run_name"]
+        ):
+            raise ValueError(f"{label} requires a path-safe run_name.")
     _validate_validation_section(plan)
     _validate_resources(plan)
     _validate_monitoring(plan)

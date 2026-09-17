@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+if [[ "${1:-}" == --verified-source-delta ]]; then
+    shift
+    exec bash "$(dirname -- "${BASH_SOURCE[0]}")/stage_autodl_delta_from_wsl.sh" --source-only "$@"
+fi
+
 if [[ "${1:-}" == --verified-base-delta ]]; then
     shift
     exec bash "$(dirname -- "${BASH_SOURCE[0]}")/stage_autodl_delta_from_wsl.sh" "$@"

@@ -13,6 +13,7 @@ import sys
 from pathlib import Path
 
 import pytest
+from historical_smolvla_sources import bind_historical_sources
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_ROOT = REPOSITORY_ROOT / "scripts"
@@ -155,8 +156,9 @@ def test_shared_immutable_identities_match_the_frozen_vcdropout_protocol() -> No
     # asserting blind equality.
     assert protocol.FORMAL_STEPS == 632
     assert protocol.CHECKPOINT_STEPS == [158, 316, 474, 632]
-    assert protocol.PINNED_OPTIMIZER_CONTRACT["optimizer"] == (
-        shared.PINNED_OPTIMIZER_CONTRACT["optimizer"]
+    assert (
+        protocol.PINNED_OPTIMIZER_CONTRACT["optimizer"]
+        == (shared.PINNED_OPTIMIZER_CONTRACT["optimizer"])
     )
     assert protocol.PINNED_OPTIMIZER_CONTRACT["scheduler"] == {
         **shared.PINNED_OPTIMIZER_CONTRACT["scheduler"],
@@ -165,10 +167,16 @@ def test_shared_immutable_identities_match_the_frozen_vcdropout_protocol() -> No
     }
 
 
-def test_registered_repository_plan_validates() -> None:
+def test_registered_plan_validates_against_exact_historical_sources(tmp_path, monkeypatch) -> None:
+    bind_historical_sources(protocol, protocol.load_yaml(PLAN_PATH), tmp_path, monkeypatch)
     plan, plan_id = protocol.resolve_plan(PLAN_PATH)
     assert plan_id == protocol.VFU_PLAN_ID
     assert plan["run_name"] == protocol.VFU_RUN_NAME
+
+
+def test_historical_vfunfreeze_plan_still_rejects_current_source_drift() -> None:
+    with pytest.raises(ValueError, match="Implementation file changed"):
+        protocol.resolve_plan(PLAN_PATH)
 
 
 def test_candidate_plan_accepts_the_registered_stack() -> None:
@@ -200,9 +208,7 @@ def test_candidate_plan_rejects_a_state_dropout_contract() -> None:
 
 def test_candidate_plan_rejects_a_stale_implementation_pin() -> None:
     plan = _candidate_plan()
-    plan["implementation_files"]["src/rosetta_reality/vla/vision_front_end.py"] = (
-        "0" * 64
-    )
+    plan["implementation_files"]["src/rosetta_reality/vla/vision_front_end.py"] = "0" * 64
     with pytest.raises(ValueError, match="Implementation file changed"):
         protocol.validate_vfunfreeze_plan(plan)
 

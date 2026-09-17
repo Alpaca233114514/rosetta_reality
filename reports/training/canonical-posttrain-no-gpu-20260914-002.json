@@ -1,0 +1,16 @@
+{
+  "status": "blocked_no_gpu",
+  "recorded_at_utc": "2026-09-14T14:22:47.4003100Z",
+  "observation_source": "Luna platform UI verification",
+  "instance": "44db45aec7-cd880eb6",
+  "platform_message": "该主机空闲 GPU 不足 / 主机 GPU 空闲数量 0",
+  "platform_state": "已关机",
+  "launcher_started": false,
+  "worker_started": false,
+  "gate3": "not_measured",
+  "gate4": "not_measured",
+  "code_ready": true,
+  "dispatch": "reports/training/canonical-posttrain-dispatch-20260914-002.json",
+  "monitoring": "paused_per_user_no_gpu_stop",
+  "m2_complete": false
+}

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 import sys
+from collections import Counter
 from contextlib import contextmanager
 from functools import wraps
 
@@ -66,11 +67,30 @@ class TrainingObservation:
             and self.delivered == self.expected
             and len(self.learning_rates) * self.batch_size == len(self.expected)
         )
+        sample_counts = Counter(self.completed)
+        per_episode = {}
+        for (episode, frame), repetitions in sample_counts.items():
+            row = per_episode.setdefault(
+                str(episode),
+                {
+                    "unique_input_frames": 0,
+                    "sample_exposures": 0,
+                    "minimum_frame": frame,
+                    "maximum_frame": frame,
+                },
+            )
+            row["unique_input_frames"] += 1
+            row["sample_exposures"] += repetitions
+            row["minimum_frame"] = min(row["minimum_frame"], frame)
+            row["maximum_frame"] = max(row["maximum_frame"], frame)
         return {
             "status": "complete" if complete else "incomplete",
             "expected_samples": len(self.expected),
             "delivered_samples": len(self.delivered),
             "completed_samples": len(self.completed),
+            "unique_completed_input_frames": len(sample_counts),
+            "sample_coverage_by_episode": per_episode,
+            "full_dataset_coverage": "not established by exposure count",
             "completed_updates": len(self.completed) // self.batch_size,
             "successful_optimizer_step_calls": len(self.learning_rates),
             "learning_rates": [list(rates) for rates in self.learning_rates],

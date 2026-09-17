@@ -1,0 +1,285 @@
+{
+  "schema_version": 1,
+  "status": "bounded_canonical_cuda_verification_passed",
+  "run": "training-chain-gpu-audit-20260914-007",
+  "evidence_root": "runs/training-chain-gpu-received-20260914-012",
+  "template_sha256": "da335114f316c96ff411562179eb98b4ef7a25cbaa50d89f3c6f445a1c440969",
+  "composite_sha256": "8f4430ffcb0a951fd05ff83c66f8b09874fde720763bf7b215e28ec3991e1757",
+  "handoff_files_verified": 40,
+  "qa_files_verified": 3,
+  "qa": {
+    "warnings": 4,
+    "passed": 105,
+    "ruff_passed": true,
+    "skipped": 0
+  },
+  "worker": {
+    "stages": [
+      {
+        "stage": "prepare",
+        "exit_code": 0,
+        "seconds": 3.00650954246521,
+        "peak_rss": 525692928
+      },
+      {
+        "stage": "doctor",
+        "exit_code": 0,
+        "seconds": 6.0126051902771,
+        "peak_rss": 540069888
+      },
+      {
+        "stage": "benchmark",
+        "exit_code": 0,
+        "seconds": 3.0067920684814453,
+        "peak_rss": 669601792
+      },
+      {
+        "stage": "preflight",
+        "exit_code": 0,
+        "seconds": 29.05455183982849,
+        "peak_rss": 2473652224
+      },
+      {
+        "stage": "parity",
+        "exit_code": 0,
+        "seconds": 39.06529664993286,
+        "peak_rss": 2547470336
+      },
+      {
+        "stage": "smoke",
+        "exit_code": 0,
+        "seconds": 37.065759897232056,
+        "peak_rss": 3528159232
+      },
+      {
+        "stage": "collect-first",
+        "exit_code": 0,
+        "seconds": 39.08743453025818,
+        "peak_rss": 2836824064
+      },
+      {
+        "stage": "collect-reload",
+        "exit_code": 0,
+        "seconds": 40.076935052871704,
+        "peak_rss": 3002843136
+      },
+      {
+        "stage": "verify-reload",
+        "exit_code": 0,
+        "seconds": 1.0028901100158691,
+        "peak_rss": 3297280
+      }
+    ],
+    "error": null,
+    "finished_unix": 1789377612.6403344,
+    "m2_complete": false
+  },
+  "parity": {
+    "status": "passed",
+    "records": [
+      {
+        "sample": [
+          49,
+          0
+        ],
+        "exact": true,
+        "gradient_tensors": 155,
+        "loss": 5.5850138664245605
+      },
+      {
+        "sample": [
+          49,
+          249
+        ],
+        "exact": true,
+        "gradient_tensors": 155,
+        "loss": 2.7107512950897217
+      },
+      {
+        "sample": [
+          49,
+          499
+        ],
+        "exact": true,
+        "gradient_tensors": 155,
+        "loss": 2.2632803916931152
+      }
+    ],
+    "optimizer_steps": 0,
+    "parameters_unchanged": true,
+    "cpu_cuda_pixel_scaling_effect": [
+      {
+        "sample": [
+          49,
+          0
+        ],
+        "loss_exact": true,
+        "loss_abs_difference": 0.0,
+        "full_action_exact": true,
+        "full_action_max_abs": 0.0,
+        "gradient_tensors": 155,
+        "gradient_tensors_exact": 155
+      },
+      {
+        "sample": [
+          49,
+          249
+        ],
+        "loss_exact": true,
+        "loss_abs_difference": 0.0,
+        "full_action_exact": true,
+        "full_action_max_abs": 0.0,
+        "gradient_tensors": 155,
+        "gradient_tensors_exact": 155
+      },
+      {
+        "sample": [
+          49,
+          499
+        ],
+        "loss_exact": true,
+        "loss_abs_difference": 0.0,
+        "full_action_exact": true,
+        "full_action_max_abs": 0.0,
+        "gradient_tensors": 155,
+        "gradient_tensors_exact": 155
+      }
+    ]
+  },
+  "observation": {
+    "status": "passed",
+    "error_type": null,
+    "expected_schedule_sha256": "fe10172777b546bf3390d5be3fd9c713fa1e114e180482807fd2fbfac2d90e18",
+    "observation": {
+      "status": "complete",
+      "expected_samples": 8,
+      "delivered_samples": 8,
+      "completed_samples": 8,
+      "unique_completed_input_frames": 8,
+      "sample_coverage_by_episode": {
+        "49": {
+          "unique_input_frames": 4,
+          "sample_exposures": 4,
+          "minimum_frame": 0,
+          "maximum_frame": 499
+        },
+        "4": {
+          "unique_input_frames": 4,
+          "sample_exposures": 4,
+          "minimum_frame": 0,
+          "maximum_frame": 499
+        }
+      },
+      "full_dataset_coverage": "not established by exposure count",
+      "completed_updates": 2,
+      "successful_optimizer_step_calls": 2,
+      "learning_rates": [
+        [
+          0.0001
+        ],
+        [
+          5.125E-05
+        ]
+      ],
+      "pending_samples": [],
+      "errors": []
+    },
+    "m2_complete": false,
+    "task_success": "not measured"
+  },
+  "coverage": {
+    "target_fraction": 0.015,
+    "unique_targets": 300,
+    "train_frames": 20000,
+    "input_fraction": 0.0004,
+    "padding_slots": 98,
+    "repeated_targets": 2,
+    "action_slots": 400,
+    "valid_slots": 302,
+    "unique_input_frames": 8,
+    "exposures": 8
+  },
+  "reload": {
+    "status": "passed",
+    "exact_tensor_equality": true,
+    "arrays_equal": {
+      "noise": true,
+      "normalized_actions": true,
+      "sample_identities": true,
+      "standard_actions": true,
+      "valid_mask": true
+    },
+    "identity": {
+      "plan_sha256": "537cd095042cecdc9ef2b10946419f1f5367095d73783410ebc28374a1daca1e",
+      "model_sha256": "f087e0c68a05500cf70c4cb88cd34e86ffa796214868d16222d051599b511e9f",
+      "processor_sha256": "6a04188bc00e614fa1043282a6d22996db8c4d3b6328f0bec4ac5454575ae691",
+      "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+      "dataset_manifest_sha256": "f3c03f7f60db66496d10e12f081c2bd9949a2f9f771148c7f159263dcea98140",
+      "input_sha256": "187ab5cd9ccfb34da3d024f532d7fe7cd736a974baa083ab972c0e30fd540b80",
+      "inference_recipe_sha256": "77833ac18dd6d1329ca9fc52695b96a7f96681f9024ed06aca4ca6e70744f6d1",
+      "sample_count": 16,
+      "chunk_size": 50,
+      "normalized_action_dim": 14,
+      "standard_action_dim": 14,
+      "noise_action_dim": 32
+    },
+    "manifest_sha256": [
+      "ebeced0e1d2896df6f073cf8179f899b26392b6cd395d3e96eea0d136a8d1d43",
+      "adf2d0d1ff20b1fccf86f6aada1ff5669e34aa2c286caad7b641ba46cf8c68f8"
+    ],
+    "proof_scope": "saved_full_arrays_from_distinct_collection_processes",
+    "model_execution_proven_by_this_comparison": false,
+    "formal_resume_verified": false,
+    "m2_complete": false
+  },
+  "reload_execution": [
+    {
+      "pid": 18436,
+      "model_loaded": true,
+      "saved_processors_loaded": true,
+      "forwards": 16,
+      "parameters_unchanged": true,
+      "optimizer_steps": 0
+    },
+    {
+      "pid": 30773,
+      "model_loaded": true,
+      "saved_processors_loaded": true,
+      "forwards": 16,
+      "parameters_unchanged": true,
+      "optimizer_steps": 0
+    }
+  ],
+  "recovery": {
+    "checkpoint_backup": "runs/training-chain-checkpoint-recovered-20260914-007/verified",
+    "shutdown": "platform_confirmed_powered_off",
+    "mode": "no_gpu_files_only",
+    "sha256_inventory": "runs/training-chain-checkpoint-recovered-20260914-007/sha256sums.txt",
+    "remote_checkpoint_retained": true,
+    "data_disk_available_bytes": 5626368000,
+    "system_disk_available_bytes": 3093442560,
+    "verified_files": 17,
+    "new_optimizer_steps_this_recovery": 0,
+    "failed_transfers_retained": true,
+    "verified_bytes": 1614046590,
+    "shutdown_confirmed_at_utc": "2026-09-14T10:06:34.6310939Z"
+  },
+  "gate": {
+    "policy": "Iris control 1280-step",
+    "episodes": 5,
+    "gate3": "passed",
+    "source_run": "training-chain-gpu-audit-20260914-006",
+    "successes": 0,
+    "run007_policy_gate": "not measured",
+    "steps_per_episode": 500,
+    "gate4": "failed"
+  },
+  "limitations": [
+    "opt-in recipe, not proof every entrypoint adopts it",
+    "bounded samples, not full training or fit",
+    "formal resume and local full model reload unverified",
+    "hidden generalization and real robot unverified",
+    "historical failures not attributed to a unique cause"
+  ],
+  "m2_complete": false
+}

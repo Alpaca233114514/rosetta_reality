@@ -215,10 +215,12 @@ def test_state_treatment_features_are_mutually_exclusive() -> None:
         _validated(plan)
 
     plan["features"].pop()
+    dropout_contract = plan.pop("visual_conditioning_contract")
     assert "state_robustness_jitter" in _validated(plan)
 
     plan["features"][-1] = {"name": "state_conditioning_dropout"}
     plan.pop("state_robustness_contract")
+    plan["visual_conditioning_contract"] = dropout_contract
     assert "state_conditioning_dropout" in _validated(plan)
 
 

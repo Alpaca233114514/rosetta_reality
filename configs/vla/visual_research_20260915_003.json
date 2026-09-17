@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "plan_id": "visual-research-20260915-003",
+  "status": "preregistered",
+  "authorized_stages": [
+    "evidence",
+    "data",
+    "pts",
+    "pixels",
+    "supervision",
+    "analyze"
+  ],
+  "gpu_authorized": false,
+  "current_authorization": "no_card_only",
+  "optimizer_updates": 0,
+  "hidden_test_loaded": false,
+  "dataset_config": "configs/data/aloha_sim_insertion_m2.yaml",
+  "experiment": "configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml",
+  "dataset_manifest_sha256": "f3c03f7f60db66496d10e12f081c2bd9949a2f9f771148c7f159263dcea98140",
+  "cache_checksums_sha256": "273f89adc1389c8c04ac840ce11a459a2dbca6b806eb1ee7bf5dba35916f9050",
+  "train_episodes": [
+    49,
+    4,
+    23,
+    43,
+    21,
+    37,
+    18,
+    34,
+    0,
+    47,
+    38,
+    29,
+    3,
+    26,
+    14,
+    17,
+    44,
+    30,
+    15,
+    42,
+    10,
+    35,
+    25,
+    32,
+    19,
+    36,
+    41,
+    28,
+    8,
+    27,
+    16,
+    11,
+    2,
+    20,
+    9,
+    39,
+    46,
+    48,
+    12,
+    40
+  ],
+  "development_episodes": [
+    22,
+    13,
+    7,
+    33,
+    45
+  ],
+  "hidden_episodes": [
+    31,
+    6,
+    1,
+    24,
+    5
+  ],
+  "frame_offsets": [
+    0,
+    125,
+    250,
+    375
+  ],
+  "boundary_offsets": [
+    449,
+    499
+  ],
+  "pixel_offsets": [
+    0,
+    249,
+    499
+  ],
+  "noise_seeds": [
+    null,
+    20260905,
+    20260906,
+    20260907
+  ],
+  "primary_endpoint_step": 5000,
+  "diagnostic_checkpoint_steps": [
+    2500,
+    5000
+  ],
+  "prior_decoded_samples": "runs/visual-research-inputs-20260915-001/decoded-samples.json",
+  "scene_phase_arrays": "runs/visual-research-inputs-20260915-001/scene-phase-arrays.npz",
+  "scene_phase_result": "runs/visual-research-inputs-20260915-001/scene-phase-result.json",
+  "sources": {
+    "scripts/audit_smolvla_inventory.py": "3d003fa6e3e635fd02eec83e270e5c5576f89327047e4dba6b9ad4e92edfbea0",
+    "scripts/diagnose_smolvla_visual_research.py": "9af88dbe47deefc13cee6f83f92a2ed6de4232d29f23a1fe73e863eca8fb4180",
+    "scripts/visual_research_data.py": "708cee3fbb527ce6449aa05f5dbce3e3bd7aebf13cf32e548f297c92ca530bb4",
+    "src/rosetta_reality/vla/visual_research.py": "48435b449fefd5917a6225827f14dde31b58487ac3b42a652e56826e53a76e73",
+    "tests/test_visual_research.py": "388f7e7b00cc9bad8d94e17f52463d9f71dfe7efebd1e1e0173949d8514287ee",
+    "scripts/visual_research_collect.py": "0bfc2efa6daaad3988079082d5613b5ee112d1f126bc0f63440e569a497aaf03",
+    "scripts/verify_visual_research.py": "03619f405fc7c92093064c264d88ac538df5980d04ff3fee8e4432615b9f5ebb"
+  },
+  "evidence_sha256": {
+    "configs/data/aloha_sim_insertion_m2.yaml": "c35c6a3da68c571f9e1dc4879b56fbb29be1ce8fcda1e529c9eac5d8e09b1491",
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+    "configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml": "0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210",
+    "runs/visual-research-inputs-20260915-001/decoded-samples.json": "e6ada1fc54fdb82d4ef2508b5df9f6c2b6747a2578012962ac6512da92d9cbb1",
+    "runs/visual-research-inputs-20260915-001/numeric-audit.json": "a8b67fdf2b45513390549e657914fe4d29bfde6bbf994a56032859eae234a721",
+    "runs/visual-research-inputs-20260915-001/scene-phase-arrays.npz": "e28ab0e9fabad8c58e0d0422d33ef5ee851614c2c16422f34fee651992c41322",
+    "runs/visual-research-inputs-20260915-001/scene-phase-result.json": "770b34173d886268419cdd215910a53714faa1c4ef3303d644b5fbf19bfd0193",
+    "runs/visual-research-inputs-20260915-001/origin.json": "df00bbdfba7cf84d2da4b3ce6f5e94c73bae6d804df7a03feb5106947b585c82"
+  },
+  "resources": {
+    "gpu_seconds_current": 0,
+    "cpu_threads": 2,
+    "max_worker_rss_mib": 1536,
+    "future_gpu_cap_seconds": 3600,
+    "max_output_mib": 256,
+    "cpu_seconds": 1800
+  },
+  "analysis": {
+    "geometry_scale": [
+      640,
+      480,
+      640,
+      480
+    ],
+    "physical_alignment": "separate_unmeasured_until_annotated_or_independent_physical_control",
+    "frame0": "all_nonself_only_after_nonvisual_equality",
+    "statistical_unit": "episode",
+    "parameter_selection": "train_only",
+    "primary_metric": "paired_wrong_minus_correct_MSE_by_action_group",
+    "later_frames": "same_split_same_offset_cyclic_images",
+    "geometry_k": 3,
+    "training_replicates": 1,
+    "train_comparator": "same_offset_slot_train_mean_and_median_leave_query_episode_out"
+  },
+  "stop_conditions": [
+    "no model weights or GPU in current no-card scope",
+    "identity drift, hidden overlap, nonfinite or resource violation stops stage",
+    "retain failed output; no in-place retry"
+  ]
+}

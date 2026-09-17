@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-14",
+  "status": "local_repairs_verified_with_explicit_limits",
+  "git_head": "95cf9cf9483b901d7fac556181274cfdbcb75067",
+  "branch": "codex/iris-k-scene-20260913",
+  "worktree_dirty": true,
+  "runtime": {
+    "cpus": 2,
+    "network": "none",
+    "memory_gib": 6,
+    "boundary": "wsl_to_linux_docker",
+    "image": "sha256:2696f8e0430050951ffdd16721e41af19473bd741de4c5547cfb330d6f08580b"
+  },
+  "changes": [
+    "versioned_checkpoint_selection_contract",
+    "complete_tensor_evidence_comparison",
+    "strict_historical_source_test_fixtures",
+    "all_nonhidden_frame_decode_and_full_chunk_audit"
+  ],
+  "verification": {
+    "static": {
+      "git_diff_check": "passed",
+      "ruff_format": "passed on 12 repair files",
+      "repository_wide_ruff": "incidental unscoped invocation found 22 pre-existing/out-of-scope diagnostics; no repository-wide clean claim",
+      "ruff_check": "passed on 12 repair files"
+    },
+    "regression": {
+      "failed": 0,
+      "skipped": 1,
+      "deselected": 2,
+      "skip_reason": "normalization CUDA test: CUDA unavailable",
+      "deselected_reason": "not data marker selection",
+      "passed": 569,
+      "seconds": 53.045,
+      "errors": 0
+    },
+    "historical_fixtures": {
+      "exact_snapshots": 10,
+      "zen_vfunfreeze_positive_fixture": "complete",
+      "vcdropout_gate_fixture": "synthetic current-hash plan, not historical reproduction",
+      "production_hash_validators_bypassed": false,
+      "missing_historical_sources": [
+        {
+          "sha256": "e0ded450340be7f6808d8f764122dd52e8adf3a964b07f00f0f3ea3dd5fdbe53",
+          "path": "src/rosetta_reality/vla/training/features.py"
+        },
+        {
+          "sha256": "efc70554855d6cfb63c78d180f485d82a94ee7ca3bb053d4e29136e29ddd09d7",
+          "path": "src/rosetta_reality/vla/training/plan.py"
+        }
+      ]
+    },
+    "data": {
+      "action_scalar_comparisons": 15750000,
+      "model_loaded": false,
+      "chunk_shape": [
+        50,
+        14
+      ],
+      "train_rows": 20000,
+      "hidden_rows_materialized": 0,
+      "optimizer_steps": 0,
+      "decoded_frame_samples": 22500,
+      "independent_video_pts_and_physical_semantics": "not measured",
+      "full_action_chunks": 22500,
+      "validation_rows": 2500
+    }
+  },
+  "evidence_sha256": {
+    "runs/training-chain-repair-20260914-001/regression-final.xml": "4062cb367508fad8bae70ea822bbf252fba92eb7f398469898341442f9d36dfd",
+    "runs/training-chain-repair-20260914-001/all-images/result.json": "a8b67fdf2b45513390549e657914fe4d29bfde6bbf994a56032859eae234a721",
+    "runs/training-chain-repair-20260914-001/all-images/decoded-samples.json": "e6ada1fc54fdb82d4ef2508b5df9f6c2b6747a2578012962ac6512da92d9cbb1",
+    "tests/fixtures/smolvla_historical_sources/manifest.json": "ff5df3177d248d8f962b0f5fb96b71390b0eeb4e5f3a74e33917b2c3ac344a07"
+  },
+  "source_sha256": {
+    "scripts/prepare_smolvla_history_fixtures.py": "2d23d5ecfc8e65e86ae9f23341223a8d19828b517b63b0c7f7833ae27a9da6e0",
+    "scripts/select_smolvla_checkpoint_v2.py": "360160a39c0707813261a840a9388469582177584ebc6dfc6e0fd10203245ed0",
+    "scripts/verify_smolvla_reload_v2.py": "1b9e367e03b4cdcd7d137bbdda7ec6434c52d0e32f9e9c5641c8750bf0311123",
+    "scripts/audit_smolvla_dataset.py": "55eb1b0050f588c9d5c1723f1eddf28ad022aa1762e20129c687f6759b79332b",
+    "src/rosetta_reality/vla/checkpoint_selection.py": "991b417b2a7a73467a67cb85d2b6e8a2fb36397644848a26dfd223c48c73829e",
+    "src/rosetta_reality/vla/reload_evidence.py": "01b9571fdb33f61081e67ab508bbde3b70090310019b09baeaaa62503ec8b750",
+    "tests/historical_smolvla_sources.py": "f1007e8379f7c1b91f1eb94456c7b7c464fb52e96af7db83d6ef62b4c6341499",
+    "tests/test_smolvla_checkpoint_selection_v2.py": "58459c21522bbe228cb4bb27c5530fdd13870b5979fd76da1248d7106bebebd5",
+    "tests/test_smolvla_reload_evidence_v2.py": "5badbaabfd737332790d0c1e48fbaff5fe8b48a20ec1a95abf3188bff2792f6a",
+    "tests/test_smolvla_zen_protocol.py": "cb05414a753b93eebc5b6df8aefcbdba3968aa340d45ef73a380ee3001b81714",
+    "tests/test_smolvla_vfunfreeze_protocol.py": "ae13b69b7628e0f519c62e50c1771afb0759295a08ef8ef6646adb3fbbaff306",
+    "tests/test_smolvla_vcdropout_sim_gate.py": "0c9e377d3a5d4703dacecb6df978e7803df0a3b670574537c0003553a1db141c"
+  },
+  "commands": {
+    "wrapper": "ROSETTA_VLA_XPU_IMAGE=<runtime.image> bash scripts/run_m2_container.sh vla-cpu <command>",
+    "regression": "python -m pytest -q -p no:cacheprovider -m 'not data' tests/test_smolvla_*.py tests/test_training_chain_audit.py tests/test_normalization.py tests/test_data_metadata.py tests/test_clean_data.py tests/test_prepare_data.py tests/test_iris_*.py --tb=short --junitxml=/workspace/runs/training-chain-repair-20260914-001/regression-final.xml",
+    "data": "python scripts/audit_smolvla_dataset.py --all-images --output /workspace/runs/training-chain-repair-20260914-001/all-images"
+  },
+  "not_verified": [
+    "independent_video_pts_and_physical_semantics",
+    "actual_450m_policy_forward_backward",
+    "independent_model_processor_reload",
+    "formal_resume",
+    "CUDA",
+    "new_Gate_3_4"
+  ],
+  "model_execution_proven_by_tensor_comparison": false,
+  "formal_resume_enabled": false,
+  "formal_training_started": false,
+  "remote_gpu_used": false,
+  "downloads_performed": false,
+  "committed": false,
+  "pushed": false,
+  "m2_complete": false,
+  "post_data_run_edit": "Only redundant loop parentheses removed from audit_smolvla_dataset.py during formatting."
+}

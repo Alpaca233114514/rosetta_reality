@@ -59,6 +59,9 @@ def _training_context(plan_path: Path) -> TrainingContext:
     if not contract_path.is_file():
         raise FileNotFoundError("The runtime Action Contract is missing.")
     plan = load_v2_plan(plan_path, REPOSITORY_ROOT)
+    from rosetta_reality.vla.training.integrity import validate_local_implementation
+
+    validate_local_implementation(plan, REPOSITORY_ROOT)
     normalization_relative = Path(str(plan["normalization"]["report"]))
     if normalization_relative.is_absolute() or ".." in normalization_relative.parts:
         raise ValueError("The v2 normalization report path is unsafe.")
@@ -101,22 +104,36 @@ def main() -> None:
 
     stack = feature_stack_from_plan(plan)
     installed = stack.install_all(context)
-    trainer_failed = False
+    trainer_error = None
     try:
         print(f"Installed v2 training features: {', '.join(installed)}")
         lerobot_train.main()
-    except BaseException:
-        trainer_failed = True
+    except BaseException as exc:
+        trainer_error = exc
         raise
     finally:
-        stack.restore_all(context)
+        cleanup_errors = []
+        try:
+            stack.restore_all(context)
+        except BaseException as exc:
+            cleanup_errors.append(exc)
         if FEATURE_TRACKIO_LOGGING in installed:
             try:
                 finish_trackio()
-            except Exception:
-                if not trainer_failed:
-                    raise
-                logging.exception("Trackio teardown failed; preserving the trainer error.")
+            except BaseException as exc:
+                cleanup_errors.append(exc)
+        if cleanup_errors:
+            if trainer_error is not None:
+                for exc in cleanup_errors:
+                    if hasattr(trainer_error, "add_note"):
+                        trainer_error.add_note(f"Training cleanup also failed: {exc!r}")
+                logging.error("Training cleanup failed; preserving the trainer error.")
+            elif len(cleanup_errors) == 1:
+                raise cleanup_errors[0]
+            else:
+                error = RuntimeError("Training cleanup failed")
+                error.cleanup_errors = tuple(cleanup_errors)
+                raise error from cleanup_errors[0]
 
 
 if __name__ == "__main__":

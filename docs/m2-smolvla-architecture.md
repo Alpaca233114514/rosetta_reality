@@ -1,5 +1,266 @@
 # M2 SmolVLA architecture and navigation
 
+Seed 3 diagnostic framework (2026-09-17):
+`scripts/diagnose_smolvla_gate.py` provides independent plan validation,
+single-seed collection, complete-array replay, bounded input probes, historical
+training-evidence checks, analysis and verification. The fixed step-5000 Seed 3
+protocol is diagnostic-only; formal G4 seeds 1000–1004 and existing results
+remain unchanged. New `eval/gate_diagnostic_*` modules wrap the original rollout
+and capture actual inputs/noise/full outputs without extra live inference.
+`eval.action_metrics` remains available through lazy import so file-only checks
+do not import torch or a simulator. The draft registration is intentionally not
+executable. See `docs/m2-smolvla-seed3-diagnostics.md` for interfaces and evidence
+boundaries. This implementation does not establish real CUDA replay or rollout
+parity, a new Seed 3 result, a policy repair, or M2 completion.
+
+Grasp-loss window verification (2026-09-16):
+`reports/training/m2-smolvla-gate-grasp-loss-review-2026-09-16.md` separates
+world-height change from object motion relative to the palm. Seed 1004's object
+translation relative to the palm stays within 0.8 mm over steps 122–125, then
+grows around the 126–127 contact-loss window; the step-126 issued aperture is
+0.603 versus the previous prediction's unexecuted slot-1 plan of 0.196.
+Seed 1002 instead loses reward-2 contact while still commanding closure, with
+concurrent palm motion and relative object displacement. Neither window proves
+a unique cause; observation and sampled noise both change on replanning.
+The read-only analysis covers 4,990 adjacent gripper-plan comparisons, with
+independently verified relative-position calculations and no new rollouts.
+
+Primary-agent first-step review (2026-09-16):
+`reports/training/m2-smolvla-gate-first-step-review-2026-09-16.md` distinguishes
+offline first-action bias from a demonstrated irreversible first-step cause.
+In seeds 1000/1001 both palms initially move toward their respective objects
+but never establish contact; seed 1002's right palm initially moves slightly
+away, then later reapproaches and contacts the peg. Each episode supplies 500
+distinct state and top-camera input hashes while replanning. No matched expert
+first action or first-step intervention was measured, so the contribution of
+initial error to failed grasp establishment/retention remains unresolved.
+
+Traced Gate 005 failure localization (2026-09-16):
+`reports/training/m2-smolvla-traced-gate-failure-analysis-2026-09-16.{md,json}`
+analyzes the retained 2,500 executed steps without new model/simulation calls.
+Seeds 1000/1001 never contact either object; 1003/1004 move the socket but never
+contact the peg; 1002 has only three reward-2 steps before losing that progress.
+All 27 physical joint-limit counts concern finger joints, and all 60 unexpected
+contact counts concern fingers contacting the table. Executed raw/projected/
+adapter actions match exactly over 35,000 scalars. Internal gripper support
+violations occur in 44/5,000 executed gripper values and are not established as
+the common cause. Failed grasp establishment/retention is localized; a unique
+learning-side cause and the reason for the 004/005 trajectory difference remain
+unresolved. No new training, checkpoint selection or Gate success is implied.
+
+Authorized traced Gate repeat completed (2026-09-16):
+`scripts/run_canonical_gate_repeat.py` runs the existing posttrain supervisor
+under the new execution namespace `canonical-fullframes-posttrain-20260916-005`.
+The immutable attempt-004 scientific plan, step-5000 weights, saved processors,
+Gate engine and acceptance criteria remain pinned. The scoped trace observes
+each original rollout and independently verifies its persisted events.
+84 CPU checks, CUDA doctor, independent full-array reload/native equivalence
+and G3 passed. G4 failed 0/5 over five 500-step episodes; maximum rewards were
+0/0/2/0/0, with 27 joint-limit violations and 60 unexpected collision counts.
+Parameters remained unchanged and optimizer steps were zero. The worker completed
+normally in 1135.6245 seconds; 71 returned files passed full size/SHA verification.
+See `reports/training/m2-smolvla-traced-gate-result-2026-09-16.md` and its JSON.
+M2 remains incomplete. The trajectory difference from attempt 004 has not been
+causally attributed; real traced/untraced rollout equivalence remains unmeasured.
+Current platform power/billing state was not verified during result retrieval.
+
+Independent rollout diagnostics (2026-09-16):
+`scripts/diagnose_canonical_rollout.py` and the `eval/rollout_trace` modules add
+create-only prediction/step traces around the unchanged Gate rollout, with
+independent gripper-support replay and explicit incomplete evidence. Saved
+processors, decoder semantics, noise and actions are unchanged. The interface,
+registration and validation boundaries are documented in
+`docs/m2-smolvla-rollout-trace.md`. This is instrumentation only: no new model
+collection, GPU run or Gate result; canonical step-5000 Gate 4 remains 0/5.
+Offline synthetic verification passed 43 new diagnostic tests and 45 related
+regressions; one CUDA-only test was skipped. Real traced-rollout parity is unmeasured.
+
+Step2500-to-5000 controlled comparison completed (2026-09-16):
+`reports/training/m2-smolvla-visual-process-result-2026-09-16.md` records the
+additional1268 forwards at2500, exact common inputs/noise/image identities,
+103680 independent metric checks and512 fixed-cohort comparisons. Frame125
+left-gripper training fit improves in both fixed exposure cohorts, while
+development paired-image gain falls in every episode/noise condition; other
+times/action groups improve. No global training-collapse or code-defect claim
+is justified. Primary checkpoint stays5000 and its prior G4 remains0/5. Local
+SHA verification covered16 returned files; fresh Chrome state confirmed the
+instance off at10:56:54 China time, before the11:02 cap. No further GPU work
+or formal training is launched. The following entries retain earlier findings.
+
+Saved-array timing exploration completed (2026-09-16):
+`reports/training/m2-smolvla-visual-timing-result-2026-09-16.md` separates
+frame125 scene-dependent command timing from frame250 low-aperture amplitude
+errors. Episodes13/33 account for88.5%–93.1% of development frame125 squared
+error with opposite crossing directions. Train-only bias subtraction reduces
+frame0 joint first-action error but remains worse than both constant baselines
+in every noise condition. This is post-hoc CPU evidence, not a deployed repair.
+All45 episodes remain in360 gripper and2160 joint records plus18000 trace rows;
+independent numerical replay and prior-metric reconciliation passed. No model,
+SSH, GPU, training or Gate call occurred in this stage. Step2500 paired sampling
+remains unmeasured; no new training defect or M2 success is established.
+
+Step-5000 paired visual collection completed (2026-09-16):
+`reports/training/m2-smolvla-visual-paired-result-2026-09-16.{md,json}` records
+1268 forwards, zero updates, eight exact self-copy controls and four exact full
+chunk matches against overlapping native endpoint samples. Independent replay
+checked 51,840 per-episode metrics and 1280 decomposition values; 19 returned files
+passed SHA checks. Frame-0 full chunks show positive image correspondence in all
+four noise conditions, but development joint actions remain worse than aligned
+constant baselines, especially the executed first action. Later left-gripper
+results expose timing/development weaknesses. No new training defect or Gate
+success is established; step2500 remains unmeasured. Protected shutdown followed
+local backup verification; fresh Chrome state confirmed the instance powered off.
+The 10:15 backup shutdown timer remains because automatic review rejected its
+cancellation. No release, retraining or checkpoint selection occurred.
+
+Input-exposure reporting repair 008 (2026-09-15):
+`reports/training/m2-smolvla-input-exposure-repair-2026-09-15.md` explains why
+83/160 seen main-grid inputs at step 2500 is expected under the half-epoch
+schedule. The analyzer now splits current seen/unseen error and preserves fixed
+step-2500 cohorts across checkpoints, without changing image or baseline donors.
+Training/sampling remain unchanged. After restoration of the no-card SSH, all
+16 CPU tests, Ruff and the original 83/77 coverage check passed. The old reporting
+counterexample was reproduced; original aggregate metrics remain equal.
+
+Data-first visual research, no-card stage (2026-09-15):
+`reports/training/m2-smolvla-visual-research-result-2026-09-15.{md,json}` and
+`docs/m2-smolvla-visual-research.md` document the new plan/stage/output entrypoint,
+complete numeric arrays, precise row provenance and checkpoint exposure flags.
+22,500 packet timestamps and 135 independent decoded-image hashes passed; raw
+labels, projected labels and all negative supervision results remain available.
+Step 2500 had seen only 83/160 main-grid training inputs despite supervision of
+19,962 unique target frames; step 5000 consumed all 20,000 input identities once.
+Final CPU QA: 12 tests and Ruff passed, independent arithmetic replay passed.
+The expanded AST inventory is not a blanket semantic correctness claim. Physical
+alignment remains unproven. At closure of this no-card stage, paired collection
+was unmeasured and its CPU-only plans rejected model collection before weight
+access; the separately authorized 2026-09-16 result is recorded above. No new Gate or M2
+success. Owners: `scripts/diagnose_smolvla_visual_research.py`,
+`scripts/visual_research_data.py`, `scripts/visual_research_collect.py`,
+`scripts/verify_visual_research.py`, and `vla/visual_research.py`.
+
+Canonical full-frame Gate closure (2026-09-15):
+`reports/training/m2-smolvla-canonical-fullframes-gate34-result-2026-09-15.{md,json}`
+records attempt 004: exact new-artifact/native reload and adapter chunks, unchanged
+parameters, Gate 3 passed, and measured Gate 4 **0/5** over five 500-step episodes.
+Physical joint-limit/contact counts were 19/38; command-action checks passed.
+All 47 returned files were independently SHA-verified and platform shutdown was
+confirmed. Attempts 002/003 were preserved precondition failures, not Gate 4
+measurements. The launcher now keeps live logs under runs to preserve code identity;
+output and Trackio roots are initialized together. M2 remains incomplete.
+
+Fresh full-frame furnace completed (2026-09-14):
+`reports/training/m2-smolvla-canonical-fullframes-plan-2026-09-14.md` and
+`canonical-furnace-template-20260914-002.json` register
+`canonical-fullframes-20260914-001`, 5000 fresh updates at batch 4, one sealed
+20000-frame training pass, canonical pixels and complete checkpoints at 2500/5000.
+The existing bounded temporal CLI mode is named smoke; this run is explicitly
+5000 updates, not a two-step smoke or tested formal resume. New composition QA
+passed 98 tests before dispatch. All nine worker stages exited zero; 20000 unique
+training inputs were consumed once, and complete 2500/5000 checkpoints were
+recovered and verified locally. Original and new-artifact independent reload passed;
+the later offline/Gate closure above is negative. Owners: `scripts/canonical_furnace.py` (plan and real-input
+training audit) and `scripts/run_canonical_furnace.py` (bounded lifecycle).
+
+Canonical post-training repair 002 uses one saved-processor loader for collection,
+offline evaluation and the original Gate engine. A candidate artifact cannot become
+verified until two new processes reproduce full arrays and the recovered native
+endpoint. Rendered Gate YAML and prerequisites are sealed before execution, with
+an independent shutdown watchdog. CPU repair QA passed 37 tests and real endpoint
+metadata/file-seal checks without loading weights. Follow-up lifecycle repairs
+expanded QA to 41 tests before completed attempt 004. See
+`reports/training/m2-smolvla-canonical-posttrain-repair-2026-09-14.md` and
+`m2-smolvla-canonical-fullframes-posttrain-gate-plan-002-2026-09-14.json`.
+
+Latest canonical CUDA verification (2026-09-14):
+`reports/training/m2-smolvla-training-chain-canonical-result-2026-09-14.{md,json}`
+records run 007: all nine stages passed, 105 regression tests passed including
+exhaustive CUDA pixel parity, and 40 handoff members verified after retrieval.
+At episode 49 frames 0/249/499, canonical CUDA input and independent CPU division
+produce exactly equal real loss, all 155 gradient tensors and complete actions.
+Two fresh-base updates consumed eight unique input frames / 300 unique targets;
+345 frozen tensors stayed unchanged. Two distinct model reload processes each
+ran 16 forwards with exact full-array equality. This closes the bounded canonical
+GPU check below, not full training, formal resume, generalization or M2.
+
+Previous GPU continuation (2026-09-14):
+`reports/training/m2-smolvla-training-chain-gpu-continuation-result-2026-09-14.{md,json}`
+records run 006: two actual updates, eight unique input frames, 302 valid action
+slots / 300 unique targets, 345 frozen tensors unchanged, independent full-array
+model reload, and fixed Iris 1280-step control Gate 3 pass / Gate 4 0/5.
+The new two-step policy has no Gate success claim. Run 006's complete checkpoint
+was backed up and verified before user-authorized remote cleanup. M2 remains open.
+
+Canonical RGB execution repair (2026-09-14, CPU and bounded GPU checks passed):
+`src/rosetta_reality/vla/image_scaling.py` and opt-in v2 feature
+`canonical_image_scaling` bind RGB bytes to one float32 lookup table on CPU/CUDA.
+Native Accelerate training previously divided CUDA uint8 by 255, while offline
+inference divided on CPU. Real nonzero-frame probes measured up to 5.96e-8 pixel
+and 0.0399323 normalized-action differences; frame-zero alone missed the effect.
+The feature preserves original bytes/metadata and prevents the native loop from
+scaling twice. New checkpoint sidecars record the recipe. Historical plans stay
+unchanged; verification scope is amendment-009, not a formal training repair result.
+
+Earlier GPU follow-up, before run 006 (2026-09-14):
+`reports/training/m2-smolvla-training-chain-gpu-result-2026-09-14.{md,json}`
+records exact native-versus-masked-camera-skip CUDA loss, all 155 gradient
+tensors and full action parity at episode 49 frames 0/249/499, with unchanged
+parameters. Three new diagnostic harness failures are retained; total successful
+optimizer updates remain zero. The latest hook observes frame metadata before
+the native processor, then checks tensors at policy ingress; GPU validation of
+that hook, two-step smoke, independent model reload and fixed Gate rerun remain
+pending because the original host has no free GPU. Reload array identity now
+supports explicit 32-wide noise alongside 14-wide actions; no truncation.
+No new Gate result, model selection or M2 completion is claimed.
+
+Repaired-chain SSH verification (2026-09-14):
+`reports/training/m2-smolvla-training-chain-ssh-result-2026-09-14.{md,json}`
+records 569 CPU regressions plus 30 Gate contract tests passing on the original
+AutoDL instance in no-card mode. All 22,500 nonhidden numeric rows, eight real
+temporal loader/video samples and both saved processor boundaries passed their
+bounded checks. A fresh workspace required original-SHA prerequisite binding;
+the failed initial attempt remains preserved. Actual 450M CUDA forward/backward,
+independent model reload and new policy Gates remain unmeasured because the
+original GPU was unavailable. CPU/tensor/contract checks do not establish M2.
+
+Training-chain follow-up repairs completed (2026-09-14):
+`reports/training/m2-smolvla-training-chain-repair-2026-09-14.{md,json}`
+records the new checkpoint selector and full-array evidence verifier documented
+in `docs/m2-smolvla-posttrain-v2.md`. Exact historical source fixtures repair
+test setup while production source-pin checks remain strict. Final related
+regression: 569 passed, zero failures, one CUDA skip and two data deselections.
+Separate cached-data verification decoded all 22,500 nonhidden frame samples
+and checked their complete 50-by-14 target chunks against independent raw reads.
+Independent video timestamp/physical semantics, actual full-model reload and
+formal resume remain unverified. Two historical vcdropout source versions remain
+unavailable locally; its synthetic gate tests do not reproduce that old run.
+This supersedes the eight test failures and sampled-only image coverage below;
+frozen historical hashes, prior results and Gate/M2 conclusions remain intact.
+
+Training/data rescan completed with retained limits (2026-09-14):
+`reports/training/m2-smolvla-training-chain-rescan-2026-09-14.{md,json}`
+records six repaired declaration/execution gaps and 16 reproduced counterexamples.
+The v2 schema now requires the action boundary and installed learning contracts,
+rejects ignored overlays, validates smoke identities and preserves checkpoint saves;
+explicit schedules reject unauthorized drafts. Final regression: 512 passed,
+eight retained historical source-pin failures. Full train/dev numeric checks,
+405 complete action chunks, train-only statistics and saved processor execution
+passed. Native temporal loader/update/observer integration passed on tiny CPU
+policies; full model/CUDA/resume and full image verification remain unmeasured.
+This supersedes only the paused audit's resolved items below, not historical Gates.
+
+Local training-chain audit paused for user battery limit (2026-09-14):
+`reports/training/m2-smolvla-training-chain-local-audit-2026-09-14.md` records
+confirmed source-identity, teardown, declaration, split, mask and diagnostic
+repairs. 20,000 train and 2,500 development numeric frames plus 405 temporal
+image/chunk samples were checked locally; hidden rows were not materialized.
+The broad suite had 480 passes and 9 failures (one registry expectation since
+corrected, eight historical source-pin failures retained). Final AST/Ruff passed;
+final ML rerun, saved-processor statistics, complete temporal launch integration
+and the full semantic audit remain incomplete. No new policy training or Gates.
+New executions must reseal implementation identities; historical pins stay fixed.
+
+
 Latest completed policy Gates: Iris 002 (closure 2026-09-14).
 `reports/training/m2-smolvla-iris-gate34-result-2026-09-14.{md,json}` records
 control/treatment suffixes 451/452: both Gate 3 passed, both Gate 4 failed 0/5,

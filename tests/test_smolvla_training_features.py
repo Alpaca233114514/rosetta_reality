@@ -100,6 +100,8 @@ def _context(
 
 def test_registry_covers_the_declared_feature_set() -> None:
     assert set(FEATURE_FACTORIES) == {
+        "canonical_image_scaling",
+        "explicit_sample_schedule",
         "image_key_scene_regularization",
         "trackio_logging",
         "train_only_statistics",

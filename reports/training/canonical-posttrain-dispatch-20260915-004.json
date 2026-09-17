@@ -1,0 +1,21 @@
+{
+  "status": "cpu_verified_cuda_pending",
+  "recorded_at_utc": "2026-09-15T01:02:34.3830379Z",
+  "run": "canonical-fullframes-posttrain-20260915-004",
+  "workspace": "20260915T010102Z-95cf9cf9483b-9a435cc04df2",
+  "composite_sha256": "9a435cc04df2f98c2a80ae6baa3fca0f32abc3437aabd9c9cb457b28634ba564",
+  "template": "reports/training/canonical-posttrain-template-20260915-004.json",
+  "template_sha256": "21c86d33aee9ffd5874526803cc54ce6cd8f91d014b64c82ac73cb952742a240",
+  "plan_sha256": "35511af8c7d0d9d93c827fe72ddec0205fa8932f7660735ddd38e8b7524be75e",
+  "cpu_tests_passed": 41,
+  "source_files_verified": 1084,
+  "failure_003": "Gate3 passed; Gate4 not measured because root launcher log changed workspace identity",
+  "causal_proof": "runs/canonical-furnace-preparation-20260914-001/gate-identity-causal-proof-003.json",
+  "fix": "launcher redirects output to create-only runs log; code identity and Gate engine unchanged",
+  "primary_agent_authored_repair": true,
+  "executor": "luna_max_monitor",
+  "gate3": "pending",
+  "gate4": "pending",
+  "predecessor_003": "receipt verified and platform shutdown confirmed by Luna",
+  "m2_complete": false
+}

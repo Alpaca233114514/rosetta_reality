@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 import pytest
+from historical_smolvla_sources import bind_historical_sources
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_ROOT = REPOSITORY_ROOT / "scripts"
@@ -22,13 +23,17 @@ for candidate in (str(REPOSITORY_ROOT / "src"), str(SCRIPTS_ROOT)):
 import smolvla_zen_protocol as protocol  # type: ignore[import-not-found]  # noqa: E402
 
 UNIFORM_PLAN = (
-    REPOSITORY_ROOT
-    / "configs/vla/smolvla_450m_aloha_insertion_zen_cuda_b64_uniform_002.yaml"
+    REPOSITORY_ROOT / "configs/vla/smolvla_450m_aloha_insertion_zen_cuda_b64_uniform_002.yaml"
 )
 FIRSTACTION_PLAN = (
-    REPOSITORY_ROOT
-    / "configs/vla/smolvla_450m_aloha_insertion_zen_cuda_b64_firstaction_001.yaml"
+    REPOSITORY_ROOT / "configs/vla/smolvla_450m_aloha_insertion_zen_cuda_b64_firstaction_001.yaml"
 )
+
+
+@pytest.fixture()
+def historical_sources(tmp_path, monkeypatch):
+    plan = protocol.load_yaml(UNIFORM_PLAN)
+    return bind_historical_sources(protocol, plan, tmp_path, monkeypatch)
 
 
 def test_registry_roles_are_distinct_and_complete() -> None:
@@ -37,13 +42,13 @@ def test_registry_roles_are_distinct_and_complete() -> None:
     assert all(spec["horizon_feature_declared"] is not None for spec in protocol.ZEN_SPECS.values())
 
 
-def test_uniform_plan_binds_the_current_tree() -> None:
+def test_uniform_plan_binds_exact_historical_sources(historical_sources) -> None:
     plan, plan_id = protocol.resolve_plan(UNIFORM_PLAN)
     assert plan_id == "m2-smolvla450m-zen-uniform-002"
     assert protocol.ZEN_SPECS[plan_id]["role"] == "control"
 
 
-def test_firstaction_plan_binds_the_current_tree() -> None:
+def test_firstaction_plan_binds_exact_historical_sources(historical_sources) -> None:
     plan, plan_id = protocol.resolve_plan(FIRSTACTION_PLAN)
     assert plan_id == "m2-smolvla450m-zen-firstaction-001"
     assert protocol.ZEN_SPECS[plan_id]["role"] == "treatment"
@@ -51,20 +56,18 @@ def test_firstaction_plan_binds_the_current_tree() -> None:
 
 def _features(plan: dict) -> list[str]:
     return [
-        declaration["name"]
-        for declaration in plan["features"]
-        if isinstance(declaration, dict)
+        declaration["name"] for declaration in plan["features"] if isinstance(declaration, dict)
     ]
 
 
-def test_control_must_not_declare_the_horizon_feature() -> None:
+def test_control_must_not_declare_the_horizon_feature(historical_sources) -> None:
     plan, _ = protocol.resolve_plan(UNIFORM_PLAN)
     features = _features(plan) + ["horizon_weight_profile"]
     with pytest.raises(ValueError, match="contradicts"):
         protocol.validate_zen_plan(plan, feature_names=features)
 
 
-def test_treatment_loss_contract_is_fail_closed() -> None:
+def test_treatment_loss_contract_is_fail_closed(historical_sources) -> None:
     plan, _ = protocol.resolve_plan(FIRSTACTION_PLAN)
     broken = copy.deepcopy(plan)
     broken["loss_contract"]["profile"] = "uniform_everything"
@@ -72,13 +75,25 @@ def test_treatment_loss_contract_is_fail_closed() -> None:
         protocol.validate_zen_plan(broken)
 
 
-def test_implementation_pin_drift_fails_closed() -> None:
+def test_implementation_pin_drift_fails_closed(historical_sources) -> None:
     plan, _ = protocol.resolve_plan(UNIFORM_PLAN)
     broken = copy.deepcopy(plan)
     first_key = sorted(broken["implementation_files"])[0]
     broken["implementation_files"][first_key] = "0" * 64
     with pytest.raises(ValueError, match="drifted|changed"):
         protocol.validate_zen_plan(broken)
+
+
+def test_historical_source_bytes_tampering_is_rejected(historical_sources) -> None:
+    path = historical_sources / "scripts/run_smolvla_v2.py"
+    path.write_bytes(path.read_bytes() + b"\n# changed fixture\n")
+    with pytest.raises(ValueError, match="implementation file changed"):
+        protocol.resolve_plan(UNIFORM_PLAN)
+
+
+def test_historical_zen_plan_still_rejects_current_source_drift() -> None:
+    with pytest.raises(ValueError, match="implementation file changed"):
+        protocol.resolve_plan(UNIFORM_PLAN)
 
 
 def test_validation_split_stays_disjoint() -> None:

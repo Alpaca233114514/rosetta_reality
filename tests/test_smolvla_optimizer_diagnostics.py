@@ -179,7 +179,10 @@ def _full_plan() -> dict[str, Any]:
             "cpu_limit": 1,
             "checkpoint_memory_trim": False,
         },
-        "features": [{"name": "gradient_clip_diagnostics"}],
+        "features": [
+            {"name": "action_boundary_projection"},
+            {"name": "gradient_clip_diagnostics"},
+        ],
         "prerequisites": {},
         "normalization": {
             "source_split": "train",
@@ -237,16 +240,12 @@ def test_clip_diagnostics_records_pre_and_post_norms(
     import accelerate
 
     fake = FakeTrainModule()
-    monkeypatch.setattr(
-        features_module, "_lerobot_train_module", lambda: fake, raising=True
-    )
+    monkeypatch.setattr(features_module, "_lerobot_train_module", lambda: fake, raising=True)
 
     def fake_clip(self: Any, parameters: Any, max_norm: float, **kwargs: Any) -> Any:
         return torch.nn.utils.clip_grad_norm_(parameters, max_norm)
 
-    monkeypatch.setattr(
-        accelerate.Accelerator, "clip_grad_norm_", fake_clip, raising=True
-    )
+    monkeypatch.setattr(accelerate.Accelerator, "clip_grad_norm_", fake_clip, raising=True)
     monkeypatch.setenv("ROSETTA_RUN_ROOT", str(tmp_path))
     feature = features_module.GradientClipDiagnosticsFeature({})
     context = _context(tmp_path, _plan("gradient_clip_diagnostics"))
@@ -288,9 +287,7 @@ def test_clip_diagnostics_records_pre_and_post_norms(
             ** 0.5
         )
         assert clipped_global == pytest.approx(1.0, rel=1e-4)
-        record_path = (
-            tmp_path / "test-experiment" / "diagnostics" / "gradient-clip-test-run.jsonl"
-        )
+        record_path = tmp_path / "test-experiment" / "diagnostics" / "gradient-clip-test-run.jsonl"
         lines = record_path.read_text(encoding="utf-8").splitlines()
         records = json.loads(lines[0])
         assert records["update"] == 1
@@ -300,9 +297,7 @@ def test_clip_diagnostics_records_pre_and_post_norms(
         clipped_record = json.loads(lines[1])
         assert clipped_record["update"] == 2
         assert clipped_record["pre_clip_l2"]["global"] == pytest.approx(pre_global)
-        assert clipped_record["post_clip_l2"]["global"] == pytest.approx(
-            1.0, rel=1e-4
-        )
+        assert clipped_record["post_clip_l2"]["global"] == pytest.approx(1.0, rel=1e-4)
     finally:
         feature.restore(context)
     assert getattr(accelerate.Accelerator, feature._CLIP_MARKER, False) is False
@@ -316,9 +311,7 @@ def test_clip_diagnostics_fail_closed_on_non_finite(
     import accelerate
 
     fake = FakeTrainModule()
-    monkeypatch.setattr(
-        features_module, "_lerobot_train_module", lambda: fake, raising=True
-    )
+    monkeypatch.setattr(features_module, "_lerobot_train_module", lambda: fake, raising=True)
     monkeypatch.setattr(
         accelerate.Accelerator,
         "clip_grad_norm_",
@@ -333,9 +326,7 @@ def test_clip_diagnostics_fail_closed_on_non_finite(
         parameter = torch.nn.Parameter(torch.zeros(1))
         parameter.grad = torch.tensor([float("nan")])
         with pytest.raises(FloatingPointError, match="Non-finite"):
-            accelerate.Accelerator.clip_grad_norm_(
-                types.SimpleNamespace(), [parameter], 5.0
-            )
+            accelerate.Accelerator.clip_grad_norm_(types.SimpleNamespace(), [parameter], 5.0)
     finally:
         feature.restore(context)
 
@@ -344,9 +335,7 @@ def test_checkpoint_snapshot_writes_exact_step_metrics(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     fake = FakeTrainModule()
-    monkeypatch.setattr(
-        features_module, "_lerobot_train_module", lambda: fake, raising=True
-    )
+    monkeypatch.setattr(features_module, "_lerobot_train_module", lambda: fake, raising=True)
     feature = features_module.CheckpointMetricSnapshotFeature({})
     context = _context(tmp_path, _plan("checkpoint_metric_snapshot"))
     feature.install(context)
@@ -358,9 +347,7 @@ def test_checkpoint_snapshot_writes_exact_step_metrics(
         checkpoint_dir.mkdir(parents=True)
         fake.save_checkpoint(checkpoint_dir=checkpoint_dir, step=2)
         payload = json.loads(
-            (checkpoint_dir / "rosetta_checkpoint_metrics.json").read_text(
-                encoding="utf-8"
-            )
+            (checkpoint_dir / "rosetta_checkpoint_metrics.json").read_text(encoding="utf-8")
         )
         assert payload["step"] == 2
         assert payload["metrics"] == {
@@ -375,9 +362,7 @@ def test_checkpoint_snapshot_writes_exact_step_metrics(
         checkpoint_dir3.mkdir(parents=True)
         fake.save_checkpoint(checkpoint_dir=checkpoint_dir3, step=3)
         payload3 = json.loads(
-            (checkpoint_dir3 / "rosetta_checkpoint_metrics.json").read_text(
-                encoding="utf-8"
-            )
+            (checkpoint_dir3 / "rosetta_checkpoint_metrics.json").read_text(encoding="utf-8")
         )
         assert payload3["metrics"] == {
             "loss": 0.3,
@@ -400,12 +385,8 @@ def test_snapshot_composes_with_checkpoint_memory_trim(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     fake = FakeTrainModule()
-    monkeypatch.setattr(
-        features_module, "_lerobot_train_module", lambda: fake, raising=True
-    )
-    monkeypatch.setattr(
-        features_module, "release_checkpoint_headroom", lambda device=None: None
-    )
+    monkeypatch.setattr(features_module, "_lerobot_train_module", lambda: fake, raising=True)
+    monkeypatch.setattr(features_module, "release_checkpoint_headroom", lambda device=None: None)
     plan = _plan("checkpoint_memory_trim", "checkpoint_metric_snapshot")
     plan["resources"] = {"checkpoint_memory_trim": True}
     stack = FeatureStack.from_plan(plan)
