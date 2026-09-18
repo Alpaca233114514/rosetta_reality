@@ -102,7 +102,7 @@ def run_registered(plan, root, stage, *, source=None):
         return parameter_digests(online.policy) == before
 
     guard()
-    if stage == "collect":
+    if stage in ("collect", "collect-repro"):
         from .gate_diagnostic_capture import collect_episode
 
         identity = {
@@ -116,6 +116,20 @@ def run_registered(plan, root, stage, *, source=None):
             "optimizer_steps": 0,
             "artifact_config_sha256": sha(relative(root, plan["artifact_config"]["path"])),
         }
+        if stage == "collect-repro":
+            from .reproducibility_capture import collect_reproducibility
+
+            return collect_reproducibility(
+                engine,
+                online,
+                contract,
+                output,
+                identity,
+                pairing=plan["reproducibility"],
+                maximum_bytes=plan["maximum_evidence_bytes"],
+                guard=guard,
+                check_unchanged=unchanged,
+            )
         return collect_episode(
             engine,
             online,

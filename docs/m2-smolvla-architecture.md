@@ -1,5 +1,16 @@
 # M2 SmolVLA architecture and navigation
 
+Closed-loop reproducibility diagnostics (2026-09-18):
+`diagnose_smolvla_gate.py collect-repro/compare-repro` adds a separately registered
+three-arm comparison: two identical boundary observers, then the same observer
+plus the existing full trace. `eval/reproducibility_capture.py` records actual
+model boundaries/noise, MuJoCo integration state (including warmstart), compiled
+model identity and effective runtime settings without changing policy behavior.
+`eval/reproducibility.py` verifies bundles and locates the first exact mismatch.
+See `docs/m2-smolvla-closed-loop-reproducibility.md`. The draft cannot execute;
+real CUDA/rollout parity, uninstrumented parity and physics restoration remain
+unmeasured. Formal Gate results and M2 are unchanged.
+
 Seed 3 diagnostic framework (2026-09-17):
 `scripts/diagnose_smolvla_gate.py` provides independent plan validation,
 single-seed collection, complete-array replay, bounded input probes, historical

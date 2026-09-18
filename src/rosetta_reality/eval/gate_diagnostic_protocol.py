@@ -19,16 +19,16 @@ CONFIG_SHA = "978ec7b1b9b648749b96cf0967ae4b37e0133d65e491613e6803884d50c0984a"
 # A new diagnostic registration cannot silently reseal a modified historical Gate engine.
 REFERENCE_IMPLEMENTATIONS = {
     "scripts/smolvla_sim_gate.py": (
-        "5b76127a2e2d0e0049181a1d0ab122974" "74cbc8eb433c4fcdb6466c35c53c5ae"
+        "5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae"
     ),
     "scripts/smolvla_autodl_vfunfreeze_sim_gate.py": (
-        "f91ae1f5a61c2eb365bbb673caf865719" "54426b1e03fb27ffeb38bd1280cf777"
+        "f91ae1f5a61c2eb365bbb673caf86571954426b1e03fb27ffeb38bd1280cf777"
     ),
     "src/rosetta_reality/sim/gym_aloha.py": (
-        "e9c1005d0ae085e82e0c96e9d18527dce" "7d4749268a71756116cdffbb98d6e7d"
+        "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
     ),
     "src/rosetta_reality/vla/processor.py": (
-        "6751d4dd901da27e0a299bd9426fa4845" "40e85dc12f1f1a62694e063d07e2384"
+        "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384"
     ),
 }
 REQUIRED_SOURCES = {
@@ -71,9 +71,21 @@ def validate_plan(plan, root, *, check_files=True):
         or not re.fullmatch(r"[a-z0-9][a-z0-9-]{2,100}", plan.get("run_id", ""))
     ):
         raise ValueError("Explicit canonical step-5000 diagnostic scope required")
+    repro = plan.get("reproducibility")
+    seed = 3
+    if repro is not None:
+        if (
+            set(repro) != {"pair_id", "role", "seed"}
+            or not re.fullmatch(r"[a-z0-9][a-z0-9-]{2,100}", repro.get("pair_id", ""))
+            or repro.get("role") not in ("baseline_a", "baseline_b", "full_trace")
+            or type(repro.get("seed")) is not int
+            or repro["seed"] not in range(1000, 1005)
+        ):
+            raise ValueError("Explicit paired reproducibility role and fixed Gate seed required")
+        seed = repro["seed"]
     if plan.get("rollout") != {
-        "seed": 3,
-        "policy_noise_seed": 3,
+        "seed": seed,
+        "policy_noise_seed": seed,
         "maximum_steps": 500,
         "noise_mode": "seeded_standard_normal",
         "project_policy_output": True,
@@ -99,6 +111,15 @@ def validate_plan(plan, root, *, check_files=True):
         raise ValueError("Draft is not executable; create a new sealed registration")
     if not REQUIRED_SOURCES <= plan["sources"].keys():
         raise ValueError("Incomplete diagnostic dependency inventory")
+    if (
+        repro is not None
+        and not {
+            "src/rosetta_reality/eval/reproducibility.py",
+            "src/rosetta_reality/eval/reproducibility_capture.py",
+        }
+        <= plan["sources"].keys()
+    ):
+        raise ValueError("Reproducibility dependencies must be sealed")
     for name, digest in plan["sources"].items():
         reference(root, {"path": name, "sha256": digest})
     if any(
@@ -153,9 +174,11 @@ def validate_plan(plan, root, *, check_files=True):
 
 def authorize(plan, root, stage):
     """Check permission/window before any model import or construction."""
-    if stage not in ("collect", "replay", "probe"):
+    if stage not in ("collect", "replay", "probe", "collect-repro"):
         raise ValueError("Unknown model stage")
     validate_plan(plan, root)
+    if (stage == "collect-repro") != (plan.get("reproducibility") is not None):
+        raise ValueError("Seed 3 and paired reproducibility stages cannot be interchanged")
     execution = plan.get("execution") or {}
     if (
         execution.get("authorized") is not True

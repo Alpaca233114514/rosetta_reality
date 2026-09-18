@@ -16,10 +16,15 @@ _LOCK = threading.Lock()
 
 
 def clone_tree(value):
+    import numpy as np
     import torch
 
     if isinstance(value, torch.Tensor):
         return value.detach().cpu().clone()
+    if isinstance(value, np.ndarray):
+        return torch.from_numpy(value.copy())
+    if isinstance(value, np.generic):
+        return value.item()
     if isinstance(value, dict):
         return {k: clone_tree(v) for k, v in value.items()}
     if isinstance(value, (tuple, list)):

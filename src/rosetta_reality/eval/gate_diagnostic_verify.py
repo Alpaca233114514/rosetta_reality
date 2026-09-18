@@ -152,6 +152,10 @@ def _expected_probe_steps(source):
 
 def verify_bundle(directory, *, source=None):
     directory = Path(directory)
+    if _json(directory / "identity.json").get("stage") == "collect-repro":
+        from .reproducibility import verify_collection
+
+        return verify_collection(directory)
     manifest = _json(directory / "manifest.json")
     members = {p.relative_to(directory).as_posix() for p in directory.rglob("*") if p.is_file()}
     if any(p.is_symlink() for p in directory.rglob("*")):

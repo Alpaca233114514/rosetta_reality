@@ -17,11 +17,16 @@ def main(argv=None):
     validate = modes.add_parser("validate-plan")
     validate.add_argument("--plan", required=True, type=Path)
     validate.add_argument("--schema-only", action="store_true")
-    for mode in ("collect", "replay", "probe"):
+    for mode in ("collect", "collect-repro", "replay", "probe"):
         command = modes.add_parser(mode)
         command.add_argument("--plan", required=True, type=Path)
-        if mode != "collect":
+        if mode in ("replay", "probe"):
             command.add_argument("--input", required=True, type=Path)
+    compare = modes.add_parser("compare-repro")
+    compare.add_argument("--baseline", required=True, type=Path)
+    compare.add_argument("--repeat", required=True, type=Path)
+    compare.add_argument("--traced", required=True, type=Path)
+    compare.add_argument("--output", required=True, type=Path)
     audit = modes.add_parser("audit-training")
     audit.add_argument("--plan", required=True, type=Path)
     audit.add_argument("--output", required=True, type=Path)
@@ -40,12 +45,16 @@ def main(argv=None):
         from rosetta_reality.eval.gate_diagnostic_protocol import validate_plan
 
         result = validate_plan(load_json(args.plan), ROOT, check_files=not args.schema_only)
-    elif args.mode in ("collect", "replay", "probe"):
+    elif args.mode in ("collect", "collect-repro", "replay", "probe"):
         from rosetta_reality.eval.gate_diagnostic_runtime import run_registered
 
         result = run_registered(
             load_json(args.plan), ROOT, args.mode, source=getattr(args, "input", None)
         )
+    elif args.mode == "compare-repro":
+        from rosetta_reality.eval.reproducibility import compare_campaign
+
+        result = compare_campaign(args.baseline, args.repeat, args.traced, args.output)
     elif args.mode == "audit-training":
         from rosetta_reality.eval.gate_diagnostic_protocol import validate_plan
         from rosetta_reality.eval.gate_diagnostic_training import audit_training
@@ -62,7 +71,19 @@ def main(argv=None):
 
         result = verify_bundle(args.directory, source=args.source)
     print(json.dumps(result, ensure_ascii=False, allow_nan=False, sort_keys=True))
-    return 1 if result["status"] in ("incomplete", "control_failed", "verified_incomplete") else 0
+    return (
+        1
+        if result["status"]
+        in (
+            "incomplete",
+            "control_failed",
+            "verified_incomplete",
+            "diverged",
+            "incomparable",
+            "insufficient_evidence",
+        )
+        else 0
+    )
 
 
 if __name__ == "__main__":
