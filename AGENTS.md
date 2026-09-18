@@ -1,471 +1,68 @@
-# Repository agent guidance
-
-## Repository safety
-
-- Never delete, clear, overwrite, or discard existing files unless the user explicitly approves the exact affected paths.
-- Before any deletion, list every affected path, explain the reason and a reversible alternative, and wait for approval. Broad requests such as cleanup, refactoring, or repair are not deletion authorization.
-- If an operation might lose data and that cannot be ruled out, treat it as deletion and stop.
-- Prefer compatible, incremental edits when an existing file or structure overlaps a task.
-- Treat `main` and `master` as permanently protected branches.
-- Put integration changes on a feature branch and use the normal pull-request workflow.
-- Never force-push, rewrite Git history, bypass branch protection, or weaken required checks.
-- Never bypass AutoReview.
-- Do not commit or push unless the user explicitly requests it.
-- Never commit secrets, access tokens, credentials, private data, or model access keys.
-
-## Path privacy
-
-- Treat the repository root as `.`.
-- Refer to repository files and directories only with paths relative to the repository root, such as
-  `src/rosetta_reality/`, `data/`, or `.venv-wsl/`.
-- Do not place absolute Windows, WSL, UNC, home-directory, username, or machine-specific paths in
-  tracked files, documentation, logs, handoffs, or user-facing responses unless the user explicitly
-  requests a specific absolute path.
-
-## Shell and runtime boundary
-
-- Windows-side repository editing, Git operations, and non-ML static checks may use PowerShell (`pwsh`).
-- Except for PowerShell, all command-line operations must use Bash; do not substitute `cmd.exe`, another
-  shell, or native Windows Python.
-- All WSL operations must be executed inside WSL Bash. This includes creating or updating Python
-  environments, installing ML or data dependencies, downloading models or datasets, and running ML code.
-- When invoking WSL from PowerShell, call `wsl.exe bash` explicitly and quote Bash variables and paths so
-  PowerShell expansion cannot redirect a command into the Windows-mounted repository unexpectedly.
-
-## GPU and environment safety
-
-All local machine-learning operations must run inside WSL. This includes creating
-or updating Python environments, installing ML or data dependencies, downloading
-or preparing datasets, running PyTorch/LeRobot code, ML unit or integration tests,
-smoke training, evaluation, and real experiments. Do not perform these operations
-from native Windows Python or PowerShell. Repository editing, Git operations, and
-non-ML static checks may still run from Windows.
-
-Never install or upgrade system-level PyTorch, CUDA, ROCm, GPU drivers, or simulators automatically.
-Before any real GPU training:
-
-1. Run `python scripts/check_env.py`.
-2. Run the unit tests.
-3. Run the dummy forward pass.
-4. Run a CPU or small-model smoke test.
-5. Run a short GPU smoke test.
-6. Only then launch a real experiment.
-
-Do not download model weights or datasets unless the user explicitly requests it.
-
-## Architecture
-
-- Keep the vision-language backbone replaceable.
-- Keep the dataset layer robot- and embodiment-agnostic.
-- Do not leak Qwen-specific behavior into generic VLA policy components.
-- Do not hardcode action dimensions, chunk sizes, robot degrees of freedom, devices, or dtypes.
-- Avoid speculative abstractions without an immediate use.
-- Prefer a small working baseline before advanced research features.
-- Imports must not load models, access the network, or mutate the environment.
-
-## 模型工作强制工作流
-
-以下工作流适用于数据准备、真实多模态骨干接入、特征提取、训练、评估和模型适配。
-后续模型工作默认必须遵守本节；不得为了更快进入下一阶段而跳过阶段门禁。
-
-主力本地开发机只有 **16 GB 系统内存**，且没有适合大模型训练的独立 GPU。
-所有本地机器学习操作仍须在 WSL 内执行。Windows 侧只用于仓库编辑、Git 操作和
-不加载模型或数据的静态检查。模型权重、数据集、外部 GPU 计算、真实训练和真机操作
-均不得在未获得用户明确授权时自行启动。
-
-### 阶段门禁
-
-- 里程碑是否完成必须由当前工作区中的实际验收结果证明，不能仅根据代码存在、PR 已合并、
-  文档描述或历史对话推断。
-- 当前 M1 到 M2 的门禁是：在 WSL 中完成环境检查、单元测试、dummy forward / CPU
-  optimizer smoke，以及 revision-pinned 真实数据缓存的检查和 `pytest -m data`。需要创建或
-  补全数据缓存时，只有在用户明确批准下载后才能运行 `python scripts/prepare_data.py`；
-  `python scripts/prepare_data.py inspect` 必须保持只读。
-- 模型规模、backbone adaptation、Action Expert 和 dataset 是相互独立的实验轴。不得再把
-  Frozen、LoRA 或 Full Fine-tuning 与某个里程碑永久绑定；里程碑表示系统已经获得并验收的
-  能力，而不是本次实验使用的训练技术。
-- **M2 — Development VLA**：把本地已有的 `Qwen3.5-0.8B-Base` 作为正式的
-  development-scale reference model。0.8B 不是一次性 smoke checkpoint；必须先用它完成
-  第一代 Rosetta 的数据、训练、验证、checkpoint / resume、evaluation、artifact export 和
-  可复现闭环，并通过 MuJoCo 基础控制验证。M2 完成时必须已有一个能在明确 action 语义下
-  实际驱动目标仿真机器人的 development checkpoint，而不只是能输出 action tensor。
-- 0.8B 的每种新训练能力仍须从极小样本开始，依次验证图像预处理、instruction / prompt、
-  hidden state、tensor shape、pooling、梯度、机器人状态融合、动作预测和小数据 overfit，
-  然后才能扩大为完整实验。不得为了执行这些步骤自行下载权重或数据。
-- Frozen、LoRA 和 Full Fine-tuning 可以分别在 0.8B 上形成受控实验。是否运行某个适配方法
-  由实验假设、资源和用户授权决定；如需比较方法，应保持 dataset split、evaluation protocol
-  和其他控制变量一致，并优先建立可复现的 Frozen reference。
-- **M3 — Scale-up VLA**：只有 0.8B 完整闭环验收通过后，才能把已验证的 pipeline 扩展到
-  `Qwen3.5-9B-Base`。9B 必须先做短 GPU smoke，再在用户批准的正式 GPU 环境中运行
-  Frozen、LoRA 或 Full Fine-tuning 的 controlled experiment。
-- 16 GB 本地机器不得承担 9B 正式训练。9B 在本地只允许做资源边界明确的冻结推理；LoRA
-  和 Full Fine-tuning 必须在用户批准且经过资源预算验证的 GPU 环境运行。192 GB 等大显存
-  不是跳过 0.8B 闭环、测试门禁、短 GPU smoke 或显存规划的理由。
-- 不得把 Frozen Backbone + Action Head Training 描述为 LoRA、full fine-tuning 或
-  9B 全参数训练。
-
-### 每次模型工作的执行顺序
-
-每项模型改动或实验必须按以下顺序推进，并在上一步有可检查证据后才进入下一步：
-
-1. 定义一个明确假设、变更范围、数据和模型身份、资源预算、验收指标及停止条件，并分别写明
-   backbone scale、adaptation method、Action Expert 和 dataset，避免混淆实验变量。
-2. 先完成不加载权重和数据的静态检查、配置检查、shape / contract 单元测试。
-3. 在 WSL 中运行 `python scripts/check_env.py`、相关单元测试、dummy forward 和 CPU 或
-   小模型 smoke test。具体测试范围应与风险相称；进入真实 GPU 训练前仍须执行本文件前述
-   完整 GPU 前置检查顺序。
-4. 在正式训练前定义完整的 Rosetta Action Contract 和 Simulation Adapter，并依次通过 M2
-   Gate 1 Scripted Action Smoke Test 与 Gate 2 Dataset Action Replay。
-5. 使用 0.8B 和极小真实样本验证 Online Backbone、选定 adaptation method 和端到端
-   forward / backward 路径。
-6. 使用很小的固定样本集验证模型能够 overfit，并排查 split 泄漏、梯度、checkpoint 保存与
-   resume、日志和 evaluation 实现。
-7. 对 Frozen 实验按本文件的 Feature Cache 流程生成并验证不可变缓存；对 LoRA 或 Full FT
-   使用 Online Backbone，不能把预计算冻结特征冒充为 backbone adaptation。
-8. 在 0.8B 上完成正式 training / validation、checkpoint / resume、evaluation、artifact
-   export 和从导出 artifact 重新加载的全流程，并验证结果可复现。
-9. 依次通过 M2 Gate 3 Small Policy Rollout 与 Gate 4 Development Task Evaluation，证明
-   checkpoint 能经完整 adapter 链路形成基础 observation-action-observation 控制循环。
-10. 0.8B 的训练、artifact 和仿真控制验收全部通过后才进入 scale-up gate。切换到 9B 时保持
-   可比的数据、split、指标和 pipeline，
-   重新生成与 9B 身份匹配的 Feature Cache 或在线训练输入，并完成短 GPU smoke。
-11. 只在短 GPU smoke 通过后运行 9B controlled experiment；不能把首次完整训练留到 9B
-   阶段才调试 checkpoint、resume、evaluation、export 或数据泄漏问题。
-12. 记录配置、结果、失败、人工介入和下一轮假设，再决定是否扩大数据、模型或计算规模。
-
-两级模型工作主路径为：
-
-```text
-Dummy / Contract Tests
-        |
-        v
-M2 Gate 1 Scripted Action + Gate 2 Dataset Replay
-        |
-        v
-0.8B Tiny-sample Smoke
-        |
-        v
-0.8B Small-data Overfit
-        |
-        v
-0.8B Full Train / Validate / Resume / Evaluate / Export
-        |
-        v
-M2 Gate 3 Small Rollout + Gate 4 Task Evaluation
-        |
-        v
-Reproducibility and Scale-up Gate
-        |
-        v
-9B Short GPU Smoke
-        |
-        v
-9B Controlled Experiment
-```
-
-任何一步失败时，应修复该层并重新验证，不得通过扩大模型、数据、内存、swap 或计算资源
-来掩盖接口、数据或实验设计问题。
-
-### M2 — Development VLA 与仿真控制验证
-
-M2 的目标不是仅让模型成功输出动作张量，而是建立第一条从真实多模态 observation 到仿真
-机器人实际运动的完整控制链路。M2 默认使用开发规模 backbone，例如
-`Qwen3.5-0.8B-Base`，完成端到端训练、评估、checkpoint、恢复、导出及仿真控制验证。
-
-M2 完成后，应存在一个能够实际驱动 MuJoCo 中目标机器人模型的 Rosetta Reality
-development checkpoint。
-
-#### M2 控制链路
-
-```text
-Image / Video
-+
-Language Instruction
-+
-Robot State
-        |
-        v
-Rosetta Reality Policy
-        |
-        v
-Rosetta Action
-        |
-        v
-Embodiment / Simulation Adapter
-        |
-        v
-MuJoCo Controller / Actuator
-        |
-        v
-Robot Motion
-        |
-        v
-Next Observation
-```
-
-模型输出不能仅被视为无语义 tensor。Rosetta Action Contract 必须至少明确记录：
-
-- action 类型和 dimension；
-- 每一维的物理含义及 joint / actuator ordering；
-- 单位；
-- absolute 或 delta 语义；
-- position、velocity 或 torque 控制模式；
-- joint-space 或 end-effector-space；
-- 使用的 reference frame；
-- control frequency 和 timestamp alignment；
-- action chunk length 及 chunk execution 策略；
-- gripper 等离散或连续控制字段的编码与语义；
-- joint limit、actuator limit 和输出裁剪规则。
-
-两个 action tensor 即使 shape 完全相同，只要任一物理语义不同，就不得视为兼容。
-
-#### M2 仿真选择
-
-M2 优先使用现有、高质量、已验证的机器人仿真模型。当前 ALOHA 数据路径应优先使用
-MuJoCo 中可获得的 ALOHA 模型，而不是在 M2 自行设计新的机械臂。
-
-SolidWorks、CAD-to-URDF 或自定义机器人建模不属于 M2 的必要前置条件。M2 的主要研究变量
-应保持在数据、representation、policy、action space、controller adapter 和 simulation
-integration，不应转移为机械结构设计。
-
-#### Gate 1 — Scripted Action Smoke Test
-
-首先不使用神经网络。通过人工构造的小幅、确定性 action 验证：
-
-- 正确的机器人、joint 和 actuator 被控制；
-- 运动方向与 action magnitude 符合定义和单位；
-- left / right arm 不发生索引交换；
-- gripper 语义正确；
-- joint limit 和 actuator limit 生效；
-- 不出现 NaN、Inf、异常瞬移或明显数值发散。
-
-Gate 1 失败时，不得继续 dataset replay、policy rollout 或正式训练。
-
-#### Gate 2 — Dataset Action Replay
-
-将真实训练数据中的 expert action 通过 Rosetta Action Adapter 输入仿真环境，验证 dataset
-action semantics、Rosetta internal action schema 与 simulator control semantics 三者一致。
-
-不得仅凭 action dimension 相同判定 dataset 与 simulator 兼容。必须明确检查：
-
-- joint ordering；
-- absolute / delta；
-- position / velocity / torque；
-- meter / millimeter；
-- degree / radian；
-- control frequency；
-- timestamp alignment；
-- reference frame；
-- gripper encoding。
-
-如果 expert trajectory replay 产生明显不合理运动，不得开始正式 policy training，也不得对
-模型性能作结论。
-
-#### Gate 3 — Small Policy Rollout
-
-只有 Gate 1 和 Gate 2 通过后，才允许 development-scale policy 控制机器人。第一阶段只做
-短时间 rollout，并检查：
-
-- 模型输出 finite 且 action range 合法；
-- robot state 更新正确；
-- observation-action-observation 循环可以工作；
-- 不发生明显数值发散；
-- action 能通过完整 adapter 链路执行；
-- checkpoint reload 后行为在既定容差内保持一致。
-
-Gate 3 不要求模型已经稳定完成整个 manipulation task。
-
-#### Gate 4 — Development Task Evaluation
-
-只有前三个 Gate 通过后，才进行完整 development-scale task evaluation。至少记录：
-
-- task success；
-- rollout length；
-- invalid action rate；
-- joint-limit violation；
-- collision；
-- action smoothness；
-- policy inference latency；
-- simulation step latency。
-
-训练 loss 不能代替机器人任务指标。
-
-#### Open-loop 与 Closed-loop
-
-M2 至少必须建立基础 observation-action-observation 循环。可以先测试短 action chunk 的
-open-loop execution，但正式 development evaluation 应进入 closed-loop：
-
-```text
-observe
-   |
-   v
-policy
-   |
-   v
-action / action chunk
-   |
-   v
-execute
-   |
-   v
-observe again
-```
-
-不得仅通过离线 action prediction loss 宣称机器人 policy 已完成验证。
-
-#### Simulation Adapter
-
-Rosetta 核心 policy 不得直接依赖 MuJoCo API，必须通过明确的 simulation / embodiment
-adapter 边界连接。概念接口为：
-
-```text
-reset() -> RosettaObservation
-
-step(RosettaAction)
-    -> next_observation
-    -> reward or task metrics
-    -> terminated
-    -> info
-```
-
-具体 simulator 的 actuator、joint index、control mode、reference frame 和物理参数必须封装在
-adapter 内。未来接入其他机器人或 simulator 时，不应要求修改通用 VLA policy。
-
-#### M2 完成条件
-
-M2 至少满足以下条件后才能标记完成：
-
-1. development-scale 真实 VLM backbone 已接通；
-2. 数据准备流程完整可复现；
-3. action space 已记录完整物理语义；
-4. Scripted Action Smoke Test 通过；
-5. Dataset Action Replay 通过；
-6. development-scale 模型可完成正式训练；
-7. checkpoint 保存、恢复和独立重新加载通过；
-8. 模型输出可实际驱动 MuJoCo 中的机器人；
-9. observation-action-observation 基础循环通过；
-10. development task evaluation 可运行并生成规定指标；
-11. 训练配置、代码 commit、dataset revision 和模型 revision 可追踪；
-12. development checkpoint 可导出并具备完整 Model Card / metadata。
-
-M2 的核心判断标准是：**Rosetta 不仅能够预测 action，还能够证明这些 action 在明确的物理
-语义下实际控制仿真机器人。**
-
-### 冻结骨干与离线特征提取
-
-本节只适用于 `adaptation = frozen` 的实验。只要 VLM 保持冻结，就应优先把它当作离线特征
-生成器，使昂贵的 backbone 计算与便宜的 policy training 解耦。LoRA 或 Full Fine-tuning
-会改变 backbone representation，必须使用相应的 Online Backbone 训练路径，不得复用旧的
-冻结特征来声称完成了 backbone adaptation。
-
-- 使用 `torch.inference_mode()` 或等价 inference-only 模式，不为冻结骨干构建梯度图。
-- 内存压力不明确时默认 `batch_size = 1`。
-- 按 sample / frame 增量处理，不把完整 episode 一次性加载进内存。
-- 已完成的 feature 及时写盘，并在样本之间释放大型输入和输出引用。
-- 第一版 baseline 优先使用满足实验目的的 pooled / reduced representation，例如
-  `[sample, D]`；没有明确实验需求时不得缓存 `[sample, tokens, D]` 的完整 token-level
-  hidden states。
-- 可以在实现明确支持时使用量化冻结推理，但精度和量化方式必须写入配置及 cache manifest，
-  不得在不同 cache generation 之间静默改变。
-- 训练代码可以提供 Online Backbone 和 Cached Backbone 两条路径；它们对下游暴露的
-  representation contract 必须一致，核心 VLA 架构不得依赖某一种缓存实现。
-- 本地不得让 9B 模型长期常驻普通训练循环。需要扩大提取规模时，先缩小 sample / episode、
-  batch 和 representation，再考虑经过用户批准的外部 GPU 环境。
-
-### 0.8B 到 9B 的复用边界
-
-0.8B 的价值是先解决所有能够在 development scale 解决的工程和科研流程问题，而不是把
-0.8B 权重“无缝转换”为 9B。
-
-- 可以直接复用：Dataset Adapter、Action Space、Normalization、固定 split、instruction
-  构造规则、训练与评估逻辑、日志、artifact schema，以及 State Encoder、Fusion 和 Action
-  Head 的架构合同。
-- 必须为 9B 重新生成：backbone hidden states、Feature Cache 和通常与 hidden size 直接相连的
-  Backbone Projector。即使 0.8B 与 9B 输出 tensor shape 相同，也不得认为 representation
-  语义兼容。
-- State Encoder 权重可以作为 9B 实验的 warm start 候选；Fusion 和 Action Head 权重只有在
-  contract 一致且实验明确记录时才能尝试 warm start。所有 warm start 都应与从头初始化形成
-  controlled comparison，不能默认其一定更优。
-- 每个 backbone 可以拥有自己的可配置 Projector，但 Projector 输出应遵守统一、可配置的
-  representation contract，使下游组件不依赖 Qwen 型号或原始 hidden size。
-- 从 0.8B 扩展到 9B 时，复用的是经过验证的 pipeline、实验协议和可选择的下游初始化，
-  不是跨 backbone 复用 Feature Cache 或假定模型权重可以零成本迁移。
-
-### Feature Cache 身份与复用
-
-Feature Cache 只有在生成模型、数据和预处理链路完全一致时才可复用。每个 cache 根目录必须
-包含机器可读 manifest，至少记录：
-
-- 数据源标识和不可变 dataset revision；
-- episode、frame 或 sample 标识；
-- camera 或视觉字段映射；
-- 模型 family、identifier 和可获得时的不可变 model revision；
-- processor / tokenizer 配置或 revision；
-- 图像预处理配置；
-- instruction / prompt 构造方式；
-- feature 提取层；
-- pooling 或 token-selection 策略；
-- 输出 dtype、精度或量化模式；
-- feature-cache schema version。
-
-绝不能仅凭 tensor shape 判断两个缓存兼容。任何身份字段变化后必须生成新的
-revision-scoped cache，或者明确报错并停止；不得静默复用或覆盖旧缓存。Feature Cache、
-模型权重、准备后的 dataset、checkpoint 和其他大型生成物默认不得进入 Git；只提交必要的
-小型配置、metadata 或 manifest。
-
-### 实验溯源与评估
-
-Rosetta Reality 的模型工作应形成可审计的 AI-directed research loop。每次实验至少记录：
-
-- 实验假设、验收条件和停止条件；
-- 代码版本或工作区状态；
-- dataset、model、processor 和 Feature Cache 身份；
-- 完整配置、随机种子、split、evaluation protocol 和资源环境；
-- 哪些数据选择、清洗规则、超参数和后续实验由 AI 提出；
-- 用户批准了哪些下载、昂贵计算或安全边界；
-- 所有人工修改、介入和例外；
-- 结果、失败分析、结论和下一轮假设。
-
-评估至少同时考虑 train / validation loss、过拟合、预测分布和 action 合法性。M2 仿真评估
-还必须按任务检查成功率、碰撞、动作平滑度、invalid action、joint-limit violation 和延迟。
-除非目标只是显式 smoke test，否则一次 forward、一次 optimizer step、loss finite 或
-tensor shape 正确都不构成模型有效性的充分证据。
-
-### 0.8B 实验模型验收与发布
-
-0.8B development model 是正式研究 artifact。进入 9B scale-up 前，至少应证明：
-
-- train / validation split 无已知泄漏，完整训练和评估使用固定 protocol；
-- checkpoint 保存、恢复和继续训练可用；
-- 导出的 artifact 能在独立加载路径中恢复出同一模型合同；
-- 配置、seed、代码 revision、dataset revision、processor revision、日志和指标足以复现；
-- Model Card 草稿明确记录用途、限制、输入、输出、action space、训练方法和评估结果；
-- 模型明确标注为 experimental / research only，且未经过真机验证时不得暗示可自主控制
-  物理机器人。
-
-发布到 Hugging Face 或其他外部平台属于外部写操作，必须获得用户对目标仓库和版本的明确
-授权，并在发布前核对基础模型、训练数据和代码许可证：
-
-- Frozen backbone 实验优先只发布 Rosetta Projector、State Encoder、Fusion、Action Head、
-  配置和 Model Card，并使用 `base_model` 指向原始模型；不要重复上传未修改的基础权重。
-- LoRA 实验优先发布 adapter、Rosetta action components、配置和 Model Card。
-- Full Fine-tuning 只有在许可证允许、artifact 验证通过且用户明确批准时才能发布完整权重。
-- 发布验收必须包含可从公开 artifact 重新加载的验证；上传成功本身不等于模型可复现。
-
-### 资源不足时的默认决策
-
-遇到内存或计算压力时，按以下优先级调整系统设计：
-
-1. 使用更小的开发 checkpoint；
-2. 缩小 sample 或 episode 范围；
-3. 降低 batch size；
-4. 使用 inference-only 执行并冻结 backbone；
-5. 复用经过 manifest 验证的 Feature Cache；
-6. 使用 pooled representation；
-7. 明确、可追溯地使用量化；
-8. 拆分 CPU 与 GPU 阶段；
-9. 只把范围受控的昂贵阶段迁移到用户批准的 GPU 环境。
-
-不得依赖大量 swap、不受控的 CPU / disk offload、反复 OOM 尝试或强行扩大 WSL 内存来
-维持不适合本地资源的方案。16 GB 本地内存是系统设计约束，不是降低 revision 管理、
-可复现性、验证强度或 provenance 要求的理由。
+# Rosetta Reality — Agent 约定
+
+## 修改边界
+
+- 保留用户已有修改、实验数据和失败证据；不擅自删除或不可恢复覆盖。未经明确请求不提交或推送。
+- 开发在功能分支进行；保护 `main` / `master`，不绕过 Codex Auto Review、PR 审核或必需检查。
+- 仓库文档、日志和发布内容使用仓库相对路径，不写入主机绝对路径、用户名或凭证。
+
+## 环境与授权
+
+- PowerShell 可用于编辑、Git 和不加载模型/数据的静态检查；其他命令行使用 Bash，不使用 cmd.exe 或 Windows Python。
+- 本地 ML 依赖、数据准备、模型、ML 测试、训练、评估和仿真必须从 `wsl.exe bash` 启动并在 Linux Docker 容器中执行。WSL 主机只作只读检查、源码检出、容器编排及受控 Hub 控制面操作。
+- AutoDL 平台容器是唯一已登记远端例外，不嵌套 Docker；使用 `configs/runtime/autodl_rtx4090.yaml` 与 `scripts/run_autodl.sh` 记录环境身份。
+- 本地按 16 GB 系统内存预算设计。不得擅自安装/升级系统 PyTorch、CUDA、驱动或仿真器，不靠扩大 swap、内存、反复 OOM 或无控 offload 强行运行。
+- 模型/数据下载、外部 GPU 计算、正式训练、真机操作和对外发布须有明确授权。已登录 Hub CLI 不代表获得下载或发布授权，不读取或输出 token。
+
+## 架构与证据入口
+
+涉及 SmolVLA 数据、`configs/vla/`、`src/rosetta_reality/vla/`、trainer/loss/optimizer/scheduler、checkpoint/resume、export、validation 或 Gate 3/4 时，先完整阅读：
+
+1. `docs/m2-smolvla-architecture.md`：组件与控制流的稳定入口。
+2. 复核历史 Faust 实验时，读取本地归档中的 `reports/training/m2-smolvla-faust-trainer-optimizer-audit-2026-08-12.md` 及同名 JSON：审计框架与修复顺序。
+3. 复核历史 Zen 或对应实验时，读取本地归档中的 `reports/training/m2-smolvla-zen-formal-audit-2026-08-27.md` 及同名 JSON，以及架构文档指向的对应实验最新完成报告。
+
+文档与 hash-bound config、Action Contract、可执行断言或不可变证据冲突时先核对，不修改历史证据来消除矛盾。组件入口、合同、控制流或 Gate 状态改变时，同步更新架构文档；稳定路径改变时同时更新本文件、`README.md` 和 `docs/architecture.md`。
+
+研究报告与一次性运行记录保留在本地归档，不随核心代码 PR 发布。M2 尚未完成；离线检查通过不代表闭环验收通过。历史报告仅在复核对应实验时从本地归档读取，缺失时不得绕过证据门禁或编造结果。新实验仍须登记单变量计划并获授权；已有报告不构成新运行授权。AutoDL 关机记录不是当前状态证明；实例不得擅自释放。
+
+## 模型与数据合同
+
+- ER / System-2 使用 Qwen3.5；VLA / System-1 使用 revision-pinned `lerobot/smolvla_base` 450M。两者的训练、checkpoint、optimizer、特征和 artifact 分开管理。
+- 旧 Qwen frozen-feature + action-head VLA 实验只作历史负结果；可复用经核验的数据身份、split、Action Contract 和仿真协议，不可复用权重/特征初始化 SmolVLA，或当作 ER 能力证据。
+- ER/VLA 通过版本化 structured `ActionPlan` 连接，至少含 `subtask`、`object`、`target`、`motion_hint`、`constraints`、`success_condition`、`replan_condition`。M3 须先分别通过 M2 闭环与 ER 独立验收，再验证 integration。
+- 数据层保持 embodiment-agnostic，policy 通过 simulation adapter 控制 MuJoCo；不把模型或仿真专用逻辑泄漏到通用接口。import 不加载模型、访问网络或修改环境。
+- Action Contract 明确 shape/dtype/range、每维语义与 ordering、单位/坐标系、absolute/delta、控制模式、频率/时间对齐、chunk 执行策略、gripper 编码和限幅。不得仅凭 tensor shape 判兼容，或硬编码动作维度、设备和 dtype。
+- M2 优先复用固定 revision 的 ALOHA insertion 50 episodes 及既定 split；当前容器须核对 manifest/checksum、camera/state/action/task、fps 和 chunk 语义。不得仅凭 repo_id 复用；按 episode/trajectory/scene 防止数据泄漏。
+- Feature Cache 身份包含模型/数据/processor revision、sample/camera、预处理/prompt、提取层/pooling、dtype/量化与 schema。身份变化须新建 cache，不静默复用或覆盖。LoRA/full fine-tuning 不复用冻结特征；SmolVLA 使用原生 online processor。
+- Qwen ER 0.8B → 9B 复用流程和合同，不跨 backbone 复用特征或默认迁移 projector；warm start 须受控比较。9B 训练只在获批且实测资源通过的 GPU 环境进行。
+
+## 模型工作门禁
+
+先冻结假设、单一实验轴、代码/模型/数据/processor 身份、Action Contract、配置、资源预算、验收和停止条件。仅运行当前任务授权的阶段，不因后续流程列在此处就自动启动。
+
+1. 不加载权重和数据的静态/schema/contract 检查。
+2. 在 revision/digest 固定的容器内运行 `python scripts/check_env.py`、相关单测、dummy forward、CPU/小模型 smoke；真实缓存还需只读 inspect 和 `pytest -m data`。
+3. Gate 1：确定性小幅 scripted action 验证 joint/actuator 顺序、方向、单位、gripper 和限幅。Gate 2：expert dataset replay 验证完整物理语义。失败不得训练或 policy rollout。
+4. 新训练能力从 batch 1、极少步、固定小样本开始，核验 processor、normalization、forward/backward、梯度、资源、checkpoint/resume 和 Trackio；通过小数据 overfit 与短 GPU smoke 后才能扩大。非 finite、OOM 或 accelerator 不受支持时停止。
+5. 正式 training/validation、validation-only selection、export 和 independent reload；保留完整 provenance 与失败结果。
+6. Gate 3：短闭环检查 finite、合法 action、state 更新、完整 adapter、稳定性和 reload 一致性。Gate 4：固定协议评估 task success、rollout length、invalid action、joint-limit、collision、smoothness 和推理/仿真延迟。
+
+M2 必须有可追溯、可导出、独立 reload 的 checkpoint，且通过注册闭环任务验收；能够生成指标或动作张量不足以完成 M2。ER 独立报告 plan quality，VLA 报 execution quality，integration 报 end-to-end success。
+
+## AutoDL 运行合同
+
+- 本地负责编辑、分析和决策，AutoDL 仅作获批 CUDA worker。开机前固定唯一 run name、代码/config/plan checksum、缓存身份、optimizer/scheduler、batch/steps、benchmark/smoke 命令、输出、验收/停止条件和预计时长。
+- 传输使用已授权推送的功能分支 commit；未获 commit/push 授权时使用 `scripts/stage_autodl_from_wsl.sh` 创建 versioned content-addressed workspace。不手工覆盖远端代码，不用 `--delete`，同一 run 不跨 workspace identity。
+- durable cache 保留 revision 与 manifest，不因缺缓存擅自下载。先 doctor 核验身份，再 benchmark、no-optimizer CUDA forward、两步 optimizer smoke，最后按单独登记计划正式训练；记录 `nested_docker_used=false`。
+- 长进程必须 tmux 或等价守护，日志落 durable storage，SSH 断开不影响生命周期。启动检查进程/GPU、首批 step、finite loss/gradient、显存、Trackio 和 checkpoint。
+- 稳定训练后控制 shell 使用 Bash `sleep 300`，每五分钟只采样一次最小状态，不高频轮询训练或连续 tail。等待可异步让出交互；不得把 sleep 注入训练进程。完整审计仅在健康检查、失败、注册 quarter/checkpoint 或完成边界进行；确认退出后不再启动 sleep。
+- 完成顺序：训练退出并保存 → validation-only selection → export → 远端 independent reload → 回传 selected artifact/manifest/metrics → 本地 checksum/reload → 在授权范围内关闭计费 GPU → 本地 Gate 3/4 → 分析。失败保留远端状态，不直接开下一炉。
+- 黑匣子保留 resolved config/plan、代码/cache/环境/GPU 身份、Action Contract、optimizer/scheduler、log/metrics/Trackio、checkpoint/selection/export manifest、人工介入和退出状态。完整恢复 checkpoint 默认保留；释放或迁移前须备份到用户批准的可靠位置，远端本地盘不能是唯一副本。
+
+## 记录与发布
+
+- 正式 run 预先固定 Trackio project/Space/run name/config identity/durable store。Space 不可用时保留本地指标，可按授权在 checkpoint 边界脱敏同步，不冒充实时。
+- 公开 Trackio 仅同步经审查的指标、非敏感超参数、不可变 revision、资源与 run 状态；不上传凭证、主机路径、原始样本、对话、完整日志、checkpoint 或未审查媒体。
+- 权重、数据、Feature Cache 和大型生成物不进 Git。保留配置、版本、seed/split、协议、环境、人工介入及负结果；不以 proxy metric 代替真实任务验收。
+- 对外发布须明确目标仓库与版本授权、许可证检查、Model Card/输入输出合同与独立公开 reload 验证。ER/VLA artifact 不混用；优先发布实际修改的 policy/head/adapter，完整权重须另获授权。未验证真机时标注 experimental / research only。

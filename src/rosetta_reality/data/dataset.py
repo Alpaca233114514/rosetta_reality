@@ -18,7 +18,8 @@ class ActionChunkDataset(Dataset[RosettaSample]):
         self.adapter = adapter
         self.chunk_size = chunk_size
         references = [adapter.frame_reference(index) for index in range(len(adapter))]
-        self._anchors = self._find_anchors(references, chunk_size)
+        self._references = tuple(references)
+        self._anchors = tuple(self._find_anchors(references, chunk_size))
 
     @staticmethod
     def _find_anchors(references: list[FrameReference], chunk_size: int) -> list[int]:
@@ -36,6 +37,17 @@ class ActionChunkDataset(Dataset[RosettaSample]):
 
     def __len__(self) -> int:
         return len(self._anchors)
+
+    @property
+    def anchor_indices(self) -> tuple[int, ...]:
+        """Return immutable source indices for valid action-chunk anchors."""
+
+        return self._anchors
+
+    def anchor_reference(self, index: int) -> FrameReference:
+        """Return the episode/frame identity without decoding images."""
+
+        return self._references[self._anchors[index]]
 
     def __getitem__(self, index: int) -> RosettaSample:
         anchor = self._anchors[index]

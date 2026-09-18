@@ -1,0 +1,61 @@
+{
+  "d703b63b8ebf96b9579cb7af41e3ec84645a9a225c21a72698451ee782559327": {
+    "source_path": "scripts/run_smolvla_v2.py",
+    "git_revision": "6fe7535045f98d0d4342a2dbe7eb5d875b0b19ec",
+    "git_blob": "bbc5c00337c5669f7a43961361bb86129ec4341f",
+    "bytes": 23826
+  },
+  "7d7dd79167c604bae13e525fa9a6f51a9a1fec5e331a1352120d49d60f04e3d0": {
+    "source_path": "scripts/smolvla_forward_check.py",
+    "git_revision": "d854d100df31194db767f9dd4c44fe34e25d5ed3",
+    "git_blob": "204a6a6b646e0e02fad0d6eacdffc9d0d443a8e3",
+    "bytes": 20498
+  },
+  "888cca61cbacee7ce72527cc78f232c0b783f8c6bb432d11bf7e75740e89c52a": {
+    "source_path": "scripts/train_smolvla_v2.py",
+    "git_revision": "6fe7535045f98d0d4342a2dbe7eb5d875b0b19ec",
+    "git_blob": "d8aaa8f7810f4049a5647a1d545172959dd45bb5",
+    "bytes": 4612
+  },
+  "3b312e5363c835381151042a2d92b7ca15c96a5757eb04120c89112b854811a0": {
+    "source_path": "src/rosetta_reality/vla/training/features.py",
+    "git_revision": "82b501ea16acc1b496b35ca9b8e35ab9f2cda076",
+    "git_blob": "3c7db9fb31954eb39119cf1711f604c37f2f724e",
+    "bytes": 27224
+  },
+  "5378b35cf5646cfd97e318b1a83f52bf00e5f27bf8244d9a1637657cfbe97d4a": {
+    "source_path": "src/rosetta_reality/vla/training/features.py",
+    "git_revision": "39624acf7a35b6be00cb74df77e94e09258fedba",
+    "git_blob": "82f80ba3243d47075cdad51dbd6f6d2d9a08c44f",
+    "bytes": 46698
+  },
+  "1ed533cf31681b8687cfe915332cca4456146b74e1cb4dffd99fd91aec036ccd": {
+    "source_path": "src/rosetta_reality/vla/training/launch.py",
+    "git_revision": "39624acf7a35b6be00cb74df77e94e09258fedba",
+    "git_blob": "197e7d2165a6ba913b29bbc82ce2de506dcfaa35",
+    "bytes": 9411
+  },
+  "c7a3d2efa8b14a531c01a5c81df12ab47ea146c9048e89a21a1346f2525d4de8": {
+    "source_path": "src/rosetta_reality/vla/training/launch.py",
+    "git_revision": "82b501ea16acc1b496b35ca9b8e35ab9f2cda076",
+    "git_blob": "74edb1c6caf66a56eb72dd35adfdf73f08df9c81",
+    "bytes": 7956
+  },
+  "16dcf9651634dcb17ce0fce219cc6e933ff1504c12c45bed69718b77b7bbe8ee": {
+    "source_path": "src/rosetta_reality/vla/training/plan.py",
+    "git_revision": "39624acf7a35b6be00cb74df77e94e09258fedba",
+    "git_blob": "cad0634e88016d9e649ae06f2a0037f7121ac7a3",
+    "bytes": 24458
+  },
+  "6b8afadca01b1cff2a1a7075b1884c0362f327810363cc589e42def336f9bcf9": {
+    "source_path": "src/rosetta_reality/vla/training/plan.py",
+    "git_revision": "82b501ea16acc1b496b35ca9b8e35ab9f2cda076",
+    "git_blob": "919612796f0857d1e5c30595a52efa8b360c28d6",
+    "bytes": 22582
+  },
+  "0ce44efe4cf02d537e1b225daed3b039c604c6c85a66f8993bfb749f56e1797b": {
+    "bytes": 9660,
+    "source_path": "src/rosetta_reality/vla/vision_front_end.py",
+    "evidence_source": "runs/smolvla-visual-repair-20260909-001/before/vision_front_end.py"
+  }
+}

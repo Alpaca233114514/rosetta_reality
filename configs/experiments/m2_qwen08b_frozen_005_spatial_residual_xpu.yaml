@@ -1,0 +1,104 @@
+experiment_id: m2-qwen08b-frozen-005-spatial-residual-xpu
+hypothesis: >-
+  Predicting an action correction around the current joint position, while
+  keeping the Base model, frozen spatial features, data split, optimizer, and
+  MLP dimensions fixed to the XPU control, will reduce validation first-action
+  error and increase reset-scene response needed for closed-loop task progress.
+backbone:
+  family: qwen35
+  identifier: Qwen/Qwen3.5-0.8B-Base
+  scale: 0.8B
+  adaptation: frozen
+  local_root_environment: ROSETTA_MODEL_ROOT
+  manifest: model_manifest.json
+  dtype: bfloat16
+  feature_layer: final_hidden_state
+  pooling: image_spatial_2x2
+  processor:
+    min_pixels: 100352
+    max_pixels: 100352
+    prompt_mode: base_multimodal
+    prompt: "Execute the robot instruction safely: {instruction}"
+dataset:
+  config: configs/data/aloha_sim_insertion_m2.yaml
+  frame_stride: 5
+  split:
+    seed: 20260809
+    train: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+    validation: [22, 13, 7, 33, 45]
+    test: [31, 6, 1, 24, 5]
+action_contract: configs/sim/aloha_insertion.yaml
+action_expert:
+  type: continuous_mlp
+  output_projection: clip_to_action_contract
+  prediction_parameterization: residual_from_current_state
+  state_hidden_dim: 256
+  state_layers: 2
+  state_dropout: 0.0
+  fusion_dim: 256
+  head_hidden_dim: 256
+training:
+  seed: 20260809
+  optimizer_smoke_steps: 1
+  batch_size: 64
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  maximum_epochs: 40
+  checkpoint_every_epochs: 5
+  gradient_clip_norm: 1.0
+  early_stopping_patience: 8
+  overfit_samples: 32
+  overfit_steps: 300
+  overfit_maximum_loss_ratio: 0.20
+benchmark:
+  required_before_training: true
+  baselines: [train_action_mean, current_state_persistence, deterministic_untrained_policy]
+evaluation:
+  primary_metric: action_mae
+  compare_against: train_action_mean
+  hidden_test_only_after_training: true
+  test_use: reserved_until_validation_and_gate4_select_this_candidate
+  invalid_action_tolerance: 0.0
+simulation:
+  gate1_steps_per_dimension: 5
+  gate2_episode: 2
+  gate2_seed: 10
+  gate2_max_steps: 500
+  gate3_steps: 20
+  gate4_seeds: [1000, 1001, 1002, 1003, 1004]
+  gate4_confirmation_seeds: [2000, 2001, 2002, 2003, 2004]
+  gate4_max_steps: 500
+  minimum_task_success_rate: 0.2
+  maximum_unexpected_collisions: 0
+resources:
+  runtime: docker_linux
+  memory_limit: 5g
+  memory_swap_limit: 5g
+  cpu_limit: 2
+  feature_batch_size: 1
+  training_device: xpu
+controlled_change:
+  reference_experiment: m2-qwen08b-frozen-004-spatial-xpu-control
+  changed_axis: action_expert.prediction_parameterization
+  reference_value: absolute
+  candidate_value: residual_from_current_state
+  physical_output_semantics_unchanged: absolute_joint_position_targets
+  feature_source_manifest: >-
+    feature_cache/m2-qwen08b-frozen-002-spatial/ef4df19966e78b91/manifest.json
+  feature_derivation: verified_identity_rebind_v1
+acceptance:
+  validation_mae_below_xpu_control: true
+  validation_first_action_mae_below_xpu_control: true
+  validation_reset_response_ratio_above_xpu_control: true
+  gate4_task_success_rate_at_least: 0.2
+  gate4_raw_action_limit_violation_rate_at_most: 0.0
+  gate4_joint_limit_violations_at_most: 0
+  gate4_unexpected_collisions_at_most: 0
+stop_conditions:
+  - nonfinite_loss_or_action
+  - action_contract_mismatch
+  - dataset_or_model_identity_mismatch
+  - derived_feature_tensor_mismatch
+  - xpu_unavailable
+  - container_resource_limit
+  - validation_does_not_improve_for_patience

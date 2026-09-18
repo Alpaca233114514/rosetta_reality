@@ -1,0 +1,52 @@
+schema_version: 1
+role: vla
+stage: m2_three_furnace_optimizer_comparison
+status: preregistered
+program_id: m2-smolvla450m-three-furnace-001
+maximum_formal_runs: 3
+execution: strictly_sequential
+codenames_in_order: [Odyssey, Don Quixote, Moby Dick]
+controlled_variable: adamw_peak_learning_rate
+shared_optimizer_contract:
+  type: adamw
+  betas: [0.9, 0.95]
+  eps: 1.0e-8
+  weight_decay: 1.0e-10
+  grad_clip_norm: 10.0
+shared_scheduler_contract:
+  type: cosine_decay_with_warmup
+  num_warmup_steps: 56
+  num_decay_steps: 1680
+  decay_to_peak_ratio: 0.025
+shared_training_identity:
+  seed: 20260809
+  batch_size: 12
+  steps: 1680
+  checkpoint_steps: [420, 840, 1260, 1680]
+monitoring:
+  policy: sleep_between_quarter_checkpoints
+  wake_fractions: [0.25, 0.5, 0.75, 1.0]
+  blocking_command: sleep
+  hidden_test_loaded: false
+runs:
+  - ordinal: 1
+    codename: Odyssey
+    run_name: m2-smolvla450m-odyssey-001
+    plan: configs/vla/smolvla_450m_aloha_insertion_odyssey_001.yaml
+    peak_learning_rate: 1.0e-4
+  - ordinal: 2
+    codename: Don Quixote
+    run_name: m2-smolvla450m-don-quixote-001
+    plan: configs/vla/smolvla_450m_aloha_insertion_don_quixote_001.yaml
+    peak_learning_rate: 7.5e-5
+  - ordinal: 3
+    codename: Moby Dick
+    run_name: m2-smolvla450m-moby-dick-001
+    plan: configs/vla/smolvla_450m_aloha_insertion_moby_dick_001.yaml
+    peak_learning_rate: 1.25e-4
+selection:
+  compare_on: validation_only
+  primary_metric: action_mae
+  secondary_metric: fixed_flow_loss
+  tie_breaker: lower_peak_learning_rate_then_earlier_ordinal
+hidden_test_loaded: false

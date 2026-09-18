@@ -1,0 +1,48 @@
+extends:
+  config: configs/vla/smolvla_450m_aloha_insertion.yaml
+  sha256: 7306014717eb3fe5a5997a92406ec18cb251f1c17cc9d46ed74d75ac71d8b19f
+schema_version: 1
+role: vla
+experiment_id: m2-smolvla450m-aloha-insertion-action-repair-001
+status: preregistered_diagnostics_only
+hypothesis: >-
+  The prior three checkpoints learned an implicit standard-ALOHA representation
+  while the policy-level ALOHA adapter was disabled and raw overshoot was included
+  in target normalization. A fresh, bounded repair path must explicitly project
+  tolerated source overshoot, apply a raw-feature transform equivalent to the
+  pinned upstream pi-ALOHA formulas, and only then compute train-only statistics.
+model:
+  policy:
+    # The pinned policy-level adapter runs after normalization and assumes a
+    # two-dimensional state tensor. Rosetta applies the same pinned transform
+    # on raw last-dimension features before normalization instead.
+    adapt_to_pi_aloha: false
+  action_space:
+    schema_version: 1
+    dataset_space: standard_aloha_joint_position
+    normalization: train_only_mean_std_after_representation_adapter
+    target_projection: action_contract_clip
+    target_projection_stage: before_normalization
+    reject_source_beyond_contract_tolerance: true
+    representation_adapter: rosetta_pi_aloha
+    representation_adapter_stage: after_target_projection_before_normalization
+    model_internal_space: normalized_pi_aloha
+repair_protocol:
+  historical_checkpoints_are_initialization: false
+  historical_reports_are_read_only: true
+  optimizer_authorized: false
+  hidden_test_loaded: false
+  required_before_any_optimizer:
+    - action_adapter_round_trip_passed
+    - train_only_projected_statistics_created
+    - no_optimizer_forward_passed
+    - teacher_forced_per_dimension_metrics_created
+    - image_shuffle_and_state_shuffle_diagnostics_created
+  required_before_formal_training:
+    - small_data_overfit_repeated_with_repair_contract
+  stop_if:
+    - action_adapter_identity_mismatch
+    - source_action_beyond_registered_tolerance
+    - right_gripper_teacher_forced_regression
+    - visual_shuffle_has_no_material_effect
+    - hidden_test_episode_materialized_or_loaded

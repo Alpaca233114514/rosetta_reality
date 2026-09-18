@@ -1,0 +1,40 @@
+schema_version: 1
+role: vla
+stage: m2_three_furnace_closed_loop_comparison
+status: preregistered
+program_id: m2-smolvla450m-three-furnace-003
+maximum_formal_runs: 3
+execution: strictly_sequential
+codenames_in_order: [Aster, Way, cookie]
+controlled_axis_note: single-variable-per-furnace-with-closed-loop-gate
+supersedes:
+  registry: configs/vla/smolvla_450m_aloha_insertion_three_furnace_002.yaml
+  reason: aster_002_temporal_reduction_changed_effective_gradient_scale
+  preserve_all_prior_artifacts: true
+runs:
+  - ordinal: 1
+    codename: Aster
+    run_name: m2-smolvla450m-aster-b8-003
+    plan: configs/vla/smolvla_450m_aloha_insertion_aster_batch8_003.yaml
+    variable: first_action_only_temporal_loss_with_selected_valid_mean
+  - ordinal: 2
+    codename: Way
+    run_name: m2-smolvla450m-way-b8-001
+    plan: configs/vla/smolvla_450m_aloha_insertion_way_batch8_001.yaml
+    variable: pending_after_aster
+  - ordinal: 3
+    codename: cookie
+    run_name: m2-smolvla450m-cookie-b8-001
+    plan: configs/vla/smolvla_450m_aloha_insertion_cookie_batch8_001.yaml
+    variable: pending_after_way
+monitoring:
+  policy: sleep_between_quarter_checkpoints
+  wake_fractions: [0.25, 0.5, 0.75, 1.0]
+  blocking_command: sleep
+  hidden_test_loaded: false
+selection:
+  compare_on: validation_only
+  primary_metric: first_action_mae
+  secondary_metric: action_mae
+  tie_breaker: earlier_ordinal
+hidden_test_loaded: false

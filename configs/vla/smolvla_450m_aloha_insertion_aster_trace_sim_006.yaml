@@ -1,0 +1,84 @@
+schema_version: 1
+role: vla
+stage: m2_closed_loop_simulation
+status: preregistered
+plan_id: m2-smolvla450m-aster-b8-trace-sim-006
+experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+artifact_id: m2-smolvla450m-aster-b8-step2500-003-export004
+artifact_manifest_sha256: 1e6b209c6240954c169c84a79433ee5d88e78d875ac848eac2c626a5139291f0
+hypothesis: >-
+  A step-aligned comparison from the exact train episode 2 / simulator seed 10
+  reset will identify whether Aster already differs on the first expert state
+  or instead fails only after entering its own closed-loop state distribution.
+  The selected artifact, action contract, seeded Gaussian policy noise, dataset,
+  simulator physics and expert actions remain read-only and fixed.
+control_reference:
+  plan: configs/vla/smolvla_450m_aloha_insertion_faust_sim_001.yaml
+  gate4_report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-002.json
+  gate4_report_sha256: af7c75dfb5c8bd975d65c6db559812b25b8725e35ce33c9e7448c12f766b7e00
+  task_success_rate: 0.0
+  relationship: read_only_control
+prior_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-001/gates/gate3-smolvla-sim-001.json
+  report_sha256: 5df3b887984d1c8fd47084c3315a71e3894eac18cc80b1eb08b2120583ed26ed
+  failed_criterion: raw_actions_within_contract
+prior_task_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-002.json
+  report_sha256: af7c75dfb5c8bd975d65c6db559812b25b8725e35ce33c9e7448c12f766b7e00
+  failed_criterion: minimum_task_success_rate
+selection:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-aster-b8-003-selection.json
+  report_sha256: ba33486209f992c5f66cf70bce02f7300f0ae7bd5a50b9c25b49bdcef102c23e
+  checkpoint_step: 2500
+  model_safetensors_sha256: 0dd17b76c7cd20b7b394eed1edffe7a7faee1304149949cfcac61bb2fd87a209
+action_contract:
+  path: configs/sim/aloha_insertion_smolvla.yaml
+  sha256: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+diagnostic_protocol:
+  dataset_episode: 2
+  simulator_seed: 10
+  policy_noise_seed: 10
+  maximum_steps: 320
+  expert_reference: time_indexed_not_state_conditioned
+  recovery_oracle: false
+  state_mae_thresholds: [0.005, 0.01, 0.025, 0.05, 0.1]
+  hidden_test_loaded: false
+collision_policy:
+  classifier: explicit_task_contact_allowlist
+  allowed_task_contacts:
+    - [red_peg, vx300s_right/10_right_gripper_finger]
+    - [socket-1, vx300s_left/10_left_gripper_finger]
+    - [socket-2, vx300s_left/10_left_gripper_finger]
+    - [socket-3, vx300s_left/10_left_gripper_finger]
+    - [socket-4, vx300s_left/10_left_gripper_finger]
+  same_arm_internal_gripper_contacts_are_non_gating: true
+  all_other_robot_scene_contacts_are_unexpected: true
+simulation_code_sha256:
+  scripts/smolvla_sim_gate.py: 5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae
+  scripts/smolvla_action_repair_sim_gate.py: 4d549a5791e13ef941d300eff8405d9fe5471d3d9d89480af469851629affbe6
+  scripts/diagnose_smolvla_aster_trajectory.py: cb70c5d4151d4f7efd5d03f5b609e8977f1325f3256ac3ebab026e21bff35ab2
+  src/rosetta_reality/sim/gym_aloha.py: 490422bbfc973edfddc0d37af3f65f640eb7a45bf3b35f3e56fbb335a4f911da
+inference:
+  observation_camera: top
+  policy_camera: observation.images.camera1
+  instruction: Insert the peg into the socket.
+  noise: seeded_standard_normal
+  noise_source: pinned_lerobot_default_standard_normal
+  mixed_precision: bf16
+  chunk_execution: receding_horizon_first_action
+  chunk_execution_steps: 1
+  policy_output_projection: action_contract_clip
+  projection_location: vla_output_boundary_before_simulation_adapter
+  unprojected_decoder_action_role: non_gating_diagnostic
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  container_image_id: sha256:f4a71c4020cd54d2a878f01628d591af9572f0784458f4c821008f8aea30393c
+  memory_limit: 6g
+  memory_swap_limit: 6g
+gate3:
+  require_projected_policy_actions_within_contract: true
+  require_adapter_no_additional_clipping: true
+gate4:
+  require_gate3_passed: true
+hidden_test_loaded: false

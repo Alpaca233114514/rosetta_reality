@@ -1,0 +1,47 @@
+FROM rosetta-reality-aloha-moveit2:humble-2.5.9-joint-margin-selection-006@sha256:82c7e6a8100ad485e22f28e0ab1ed36c551eb5ad877c0243fbbb31d29fe6540b
+
+ARG PICK_IK_VERSION=1.1.2-2jammy.20260804.215003
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    ROS_DISTRO=humble
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# Add only the version-pinned MoveIt-compatible solver to the already audited
+# MoveIt 2.5.9 runtime.  Rosetta still performs independent exact-pose,
+# tightened joint-margin, collision, and OMPL path validation around it.
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+    sed -i \
+        -e 's|https://archive.ubuntu.com/ubuntu|https://mirrors.aliyun.com/ubuntu|g' \
+        -e 's|https://security.ubuntu.com/ubuntu|https://mirrors.aliyun.com/ubuntu|g' \
+        /etc/apt/sources.list \
+    && apt-get \
+        -o Acquire::Retries=10 \
+        -o Acquire::http::Timeout=120 \
+        -o Acquire::https::Timeout=120 \
+        update \
+    && apt-get \
+        -o Acquire::Retries=10 \
+        -o Acquire::http::Timeout=120 \
+        -o Acquire::https::Timeout=120 \
+        install --yes --no-install-recommends \
+        "ros-humble-pick-ik=${PICK_IK_VERSION}"
+
+COPY integration/aloha_moveit2 /opt/rosetta_ws/src/rosetta_aloha_moveit2
+
+RUN set +u \
+    && source /opt/ros/humble/setup.bash \
+    && set -u \
+    && cd /opt/rosetta_ws \
+    && colcon build \
+        --event-handlers console_direct+ \
+        --packages-select rosetta_aloha_moveit2
+
+LABEL org.opencontainers.image.title="Rosetta Reality ALOHA MoveIt 2 pick_ik planner" \
+      org.opencontainers.image.description="Audited MoveIt 2.5.9 runtime with version-pinned pick_ik global full-pose solver" \
+      org.rosetta-reality.ros-distro="humble" \
+      org.rosetta-reality.moveit-version="2.5.9" \
+      org.rosetta-reality.pick-ik-version="1.1.2" \
+      org.rosetta-reality.pick-ik-mode="global" \
+      org.rosetta-reality.parent-image-id="sha256:82c7e6a8100ad485e22f28e0ab1ed36c551eb5ad877c0243fbbb31d29fe6540b"

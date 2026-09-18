@@ -1,0 +1,1157 @@
+schema_version: 1
+plan_id: m2-smolvla-aloha-geometry-teacher-055
+status: diagnostic_preregistered_no_label_collection
+hypothesis: 'Plan 054 reached lift but lost the right peg grasp before the registered
+  expanded-orientation trust-region event was exercised. Plan 055 changes only the
+  lift target rule: each lift decision anchors the virtual object target to the currently
+  observed object pose and advances z by at most 0.006 m, clamped to the unchanged
+  0.17 m lift height. Final pose gates, joint margins, orientation budget, horizon,
+  seeds and label seals remain frozen.'
+scope:
+  dataset_config: configs/data/aloha_sim_insertion_m2.yaml
+  dataset_revision: cc571a3c661df81b566dbfde3d5c1e85fcdf7884
+  action_contract: configs/sim/aloha_insertion_smolvla.yaml
+  train_episodes:
+  - 49
+  - 4
+  - 23
+  - 43
+  - 21
+  - 37
+  - 18
+  - 34
+  - 0
+  - 47
+  - 38
+  - 29
+  - 3
+  - 26
+  - 14
+  - 17
+  - 44
+  - 30
+  - 15
+  - 42
+  - 10
+  - 35
+  - 25
+  - 32
+  - 19
+  - 36
+  - 41
+  - 28
+  - 8
+  - 27
+  - 16
+  - 11
+  - 2
+  - 20
+  - 9
+  - 39
+  - 46
+  - 48
+  - 12
+  - 40
+  validation_episodes:
+  - 22
+  - 13
+  - 7
+  - 33
+  - 45
+  hidden_test_episodes:
+  - 31
+  - 6
+  - 1
+  - 24
+  - 5
+  hidden_test_loaded: false
+calibration:
+  protocol: successful_train_grasp_and_terminal_rigid_transforms_v1
+  source_episode: 2
+  simulator_seed: 10
+  insertion_axis_in_socket:
+  - 1.0
+  - 0.0
+  - 0.0
+  source_timeline_actions_used_at_runtime: false
+evaluation:
+  stages: calibration_then_exact_then_tuning_then_development
+  exact_control:
+    source_episode: 2
+    simulator_seed: 10
+  tuning_simulator_seeds:
+  - 1900
+  development_simulator_seeds:
+  - 2000
+  - 2001
+  - 2002
+  - 2003
+  - 2004
+  reserved_collection_simulator_seeds:
+  - 3000
+  - 3001
+  - 3002
+  - 3003
+  - 3004
+  reserved_policy_gate4_seeds:
+  - 1000
+  - 1001
+  - 1002
+  - 1003
+  - 1004
+  maximum_steps: 750
+execution_diagnostics:
+  schema: commanded_vs_observed_joint_margin_v1
+  joint_limit_margin_rad: 0.01
+  arm_dimension_names:
+  - left_waist
+  - left_shoulder
+  - left_elbow
+  - left_forearm_roll
+  - left_wrist_angle
+  - left_wrist_rotate
+  - right_waist
+  - right_shoulder
+  - right_elbow
+  - right_forearm_roll
+  - right_wrist_angle
+  - right_wrist_rotate
+  record_every_executed_step: true
+  record_full_joint_vectors: true
+  record_per_joint_margins: true
+  affects_action_selection: false
+execution_guard:
+  schema: robust_joint_limit_constraint_tightening_with_official_start_recovery_safe_set_v3
+  strategy: static_uniform_constraint_tightening_plus_official_start_state_path_constraint_adapter
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_029.yaml
+  source_plan_sha256: 4fc4bff41966022591057bf19c9246b5f511ef3009fde66b1e87a59aca70cde0
+  source_remote_static_attempt: athena-plan029-static-001
+  source_remote_direct_smoke_results_sha256: 88af2663fa8bb19f52b1afd4710dbdf7697e0be3ec3549607c59ca031bd0fa13
+  source_remote_execution_log_sha256: 434871e6042b1d39b9c6c156300cacb991a459d527cb35e6e9cbd73879366d71
+  source_audit: reports/training/m2-smolvla-athena-plan028-exact-audit-2026-08-15.json
+  source_audit_sha256: c06412aba0d10fc0c7a21c04ece5352e2f1ff85d692a701d119a73d0cdcf6829
+  source_exact_report_sha256: 0848857b401a10635cd7d66da4dd7cd339f8417abd9982141669c01a05ccbb64
+  reserve_metric: maximum_tracking_overshoot_toward_limit_rad
+  reserve_scope: all_arm_joints_all_executed_train_exact_steps
+  physical_joint_limit_margin_rad: 0.01
+  tracking_reserve_rad: 0.03540462255477905
+  command_joint_limit_margin_rad: 0.04540462255477905
+  applies_to:
+  - mink.ConfigurationLimit
+  - moveit_msgs/JointConstraint
+  affects_action_selection: true
+  start_state_path_constraint_adapter: default_planner_request_adapters/FixStartStatePathConstraints
+  recovery_entry_condition: physical_safe_but_tightened_path_constraint_invalid
+  recovery_prefix_joint_limit_margin_rad: 0.01
+  recovery_constrained_suffix_joint_limit_margin_rad: 0.04540462255477905
+  recovery_requires_positive_margin_progress: true
+  recovery_below_command_margin_requires_monotonic_progress: true
+  recovery_after_first_command_margin_entry_must_remain_inside: true
+  recovery_forbidden_when_start_satisfies_command_margin: true
+trajectory_execution:
+  schema: official_moveit_hybrid_planning_retained_reference_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_030.yaml
+  source_plan_sha256: 763ba45ed8ca8d84120dae99ca1375d915427e77f290784437d291575ad25f4d
+  source_audit: reports/training/m2-smolvla-athena-plan030-exact-audit-2026-08-15.json
+  source_audit_sha256: 1bdd559c8f61658a23d78e920ee0468ee0e2b34b42a9ceb66e56dd2c1fc81157
+  source_exact_report_sha256: aaa033c6a1740bac40d9589b01372c059e9d242099b2aa6a5ab4c4f8d1029fa3
+  observed_global_plan_attempts: 131
+  observed_terminal_phase: orient
+  single_axis: retain_and_follow_accepted_official_global_trajectory
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+schema_repair:
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_031.yaml
+  source_plan_sha256: 1c5316574470263c5b5f584ae6627487581fe61c8c890fa77685a522034125d2
+  source_remote_attempt: athena-plan031-exact-001
+  source_remote_execution_log_sha256: f1b88ba641a09e43600b28f25cf55e2e809f90c75a0a9390015584bf94ec7b35
+  failure: missing_output_mapping_before_planner_rollout
+  restores_output_and_stop_condition_tail_from_plan030: true
+  adds_early_output_schema_validation: true
+  affects_planner_or_teacher_behavior: false
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+terminal_control:
+  schema: official_mujoco_static_inverse_dynamics_position_feedforward_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_032.yaml
+  source_plan_sha256: 435630a5f5e3037a3580e4296e38d4bd9b2b5f9ea2c49f55bb4e261dca7e5645
+  source_audit: reports/training/m2-smolvla-athena-plan032-exact-audit-2026-08-15.json
+  source_audit_sha256: 082c5e6dda8665acdfbe87b2572dfc1cbdc016c85ea29273e6af71f6ccbdc244
+  source_exact_report_sha256: f8ea0bb5514afe7c1bf64930b05ac40f52346b9c98ec35e9c2a539dbfc2acf5c
+  source_final_reference_waypoint_l1_distance_rad: 0.03446431288757733
+  source_final_target_position_error_m: 0.02851971797645092
+  handoff: final_waypoint_within_moveit_simple_sampler_l1_tolerance
+  single_axis: static_inverse_dynamics_feedforward_at_retained_final_waypoint
+  official_mujoco_actuation_source: https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model
+  official_mujoco_force_balance_source: https://mujoco.readthedocs.io/en/stable/computation/index.html#passive-forces
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+sparse_actuator_moment_repair:
+  schema: official_mujoco_sparse_actuator_moment_storage_repair_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_033.yaml
+  source_plan_sha256: 3fd522c8bab1c96012c4bf40d1a5aed84aea27ef03e31b1ceb7bdb2ff0887d14
+  source_audit: reports/training/m2-smolvla-athena-plan033-local-exact-audit-2026-08-15.json
+  source_audit_sha256: 89728307f15ebbb4d5d65adcc0a7ea31d1720563b3852ebb3bbf6633fc5efad0
+  source_exact_report_sha256: a7516fb47d386ba3f87d63eda7ef787edf434aa914d1f2975e77eed49af65f52
+  observed_mujoco_version: 3.8.1
+  observed_actuator_moment_storage: csr
+  observed_actuator_moment_shape:
+  - 16
+  required_csr_fields:
+  - moment_rownnz
+  - moment_rowadr
+  - moment_colind
+  direct_one_dof_row_required: true
+  dense_storage_remains_tested: true
+  affects_force_balance: false
+  affects_planner_or_teacher_behavior: false
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+joint_name_adapter_repair:
+  schema: action_contract_to_gym_mujoco_joint_name_adapter_repair_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_034.yaml
+  source_plan_sha256: 6dc5019b80522eca489b2d1473f0f801ef6c596cd5cbf38acfe1401baaa883ad
+  source_audit: reports/training/m2-smolvla-athena-plan034-local-exact-audit-2026-08-15.json
+  source_audit_sha256: a96aab19647cb6622d2fff357d99712eccc19fb3ea81012acffd138bdcc3db97
+  source_execution_log_sha256: f1552754b36e1d15588cfb23dcb59a9dbf06f7428be91d7d92dff9b54c26697d
+  action_contract_names:
+  - left_waist
+  - left_shoulder
+  - left_elbow
+  - left_forearm_roll
+  - left_wrist_angle
+  - left_wrist_rotate
+  - right_waist
+  - right_shoulder
+  - right_elbow
+  - right_forearm_roll
+  - right_wrist_angle
+  - right_wrist_rotate
+  gym_mujoco_names:
+  - vx300s_left/waist
+  - vx300s_left/shoulder
+  - vx300s_left/elbow
+  - vx300s_left/forearm_roll
+  - vx300s_left/wrist_angle
+  - vx300s_left/wrist_rotate
+  - vx300s_right/waist
+  - vx300s_right/shoulder
+  - vx300s_right/elbow
+  - vx300s_right/forearm_roll
+  - vx300s_right/wrist_angle
+  - vx300s_right/wrist_rotate
+  mapping_order_matches_arm_action_indices: true
+  affects_force_balance: false
+  affects_planner_or_teacher_behavior: false
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+terminal_completion_refresh:
+  schema: official_moveit_local_planner_terminal_completion_refresh_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_035.yaml
+  source_plan_sha256: e7b048ea99d1ea7fd0eb997ce63baf986ad5a575131d8ee84dc24646d9168197
+  source_audit: reports/training/m2-smolvla-athena-plan035-local-exact-audit-2026-08-15.json
+  source_audit_sha256: efd1531568f49a172763f3d8fc61b7b4d5644b2f0952d640d8ccad645df05cf7
+  source_exact_report_sha256: 2d1fa4e3afd3748a218c82220ea678972cc25a97514f9bacec6d71eca6a6174f
+  preregistration: reports/training/m2-smolvla-moveit-terminal-completion-refresh-preregistration-2026-08-15.json
+  preregistration_sha256: 0a66425598ca2293552633a930c518950f35f2b9f771cb9f7c68db440d56077c
+  source_plan_step: 97
+  source_target_position_error_at_plan_m: 0.0381825380027294
+  source_teacher_maximum_cartesian_step_m: 0.012
+  source_final_target_position_error_m: 0.026163499802350998
+  source_final_arm_joint_l1_to_original_moveit_goal_rad: 2.96434154734015e-05
+  terminal_goal_l1_tolerance_rad: 0.001
+  completion_condition: terminal_control_active_and_observed_arm_state_within_l1_tolerance_of_uncompensated_moveit_goal
+  post_completion: reset_reference_then_current_target_mink_then_moveit_fallback
+  official_moveit_hybrid_planning_source: https://moveit.picknik.ai/humble/doc/examples/hybrid_planning/hybrid_planning_tutorial.html
+  official_simple_sampler_source: https://github.com/moveit/moveit2/blob/2.5.9/moveit_ros/hybrid_planning/local_planner/trajectory_operator_plugins/src/simple_sampler.cpp
+  official_local_planner_component_source: https://github.com/moveit/moveit2/blob/2.5.9/moveit_ros/hybrid_planning/local_planner/local_planner_component/src/local_planner_component.cpp
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+task_contact_policy:
+  schema: phase_scoped_train_demonstrated_task_contact_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_036.yaml
+  source_plan_sha256: 3bb462191c2229734684ba37a9efa4e3827b3057139b8bb20942cad0e833acd2
+  source_audit: reports/training/m2-smolvla-athena-plan036-local-exact-audit-2026-08-15.json
+  source_audit_sha256: 1d4ca435b5a1d52ccebea228a3d7f423e0fb9558c61ea7b408639c903f1895b9
+  source_exact_report_sha256: ee4c52484af8f07177111ffd755ae92b0ec92810373e97ec8aac51363bf57730
+  source_calibration_contact_diagnostic_sha256: fa05af5c86a57a8db4f956e5806fc4fe71e0e96f59024b1d0cafbf5ac8dd7081
+  source_final_contact_diagnostic_sha256: d89832f01a374ada292918e311d63112467d415b84736ee26fd147effe16eaff
+  preregistration: reports/training/m2-smolvla-phase-scoped-task-contact-preregistration-2026-08-15.json
+  preregistration_sha256: 0329905381c647980a54a59e14635ddacaf27231d74632f0227b954b5af9e398
+  phases:
+  - descend
+  - grasp
+  allowed_unordered_geom_pairs:
+  - - table
+    - vx300s_right/10_right_gripper_finger
+  evidence_episode: 2
+  evidence_seed: 10
+  evidence_contact_steps:
+  - 175
+  - 176
+  - 177
+  - 178
+  - 179
+  - 180
+  - 181
+  - 182
+  - 183
+  - 185
+  evidence_first_grasp_step: 186
+  evidence_terminal_reward: 4.0
+  raw_contacts_reported: true
+  all_other_unexpected_contacts_fail_closed: true
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+execution_horizon:
+  schema: measured_safe_path_execution_horizon_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_037.yaml
+  source_plan_sha256: 81eb1b480597670af2bbc11dd4e9d9becc3f960e036799fbb72cefde5cdb9263
+  source_audit: reports/training/m2-smolvla-athena-plan037-local-exact-audit-2026-08-15.json
+  source_audit_sha256: 797a8192c5cdb32554f0e6a7c1a27de27162f2116e8d3d7c11d119b53141fc2d
+  source_exact_report_sha256: 6b99e77a4b97df52e858ce3b8bde3632038dbc3e1955874f310b7e90d1a3690e
+  preregistration: reports/training/m2-smolvla-execution-horizon-preregistration-2026-08-15.json
+  preregistration_sha256: 07f2cd07c12139bb2e1eb4934062e6d419dddba7b9633309ce1a0f6008e0ac34
+  source_maximum_steps: 500
+  source_orient_to_descend_transition_step: 478
+  source_final_target_position_error_m: 0.00954453926533461
+  train_calibration_post_grasp_steps: 108
+  maximum_steps: 750
+  single_axis: maximum_episode_steps_500_to_750
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_planner_or_controller: false
+  affects_seed_or_label_boundaries: false
+moveit_ik_budget:
+  schema: official_moveit_subgroup_ik_timeout_budget_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_040.yaml
+  source_plan_sha256: 564e787da05af530241e44dd420e23d87e9dac47a8f1fc59c60b06f2d64b2768
+  source_audit: reports/training/m2-smolvla-athena-plan040-local-exact-audit-2026-08-15.json
+  source_audit_sha256: 5210fd20e3c6a9051e6b0d109aac3ed0fc0e5b67c2935b49325723d2a9fd5571
+  source_exact_report_sha256: e959de95684c4c309b3d563a9984ce31add4967bbc10ff0fe5bfd44915383169
+  preregistration: reports/training/m2-smolvla-moveit-ik-timeout-2s-preregistration-2026-08-15.json
+  preregistration_sha256: fe483740cec044c289bb2b5512785a7595051e87efa2867cffb3a46b3324cc84
+  source_failure_step: 249
+  source_solver_failure: bimanual_lma_ik_failed
+  source_ik_timeout_s: 0.5
+  ik_timeout_s: 2.0
+  allowed_planning_time_s: 0.25
+  single_axis: moveit_lma_ik_timeout_0_50_to_2_00_seconds
+  official_moveit_robot_state_source: https://moveit.picknik.ai/humble/api/html/classmoveit_1_1core_1_1RobotState.html
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_planner_or_controller: false
+  affects_horizon: false
+  affects_seed_or_label_boundaries: false
+deterministic_moveit_ik:
+  schema: official_moveit_deterministic_subgroup_ik_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_041.yaml
+  source_plan_sha256: f9a1168f29d0ca59cae2a722b7826e3c35038f966fcaa00fa939249470d38a2c
+  source_audit: reports/training/m2-smolvla-athena-plan041-local-exact-audit-2026-08-15.json
+  source_audit_sha256: cc0ef524ce966c1549cabdf0ef8463e87b2c71b3d7e2fc4f7ed28acf148c260a
+  source_exact_report_sha256: 4d2fbb92b790d9e47b7696539509868644d0530a0b0c657d678d156f62b96813
+  plan042_preregistration: reports/training/m2-smolvla-deterministic-moveit-subgroup-ik-preregistration-2026-08-15.json
+  plan042_preregistration_sha256: b70268f5dd4d183086bb375c03819ac144d254e772d79493b97dd842726a5dbb
+  plan042_runtime_audit: reports/training/m2-smolvla-athena-plan042-runtime-identity-audit-2026-08-15.json
+  plan042_runtime_audit_sha256: 0d2653d3f36b3504eae4e6fa117f88b592a8ee14578cdb0e2b47361317ba2fa1
+  preregistration: reports/training/m2-smolvla-deterministic-moveit-subgroup-ik-frame-preregistration-2026-08-15.json
+  preregistration_sha256: 56af21a301d38a5256fa61c2e1dbb945d9b89a6bb24a014c8f81edf961d2084f
+  repeat_report: reports/training/m2-smolvla-aloha-moveit-deterministic-ik-plan043-2026-08-15.json
+  repeat_report_sha256: 52c8cacddd341d0215c60cc469e47d4025265c0d4410ef1ddb12a71b55d5b279
+  model_parity_report: reports/training/m2-smolvla-aloha-moveit-model-parity-plan043-2026-08-15.json
+  model_parity_report_sha256: e9926845045dd39f28a55a8cd7019495f62bb19b556a0d79b9c8adc0a541eb29
+  search_mode: deterministic_seeded_moveit_subgroup_multistart_v1
+  seed: 2210
+  maximum_attempts: 256
+  outer_timeout_s: 2.0
+  subgroup_order:
+  - left_arm
+  - right_arm
+  solver: lma_kinematics_plugin/LMAKinematicsPlugin
+  solver_call: getPositionIK
+  target_input_frame: world
+  solver_base_frames:
+  - vx300s_left/base_link
+  - vx300s_right/base_link
+  solver_tip_frames:
+  - vx300s_left/ee_gripper_link
+  - vx300s_right/ee_gripper_link
+  target_transform: moveit::core::RobotState::setToIKSolverFrame
+  full_state_validation:
+  - satisfiesBounds
+  - joint_path_constraints
+  - self_collision
+  official_moveit_robot_state_source: https://github.com/moveit/moveit2/blob/2.5.9/moveit_core/robot_state/src/robot_state.cpp#L1671-L1858
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_planner_or_controller: false
+  affects_horizon: false
+  affects_seed_or_label_boundaries: false
+full_pose_group_selection:
+  schema: explicit_moveit_registered_full_pose_groups_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_044.yaml
+  source_plan_sha256: c573dbf48b0e4d68de24e55e16a01c4c58e173050c4a9085612863d6adb1951e
+  source_audit: reports/training/m2-smolvla-athena-plan044-local-exact-audit-2026-08-16.json
+  source_audit_sha256: 78342bdde53f439a6663d184fddc271b480a4d2523048162f42c582c7b8ba039
+  source_exact_report_sha256: d61823063721d53c50b0929af710d7512cd0e44afd46b5e0f6074c6d7d32b989
+  preregistration: reports/training/m2-smolvla-explicit-moveit-full-pose-group-selection-preregistration-2026-08-16.json
+  preregistration_sha256: cf6c04b3509358efbbc97e1a85b614173d98108eb0e3213ad8f45452f56d5db1
+  runtime_audit: reports/training/m2-smolvla-athena-plan045-runtime-identity-audit-2026-08-16.json
+  runtime_audit_sha256: f7703845776229a10c4b98bfb1bc02c279b8302a87690b8d4a3622feb3a3351b
+  group_selection_mode: explicit_registered_groups_v1
+  full_pose_groups:
+  - left_arm
+  - right_arm
+  position_priority_groups:
+  - left_arm_position_priority
+  - right_arm_position_priority
+  lookup: moveit_core_robot_model_getJointModelGroup
+  group_order_is_fixed: true
+  null_group_fails_closed: true
+  single_axis: replace_bimanual_getSubgroups_enumeration_with_explicit_registered_full_pose_arm_groups
+  affects_solver_or_planner: false
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+full_pose_cartesian_backoff:
+  schema: official_moveit_full_pose_cartesian_backoff_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_045.yaml
+  source_plan_sha256: 2fcd6b157fede3c76d72bcc3590a8d197d50c74abb3d55508bb12d8ff6b0f488
+  source_audit: reports/training/m2-smolvla-athena-plan045-local-exact-audit-2026-08-16.json
+  source_audit_sha256: cf26736f139143b24a6a78819009ef8f6b196db508f0829e9cae9cf69a2d5a63
+  source_exact_report_sha256: 5c6cddbdff6e3b47932242c0a8ab00a95e9a1c882a86cec272ef37c563545e7e
+  diagnostic_request_response_sha256: ee23d700eef68cedf30d45eb91faaaca89d74f8c1531b4db23c01c56755cdfb6
+  diagnostic_probe_sha256: add43c591cae700b2c1e0c5c7e22127df596cccc85953b83a9ad81b044fd19cc
+  preregistration: reports/training/m2-smolvla-official-moveit-full-pose-cartesian-backoff-preregistration-2026-08-16.json
+  preregistration_sha256: d20878b9cb3b335d7112944d342430e490dac34d9cf96b893efd4569595d7f95
+  activation_phases:
+  - approach
+  - orient
+  activation_after:
+  - mink_qp_failed
+  - direct_full_pose_moveit_lma_failed
+  fractions_largest_first:
+  - 0.75
+  - 0.5
+  - 0.25
+  - 0.125
+  - 0.1
+  - 0.05
+  position_interpolation: linear_current_to_requested
+  orientation_interpolation: shortest_arc_quaternion_slerp_current_to_requested
+  minimum_linear_progress_m: 0.00025
+  minimum_angular_progress_rad: 0.001
+  progress_rule: maximum_arm_linear_or_angular_progress_meets_its_bound
+  waypoint_solver: lma_kinematics_plugin/LMAKinematicsPlugin
+  waypoint_solver_mode: full_pose
+  global_planner: official_moveit2_ompl_rrtconnect
+  feedback_replans_original_target: true
+  position_priority_fallback_order: after_full_pose_cartesian_backoff_exhaustion_in_approach_only
+  single_axis: official_full_pose_lma_cartesian_position_and_quaternion_backoff_before_position_only_fallback
+  affects_final_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+joint_margin_candidate_selection:
+  schema: deterministic_moveit_joint_margin_candidate_selection_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_046.yaml
+  source_plan_sha256: a80b3490044e45ff2603ada009c4bd764a5e5df60271308ae8d69c3c495f23b6
+  source_audit: reports/training/m2-smolvla-athena-plan046-local-exact-audit-2026-08-16.json
+  source_audit_sha256: 9101b0787a53f5ae2093f9528c3da1c60b83150117a5641ab2252a442978de9e
+  source_exact_report_sha256: dcf2667b3994d1093c14f162f4a17468cd3c2544d94ff28babaa6d52e04fc1b3
+  diagnostic_request_response_sha256: 8f5fb9d4457c04e25a9de7b68ad466f89a19738b137c6d2023e27f15c697d880
+  preregistration: reports/training/m2-smolvla-deterministic-moveit-joint-margin-candidate-selection-preregistration-2026-08-16.json
+  preregistration_sha256: ac299843778da44a7f4b30421098f54e16648e18a04e7694dd7bafc2bf820ddf
+  runtime_audit: reports/training/m2-smolvla-athena-plan047-runtime-identity-audit-2026-08-16.json
+  runtime_audit_sha256: f7a641fe79d8fc7f6139ccc26b5951c2c325986ec4e0c2747e53801a5c8426a2
+  repeat_report: reports/training/m2-smolvla-aloha-moveit-joint-margin-selection-repeat-plan047-2026-08-16.json
+  repeat_report_sha256: 30d8cf0ff8c367a7aa7e5b5124ed048825f36ac64d4b88d016e14f4985125dfe
+  model_parity_report: reports/training/m2-smolvla-aloha-moveit-model-parity-plan047-2026-08-16.json
+  model_parity_report_sha256: e68a6627b65fdd7dd05a7153d5a217a32dc8656aefd23718986f7c9a54222679
+  source_failure_step: 257
+  source_failure_phase: orient
+  source_solver_failure: bimanual_lma_ik_failed
+  source_pre_step_minimum_margin_joint: right_wrist_rotate
+  source_pre_step_minimum_margin_rad: 0.0466891670989988
+  registered_command_margin_rad: 0.04540462255477905
+  selection_mode: deterministic_maximum_minimum_joint_limit_margin_v1
+  candidate_generator: lma_kinematics_plugin/LMAKinematicsPlugin
+  task_modes:
+  - full_pose
+  - position_priority
+  validity_filter:
+  - satisfiesBounds
+  - registered_joint_path_constraints
+  - self_collision_free
+  - registered_task_space_tolerance
+  primary_objective: maximize_minimum_arm_joint_limit_margin_rad
+  secondary_objective: minimize_maximum_absolute_arm_joint_delta_from_start_rad
+  final_tie_break: lowest_deterministic_attempt_index
+  seed: 2210
+  maximum_attempts: 256
+  outer_timeout_s: 2.0
+  global_planner: official_moveit2_ompl_rrtconnect
+  selection_diagnostics_required:
+  - valid_ik_candidate_count
+  - selected_ik_attempt
+  - selected_ik_minimum_joint_limit_margin_rad
+  - selected_ik_maximum_start_delta_rad
+  single_axis: replace_first_valid_lma_candidate_with_deterministic_maximum_minimum_joint_margin_selection
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_planner_or_controller: false
+  affects_horizon: false
+  affects_seed_or_label_boundaries: false
+active_set_cartesian_trust_region:
+  schema: active_set_cartesian_trust_region_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_047.yaml
+  source_plan_sha256: bcc564976f07b39d3746d738b33aecda9a2971f3929b28266467bbde7a1020ac
+  source_audit: reports/training/m2-smolvla-athena-plan047-local-exact-audit-2026-08-16.json
+  source_audit_sha256: f7d37e750b90d753f3e2a43eb698596e300a09fc54af59f17d51104bc39f7bf8
+  source_exact_report_sha256: 5a3db61675ec216d8323dcbd4b9cb29137411335d062a24a61a5cba4f7de4206
+  discarded_pick_ik_audit: reports/training/m2-smolvla-athena-plan049-pick-ik-global-runtime-audit-2026-08-16.json
+  discarded_pick_ik_audit_sha256: d147b3af1766bb475c85208118aa9c81de791509b4b16fe3e7f71d531d5cff47
+  preregistration: reports/training/m2-smolvla-active-set-cartesian-trust-region-preregistration-2026-08-16.json
+  preregistration_sha256: 2bec0d538ce06e8699783a54cdda8f1c76d2e08c51f1354ee5c37f2bbefa9df0
+  probe_requests_sha256: af0a6139239d8bb9fe1fe8191203a398e734b2deedbcd7c4f5d1a3356918bcee
+  probe_results_sha256: a789385cca0e7adec79142c9b0c63572503bbd6a46aed4ca6883a5ca158c4a3d
+  probe_summary_sha256: 22a15ede3d7f6983faefdfca80cc71f9971a184ff2b936bdacd1c8310b5d52ff
+  activation_phase: orient
+  activation_after:
+  - mink_qp_failed
+  - direct_full_pose_moveit_lma_failed
+  - registered_full_pose_cartesian_backoff_exhausted
+  active_arm_selection: arm_owning_current_minimum_action_contract_joint_margin
+  passive_arm_position: current
+  passive_arm_orientation: requested
+  active_arm_position_center: current
+  coordinate_directions:
+  - - 1.0
+    - 0.0
+    - 0.0
+  - - -1.0
+    - 0.0
+    - 0.0
+  - - 0.0
+    - 1.0
+    - 0.0
+  - - 0.0
+    - -1.0
+    - 0.0
+  - - 0.0
+    - 0.0
+    - 1.0
+  - - 0.0
+    - 0.0
+    - -1.0
+  radii_m:
+  - 0.0
+  - 0.0015
+  - 0.003
+  - 0.006
+  - 0.009
+  maximum_requested_position_relaxation_m: 0.012
+  margin_restoration_orientation_fraction: 0.0
+  minimum_margin_improvement_rad: 0.001
+  margin_restoration_selection: maximum_goal_minimum_joint_limit_margin_then_minimum_radius_then_direction_order
+  orientation_progress_fractions:
+  - 0.5
+  - 0.25
+  - 0.125
+  - 0.05
+  orientation_progress_selection: largest_fraction_then_maximum_goal_minimum_joint_limit_margin_then_minimum_radius_then_direction_order
+  active_orientation_interpolation: shortest_arc_quaternion_slerp_current_to_requested
+  waypoint_solver: lma_kinematics_plugin/LMAKinematicsPlugin
+  global_planner: official_moveit2_ompl_rrtconnect
+  feedback_replans_original_target: true
+  persistent_hidden_state: false
+  custom_task_direction_enabled: false
+  affects_final_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+feedback_aligned_trust_region_basis:
+  schema: feedback_aligned_trust_region_basis_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_050.yaml
+  source_plan_sha256: 1b4731cb1c18739ba2d3a0f6d06966f0f7fefb2eeb961196a71ca0dcfe74f811
+  source_audit: reports/training/m2-smolvla-athena-plan050-local-exact-audit-2026-08-16.json
+  source_audit_sha256: 934b4d8b50f511ddb1e68b32d1fa69a163d8b81b327099e780df9d5cbdac87c3
+  source_exact_report_sha256: 7bb8771d7fc0c3e75394852c242b498eeafff876ad45fb1abdf9bf456859815b
+  preregistration: reports/training/m2-smolvla-feedback-aligned-trust-region-basis-preregistration-2026-08-16.json
+  preregistration_sha256: 032aeb898f65f6fbf8fc85e884e73ce78d888ecc0c7bdcc6720afd9e9bb43a1d
+  probe_requests_sha256: 174a274a95388fa55559facfe7410954f45ddec3b7c1a10b006ddb0e240e6f09
+  probe_results_sha256: 97c397adecfba02cf3c7955d7f0f6519590968cdcdc34f19658dcb8e0ef59ca9
+  probe_summary_sha256: d9df5c91313082a9e8dc70f3f138ab74dd317194e652be4f4d4ca3b2e0da4261
+  candidate_basis: feedback_aligned_orthonormal_v1
+  radial_axis: normalize(requested_active_position-current_active_position)
+  reference_axis: world_basis_axis_with_minimum_absolute_radial_dot_with_xyz_tie_order
+  tangent_one: normalize(cross(radial_axis,reference_axis))
+  tangent_two: cross(radial_axis,tangent_one)
+  direction_order:
+  - positive_radial
+  - negative_radial
+  - positive_tangent_one
+  - negative_tangent_one
+  - positive_tangent_two
+  - negative_tangent_two
+  zero_position_error_behavior: fail_closed_without_a_feedback_basis
+  persistent_hidden_state: false
+  task_specific_direction: false
+  single_axis: fixed_world_coordinate_basis_to_deterministic_feedback_aligned_orthonormal_basis_v1
+  affects_radii_or_position_envelope: false
+  affects_orientation_fractions: false
+  affects_pose_or_joint_margin_gates: false
+  affects_seed_or_label_boundaries: false
+orientation_first_trust_region_selection:
+  schema: orientation_first_trust_region_selection_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_051.yaml
+  source_plan_sha256: e593c3c7f13eba83c3760d315b1acde34c4fe5243069c13bfdbee061f2e82ef8
+  source_audit: reports/training/m2-smolvla-athena-plan051-local-exact-audit-2026-08-16.json
+  source_audit_sha256: c31291f4425488f1ed8d282da8e619cf72039a9adb99872298fb0d43916e4a1b
+  source_exact_report_sha256: f80d14eee434c3637330e77ecf6d1b1e8f45aeff0fd123bec06dc3299428c647
+  preregistration: reports/training/m2-smolvla-orientation-first-trust-region-selection-preregistration-2026-08-16.json
+  preregistration_sha256: 35b42c14eb96270456c6684c6d87d49f21587516a85a37c4d4738fc5371a89e7
+  selection_policy: orientation_progress_first_v1
+  selection_order:
+  - largest_feasible_orientation_fraction
+  - maximum_goal_minimum_joint_margin
+  - minimum_radius
+  - direction_order
+  - margin_restoration_fallback
+  margin_restoration_fallback_only_when_no_progress_candidate: true
+  persistent_hidden_state: false
+  single_axis: margin_restoration_then_orientation_progress_to_orientation_progress_then_margin_restoration
+  affects_candidate_basis_or_radii: false
+  affects_position_or_orientation_envelopes: false
+  affects_pose_or_joint_margin_gates: false
+  affects_seed_or_label_boundaries: false
+constraint_anchored_restoration:
+  schema: constraint_anchored_restoration_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_052.yaml
+  source_plan_sha256: 7b9be243e46731a031d1ac1c65d521144a008fbcb6f8b2046b60eacf5b2158c5
+  source_audit: reports/training/m2-smolvla-athena-plan052-local-exact-audit-2026-08-16.json
+  source_audit_sha256: e86769bf601e8c81d17ee943d413b6ad1114256cc168956f1be4ca7c20208114
+  source_exact_report_sha256: d6a15d1b899ceb8f41f69294889b6113e2073a1f92d14b9e105645835c1a4c5e
+  preregistration: reports/training/m2-smolvla-constraint-anchored-restoration-preregistration-2026-08-16.json
+  preregistration_sha256: 26a4c55778865c39ff6230f4e5848078ea8c5e367d619a618e36eb0eb358314d
+  probe_requests_sha256: 186862ccc5ee450f9af5fcca821a704cdfcc00471652f06d28338aa3576ff7ce
+  probe_results_sha256: b43fb24fb6d33a2844e6775a1c9390c07545a1191fee559163003ddf0a52a9c6
+  probe_summary_sha256: fbf708ac10dc0cb4d83c4bfde215332d96c7e1a54629c57b047d8661332c37d8
+  restoration_reference: command_margin_boundary
+  restoration_buffer_rad: 0.001
+  activation: only_when_no_registered_orientation_progress_candidate_exists
+  selection: maximum_goal_minimum_joint_margin_then_minimum_radius_then_direction_order
+  persistent_hidden_state: false
+  single_axis: current_relative_0_001_rad_improvement_to_command_boundary_plus_0_001_rad_interior_buffer
+  affects_command_margin_or_pose_gates: false
+  affects_basis_radii_or_envelopes: false
+  affects_seed_or_label_boundaries: false
+expanded_orientation_target_budget:
+  schema: expanded_orientation_target_budget_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_053.yaml
+  source_plan_sha256: c0a3759f2f40796cdaf8bfc7e3c3f9a15dafe54190c12477d93d127a7d266926
+  source_audit: reports/training/m2-smolvla-athena-plan053-local-exact-audit-2026-08-16.json
+  source_audit_sha256: f35c1d2e9c7d9b90c46822ed2b8adc308f1f69d1dab6bd1d9620ee57b7904711
+  source_exact_report_sha256: ffbbf2d475c0ccff6c28374b1c5dda4a4800acd0dbb8cb5f19f97eac24d134af
+  preregistration: reports/training/m2-smolvla-expanded-orientation-target-budget-preregistration-2026-08-16.json
+  preregistration_sha256: c481b94260a1f1bbed8e45ef2abae037718be3e4964b8aad85e4b5768f206668
+  probe_generator_sha256: 1ed8672ad651db0e797f422636a8023db8825c844577d860ee8e54f05b9ea7cf
+  probe_runner_sha256: bb02f4f713460d6088e0f61bd7b9772cb5bca268050f8e8f5213654ed987b993
+  probe_requests_sha256: 36164f60edbaf7581ad9b3ead2d1102b66e88ad01f67296167094a38f21c5d51
+  probe_results_sha256: c788b98270fbd4285d205220ba8f6d033197542eca54ee22a1b9cef0bb3a52d0
+  probe_summary_sha256: 5e4539fa2eff3d83614f28fb47be0f6791984a07f591ffa06f79decec9ffa8d2
+  previous_orientation_target_budget_rad: 0.04
+  orientation_target_budget_rad: 0.2
+  maximum_registered_fraction: 0.5
+  maximum_fractional_orientation_target_rad: 0.1
+  interpretation: bounded_intermediate_orientation_target_not_acceptance_tolerance
+  persistent_hidden_state: false
+  single_axis: teacher_maximum_orientation_step_rad_0_04_to_0_20
+  affects_final_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_waypoint_joint_step_cap: false
+  affects_horizon: false
+  affects_seed_or_label_boundaries: false
+position_priority_waypoint:
+  schema: official_moveit_lma_position_priority_waypoint_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_043.yaml
+  source_plan_sha256: 0c2baa2dd38fb0639fbdbf9b584e5a4d24125e0575a51177fc76c95ee53e4d40
+  source_audit: reports/training/m2-smolvla-athena-plan043-local-exact-audit-2026-08-16.json
+  source_audit_sha256: 8c54a42449aca7f4e4d36de22e44fc2815175bdf03254edcbec64a1d4010f4b6
+  source_exact_report_sha256: 590e4eab19506fd3f9d682e3a3b80c64ed92812870eb67621d8633969fc788ae
+  preregistration: reports/training/m2-smolvla-official-moveit-position-priority-waypoint-preregistration-2026-08-16.json
+  preregistration_sha256: a1fcc9b8d6aa01045e98e017d9edd43335357bf21176f5de8e5fe9dde2514b4d
+  runtime_audit: reports/training/m2-smolvla-athena-plan045-runtime-identity-audit-2026-08-16.json
+  runtime_audit_sha256: f7703845776229a10c4b98bfb1bc02c279b8302a87690b8d4a3622feb3a3351b
+  repeat_report: reports/training/m2-smolvla-aloha-moveit-position-priority-repeat-plan045-2026-08-16.json
+  repeat_report_sha256: 0ec07c6882928afdc6a8cd1cb9c0913d36a9eb79cb575f3bfb6cefd835789117
+  activation_phases:
+  - approach
+  solver: lma_kinematics_plugin/LMAKinematicsPlugin
+  solver_mode: position_only_ik
+  position_priority_groups:
+  - left_arm_position_priority
+  - right_arm_position_priority
+  orientation_weight: 0.0
+  cartesian_backoff_fractions:
+  - 1.0
+  - 0.75
+  - 0.5
+  - 0.25
+  - 0.125
+  minimum_cartesian_progress_m: 0.001
+  maximum_orientation_relaxation_rad: 0.04
+  ompl_seed_reset_per_request: true
+  terminal_goal_normalization_limit_rad: 1.0e-05
+  terminal_goal_normalization_validation: moveit_planning_scene_is_path_valid
+  global_planner: official_moveit2_ompl_rrtconnect
+  feedback_replans_original_target: true
+  single_axis: official_moveit_position_only_lma_waypoint_then_ompl
+  affects_final_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false
+contact_phase_feedforward:
+  schema: phase_scoped_mujoco_static_position_feedforward_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_039.yaml
+  source_plan_sha256: a0a919d778e8af06395103c3ba8a432c2348a34ffbe556450f246f337a3844c5
+  source_audit: reports/training/m2-smolvla-athena-plan039-local-exact-audit-2026-08-15.json
+  source_audit_sha256: 463e16d744e50ff7c1d1dcf726dc2158d09a9d66a356f05e735fbe21bb157616
+  source_exact_report_sha256: 2296577282cd3e9fe20b514eabb12d4b155cc4e46d66a6a52ba6a9030e64ad5b
+  source_observed_contact_diagnostic_sha256: c3e29a05b2f2f1b0e3af6ad9c2b4ff55fb46393ce574c52af23794f10dde1909
+  source_commanded_contact_diagnostic_sha256: 96a64e5c80b56ec351baca63235ade99586d519b471106bbef34cf1a6096e80b
+  source_feedforward_counterfactual_sha256: 8d9f4ce94feee82fd2bf23c4b6de37b3c1bdb6ec6f1356f2f82537ff0e542da7
+  preregistration: reports/training/m2-smolvla-contact-phase-feedforward-preregistration-2026-08-15.json
+  preregistration_sha256: eb59a07fc8a9fd1e629bc6b2491b243d6f9182da78e48226a29cdf9459211e49
+  source_failure_step: 441
+  source_unexpected_pair:
+  - table
+  - vx300s_left/10_left_gripper_finger
+  backend: mujoco_static_inverse_dynamics_affine_position_feedforward
+  phases:
+  - descend
+  - grasp
+  maximum_correction_rad: 0.05
+  joint_limit_margin_rad: 0.04540462255477905
+  neutral_reference_tolerance_rad: 1.0e-09
+  official_mujoco_actuation_source: https://mujoco.readthedocs.io/en/stable/computation/index.html#actuation-model
+  official_mujoco_force_balance_source: https://mujoco.readthedocs.io/en/stable/computation/index.html#passive-forces
+  affects_collision_allowlist: false
+  affects_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_planner_or_ik: false
+  affects_horizon: false
+  affects_seed_or_label_boundaries: false
+teacher:
+  gripper_open_target: 1.0
+  gripper_closed_target: 0.0
+  gripper_open_threshold: 0.85
+  approach_clearance_m: 0.08
+  approach_tolerance_m: 0.012
+  approach_orientation_tolerance_rad: 0.04
+  grasp_tolerance_m: 0.008
+  lift_object_height_m: 0.17
+  lift_tolerance_m: 0.012
+  meet_center_x_m: 0.0
+  meet_center_y_m: 0.5
+  preinsert_clearance_m: 0.1
+  coarse_alignment_tolerance_m: 0.015
+  maximum_cartesian_step_m: 0.012
+  maximum_orientation_step_rad: 0.2
+  maximum_grasp_drift_m: 0.045
+  workspace_x_min_m: -0.45
+  workspace_x_max_m: 0.45
+  workspace_y_min_m: 0.2
+  workspace_y_max_m: 0.8
+  workspace_z_min_m: 0.0
+  workspace_z_max_m: 0.5
+  lift_feedback_step_m: 0.006
+inverse_kinematics:
+  solver_backend: mink_qp
+  mink_version: 1.2.0
+  qpsolvers_version: 4.13.0
+  daqp_version: 0.8.7
+  mink_solver: daqp
+  path_planner_enabled: true
+  path_planner_backend: moveit2_ompl
+  path_planner_phases:
+  - approach
+  - orient
+  path_planner_ros_distro: humble
+  path_planner_moveit_version: 2.5.9
+  path_planner_ompl_version: 1.7.0
+  path_planner_plugin: ompl_interface/OMPLPlanner
+  path_planner_id: RRTConnect
+  path_planner_type: geometric::RRTConnect
+  path_planner_kinematics_plugin: lma_kinematics_plugin/LMAKinematicsPlugin
+  path_planner_ik_group_selection_mode: explicit_registered_groups_v1
+  path_planner_full_pose_groups:
+  - left_arm
+  - right_arm
+  path_planner_full_pose_cartesian_backoff_enabled: true
+  path_planner_full_pose_cartesian_backoff_activation_phases:
+  - approach
+  - orient
+  path_planner_full_pose_cartesian_backoff_fractions:
+  - 0.75
+  - 0.5
+  - 0.25
+  - 0.125
+  - 0.1
+  - 0.05
+  path_planner_full_pose_cartesian_backoff_position_interpolation: linear_current_to_requested
+  path_planner_full_pose_cartesian_backoff_orientation_interpolation: shortest_arc_quaternion_slerp_current_to_requested
+  path_planner_full_pose_cartesian_backoff_minimum_linear_progress_m: 0.00025
+  path_planner_full_pose_cartesian_backoff_minimum_angular_progress_rad: 0.001
+  path_planner_active_set_trust_region_enabled: true
+  path_planner_active_set_trust_region_activation_phase: orient
+  path_planner_active_set_trust_region_active_arm_selection: arm_owning_current_minimum_action_contract_joint_margin
+  path_planner_active_set_trust_region_coordinate_directions:
+  - - 1.0
+    - 0.0
+    - 0.0
+  - - -1.0
+    - 0.0
+    - 0.0
+  - - 0.0
+    - 1.0
+    - 0.0
+  - - 0.0
+    - -1.0
+    - 0.0
+  - - 0.0
+    - 0.0
+    - 1.0
+  - - 0.0
+    - 0.0
+    - -1.0
+  path_planner_active_set_trust_region_radii_m:
+  - 0.0
+  - 0.0015
+  - 0.003
+  - 0.006
+  - 0.009
+  path_planner_active_set_trust_region_maximum_requested_position_relaxation_m: 0.012
+  path_planner_active_set_trust_region_minimum_margin_improvement_rad: 0.001
+  path_planner_active_set_trust_region_orientation_progress_fractions:
+  - 0.5
+  - 0.25
+  - 0.125
+  - 0.05
+  path_planner_active_set_trust_region_persistent_hidden_state: false
+  path_planner_active_set_trust_region_candidate_basis: feedback_aligned_orthonormal_v1
+  path_planner_active_set_trust_region_selection_policy: orientation_progress_first_v1
+  path_planner_active_set_trust_region_restoration_reference: command_margin_boundary
+  path_planner_active_set_trust_region_previous_orientation_target_budget_rad: 0.04
+  path_planner_active_set_trust_region_orientation_target_budget_rad: 0.2
+  path_planner_ik_search_mode: deterministic_seeded_moveit_subgroup_multistart_v1
+  path_planner_ik_candidate_selection_mode: deterministic_maximum_minimum_joint_limit_margin_v1
+  path_planner_ik_seed: 2210
+  path_planner_ik_maximum_attempts: 256
+  path_planner_ik_solver_base_frames:
+  - vx300s_left/base_link
+  - vx300s_right/base_link
+  path_planner_ik_solver_tip_frames:
+  - vx300s_left/ee_gripper_link
+  - vx300s_right/ee_gripper_link
+  path_planner_request_adapters:
+  - default_planner_request_adapters/FixStartStatePathConstraints
+  path_planner_execution_backend: moveit_hybrid_planning
+  path_planner_trajectory_operator: moveit_hybrid_planning/SimpleSampler
+  path_planner_local_constraint_solver: moveit_hybrid_planning/ForwardTrajectory
+  path_planner_execution_source_tag: 2.5.9
+  path_planner_position_priority_enabled: true
+  path_planner_position_priority_activation_phases:
+  - approach
+  path_planner_position_priority_kinematics_plugin: lma_kinematics_plugin/LMAKinematicsPlugin
+  path_planner_position_priority_groups:
+  - left_arm_position_priority
+  - right_arm_position_priority
+  path_planner_position_priority_solver_mode: position_only_ik
+  path_planner_position_priority_orientation_weight: 0.0
+  path_planner_position_priority_cartesian_backoff_fractions:
+  - 1.0
+  - 0.75
+  - 0.5
+  - 0.25
+  - 0.125
+  path_planner_position_priority_minimum_cartesian_progress_m: 0.001
+  path_planner_position_priority_maximum_orientation_relaxation_rad: 0.04
+  path_planner_position_priority_ompl_seed_reset_per_request: true
+  path_planner_position_priority_terminal_goal_normalization_limit_rad: 1.0e-05
+  path_planner_position_priority_terminal_goal_normalization_validation: moveit_planning_scene_is_path_valid
+  path_planner_include_trajectory: true
+  path_planner_waypoint_l1_tolerance_rad: 0.2
+  path_planner_replan_on_phase_change: true
+  path_planner_replan_every_step: false
+  path_planner_replan_on_terminal_completion: true
+  path_planner_terminal_control_enabled: true
+  path_planner_terminal_control_backend: mujoco_static_inverse_dynamics_affine_position_feedforward
+  path_planner_terminal_control_handoff: final_waypoint_within_moveit_simple_sampler_l1_tolerance
+  path_planner_terminal_control_replan_on_failure: false
+  path_planner_terminal_completion_goal_l1_tolerance_rad: 0.001
+  path_planner_terminal_control_maximum_correction_rad: 0.05
+  path_planner_terminal_control_neutral_reference_tolerance_rad: 1.0e-09
+  path_planner_terminal_control_joint_limit_margin_rad: 0.04540462255477905
+  path_planner_execution_upstream:
+    license: BSD-3-Clause
+    simple_sampler: https://github.com/moveit/moveit2/blob/2.5.9/moveit_ros/hybrid_planning/local_planner/trajectory_operator_plugins/src/simple_sampler.cpp
+    forward_trajectory: https://github.com/moveit/moveit2/blob/2.5.9/moveit_ros/hybrid_planning/local_planner/local_constraint_solver_plugins/src/forward_trajectory.cpp
+    local_planner_component: https://github.com/moveit/moveit2/blob/2.5.9/moveit_ros/hybrid_planning/local_planner/local_planner_component/src/local_planner_component.cpp
+  path_planner_ompl_seed: 2210
+  path_planner_collision_geometry_link_count: 22
+  path_planner_collision_geometry_shape_count: 22
+  path_planner_allowed_planning_time_s: 0.25
+  path_planner_ik_timeout_s: 2.0
+  path_planner_response_timeout_s: 5.0
+  path_planner_maximum_joint_step_rad: 0.23561944901923448
+  path_planner_position_tolerance_m: 0.001
+  path_planner_orientation_tolerance_rad: 0.003
+  path_planner_start_bound_reconciliation_tolerance_rad: 2.0e-05
+  path_planner_physical_joint_limit_margin_rad: 0.01
+  path_planner_joint_limit_margin_rad: 0.04540462255477905
+  path_planner_finger_lower_m: 0.021
+  path_planner_finger_upper_m: 0.057
+  path_planner_finger_bound_reconciliation_tolerance_m: 0.001
+  path_planner_runtime:
+    image: rosetta-reality-aloha-moveit2:humble-2.5.9-joint-margin-selection-006
+    image_id: sha256:82c7e6a8100ad485e22f28e0ab1ed36c551eb5ad877c0243fbbb31d29fe6540b
+    executable_sha256: f7579c034dd8e118f465c2b16274f957d613e5f24775c5f3b61567489e561fed
+    urdf_sha256: 544b5f299a5955b4c705cd42f952f4ab4fb898327f6206ea37117533190f63f4
+    srdf_sha256: 9a24cfc87a670abd74d87b15d6f1c70b66fec59d8628a5d93ceb316be9f91db5
+    description_manifest_sha256: b55646fd65907365e67dfc06f15e0bf545089df826511df12d0ad7be23a0932b
+    mesh_manifest_sha256: 63edd159854e2eaa99bbe640c76b6b65e0e0ac517081689796d31c1db579e04d
+    urdf_source_manifest_sha256: c74d4712fe206303ef081a3f81c65c6aa2a8b1a0b29b3d52b174e9c6cbc8ccf1
+    model_parity_report: reports/training/m2-smolvla-aloha-moveit-model-parity-plan047-2026-08-16.json
+    model_parity_report_sha256: e68a6627b65fdd7dd05a7153d5a217a32dc8656aefd23718986f7c9a54222679
+  mink_integration_timestep_s: 0.005
+  mink_maximum_iterations: 15
+  mink_position_cost: 1.0
+  mink_orientation_cost: 1.0
+  mink_posture_cost: 0.0001
+  mink_frame_lm_damping: 1.0
+  mink_solver_damping: 1.0e-05
+  mink_maximum_joint_velocity_rad_s: 3.141592653589793
+  mink_configuration_limit_gain: 0.95
+  mink_joint_limit_margin_rad: 0.04540462255477905
+  rotation_weight: 0.2
+  maximum_accepted_error: 0.001
+  maximum_accepted_projected_error: 0.003
+  maximum_joint_target_delta: 0.23561944901923448
+acceptance:
+  exact_control_successes_required: 1
+  tuning_successes_required: 1
+  development_successes_required: 5
+  maximum_geometry_teacher_failures: 0
+  maximum_inverse_kinematics_failures: 0
+  maximum_adapter_clip_failures: 0
+  maximum_commanded_margin_breach_events: 0
+  maximum_observed_margin_breach_events: 0
+  maximum_position_priority_orientation_relaxation_rad: 0.04
+  minimum_path_planner_terminal_control_completions: 1
+  minimum_trust_region_margin_restoration_events: 1
+  minimum_trust_region_orientation_progress_events: 1
+  minimum_trust_region_feedback_basis_events: 1
+  minimum_trust_region_orientation_first_events: 1
+  minimum_trust_region_constraint_anchored_restoration_events: 1
+  minimum_expanded_orientation_target_budget_events: 1
+  minimum_task_contact_exemption_events: 1
+  minimum_contact_phase_feedforward_commands: 1
+  maximum_contact_phase_feedforward_failures: 0
+  hidden_test_loaded: false
+  recovery_labels_authorized_on_pass: false
+  minimum_lift_feedback_anchor_commands: 1
+implementation_files:
+  src/rosetta_reality/sim/geometry_teacher.py: 7addf852e44169cfbdce01e87dd83d7182b4503c6b19bf874b8e0a6eac67f905
+  src/rosetta_reality/sim/mink_aloha_ik.py: cdff063ce164dc5eb8137c6c8cbd66f5c102eb06f0842a0f92b64727f9e70583
+  src/rosetta_reality/sim/moveit_aloha_planner.py: 32107b371e2ca4674b07f6def009cca70e811ec40f3fed62f7f326f9c87b8957
+  src/rosetta_reality/sim/mujoco_position_feedforward.py: 2be1e16624e272955a4366c57fa019fc303a557d756c12edcb2530cb7b664fc4
+  src/rosetta_reality/sim/gym_aloha.py: e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d
+  scripts/evaluate_aloha_geometry_teacher.py: c5a2c45f944991c556e25ea6774d55a3180b8aab6f6933376340236a82309c06
+  scripts/evaluate_aloha_moveit_model_parity.py: 3ecdfdfba1c87a231f18cfe4fd7196374486716957be69fb7292cbca9d59fa4b
+  scripts/compose_aloha_moveit_description.py: 896f1b9b86c73413c76086514bd8963390971f5635077ccd42f8bab6dccd11ab
+  scripts/build_aloha_moveit_description.sh: 34ffc6e196fee7293304870f275e8b7b2dbeca834c7563e32d88bacdff7da0a2
+  runs/m2-smolvla-aloha-geometry-teacher-055/local-exact-001/run-exact.sh: c3547b6936d326b4c8535fb7ef13b86fa19993ff8566e8f630c533e9a2d92ba8
+  runs/m2-smolvla-aloha-geometry-teacher-055/local-exact-001/launch-exact.sh: 7434f0a86cd2fe006c275ff7ba4675e5e73460db15336c83a6b5c3a38d299bee
+  runs/m2-smolvla-aloha-geometry-teacher-055/local-exact-001/start-exact.sh: a3e3b69f3321e9e2390a8b2e1004d23e13c3858530ab800871ec2a7b0018e09a
+  runs/m2-smolvla-aloha-geometry-teacher-054/local-orientation-step-probe-002/generate_probe_requests.py: 1ed8672ad651db0e797f422636a8023db8825c844577d860ee8e54f05b9ea7cf
+  runs/m2-smolvla-aloha-geometry-teacher-054/local-orientation-step-probe-002/run-probe.sh: bb02f4f713460d6088e0f61bd7b9772cb5bca268050f8e8f5213654ed987b993
+  integration/aloha_moveit2/src/aloha_moveit_planner.cpp: db7b85e67588bf2e2e98b410a152aa1b4e33f947a6d8f53ba0ed6cca0888e222
+  integration/aloha_moveit2/CMakeLists.txt: df420c29d3a1d873c971462fd59e6872f2471d88b7993bfc005596086e1dbe6e
+  integration/aloha_moveit2/package.xml: 6853ffd3591fd718eff24eb7397ab980079b648d01a9a1d7932fb690450472c5
+  integration/aloha_moveit2/config/fk_parity_requests.jsonl: 18407a3f62a760d9eaca65e44c1218250ecad5caa952a70c21fe1f7453003599
+  docker/Dockerfile.aloha-moveit2: bc4d96bd8438c38c75f5c41dd0232c473155a583d8a0a90b3127e7e87f097782
+  configs/data/aloha_sim_insertion_m2.yaml: c35c6a3da68c571f9e1dc4879b56fbb29be1ce8fcda1e529c9eac5d8e09b1491
+  configs/sim/aloha_insertion_smolvla.yaml: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+  reports/training/m2-smolvla-aloha-moveit-model-parity-plan047-2026-08-16.json: e68a6627b65fdd7dd05a7153d5a217a32dc8656aefd23718986f7c9a54222679
+  pyproject.toml: 70deb6872962e1da668cea59f04b8d46626036651c48d0300dcedd1ceb7d2f7d
+output:
+  run_directory: m2-smolvla-aloha-geometry-teacher-055/geometry-teacher
+  reports_are_scoped_by_plan_sha256_and_stage: true
+stop_conditions:
+- calibration_episode_is_not_train_only
+- execution_horizon_source_plan_audit_preregistration_or_exact_hash_differs
+- evaluation_maximum_steps_differs_from_750
+- execution_horizon_change_alters_any_pose_collision_joint_limit_planner_or_controller_setting
+- moveit_ik_budget_source_plan_audit_preregistration_or_exact_hash_differs
+- moveit_ik_timeout_differs_from_2_00_seconds
+- moveit_allowed_planning_time_differs_from_0_25_seconds
+- moveit_response_timeout_differs_from_5_0_seconds
+- moveit_ik_budget_change_alters_planner_pose_collision_joint_limit_controller_horizon_seed_or_label_setting
+- deterministic_moveit_ik_source_preregistration_runtime_repeat_or_parity_hash_differs
+- deterministic_moveit_ik_mode_seed_attempt_cap_timeout_subgroup_order_or_solver_identity_differs
+- deterministic_moveit_ik_solver_base_or_tip_frames_differ
+- deterministic_moveit_ik_target_is_not_transformed_with_RobotState_setToIKSolverFrame
+- deterministic_moveit_ik_same_request_changes_goal_or_attempt_count
+- explicit_full_pose_group_source_audit_preregistration_or_runtime_hash_differs
+- explicit_full_pose_group_mode_order_or_registered_names_differ
+- full_pose_request_reproduces_bimanual_subgroup_count_failure
+- full_pose_cartesian_backoff_source_audit_preregistration_or_diagnostic_hash_differs
+- full_pose_cartesian_backoff_activates_outside_approach_or_orient
+- full_pose_cartesian_backoff_fraction_order_or_progress_bound_differs
+- full_pose_cartesian_backoff_does_not_interpolate_both_position_and_shortest_arc_quaternion
+- full_pose_cartesian_backoff_changes_pose_collision_joint_margin_seed_or_label_gate
+- joint_margin_candidate_source_audit_preregistration_runtime_repeat_or_parity_hash_differs
+- joint_margin_candidate_selection_mode_seed_attempt_budget_or_objective_differs
+- joint_margin_candidate_validity_filter_differs_or_accepts_unregistered_task_error
+- joint_margin_candidate_selection_is_not_deterministic
+- joint_margin_candidate_change_alters_pose_gates_joint_margins_planner_horizon_seed_or_label_boundary
+- active_set_trust_region_source_preregistration_probe_or_discarded_solver_hash_differs
+- active_set_trust_region_activates_outside_orient_or_before_full_pose_backoff_exhaustion
+- active_set_trust_region_uses_a_task_specific_direction_or_persistent_hidden_state
+- active_set_trust_region_candidate_exceeds_0_012_m_requested_position_relaxation
+- active_set_trust_region_candidate_bypasses_exact_pose_margin_collision_or_ompl_validation
+- active_set_trust_region_margin_restoration_has_less_than_0_001_rad_progress
+- active_set_trust_region_orientation_fraction_order_or_slerp_differs
+- active_set_trust_region_changes_final_pose_joint_margin_seed_or_label_boundary
+- feedback_basis_source_audit_preregistration_or_probe_hash_differs
+- feedback_basis_is_not_recomputed_from_current_and_requested_active_positions
+- feedback_basis_is_not_orthonormal_or_changes_the_registered_direction_order
+- feedback_basis_zero_position_error_does_not_fail_closed
+- feedback_basis_changes_radii_position_envelope_orientation_fractions_pose_gates_joint_margins_seed_or_label_boundary
+- orientation_first_source_audit_preregistration_or_exact_hash_differs
+- orientation_first_does_not_select_the_largest_feasible_registered_fraction
+- orientation_first_uses_margin_restoration_when_a_progress_candidate_exists
+- orientation_first_changes_basis_radii_envelopes_pose_gates_joint_margins_seed_or_label_boundary
+- constraint_anchored_source_audit_preregistration_or_probe_hash_differs
+- constraint_anchored_restoration_buffer_differs_from_0_001_rad
+- constraint_anchored_restoration_is_not_measured_from_the_command_margin_boundary
+- constraint_anchored_restoration_activates_when_orientation_progress_is_feasible
+- constraint_anchored_restoration_changes_command_margin_pose_gates_basis_radii_envelopes_seed_or_label_boundary
+- expanded_orientation_target_source_plan_audit_preregistration_exact_or_probe_hash_differs
+- expanded_orientation_target_budget_differs_from_0_20_rad
+- expanded_orientation_target_changes_final_pose_gates_joint_margins_waypoint_step_horizon_seed_or_label_boundary
+- expanded_orientation_target_event_is_not_observed_in_train_exact
+- position_priority_source_preregistration_runtime_repeat_or_parity_hash_differs
+- position_priority_activates_outside_approach
+- position_priority_activates_before_unchanged_mink_and_full_pose_moveit_fail
+- position_priority_solver_group_mode_or_orientation_weight_differs
+- position_priority_cartesian_fraction_order_or_minimum_progress_differs
+- position_priority_orientation_relaxation_exceeds_0_04_rad
+- position_priority_ompl_seed_is_not_reset_per_request
+- position_priority_terminal_goal_normalization_exceeds_0_00001_rad
+- position_priority_normalized_path_is_not_moveit_planning_scene_valid
+- position_priority_changes_final_pose_gates_joint_margins_seed_or_label_boundary
+- contact_phase_feedforward_source_plan_audit_preregistration_exact_or_diagnostic_hash_differs
+- contact_phase_feedforward_scope_differs_from_descend_and_grasp
+- contact_phase_feedforward_does_not_reuse_the_registered_static_inverse_dynamics_implementation
+- contact_phase_feedforward_exceeds_the_existing_0_05_rad_correction_bound
+- contact_phase_feedforward_breaches_the_existing_command_joint_margin
+- contact_phase_feedforward_changes_the_collision_allowlist_pose_gates_planner_ik_horizon_seed_or_label_boundary
+- calibration_replay_does_not_reach_reward_four
+- validation_or_hidden_test_episode_is_loaded
+- tuning_development_collection_or_policy_gate_seeds_overlap
+- exact_seed_overlaps_any_later_stage
+- execution_diagnostic_schema_or_arm_order_differs
+- execution_diagnostic_margin_differs_from_0_01_rad
+- execution_diagnostic_changes_action_selection
+- execution_diagnostic_omits_any_executed_step_or_joint
+- execution_guard_source_audit_or_exact_hash_differs
+- execution_guard_reserve_differs_from_plan028_train_exact_maximum
+- execution_guard_command_margin_is_not_physical_plus_reserve
+- execution_guard_does_not_reuse_mink_and_moveit_official_limits
+- moveit_start_state_path_constraint_adapter_is_not_exactly_the_official_plugin
+- moveit_start_state_recovery_activates_inside_the_tightened_set
+- moveit_start_state_recovery_activates_outside_the_physical_margin
+- moveit_recovery_prefix_breaches_the_physical_margin
+- moveit_recovery_prefix_regresses_while_below_the_tightened_margin
+- moveit_recovery_prefix_reenters_below_the_tightened_margin_after_first_entry
+- moveit_recovery_next_waypoint_has_no_positive_margin_progress
+- moveit_nonprefix_path_waypoint_breaches_the_tightened_margin
+- commanded_or_observed_physical_margin_breach_is_observed
+- object_pose_exits_registered_workspace
+- task_contact_source_plan_audit_preregistration_or_diagnostic_hash_differs
+- any_contact_other_than_the_exact_registered_pair_is_exempted
+- registered_task_contact_is_exempted_outside_descend_or_grasp
+- raw_contact_reporting_is_disabled
+- registered_train_demonstrated_task_contact_is_not_observed_in_exact
+- observed_grasp_transform_exits_registered_drift
+- unexpected_collision_is_observed
+- mink_or_daqp_identity_differs
+- mink_command_margin_differs_or_is_inactive
+- mink_configuration_limit_is_not_active
+- mink_velocity_limit_is_not_active
+- mink_non_arm_dof_constraint_is_not_active
+- mink_solution_exceeds_registered_joint_delta
+- moveit_official_finger_bound_adapter_differs_or_exceeds_0_001_m
+- moveit_image_or_plugin_identity_differs
+- moveit_binary_urdf_srdf_or_manifest_hash_differs
+- moveit_official_resource_manifest_or_file_hash_differs
+- moveit_collision_geometry_count_is_zero_or_differs
+- moveit_gym_model_parity_evidence_differs
+- moveit_start_bound_reconciliation_exceeds_0_00002_rad
+- moveit_start_bound_reconciliation_is_not_reported
+- moveit_lma_ik_or_ompl_rrtconnect_fails
+- moveit_full_trajectory_is_not_returned
+- moveit_retained_trajectory_replans_before_terminal_completion
+- moveit_simple_sampler_or_forward_trajectory_identity_differs
+- moveit_path_has_fewer_than_two_waypoints
+- moveit_path_or_waypoint_is_in_collision
+- moveit_waypoint_exceeds_registered_joint_delta
+- moveit_waypoint_requires_additional_action_clipping
+- moveit_goal_exceeds_frozen_pose_error
+- moveit_sidecar_times_out_or_breaks_jsonl_protocol
+- terminal_control_source_plan_audit_or_exact_hash_differs
+- terminal_control_activates_before_the_final_simple_sampler_waypoint
+- terminal_control_actuator_is_not_direct_fixed_gain_affine_position_control
+- terminal_control_correction_exceeds_0_05_rad
+- terminal_control_command_breaches_the_tightened_joint_margin
+- terminal_control_replans_on_failure_or_before_original_goal_completion
+- terminal_completion_source_plan_audit_preregistration_or_exact_hash_differs
+- terminal_completion_goal_l1_tolerance_differs_from_0_001_rad
+- terminal_completion_event_is_not_observed_in_train_exact
+- sparse_actuator_moment_repair_source_plan_audit_or_exact_hash_differs
+- sparse_actuator_moment_csr_metadata_is_missing_or_invalid
+- sparse_actuator_moment_row_is_not_one_direct_dof
+- joint_name_adapter_source_plan_audit_or_execution_log_hash_differs
+- joint_name_adapter_order_differs_from_arm_action_indices
+- joint_name_adapter_does_not_use_registered_gym_names
+- projected_inverse_kinematics_exceeds_registered_error
+- environment_applies_additional_action_clipping
+- attempted_recovery_label_write
+- lift_feedback_source_plan_audit_remote_audit_or_preregistration_hash_differs
+- lift_feedback_step_differs_from_0_006_m_or_exceeds_global_cartesian_step
+- lift_feedback_changes_final_lift_height_grasp_drift_gate_joint_margins_horizon_seed_or_label_boundary
+- lift_feedback_anchor_command_is_not_observed_in_train_exact
+lift_grasp_feedback:
+  schema: lift_grasp_feedback_v1
+  source_plan: configs/sim/aloha_insertion_geometry_teacher_054.yaml
+  source_plan_sha256: d8d68745ea7a22c59f924713c93f04bcacce4371fca820b6040645b913c5ef6d
+  source_audit: reports/training/m2-smolvla-athena-plan054-local-exact-audit-2026-08-16.json
+  source_audit_sha256: 9e5b82fd0126f5652918040734b70fcc8b47a7063d46daee3b134cd5fb1a5847
+  source_exact_report_sha256: dfbe89d5afebbfa63fc0f689a5b2c7015c34de6a88573f8f2defb8b152fe19f3
+  source_remote_audit: reports/training/m2-smolvla-athena-plan054-remote-exact-audit-2026-08-16.json
+  source_remote_audit_sha256: 853bfdaf02ec1a79c3b143d9cf3e41920b7e0f719a3997dbc3d08058ced47f1f
+  preregistration: reports/training/m2-smolvla-lift-grasp-feedback-preregistration-2026-08-16.json
+  preregistration_sha256: 05f06a02d0051e459b987609769ad0d22994aa0c1e57b98699b0896be4bfecad
+  step_m: 0.006
+  interpretation: bounded_feedback_object_lift_increment_not_acceptance_tolerance
+  persistent_hidden_state: false
+  single_axis: fixed_terminal_lift_target_replaced_by_feedback_anchored_increment
+  affects_final_pose_gates: false
+  affects_joint_limit_margins: false
+  affects_seed_or_label_boundaries: false

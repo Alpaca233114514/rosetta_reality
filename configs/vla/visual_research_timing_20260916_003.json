@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "plan_id": "visual-research-timing-20260916-003-step2500",
+  "status": "exploratory_frozen_before_replay",
+  "collection": "runs/visual-research-gpu-received-20260916-002/verified/runs/visual-research-gpu-20260916-002/collect/arrays.npz",
+  "data": "runs/visual-research-package-20260915-001/data/arrays.npz",
+  "sha256": {
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+    "runs/visual-research-package-20260915-001/data/arrays.npz": "107f02ac6a9cba57731303c7b7e9833b40b6ee5ed1b473d52b22ac8d8451336d",
+    "scripts/analyze_visual_research_timing.py": "1bc876e95cd8f7fd69a5f870a10cca466aa913aee3371a0d63a51d1c7d53927d",
+    "runs/visual-research-gpu-received-20260916-002/verified/runs/visual-research-gpu-20260916-002/collect/arrays.npz": "bbd53104eaa7d63b54ea56e18aaedb12dcd010478fabf951798e8615a8cf1a36"
+  },
+  "train_episodes": [
+    49,
+    4,
+    23,
+    43,
+    21,
+    37,
+    18,
+    34,
+    0,
+    47,
+    38,
+    29,
+    3,
+    26,
+    14,
+    17,
+    44,
+    30,
+    15,
+    42,
+    10,
+    35,
+    25,
+    32,
+    19,
+    36,
+    41,
+    28,
+    8,
+    27,
+    16,
+    11,
+    2,
+    20,
+    9,
+    39,
+    46,
+    48,
+    12,
+    40
+  ],
+  "development_episodes": [
+    22,
+    13,
+    7,
+    33,
+    45
+  ],
+  "gripper_frames": [
+    125,
+    250
+  ],
+  "threshold_fractions": [
+    0.25,
+    0.5,
+    0.75
+  ],
+  "segments": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      10
+    ],
+    [
+      10,
+      25
+    ],
+    [
+      25,
+      50
+    ]
+  ],
+  "joint_dimensions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "dimension_names": [
+    "left_waist",
+    "left_shoulder",
+    "left_elbow",
+    "left_forearm_roll",
+    "left_wrist_angle",
+    "left_wrist_rotate",
+    "left_gripper",
+    "right_waist",
+    "right_shoulder",
+    "right_elbow",
+    "right_forearm_roll",
+    "right_wrist_angle",
+    "right_wrist_rotate",
+    "right_gripper"
+  ],
+  "resource_limits": {
+    "memory_mib": 1536,
+    "network": "none",
+    "optimizer_steps": 0,
+    "model_calls": 0,
+    "cpu_threads": 2,
+    "wall_seconds": 180
+  },
+  "limits": [
+    "Post-hoc exploration of previously diagnosed development data; not an independent test.",
+    "Four inference noise conditions are not four independent trainings.",
+    "Thresholds derive from pooled training-only gripper q10/q90; report all three fractions without selection.",
+    "Censored crossings remain null; variation center is a descriptive command-shape statistic, not physical grasp time.",
+    "Bias subtraction uses train-only residuals with self-episode excluded for train queries; offline diagnostic only, no deployment or causal repair claim.",
+    "Wrong-image outputs at later frames are not counterfactual action labels.",
+    "No label shifts, deletion, inference, new training, checkpoint selection, or GPU startup."
+  ],
+  "stopping_rule": "Stop on identity, finite, shape, independent-reconciliation or resource failure; preserve failure output.",
+  "amendment": {
+    "prior_plan_sha256": "98e644d199d79677d679330581c79581fe0ff3b7a1f9ccbc93195705bc710a40",
+    "analysis_definitions_changed": false,
+    "reason": "same_frozen_timing_metrics_on_step2500",
+    "threshold_source_unchanged": true
+  }
+}

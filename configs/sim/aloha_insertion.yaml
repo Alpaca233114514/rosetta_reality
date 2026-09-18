@@ -1,0 +1,31 @@
+name: aloha_insertion
+schema_version: 1
+embodiment: aloha
+environment_id: gym_aloha/AlohaInsertion-v0
+action:
+  type: continuous
+  dimension: 14
+  semantics: absolute_joint_position_targets
+  control_mode: position
+  space: joint
+  reference_frame: joint_local
+  frequency_hz: 50
+  timestamp_alignment: observation_t_predicts_actions_t_through_t_plus_7
+  chunk_length: 8
+  chunk_execution: receding_horizon_first_action
+  simulator_expansion: each_logical_gripper_value_maps_to_two_opposed_finger_actuators
+  dimensions:
+    - {name: left_waist, unit: radian, minimum: -3.14158, maximum: 3.14158}
+    - {name: left_shoulder, unit: radian, minimum: -1.85005, maximum: 1.25664}
+    - {name: left_elbow, unit: radian, minimum: -1.76278, maximum: 1.60570}
+    - {name: left_forearm_roll, unit: radian, minimum: -3.14158, maximum: 3.14158}
+    - {name: left_wrist_angle, unit: radian, minimum: -1.86750, maximum: 2.23402}
+    - {name: left_wrist_rotate, unit: radian, minimum: -3.14158, maximum: 3.14158}
+    - {name: left_gripper, unit: normalized, minimum: 0.0, maximum: 1.0, encoding: 0_closed_1_open, source_overshoot_tolerance: 0.20}
+    - {name: right_waist, unit: radian, minimum: -3.14158, maximum: 3.14158}
+    - {name: right_shoulder, unit: radian, minimum: -1.85005, maximum: 1.25664}
+    - {name: right_elbow, unit: radian, minimum: -1.76278, maximum: 1.60570}
+    - {name: right_forearm_roll, unit: radian, minimum: -3.14158, maximum: 3.14158}
+    - {name: right_wrist_angle, unit: radian, minimum: -1.86750, maximum: 2.23402}
+    - {name: right_wrist_rotate, unit: radian, minimum: -3.14158, maximum: 3.14158}
+    - {name: right_gripper, unit: normalized, minimum: 0.0, maximum: 1.0, encoding: 0_closed_1_open, source_overshoot_tolerance: 0.20}

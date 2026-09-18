@@ -1,0 +1,200 @@
+schema_version: 1
+role: vla
+stage: m2_state_robustness_development_training
+status: preregistered
+plan_id: m2-smolvla450m-way-cuda-b64-default-formal-002
+run_name: m2-smolvla450m-way-cuda-b64-default-formal-002
+hypothesis: >-
+  Relative to the read-only Aster first-action-only control, fresh-base training
+  with train-only Gaussian jitter std=0.05 on normalized observation.state,
+  while keeping clean targets and every data, loss and optimizer contract
+  fixed, will improve state-distribution robustness and fixed-seed closed-loop
+  behavior. Batch 64 is activated only by the registered batch-128 CUDA OOM;
+  compile mode default is the separately smoke-tested no-CUDA-Graph runtime
+  repair and is not a learning variable.
+furnace_program:
+  codename: Way
+  relationship_to_aster: fresh_base_single_axis_state_robustness_successor
+  aster_and_faust_artifacts: read_only_controls
+control_reference:
+  plan: configs/vla/smolvla_450m_aloha_insertion_aster_batch8_003.yaml
+  plan_sha256: ef6b932e3eed071fac197570b25e714f287374c1877f5f053c0beedb95603bd8
+  control_run: m2-smolvla450m-aster-b8-003
+  selection_report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-aster-b8-003-selection.json
+  selection_report_sha256: ba33486209f992c5f66cf70bce02f7300f0ae7bd5a50b9c25b49bdcef102c23e
+  relationship: read_only_control
+  reason: single_variable_train_only_normalized_state_jitter
+runtime_profile:
+  path: configs/runtime/autodl_rtx4090.yaml
+  sha256: be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992
+  profile_id: autodl-rtx4090-cuda-001
+  nested_docker_used: false
+parent_experiment:
+  config: configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml
+  sha256: 0e9dd0499d0708939ac73cc5d517849f133cf6deab072d9cde09f2880ae22210
+  experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+initialization:
+  source: revision_pinned_base_model
+  aster_checkpoint_used: false
+  faust_checkpoint_used: false
+  optimizer_state_reused: false
+cuda_smoke:
+  plan_id: m2-smolvla450m-way-cuda-b64-default-smoke-002
+  run_name: m2-smolvla450m-way-cuda-b64-default-smoke-002
+  plan_sha256: b8a23372ae0f4006d773cf9b35db03722e7b871f7dee2179520ff050e3f96508
+  acceptance_sha256: 06d5313ed55d8a2e1dd0c1c6190305704688bf4e67ff0b847dab5b54fe4b9c6e
+  batch128_failure_class: cuda_out_of_memory
+  failed_checkpoint_or_optimizer_state_reused: false
+  compile_mode: default
+loss_contract:
+  profile: first_action_only
+  chunk_size: 50
+  normalization: mean_over_selected_valid_entries
+  upstream_implementation_sha256: 37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d
+state_robustness_contract:
+  profile: normalized_gaussian_state_jitter
+  normalized_standard_deviation: 0.05
+  input_space: train_normalized_observation_state
+  training_only: true
+  validation_and_deployment_inputs_clean: true
+  target_semantics: unchanged_absolute_expert_action
+  recovery_oracle: false
+  dagger: false
+  upstream_implementation_sha256: 37b1d56f37510732a087cf5c32c05cd15d6234201a3f002f108ec4c53438cc7d
+prerequisites:
+  normalization:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/normalization/train-only-3e3c6b9d347e5e71.json
+    sha256: 263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988
+  dataset_view_manifest:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/dataset_views/train-only-3e3c6b9d347e5e71/view_manifest.json
+    sha256: 9853c191ae87016379fc1a16ebfbb87e05ab5147cd8a03d82f9c2a894c9b531e
+  action_space:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/action-space-8a56bf3b42087938.json
+    sha256: d5718be9051c69663291e0eb449ba331971a1343668688e8c26ee40d5e7e90da
+  gate1:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate1-e41df36c5d90.json
+    sha256: 858f6d3ce43484de5b7b50d0e68f5267d4b3fdb2ebf26e099c3adb3602d00c81
+  gate2:
+    path: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate2-10fb9a9a364a.json
+    sha256: 26f373a63becbcfa879505ecb1a82a1fc13d724ce0638e43cdc1e3455b75b0d6
+training:
+  episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  batch_size: 64
+  steps: 316
+  sample_exposures: 20224
+  aster_control_sample_exposures: 20000
+  save_freq: 79
+  checkpoint_steps: [79, 158, 237, 316]
+  save_checkpoint: true
+  log_freq: 1
+  num_workers: 0
+  persistent_workers: false
+  eval_split: 0.0
+  validation_gradients: false
+  hidden_test_loaded: false
+  policy:
+    empty_cameras: 2
+    compile_model: true
+    compile_mode: default
+    skip_fully_masked_camera_encoding: true
+  optimizer:
+    type: adamw
+    lr: 1.0e-4
+    betas: [0.9, 0.95]
+    eps: 1.0e-8
+    weight_decay: 1.0e-10
+    grad_clip_norm: 10.0
+  scheduler:
+    type: cosine_decay_with_warmup
+    num_warmup_steps: 16
+    num_decay_steps: 316
+    peak_lr: 1.0e-4
+    decay_lr: 2.5e-6
+resources:
+  runtime: autodl_container_instance
+  accelerator: cuda
+  mixed_precision: bf16
+  memory_limit: autodl_platform_container
+  memory_swap_limit: autodl_platform_container
+  measured_peak_accelerator_allocated_bytes: 15714880512
+  maximum_peak_accelerator_allocated_bytes: 24696061952
+  expected_wall_time_minutes: 50
+  maximum_wall_time_minutes: 90
+  checkpoint_memory_trim: true
+  nested_docker_used: false
+monitoring:
+  policy: fixed_five_minute_sleep_with_registered_checkpoint_audits
+  blocking_command: sleep
+  sleep_poll_seconds: 300
+  wake_steps: [79, 158, 237, 316]
+  hard_shutdown_budget_minutes: 150
+  hidden_test_loaded: false
+tracking:
+  project: rosetta-reality-vla
+  space_id: LAlpaca/rosetta-reality-trackio
+  delivery: local_durable_then_checkpoint_sync
+  public_payload_only: true
+validation:
+  run_name_prefix: m2-smolvla450m-way-cuda-b64-default-validation-002
+  episodes: [22, 13, 7, 33, 45]
+  frame_offsets: [0, 125, 250, 375]
+  samples_per_episode: 4
+  total_samples: 20
+  batch_size: 1
+  noise: zeros
+  flow_time: 0.5
+  checkpoints: [base, 79, 158, 237, 316]
+  primary_selection_metric: first_action_mae
+  secondary_selection_metric: action_mae
+  state_jitter_active: false
+  hidden_test_loaded: false
+selection:
+  report_name: m2-smolvla450m-way-cuda-b64-default-formal-002-selection.json
+  split: validation_only
+  offline_control_comparison_role: diagnostic_only
+  closed_loop_gate_authoritative: true
+decision_policy:
+  select_checkpoint_on: validation_only
+  extension_policy: >-
+    Do not extend beyond 316 optimizer steps and do not automatically launch
+    another formal run.
+stop_conditions:
+  - nonfinite_loss_gradient_or_action
+  - cuda_out_of_memory
+  - peak_accelerator_allocation_above_24696061952_bytes
+  - elapsed_time_above_90_minutes
+  - optimizer_or_scheduler_state_divergence
+  - unsupported_accelerator_operation
+  - checkpoint_failure
+  - trackio_local_durability_failure
+  - implementation_checksum_mismatch
+  - normalization_identity_mismatch
+  - state_jitter_or_target_semantics_mismatch
+  - validation_or_hidden_test_episode_used_for_gradients
+  - hidden_test_episode_materialized_or_loaded
+implementation_files:
+  scripts/run_smolvla_state_robustness_cuda_formal.py: b613f2f980697d94a7f748f8e67bf199b4f861e31e14bfa624e2877218313e33
+  scripts/train_smolvla_state_robustness_cuda_formal.py: f81b9eb596d5515e17ecd78f33ea16d8224219da8e692be37f8c9311feaad129
+  scripts/evaluate_smolvla_way_validation.py: 7545755f94e88462923852eeb797374596b68503c80eee1e2d6bda2f8b14ebe1
+  scripts/select_smolvla_way_checkpoint.py: cfab2a8488e2207314fe88a85cd7ebdff7af2eac5a1668617003bc51cc0d5fe1
+  scripts/export_smolvla_way.py: afab037ebb848ca17fd1d40bd06ca66b8bd1161dc780b4b0a966734819178f19
+  scripts/smolvla_autodl_way_sim_gate.py: dbaec6f314a7e90f3c2612dc5f57c951c8da672fa7523982e77c6f041d7847ac
+  scripts/run_smolvla_action_repair_formal.py: 920706c20bc0d326e4c7a70d2216ae342f14253c7eb20aeff105f9929e446dec
+  scripts/run_smolvla_action_repair_phase.py: 7c0c6b7fb9266d521a1dcb4ded86eaab29454518619a5e2d8a955429bbb810c7
+  scripts/run_smolvla_phase.py: cbeaff055e4738dfafa4ce3a110ae164585bb87c0d7251af1623d3d633c0ae63
+  scripts/train_smolvla_action_repair.py: 97d0bd13af9dcd0a78e712d8eaf335fb036075c4c80c7dd9053e4c2827334b19
+  scripts/train_smolvla_trackio.py: 20d8449fc67f6ef7911532b14b3644e4dc16835b407bf0c120981137fae717ef
+  scripts/select_smolvla_checkpoint.py: 1264be82b6fc0420fcf566155d74472170ebc113b1db71d1f35a19cce514a277
+  scripts/evaluate_smolvla_validation.py: 507422bf4baa90ec34e844e858cb386d7ea90c3f5faf3725f899bfacdbaac403
+  scripts/evaluate_smolvla_aster_validation.py: 911a7aeb6cd0efec7b2a03df0db185d71ce9aaadea566ec15bb237079390f52f
+  scripts/export_smolvla.py: fe5a77416c9a0e6f9f86b4c6f976535442ef2dc72626336a87586f46cc69edeb
+  scripts/smolvla_forward_check.py: 7d7dd79167c604bae13e525fa9a6f51a9a1fec5e331a1352120d49d60f04e3d0
+  src/rosetta_reality/vla/state_robustness.py: 7c77cc757390c4d8015e071e49f9e30f7ee0d4c7a30984e7e453b8eca5a419bd
+  src/rosetta_reality/vla/horizon_loss.py: 47d809f2ecbe86d20afe6d64bad6868a53bdd9728faacc47fff4513422e13592
+  src/rosetta_reality/vla/checkpoint_accelerator_memory.py: 90a53606ad24efcb5951e6fa4c0060a5de31640656f33a51010c518b07747dba
+  src/rosetta_reality/vla/accelerator_memory.py: 32afecd25d8acac49493bb1882cb1d5285cb0c93abb9441156e59eb14d8ffdc3
+  src/rosetta_reality/vla/processor.py: 6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384
+  src/rosetta_reality/tracking/trackio_accelerator.py: bcee78bd6d3b4061caf8c441407d5b8795415a56cd8a0149783887be8ac91fcd
+  src/rosetta_reality/tracking/trackio_lerobot.py: 009cd1041e4a6b4c1ba1860bfba20b6166c24bdb593c7b7efb23fe02d3b02bbd
+hidden_test_loaded: false
+closed_loop_claim: false

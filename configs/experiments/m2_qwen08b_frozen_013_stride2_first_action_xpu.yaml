@@ -1,0 +1,130 @@
+experiment_id: m2-qwen08b-frozen-013-stride2-first-action-xpu
+experiment_role: dense_visible_execution_aligned_loss_candidate
+m2_completion_eligible: true
+hypothesis: >-
+  The v012 stride-2 candidate improved the complete offline validation metrics
+  but remained above the pre-registered recorded and simulator-domain
+  first-action error limits. The deployed receding-horizon controller executes
+  only the first predicted action before observing again. Keeping the v012
+  data, model, optimizer, epoch budget, Action Contract, and controller fixed
+  while using a pre-registered equal mixture of full-chunk and first-action
+  Smooth L1 losses may reduce the exact action that enters the simulator. The
+  weight is fixed at 1.0 and will not be swept on validation.
+backbone:
+  family: qwen35
+  identifier: Qwen/Qwen3.5-0.8B-Base
+  scale: 0.8B
+  adaptation: frozen
+  local_root_environment: ROSETTA_MODEL_ROOT
+  manifest: model_manifest.json
+  dtype: bfloat16
+  feature_layer: final_hidden_state
+  pooling: image_spatial_2x2
+  processor:
+    min_pixels: 100352
+    max_pixels: 100352
+    prompt_mode: base_multimodal
+    prompt: "Execute the robot instruction safely: {instruction}"
+dataset:
+  config: configs/data/aloha_sim_insertion_m2.yaml
+  frame_stride: 2
+  split:
+    seed: 20260809
+    train: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+    validation: [22, 13, 7, 33, 45]
+    test: [31, 6, 1, 24, 5]
+action_contract: configs/sim/aloha_insertion.yaml
+action_expert:
+  type: continuous_mlp
+  output_projection: clip_to_action_contract
+  prediction_parameterization: absolute
+  state_hidden_dim: 256
+  state_layers: 2
+  state_dropout: 0.0
+  fusion_dim: 256
+  head_hidden_dim: 256
+training:
+  seed: 20260809
+  optimizer_smoke_steps: 1
+  batch_size: 64
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  maximum_epochs: 40
+  checkpoint_every_epochs: 5
+  gradient_clip_norm: 1.0
+  early_stopping_patience: 8
+  first_action_loss_weight: 1.0
+  overfit_samples: 32
+  overfit_steps: 300
+  overfit_maximum_loss_ratio: 0.20
+benchmark:
+  required_before_training: true
+  baselines: [train_action_mean, current_state_persistence, deterministic_untrained_policy]
+evaluation:
+  primary_metric: action_mae
+  compare_against: train_action_mean
+  hidden_test_only_after_training: true
+  test_use: reserved_until_a_validation_selected_candidate_requires_final_audit
+  invalid_action_tolerance: 0.0
+simulation:
+  gate1_steps_per_dimension: 5
+  gate2_episode: 2
+  gate2_seed: 10
+  gate2_max_steps: 500
+  gate3_steps: 20
+  gate4_seeds: [1000, 1001, 1002, 1003, 1004]
+  gate4_max_steps: 500
+  minimum_task_success_rate: 0.2
+  maximum_unexpected_collisions: 0
+resources:
+  runtime: docker_linux
+  memory_limit: 5g
+  memory_swap_limit: 5g
+  cpu_limit: 2
+  feature_batch_size: 1
+  training_device: xpu
+controlled_change:
+  reference_experiment: m2-qwen08b-frozen-012-stride2-xpu
+  changed_axis: training.first_action_loss_weight
+  reference_value: 0.0
+  candidate_value: 1.0
+  loss_formula: (full_chunk_smooth_l1 + first_action_smooth_l1) / 2
+  validation_tuning_or_weight_sweep: false
+  all_other_model_data_training_and_runtime_axes_fixed: true
+  feature_source_manifest: >-
+    feature_cache/m2-qwen08b-frozen-012-stride2-xpu/3b0652483f9b1f45/manifest.json
+  feature_derivation: verified_identity_rebind_v1
+acceptance:
+  expected_train_samples: 9880
+  expected_validation_samples: 1235
+  expected_test_samples: 0
+  reference_full_chunk_validation_mae: 0.0254592653
+  full_chunk_validation_mae_at_most: 0.0271666878
+  reference_first_action_validation_mae: 0.0215674583
+  first_action_validation_mae_at_most: 0.0215674583
+  reference_raw_action_limit_violation_rate: 0.0088128978
+  raw_action_limit_violation_rate_at_most: 0.0101911975
+  reference_recorded_domain_frame0_median_action_l2: 0.0927170813
+  recorded_domain_frame0_median_action_l2_at_most: 0.0751575370
+  reference_factorial_state_swap_median_action_l2: 0.0550202765
+  factorial_state_swap_median_action_l2_at_most: 0.0506468825
+  reference_factorial_simulator_domain_median_action_l2: 0.1129527465
+  factorial_simulator_domain_median_action_l2_at_most: 0.1037210822
+  hidden_test_not_opened: true
+  gate3_and_gate4_only_after_all_selection_conditions_pass: true
+stop_conditions:
+  - nonfinite_loss_or_action
+  - action_contract_mismatch
+  - dataset_or_model_identity_mismatch
+  - derived_visible_feature_tensor_mismatch
+  - hidden_test_materialized_or_loaded
+  - visible_feature_sample_count_mismatch
+  - xpu_unavailable
+  - container_resource_limit
+  - overfit_loss_ratio_above_0.20
+  - full_chunk_validation_mae_above_0.0271666878
+  - first_action_validation_mae_above_0.0215674583
+  - raw_action_limit_violation_rate_above_0.0101911975
+  - recorded_domain_frame0_median_action_l2_above_0.0751575370
+  - factorial_state_swap_median_action_l2_above_0.0506468825
+  - factorial_simulator_domain_median_action_l2_above_0.1037210822

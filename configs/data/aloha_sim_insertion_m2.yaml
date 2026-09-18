@@ -1,0 +1,23 @@
+name: aloha_sim_insertion_human_m2_all_episodes
+source: lerobot_v3
+repo_id: lerobot/aloha_sim_insertion_human
+revision: cc571a3c661df81b566dbfde3d5c1e85fcdf7884
+episodes: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]
+cameras:
+  top: observation.images.top
+fields:
+  state: observation.state
+  action: action
+  timestamp: timestamp
+  instruction: task
+  episode_index: episode_index
+  frame_index: frame_index
+embodiment: aloha
+chunk_size: 8
+cache_root: data/lerobot_m2
+license: MIT
+expected:
+  frames: 25000
+  state_dim: 14
+  action_dim: 14
+  instruction: Insert the peg into the socket.

@@ -1,0 +1,111 @@
+schema_version: 1
+plan_id: m2-smolvla-aloha-geometry-teacher-016
+status: diagnostic_preregistered_no_label_collection
+hypothesis: >-
+  Plan 015 verified the pinned upstream Mink/DAQP architecture, native joint
+  limits and finite dual-arm QP solve, but the five-iteration budget copied
+  from the upstream 200 Hz ALOHA example left 3.42596 mm projected error on the
+  first 12 mm approach waypoint. Doubling only the numerical solve budget to
+  ten iterations should converge below Rosetta's unchanged 1 mm IK and 3 mm
+  projected gates. Mink/DAQP versions, tasks, costs, damping, velocity and
+  configuration limits, teacher, Action Contract and all seed boundaries stay
+  unchanged.
+scope:
+  dataset_config: configs/data/aloha_sim_insertion_m2.yaml
+  dataset_revision: cc571a3c661df81b566dbfde3d5c1e85fcdf7884
+  action_contract: configs/sim/aloha_insertion_smolvla.yaml
+  train_episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  validation_episodes: [22, 13, 7, 33, 45]
+  hidden_test_episodes: [31, 6, 1, 24, 5]
+  hidden_test_loaded: false
+calibration:
+  protocol: successful_train_grasp_and_terminal_rigid_transforms_v1
+  source_episode: 2
+  simulator_seed: 10
+  insertion_axis_in_socket: [1.0, 0.0, 0.0]
+  source_timeline_actions_used_at_runtime: false
+evaluation:
+  stages: calibration_then_exact_then_tuning_then_development
+  exact_control: {source_episode: 2, simulator_seed: 10}
+  tuning_simulator_seeds: [1900]
+  development_simulator_seeds: [2000, 2001, 2002, 2003, 2004]
+  reserved_collection_simulator_seeds: [3000, 3001, 3002, 3003, 3004]
+  reserved_policy_gate4_seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+teacher:
+  gripper_open_target: 1.0
+  gripper_closed_target: 0.0
+  gripper_open_threshold: 0.85
+  approach_clearance_m: 0.08
+  approach_tolerance_m: 0.012
+  approach_orientation_tolerance_rad: 0.04
+  grasp_tolerance_m: 0.008
+  lift_object_height_m: 0.17
+  lift_tolerance_m: 0.012
+  meet_center_x_m: 0.0
+  meet_center_y_m: 0.5
+  preinsert_clearance_m: 0.10
+  coarse_alignment_tolerance_m: 0.015
+  maximum_cartesian_step_m: 0.012
+  maximum_orientation_step_rad: 0.04
+  maximum_grasp_drift_m: 0.045
+  workspace_x_min_m: -0.45
+  workspace_x_max_m: 0.45
+  workspace_y_min_m: 0.20
+  workspace_y_max_m: 0.80
+  workspace_z_min_m: 0.0
+  workspace_z_max_m: 0.50
+inverse_kinematics:
+  solver_backend: mink_qp
+  mink_version: 1.2.0
+  qpsolvers_version: 4.13.0
+  daqp_version: 0.8.7
+  mink_solver: daqp
+  path_planner_enabled: false
+  mink_integration_timestep_s: 0.005
+  mink_maximum_iterations: 10
+  mink_position_cost: 1.0
+  mink_orientation_cost: 1.0
+  mink_posture_cost: 0.0001
+  mink_frame_lm_damping: 1.0
+  mink_solver_damping: 0.00001
+  mink_maximum_joint_velocity_rad_s: 3.141592653589793
+  mink_configuration_limit_gain: 0.95
+  rotation_weight: 0.2
+  maximum_accepted_error: 0.001
+  maximum_accepted_projected_error: 0.003
+  maximum_joint_target_delta: 0.15707963267948966
+acceptance:
+  exact_control_successes_required: 1
+  tuning_successes_required: 1
+  development_successes_required: 5
+  maximum_geometry_teacher_failures: 0
+  maximum_inverse_kinematics_failures: 0
+  maximum_adapter_clip_failures: 0
+  hidden_test_loaded: false
+  recovery_labels_authorized_on_pass: false
+implementation_files:
+  src/rosetta_reality/sim/geometry_teacher.py: 74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd
+  src/rosetta_reality/sim/mink_aloha_ik.py: a515b53e2515c65a975978ef96f2dd6836f352012fab0d5c8991a22d8ed23eeb
+  scripts/evaluate_aloha_geometry_teacher.py: a459a94a16d03c00b18c8bdbf7b0606aecbab5f0f11604bd01e17d6b2670f748
+  src/rosetta_reality/sim/gym_aloha.py: e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d
+  pyproject.toml: 70deb6872962e1da668cea59f04b8d46626036651c48d0300dcedd1ceb7d2f7d
+  docker/Dockerfile.smolvla-sim-xpu: 6c8c2fc7221ccb9e1dab544dffa3149f4ce0b842f63b27908e7a10622d5241ed
+output:
+  run_directory: m2-smolvla-aloha-geometry-teacher-016/geometry-teacher
+  reports_are_scoped_by_plan_sha256_and_stage: true
+stop_conditions:
+  - calibration_episode_is_not_train_only
+  - calibration_replay_does_not_reach_reward_four
+  - validation_or_hidden_test_episode_is_loaded
+  - tuning_development_collection_or_policy_gate_seeds_overlap
+  - object_pose_exits_registered_workspace
+  - observed_grasp_transform_exits_registered_drift
+  - unexpected_collision_is_observed
+  - mink_or_daqp_identity_differs
+  - mink_configuration_limit_is_not_active
+  - mink_velocity_limit_is_not_active
+  - mink_solution_exceeds_registered_joint_delta
+  - projected_inverse_kinematics_exceeds_registered_error
+  - environment_applies_additional_action_clipping
+  - attempted_recovery_label_write

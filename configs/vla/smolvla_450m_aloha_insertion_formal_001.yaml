@@ -1,0 +1,114 @@
+schema_version: 1
+role: vla
+stage: m2_development_training
+status: preregistered
+plan_id: m2-smolvla450m-formal-001
+run_name: m2-smolvla450m-formal-001
+hypothesis: >-
+  Starting again from the immutable SmolVLA base, expert-only adaptation on all
+  forty train episodes with train-only state/action normalization will improve
+  fixed-protocol validation action prediction without using validation for
+  gradients or materializing the sealed hidden-test episodes.
+parent_experiment:
+  config: configs/vla/smolvla_450m_aloha_insertion.yaml
+  sha256: 7306014717eb3fe5a5997a92406ec18cb251f1c17cc9d46ed74d75ac71d8b19f
+  experiment_id: m2-smolvla450m-aloha-insertion-001
+initialization:
+  source: revision_pinned_base
+  reason: avoid carrying the single-episode overfit bias into the development run
+  model_id: lerobot/smolvla_base
+  model_revision: c83c3163b8ca9b7e67c509fffd9121e66cb96205
+  overfit_checkpoint_used: false
+normalization:
+  source_split: train
+  report: runs/m2-smolvla450m-aloha-insertion-001/normalization/train-only-aa4e671eac73c303.json
+  report_sha256: df7ffa354c790a6d7fbdef912b628b17a8531b5a956d87eda3adcca51a4fdb51
+  dataset_view_manifest: runs/m2-smolvla450m-aloha-insertion-001/dataset_views/train-only-aa4e671eac73c303/view_manifest.json
+  dataset_view_manifest_sha256: 61b054ff47a3fe68119b880eae737fa6b560b8c1f27b9ad70d075876609118ef
+  validation_episodes_loaded: false
+  hidden_test_loaded: false
+prerequisites:
+  benchmark:
+    path: runs/m2-smolvla450m-aloha-insertion-001/benchmark/pre-training-ccc20014281be82f.json
+    sha256: 1a213b640b2ba33ba9996723bac107b1b8914014d52c7c1961a2e37f205d8431
+  gate1:
+    path: runs/m2-smolvla450m-aloha-insertion-001/gates/gate1-dc86afbf240a.json
+    sha256: b50f046c891a8b84738130190febb784a157b156bfdb6afd4a0a92b2694f6378
+  gate2:
+    path: runs/m2-smolvla450m-aloha-insertion-001/gates/gate2-ec83a68f1cc1.json
+    sha256: 07491fc4eea0cdad5099b8b538dfa73f8c2760dc6a44ecb5ca8754cf79bb09e0
+  smoke_acceptance:
+    path: runs/m2-smolvla450m-aloha-insertion-001/acceptance/m2-smolvla450m-smoke-003.json
+    sha256: af3e49ab3110b2d383f3d2eb6765d82d958d064af579de3fb62c9c25a062b695
+  overfit_acceptance:
+    path: runs/m2-smolvla450m-aloha-insertion-001/acceptance/m2-smolvla450m-overfit-001.json
+    sha256: 6ac982b178b074326109c7afccd0f2dbb4372e2f38aae694ce926b2f3df576bb
+  trackio_sync:
+    path: runs/m2-smolvla450m-aloha-insertion-001/tracking/space-sync-a70b21ceac196c12.json
+    sha256: 8be7eacb4455de40353652128c1fcc025b6e659fabeb69c2a14e3d250d6f69ad
+preflight:
+  run_name: m2-smolvla450m-formal-preflight-004
+  supersedes: m2-smolvla450m-formal-preflight-003
+  previous_status: stopped_before_model_forward_stats_loader_returns_numpy
+  episodes: [49]
+  batch_size: 1
+  optimizer_created: false
+training:
+  episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  batch_size: 1
+  steps: 1000
+  save_freq: 250
+  log_freq: 1
+  checkpoint_steps: [250, 500, 750, 1000]
+  eval_split: 0.0
+  validation_gradients: false
+  hidden_test_loaded: false
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  mixed_precision: bf16
+  memory_limit: 6g
+  memory_swap_limit: 6g
+  cpu_limit: 2
+  expected_wall_time_minutes: 45
+tracking:
+  project: rosetta-reality-vla
+  space_id: LAlpaca/rosetta-reality-trackio
+  delivery: local_durable_then_checkpoint_sync
+  public_payload_only: true
+validation:
+  run_name_prefix: m2-smolvla450m-formal-validation-001
+  episodes: [22, 13, 7, 33, 45]
+  frame_offsets: [0, 125, 250, 375]
+  samples_per_episode: 4
+  total_samples: 20
+  batch_size: 1
+  noise: zeros
+  flow_time: 0.5
+  checkpoints: [base, 250, 500, 750, 1000]
+  primary_selection_metric: action_mae
+  secondary_selection_metric: fixed_flow_loss
+  hidden_test_loaded: false
+decision_policy:
+  select_checkpoint_on: validation_only
+  accept_candidate_if:
+    - all_logged_losses_and_gradients_are_finite
+    - checkpoint_reload_and_processor_statistics_match
+    - validation_action_mae_improves_over_base
+  reject_candidate_if:
+    - hidden_test_boundary_is_crossed
+    - resource_limit_is_violated
+    - action_contract_or_normalization_identity_changes
+    - validation_action_mae_does_not_improve_over_base
+  extension_policy: >-
+    Do not extend beyond 1000 steps automatically. First evaluate every registered
+    checkpoint; a later continuation requires a new plan based on validation trends.
+stop_conditions:
+  - nonfinite_loss_gradient_or_action
+  - out_of_memory
+  - unsupported_accelerator_operation
+  - checkpoint_failure
+  - trackio_local_durability_failure
+  - normalization_identity_mismatch
+  - validation_or_hidden_test_episode_used_for_gradients
+  - hidden_test_episode_materialized_or_loaded

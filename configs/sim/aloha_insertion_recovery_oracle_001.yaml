@@ -1,0 +1,79 @@
+schema_version: 1
+plan_id: m2-smolvla-aloha-recovery-oracle-001
+status: diagnostic_preregistered_no_label_collection
+hypothesis: >-
+  A bank of successful train-only insertion replays can provide a bounded
+  state-and-task-event-conditioned recovery reference after each source path is
+  retargeted to a new object pose from its local inverse-kinematics branch.
+  The oracle must succeed on an exact-seed control and on independent
+  development seeds before any recovery label may be created.
+scope:
+  dataset_config: configs/data/aloha_sim_insertion_m2.yaml
+  dataset_revision: cc571a3c661df81b566dbfde3d5c1e85fcdf7884
+  action_contract: configs/sim/aloha_insertion_smolvla.yaml
+  train_episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  validation_episodes: [22, 13, 7, 33, 45]
+  hidden_test_episodes: [31, 6, 1, 24, 5]
+  hidden_test_loaded: false
+source_candidates:
+  - {episode: 49, simulator_seed: 9}
+  - {episode: 4, simulator_seed: 12}
+  - {episode: 21, simulator_seed: 28}
+  - {episode: 37, simulator_seed: 42}
+  - {episode: 44, simulator_seed: 49}
+  - {episode: 42, simulator_seed: 47}
+  - {episode: 32, simulator_seed: 38}
+  - {episode: 27, simulator_seed: 33}
+  - {episode: 2, simulator_seed: 10}
+  - {episode: 20, simulator_seed: 27}
+  - {episode: 39, simulator_seed: 44}
+evaluation:
+  stages: exact_control_then_tuning_then_development
+  exact_control: {episode: 2, simulator_seed: 10}
+  tuning_simulator_seeds: [1900]
+  development_simulator_seeds: [2000, 2001, 2002, 2003, 2004]
+  reserved_collection_simulator_seeds: [3000, 3001, 3002, 3003, 3004]
+  reserved_policy_gate4_seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+oracle:
+  protocol: state_and_reward_conditioned_monotonic_retrieval_v1
+  maximum_lookahead: 32
+  maximum_state_distance: 0.20
+  maximum_progress_state_distance: 0.01
+  progress_reward_threshold: 1.0
+  post_progress_skip: 4
+retargeting:
+  exact_control_disables_online_correction: true
+  reference_anchor_stride: 5
+  approach_full_offset_steps_before_gripper_close: 20
+  post_progress_offset_fade_steps: 100
+  correction_activation_offset_weight: 0.90
+  maximum_object_correction_m: 0.04
+  ik_tolerance: 0.00005
+  ik_rotation_weight: 0.2
+  ik_regularization_threshold: 0.01
+  ik_regularization_strength: 0.001
+  ik_maximum_update_norm: 0.2
+  ik_maximum_steps: 50
+  maximum_accepted_ik_error: 0.001
+acceptance:
+  exact_control_successes_required: 1
+  development_successes_required: 5
+  maximum_oracle_out_of_distribution_failures: 0
+  maximum_ik_failures: 0
+  hidden_test_loaded: false
+  recovery_labels_authorized_on_pass: false
+implementation_files:
+  src/rosetta_reality/sim/recovery_oracle.py: 0b781f11832cb2bd00d7b704ddf2a2f90b6f435a3785cb0b70af750a9413bd1d
+  scripts/evaluate_aloha_recovery_oracle.py: 7b4e22a93a3995bb7a3eb4af5c113d3d6746ab1379be5f6a53a6f70fdca50b65
+output:
+  run_directory: m2-smolvla-aloha-recovery-oracle-001/recovery-oracle
+  reports_are_scoped_by_plan_sha256_and_stage: true
+stop_conditions:
+  - source_episode_is_not_train_only
+  - source_replay_does_not_reach_reward_four
+  - validation_or_hidden_test_episode_is_loaded
+  - development_seed_overlaps_collection_or_policy_gate_seed
+  - current_state_exits_reference_neighborhood
+  - inverse_kinematics_exits_local_branch
+  - attempted_recovery_label_write

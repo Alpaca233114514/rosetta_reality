@@ -1,0 +1,86 @@
+"""Leakage and sparse-index regression tests for the bounded visual protocol."""
+
+import copy
+
+import pytest
+
+from rosetta_reality.vla.fixed_visual_samples import (
+    resolve_visual_sample_indices,
+    validate_visual_samples,
+)
+
+
+def inputs():
+    return (
+        [{"episode": 4, "frame": 0}, {"episode": 1, "frame": 2}],
+        {"scope": "bounded_visual_overfit", "optimizer_smoke": {"episodes": [4, 1]}},
+        {"dataset": {"train_episodes": [4, 1], "validation_episodes": [2], "test_episodes": [3]}},
+    )
+
+
+def test_sparse_absolute_episode_mapping_keeps_pair_identity():
+    raw, plan, experiment = inputs()
+    samples = validate_visual_samples(raw, plan, experiment, "smoke")
+    assert resolve_visual_sample_indices(
+        samples,
+        [0, 10, 20, 30, 40],
+        [10, 20, 30, 40, 50],
+        [1, 4],
+        {12: 2, 40: 10},
+    ) == [10, 2]
+
+
+@pytest.mark.parametrize("phase", ["formal", "overfit", "overfit_resume", ""])
+def test_no_formal_or_resume_use(phase):
+    with pytest.raises(ValueError, match="bounded"):
+        validate_visual_samples(*inputs(), phase)
+
+
+@pytest.mark.parametrize("episode", [2, 3, 9])
+def test_forbidden_or_unregistered_episode(episode):
+    raw, plan, experiment = inputs()
+    raw[0]["episode"] = episode
+    plan["optimizer_smoke"]["episodes"][0] = episode
+    with pytest.raises(ValueError, match="boundary"):
+        validate_visual_samples(raw, plan, experiment, "smoke")
+
+
+@pytest.mark.parametrize(
+    "bad", [None, [], [{"episode": True, "frame": 0}], [{"episode": 4, "frame": -1}]]
+)
+def test_invalid_identities(bad):
+    _, plan, experiment = inputs()
+    with pytest.raises(ValueError):
+        validate_visual_samples(bad, plan, experiment, "smoke")
+
+
+def test_duplicate_and_implicit_episode_rejected():
+    raw, plan, experiment = inputs()
+    for bad in [raw + [copy.deepcopy(raw[0])], raw[:1]]:
+        with pytest.raises(ValueError):
+            validate_visual_samples(bad, plan, experiment, "smoke")
+
+
+@pytest.mark.parametrize(
+    "active,mapping",
+    [
+        ([1], {12: 2, 40: 10}),
+        ([1, 4], {12: 2}),
+        ([1, 4], {12: 2, 40: 2}),
+        ([1, 4, 4], {12: 2, 40: 10}),
+    ],
+)
+def test_invalid_dataset_view(active, mapping):
+    with pytest.raises(ValueError):
+        resolve_visual_sample_indices(
+            [(4, 0), (1, 2)],
+            [0, 10, 20, 30, 40],
+            [10, 20, 30, 40, 50],
+            active,
+            mapping,
+        )
+
+
+def test_frame_cannot_escape_episode():
+    with pytest.raises(ValueError, match="outside its episode"):
+        resolve_visual_sample_indices([(1, 10)], [0, 10], [10, 20], [1], None)

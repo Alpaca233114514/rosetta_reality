@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "protocol_id": "m2-t2-teacher-gate-001",
+  "stage": "t2_teacher_gate_protocol_preregistration",
+  "registered_at": "2026-08-29",
+  "design_document": "reports/training/m2-smolvla-t2-state-conditioned-teacher-gate-design-2026-08-28.md",
+  "design_document_sha256": "8aaea3672abd85659cd1b46e73b0fa5acb39acbe7701752eea22af4c045b146f",
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "runner": "scripts/run_teacher_gate.py",
+  "contract": {
+    "observation_type": "rosetta_reality.sim.geometry_teacher.InsertionGeometry",
+    "forbidden_inputs": ["wall_clock_or_step_time", "trajectory_or_frame_index", "episode_id", "seed", "dataset_identity", "policy_state"],
+    "output": "one absolute standard-space action under the unchanged Action Contract, or one explicit TeacherRefusal",
+    "behavior": "deterministic given inputs; fail-closed refusal outside the registered support neighborhood",
+    "observation_fields_frozen": true
+  },
+  "g0": {
+    "checks": ["observation_contract_fields_exact", "deterministic_under_replay", "refusal_region_non_degenerate"],
+    "harness_self_test_candidate": "gate-conformance-probe-001",
+    "note": "a candidate G0 pass is necessary but insufficient; the probe pass only validates the harness"
+  },
+  "g1": {
+    "name": "exact_calibration_reproduction",
+    "episode": 2,
+    "seed": 10,
+    "budget_steps": 500,
+    "required_terminal_reward": 4.0,
+    "require_success": true,
+    "zero_refusals": true,
+    "zero_joint_limit_violations": true,
+    "zero_unexpected_collisions": true,
+    "note": "necessary and insufficient by design; the recovery oracle met this bar on seed 10 only"
+  },
+  "g2": {
+    "name": "cross_pose_generalization",
+    "seeds": [1900, 1901, 1902, 1903, 1904],
+    "minimum_poses": 5,
+    "require_all_solved": true,
+    "budget_steps": 500,
+    "note": "the criterion the recovery oracle failed 0/1; a single failure fails the gate"
+  },
+  "g3": {
+    "name": "recovery_from_deviated_states",
+    "perturbations_per_pose_min": 3,
+    "recovery_budget_steps": 150,
+    "maximum_refusal_fraction": 0.10,
+    "sources": ["registered bounded perturbations of successful trajectories", "completed first-deviation trace states"],
+    "safety": {"zero_joint_limit_violations": true, "zero_unexpected_collisions": true},
+    "status": "locked_until_g2_pass_and_inventory_registered"
+  },
+  "g4": {
+    "name": "boundary_honesty",
+    "zero_silent_defaults": true,
+    "status": "locked_until_g2_pass"
+  },
+  "g5": {
+    "name": "independent_audit",
+    "recheck_evidence_chain_identity": true
+  },
+  "seed_boundaries": {
+    "opened_by_this_protocol": ["exact episode 2 / seed 10", "tuning seeds 1900-1904"],
+    "remain_sealed": ["development 2000-2004", "collection 3000-3004", "policy gate 1000-1004", "hidden test"]
+  },
+  "boundaries": [
+    "a gate pass permits only proposing the next preregistration",
+    "no recovery label manifest, no DAgger rollout, no collection seeds, no furnace",
+    "no policy checkpoint is involved in any stage",
+    "thresholds are immutable once frozen",
+    "failed stage stops the gate; nothing later opens"
+  ]
+}

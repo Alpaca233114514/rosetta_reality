@@ -1,0 +1,97 @@
+schema_version: 1
+role: vla
+stage: m2_closed_loop_simulation
+status: preregistered
+plan_id: m2-smolvla450m-vcdropout-cuda-b64-001-sim-433
+experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+artifact_id: m2-smolvla450m-vcdropout-cuda-b64-001-step0237-deploy-001
+artifact_manifest_sha256: abb8497a7424df2ad1c3e03eb364e581d9d0f05e12dfdf3a59d8bb4ed67f80ea
+hypothesis: >-
+  Closed-loop Gate 3/4 comparison for the visual-conditioning state-dropout
+  arm, separately registered after the frozen offset-250 gradient gate passed
+  on this artifact. Training-only whole-sample normalized-state dropout is the
+  single changed axis against the immutable Zen-uniform control; environment
+  seeds, inference noise seeds, action-contract projection, receding-horizon
+  execution, simulator physics, collision semantics and acceptance thresholds
+  are fixed and identical to the historical controls.
+single_axis_change:
+  field: training.state_conditioning_dropout
+  control: none_uniform_flow_loss
+  candidate: samplewise_normalized_state_dropout_p0.5_dedicated_rng
+gradient_gate:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/diagnostics/vcdropout-gradient-gate-974130aba90568e3.json
+  report_sha256: 10179ba2a8a57cbf39925a2fddc9b9c7ce6020ad88a084d5f76c31f6bd6809aa
+  gate_passed: true
+prior_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-001/gates/gate3-smolvla-sim-001.json
+  report_sha256: 5df3b887984d1c8fd47084c3315a71e3894eac18cc80b1eb08b2120583ed26ed
+  failed_criterion: raw_actions_within_contract
+prior_task_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-003.json
+  report_sha256: 86c35a4dbcb70761a5ec6787fd95e6dcbd11e26738aaab9e34500be02aff8a46
+  failed_criterion: minimum_task_success_rate
+selection:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-vcdropout-cuda-b64-001-selection-gate.json
+  report_sha256: 84505087bebe77597a00a2d6ccd0c562c45906f7d7454f8f9e913deae9f03a47
+  checkpoint_step: 237
+  model_safetensors_sha256: 2f2cd6570ecdb683a9b34b8808a2dd3365f3bc255ce4850d282d231f288391eb
+export_manifest_ref:
+  path: artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/m2-smolvla450m-vcdropout-cuda-b64-001-step0237-deploy-001/manifest.json
+  sha256_recorded_inside_manifest: true
+artifact_backup:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/artifact_backup/m2-smolvla450m-vcdropout-cuda-b64-001-step0237-deploy-001-backup.json
+  report_sha256: c8db8a1cb0ae7797e7fca6cac49e24341ef88f63a3bbb7fec36c8ad259b328ed
+action_contract:
+  path: configs/sim/aloha_insertion_smolvla.yaml
+  sha256: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+collision_policy:
+  classifier: explicit_task_contact_allowlist
+  allowed_task_contacts:
+    - [red_peg, vx300s_right/10_right_gripper_finger]
+    - [socket-1, vx300s_left/10_left_gripper_finger]
+    - [socket-2, vx300s_left/10_left_gripper_finger]
+    - [socket-3, vx300s_left/10_left_gripper_finger]
+    - [socket-4, vx300s_left/10_left_gripper_finger]
+  same_arm_internal_gripper_contacts_are_non_gating: true
+  all_other_robot_scene_contacts_are_unexpected: true
+simulation_code_sha256:
+  scripts/smolvla_sim_gate.py: 5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae
+  scripts/smolvla_vcdropout_sim_gate.py: dcf40b0936de765e95e7529a8128cf0a068f7743cf6e4457f90a71d778ee0e58
+  src/rosetta_reality/sim/gym_aloha.py: e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d
+  src/rosetta_reality/vla/processor.py: 6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384
+inference:
+  observation_camera: top
+  policy_camera: observation.images.camera1
+  instruction: Insert the peg into the socket.
+  noise: seeded_standard_normal
+  noise_source: pinned_lerobot_default_standard_normal
+  mixed_precision: bf16
+  chunk_execution: receding_horizon_first_action
+  chunk_execution_steps: 1
+  policy_output_projection: action_contract_clip
+  projection_location: vla_output_boundary_before_simulation_adapter
+  unprojected_decoder_action_role: non_gating_diagnostic
+resources:
+  runtime: local_wsl_sim_container
+  accelerator: xpu
+  memory_limit: "6g"
+  memory_swap_limit: "6g"
+  nested_docker_used: false
+gate3:
+  seed: 20260809
+  policy_noise_seed: 20260809
+  maximum_steps: 20
+  require_finite_actions: true
+  require_projected_policy_actions_within_contract: true
+  require_adapter_no_additional_clipping: true
+  maximum_unexpected_collisions: 0
+  report_suffix: "433"
+gate4:
+  seeds: [1000, 1001, 1002, 1003, 1004]
+  policy_noise_seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+  minimum_task_success_rate: 0.2
+  maximum_unexpected_collisions: 0
+  require_gate3_passed: true
+  report_suffix: "433"
+hidden_test_loaded: false

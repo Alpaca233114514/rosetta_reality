@@ -1,0 +1,146 @@
+schema_version: 1
+role: vla
+stage: m2_xpu_training_performance
+status: preregistered
+plan_id: m2-smolvla450m-xpu-performance-001
+hypothesis: >-
+  The existing trainer is update-bound. Increasing the real batch size reduces
+  the number of frozen 350M-class VLM prefix executions per dataset pass. The
+  two placeholder camera image payloads are fully masked but the upstream path
+  still runs the frozen vision encoder for both. The pinned checkpoint disables
+  image special tokens and prefix padding, so the upstream empty_cameras=0
+  option removes only those masked payloads while preserving the dataset,
+  Action Contract, model revision, trainable parameter set, optimizer,
+  scheduler and hidden-test boundary.
+parent_experiment:
+  config: configs/vla/smolvla_450m_aloha_insertion.yaml
+  sha256: 7306014717eb3fe5a5997a92406ec18cb251f1c17cc9d46ed74d75ac71d8b19f
+  experiment_id: m2-smolvla450m-aloha-insertion-001
+formal_plan:
+  config: configs/vla/smolvla_450m_aloha_insertion_formal_001.yaml
+  sha256: 5fb1c2e03a10dd97191d51f715ce02cd075893316f5005eac18b9deb747b0327
+normalization:
+  report: runs/m2-smolvla450m-aloha-insertion-001/normalization/train-only-aa4e671eac73c303.json
+  sha256: df7ffa354c790a6d7fbdef912b628b17a8531b5a956d87eda3adcca51a4fdb51
+preflight:
+  report: runs/m2-smolvla450m-aloha-insertion-001/preflight/m2-smolvla450m-formal-preflight-004.json
+  sha256: 7c5a5c0309a8694564f9742a281d41588869eddd2766b47a91cee7d31b6647ad
+baseline:
+  trackio_database: runs/trackio/rosetta-reality-vla.db
+  run_id: a96d8669a94a4307966c0190e45dc16e
+  batch_size: 1
+  empty_cameras: 2
+  compile_model: false
+  logged_steps: 1000
+  discard_warmup_steps: 5
+  mean_step_seconds: 0.9493815969557787
+  mean_update_seconds: 0.9079840195959792
+  mean_dataloading_seconds: 0.036352298409043735
+  mean_preprocessing_seconds: 0.003775444021104233
+  mean_samples_per_second: 1.0753865719241151
+target:
+  train_rows: 20000
+  minimum_dataset_passes: 1.0
+  maximum_projected_wall_seconds: 7200
+  minimum_steady_state_samples_per_second: 2.7777777777777777
+  maximum_peak_xpu_allocated_bytes: 4294967296
+  checkpoint_allowance_seconds: 60
+parity:
+  batch_size: 1
+  noise_seed: 20260809
+  flow_time: 0.5
+  maximum_absolute_loss_tensor_difference: 0.02
+  maximum_mean_absolute_loss_tensor_difference: 0.002
+  maximum_relative_scalar_loss_difference: 0.005
+protocol:
+  episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  steps: 30
+  discard_warmup_steps: 5
+  log_freq: 1
+  save_checkpoint: false
+  save_freq: 1000000
+  num_workers: 0
+  persistent_workers: false
+  validation_gradients: false
+  hidden_test_loaded: false
+  optimizer_created_only_after_baseline_and_parity: true
+  candidate_order:
+    - eager-b2-empty2
+    - eager-b2-empty0
+    - eager-b4-empty0
+    - eager-b8-empty0
+    - compile-b8-empty0
+    - compile-b4-empty0
+candidates:
+  eager-b2-empty2:
+    run_name: m2-smolvla450m-perf-eager-b2-empty2-001
+    batch_size: 2
+    empty_cameras: 2
+    compile_model: false
+  eager-b2-empty0:
+    run_name: m2-smolvla450m-perf-eager-b2-empty0-001
+    batch_size: 2
+    empty_cameras: 0
+    compile_model: false
+    requires_empty_camera_parity: true
+  eager-b4-empty0:
+    run_name: m2-smolvla450m-perf-eager-b4-empty0-001
+    batch_size: 4
+    empty_cameras: 0
+    compile_model: false
+    requires_empty_camera_parity: true
+  eager-b8-empty0:
+    run_name: m2-smolvla450m-perf-eager-b8-empty0-001
+    batch_size: 8
+    empty_cameras: 0
+    compile_model: false
+    requires_empty_camera_parity: true
+  compile-b8-empty0:
+    run_name: m2-smolvla450m-perf-compile-b8-empty0-001
+    batch_size: 8
+    empty_cameras: 0
+    compile_model: true
+    compile_mode: reduce-overhead
+    requires_empty_camera_parity: true
+  compile-b4-empty0:
+    run_name: m2-smolvla450m-perf-compile-b4-empty0-001
+    batch_size: 4
+    empty_cameras: 0
+    compile_model: true
+    compile_mode: reduce-overhead
+    requires_empty_camera_parity: true
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  mixed_precision: bf16
+  memory_limit: 6g
+  memory_swap_limit: 6g
+  cpu_limit: 2
+decision_policy:
+  select_fastest_candidate_if:
+    - fixed_forward_parity_passed_when_empty_cameras_is_zero
+    - all_post_warmup_losses_gradients_and_timings_are_finite
+    - peak_xpu_allocated_bytes_within_registered_limit
+    - projected_one_pass_wall_seconds_at_or_below_target
+  stop_candidate_if:
+    - out_of_memory
+    - nonfinite_loss_gradient_or_timing
+    - unsupported_accelerator_or_compile_operation
+    - hidden_test_episode_materialized_or_loaded
+  stop_search_if: >-
+    the next candidate exceeds the memory guardrail, produces non-finite values,
+    or is slower after including its one-time compilation cost
+reuse_boundary:
+  allowed:
+    - immutable_model_and_dataset_snapshots
+    - train_only_normalization
+    - upstream_train_expert_only_path
+    - upstream_compile_model_configuration
+    - upstream_empty_cameras_configuration
+    - local_trackio_store
+  prohibited:
+    - old_qwen_feature_cache
+    - hidden_test_data
+    - stale_prefix_cache_after_state_projection_updates
+    - activation_checkpointing_for_speed
+    - unbounded_host_or_xpu_cache

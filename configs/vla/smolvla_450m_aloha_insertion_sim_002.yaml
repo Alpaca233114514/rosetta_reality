@@ -1,0 +1,59 @@
+schema_version: 1
+role: vla
+stage: m2_closed_loop_simulation
+status: preregistered
+plan_id: m2-smolvla450m-sim-002
+experiment_id: m2-smolvla450m-aloha-insertion-001
+artifact_id: m2-smolvla450m-formal-step1000-001
+hypothesis: >-
+  Treating Action Contract clipping as an explicit deterministic VLA output
+  safety projection will expose only legal RosettaAction values to the
+  simulator adapter while retaining the unprojected decoder values as a
+  non-gating diagnostic. This corrects the boundary placement identified by
+  the failed strict-raw Gate 3 without changing weights, data, task thresholds,
+  simulator physics, or hidden-test isolation.
+prior_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-001/gates/gate3-smolvla-sim-001.json
+  report_sha256: 5df3b887984d1c8fd47084c3315a71e3894eac18cc80b1eb08b2120583ed26ed
+  failed_criterion: raw_actions_within_contract
+selection:
+  report: runs/m2-smolvla450m-aloha-insertion-001/selection/m2-smolvla450m-formal-selection-002.json
+  report_sha256: df2528eb6e2eb8f10b63af8113fc5b379f50ea6cc3047b56b60a92f330fd7f7c
+  checkpoint_step: 1000
+  model_safetensors_sha256: 2ea6dbd7821574e3473c886e196a06503664d85c978a59e28045f6a512857825
+action_contract:
+  path: configs/sim/aloha_insertion_smolvla.yaml
+  sha256: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+inference:
+  observation_camera: top
+  policy_camera: observation.images.camera1
+  instruction: Insert the peg into the socket.
+  noise: zeros
+  mixed_precision: bf16
+  chunk_execution: receding_horizon_first_action
+  chunk_execution_steps: 1
+  policy_output_projection: action_contract_clip
+  projection_location: vla_output_boundary_before_simulation_adapter
+  unprojected_decoder_action_role: non_gating_diagnostic
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  container_image_id: sha256:f4a71c4020cd54d2a878f01628d591af9572f0784458f4c821008f8aea30393c
+  memory_limit: 6g
+  memory_swap_limit: 6g
+gate3:
+  seed: 20260809
+  maximum_steps: 20
+  require_finite_actions: true
+  require_projected_policy_actions_within_contract: true
+  require_adapter_no_additional_clipping: true
+  maximum_unexpected_collisions: 0
+  report_suffix: "002"
+gate4:
+  seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+  minimum_task_success_rate: 0.2
+  maximum_unexpected_collisions: 0
+  require_gate3_passed: true
+  report_suffix: "002"
+hidden_test_loaded: false

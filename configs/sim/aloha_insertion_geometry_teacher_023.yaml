@@ -1,0 +1,169 @@
+schema_version: 1
+plan_id: m2-smolvla-aloha-geometry-teacher-023
+status: diagnostic_preregistered_no_label_collection
+hypothesis: >-
+  Athena plan 022 was infrastructure-incomplete: the host omitted official
+  Interbotix collision resources, and its first MoveIt fallback rejected the
+  small Gym-observation/URDF start-bound representation difference before OMPL
+  produced a path. Plan 023 changes only that official-runtime boundary. Every
+  pinned mesh/URDF resource must hash-verify, the sidecar fails closed unless
+  MoveIt loads the registered positive collision-geometry counts, and MoveIt's
+  own RobotState::enforceBounds may reconcile an observed arm state by at most
+  0.00002 rad with full per-joint evidence. Mink, LMA, RRTConnect, teacher
+  geometry, Action Contract, 1 mm / 3 mm pose gates, seeds and labels remain
+  frozen.
+scope:
+  dataset_config: configs/data/aloha_sim_insertion_m2.yaml
+  dataset_revision: cc571a3c661df81b566dbfde3d5c1e85fcdf7884
+  action_contract: configs/sim/aloha_insertion_smolvla.yaml
+  train_episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  validation_episodes: [22, 13, 7, 33, 45]
+  hidden_test_episodes: [31, 6, 1, 24, 5]
+  hidden_test_loaded: false
+calibration:
+  protocol: successful_train_grasp_and_terminal_rigid_transforms_v1
+  source_episode: 2
+  simulator_seed: 10
+  insertion_axis_in_socket: [1.0, 0.0, 0.0]
+  source_timeline_actions_used_at_runtime: false
+evaluation:
+  stages: calibration_then_exact_then_tuning_then_development
+  exact_control: {source_episode: 2, simulator_seed: 10}
+  tuning_simulator_seeds: [1900]
+  development_simulator_seeds: [2000, 2001, 2002, 2003, 2004]
+  reserved_collection_simulator_seeds: [3000, 3001, 3002, 3003, 3004]
+  reserved_policy_gate4_seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+teacher:
+  gripper_open_target: 1.0
+  gripper_closed_target: 0.0
+  gripper_open_threshold: 0.85
+  approach_clearance_m: 0.08
+  approach_tolerance_m: 0.012
+  approach_orientation_tolerance_rad: 0.04
+  grasp_tolerance_m: 0.008
+  lift_object_height_m: 0.17
+  lift_tolerance_m: 0.012
+  meet_center_x_m: 0.0
+  meet_center_y_m: 0.5
+  preinsert_clearance_m: 0.10
+  coarse_alignment_tolerance_m: 0.015
+  maximum_cartesian_step_m: 0.012
+  maximum_orientation_step_rad: 0.04
+  maximum_grasp_drift_m: 0.045
+  workspace_x_min_m: -0.45
+  workspace_x_max_m: 0.45
+  workspace_y_min_m: 0.20
+  workspace_y_max_m: 0.80
+  workspace_z_min_m: 0.0
+  workspace_z_max_m: 0.50
+inverse_kinematics:
+  solver_backend: mink_qp
+  mink_version: 1.2.0
+  qpsolvers_version: 4.13.0
+  daqp_version: 0.8.7
+  mink_solver: daqp
+  path_planner_enabled: true
+  path_planner_backend: moveit2_ompl
+  path_planner_phases: [approach, orient]
+  path_planner_ros_distro: humble
+  path_planner_moveit_version: 2.5.9
+  path_planner_ompl_version: 1.7.0
+  path_planner_plugin: ompl_interface/OMPLPlanner
+  path_planner_id: RRTConnect
+  path_planner_type: geometric::RRTConnect
+  path_planner_kinematics_plugin: lma_kinematics_plugin/LMAKinematicsPlugin
+  path_planner_ompl_seed: 2210
+  path_planner_collision_geometry_link_count: 22
+  path_planner_collision_geometry_shape_count: 22
+  path_planner_allowed_planning_time_s: 0.25
+  path_planner_ik_timeout_s: 0.10
+  path_planner_response_timeout_s: 5.0
+  path_planner_maximum_joint_step_rad: 0.23561944901923448
+  path_planner_position_tolerance_m: 0.001
+  path_planner_orientation_tolerance_rad: 0.003
+  path_planner_start_bound_reconciliation_tolerance_rad: 0.00002
+  path_planner_runtime:
+    image: rosetta-reality-aloha-moveit2:humble-2.5.9
+    image_id: sha256:a48a28875f358f087fa83f6819c720d66f74e9ff9f3bdb28c8997fcd54f566b2
+    executable_sha256: 3d0d822f6e624dd155e4a36621983b9a6b562cd441f7fae3d1c4f7ecf15448fa
+    urdf_sha256: 544b5f299a5955b4c705cd42f952f4ab4fb898327f6206ea37117533190f63f4
+    srdf_sha256: 65bd2a440fb3565fae4373d0218a95afd9564fcb2e4bfdcece06ac4e82c0321d
+    description_manifest_sha256: 65d733588c7d6a7f78ac2a2eacb62b4b14e7337151e4190d046d957edbd5572b
+    mesh_manifest_sha256: 63edd159854e2eaa99bbe640c76b6b65e0e0ac517081689796d31c1db579e04d
+    urdf_source_manifest_sha256: c74d4712fe206303ef081a3f81c65c6aa2a8b1a0b29b3d52b174e9c6cbc8ccf1
+    model_parity_report: reports/training/m2-smolvla-aloha-moveit-model-parity-2026-08-15.json
+    model_parity_report_sha256: 09d5872bae5cb8ff34d724c7d02c7c9c1c852a2c3dad4c54a97575ff4f7f54a0
+  mink_integration_timestep_s: 0.005
+  mink_maximum_iterations: 15
+  mink_position_cost: 1.0
+  mink_orientation_cost: 1.0
+  mink_posture_cost: 0.0001
+  mink_frame_lm_damping: 1.0
+  mink_solver_damping: 0.00001
+  mink_maximum_joint_velocity_rad_s: 3.141592653589793
+  mink_configuration_limit_gain: 0.95
+  rotation_weight: 0.2
+  maximum_accepted_error: 0.001
+  maximum_accepted_projected_error: 0.003
+  maximum_joint_target_delta: 0.23561944901923448
+acceptance:
+  exact_control_successes_required: 1
+  tuning_successes_required: 1
+  development_successes_required: 5
+  maximum_geometry_teacher_failures: 0
+  maximum_inverse_kinematics_failures: 0
+  maximum_adapter_clip_failures: 0
+  hidden_test_loaded: false
+  recovery_labels_authorized_on_pass: false
+implementation_files:
+  src/rosetta_reality/sim/geometry_teacher.py: 74b788fd316ef0f723d871db5c5cf550999998c37826843a268a31c4edddf5fd
+  src/rosetta_reality/sim/mink_aloha_ik.py: 373373f6dda5b5f1fa86a95357cd1c20e45a66b47ebf788d95f519afa44e14b5
+  src/rosetta_reality/sim/moveit_aloha_planner.py: 8cf399be162a6cb6d08350892c544cbd3ae57dace8a621031d7e89c42db1c26e
+  src/rosetta_reality/sim/gym_aloha.py: e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d
+  scripts/evaluate_aloha_geometry_teacher.py: 5e055267f3f7f9e66fabce4417270120d85de6623fd1d64acf364b21b6ee7e6f
+  scripts/evaluate_aloha_moveit_model_parity.py: 3ecdfdfba1c87a231f18cfe4fd7196374486716957be69fb7292cbca9d59fa4b
+  scripts/compose_aloha_moveit_description.py: 7ccd6ab9a54a6106e0ec32c52ea03d7b767f7f89d3dffd4688b99a326c90a513
+  scripts/build_aloha_moveit_description.sh: 34ffc6e196fee7293304870f275e8b7b2dbeca834c7563e32d88bacdff7da0a2
+  integration/aloha_moveit2/src/aloha_moveit_planner.cpp: 1b2ac29b7fdd7ce9a576218f6255d1c02e0ec2ef3133bc5b75dc85597e134d00
+  integration/aloha_moveit2/CMakeLists.txt: df420c29d3a1d873c971462fd59e6872f2471d88b7993bfc005596086e1dbe6e
+  integration/aloha_moveit2/package.xml: 6853ffd3591fd718eff24eb7397ab980079b648d01a9a1d7932fb690450472c5
+  integration/aloha_moveit2/config/fk_parity_requests.jsonl: 18407a3f62a760d9eaca65e44c1218250ecad5caa952a70c21fe1f7453003599
+  docker/Dockerfile.aloha-moveit2: bc4d96bd8438c38c75f5c41dd0232c473155a583d8a0a90b3127e7e87f097782
+  configs/data/aloha_sim_insertion_m2.yaml: c35c6a3da68c571f9e1dc4879b56fbb29be1ce8fcda1e529c9eac5d8e09b1491
+  configs/sim/aloha_insertion_smolvla.yaml: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+  pyproject.toml: 70deb6872962e1da668cea59f04b8d46626036651c48d0300dcedd1ceb7d2f7d
+output:
+  run_directory: m2-smolvla-aloha-geometry-teacher-023/geometry-teacher
+  reports_are_scoped_by_plan_sha256_and_stage: true
+stop_conditions:
+  - calibration_episode_is_not_train_only
+  - calibration_replay_does_not_reach_reward_four
+  - validation_or_hidden_test_episode_is_loaded
+  - tuning_development_collection_or_policy_gate_seeds_overlap
+  - exact_seed_overlaps_any_later_stage
+  - object_pose_exits_registered_workspace
+  - observed_grasp_transform_exits_registered_drift
+  - unexpected_collision_is_observed
+  - mink_or_daqp_identity_differs
+  - mink_configuration_limit_is_not_active
+  - mink_velocity_limit_is_not_active
+  - mink_non_arm_dof_constraint_is_not_active
+  - mink_solution_exceeds_registered_joint_delta
+  - moveit_image_or_plugin_identity_differs
+  - moveit_binary_urdf_srdf_or_manifest_hash_differs
+  - moveit_official_resource_manifest_or_file_hash_differs
+  - moveit_collision_geometry_count_is_zero_or_differs
+  - moveit_gym_model_parity_evidence_differs
+  - moveit_start_bound_reconciliation_exceeds_0_00002_rad
+  - moveit_start_bound_reconciliation_is_not_reported
+  - moveit_lma_ik_or_ompl_rrtconnect_fails
+  - moveit_path_has_fewer_than_two_waypoints
+  - moveit_path_or_waypoint_is_in_collision
+  - moveit_waypoint_exceeds_registered_joint_delta
+  - moveit_waypoint_requires_additional_action_clipping
+  - moveit_goal_exceeds_frozen_pose_error
+  - moveit_sidecar_times_out_or_breaks_jsonl_protocol
+  - projected_inverse_kinematics_exceeds_registered_error
+  - environment_applies_additional_action_clipping
+  - attempted_recovery_label_write

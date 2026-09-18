@@ -1,0 +1,23 @@
+name: qwen35_08b_base
+source: huggingface
+repo_id: Qwen/Qwen3.5-0.8B-Base
+revision: dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68
+cache_root: models
+manifest: model_manifest.json
+expected:
+  model_type: qwen3_5
+  architectures: [Qwen3_5ForConditionalGeneration]
+  hidden_size: 1024
+  files:
+    - .gitattributes
+    - LICENSE
+    - README.md
+    - config.json
+    - merges.txt
+    - model.safetensors-00001-of-00001.safetensors
+    - model.safetensors.index.json
+    - preprocessor_config.json
+    - tokenizer.json
+    - tokenizer_config.json
+    - video_preprocessor_config.json
+    - vocab.json

@@ -1,0 +1,179 @@
+schema_version: 1
+role: vla
+stage: m2_xpu_training_performance
+status: preregistered
+plan_id: m2-smolvla450m-xpu-performance-003
+supersedes:
+  plan: configs/vla/smolvla_450m_aloha_insertion_xpu_performance_002.yaml
+  sha256: 68073d18f9cdf62548332064873c9c691e8d741d51bd7b835ee537f542beb073
+  reason: resource_and_compiler_cache_followup
+  evidence:
+    - path: runs/m2-smolvla450m-aloha-insertion-001/performance/masked-camera-parity-68073d18f9cd.json
+      sha256: 277bea8558298c7c548c4e29d1ce695da6ef30c36ee1fd66c403d566b1f2dc8e
+      status: passed
+    - path: runs/m2-smolvla450m-aloha-insertion-001/performance/m2-smolvla450m-perf-eager-b8-skip-002.json
+      sha256: b9659914e7e4c1f019337f92b761efd52eed587b0c5874180b86da380e784606
+      status: complete
+    - path: runs/m2-smolvla450m-aloha-insertion-001/performance/m2-smolvla450m-perf-compile-b8-skip-002-failure.json
+      sha256: 016de2f197d55647508793dda7d97cf420c37ade0569f650d5d4c75f755246d9
+      status: failed_before_optimizer_step
+    - path: runs/hardware/triton-rmsnorm-77770cc8bcb300cc.json
+      sha256: 5d90072fbfc2b9f4a4d9eebc12ee89b0849e19e72427ed54ee907b977941e0bc
+      status: complete
+hypothesis: >-
+  A dedicated executable persistent compiler cache removes the noexec tmpfs
+  failure and lets upstream torch.compile use the bundled Intel Triton backend.
+  The explicitly authorized 8 GB no-swap container budget permits bounded
+  batch 12 and 16 tests while a 7 GB XPU allocation guardrail preserves headroom.
+parent_experiment:
+  config: configs/vla/smolvla_450m_aloha_insertion.yaml
+  sha256: 7306014717eb3fe5a5997a92406ec18cb251f1c17cc9d46ed74d75ac71d8b19f
+  experiment_id: m2-smolvla450m-aloha-insertion-001
+formal_plan:
+  config: configs/vla/smolvla_450m_aloha_insertion_formal_001.yaml
+  sha256: 5fb1c2e03a10dd97191d51f715ce02cd075893316f5005eac18b9deb747b0327
+normalization:
+  report: runs/m2-smolvla450m-aloha-insertion-001/normalization/train-only-aa4e671eac73c303.json
+  sha256: df7ffa354c790a6d7fbdef912b628b17a8531b5a956d87eda3adcca51a4fdb51
+preflight:
+  report: runs/m2-smolvla450m-aloha-insertion-001/preflight/m2-smolvla450m-formal-preflight-004.json
+  sha256: 7c5a5c0309a8694564f9742a281d41588869eddd2766b47a91cee7d31b6647ad
+baseline:
+  trackio_database: runs/trackio/rosetta-reality-vla.db
+  run_id: a96d8669a94a4307966c0190e45dc16e
+  batch_size: 1
+  empty_cameras: 2
+  compile_model: false
+  skip_fully_masked_camera_encoding: false
+  logged_steps: 1000
+  discard_warmup_steps: 5
+  mean_step_seconds: 0.9493815969557787
+  mean_update_seconds: 0.9079840195959792
+  mean_dataloading_seconds: 0.036352298409043735
+  mean_preprocessing_seconds: 0.003775444021104233
+  mean_samples_per_second: 1.0753865719241151
+target:
+  train_rows: 20000
+  minimum_dataset_passes: 1.0
+  maximum_projected_wall_seconds: 7200
+  minimum_steady_state_samples_per_second: 2.7777777777777777
+  maximum_peak_xpu_allocated_bytes: 7516192768
+  checkpoint_allowance_seconds: 60
+parity:
+  kind: masked_camera_encoder_skip
+  batch_size: 1
+  noise_seed: 20260809
+  flow_time: 0.5
+  reference_empty_cameras: 2
+  candidate_empty_cameras: 2
+  expected_camera_slots: 3
+  expected_vision_encoder_calls_reference: 3
+  expected_vision_encoder_calls_candidate: 1
+  maximum_absolute_loss_tensor_difference: 0.001
+  maximum_mean_absolute_loss_tensor_difference: 0.00001
+  maximum_relative_scalar_loss_difference: 0.00001
+protocol:
+  episodes: [49, 4, 23, 43, 21, 37, 18, 34, 0, 47, 38, 29, 3, 26, 14, 17, 44, 30, 15, 42, 10, 35, 25, 32, 19, 36, 41, 28, 8, 27, 16, 11, 2, 20, 9, 39, 46, 48, 12, 40]
+  steps: 30
+  discard_warmup_steps: 5
+  log_freq: 1
+  save_checkpoint: false
+  save_freq: 1000000
+  num_workers: 0
+  persistent_workers: false
+  validation_gradients: false
+  hidden_test_loaded: false
+  optimizer_created_only_after_baseline_and_parity: true
+  candidate_order:
+    - compile-b8-skip-v3
+    - eager-b12-skip-v3
+    - compile-b12-skip-v3
+    - eager-b16-skip-v3
+    - compile-b16-skip-v3
+candidates:
+  compile-b8-skip-v3:
+    run_name: m2-smolvla450m-perf-compile-b8-skip-003
+    batch_size: 8
+    empty_cameras: 2
+    compile_model: true
+    compile_mode: reduce-overhead
+    skip_fully_masked_camera_encoding: true
+    requires_masked_camera_parity: true
+  eager-b12-skip-v3:
+    run_name: m2-smolvla450m-perf-eager-b12-skip-003
+    batch_size: 12
+    empty_cameras: 2
+    compile_model: false
+    skip_fully_masked_camera_encoding: true
+    requires_masked_camera_parity: true
+  compile-b12-skip-v3:
+    run_name: m2-smolvla450m-perf-compile-b12-skip-003
+    batch_size: 12
+    empty_cameras: 2
+    compile_model: true
+    compile_mode: reduce-overhead
+    skip_fully_masked_camera_encoding: true
+    requires_masked_camera_parity: true
+  eager-b16-skip-v3:
+    run_name: m2-smolvla450m-perf-eager-b16-skip-003
+    batch_size: 16
+    empty_cameras: 2
+    compile_model: false
+    skip_fully_masked_camera_encoding: true
+    requires_masked_camera_parity: true
+  compile-b16-skip-v3:
+    run_name: m2-smolvla450m-perf-compile-b16-skip-003
+    batch_size: 16
+    empty_cameras: 2
+    compile_model: true
+    compile_mode: reduce-overhead
+    skip_fully_masked_camera_encoding: true
+    requires_masked_camera_parity: true
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  mixed_precision: bf16
+  memory_limit: 8g
+  memory_swap_limit: 8g
+  cpu_limit: 2
+  authorization: user_explicit_2026-08-11
+  compiler_cache: versioned_persistent_run_root
+decision_policy:
+  select_fastest_candidate_if:
+    - masked_camera_fixed_forward_parity_passed
+    - all_post_warmup_losses_gradients_and_timings_are_finite
+    - peak_xpu_allocated_bytes_at_or_below_7gb
+    - projected_one_pass_wall_seconds_at_or_below_target
+  stop_candidate_if:
+    - xpu_allocation_exceeds_7gb
+    - container_memory_exceeds_8gb
+    - nonfinite_loss_gradient_or_timing
+    - unsupported_accelerator_compile_or_kernel_operation
+    - hidden_test_episode_materialized_or_loaded
+  conditional_sequence: >-
+    Run batch 12 only after batch 8 is safe; run batch 16 only if batch 12 stays
+    below 6 GB allocated. Compile candidates must include cold-start cost and
+    reuse only the matching plan-scoped cache.
+triton_fused_norm:
+  probe_report: runs/hardware/triton-rmsnorm-77770cc8bcb300cc.json
+  probe_report_sha256: 5d90072fbfc2b9f4a4d9eebc12ee89b0849e19e72427ed54ee907b977941e0bc
+  forward_microbenchmark_speedup: 13.165864822679072
+  status: blocked_until_end_to_end_profile_and_backward_parity
+  minimum_total_step_time_fraction_in_norm_ops: 0.05
+  minimum_end_to_end_step_speedup_fraction: 0.05
+  do_not_integrate_if_inductor_already_fuses_equivalent_norm_sequence: true
+reuse_boundary:
+  allowed:
+    - immutable_model_and_dataset_snapshots
+    - train_only_normalization
+    - upstream_train_expert_only_path
+    - upstream_compile_model_configuration
+    - upstream_empty_camera_mask_and_sequence_contract
+    - plan_scoped_triton_and_inductor_cache
+    - local_trackio_store
+  prohibited:
+    - old_qwen_feature_cache
+    - hidden_test_data
+    - stale_prefix_cache_after_state_projection_updates
+    - activation_checkpointing_for_speed
+    - swap_beyond_the_8gb_container_limit

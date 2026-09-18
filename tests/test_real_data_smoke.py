@@ -20,6 +20,7 @@ from rosetta_reality.train import train_step
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 CONFIG_PATHS = (
     REPOSITORY_ROOT / "configs" / "data" / "aloha_sim_insertion.yaml",
+    REPOSITORY_ROOT / "configs" / "data" / "aloha_sim_insertion_m2.yaml",
     REPOSITORY_ROOT / "configs" / "data" / "aloha_sim_transfer_cube_scripted.yaml",
     REPOSITORY_ROOT / "configs" / "data" / "aloha_mobile_cabinet.yaml",
     REPOSITORY_ROOT / "configs" / "data" / "libero.yaml",

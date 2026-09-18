@@ -1,0 +1,60 @@
+schema_version: 1
+role: vla
+stage: m2_closed_loop_simulation
+status: preregistered
+plan_id: canonical-fullframes-20260914-001-posttrain-001-gate-runtime-001
+experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+artifact_id: canonical-fullframes-20260914-001-step5000-zero-copy-001
+artifact_manifest_sha256: null
+posttrain_plan:
+  path: reports/training/m2-smolvla-canonical-fullframes-posttrain-gate-plan-2026-09-14.json
+  sha256: 38cdaa796bf41938ed1057cc69317e0f6ecc36bde036ab4ef2aa92629a47f887
+  prepare_report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/posttrain/canonical-fullframes-20260914-001-zero-copy-prepare.json
+  offline_report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/posttrain/canonical-fullframes-20260914-001-offline.json
+action_contract:
+  path: configs/sim/aloha_insertion_smolvla.yaml
+  sha256: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+selection:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/canonical-fullframes-20260914-001-step5000-selection.json
+  report_sha256: null
+  checkpoint_step: 5000
+  model_safetensors_sha256: d4c0d87cd8e66c723b07ec84f7f5e47875268bfd4e2057ec5683fdf56adcabef
+inference:
+  observation_camera: top
+  policy_camera: observation.images.camera1
+  instruction: Insert the peg into the socket.
+  noise: seeded_standard_normal
+  noise_source: registered_standard_normal_per_seed
+  mixed_precision: bf16
+  chunk_execution: receding_horizon_first_action
+  chunk_execution_steps: 1
+  policy_output_projection: action_contract_clip
+  projection_location: vla_output_boundary_before_simulation_adapter
+  unprojected_decoder_action_role: non_gating_diagnostic
+resources:
+  runtime: autodl_container_instance
+  accelerator: cuda
+  memory_limit: autodl_platform_container
+  memory_swap_limit: autodl_platform_container
+  nested_docker_used: false
+gate3:
+  seed: 20260809
+  policy_noise_seed: 20260809
+  maximum_steps: 20
+  require_finite_actions: true
+  require_projected_policy_actions_within_contract: true
+  require_adapter_no_additional_clipping: true
+  maximum_unexpected_collisions: 0
+  report_suffix: "001"
+gate4:
+  seeds: [1000, 1001, 1002, 1003, 1004]
+  policy_noise_seeds: [1000, 1001, 1002, 1003, 1004]
+  maximum_steps: 500
+  minimum_task_success_rate: 0.2
+  maximum_unexpected_collisions: 0
+  require_gate3_passed: true
+  require_projected_policy_actions_within_contract: true
+  require_adapter_no_additional_clipping: true
+  require_finite_actions: true
+  report_suffix: "001"
+hidden_test_loaded: false

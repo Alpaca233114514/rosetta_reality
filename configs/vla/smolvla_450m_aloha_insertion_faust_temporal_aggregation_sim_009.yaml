@@ -1,0 +1,85 @@
+schema_version: 1
+role: vla
+stage: m2_closed_loop_simulation
+status: preregistered
+plan_id: m2-smolvla450m-faust-b8-temporal-aggregation-sim-009
+experiment_id: m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003
+artifact_id: m2-smolvla450m-faust-b8-step1875-001
+artifact_manifest_sha256: 39409420eab02f7fbb7d4c27644392496e1a7e10a7e6eeb0311e5a090279f137
+hypothesis: >-
+  The otherwise unchanged Faust temporal-aggregation controller reached reward
+  3 at 320 steps on the data-aligned seed 10. Extending only the evaluation
+  horizon to the registered 500-step development limit will show whether it can
+  complete insertion without changing its policy or aggregation rule.
+supersedes:
+  plan: configs/vla/smolvla_450m_aloha_insertion_faust_temporal_aggregation_sim_008.yaml
+  result: maximum_reward_3_at_320_steps_without_success
+  changed_axis: maximum_steps_320_to_500
+  preserve_prior_evidence: true
+control_reference:
+  plan: configs/vla/smolvla_450m_aloha_insertion_faust_sim_001.yaml
+  relationship: inference_only_diagnostic
+  registered_task_success_rate: 0.0
+prior_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-001/gates/gate3-smolvla-sim-001.json
+  report_sha256: 5df3b887984d1c8fd47084c3315a71e3894eac18cc80b1eb08b2120583ed26ed
+  failed_criterion: raw_actions_within_contract
+prior_task_failure:
+  report: runs/m2-smolvla450m-aloha-insertion-001/gates/gate4-smolvla-sim-005.json
+  report_sha256: f6cc9fbb884cab642c189c6b9588da4cb621e70d3ae02b49aee4d2837309226e
+  failed_criterion: minimum_task_success_rate
+selection:
+  report: runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/m2-smolvla450m-faust-b8-002-selection.json
+  report_sha256: bcb7eccd9e90facd4758f18bb33c712bc40acd989380061563792445f0cefaf4
+  checkpoint_step: 1875
+  model_safetensors_sha256: b1ec752c8ec78689a737624454bd01578a3d92c19ddbc899420af02a602bbb73
+action_contract:
+  path: configs/sim/aloha_insertion_smolvla.yaml
+  sha256: fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62
+simulation_code_sha256:
+  scripts/smolvla_sim_gate.py: 5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae
+  scripts/smolvla_action_repair_sim_gate.py: 4d549a5791e13ef941d300eff8405d9fe5471d3d9d89480af469851629affbe6
+  scripts/smolvla_faust_temporal_aggregation_sim.py: b8caf7d01cd722e0237d2a62f4c231d99390f179b103f2ffa5e7b0e0e74e87fd
+  src/rosetta_reality/sim/gym_aloha.py: 490422bbfc973edfddc0d37af3f65f640eb7a45bf3b35f3e56fbb335a4f911da
+inference:
+  observation_camera: top
+  policy_camera: observation.images.camera1
+  instruction: Insert the peg into the socket.
+  noise: seeded_standard_normal
+  noise_source: pinned_lerobot_default_standard_normal
+  mixed_precision: bf16
+  chunk_execution: receding_horizon_first_action
+  chunk_execution_steps: 1
+  policy_output_projection: action_contract_clip
+  projection_location: vla_output_boundary_before_simulation_adapter
+  unprojected_decoder_action_role: non_gating_diagnostic
+  temporal_aggregation: exponential_newer_prediction_weighting
+  temporal_aggregation_decay: 0.05
+  aggregation_space: standard_action_space
+resources:
+  runtime: docker_linux_from_wsl
+  accelerator: xpu
+  container_image_id: sha256:f4a71c4020cd54d2a878f01628d591af9572f0784458f4c821008f8aea30393c
+  memory_limit: 6g
+  memory_swap_limit: 6g
+gate3:
+  seed: 10
+  policy_noise_seed: 10
+  maximum_steps: 20
+  require_finite_actions: true
+  require_projected_policy_actions_within_contract: true
+  require_adapter_no_additional_clipping: true
+  maximum_unexpected_collisions: 0
+  report_suffix: "009"
+gate4:
+  seeds: [10]
+  policy_noise_seeds: [10]
+  maximum_steps: 500
+  minimum_task_success_rate: 1.0
+  maximum_unexpected_collisions: 0
+  require_gate3_passed: true
+  report_suffix: "009"
+diagnostic_stop_condition:
+  require_task_success: true
+  do_not_promote_without_success: true
+hidden_test_loaded: false

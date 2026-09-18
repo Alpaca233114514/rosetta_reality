@@ -1,0 +1,25 @@
+extends:
+  config: configs/vla/smolvla_450m_aloha_insertion_odyssey_001.yaml
+  sha256: 10e033b4f6182aa3d1523b283712f530fb432f6a4c6bea658d8ab205dd9aff88
+schema_version: 1
+plan_id: m2-smolvla450m-don-quixote-001
+run_name: m2-smolvla450m-don-quixote-001
+hypothesis: >-
+  With every data, model, seed, batch, schedule-shape, and systems variable held
+  fixed, a conservative 7.5e-5 AdamW peak may reduce clipped-gradient pressure
+  and improve fixed validation action MAE over the 1e-4 control.
+furnace_program:
+  ordinal: 2
+  codename: Don Quixote
+preflight:
+  run_name: m2-smolvla450m-don-quixote-preflight-001
+training:
+  optimizer:
+    lr: 7.5e-5
+  scheduler:
+    peak_lr: 7.5e-5
+    decay_lr: 1.875e-6
+validation:
+  run_name_prefix: m2-smolvla450m-don-quixote-validation-001
+selection:
+  report_name: m2-smolvla450m-don-quixote-selection-001.json
