@@ -36,6 +36,12 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev,sim]" -r requirements/ci-smolvla.txt
 
+      - name: Install headless CPU rendering runtime
+        run: |
+          sudo apt-get update
+          apt-cache policy libosmesa6 libgl1
+          sudo apt-get install --yes --no-install-recommends libosmesa6 libgl1
+
       - name: Inspect environment
         run: python scripts/check_env.py
 
@@ -47,6 +53,8 @@ jobs:
           HF_HUB_OFFLINE: "1"
           HF_DATASETS_OFFLINE: "1"
           TRANSFORMERS_OFFLINE: "1"
+          MUJOCO_GL: osmesa
+          PYOPENGL_PLATFORM: osmesa
         run: python -m pytest -m "not data"
 
       - name: Run dummy optimizer smoke
