@@ -162,11 +162,13 @@ def test_teacher_progresses_only_from_observed_geometry_and_events() -> None:
         )
     )
     assert coarse.phase is InsertionTeacherPhase.COARSE_ALIGN
-    assert coarse.left_eef.position[0] == pytest.approx(-0.05)
-    assert coarse.right_eef.position[0] == pytest.approx(0.05)
+    # Alignment remains anchored at the observed socket. Each call advances
+    # only 2 mm; it must not teleport both hands toward the world origin.
+    assert coarse.left_eef.position[0] == pytest.approx(-0.202)
+    assert coarse.right_eef.position[0] == pytest.approx(0.198)
 
-    coarse_socket = _pose(-0.05, 0.5, settings.lift_object_height_m)
-    coarse_peg = _pose(0.05, 0.5, settings.lift_object_height_m)
+    coarse_socket = _pose(-0.25, 0.5, settings.lift_object_height_m)
+    coarse_peg = _pose(-0.15, 0.5, settings.lift_object_height_m)
     insert = teacher.decide(
         _geometry(
             left=coarse_socket,
@@ -179,8 +181,8 @@ def test_teacher_progresses_only_from_observed_geometry_and_events() -> None:
         )
     )
     assert insert.phase is InsertionTeacherPhase.INSERT
-    assert insert.left_eef.position[0] == pytest.approx(0.0)
-    assert insert.right_eef.position[0] == pytest.approx(0.0)
+    assert insert.left_eef.position[0] == pytest.approx(-0.2)
+    assert insert.right_eef.position[0] == pytest.approx(-0.2)
 
     complete = teacher.decide(
         _geometry(

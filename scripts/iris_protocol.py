@@ -10,7 +10,7 @@ from pathlib import Path
 from scripts.iris_runtime import ROOT, sha
 
 RUN = "iris-k-scene-20260913-002"
-BASELINE = "reports/training/iris-preparation-20260913/historical-main1280.yaml"
+BASELINE = "configs/vla/iris_baseline_1280.yaml"
 BASELINE_SHA = "70fb068fc732b02c4bfd3cf04e70e5465e3094e8d32750bb670009e2f2f2507b"
 STAGES = (
     "cpu",

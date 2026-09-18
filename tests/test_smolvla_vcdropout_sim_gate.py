@@ -231,3 +231,6 @@ def test_report_suffix_continues_campaign_series() -> None:
 def test_historical_vcd_plan_still_rejects_current_source_drift():
     with pytest.raises(ValueError, match="Implementation file changed"):
         protocol.resolve_plan(FORMAL_PLAN)
+
+# Real digest checks use synthetic normalization inputs in offline tests.
+pytestmark = pytest.mark.usefixtures("synthetic_normalization")

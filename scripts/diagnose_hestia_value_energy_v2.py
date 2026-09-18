@@ -116,7 +116,10 @@ def main():
         json.dump(
             {
                 "results": result,
-                "arithmetic": "BF16-rounded operands and output with float64 accumulation; checked against recorded native autocast output, not a CUDA replay",
+                "arithmetic": (
+                    "BF16-rounded operands and output with float64 accumulation; "
+                    "checked against recorded native autocast output, not a CUDA replay"
+                ),
                 "model_forwards": 0,
                 "causal_action_claim": False,
                 "hidden_loaded": False,

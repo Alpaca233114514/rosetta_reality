@@ -45,7 +45,7 @@ def main():
         cfg = load_dataset_config(ROOT / "configs/data/aloha_sim_insertion_m2.yaml")
         plan = yaml.safe_load(
             (
-                ROOT / "reports/training/iris-preparation-20260913/historical-main1280.yaml"
+                ROOT / "configs/vla/iris_baseline_1280.yaml"
             ).read_text()
         )
         exp = load_smolvla_experiment(ROOT / plan["parent_experiment"]["config"], ROOT)

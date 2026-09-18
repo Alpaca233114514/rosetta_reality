@@ -57,10 +57,7 @@ from rosetta_reality.sim.teacher_gate import (  # noqa: E402
 )
 
 EXPERIMENT_ID = "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003"
-PREREGISTRATION = (
-    "reports/training/"
-    "m2-smolvla-t2-teacher-gate-protocol-preregistration-2026-08-29.json"
-)
+PREREGISTRATION = "configs/sim/teacher_gate_protocol.json"
 STAGE_ORDER = ("g0", "g1", "g2", "g3", "g4")
 
 

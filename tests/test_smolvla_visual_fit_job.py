@@ -163,11 +163,27 @@ def test_pretraining_gate_rejects_incomplete_or_changed_evidence(tmp_path, monke
 
 
 def test_prior_smoke_cannot_cover_different_native_training_source():
-    from pathlib import Path
-
-    root = Path(__file__).resolve().parents[1]
-    report = job.load(root / job.SMOKE_REPORT)
-    sources = job.load(root / job.SMOKE_REGISTRATION)["job_sources"]
+    # Synthetic contract operands, not a historical smoke acceptance claim.
+    report = {
+        "status": "gpu_preflight_passed",
+        "optimizer_updates": 2,
+        "completed_samples": 8,
+        "recovery_state_complete": True,
+        "reload": {
+            "normalized_and_standard_arrays_exact": True,
+            "independent_processes": [1, 2],
+        },
+        "parameter_counts": {"vlm": {"changed": 0, "total": 345}},
+    }
+    sources = {name: "a" * 64 for name in (
+        "scripts/run_smolvla_v2.py", "scripts/train_smolvla_v2.py",
+        "src/rosetta_reality/vla/processor.py",
+        "src/rosetta_reality/vla/training/observed_launch.py",
+        "src/rosetta_reality/vla/training/observation.py",
+        "src/rosetta_reality/vla/training/features.py",
+        "src/rosetta_reality/vla/training/launch.py",
+        "src/rosetta_reality/vla/training/plan.py",
+    )}
     job.verify_smoke_reuse(report, sources, sources)
     changed = dict(sources)
     changed["src/rosetta_reality/vla/training/observed_launch.py"] = "0" * 64

@@ -36,7 +36,6 @@ for root in (SOURCE_ROOT, SCRIPTS_ROOT):
 import evaluate_smolvla_validation as evaluator  # noqa: E402
 import smolvla_sim_gate as simulator  # noqa: E402
 import smolvla_zen_protocol as protocol  # noqa: E402
-
 from lerobot.datasets.factory import resolve_delta_timestamps  # noqa: E402
 from lerobot.datasets.lerobot_dataset import LeRobotDataset, LeRobotDatasetMetadata  # noqa: E402
 from lerobot.policies.factory import make_policy, make_pre_post_processors  # noqa: E402
@@ -247,7 +246,7 @@ def _main(args: argparse.Namespace) -> int:
     expected_manifest_sha = ARTIFACT_MANIFEST_SHA.get(args.artifact_id)
     if expected_manifest_sha is None:
         raise ValueError("Artifact is not one of the two registered Zen deploy artifacts.")
-    manifest = _validate_artifact(artifact_dir, expected_manifest_sha)
+    _validate_artifact(artifact_dir, expected_manifest_sha)
     config = json.loads((artifact_dir / "config.json").read_text(encoding="utf-8"))
     normalization = json.loads(
         (artifact_dir / "normalization.json").read_text(encoding="utf-8")

@@ -168,15 +168,36 @@ def test_gate_thresholds_match_the_preregistration() -> None:
     assert protocol.GATE_FLOW_TIME == 0.5
 
 
-def test_control_baseline_reproduces_the_uniform_diagnostic() -> None:
+def test_control_baseline_checks_real_digest_and_synthetic_arithmetic(tmp_path, monkeypatch):
+    import hashlib
+    import json
+    import math
+
+    path = tmp_path / "synthetic-gradient-input.json"
+    path.write_text(json.dumps({"offset_250_results": {"uniform": {
+        "normal_mean_loss": 0.15,
+        "state_shuffle": {"gradient_ratios": {
+            group: math.exp(0.9) for group in protocol.GATE_TRAINABLE_GROUPS
+        }},
+        "image_shuffle": {"gradient_ratios": {
+            group: math.exp(0.1) for group in protocol.GATE_TRAINABLE_GROUPS
+        }},
+    }}}))
+    monkeypatch.setattr(protocol, "CONTROL_DIAGNOSTIC_REPORT", str(path))
+    monkeypatch.setattr(
+        protocol, "CONTROL_DIAGNOSTIC_SHA256", hashlib.sha256(path.read_bytes()).hexdigest()
+    )
     baseline = protocol.control_baseline()
-    assert baseline["normal_mean_flow_loss"] == pytest.approx(0.1467, abs=1e-9)
-    assert round(baseline["state_sensitivity"], 3) == 0.953
-    assert round(baseline["image_sensitivity"], 3) == 0.047
-    assert round(baseline["state_dominance_score"], 3) == 0.905
+    assert baseline["normal_mean_flow_loss"] == pytest.approx(0.15)
+    assert baseline["state_sensitivity"] == pytest.approx(0.9)
+    assert baseline["image_sensitivity"] == pytest.approx(0.1)
+    assert baseline["state_dominance_score"] == pytest.approx(0.8)
     assert baseline["artifact_manifest_sha256"] == (
         protocol.CONTROL_ARTIFACT_MANIFEST_SHA256
     )
+    path.write_text(path.read_text() + " ")
+    with pytest.raises(ValueError, match="checksum changed"):
+        protocol.control_baseline()
 
 
 def test_gate_sensitivity_is_fail_closed() -> None:
@@ -404,3 +425,6 @@ def test_post_training_entry_points_bind_the_shared_protocol() -> None:
     ):
         module = importlib.import_module(name)
         assert module.protocol.VCD_PLAN_ID == protocol.VCD_PLAN_ID
+
+# Real digest checks use synthetic normalization inputs in offline tests.
+pytestmark = pytest.mark.usefixtures("synthetic_normalization")

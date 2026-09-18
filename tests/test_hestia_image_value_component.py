@@ -67,7 +67,11 @@ def test_hook_exact_donor_and_repeated_prefix_guard(monkeypatch):
     x = torch.ones((1, 241, 320))
     native = x.bfloat16()
     hook = bank.hook(1)
-    monkeypatch.setattr(torch, "is_autocast_enabled", lambda *_: True)
+    original_autocast = torch.is_autocast_enabled
+    monkeypatch.setattr(
+        torch, "is_autocast_enabled",
+        lambda device="cuda": True if device == "cuda" else original_autocast(device),
+    )
     with torch.autocast("cpu", dtype=torch.bfloat16):
         first = hook(None, (x,), native)
         assert torch.equal(first[:, :64], 2 * native[:, :64])

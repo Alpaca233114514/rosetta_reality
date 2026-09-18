@@ -43,9 +43,9 @@ def main():
     if module_name == "scripts.run_canonical_fullframes_posttrain":
         module.NAME = NAME
     if module_name == "scripts.canonical_fullframes_sim_gate":
-        from scripts import smolvla_sim_gate as engine
         from rosetta_reality.eval.rollout_trace import run_traced_rollout
         from rosetta_reality.eval.rollout_trace_verify import verify_trace
+        from scripts import smolvla_sim_gate as engine
 
         original_rollout = engine._rollout
 

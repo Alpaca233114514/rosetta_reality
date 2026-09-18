@@ -51,9 +51,9 @@ from rosetta_reality.vla.runtime_compatibility import (  # noqa: E402
 REPORT_SUFFIX = "444"
 # Relative to the durable run root (which already is the runs/ directory).
 ALIGNMENT_PERMIT = (
-    "{experiment_id}/diagnostics/"
+    f"{protocol.EXPERIMENT_ID}/diagnostics/"
     "frame0-paired-alignment-validation-vfunfreeze-2026-09-06.json"
-).format(experiment_id=protocol.EXPERIMENT_ID)
+)
 _ACTIVE_SIM_PLAN: Path | None = None
 PRIOR_FAILURE = {
     "report": "runs/m2-smolvla450m-aloha-insertion-001/gates/gate3-smolvla-sim-001.json",

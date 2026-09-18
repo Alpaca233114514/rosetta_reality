@@ -1,4 +1,4 @@
-"""Guarded six-condition reciprocal K-only and V-only intervention; requires explicit authorization."""
+"""Guarded K-only/V-only intervention; requires explicit authorization."""
 
 from __future__ import annotations
 

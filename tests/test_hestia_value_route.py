@@ -51,7 +51,11 @@ def test_actual_hook_caches_full_prefix_and_rejects_state_drift(monkeypatch):
     x = torch.ones((1, 241, 320))
     y = x.bfloat16()
     hook = bank.hook(1)
-    monkeypatch.setattr(torch, "is_autocast_enabled", lambda *_: True)
+    original_autocast = torch.is_autocast_enabled
+    monkeypatch.setattr(
+        torch, "is_autocast_enabled",
+        lambda device="cuda": True if device == "cuda" else original_autocast(device),
+    )
     with torch.autocast("cpu", dtype=torch.bfloat16):
         actual = hook(None, (x,), y)
         assert torch.equal(actual[:, :240], y[:, :240])

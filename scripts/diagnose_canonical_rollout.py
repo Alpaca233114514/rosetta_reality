@@ -20,7 +20,7 @@ from rosetta_reality.eval.rollout_trace_verify import verify_trace  # noqa: E402
 
 CHECKPOINT_SHA = "d4c0d87cd8e66c723b07ec84f7f5e47875268bfd4e2057ec5683fdf56adcabef"
 AUTHORITY_PATH = (
-    "reports/training/m2-smolvla-canonical-fullframes-posttrain-gate-plan-004-2026-09-15.json"
+    "configs/vla/canonical_posttrain_gate_004.json"
 )
 AUTHORITY_SHA = "35511af8c7d0d9d93c827fe72ddec0205fa8932f7660735ddd38e8b7524be75e"
 ARTIFACT_CONFIG_SHA = "978ec7b1b9b648749b96cf0967ae4b37e0133d65e491613e6803884d50c0984a"

@@ -15,7 +15,7 @@ from scripts.iris_runtime import save  # noqa: E402
 
 PLAN = (
     ROOT
-    / "reports/training/m2-smolvla-canonical-fullframes-posttrain-gate-plan-004-2026-09-15.json"
+    / "configs/vla/canonical_posttrain_gate_004.json"
 )
 NAME = "canonical-fullframes-posttrain-20260915-004"
 

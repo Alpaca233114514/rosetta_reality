@@ -490,7 +490,6 @@ class ObjectGeometryInsertionTeacher:
             quaternion=desired_socket_quaternion,
         )
         terminal_peg = compose_pose(terminal_socket, terminal_relative)
-        coarse_delta = terminal_delta + approach_delta
         coarse_socket_position = terminal_socket.position - approach_delta * 0.5
         coarse_peg_position = terminal_socket.position + terminal_delta + approach_delta * 0.5
         coarse_socket_position[2] = self.settings.lift_object_height_m

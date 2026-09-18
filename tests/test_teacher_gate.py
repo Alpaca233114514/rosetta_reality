@@ -174,9 +174,7 @@ def test_runner_g0_writes_create_only_evidence(
 ) -> None:
     monkeypatch.setenv("ROSETTA_RUN_ROOT", str(tmp_path))
     runner = importlib.import_module("run_teacher_gate")
-    assert runner.PREREGISTRATION.endswith(
-        "2026-08-29.json"
-    ), "runner must bind the frozen preregistration"
+    assert runner.PREREGISTRATION == "configs/sim/teacher_gate_protocol.json"
     registration_dir = runner._gate_root() / "registrations"
     registration_dir.mkdir(parents=True, exist_ok=True)
     registration = {

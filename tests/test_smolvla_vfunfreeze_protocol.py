@@ -167,19 +167,23 @@ def test_shared_immutable_identities_match_the_frozen_vcdropout_protocol() -> No
     }
 
 
-def test_registered_plan_validates_against_exact_historical_sources(tmp_path, monkeypatch) -> None:
+def test_registered_plan_validates_against_exact_historical_sources(
+    tmp_path, monkeypatch, synthetic_normalization
+) -> None:
     bind_historical_sources(protocol, protocol.load_yaml(PLAN_PATH), tmp_path, monkeypatch)
     plan, plan_id = protocol.resolve_plan(PLAN_PATH)
     assert plan_id == protocol.VFU_PLAN_ID
     assert plan["run_name"] == protocol.VFU_RUN_NAME
 
 
-def test_historical_vfunfreeze_plan_still_rejects_current_source_drift() -> None:
+def test_historical_vfunfreeze_plan_still_rejects_current_source_drift(
+    synthetic_normalization,
+) -> None:
     with pytest.raises(ValueError, match="Implementation file changed"):
         protocol.resolve_plan(PLAN_PATH)
 
 
-def test_candidate_plan_accepts_the_registered_stack() -> None:
+def test_candidate_plan_accepts_the_registered_stack(synthetic_normalization) -> None:
     assert protocol.validate_vfunfreeze_plan(_candidate_plan()) == protocol.VFU_PLAN_ID
 
 
@@ -206,7 +210,7 @@ def test_candidate_plan_rejects_a_state_dropout_contract() -> None:
         protocol.validate_vfunfreeze_plan(plan)
 
 
-def test_candidate_plan_rejects_a_stale_implementation_pin() -> None:
+def test_candidate_plan_rejects_a_stale_implementation_pin(synthetic_normalization) -> None:
     plan = _candidate_plan()
     plan["implementation_files"]["src/rosetta_reality/vla/vision_front_end.py"] = "0" * 64
     with pytest.raises(ValueError, match="Implementation file changed"):

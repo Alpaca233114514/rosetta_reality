@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 DEFAULT_PLAN = (
     ROOT
-    / "reports/training/m2-smolvla-canonical-fullframes-posttrain-gate-plan-004-2026-09-15.json"
+    / "configs/vla/canonical_posttrain_gate_004.json"
 )
 DEFAULT_EXPERIMENT = "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003"
 DEFAULT_RUN_NAME = "canonical-fullframes-20260914-001"

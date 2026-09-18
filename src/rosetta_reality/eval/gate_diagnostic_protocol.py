@@ -10,7 +10,7 @@ from pathlib import Path
 from .gate_diagnostic_io import load_json, relative, sha
 
 AUTHORITY = (
-    "reports/training/m2-smolvla-canonical-fullframes-posttrain-gate-plan-004-2026-09-15.json"
+    "configs/vla/canonical_posttrain_gate_004.json"
 )
 AUTHORITY_SHA = "35511af8c7d0d9d93c827fe72ddec0205fa8932f7660735ddd38e8b7524be75e"
 WEIGHT_SHA = "d4c0d87cd8e66c723b07ec84f7f5e47875268bfd4e2057ec5683fdf56adcabef"

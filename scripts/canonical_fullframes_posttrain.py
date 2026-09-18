@@ -19,7 +19,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PLAN = (
     ROOT
-    / "reports/training/m2-smolvla-canonical-fullframes-posttrain-gate-plan-004-2026-09-15.json"
+    / "configs/vla/canonical_posttrain_gate_004.json"
 )
 DEFAULT_RECOVERY = ROOT / "runs/canonical-furnace-received-20260914-002"
 DEFAULT_CHECKPOINTS = ROOT / "runs/canonical-checkpoints-received-20260914-002"
@@ -112,7 +112,10 @@ def expected_training_schedule() -> list[list[int]]:
     return samples
 
 
-def validate_plan(path: Path = DEFAULT_PLAN) -> dict[str, Any]:
+def validate_plan(
+    path: Path = DEFAULT_PLAN, *, verify_runtime_inputs: bool = True
+) -> dict[str, Any]:
+    """Validate protocol; schema-only callers cannot authorize runtime execution."""
     plan = _load_json(path)
     _require(
         plan.get("plan_id") == "canonical-fullframes-20260914-001-posttrain-004",
@@ -143,10 +146,11 @@ def validate_plan(path: Path = DEFAULT_PLAN) -> dict[str, Any]:
     ):
         source = ROOT / relative
         _require(source_identity.get(key) == expected, f"Source identity hash drift: {key}")
-        _require(
-            source.is_file() and _sha256(source) == expected,
-            f"Source identity source changed: {relative}",
-        )
+        if verify_runtime_inputs or relative.startswith("configs/"):
+            _require(
+                source.is_file() and _sha256(source) == expected,
+                f"Source identity source changed: {relative}",
+            )
     _require(
         source_identity.get("native_train_config_sha256")
         == "30f2c2b014ef3aab2d2b7ec3081ce857b25a0172a0f9a5601b17829e3c27093b",

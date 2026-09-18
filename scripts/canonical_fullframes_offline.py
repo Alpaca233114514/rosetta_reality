@@ -37,7 +37,7 @@ from rosetta_reality.sim import load_action_contract  # noqa: E402
 
 DEFAULT_PLAN = (
     ROOT
-    / "reports/training/m2-smolvla-canonical-fullframes-posttrain-gate-plan-004-2026-09-15.json"
+    / "configs/vla/canonical_posttrain_gate_004.json"
 )
 DEFAULT_EXPERIMENT = "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003"
 DEFAULT_ARTIFACT_ID = "canonical-fullframes-20260914-001-step5000-zero-copy-001"

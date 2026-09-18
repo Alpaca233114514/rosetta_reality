@@ -15,6 +15,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from diagnose_g2_seating_feasibility import _privileged_seater_step  # noqa: E402
+
 from rosetta_reality.sim import load_action_contract  # noqa: E402
 from rosetta_reality.sim.geometric_teacher import (  # noqa: E402
     GeometricCommandSettings,

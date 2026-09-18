@@ -1,11 +1,13 @@
 """Preregistered object-geometry teacher protocol tests."""
 
+import hashlib
 import inspect
 import math
 from pathlib import Path
 
 import pytest
 import torch
+import yaml
 
 from rosetta_reality.sim import load_action_contract
 from rosetta_reality.sim.geometry_teacher import GeometryPose, ObjectGeometryInsertionTeacher
@@ -21,6 +23,34 @@ from scripts.evaluate_aloha_geometry_teacher import (
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 PLAN = REPOSITORY_ROOT / "configs/sim/aloha_insertion_geometry_teacher_058.yaml"
+
+
+@pytest.fixture(autouse=True)
+def current_source_protocol(tmp_path, monkeypatch):
+    """Exercise contracts with real current digests, not a historical-run claim."""
+    original = PLAN
+    plan = yaml.safe_load(original.read_text())
+    plan["implementation_files"] = {
+        name: hashlib.sha256((REPOSITORY_ROOT / name).read_bytes()).hexdigest()
+        for name in plan["implementation_files"]
+        if not name.startswith(("runs/", "reports/"))
+    }
+    plan["synthetic_unit_test"] = True
+    path = tmp_path / "synthetic-current-source.yaml"
+    path.write_text(yaml.safe_dump(plan))
+    monkeypatch.setitem(globals(), "PLAN", path)
+
+
+def test_report_files_are_not_required_but_source_tampering_is_rejected(tmp_path):
+    plan = yaml.safe_load(PLAN.read_text())
+    plan["implementation_files"]["reports/missing-local-result.json"] = "a" * 64
+    path = tmp_path / "report-independent.yaml"
+    path.write_text(yaml.safe_dump(plan))
+    _validate_plan_boundaries(_load_plan(path))
+    plan["implementation_files"]["src/rosetta_reality/sim/geometry_teacher.py"] = "0" * 64
+    path.write_text(yaml.safe_dump(plan))
+    with pytest.raises(ValueError, match="implementation identity differs"):
+        _load_plan(path)
 
 
 def test_geometry_teacher_plan_is_hash_bound_and_sealed() -> None:
@@ -987,9 +1017,9 @@ def test_geometry_teacher_plan_rejects_moveit_joint_margin_drift() -> None:
 
 def test_geometry_teacher_plan_rejects_execution_guard_source_hash_drift() -> None:
     plan = _load_plan(PLAN)
-    plan["execution_guard"]["source_audit_sha256"] = "0" * 64
+    plan["execution_guard"]["source_plan_sha256"] = "0" * 64
 
-    with pytest.raises(ValueError, match="source audit identity"):
+    with pytest.raises(ValueError, match="source plan hash"):
         _validate_plan_boundaries(plan)
 
 

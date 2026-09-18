@@ -1,6 +1,9 @@
 # Keep repository text files stable across Windows and WSL checkouts.
 * text=auto eol=lf
 
+# Preserve the executable protocol's original registered byte identity.
+configs/sim/teacher_gate_protocol.json -text whitespace=cr-at-eol
+
 # Preserve the exact registered bytes of this completed hash-bound audit.
 reports/training/m2-smolvla-hestia-root-evidence-plan-2026-09-13.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 reports/training/m2-smolvla-hestia-root-evidence-plan-002-2026-09-13.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

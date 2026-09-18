@@ -267,7 +267,7 @@ def test_plan_changes_active_scope_and_preserves_native_recipe():
     module = load_script("prepare_visual_coverage")
     control = yaml.safe_load((ROOT / module.CONTROL).read_text())
     original = copy.deepcopy(control)
-    review = json.loads((ROOT / module.REVIEW).read_text())
+    review = {"data": {"train40": list(control["training"]["episodes"])}}
     plans = module.build_plans(control, review)
     main = plans["main256"]
     assert control == original
@@ -291,7 +291,7 @@ def test_real_loader_rejects_pending_candidate_authorization():
 
     module = load_script("prepare_visual_coverage")
     control = yaml.safe_load((ROOT / module.CONTROL).read_text())
-    review = json.loads((ROOT / module.REVIEW).read_text())
+    review = {"data": {"train40": list(control["training"]["episodes"])}}
     candidate = module.build_plans(control, review)["main256"]
     with pytest.raises(ValueError, match="preregistered"):
         validate_plan_structure(

@@ -140,7 +140,6 @@ def _privileged_seater_step(
     right_target = geometry.right_eef
     expanded = _expanded_robot_qpos(geometry.robot_state)
     best: tuple[float, Any] | None = None
-    seeds = [expanded]
     try:
         result = solver.solve(
             expanded,

@@ -100,3 +100,6 @@ def test_validation_split_stays_disjoint() -> None:
     assert set(protocol.VALIDATION_EPISODES).isdisjoint(protocol.TRAIN_EPISODES)
     assert set(protocol.HIDDEN_TEST_EPISODES).isdisjoint(protocol.TRAIN_EPISODES)
     assert set(protocol.HIDDEN_TEST_EPISODES).isdisjoint(protocol.VALIDATION_EPISODES)
+
+# Real digest checks use synthetic normalization inputs in offline tests.
+pytestmark = pytest.mark.usefixtures("synthetic_normalization")
