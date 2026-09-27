@@ -7,6 +7,7 @@ import os
 import platform
 import threading
 import uuid
+from contextlib import nullcontext
 from importlib.metadata import version
 from pathlib import Path
 
@@ -136,6 +137,7 @@ def collect_reproducibility(
     check_unchanged=lambda: True,
     physics_factory=PhysicsReader,
     fingerprint=runtime_fingerprint,
+    diagnostic_sink=None,
 ):
     """One registered arm in a fresh process; both baselines retain identical observers."""
     if (
@@ -172,6 +174,8 @@ def collect_reproducibility(
             maximum_bytes=maximum_bytes,
             reserve_bytes=min(32 * 1024**2, maximum_bytes // 4),
         )
+        if diagnostic_sink is not None:
+            diagnostic_sink.record(name, value)
 
     class Environment:
         def __init__(self, *args, **kwargs):
@@ -214,6 +218,12 @@ def collect_reproducibility(
                     "success": info.get("is_success"),
                     "terminated": info.get("terminated"),
                     "truncated": info.get("truncated"),
+                    **(
+                        {"task_geometry": self.wrapped.diagnostic_snapshot()}
+                        if diagnostic_sink is not None
+                        and callable(getattr(self.wrapped, "diagnostic_snapshot", None))
+                        else {}
+                    ),
                 },
             )
             completed += 1
@@ -230,7 +240,12 @@ def collect_reproducibility(
             guard()
             if count != completed:
                 raise RuntimeError("Prediction/execution sequence diverged")
-            returned, captured = capture_prediction(online, observation, instruction)
+            with (
+                diagnostic_sink.capture(online.policy)
+                if diagnostic_sink is not None
+                else nullcontext()
+            ):
+                returned, captured = capture_prediction(online, observation, instruction)
             persist(f"predictions/{count:04d}", captured)
             count += 1
             guard()
@@ -303,3 +318,5 @@ def collect_reproducibility(
         if created:
             result.update(predictions_saved=count, steps_saved=completed)
             seal(output, result)
+            if diagnostic_sink is not None:
+                diagnostic_sink.finish(result)

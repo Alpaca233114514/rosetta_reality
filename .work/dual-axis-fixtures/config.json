@@ -1,0 +1,177 @@
+{
+  "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+  "action_space": {
+    "adapt_to_pi_aloha": false,
+    "dataset_space": "standard_aloha_joint_position",
+    "explicit": true,
+    "model_internal_space": "normalized_pi_aloha_arms_bounded_sine_grippers",
+    "normalization": "train_only_mean_std_after_representation_adapter",
+    "reject_source_beyond_contract_tolerance": true,
+    "representation_adapter": "rosetta_pi_aloha_arms_bounded_sine_grippers",
+    "representation_adapter_stage": "after_target_projection_before_normalization",
+    "schema_version": 1,
+    "target_projection": "action_contract_clip",
+    "target_projection_stage": "before_normalization"
+  },
+  "adaptation": {
+    "freeze_vision_encoder": true,
+    "train_expert_only": true,
+    "train_state_proj": true
+  },
+  "artifact_id": "canonical-fullframes-20260914-001-step5000-zero-copy-004",
+  "artifact_type": "smolvla_policy",
+  "base_model": "lerobot/smolvla_base",
+  "base_model_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+  "bounded_gripper_decoder": true,
+  "dataset_features": {
+    "action": {
+      "dtype": "float32",
+      "fps": 50.0,
+      "names": {
+        "motors": [
+          "left_waist",
+          "left_shoulder",
+          "left_elbow",
+          "left_forearm_roll",
+          "left_wrist_angle",
+          "left_wrist_rotate",
+          "left_gripper",
+          "right_waist",
+          "right_shoulder",
+          "right_elbow",
+          "right_forearm_roll",
+          "right_wrist_angle",
+          "right_wrist_rotate",
+          "right_gripper"
+        ]
+      },
+      "shape": [
+        14
+      ]
+    },
+    "episode_index": {
+      "dtype": "int64",
+      "fps": 50.0,
+      "names": null,
+      "shape": [
+        1
+      ]
+    },
+    "frame_index": {
+      "dtype": "int64",
+      "fps": 50.0,
+      "names": null,
+      "shape": [
+        1
+      ]
+    },
+    "index": {
+      "dtype": "int64",
+      "fps": 50.0,
+      "names": null,
+      "shape": [
+        1
+      ]
+    },
+    "next.done": {
+      "dtype": "bool",
+      "fps": 50.0,
+      "names": null,
+      "shape": [
+        1
+      ]
+    },
+    "observation.images.top": {
+      "dtype": "video",
+      "names": [
+        "height",
+        "width",
+        "channel"
+      ],
+      "shape": [
+        480,
+        640,
+        3
+      ],
+      "video_info": {
+        "has_audio": false,
+        "video.codec": "av1",
+        "video.fps": 50.0,
+        "video.is_depth_map": false,
+        "video.pix_fmt": "yuv420p"
+      }
+    },
+    "observation.state": {
+      "dtype": "float32",
+      "fps": 50.0,
+      "names": {
+        "motors": [
+          "left_waist",
+          "left_shoulder",
+          "left_elbow",
+          "left_forearm_roll",
+          "left_wrist_angle",
+          "left_wrist_rotate",
+          "left_gripper",
+          "right_waist",
+          "right_shoulder",
+          "right_elbow",
+          "right_forearm_roll",
+          "right_wrist_angle",
+          "right_wrist_rotate",
+          "right_gripper"
+        ]
+      },
+      "shape": [
+        14
+      ]
+    },
+    "task_index": {
+      "dtype": "int64",
+      "fps": 50.0,
+      "names": null,
+      "shape": [
+        1
+      ]
+    },
+    "timestamp": {
+      "dtype": "float32",
+      "fps": 50.0,
+      "names": null,
+      "shape": [
+        1
+      ]
+    }
+  },
+  "dataset_fps": 50,
+  "dataset_id": "lerobot/aloha_sim_insertion_human",
+  "dataset_revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+  "dataset_view_manifest_sha256": "9853c191ae87016379fc1a16ebfbb87e05ab5147cd8a03d82f9c2a894c9b531e",
+  "experiment_id": "m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003",
+  "formal_plan_sha256": "35511af8c7d0d9d93c827fe72ddec0205fa8932f7660735ddd38e8b7524be75e",
+  "hidden_test_loaded": false,
+  "instruction": "Insert the peg into the socket.",
+  "mixed_precision": "bf16",
+  "normalization_report_sha256": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988",
+  "optimizer_created": false,
+  "optimizer_updates": 0,
+  "physical_robot_validated": false,
+  "policy": {
+    "adapt_to_pi_aloha": false,
+    "chunk_size": 50,
+    "empty_cameras": 2,
+    "load_vlm_weights": false,
+    "n_action_steps": 1
+  },
+  "rename_map": {
+    "observation.images.top": "observation.images.camera1"
+  },
+  "research_only": true,
+  "schema_version": 1,
+  "selected_checkpoint_model_sha256": "d4c0d87cd8e66c723b07ec84f7f5e47875268bfd4e2057ec5683fdf56adcabef",
+  "selected_checkpoint_step": 5000,
+  "selection_report_sha256": "f0e0c1ad9a6d4f76a2b461f9a3c355fc9693c04412aaae8967ea5f4d33644c44",
+  "upstream_repository": "huggingface/lerobot",
+  "upstream_revision": "c903b114a90e703b3f7d0c46cb38727c328c55ff",
+  "zero_copy_pretrained_model": true
+}

@@ -1,0 +1,39 @@
+{
+  "id": "prepost-parameters-20260923-001",
+  "scope": "saved_weight_algebra_only",
+  "optimizer_steps": 0,
+  "image": "sha256:fb3c1bbda42881fac9b7725d3acb436119934f0c60af29747339d5951c3039da",
+  "resources": {
+    "cpu_threads": 2,
+    "memory_mib": 4096,
+    "wall_seconds": 600
+  },
+  "models": {
+    "base": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/model.safetensors",
+    "2500": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/model.safetensors",
+    "5000": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/model.safetensors"
+  },
+  "pairs": [
+    [
+      "base",
+      "2500"
+    ],
+    [
+      "base",
+      "5000"
+    ],
+    [
+      "2500",
+      "5000"
+    ]
+  ],
+  "files": {
+    "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/model.safetensors": "7cd549ac2351fb069c0ddb3c34ad2d09cfc92b56a15dccdfc2e41467aaca01eb",
+    "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/model.safetensors": "a3494600183d0a24c71ab7db0976afbc57567ac714ac678fd572c607e06a2f0c",
+    "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/model.safetensors": "d4c0d87cd8e66c723b07ec84f7f5e47875268bfd4e2057ec5683fdf56adcabef",
+    "scripts/compare_smolvla_parameters.py": "abf2cec9bef2917eb026dba460c6af6671ee85f44968192fea7d365db28223d1",
+    "scripts/run_parameter_comparison_local.sh": "04df6a366d1f8dccc8c75800a9fc096443e41dc5c18b40aa4d18e8a95b78abba",
+    "scripts/root_analysis_resources.py": "424a8de1c6951dc9214cc1661f54b076de95956df0d72d7241606046bda1c1c8",
+    "tests/test_parameter_comparison.py": "f3174eefb5183b716736a22e81d40eb1d725ef95a1f0710b15e0dffd164ceac9"
+  }
+}

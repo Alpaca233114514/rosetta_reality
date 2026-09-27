@@ -42,6 +42,7 @@ from rosetta_reality.experiment import file_sha256, workspace_code_identity  # n
 from rosetta_reality.features import create_json  # noqa: E402
 from rosetta_reality.vla.action_space import load_smolvla_experiment  # noqa: E402
 from rosetta_reality.vla.training.context import PHASE_FORMAL, PHASE_SMOKE  # noqa: E402
+from rosetta_reality.vla.training.basin_config import write_training_config_bundle  # noqa: E402
 from rosetta_reality.vla.training.features import FEATURE_FACTORIES  # noqa: E402
 from rosetta_reality.vla.training.launch import (  # noqa: E402
     MODE_PREFLIGHT,
@@ -520,6 +521,21 @@ def main() -> int:
         output_dir=output_dir,
         device=device,
     )
+    if args.mode in (MODE_SMOKE, MODE_TRAIN):
+        config_bundle = (
+            run_root / str(experiment["experiment_id"]) / "launch"
+            / f"{run_name}-training-config"
+        )
+        write_training_config_bundle(
+            config_bundle,
+            plan=plan,
+            plan_path=plan_path,
+            launch_path=launch_manifest,
+            runtime_path=runtime_experiment_path,
+            phase=args.mode,
+            arguments=training_arguments,
+        )
+        print(f"Training config evidence: {config_bundle.name}")
     sys.argv = ["lerobot-train", *training_arguments]
     print(f"Launch manifest: {launch_manifest.name}")
     if args.mode == MODE_PREFLIGHT:

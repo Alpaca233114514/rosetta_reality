@@ -1,0 +1,39 @@
+{
+  "disk": {
+    "available": 11956047872,
+    "total": 91268055040,
+    "used": 79312007168
+  },
+  "experiment_task_started": false,
+  "gpu_doctor_run": false,
+  "linux_kernel_release": "5.15.0-94-generic",
+  "memory": {
+    "anon": 321306624,
+    "current": "2013782016",
+    "events": {
+      "high": 0,
+      "low": 0,
+      "max": 1215574,
+      "oom": 0,
+      "oom_kill": 0
+    },
+    "file_cache": 1608904704,
+    "limit": "2147483648"
+  },
+  "mode": "no_gpu_dataset_staging",
+  "model_work_started": false,
+  "nested_docker_used": false,
+  "new_bytes": 66158775113,
+  "new_files": 212,
+  "observed_utc": "2026-09-27T03:41:21.273226+00:00",
+  "old_verified_bytes": 171563018,
+  "old_verified_files": 12,
+  "platform_shutdown_verified": false,
+  "python": "3.10.12",
+  "raw_row_and_video_decoding_verified": false,
+  "result_complete": true,
+  "runtime_boundary": "autodl_platform_container",
+  "runtime_profile_reference": "configs/runtime/autodl_rtx4090.yaml",
+  "worker_exit_code": 0,
+  "worker_running": false
+}

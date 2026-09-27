@@ -69,6 +69,14 @@ def _tree(directory):
     return arrays(directory), _type_tree(load_json(Path(directory) / "tree.json"))
 
 
+def _trace_robot_state_matches(recorded, observation):
+    """Trace stores the observed robot state as a float64 JSON list."""
+    state = observation.get("robot_state")
+    if not isinstance(state, np.ndarray) or not np.issubdtype(state.dtype, np.number):
+        return False
+    return difference(state.astype(np.float64), np.asarray(recorded, dtype=np.float64)) is None
+
+
 def verify_collection(directory):
     directory = Path(directory)
     manifest = _files(directory)
@@ -109,6 +117,7 @@ def verify_collection(directory):
             raise ValueError("Missing or extra rollout steps")
     reset, _ = _tree(directory / "reset")
     previous = reset
+    task_success = False
     traced_rows = None
     if identity["pairing"]["role"] == "full_trace":
         from .rollout_trace_verify import verify_trace
@@ -147,6 +156,10 @@ def verify_collection(directory):
         if traced_rows is not None and (
             traced_rows[i]["step"] != i
             or traced_rows[i]["executed_action"] != before["executed"].tolist()
+            or not _trace_robot_state_matches(
+                traced_rows[i]["state_before"], prediction["observation"]
+            )
+            or not _trace_robot_state_matches(traced_rows[i]["state_after"], after["observation"])
             or traced_rows[i]["reward"] != after["reward"]
             or traced_rows[i]["done"] != after["done"]
         ):
@@ -157,14 +170,24 @@ def verify_collection(directory):
             raise ValueError("Inconsistent termination evidence")
         if after["done"] and i != count - 1:
             raise ValueError("Actions executed after terminal state")
+        task_success |= after["success"]
         previous = after
-    if result["task_success"] is not previous["success"] or (
+    if result["task_success"] is not task_success or (
         count < identity["maximum_steps"] and not previous["done"]
     ):
         raise ValueError("Partial trajectory declared complete")
     load_json(directory / "runtime.json")
     load_json(directory / "runtime-final.json")
-    return {"status": "verified_complete", "stage": "collect-repro"}
+    return {
+        "status": "verified_complete",
+        "stage": "collect-repro",
+        "crosscheck_scope": {
+            "trace_state": "observation.robot_state_before_and_after"
+            if traced_rows is not None
+            else None,
+            "trace_physics_snapshot_vs_integration": "not_comparable_different_representations",
+        },
+    }
 
 
 def _compare(left, right):
@@ -265,6 +288,11 @@ def compare_campaign(baseline, repeat, traced, output):
         "uninstrumented_parity_verified": False,
         "physics_restore_verified": False,
         "source_manifests": [sha(p / "manifest.json") for p in directories],
+        "crosscheck_scope": {
+            "trace_state": "observation.robot_state_before_and_after",
+            "trace_physics_snapshot_vs_integration": "not_comparable_different_representations",
+        },
+        "trace_attribution": {"status": "insufficient_evidence", "unique_cause_proven": False},
     }
     kind = load_json(directories[0] / "identity.json")["identity"]["kind"]
     result["provenance_kind"] = kind
@@ -273,6 +301,19 @@ def compare_campaign(baseline, repeat, traced, output):
     else:
         result["repeat"] = _compare(directories[0], directories[1])
         result["trace_effect"] = _compare(directories[0], directories[2])
+        result["trace_attribution"] = {
+            "status": (
+                "observed_trace_difference_repeat_matched"
+                if result["repeat"]["status"] == "matched"
+                and result["trace_effect"]["status"] == "diverged"
+                else "blocked_repeat_not_matched"
+                if result["repeat"]["status"] != "matched"
+                else "no_observed_difference"
+                if result["trace_effect"]["status"] == "matched"
+                else "insufficient_evidence"
+            ),
+            "unique_cause_proven": False,
+        }
         statuses = {result[k]["status"] for k in ("repeat", "trace_effect")}
         result["status"] = next(
             (

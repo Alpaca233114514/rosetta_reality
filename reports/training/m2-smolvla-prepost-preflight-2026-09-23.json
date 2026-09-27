@@ -1,0 +1,278 @@
+{
+  "id": "prepost-preflight-20260923-001",
+  "checked_at_utc": "2026-09-23T10:09:26.0522239Z",
+  "scope": "static_file_identity_only",
+  "comparison_complete": false,
+  "expected_hash_sources": [
+    "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/model_manifest.json",
+    "runs/canonical-furnace-received-20260914-002/runs/canonical-fullframes-20260914-001/checkpoint.json"
+  ],
+  "checks": [
+    {
+      "path": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/README.md",
+      "expected_sha256": "adb98360b162fe40b6f7995d21c1a4250bd51ddd094973234e290482a35ea4ce",
+      "actual_sha256": "adb98360b162fe40b6f7995d21c1a4250bd51ddd094973234e290482a35ea4ce",
+      "matched": true
+    },
+    {
+      "path": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/config.json",
+      "expected_sha256": "650584b56c104720f7a3c91d1ec6bec9e8de8ac11e60c92ba2fa82d93eda147d",
+      "actual_sha256": "650584b56c104720f7a3c91d1ec6bec9e8de8ac11e60c92ba2fa82d93eda147d",
+      "matched": true
+    },
+    {
+      "path": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/model.safetensors",
+      "expected_sha256": "7cd549ac2351fb069c0ddb3c34ad2d09cfc92b56a15dccdfc2e41467aaca01eb",
+      "actual_sha256": "7cd549ac2351fb069c0ddb3c34ad2d09cfc92b56a15dccdfc2e41467aaca01eb",
+      "matched": true
+    },
+    {
+      "path": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/policy_postprocessor.json",
+      "expected_sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "actual_sha256": "2b78bb742065288df2ec63b0ee35f97a1f6950171cf2272f7e34b1fe3873b17b",
+      "matched": true
+    },
+    {
+      "path": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "expected_sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "actual_sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "matched": true
+    },
+    {
+      "path": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/policy_preprocessor.json",
+      "expected_sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "actual_sha256": "7683d648280a72f0d51e869fb8dd1596beed90b7f84849330cf1bc26634a4bd6",
+      "matched": true
+    },
+    {
+      "path": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/policy_preprocessor_step_5_normalizer_processor.safetensors",
+      "expected_sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "actual_sha256": "490ab239d96e263687c0b2e386a0afbc235a2eceb9857c36ed32f2f162a3e7c8",
+      "matched": true
+    },
+    {
+      "path": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/tokenizer/chat_template.jinja",
+      "expected_sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+      "actual_sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+      "matched": true
+    },
+    {
+      "path": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/tokenizer/tokenizer.json",
+      "expected_sha256": "2500f374cdc89040032a7d8437b6ed0fe745667b1194c17914d062ee31701605",
+      "actual_sha256": "2500f374cdc89040032a7d8437b6ed0fe745667b1194c17914d062ee31701605",
+      "matched": true
+    },
+    {
+      "path": "models/lerobot--smolvla_base/c83c3163b8ca9b7e67c509fffd9121e66cb96205/tokenizer/tokenizer_config.json",
+      "expected_sha256": "49749e33ec31d7db351940933d6646bd6c7f83f4b5b43055a9215e1784b7eda0",
+      "actual_sha256": "49749e33ec31d7db351940933d6646bd6c7f83f4b5b43055a9215e1784b7eda0",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/config.json",
+      "expected_sha256": "7ca831bf78a04d3f7b91b4f678b44d2df1467965fdeee80cd089ffe12aad4221",
+      "actual_sha256": "7ca831bf78a04d3f7b91b4f678b44d2df1467965fdeee80cd089ffe12aad4221",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/model.safetensors",
+      "expected_sha256": "a3494600183d0a24c71ab7db0976afbc57567ac714ac678fd572c607e06a2f0c",
+      "actual_sha256": "a3494600183d0a24c71ab7db0976afbc57567ac714ac678fd572c607e06a2f0c",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/policy_postprocessor.json",
+      "expected_sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+      "actual_sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "expected_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "actual_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/policy_preprocessor.json",
+      "expected_sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+      "actual_sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors",
+      "expected_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "actual_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/tokenizer/chat_template.jinja",
+      "expected_sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+      "actual_sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/tokenizer/tokenizer.json",
+      "expected_sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+      "actual_sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/tokenizer/tokenizer_config.json",
+      "expected_sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+      "actual_sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/pretrained_model/train_config.json",
+      "expected_sha256": "22877738c454172b2ebcacb34807740fa226bad2b3ff2206f4ef21006bddba48",
+      "actual_sha256": "22877738c454172b2ebcacb34807740fa226bad2b3ff2206f4ef21006bddba48",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/rosetta_checkpoint_metrics.json",
+      "expected_sha256": "8e56b923dd5b0f1363dbb724642a2e3f14778a9e5fe576fe17c02571590a2ab0",
+      "actual_sha256": "8e56b923dd5b0f1363dbb724642a2e3f14778a9e5fe576fe17c02571590a2ab0",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/training_state/optimizer_param_groups.json",
+      "expected_sha256": "bd09bdedc49fe3946c03f714b2b8cdc8be6d3cfe1667f18ef1c9e28b07aa0016",
+      "actual_sha256": "bd09bdedc49fe3946c03f714b2b8cdc8be6d3cfe1667f18ef1c9e28b07aa0016",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/training_state/optimizer_state.safetensors",
+      "expected_sha256": "29395fe3edbbea96dfe220c8414254efbf4c422bfadd6ff28e708784685e1224",
+      "actual_sha256": "29395fe3edbbea96dfe220c8414254efbf4c422bfadd6ff28e708784685e1224",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/training_state/rng_state.safetensors",
+      "expected_sha256": "9ba694d3c2aba4189e3741f8f5023433e7c650e480b6d98ad466703311744932",
+      "actual_sha256": "9ba694d3c2aba4189e3741f8f5023433e7c650e480b6d98ad466703311744932",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/training_state/scheduler_state.json",
+      "expected_sha256": "999d0c173f8010d35e484a9eff5065bc82604eb503cd39b5cc3372f3127f938b",
+      "actual_sha256": "999d0c173f8010d35e484a9eff5065bc82604eb503cd39b5cc3372f3127f938b",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-002500/verified/training_state/training_step.json",
+      "expected_sha256": "e7be454545697904f53de160829ce61b7ce27fc8912dc81d2e52d1d15bbb9751",
+      "actual_sha256": "e7be454545697904f53de160829ce61b7ce27fc8912dc81d2e52d1d15bbb9751",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/config.json",
+      "expected_sha256": "7ca831bf78a04d3f7b91b4f678b44d2df1467965fdeee80cd089ffe12aad4221",
+      "actual_sha256": "7ca831bf78a04d3f7b91b4f678b44d2df1467965fdeee80cd089ffe12aad4221",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/model.safetensors",
+      "expected_sha256": "d4c0d87cd8e66c723b07ec84f7f5e47875268bfd4e2057ec5683fdf56adcabef",
+      "actual_sha256": "d4c0d87cd8e66c723b07ec84f7f5e47875268bfd4e2057ec5683fdf56adcabef",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/policy_postprocessor.json",
+      "expected_sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+      "actual_sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "expected_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "actual_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/policy_preprocessor.json",
+      "expected_sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+      "actual_sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors",
+      "expected_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "actual_sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/rosetta_image_preprocessing.json",
+      "expected_sha256": "e9fd72cff3ee51114744a108293abb2339400c8ca8257b2700e6726234489bc6",
+      "actual_sha256": "e9fd72cff3ee51114744a108293abb2339400c8ca8257b2700e6726234489bc6",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/tokenizer/chat_template.jinja",
+      "expected_sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+      "actual_sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/tokenizer/tokenizer.json",
+      "expected_sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+      "actual_sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/tokenizer/tokenizer_config.json",
+      "expected_sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+      "actual_sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/pretrained_model/train_config.json",
+      "expected_sha256": "22877738c454172b2ebcacb34807740fa226bad2b3ff2206f4ef21006bddba48",
+      "actual_sha256": "22877738c454172b2ebcacb34807740fa226bad2b3ff2206f4ef21006bddba48",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/rosetta_checkpoint_metrics.json",
+      "expected_sha256": "5b343f77cce95143daadd8b58739e39e457a89ed1b5840ee0ca77a9125f31fa9",
+      "actual_sha256": "5b343f77cce95143daadd8b58739e39e457a89ed1b5840ee0ca77a9125f31fa9",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/training_state/optimizer_param_groups.json",
+      "expected_sha256": "8cf0ce8e4ff2fbc4c8c64da4707fb9a8028d47ff001d8eca5cb4ef8f16f9b7fd",
+      "actual_sha256": "8cf0ce8e4ff2fbc4c8c64da4707fb9a8028d47ff001d8eca5cb4ef8f16f9b7fd",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/training_state/optimizer_state.safetensors",
+      "expected_sha256": "d95469161fe0899a1acbefdbee64c8a7d037f974c99a88affd24d3ee95609d49",
+      "actual_sha256": "d95469161fe0899a1acbefdbee64c8a7d037f974c99a88affd24d3ee95609d49",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/training_state/rng_state.safetensors",
+      "expected_sha256": "6a27e179b5f52959f5a0b4c318ee4acaa574f24684a898c531a939e20e073568",
+      "actual_sha256": "6a27e179b5f52959f5a0b4c318ee4acaa574f24684a898c531a939e20e073568",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/training_state/scheduler_state.json",
+      "expected_sha256": "f5fb12d75d54e290f53659f5c2d2d1b530dc343cfeac3b8bf2c6b14ae1d3677d",
+      "actual_sha256": "f5fb12d75d54e290f53659f5c2d2d1b530dc343cfeac3b8bf2c6b14ae1d3677d",
+      "matched": true
+    },
+    {
+      "path": "runs/canonical-checkpoints-received-20260914-002/step-005000/verified/training_state/training_step.json",
+      "expected_sha256": "c5c2c9a5bfca44424786c5eb55614dfdd167d4e68fc057edd3f31d33543ffecd",
+      "actual_sha256": "c5c2c9a5bfca44424786c5eb55614dfdd167d4e68fc057edd3f31d33543ffecd",
+      "matched": true
+    }
+  ],
+  "files_checked": 43,
+  "all_hashes_matched": true,
+  "model_loaded": false,
+  "tensor_values_compared": false,
+  "optimizer_steps": 0,
+  "ssh_used": false,
+  "container_probe": "Docker Desktop is manually paused",
+  "step0": "No standalone step-0 artifact found in inspected canonical recovery inventory; reconstruct and verify before use"
+}

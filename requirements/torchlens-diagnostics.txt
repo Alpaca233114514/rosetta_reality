@@ -1,0 +1,4 @@
+# Optional isolated diagnostic overlay. Install with --no-deps --require-hashes.
+# Apache-2.0; official PyPI wheel; never resolve or upgrade the ML environment.
+torchlens==2.23.0 --hash=sha256:f760437ebdb57a386f3f3b0e8d2a27cde369ef875408200f9c913338bfb6b7f4
+graphviz==0.21 --hash=sha256:54f33de9f4f911d7e84e4191749cac8cc5653f815b06738c54db9a15ab8b1e42

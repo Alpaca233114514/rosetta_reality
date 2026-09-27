@@ -1,0 +1,10 @@
+{
+  "base_dependencies": [],
+  "license": "MIT",
+  "installation_hooks": [],
+  "name": "graphviz",
+  "url": "https://files.pythonhosted.org/packages/91/4c/e0ce1ef95d4000ebc1c11801f9b944fa5910ecc15b5e351865763d8657f8/graphviz-0.21-py3-none-any.whl",
+  "system_graphviz_installed": false,
+  "version": "0.21",
+  "wheel_sha256": "54f33de9f4f911d7e84e4191749cac8cc5653f815b06738c54db9a15ab8b1e42"
+}

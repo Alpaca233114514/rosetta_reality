@@ -1,0 +1,50 @@
+{
+  "implementation": [
+    {
+      "path": "scripts/basin_torchlens_worker.py",
+      "sha256": "64625d60ba2de02cb97e251204f51cf5abfad7bbcd93106fd11548c5db2285ed"
+    },
+    {
+      "path": "scripts/collect_torchlens_synthetic.py",
+      "sha256": "294939d04d7e1e85e5350ccc5f8709945e317effc3d0f43152c20a9aa54cd5af"
+    },
+    {
+      "path": "src/rosetta_reality/diagnostics/torchlens_capture.py",
+      "sha256": "a99e431a7bb49c045d5c3c91b4128e733fce5395c5e66a95a27886e855029cde"
+    },
+    {
+      "path": "tests/test_basin_torchlens_bridge.py",
+      "sha256": "1238bd4e8863d92849e0933aeb94dbd60e76d39d222a3656eb0043aae6a9c690"
+    }
+  ],
+  "stage": "basin-torchlens-stage2-verification",
+  "live_integration_accepted": false,
+  "tests": {
+    "passed": 4,
+    "seconds": 22.38
+  },
+  "real_model_executed": false,
+  "strict_transparency_accepted": false,
+  "evidence": [
+    {
+      "path": ".cache\\basin-torchlens-stage2-verified-002\\container.log",
+      "sha256": "d6e1fbc2785926be17bb4aeb63164ce86a4665192391c0ce57e191da6537ea8c"
+    },
+    {
+      "path": ".cache\\basin-torchlens-stage2-verified-002\\container-exit.json",
+      "sha256": "50a6bc9163b5f10da69c1768c8332c45ab964ee7520ab22e63fb121da398635c"
+    },
+    {
+      "path": ".cache\\basin-torchlens-stage2-verified-002\\source-identity.json",
+      "sha256": "9507f76dde0e41df1fb14a945798f54490c37ed46ef05a64d0acee9505841356"
+    }
+  ],
+  "schema_version": 1,
+  "basin_backend": {
+    "repository": "basin",
+    "sha256": "53cdd29ce7fa34ab723ee752123603173c903d0bf55b9178878d02393e5945cc",
+    "path": "basin/torchlens_backend.py"
+  },
+  "lint": "passed",
+  "status": "synthetic_bridge_verified"
+}

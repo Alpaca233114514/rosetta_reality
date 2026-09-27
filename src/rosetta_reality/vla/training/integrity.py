@@ -36,4 +36,12 @@ def validate_local_implementation(plan, repository_root):
         verified[name] = actual
     if not CORE_IMPLEMENTATION <= set(verified):
         raise ValueError("Implementation inventory must bind the complete v2 launch core")
+    if any(item.get("name") == "dual_axis_diagnostics" for item in plan.get("features", [])):
+        diagnostic_owners = {
+            "src/rosetta_reality/vla/training/dual_axis.py",
+            "src/rosetta_reality/diagnostics/dual_axis.py",
+            "src/rosetta_reality/diagnostics/dual_axis_torch.py",
+        }
+        if not diagnostic_owners <= set(verified):
+            raise ValueError("Dual-axis implementation closure is incomplete")
     return verified

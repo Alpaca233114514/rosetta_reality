@@ -1,5 +1,77 @@
 # M2 SmolVLA architecture and navigation
 
+Training configuration capture (2026-09-25): new v2 `train` and `smoke`
+launches seal a create-only `training_config.v1` bundle in the durable launch
+directory before calling the trainer. It records declared effective
+hyperparameters, the selected training episodes, dataset identifier/revision,
+dataset-view and normalization SHA, and code/plan/model/action identities.
+Basin imports this file-only evidence later; it does not certify optimizer
+updates, completion or policy quality. Existing hash-bound historical runs are
+not rewritten.
+
+Dual-axis diagnostic instrumentation (2026-09-24):
+`docs/dual-axis-diagnostics.md` describes the opt-in native-update observer,
+actual initialized pre/post snapshots, sealed fixed-input probes, bounded
+pre-trigger windows and the optional paired-rollout sink. Basin's versioned
+adapter streams event shards and exposes timeline/deviation/branch queries.
+Historical branch indexing is derived evidence, not reconstructed missing data.
+Synthetic parity and registration preparation do not authorize real model work;
+actual SmolVLA/CUDA transparency and the 15% routine overhead target remain
+unmeasured. Existing Gate outcomes and M2 status are unchanged.
+
+Pre/post native Gate evidence analysis (2026-09-24):
+`reports/training/m2-smolvla-prepost-analysis-and-next-plan-2026-09-24.md`
+reconciles the desktop evidence copy with its 93-file manifest and repository
+sources. Pinned base weights under the saved canonical ALOHA interface failed
+Gate 3 (9 joint-limit / 1 unexpected-contact counts), so base Gate 4 is not
+measured. Canonical step-5000 passed Gate 3 and failed Gate 4 at 0/5, with
+19 joint-limit / 49 unexpected-contact counts. Independent saved-JSON arithmetic
+and binding checks agree; physical step traces were not recovered in this run.
+The four Basin histories are derived imports, not new model captures. The next
+proposed work is same-runtime paired reproducibility and zero-update norm-gradient
+diagnosis before selecting a new training axis. This is analysis and planning,
+not execution authorization; M2 remains incomplete. Historical pending statements
+below must be interpreted against their later dated completion records.
+
+Saved-weight pre/post comparison (2026-09-23):
+`scripts/compare_smolvla_parameters.py` and its independent verifier compare all
+500 serialized tensors in base/2500/5000 under a bounded offline CPU container.
+All three pairs have 122 numerically changed tensors; 345 VLM tensors retain exact
+values, including 199 BF16-to-FP32 storage conversions. The 33 expert norm tensors
+remain BF16 ones. See `reports/training/m2-smolvla-prepost-parameters-result-2026-09-23.md`.
+No policy construction, gradient capture, step-zero reconstruction or new Gate ran.
+
+Optional synthetic instrumentation (2026-09-23):
+`docs/torchlens-basin-diagnostics.md` describes an isolated TorchLens collector
+and Basin native-envelope boundary. This entry is synthetic CPU only and does
+not change the pinned trainer, processors, live collectors or Gate results.
+Actual verification and limitations belong to its dated implementation report;
+real SmolVLA/CUDA integration requires a separate registered trial.
+
+Root diagnosis and experiment preparation (2026-09-22):
+`docs/m2-smolvla-root-diagnosis.md` documents the new saved-array neighborhood
+analysis, independent replay and draft full-trajectory probes. Frame125 left-gripper
+native MAE beats the two simple neighbor readouts; frame250 hold amplitude still
+loses train constants under all four noises. These are exploratory development
+results, not a unique root cause. The paired verifier now accumulates any-step
+success, cross-checks robot states and blocks trace attribution when A/A differs.
+Its config identity check verifies the exact historical transport/native final-LF
+serialization relation using both fixed hashes; historical bytes remain unchanged.
+Seed1002 three-arm drafts pass local file-identity preflight but remain unauthorized.
+Full-trajectory smoke/A/B and effective runtime observer are prepared and synthetically
+tested; real native-model integration and rollout remain unmeasured. See the dated
+`reports/training/m2-smolvla-root-diagnosis-result-2026-09-22.{md,json}` report.
+Canonical Gate4 remains0/5 and M2 is incomplete.
+
+Local follow-up (2026-09-22): trajectory draft 003 passes structural and source
+preflight while remaining unauthorized. Saved-array scorer schema 2 checks
+cross-noise target identity, finite padded entries and directional events, and
+does not treat censored tails as sustained hold. Native trainer/Accelerate/feature
+composition passed CPU synthetic integration; actual SmolVLA execution is still
+unmeasured. The 1536 MiB resource-enforced neighborhood replay is byte-identical
+to the original numerical outputs. See
+`reports/training/m2-smolvla-root-diagnosis-followup-2026-09-22.{md,json}`.
+
 Closed-loop reproducibility diagnostics (2026-09-18):
 `diagnose_smolvla_gate.py collect-repro/compare-repro` adds a separately registered
 three-arm comparison: two identical boundary observers, then the same observer
@@ -2534,3 +2606,24 @@ paths.
 看门狗保护内、权重加载前运行完整native normalization检查。002现场检查已通过，
 1280首个控制与原CUDA逐值相同；完整曲线随后已于9月12日取回并封闭，见第2节，Gate状态不变。
 证据见`reports/training/m2-smolvla-hestia-cuda-checkpoint-curve-repair-dispatch-2026-09-11.md`。
+
+### 三项实验的本地资格准备（2026-09-27）
+
+`reports/training/experiment-handoff-2026-09-27.md`与
+`reports/training/three-experiment-design-2026-09-27.md`保留原设计和历史授权快照。
+本轮远端准入核验未启动训练或Gate4，见
+`reports/training/experiment-execution-admission-2026-09-27.md`。
+
+用户随后要求本地推进，新增Q阶段入口为
+`scripts/audit_targeted_aloha.py`、
+`src/rosetta_reality/diagnostics/cohort_qualification.py`与
+`configs/diagnostics/aloha_qualification_20260927_001.json`；使用说明见
+`docs/aloha-cohort-qualification.md`。它们只验证源身份、允许读取的row groups及
+候选资格报告/配对，不生成专家标签、不适配oracle v1、不改变训练/Gate合同。
+缺标签、未核验视频或protected分组重叠均不准入，合格配对也不直接授权训练。
+
+新独立guard入口`scripts/autodl_bounded_guard.py`修复已退出worker的proc/stat
+异常，检查PID/start_ticks与process group，使用monotonic截止，保持原平台wrapper、
+Trash和无关worker保护；旧失败包保留。本轮仅26项标准库合成检查通过，没有真实
+Parquet/视频资格结果或新远端关机验证。详见
+`reports/training/experiment-local-preparation-2026-09-27.md`。M2和Gate状态不变。

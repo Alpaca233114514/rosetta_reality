@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "status": "local_followup_completed",
+  "base_commit": "2687d7a",
+  "real_model_forwards": 0,
+  "real_training_updates": 0,
+  "real_rollouts": 0,
+  "synthetic_native_updates_executed": true,
+  "autodl_used": false,
+  "ssh_used": false,
+  "commit_push": false,
+  "basin_mcp_status": "not_available_in_current_session_tools_or_resources",
+  "gate4": "unchanged_0_of_5",
+  "m2_complete": false,
+  "unique_learning_root_cause": "not_identifiable",
+  "pytest": {
+    "log": "runs/root-diagnosis-followup-20260922-001/test-003.log",
+    "passed": 96
+  },
+  "ruff": {
+    "status": "passed",
+    "log": "runs/root-diagnosis-followup-20260922-001/ruff-001.log"
+  },
+  "resource_evidence": {
+    "memory_max_bytes": 1610612736,
+    "cpu_quota": 2.0,
+    "command_timeout_seconds": 180,
+    "verified_before_array_load": true
+  },
+  "independent": {
+    "status": "passed",
+    "metric_and_neighbor_checks": 138510,
+    "event_checks": 17280,
+    "historical_13_33_mse_share": [
+      0.9223355404764287,
+      0.8913176479638931,
+      0.9306844051693606,
+      0.8851087104349045
+    ],
+    "production_helpers_imported": false,
+    "input_manifest_sha256": "ac40721b19d7b6a7f920d305f4d213842e3ad2f09f8ecabc9a834b0bb4e6df0a"
+  },
+  "trajectory_package": "runs/trajectory-probe-prepared-20260922-003/manifest.json",
+  "historical_outputs_preserved": true,
+  "numeric_output_comparison": [
+    {
+      "byte_identical": true,
+      "file": "metrics.csv",
+      "sha256": "8551785c7eb761a9a06bc9f19df96d746abc58f5d07c8ab743d0411305ef4978"
+    },
+    {
+      "byte_identical": true,
+      "file": "events.jsonl",
+      "sha256": "9b83733a0ef2003aa5419d5fbd66ded56b1d0df4d5f72b92ca9745d3c89c34a9"
+    },
+    {
+      "byte_identical": true,
+      "file": "neighbors.jsonl",
+      "sha256": "d348f68703d345c3fb50fa6b51633a200b125e7e6ded553238c1db3fe9c94db5"
+    }
+  ]
+}

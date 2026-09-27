@@ -35,6 +35,7 @@ from typing import Any
 from rosetta_reality.experiment import file_sha256
 from rosetta_reality.vla.accelerator_memory import empty_accelerator_cache
 from rosetta_reality.vla.training.context import TrainingContext
+from rosetta_reality.vla.training.dual_axis import DualAxisDiagnosticsFeature
 from rosetta_reality.vla.training.masked_camera import (
     install_masked_camera_encoder_skip,
     restore_masked_camera_encoder_skip,
@@ -187,7 +188,8 @@ class CanonicalImageScalingFeature(TrainingFeature):
         if getattr(module, _marker(self.name), False):
             raise RuntimeError("canonical_image_scaling is already installed")
         camera_keys = tuple(
-            source for source, target in context.experiment["dataset"]["rename_map"].items()
+            source
+            for source, target in context.experiment["dataset"]["rename_map"].items()
             if target.startswith("observation.images.")
         )
         if not camera_keys:
@@ -1139,6 +1141,7 @@ FEATURE_FACTORIES: dict[str, Callable[[Mapping[str, Any]], TrainingFeature]] = {
     GradientClipDiagnosticsFeature.name: GradientClipDiagnosticsFeature,
     CheckpointMetricSnapshotFeature.name: CheckpointMetricSnapshotFeature,
     TrackioLoggingFeature.name: TrackioLoggingFeature,
+    DualAxisDiagnosticsFeature.name: DualAxisDiagnosticsFeature,
 }
 
 DECLARED_FEATURE_ORDER = tuple(FEATURE_FACTORIES)

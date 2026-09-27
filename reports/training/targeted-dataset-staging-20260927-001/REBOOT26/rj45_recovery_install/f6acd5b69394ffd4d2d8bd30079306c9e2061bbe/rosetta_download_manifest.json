@@ -1,0 +1,855 @@
+{
+  "complete_selected_files": true,
+  "dataset": "REBOOT26/rj45_recovery_install",
+  "files": [
+    {
+      "bytes": 2504,
+      "git_blob_sha1": "bed0738c7eeb449bca98b5d2f33c89a1ee56349a",
+      "md5_base64": "Mqur+oOnIakEtASD0UAihw==",
+      "path": ".gitattributes",
+      "sha256": "9e75dd981de037ec3769f24f790e126bc5a160b6871f510214e68dc70649aeeb",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 6901,
+      "git_blob_sha1": "1d4b038e35d4b9e137f33a1f66614c3d3d10272a",
+      "md5_base64": "6SxN9xFGfiEhunvql9DJZw==",
+      "path": "README.md",
+      "sha256": "31af229dd14e008a7c2810e8d6b658e10f0982c6cfa893fc4b1d8a8c655a488c",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 593604349,
+      "git_blob_sha1": "f18015b466ef634c1e25db56d1014f9eb8468953",
+      "md5_base64": "WIalxKWiBKseGCMRsKothw==",
+      "path": "data/chunk-000/file-000.parquet",
+      "sha256": "93456cf8d115c45625f6efe7d2b68d24b1757ef74d373e76e964f1cfbc30ff61",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 572321497,
+      "git_blob_sha1": "1a4e84628b9b7cd98a18a8064c68af3216ae3f8e",
+      "md5_base64": "OHCp2Mrwdx9syLtuPzvzsw==",
+      "path": "data/chunk-000/file-003.parquet",
+      "sha256": "cc0de50c0b2f2f7ef29c5b500554a86a7083eb96673949cb309fcbee50854168",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 599367621,
+      "git_blob_sha1": "65c0955a9860a1d8d3619f97dac2798683e2018f",
+      "md5_base64": "YMe6nFr/BEhWIgC+EwlGOA==",
+      "path": "data/chunk-000/file-005.parquet",
+      "sha256": "4fc3aa26e0e62b508801ccab27bef3cd70bde5f4fc15e757f1622f728836f445",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 603789367,
+      "git_blob_sha1": "48aea1d520e204a373478b9eb75313f21879b591",
+      "md5_base64": "SIVACJ93bXdBuBelqAlMFg==",
+      "path": "data/chunk-000/file-008.parquet",
+      "sha256": "742b49824f8e25db668d81ecf587c61487af9dbacdf892c2d1d0766784b6600b",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 575940067,
+      "git_blob_sha1": "d64d528f98bf82339d9a7d02af710f3ae084df53",
+      "md5_base64": "JR1mGstC5y+2Cow7AyQ6Cg==",
+      "path": "data/chunk-000/file-010.parquet",
+      "sha256": "6f424bf3046bd213092853e2adaa895a0ae3d6889e848a1ce669ffc928772327",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 591268819,
+      "git_blob_sha1": "8a31a5572181dfc2cc33432d53c6e60d702d46f9",
+      "md5_base64": "8fHuc8SazvrxQqqSTvmaJg==",
+      "path": "data/chunk-000/file-013.parquet",
+      "sha256": "d1fed55c7ee5ab8f4fd83212ef5d340632b50aaa8c771f1e16b48cb673dca761",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 584144777,
+      "git_blob_sha1": "2b4cdc2275400e14ca02bd43421ac5fe607f4ba2",
+      "md5_base64": "YDK1m3cvAi5R3M4DHmJoAA==",
+      "path": "data/chunk-000/file-015.parquet",
+      "sha256": "e5002c56d857d6671f976999d76ec8b259da585c4abad08c31c1812107932cc8",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 588506713,
+      "git_blob_sha1": "4eadb689517e687993276d8866af75afb43d6425",
+      "md5_base64": "OZV6h63XE2dnqIFGLxMPIA==",
+      "path": "data/chunk-000/file-018.parquet",
+      "sha256": "b7f4c4401b533c17a5aeba0d03ddaed07afafb67da9d37e1ba5819b90233895f",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 588418597,
+      "git_blob_sha1": "baf53329329f541a558eec0bd65bbd3ee6b3d94e",
+      "md5_base64": "FPJG4AvEmficfZr0MOxq1Q==",
+      "path": "data/chunk-000/file-021.parquet",
+      "sha256": "ea2e36a39e1eb011a31a6e9d46d239ce4b0644ce99ecfa73ed28c661deee6f37",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 575938821,
+      "git_blob_sha1": "3d9aadf388476ad5122f0d5cec7fe4abe521aab3",
+      "md5_base64": "s1vi9goRG0/YgNXFKI3SBg==",
+      "path": "data/chunk-000/file-023.parquet",
+      "sha256": "ccb230d4da2b12fc3520fe55dc69f2432270344d33fd3f65b01773a6ae72c438",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 564103068,
+      "git_blob_sha1": "8c3fdc47f401e0031b552c74057774a0f1995253",
+      "md5_base64": "BCM9zwD/HfbnKY4XkA1K+w==",
+      "path": "data/chunk-000/file-026.parquet",
+      "sha256": "14ae3619e7c933f9fac622d7aea18ded9fbaf82d4b59e30bb7a98c48f908c976",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 546816874,
+      "git_blob_sha1": "ec6e55de1729a2d52599b7837fb3da8aab8e38df",
+      "md5_base64": "yKPKoVMKQkRueO61dvQOxg==",
+      "path": "data/chunk-000/file-028.parquet",
+      "sha256": "b95fc6bc0ea0bc3bac4e2a3c026d77f9ce25b34197eafac2c0e4d2364ff41fe1",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 562129057,
+      "git_blob_sha1": "b70a68e9e7af139fe69fa1e0a7194c43ca0bd19b",
+      "md5_base64": "q6bDMMfmXAsu1zy6zyQ0jQ==",
+      "path": "data/chunk-000/file-031.parquet",
+      "sha256": "a5c99d2b846de8f3ae2ebad3b8b0b807a97cd77a3c595075e0aa85760cb47eea",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 589323471,
+      "git_blob_sha1": "766c0fcf85f95cae6838dc4ec45636b15575efa6",
+      "md5_base64": "WdNR5y44S1UQe5dJMQb31Q==",
+      "path": "data/chunk-000/file-033.parquet",
+      "sha256": "d4b137bf7326b40c93d9ca8790d23f1db87147efee1078581867c81ddb223746",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 589221138,
+      "git_blob_sha1": "bd25fae28dde76a6fe1aa5b4de7ce37ee2f1ab23",
+      "md5_base64": "aLME/qydXcLCImMCeCW3ew==",
+      "path": "data/chunk-000/file-036.parquet",
+      "sha256": "44600bcd077fe8b29f4e54de9d8be76fab68486af0d8906e662a76318af220e5",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 582861036,
+      "git_blob_sha1": "d7371b99d7515cf9ded14d8f98e618250a1272f1",
+      "md5_base64": "R89ByS6cGjINmLfN5vuTlA==",
+      "path": "data/chunk-000/file-038.parquet",
+      "sha256": "4891940d57ed14eb65aac99bc5a5b1df8ee71d8af2aa52d244a83408c7c8d033",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 564671032,
+      "git_blob_sha1": "d08f9a4bade20236e39189046e25f99fe7c0169d",
+      "md5_base64": "UClaCO0hYwn8Xt8w1FQ08g==",
+      "path": "data/chunk-000/file-041.parquet",
+      "sha256": "5c73ad93c87b058124d014839beb20e97673d324e9f6db9d3fc369c6ceb127f9",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 596667739,
+      "git_blob_sha1": "b84e3e337d4b2ae6d2620173eb25bb1366b157cf",
+      "md5_base64": "QpJFhMPq2I1C/O+PEShYAw==",
+      "path": "data/chunk-000/file-044.parquet",
+      "sha256": "2c8f554c9a40b745d6ff3c5016b3856572fb11d6204912c9b7500b5941009adf",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 595047097,
+      "git_blob_sha1": "d3a1c2eeefa790f124be077be29181dc6ea86693",
+      "md5_base64": "X+3K8fzryul7A852IRZDMA==",
+      "path": "data/chunk-000/file-046.parquet",
+      "sha256": "3e8e6edfcf616dc05286ebdedb3ee4b0b3d78c649cdf4d5b3b22e503349a5d7e",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 572211227,
+      "git_blob_sha1": "72cbed6811de388d442c8c4342c80ff890d3f2ef",
+      "md5_base64": "OIdqI4KuWQpjllUQSFJMNg==",
+      "path": "data/chunk-000/file-049.parquet",
+      "sha256": "01eedf4500f270f417ea3f0a6fed38dc3a2421e158bbf988a9c070bae7da4dc2",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 586264634,
+      "git_blob_sha1": "752ff14d51150e7a2b918fcb18f4566d7d17cfd4",
+      "md5_base64": "Zn6/K/pUoyvT7juLor//CA==",
+      "path": "data/chunk-000/file-051.parquet",
+      "sha256": "0e09bc00d595c57aa6be0eea64a950d2dd9da47266d2bbd693b890f951daea44",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 585892242,
+      "git_blob_sha1": "8735c69d1e8adfb5de138fa1b77cdd2b53d5de33",
+      "md5_base64": "Z1WQXd4BurOKSFQMMpvT8w==",
+      "path": "data/chunk-000/file-054.parquet",
+      "sha256": "e0761364cb442e4b79a8251775fe37e055ceee0fb78efdbb8b14afd9aee8db8e",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 591966762,
+      "git_blob_sha1": "26957ff2ccdfcae0c88c1cb02fdcefb91280efa3",
+      "md5_base64": "T1Hh9tWEsgzF9PXvl1HeFQ==",
+      "path": "data/chunk-000/file-056.parquet",
+      "sha256": "3f9ffb353190d36841b151471dfb0b994f320209a68cfd7b499fe6b9545646f0",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 585907021,
+      "git_blob_sha1": "eeea80954b835adfb37ed3a1ccbff7fbe7f92601",
+      "md5_base64": "fBnphphXF4UMyP+crmBQ/A==",
+      "path": "data/chunk-000/file-059.parquet",
+      "sha256": "74b43281aafdea98bc759e167e9acdafea303b7faab9046059b8e86063b4cf11",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 501240,
+      "git_blob_sha1": "38b3a3977cbc4b8863a3169878c1f9cbac854bba",
+      "md5_base64": "GC5cGhmhQmeYRJGanrO18w==",
+      "path": "meta/episodes/chunk-000/file-000.parquet",
+      "sha256": "877924e3e2a97ac331057575f76617ac2e6a78fa6e955a2b01dde8b6bb4b38d7",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 6410,
+      "git_blob_sha1": "65ce863e7cabb8a9af356d6141ddd9d4ade8419d",
+      "md5_base64": "NSucbMMoJ7CejuQPnvI8EA==",
+      "path": "meta/info.json",
+      "sha256": "73cfcf165744b8c44365a21e65d81e1ae36327e0c184d01dc09f66a7f8433060",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 29166,
+      "git_blob_sha1": "d92632d752a899a1b49577c661db6d6f7fb240fd",
+      "md5_base64": "b2V7wRlhyw0beXcXYDplOA==",
+      "path": "meta/stats.json",
+      "sha256": "19ad810357cf088c7400206e28345bec501f491950dd040c3672c31378426ec2",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 2337,
+      "git_blob_sha1": "bdcdbbc2d18d8ac6b8d860e22385fcb377d802b0",
+      "md5_base64": "feRivUU/6sA8BxOspKFnZQ==",
+      "path": "meta/tasks.parquet",
+      "sha256": "72220c0aa1bb8329f8fa68a878cc5a58b5dfb0fda256f08a1fa9f5937ceeab17",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 205303033,
+      "git_blob_sha1": "2557dcaab6cf6f0fac5bc05eb47e65905924a1b7",
+      "md5_base64": "BYjwwgEZBhqYhCOw2vRpnQ==",
+      "path": "videos/observation.images.cam_high/chunk-000/file-000.mp4",
+      "sha256": "1e59faa152562b0c58b1961ddfc75ee4be3cf7f8acfd607a724083b6c7835916",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 194673017,
+      "git_blob_sha1": "0d29acb03b5fbb37773a3ca257fa3f54430e2b82",
+      "md5_base64": "kGZvxEgPWPeTARmAcPXjkQ==",
+      "path": "videos/observation.images.cam_high/chunk-000/file-001.mp4",
+      "sha256": "e46d168ca3d5fcf744800483df7668ff3c9be38a9234e7643d698cee17af724f",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 195692242,
+      "git_blob_sha1": "40d1e2f27dea2f5f6a4705abe7c50c638e71da14",
+      "md5_base64": "B3GdcaKkTcrP79B0asUI7w==",
+      "path": "videos/observation.images.cam_high/chunk-000/file-002.mp4",
+      "sha256": "0e44fc9890ba620c8aaf3f5482a8c7593d8bebbc732c5f422f3adf11233689f3",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 197344393,
+      "git_blob_sha1": "c2b808b243d5cd39b67b059ba6d17beaf124ae89",
+      "md5_base64": "ICXGZtdhdth+JygXwugEAg==",
+      "path": "videos/observation.images.cam_high/chunk-000/file-003.mp4",
+      "sha256": "6d3e017e92957f55242ac4199d19b1ce7eea7065ea29d6cb2dec04343c841428",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 105753806,
+      "git_blob_sha1": "999270ab4771d93995314a06843741ded42e85eb",
+      "md5_base64": "dZioUmmE3fUacNLCSOZEoQ==",
+      "path": "videos/observation.images.cam_high/chunk-000/file-004.mp4",
+      "sha256": "1323d35bbc35a9ce3d0aced2b79d4385599f1374f33a13daeba3e62afa1a6364",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 197241468,
+      "git_blob_sha1": "ef92b41b4ffb07cc9fccbcb2903ba64bc237eea6",
+      "md5_base64": "d3Cg5ckFem0Ex1mEb+AG+Q==",
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-000.mp4",
+      "sha256": "95ece0c005e857e2f923acd1f613cfccf9a70e9e1f1715b4e096b6c5087fb84a",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 196194194,
+      "git_blob_sha1": "0679e5236cef4f24a91d91342912af30a035a967",
+      "md5_base64": "JyfgaSf/VRXZ81ECA42ISA==",
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-001.mp4",
+      "sha256": "8a8c70ac16a3037353625e5e898a9143161aa804c2d9e5567097be58cac59c0f",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 199967426,
+      "git_blob_sha1": "9c39833ee4bc5c60236d46010017342e48a54388",
+      "md5_base64": "PnS5VT5GsNX6YKfWodK5HA==",
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-002.mp4",
+      "sha256": "9c75156a32a330450b51f53332dbae041b595df5ef3861cd64f0434e787cefe1",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 208265237,
+      "git_blob_sha1": "e8d36daf9733303ce9d45beb0464ef035c22be02",
+      "md5_base64": "LAGMMO03gB+hMaGmZv/iIA==",
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-003.mp4",
+      "sha256": "75239902019723d738c4865ab38e93161a78da7b70e6b1feac00fc2fafdcf3de",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 204440123,
+      "git_blob_sha1": "d0ad7a37c2c6d257ac3fc34030e34dcf8c4fcaa1",
+      "md5_base64": "z+l+mZZeH1iSIBgh1j94GQ==",
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-004.mp4",
+      "sha256": "2a19614ee4f5374b7520b4bc4e7dabaaa54f226e68d204ecd97117b61bb4ff96",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 18301608,
+      "git_blob_sha1": "d3c64f73cb4411c9a275145d0e02e716e1aa0ba4",
+      "md5_base64": "plciUGA44kyYt9wC5Jb+Xw==",
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-005.mp4",
+      "sha256": "b747d45cb69de2b379c298d9367c0fa7feaeda26b5b0a0368490a79f1936f1d1",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 206169602,
+      "git_blob_sha1": "6af22c503182b92b16f0c612d390e986ea40898a",
+      "md5_base64": "GVENlWngFQk6284NMI/Zjg==",
+      "path": "videos/observation.images.cam_low/chunk-000/file-000.mp4",
+      "sha256": "9c7c3e5e76df5f13d10c6dc265b808a810014fcc586d9b15b0bcc3ecafb8e39b",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 202814202,
+      "git_blob_sha1": "b36c613ded42d7dbc688d63e8e15dc5bdee8e856",
+      "md5_base64": "9LYh5tVY42QCOPm/H5Rrqw==",
+      "path": "videos/observation.images.cam_low/chunk-000/file-001.mp4",
+      "sha256": "9f22d525a44e51f4465ae3e13b2d63d92004cd426feb6a7ccf0a1c4d2089251a",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 37786428,
+      "git_blob_sha1": "57eb7972a254ce94f410de3ada2755bd24ad70e2",
+      "md5_base64": "FmujKPbHt74T8YuP4KtE2Q==",
+      "path": "videos/observation.images.cam_low/chunk-000/file-002.mp4",
+      "sha256": "e663f6bae5fde29b24e5ce5ed62825a2f5e5ae5160b1d1ea6e7ccd88c375d711",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 203209178,
+      "git_blob_sha1": "20546bbd9e311e212e53879d0714f573571eba28",
+      "md5_base64": "LzY7PFQfOYnJ02gIOp9sKg==",
+      "path": "videos/observation.images.cam_right_wrist/chunk-000/file-000.mp4",
+      "sha256": "1549732090975da6fb726353e4b3d7e8717b3246809598b8405221c59dab7330",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 203364325,
+      "git_blob_sha1": "dcce41175b893c90f440a9ad0141ec874f31b9ed",
+      "md5_base64": "tthh3+Y+/6E7/M8ZLO19kA==",
+      "path": "videos/observation.images.cam_right_wrist/chunk-000/file-001.mp4",
+      "sha256": "5ad59ac8594d4eb7f47b83bafe815f224325d0ec53649c5d94b8a6c11318543b",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 137242670,
+      "git_blob_sha1": "9ced9e34173457bf4dc20313e335c5c3e4daaaac",
+      "md5_base64": "QvBdEdSQBwnuxa+yOqhrDg==",
+      "path": "videos/observation.images.cam_right_wrist/chunk-000/file-002.mp4",
+      "sha256": "eadba93ccc038eedc658b138ccc5d148c682462452b904fe33b35bd19560e041",
+      "status": "downloaded"
+    }
+  ],
+  "full_dataset": false,
+  "source_files": [
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": "bed0738c7eeb449bca98b5d2f33c89a1ee56349a",
+      "path": ".gitattributes",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": null,
+      "size": 2504,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/.gitattributes"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": "1d4b038e35d4b9e137f33a1f66614c3d3d10272a",
+      "path": "README.md",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": null,
+      "size": 6901,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/README.md"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-000.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "93456cf8d115c45625f6efe7d2b68d24b1757ef74d373e76e964f1cfbc30ff61",
+      "size": 593604349,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-000.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-003.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "cc0de50c0b2f2f7ef29c5b500554a86a7083eb96673949cb309fcbee50854168",
+      "size": 572321497,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-003.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-005.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "4fc3aa26e0e62b508801ccab27bef3cd70bde5f4fc15e757f1622f728836f445",
+      "size": 599367621,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-005.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-008.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "742b49824f8e25db668d81ecf587c61487af9dbacdf892c2d1d0766784b6600b",
+      "size": 603789367,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-008.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-010.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "6f424bf3046bd213092853e2adaa895a0ae3d6889e848a1ce669ffc928772327",
+      "size": 575940067,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-010.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-013.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "d1fed55c7ee5ab8f4fd83212ef5d340632b50aaa8c771f1e16b48cb673dca761",
+      "size": 591268819,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-013.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-015.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "e5002c56d857d6671f976999d76ec8b259da585c4abad08c31c1812107932cc8",
+      "size": 584144777,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-015.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-018.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "b7f4c4401b533c17a5aeba0d03ddaed07afafb67da9d37e1ba5819b90233895f",
+      "size": 588506713,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-018.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-021.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "ea2e36a39e1eb011a31a6e9d46d239ce4b0644ce99ecfa73ed28c661deee6f37",
+      "size": 588418597,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-021.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-023.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "ccb230d4da2b12fc3520fe55dc69f2432270344d33fd3f65b01773a6ae72c438",
+      "size": 575938821,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-023.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-026.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "14ae3619e7c933f9fac622d7aea18ded9fbaf82d4b59e30bb7a98c48f908c976",
+      "size": 564103068,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-026.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-028.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "b95fc6bc0ea0bc3bac4e2a3c026d77f9ce25b34197eafac2c0e4d2364ff41fe1",
+      "size": 546816874,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-028.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-031.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "a5c99d2b846de8f3ae2ebad3b8b0b807a97cd77a3c595075e0aa85760cb47eea",
+      "size": 562129057,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-031.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-033.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "d4b137bf7326b40c93d9ca8790d23f1db87147efee1078581867c81ddb223746",
+      "size": 589323471,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-033.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-036.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "44600bcd077fe8b29f4e54de9d8be76fab68486af0d8906e662a76318af220e5",
+      "size": 589221138,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-036.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-038.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "4891940d57ed14eb65aac99bc5a5b1df8ee71d8af2aa52d244a83408c7c8d033",
+      "size": 582861036,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-038.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-041.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "5c73ad93c87b058124d014839beb20e97673d324e9f6db9d3fc369c6ceb127f9",
+      "size": 564671032,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-041.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-044.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "2c8f554c9a40b745d6ff3c5016b3856572fb11d6204912c9b7500b5941009adf",
+      "size": 596667739,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-044.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-046.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "3e8e6edfcf616dc05286ebdedb3ee4b0b3d78c649cdf4d5b3b22e503349a5d7e",
+      "size": 595047097,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-046.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-049.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "01eedf4500f270f417ea3f0a6fed38dc3a2421e158bbf988a9c070bae7da4dc2",
+      "size": 572211227,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-049.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-051.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "0e09bc00d595c57aa6be0eea64a950d2dd9da47266d2bbd693b890f951daea44",
+      "size": 586264634,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-051.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-054.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "e0761364cb442e4b79a8251775fe37e055ceee0fb78efdbb8b14afd9aee8db8e",
+      "size": 585892242,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-054.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-056.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "3f9ffb353190d36841b151471dfb0b994f320209a68cfd7b499fe6b9545646f0",
+      "size": 591966762,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-056.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-059.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "74b43281aafdea98bc759e167e9acdafea303b7faab9046059b8e86063b4cf11",
+      "size": 585907021,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/data/chunk-000/file-059.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "meta/episodes/chunk-000/file-000.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "877924e3e2a97ac331057575f76617ac2e6a78fa6e955a2b01dde8b6bb4b38d7",
+      "size": 501240,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/meta/episodes/chunk-000/file-000.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": "65ce863e7cabb8a9af356d6141ddd9d4ade8419d",
+      "path": "meta/info.json",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": null,
+      "size": 6410,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/meta/info.json"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": "d92632d752a899a1b49577c661db6d6f7fb240fd",
+      "path": "meta/stats.json",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": null,
+      "size": 29166,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/meta/stats.json"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "meta/tasks.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "72220c0aa1bb8329f8fa68a878cc5a58b5dfb0fda256f08a1fa9f5937ceeab17",
+      "size": 2337,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/meta/tasks.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_high/chunk-000/file-000.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "1e59faa152562b0c58b1961ddfc75ee4be3cf7f8acfd607a724083b6c7835916",
+      "size": 205303033,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_high/chunk-000/file-000.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_high/chunk-000/file-001.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "e46d168ca3d5fcf744800483df7668ff3c9be38a9234e7643d698cee17af724f",
+      "size": 194673017,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_high/chunk-000/file-001.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_high/chunk-000/file-002.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "0e44fc9890ba620c8aaf3f5482a8c7593d8bebbc732c5f422f3adf11233689f3",
+      "size": 195692242,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_high/chunk-000/file-002.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_high/chunk-000/file-003.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "6d3e017e92957f55242ac4199d19b1ce7eea7065ea29d6cb2dec04343c841428",
+      "size": 197344393,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_high/chunk-000/file-003.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_high/chunk-000/file-004.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "1323d35bbc35a9ce3d0aced2b79d4385599f1374f33a13daeba3e62afa1a6364",
+      "size": 105753806,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_high/chunk-000/file-004.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-000.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "95ece0c005e857e2f923acd1f613cfccf9a70e9e1f1715b4e096b6c5087fb84a",
+      "size": 197241468,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_left_wrist/chunk-000/file-000.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-001.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "8a8c70ac16a3037353625e5e898a9143161aa804c2d9e5567097be58cac59c0f",
+      "size": 196194194,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_left_wrist/chunk-000/file-001.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-002.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "9c75156a32a330450b51f53332dbae041b595df5ef3861cd64f0434e787cefe1",
+      "size": 199967426,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_left_wrist/chunk-000/file-002.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-003.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "75239902019723d738c4865ab38e93161a78da7b70e6b1feac00fc2fafdcf3de",
+      "size": 208265237,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_left_wrist/chunk-000/file-003.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-004.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "2a19614ee4f5374b7520b4bc4e7dabaaa54f226e68d204ecd97117b61bb4ff96",
+      "size": 204440123,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_left_wrist/chunk-000/file-004.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_left_wrist/chunk-000/file-005.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "b747d45cb69de2b379c298d9367c0fa7feaeda26b5b0a0368490a79f1936f1d1",
+      "size": 18301608,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_left_wrist/chunk-000/file-005.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_low/chunk-000/file-000.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "9c7c3e5e76df5f13d10c6dc265b808a810014fcc586d9b15b0bcc3ecafb8e39b",
+      "size": 206169602,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_low/chunk-000/file-000.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_low/chunk-000/file-001.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "9f22d525a44e51f4465ae3e13b2d63d92004cd426feb6a7ccf0a1c4d2089251a",
+      "size": 202814202,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_low/chunk-000/file-001.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_low/chunk-000/file-002.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "e663f6bae5fde29b24e5ce5ed62825a2f5e5ae5160b1d1ea6e7ccd88c375d711",
+      "size": 37786428,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_low/chunk-000/file-002.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_right_wrist/chunk-000/file-000.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "1549732090975da6fb726353e4b3d7e8717b3246809598b8405221c59dab7330",
+      "size": 203209178,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_right_wrist/chunk-000/file-000.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_right_wrist/chunk-000/file-001.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "5ad59ac8594d4eb7f47b83bafe815f224325d0ec53649c5d94b8a6c11318543b",
+      "size": 203364325,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_right_wrist/chunk-000/file-001.mp4"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "REBOOT26/rj45_recovery_install/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.cam_right_wrist/chunk-000/file-002.mp4",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "eadba93ccc038eedc658b138ccc5d148c682462452b904fe33b35bd19560e041",
+      "size": 137242670,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/videos/observation.images.cam_right_wrist/chunk-000/file-002.mp4"
+    }
+  ]
+}

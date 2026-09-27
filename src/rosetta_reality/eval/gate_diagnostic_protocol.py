@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import os
 import re
 import time
@@ -15,6 +16,25 @@ AUTHORITY = (
 AUTHORITY_SHA = "35511af8c7d0d9d93c827fe72ddec0205fa8932f7660735ddd38e8b7524be75e"
 WEIGHT_SHA = "d4c0d87cd8e66c723b07ec84f7f5e47875268bfd4e2057ec5683fdf56adcabef"
 CONFIG_SHA = "978ec7b1b9b648749b96cf0967ae4b37e0133d65e491613e6803884d50c0984a"
+ARTIFACT_CONFIG_SHA = "0d2255fcb9cbe914110b63e31b9dce47261e5133f93db1f263ccd0c55ce970cc"
+
+
+def artifact_config_digest(root, declaration):
+    """Verify the exact transport-to-artifact byte relationship without rewriting either.
+
+    canonical_fullframes_stages.render reserialized the original sorted JSON via
+    iris_runtime.save, dropping its final LF. The retained transport and native
+    artifact digests are distinct fixed identities, not interchangeable hashes.
+    """
+    path = reference(root, declaration)
+    payload = path.read_bytes()
+    if hashlib.sha256(payload).hexdigest() != CONFIG_SHA:
+        raise ValueError("Canonical transport config differs")
+    if hashlib.sha256(payload + b"\n").hexdigest() != ARTIFACT_CONFIG_SHA:
+        raise ValueError("Canonical artifact serialization differs")
+    return ARTIFACT_CONFIG_SHA
+
+
 # Actual call-path identities recorded in canonical-posttrain-template-20260916-005.json.
 # A new diagnostic registration cannot silently reseal a modified historical Gate engine.
 REFERENCE_IMPLEMENTATIONS = {
@@ -155,7 +175,8 @@ def validate_plan(plan, root, *, check_files=True):
             manifest.get("files", {}).get("pretrained_model/" + name) != digest
             for name, digest in plan["checkpoint"]["files"].items()
         )
-        or manifest.get("files", {}).get("config.json") != CONFIG_SHA
+        or manifest.get("files", {}).get("config.json")
+        != artifact_config_digest(root, plan["artifact_config"])
     ):
         raise ValueError("Verified canonical artifact/reload required")
     if (

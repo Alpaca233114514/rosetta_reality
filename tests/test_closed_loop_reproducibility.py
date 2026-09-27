@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 import sys
@@ -16,7 +17,12 @@ from test_rollout_trace import environment_factory
 
 from rosetta_reality.eval.gate_diagnostic_capture import clone_tree
 from rosetta_reality.eval.gate_diagnostic_io import load_json, seal
-from rosetta_reality.eval.gate_diagnostic_protocol import validate_plan
+from rosetta_reality.eval.gate_diagnostic_protocol import (
+    ARTIFACT_CONFIG_SHA,
+    CONFIG_SHA,
+    artifact_config_digest,
+    validate_plan,
+)
 from rosetta_reality.eval.reproducibility import compare_campaign, difference, verify_collection
 from rosetta_reality.eval.reproducibility_capture import PhysicsReader, collect_reproducibility
 from rosetta_reality.sim import load_action_contract
@@ -104,6 +110,10 @@ def test_first_divergence_is_processor_not_downstream_physics(tmp_path, monkeypa
     assert result["repeat"]["step"] == 1  # Initial fake image is zero.
     assert result["repeat"]["boundary"] == "batch"
     assert result["trace_effect"]["status"] == "matched"
+    assert result["trace_attribution"] == {
+        "status": "blocked_repeat_not_matched",
+        "unique_cause_proven": False,
+    }
 
 
 def reseal(path):
@@ -111,6 +121,55 @@ def reseal(path):
     (path / "result.json").unlink()
     (path / "manifest.json").unlink()
     seal(path, result)
+
+
+def test_transient_success_matches_gate_accumulation(tmp_path, monkeypatch):
+    path, _, _ = collect(tmp_path, monkeypatch, "baseline_a")
+    # A nonterminal success pulse followed by false at the horizon is valid.
+    tree_path = path / "steps/0001/after/tree.json"
+    tree = load_json(tree_path)
+    tree["items"]["success"]["value"] = True
+    tree_path.write_text(json.dumps(tree))
+    result = load_json(path / "result.json")
+    result["task_success"] = True
+    (path / "result.json").write_text(json.dumps(result))
+    reseal(path)
+    assert verify_collection(path)["status"] == "verified_complete"
+
+
+def test_artifact_transport_config_requires_exact_fixed_byte_relation(tmp_path):
+    source = ROOT / (
+        "runs/canonical-posttrain-received-20260916-005-ssh/verified/artifact-metadata/config.json"
+    )
+    target = tmp_path / "config.json"
+    target.write_bytes(source.read_bytes())
+    declaration = {"path": "config.json", "sha256": CONFIG_SHA}
+    assert artifact_config_digest(tmp_path, declaration) == ARTIFACT_CONFIG_SHA
+    target.write_bytes(target.read_bytes() + b" ")
+    declaration["sha256"] = hashlib.sha256(target.read_bytes()).hexdigest()
+    with pytest.raises(ValueError, match="transport config differs"):
+        artifact_config_digest(tmp_path, declaration)
+
+
+@pytest.mark.parametrize("field", ["state_before", "state_after"])
+def test_resealed_trace_robot_state_tamper_is_rejected(tmp_path, monkeypatch, field):
+    path, _, _ = collect(tmp_path, monkeypatch, "full_trace")
+    trace = path / "trace"
+    lines = [json.loads(line) for line in (trace / "trace.jsonl").read_text().splitlines()]
+    for row in lines:
+        if row["event"] == "step_started" and field == "state_before" and row["step"] == 0:
+            row["state_before"][0] += 0.125
+        if row["event"] == "step" and row["step"] == (0 if field == "state_before" else 3):
+            row[field][0] += 0.125
+    (trace / "trace.jsonl").write_text("".join(json.dumps(row) + "\n" for row in lines))
+    manifest = load_json(trace / "manifest.json")
+    manifest["files"]["trace.jsonl"] = hashlib.sha256(
+        (trace / "trace.jsonl").read_bytes()
+    ).hexdigest()
+    (trace / "manifest.json").write_text(json.dumps(manifest))
+    reseal(path)
+    with pytest.raises(ValueError, match="Full trace disagrees"):
+        verify_collection(path)
 
 
 @pytest.mark.parametrize("field", ["seed", "pair_id"])
@@ -145,8 +204,7 @@ def test_resealed_missing_steps_rejected(tmp_path, monkeypatch):
 
 def test_runtime_drift_is_incomparable(tmp_path, monkeypatch):
     paths = [
-        collect(tmp_path, monkeypatch, r)[0]
-        for r in ("baseline_a", "baseline_b", "full_trace")
+        collect(tmp_path, monkeypatch, r)[0] for r in ("baseline_a", "baseline_b", "full_trace")
     ]
     (paths[1] / "runtime.json").write_text('{"synthetic": true, "driver": "changed"}')
     reseal(paths[1])

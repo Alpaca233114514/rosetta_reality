@@ -512,6 +512,15 @@ def _validate_features(plan: dict[str, Any], known_features: Container[str]) -> 
                 "grad_clip_norm: the upstream zero-clip fallback path is not "
                 "instrumented."
             )
+    if "dual_axis_diagnostics" in names:
+        if names[-1] != "dual_axis_diagnostics":
+            raise ValueError("Dual-axis diagnostics must install last")
+        declaration = declarations[-1]
+        repository_relative_path(declaration.get("path"), context="Dual-axis plan")
+        if not is_sha256(declaration.get("sha256")):
+            raise ValueError("Dual-axis plan requires a sealed SHA256")
+        if training_policy.get("compile_model"):
+            raise ValueError("Dual-axis compiled-hook transparency is not validated")
     if FEATURE_TRACKIO_LOGGING in names:
         tracking = _mapping(plan.get("tracking"), "Plan section 'tracking'")
         if not isinstance(tracking.get("project"), str) or not isinstance(

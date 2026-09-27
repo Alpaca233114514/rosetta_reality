@@ -1,0 +1,15 @@
+{
+  "left": {
+    "close": 0.32809123024344444,
+    "open": 0.7269172556698322
+  },
+  "right": {
+    "close": 0.2034526914358139,
+    "open": 0.6103580743074417
+  },
+  "derivation": "train40 q10 + fractions 0.25 and 0.75 of q90-q10",
+  "source": "runs/root-neighborhoods-20260922-002/result.json",
+  "source_sha256": "f7c8048255e9fde85f9bae68397000936bcde60c2caf0cdb699865c84983303f",
+  "data_sha256": "107f02ac6a9cba57731303c7b7e9833b40b6ee5ed1b473d52b22ac8d8451336d",
+  "development_used": false
+}

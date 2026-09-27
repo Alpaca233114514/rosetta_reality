@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "plan_id": "root-neighborhoods-20260922-003",
+  "status": "exploratory_frozen_before_replay",
+  "model_calls": 0,
+  "optimizer_steps": 0,
+  "train": [
+    49,
+    4,
+    23,
+    43,
+    21,
+    37,
+    18,
+    34,
+    0,
+    47,
+    38,
+    29,
+    3,
+    26,
+    14,
+    17,
+    44,
+    30,
+    15,
+    42,
+    10,
+    35,
+    25,
+    32,
+    19,
+    36,
+    41,
+    28,
+    8,
+    27,
+    16,
+    11,
+    2,
+    20,
+    9,
+    39,
+    46,
+    48,
+    12,
+    40
+  ],
+  "development": [
+    22,
+    13,
+    7,
+    33,
+    45
+  ],
+  "hidden": [
+    31,
+    6,
+    1,
+    24,
+    5
+  ],
+  "data": "runs/visual-research-package-20260915-001/data/arrays.npz",
+  "geometry": "runs/visual-research-package-20260915-001/supervision/arrays.npz",
+  "paired": "runs/visual-research-process-comparison-20260916-001/arrays.npz",
+  "groups": {
+    "left_joints": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "right_joints": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "left_gripper": [
+      6
+    ],
+    "right_gripper": [
+      13
+    ]
+  },
+  "files": {
+    "runs/visual-research-package-20260915-001/data/arrays.npz": "107f02ac6a9cba57731303c7b7e9833b40b6ee5ed1b473d52b22ac8d8451336d",
+    "runs/visual-research-package-20260915-001/supervision/arrays.npz": "512ed815b3617a0708d90ef79011e55a5b3ecd47c5ebd1f8d110cbc7f28026fa",
+    "runs/visual-research-process-comparison-20260916-001/arrays.npz": "c039955aea05e824ef145a141cd5de80c3bc97d0710dddaaedcf7c9546bdf311",
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+    "scripts/analyze_root_neighborhoods.py": "bd7af88c5ecce28ad403ac5faae7fe827928f541dc77f3fc32991b3af9c89424",
+    "scripts/verify_root_neighborhoods.py": "ad93e8f96a70516ae4c4a630304a61412ca6b0e281430bd91628160ae5b1d0d4",
+    "scripts/root_analysis_resources.py": "424a8de1c6951dc9214cc1661f54b076de95956df0d72d7241606046bda1c1c8",
+    "scripts/run_root_diagnosis_local.sh": "27cebda56b73ddc1d8ec4331b50113a4f7813ad61b10dd69043acae2ed0565dc"
+  },
+  "resources": {
+    "network": "none",
+    "memory_mib": 1536,
+    "cpu_threads": 2,
+    "wall_seconds": 180
+  }
+}

@@ -150,6 +150,7 @@ run_smolvla_v2 {preflight|smoke|train} --plan <v2 plan>
     -> coverage (train) -> mode reports (train)
     -> runtime experiment file + launch manifest under the durable run root
     -> environment assembly -> lerobot-train CLI (single construction point)
+    -> create-only training_config.v1 bundle for train/smoke
     -> train_smolvla_v2: feature stack install (with rollback)
     -> pinned lerobot_train.main()
     -> finally: reverse-order restore + finish_trackio
@@ -158,6 +159,22 @@ run_smolvla_v2 {preflight|smoke|train} --plan <v2 plan>
 `preflight` delegates to the existing no-optimizer `smolvla_forward_check`
 entry exactly as the historical launchers did. Outputs are create-only: an
 existing smoke/train output directory fails closed.
+
+For new `train` and `smoke` launches, `run_smolvla_v2` writes
+`<run_name>-training-config/` below the durable `launch` directory after
+assembling the effective CLI arguments and before invoking the trainer. It
+checks seed, batch, steps, optimizer, scheduler, precision and selected episodes
+against those arguments. The bundle contains a normalized snapshot, the
+resolved plan, exact original plan bytes, launch manifest, runtime experiment
+and a final SHA manifest. A write or identity mismatch blocks training.
+`preflight` has no optimizer phase and produces no such bundle. Basin may later
+import the bundle from a read-only source; this does not require Basin access
+from the remote worker. `launch_prepared` never means training completed.
+For historical YAML or inherited v2 plans, the file-only
+`scripts/export_smolvla_v2_resolved_plan.py --plan <source> --output <new-json>`
+exports a create-only resolved JSON copy for Basin import. Basin still checks
+the original source bytes against the historical launch SHA; the supplied
+resolution is marked as operator-provided, not independently parsed by Basin.
 
 ## 6. Frozen provenance
 

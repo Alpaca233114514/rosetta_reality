@@ -1,0 +1,221 @@
+{
+  "all_selected_video_references_in_plan": true,
+  "metadata_source_files": [
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "metadata-audit/rj45",
+      "git_blob_sha1": null,
+      "path": "meta/episodes/chunk-000/file-000.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "877924e3e2a97ac331057575f76617ac2e6a78fa6e955a2b01dde8b6bb4b38d7",
+      "size": 501240,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/meta/episodes/chunk-000/file-000.parquet"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "metadata-audit/rj45",
+      "git_blob_sha1": "65ce863e7cabb8a9af356d6141ddd9d4ade8419d",
+      "path": "meta/info.json",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": null,
+      "size": 6410,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/meta/info.json"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "metadata-audit/rj45",
+      "git_blob_sha1": "d92632d752a899a1b49577c661db6d6f7fb240fd",
+      "path": "meta/stats.json",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": null,
+      "size": 29166,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/meta/stats.json"
+    },
+    {
+      "dataset": "REBOOT26/rj45_recovery_install",
+      "destination": "metadata-audit/rj45",
+      "git_blob_sha1": null,
+      "path": "meta/tasks.parquet",
+      "revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+      "sha256": "72220c0aa1bb8329f8fa68a878cc5a58b5dfb0fda256f08a1fa9f5937ceeab17",
+      "size": 2337,
+      "url": "https://hf-mirror.com/datasets/REBOOT26/rj45_recovery_install/resolve/f6acd5b69394ffd4d2d8bd30079306c9e2061bbe/meta/tasks.parquet"
+    }
+  ],
+  "normalization_recomputed": false,
+  "raw_data_rows_and_video_decoding_verified": false,
+  "selected_episode_count": 24,
+  "selected_episodes": [
+    {
+      "data_path": "data/chunk-000/file-000.parquet",
+      "dataset_from_index": 0,
+      "dataset_to_index": 898,
+      "episode_index": 0,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-003.parquet",
+      "dataset_from_index": 2694,
+      "dataset_to_index": 3592,
+      "episode_index": 3,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-005.parquet",
+      "dataset_from_index": 4491,
+      "dataset_to_index": 5389,
+      "episode_index": 5,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-008.parquet",
+      "dataset_from_index": 7185,
+      "dataset_to_index": 8084,
+      "episode_index": 8,
+      "length": 899
+    },
+    {
+      "data_path": "data/chunk-000/file-010.parquet",
+      "dataset_from_index": 8982,
+      "dataset_to_index": 9880,
+      "episode_index": 10,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-013.parquet",
+      "dataset_from_index": 11677,
+      "dataset_to_index": 12576,
+      "episode_index": 13,
+      "length": 899
+    },
+    {
+      "data_path": "data/chunk-000/file-015.parquet",
+      "dataset_from_index": 13474,
+      "dataset_to_index": 14373,
+      "episode_index": 15,
+      "length": 899
+    },
+    {
+      "data_path": "data/chunk-000/file-018.parquet",
+      "dataset_from_index": 16171,
+      "dataset_to_index": 17069,
+      "episode_index": 18,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-021.parquet",
+      "dataset_from_index": 18865,
+      "dataset_to_index": 19763,
+      "episode_index": 21,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-023.parquet",
+      "dataset_from_index": 20661,
+      "dataset_to_index": 21560,
+      "episode_index": 23,
+      "length": 899
+    },
+    {
+      "data_path": "data/chunk-000/file-026.parquet",
+      "dataset_from_index": 23357,
+      "dataset_to_index": 24255,
+      "episode_index": 26,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-028.parquet",
+      "dataset_from_index": 25153,
+      "dataset_to_index": 26051,
+      "episode_index": 28,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-031.parquet",
+      "dataset_from_index": 27848,
+      "dataset_to_index": 28747,
+      "episode_index": 31,
+      "length": 899
+    },
+    {
+      "data_path": "data/chunk-000/file-033.parquet",
+      "dataset_from_index": 29646,
+      "dataset_to_index": 30544,
+      "episode_index": 33,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-036.parquet",
+      "dataset_from_index": 32342,
+      "dataset_to_index": 33240,
+      "episode_index": 36,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-038.parquet",
+      "dataset_from_index": 34138,
+      "dataset_to_index": 35036,
+      "episode_index": 38,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-041.parquet",
+      "dataset_from_index": 36833,
+      "dataset_to_index": 37732,
+      "episode_index": 41,
+      "length": 899
+    },
+    {
+      "data_path": "data/chunk-000/file-044.parquet",
+      "dataset_from_index": 39530,
+      "dataset_to_index": 40428,
+      "episode_index": 44,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-046.parquet",
+      "dataset_from_index": 41326,
+      "dataset_to_index": 42225,
+      "episode_index": 46,
+      "length": 899
+    },
+    {
+      "data_path": "data/chunk-000/file-049.parquet",
+      "dataset_from_index": 44022,
+      "dataset_to_index": 44920,
+      "episode_index": 49,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-051.parquet",
+      "dataset_from_index": 45819,
+      "dataset_to_index": 46716,
+      "episode_index": 51,
+      "length": 897
+    },
+    {
+      "data_path": "data/chunk-000/file-054.parquet",
+      "dataset_from_index": 48512,
+      "dataset_to_index": 49410,
+      "episode_index": 54,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-056.parquet",
+      "dataset_from_index": 50308,
+      "dataset_to_index": 51206,
+      "episode_index": 56,
+      "length": 898
+    },
+    {
+      "data_path": "data/chunk-000/file-059.parquet",
+      "dataset_from_index": 53003,
+      "dataset_to_index": 53902,
+      "episode_index": 59,
+      "length": 899
+    }
+  ],
+  "selected_frames_from_metadata": 21559,
+  "source_revision": "f6acd5b69394ffd4d2d8bd30079306c9e2061bbe",
+  "source_total_episodes": 60
+}

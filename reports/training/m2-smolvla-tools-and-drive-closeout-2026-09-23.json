@@ -1,0 +1,41 @@
+{
+  "id": "prepost-tools-drive-closeout-20260923-001",
+  "recorded_at_utc": "2026-09-23T11:09:56.3297572Z",
+  "instance": "44db45aec7-cd880eb6",
+  "shutdown": {
+    "observed_status": "已关机",
+    "method": "AutoDL console shutdown and refreshed instance row",
+    "status": "platform_confirmed_off",
+    "released": false
+  },
+  "tools": {
+    "graphviz": "0.21",
+    "workspace": "workspaces/20260923T110402Z-2687d7a884d4-8684002da746",
+    "basin_lazy_import_passed": true,
+    "real_trace_measured": false,
+    "overlay": "runs/prepost-tool-overlay-20260923-002/overlay",
+    "torchlens": "2.23.0",
+    "cli_discovery_passed": true,
+    "basin_payload_verified": true
+  },
+  "archive": {
+    "local_copies_before_new_constraint": 12,
+    "worker_status": "ended",
+    "remote_source_deletions": 0,
+    "drive_full_readback_verified_files": 1,
+    "verified_file_sha256": "af0e415d64794b9b2ecd11537d7687150b9168040e7a4f74bdf2be5526a7279b",
+    "drive_folder_id": "1yZbZdVtmdeE2U4MP2REFsp2jxq5psBG_",
+    "rclone_partial_download_retained": true,
+    "remote_source_archives": 12,
+    "worker_model": "gpt-6-sol",
+    "rclone_installed": false,
+    "stop_reason": "user_directive_after_remote_google_https_timeouts",
+    "oauth_completed": false,
+    "reasoning_effort": "medium",
+    "verified_file_id": "1nmf_yWC0FVFStbzNm5kRB-hgacQubOgy"
+  },
+  "model_forward_calls": 0,
+  "model_backward_calls": 0,
+  "policy_optimizer_steps": 0,
+  "commit_or_push": false
+}

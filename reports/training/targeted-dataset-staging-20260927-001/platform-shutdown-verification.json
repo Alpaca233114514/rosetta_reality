@@ -1,0 +1,16 @@
+{
+  "schema": "rosetta.dataset_stage.platform_closeout.v1",
+  "run": "targeted-20260927-001",
+  "request_window_utc": {
+    "opened": "2026-09-27T03:43:30Z",
+    "confirmation_completed": "2026-09-27T03:43:52Z"
+  },
+  "platform_verified_utc": "2026-09-27T03:44:55Z",
+  "state": "stopped",
+  "platform_status_text": "已关机",
+  "verification_source": "fresh_authenticated_platform_page_same_authorized_instance_row",
+  "release_requested": false,
+  "experiment_task_started": false,
+  "screenshot_filename": "autodl-dataset-stopped.png",
+  "screenshot_sha256": "23b8316fc5d9ebc007f5faf73cecdeaa1b727cbafebac1004d8c6699f4a65849"
+}

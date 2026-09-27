@@ -1,0 +1,207 @@
+{
+  "complete_selected_files": true,
+  "dataset": "lerobot/aloha_sim_insertion_human",
+  "files": [
+    {
+      "bytes": 2419,
+      "git_blob_sha1": "55cab133643a2a73e083373d2106533678d0edd5",
+      "md5_base64": "+6/0YEpSr55bhdrmLM4KpA==",
+      "path": ".gitattributes",
+      "sha256": "a2bdf429c1bc3858213bb4b7a748fa36a71536a5a1ff98861281853c3c2be1f2",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 4138,
+      "git_blob_sha1": "df7a0da4b692210206d8a3639eeb346a1e526a21",
+      "md5_base64": "YJDwFxHYU85v6AW+pNQ9CQ==",
+      "path": "README.md",
+      "sha256": "f004390502a361d7c0b0f1159d4450b4f609733954598085ec793eab558eefc0",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 855778,
+      "git_blob_sha1": "d2e9cb470162a500335f0cd55f5dc8aa0c9e166f",
+      "md5_base64": "FFBEtBt2JYrT9SExImluHw==",
+      "path": "data/chunk-000/file-000.parquet",
+      "sha256": "b56ca5d5cc69070b753b10578a8a0da6a4ec883e34bf9666b0c51c7c42b5c2b9",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 847617,
+      "git_blob_sha1": "b0d237f9f2c48b5f3af64b9ebb43badd1eb537ac",
+      "md5_base64": "i+Cji8EAAhmYtDLE9S1OLg==",
+      "path": "data/chunk-000/file-001.parquet",
+      "sha256": "08a89503fe1dab024a0816d39a808edcce266696b8891210675b1b6ba8caa28e",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 855579,
+      "git_blob_sha1": "17cf5bf5feaf90cc087e9a7397d870f775d6c130",
+      "md5_base64": "iW9JY3M5bxKWkEzSzxfS0Q==",
+      "path": "data/chunk-000/file-002.parquet",
+      "sha256": "1d65593f389d9446ddc84e6cfe8c18f38d1112652f7568b5a308234b58dfa750",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 293268,
+      "git_blob_sha1": "249c0a8e356dd4f38da69546df4ca9daf571d867",
+      "md5_base64": "N6E+hAeVrFFlD5qYR51ZeQ==",
+      "path": "data/chunk-000/file-003.parquet",
+      "sha256": "54984c0d8b6e0b120ad31943c88bfda70c4a7c24b8fe00f7d1d7415e0c4993cd",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 88256,
+      "git_blob_sha1": "d30645f4ca1d95d37d8ee9b33398be0d44980bde",
+      "md5_base64": "C3XS0bY478RVG/k+73WpdQ==",
+      "path": "meta/episodes/chunk-000/file-000.parquet",
+      "sha256": "d511aab315641f2b94c571f70af5b60ad7d691e87fe572be4ce6403ab3dade25",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 2676,
+      "git_blob_sha1": "ec28a85619fa71b7b5d70e15f02d9bc4bf7a8894",
+      "md5_base64": "21YVSwVDU7Xbcfdd9Dz51A==",
+      "path": "meta/info.json",
+      "sha256": "e4b2acb5cca409211b4b3b92c5abdadd833e459dcfa3d1bbdfa682fc09d99265",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 6987,
+      "git_blob_sha1": "442cfa86cf741e4da857e7fe0ddad155690d394e",
+      "md5_base64": "MtpejG9xNuRh8q7dOWQN2A==",
+      "path": "meta/stats.json",
+      "sha256": "a319b4bc3698c16f35bc1977c04dee00d05f53c83d6a4284600a8b2e28714982",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 2185,
+      "git_blob_sha1": "0020478c51590ad4d84f26dceefab16fd510cb45",
+      "md5_base64": "0seJVZAMHobE/mroJLKeGA==",
+      "path": "meta/tasks.parquet",
+      "sha256": "f84fe7ff7679883b900554f83ca6a8caa7ff1f734ff38baab6a65952ec9dcaa8",
+      "status": "downloaded"
+    },
+    {
+      "bytes": 88389634,
+      "git_blob_sha1": "3c788dd4fd230dc7b1949f8afe7ce4d84244a84b",
+      "md5_base64": "B+IcADX/kpZdDuXWuAXJQw==",
+      "path": "videos/observation.images.top/chunk-000/file-000.mp4",
+      "sha256": "25c0aca82aa50c815d7e5b25b4eebd70f7e61ea9d563dff7c39bda139cb935a3",
+      "status": "downloaded"
+    }
+  ],
+  "full_dataset": true,
+  "source_files": [
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": "55cab133643a2a73e083373d2106533678d0edd5",
+      "path": ".gitattributes",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": null,
+      "size": 2419,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/.gitattributes"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": "df7a0da4b692210206d8a3639eeb346a1e526a21",
+      "path": "README.md",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": null,
+      "size": 4138,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/README.md"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-000.parquet",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": "b56ca5d5cc69070b753b10578a8a0da6a4ec883e34bf9666b0c51c7c42b5c2b9",
+      "size": 855778,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/data/chunk-000/file-000.parquet"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-001.parquet",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": "08a89503fe1dab024a0816d39a808edcce266696b8891210675b1b6ba8caa28e",
+      "size": 847617,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/data/chunk-000/file-001.parquet"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-002.parquet",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": "1d65593f389d9446ddc84e6cfe8c18f38d1112652f7568b5a308234b58dfa750",
+      "size": 855579,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/data/chunk-000/file-002.parquet"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": null,
+      "path": "data/chunk-000/file-003.parquet",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": "54984c0d8b6e0b120ad31943c88bfda70c4a7c24b8fe00f7d1d7415e0c4993cd",
+      "size": 293268,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/data/chunk-000/file-003.parquet"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": null,
+      "path": "meta/episodes/chunk-000/file-000.parquet",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": "d511aab315641f2b94c571f70af5b60ad7d691e87fe572be4ce6403ab3dade25",
+      "size": 88256,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/meta/episodes/chunk-000/file-000.parquet"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": "ec28a85619fa71b7b5d70e15f02d9bc4bf7a8894",
+      "path": "meta/info.json",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": null,
+      "size": 2676,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/meta/info.json"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": "442cfa86cf741e4da857e7fe0ddad155690d394e",
+      "path": "meta/stats.json",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": null,
+      "size": 6987,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/meta/stats.json"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": null,
+      "path": "meta/tasks.parquet",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": "f84fe7ff7679883b900554f83ca6a8caa7ff1f734ff38baab6a65952ec9dcaa8",
+      "size": 2185,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/meta/tasks.parquet"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "destination": "lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "git_blob_sha1": null,
+      "path": "videos/observation.images.top/chunk-000/file-000.mp4",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "sha256": "25c0aca82aa50c815d7e5b25b4eebd70f7e61ea9d563dff7c39bda139cb935a3",
+      "size": 88389634,
+      "url": "https://hf-mirror.com/datasets/lerobot/aloha_sim_insertion_human/resolve/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/videos/observation.images.top/chunk-000/file-000.mp4"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "complete_selected_files": true,
+  "dataset": "amandlek/mimicgen_datasets",
+  "files": [
+    {
+      "bytes": 6194,
+      "git_blob_sha1": "13ca646ec53fbfbfd10e06bc021abc6a0b93edca",
+      "md5_base64": "YqAtdzZQxlVwCUFraSENEA==",
+      "path": ".gitattributes",
+      "sha256": "d06682fd5670dd6f181d247463b3a362fd04e27e7dae50ec331733dde876241e",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 3099,
+      "git_blob_sha1": "b3e0fd7bc9509294c08dde780412b4a47c41e1ad",
+      "md5_base64": "F/SMzt9p6Y1+Fg2BTWeIKQ==",
+      "path": "README.md",
+      "sha256": "054380cb79193b2f4b28d71615062d59e79e614165d9f89ac22cb1182ab3aa69",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 1621351476,
+      "git_blob_sha1": "22200c5a9016b82314ef5f3069add02d8df8059e",
+      "md5_base64": "OzvAZp8RHsS68tuVrOPkAw==",
+      "path": "core/square_d0.hdf5",
+      "sha256": "41fc24bce0f88343099c0b1b5bf6eee08cbc35851e71276d4509a01c9b75481c",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 1659441082,
+      "git_blob_sha1": "ab9ccdaae214dddd362d0b45b8aa216f61fe5d1e",
+      "md5_base64": "7jWA/WroWBbIsFfIxaJMEA==",
+      "path": "core/square_d1.hdf5",
+      "sha256": "bdb88ebb36f791645ed4b42512b5cf92e337c1673a71ddf4a7a6295c446fabdf",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 1570601672,
+      "git_blob_sha1": "56cc17075052ed96c756d37ee3a0336be603b79d",
+      "md5_base64": "rFsiNbzwEV3paK32SQ3apA==",
+      "path": "core/square_d2.hdf5",
+      "sha256": "2fa7bd08c158d13f4fab1b507ce2117905df0fc5a126f3d4e971bc8668074434",
+      "status": "verified_existing"
+    }
+  ],
+  "full_dataset": true,
+  "source_files": [
+    {
+      "dataset": "amandlek/mimicgen_datasets",
+      "destination": "amandlek/mimicgen_datasets/33016f8a62c02334f929f2913af8fdd2a8a129e1",
+      "git_blob_sha1": "13ca646ec53fbfbfd10e06bc021abc6a0b93edca",
+      "path": ".gitattributes",
+      "revision": "33016f8a62c02334f929f2913af8fdd2a8a129e1",
+      "sha256": null,
+      "size": 6194,
+      "url": "https://hf-mirror.com/datasets/amandlek/mimicgen_datasets/resolve/33016f8a62c02334f929f2913af8fdd2a8a129e1/.gitattributes"
+    },
+    {
+      "dataset": "amandlek/mimicgen_datasets",
+      "destination": "amandlek/mimicgen_datasets/33016f8a62c02334f929f2913af8fdd2a8a129e1",
+      "git_blob_sha1": "b3e0fd7bc9509294c08dde780412b4a47c41e1ad",
+      "path": "README.md",
+      "revision": "33016f8a62c02334f929f2913af8fdd2a8a129e1",
+      "sha256": null,
+      "size": 3099,
+      "url": "https://hf-mirror.com/datasets/amandlek/mimicgen_datasets/resolve/33016f8a62c02334f929f2913af8fdd2a8a129e1/README.md"
+    },
+    {
+      "dataset": "amandlek/mimicgen_datasets",
+      "destination": "amandlek/mimicgen_datasets/33016f8a62c02334f929f2913af8fdd2a8a129e1",
+      "git_blob_sha1": null,
+      "path": "core/square_d0.hdf5",
+      "revision": "33016f8a62c02334f929f2913af8fdd2a8a129e1",
+      "sha256": "41fc24bce0f88343099c0b1b5bf6eee08cbc35851e71276d4509a01c9b75481c",
+      "size": 1621351476,
+      "url": "https://hf-mirror.com/datasets/amandlek/mimicgen_datasets/resolve/33016f8a62c02334f929f2913af8fdd2a8a129e1/core/square_d0.hdf5"
+    },
+    {
+      "dataset": "amandlek/mimicgen_datasets",
+      "destination": "amandlek/mimicgen_datasets/33016f8a62c02334f929f2913af8fdd2a8a129e1",
+      "git_blob_sha1": null,
+      "path": "core/square_d1.hdf5",
+      "revision": "33016f8a62c02334f929f2913af8fdd2a8a129e1",
+      "sha256": "bdb88ebb36f791645ed4b42512b5cf92e337c1673a71ddf4a7a6295c446fabdf",
+      "size": 1659441082,
+      "url": "https://hf-mirror.com/datasets/amandlek/mimicgen_datasets/resolve/33016f8a62c02334f929f2913af8fdd2a8a129e1/core/square_d1.hdf5"
+    },
+    {
+      "dataset": "amandlek/mimicgen_datasets",
+      "destination": "amandlek/mimicgen_datasets/33016f8a62c02334f929f2913af8fdd2a8a129e1",
+      "git_blob_sha1": null,
+      "path": "core/square_d2.hdf5",
+      "revision": "33016f8a62c02334f929f2913af8fdd2a8a129e1",
+      "sha256": "2fa7bd08c158d13f4fab1b507ce2117905df0fc5a126f3d4e971bc8668074434",
+      "size": 1570601672,
+      "url": "https://hf-mirror.com/datasets/amandlek/mimicgen_datasets/resolve/33016f8a62c02334f929f2913af8fdd2a8a129e1/core/square_d2.hdf5"
+    }
+  ]
+}

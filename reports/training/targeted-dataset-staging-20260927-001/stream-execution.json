@@ -1,0 +1,9 @@
+{
+  "historical_execution_log": "download-parallel8.log",
+  "plan_sha256": "7ca03b13c4f5647a6c411ec8975f746c920569b540be12e789ae34b4cb53bac6",
+  "read_block_bytes": 8388608,
+  "request_mode": "continuous-range-resumable",
+  "resume_partials": true,
+  "started_unix": 1790477310.2705364,
+  "workers": 8
+}

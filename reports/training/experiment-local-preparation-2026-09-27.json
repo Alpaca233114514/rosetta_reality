@@ -1,0 +1,26 @@
+{
+  "id": "experiment-local-preparation-20260927-001",
+  "status": "local_tools_implemented_synthetic_checks_passed",
+  "source_sha256": {
+    "scripts/autodl_bounded_guard.py": "53bc4c8af8cfb8107cc8929314668fb2b149b46cb46e08ca50f4d6924531baaa",
+    "scripts/audit_targeted_aloha.py": "f1a98059e8a75478d5dbe93d3f413057bd00c38cd812f67032afe5713c29a312",
+    "scripts/run_qualification_local_tests.sh": "7118d4913c5d73062b9b79bed3c25a6163a0da276d691157a533cced3cad0915",
+    "src/rosetta_reality/diagnostics/cohort_qualification.py": "7eef80b82e91b721cd213d92c8bd3bbf5f56e05edc0b2d79186b9ec7d3f96c7f",
+    "tests/test_execution_qualification_stdlib.py": "ed1e0ffed4a8f985568a8b66c8d768f496ce70a5c4370183de1305a7ae217f1d",
+    "configs/diagnostics/aloha_qualification_20260927_001.json": "a524003e48d7e7eba1a729e46b7419a31221415286c633bd6fbc70d683c9fa39",
+    "docs/aloha-cohort-qualification.md": "9cfa86f9647de8c0ee0575dc9f767d8b8d45ca1f457e47af54bfc546739016dd"
+  },
+  "tests_passed": 26,
+  "test_scope": "stdlib synthetic contracts and real local process groups",
+  "image_digest": "sha256:4f91ff8e38a2ac6e3e0a307f335f82764c58abfedf15cebf5d67e17fe16b9fc5",
+  "new_dependencies_installed": false,
+  "source_receipt_binding_static_check": "passed",
+  "action_contract_binding_static_check": "passed",
+  "real_parquet_execution_verified": false,
+  "video_alignment_verified": false,
+  "qualified_cohort_available": false,
+  "remote_deployed": false,
+  "remote_experiments_started": false,
+  "training_ready": false,
+  "m2_complete": false
+}

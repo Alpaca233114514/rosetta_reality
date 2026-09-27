@@ -1,0 +1,17 @@
+{
+  "run": "execution-readiness-20260927-001",
+  "observed_utc": "2026-09-27T05:38:00Z",
+  "observation_time_precision": "minute",
+  "instance": "44db45aec7-cd880eb6",
+  "ssh_port": 20497,
+  "state": "stopped",
+  "platform_status_text": "已关机",
+  "verification": "fresh_authenticated_platform_instance_row_after_reload",
+  "platform_timer": "2026-09-27 13:45:00 Asia/Shanghai",
+  "shutdown_method": "explicit_platform_ui_immediate_shutdown",
+  "guard_status": "failed_on_exited_worker_proc_stat",
+  "release_requested": false,
+  "model_loaded": false,
+  "optimizer_updates": 0,
+  "rollouts": 0
+}

@@ -1,0 +1,993 @@
+{
+  "id": "prepost-desktop-analysis-20260924-001",
+  "checked_at_utc": "2026-09-24T13:26:07.7749112Z",
+  "status": "passed",
+  "scope": "read-only saved-evidence identity and JSON arithmetic; no model/data/optimizer/simulation execution",
+  "package_name": "SmolVLA-PrePost-Gate4-Analysis-2026-09-24",
+  "package_manifest_sha256": "b9fe5644c7d5938effc0274f117df08fa8be8311ae8560da1b99b609d99217ef",
+  "manifest_file_count": 93,
+  "manifest_bytes": 2534531.0,
+  "file_checks": [
+    {
+      "path": "reports/m2-smolvla-prepost-gate4-plan-2026-09-24.md",
+      "source": "reports/training/m2-smolvla-prepost-gate4-plan-2026-09-24.md",
+      "bytes": 3388,
+      "sha256": "c656d4fb553deb559abc88d2781d831e7ff2771823a935062aaabddbfbfda4de"
+    },
+    {
+      "path": "reports/m2-smolvla-prepost-gate4-dispatch-2026-09-24.md",
+      "source": "reports/training/m2-smolvla-prepost-gate4-dispatch-2026-09-24.md",
+      "bytes": 1871,
+      "sha256": "129afa40cd5e21fb1055dccc6a847336e1b968a594b451bd9fe090695cf7aa01"
+    },
+    {
+      "path": "reports/m2-smolvla-prepost-gate4-retrieval-2026-09-24.md",
+      "source": "reports/training/m2-smolvla-prepost-gate4-retrieval-2026-09-24.md",
+      "bytes": 2630,
+      "sha256": "1071dffdceccd348ead08c93fea2950f7bbba6fa6c289394811cfeda4bcb8c61"
+    },
+    {
+      "path": "reports/m2-smolvla-prepost-basin-deployment-plan-2026-09-24.md",
+      "source": "reports/training/m2-smolvla-prepost-basin-deployment-plan-2026-09-24.md",
+      "bytes": 2156,
+      "sha256": "961e651a32383c244eebca0e2a62ef5d3ae4edb24e4a6be05bbf30fc2f89a71f"
+    },
+    {
+      "path": "reports/m2-smolvla-prepost-basin-deployment-result-2026-09-24.md",
+      "source": "reports/training/m2-smolvla-prepost-basin-deployment-result-2026-09-24.md",
+      "bytes": 2628,
+      "sha256": "94f80c634443ac2e2b27f8903a7f5774cd96ce77399d1600582fb8eb7ca2a96d"
+    },
+    {
+      "path": "reports/m2-smolvla-prepost-parameters-result-2026-09-23.md",
+      "source": "reports/training/m2-smolvla-prepost-parameters-result-2026-09-23.md",
+      "bytes": 6706,
+      "sha256": "914f2693c7564961bd3fa2ad82c989b86470b78669c81b9d19c23657f15c4b70"
+    },
+    {
+      "path": "reports/m2-smolvla-prepost-preflight-2026-09-23.md",
+      "source": "reports/training/m2-smolvla-prepost-preflight-2026-09-23.md",
+      "bytes": 9004,
+      "sha256": "446c841c91fa7753356a06b8e2cac1bf8877c1137b6948596d5220ebd9c9f1bb"
+    },
+    {
+      "path": "reports/m2-smolvla-prepost-preflight-2026-09-23.json",
+      "source": "reports/training/m2-smolvla-prepost-preflight-2026-09-23.json",
+      "bytes": 15961,
+      "sha256": "4502b334376c58fdc907cf90cb305e00e4d6fe4d9b937ee8f530d46b2b7f06cd"
+    },
+    {
+      "path": "reports/m2-smolvla-prepost-remote-preflight-2026-09-23.md",
+      "source": "reports/training/m2-smolvla-prepost-remote-preflight-2026-09-23.md",
+      "bytes": 3452,
+      "sha256": "5382cd7df438361560c0eeec58e340c4541747c2351e2ed4739e6fc08b5dea2a"
+    },
+    {
+      "path": "reports/m2-smolvla-prepost-bf16-scalar-probe-2026-09-23.md",
+      "source": "reports/training/m2-smolvla-prepost-bf16-scalar-probe-2026-09-23.md",
+      "bytes": 1511,
+      "sha256": "43840add27e662d90f2889ef7b114002e24a406959c150ae25753e2aef8b8492"
+    },
+    {
+      "path": "reports/torchlens-basin-stage1-2026-09-23.md",
+      "source": "reports/training/torchlens-basin-stage1-2026-09-23.md",
+      "bytes": 3962,
+      "sha256": "04eb68c54111fe19d7d81b31950551a272f174813d3f66b559d733142fee1255"
+    },
+    {
+      "path": "reports/torchlens-basin-stage2-2026-09-23.md",
+      "source": "reports/training/torchlens-basin-stage2-2026-09-23.md",
+      "bytes": 2246,
+      "sha256": "59ceda38410356de6c8069dcd44acf0c3fb0c858b301b868ac0207b79bf84a21"
+    },
+    {
+      "path": "reports/torchlens-basin-stage2-verified-2026-09-23.md",
+      "source": "reports/training/torchlens-basin-stage2-verified-2026-09-23.md",
+      "bytes": 3161,
+      "sha256": "0b3818972166e06c7ea357583ccc700e222c320efccdc012fbecd1474a5a4c6c"
+    },
+    {
+      "path": "reports/torchlens-basin-stage2-verified-2026-09-23.json",
+      "source": "reports/training/torchlens-basin-stage2-verified-2026-09-23.json",
+      "bytes": 1719,
+      "sha256": "905675a3112e5c68f2fe931e5499f7587249bd0e776a7b833a76f7e4fadc1eea"
+    },
+    {
+      "path": "reports/m2-smolvla-canonical-fullframes-gate34-result-2026-09-15.md",
+      "source": "reports/training/m2-smolvla-canonical-fullframes-gate34-result-2026-09-15.md",
+      "bytes": 4621,
+      "sha256": "c0e52a1c9d624885368d1220b026448342d85628f1d362dfd4295ff9dd4c4624"
+    },
+    {
+      "path": "reports/m2-smolvla-canonical-fullframes-gate34-result-2026-09-15.json",
+      "source": "reports/training/m2-smolvla-canonical-fullframes-gate34-result-2026-09-15.json",
+      "bytes": 5193,
+      "sha256": "626b06633abc014e4dccff6025bb0ac2e2c144cbecca2aeb5494946100a9b68d"
+    },
+    {
+      "path": "parameter-evidence/2500-to-5000.jsonl",
+      "source": ".cache/prepost-parameters-001/comparison/2500-to-5000.jsonl",
+      "bytes": 471932,
+      "sha256": "704b75d089ff4e8da870b1f8dad7d9531c23cfe3efc721f7b1ec0dd3797d8463"
+    },
+    {
+      "path": "parameter-evidence/base-to-2500.jsonl",
+      "source": ".cache/prepost-parameters-001/comparison/base-to-2500.jsonl",
+      "bytes": 471740,
+      "sha256": "0e8beb54c58a3a2a9108188e2c6e768e584fdf423d1a11695bb3aca620afcf59"
+    },
+    {
+      "path": "parameter-evidence/base-to-5000.jsonl",
+      "source": ".cache/prepost-parameters-001/comparison/base-to-5000.jsonl",
+      "bytes": 471738,
+      "sha256": "0617966cb3fc84d7efff3aa60fa96d7db8c8ba69284c6861469fc32955938741"
+    },
+    {
+      "path": "parameter-evidence/result.json",
+      "source": ".cache/prepost-parameters-001/comparison/result.json",
+      "bytes": 434694,
+      "sha256": "d6f2d50c29ca531773b57dbd5584f905de207f0e93f42a95f762cb0005055e86"
+    },
+    {
+      "path": "parameter-evidence/verification.json",
+      "source": ".cache/prepost-verify-001/verification.json",
+      "bytes": 664,
+      "sha256": "376bf746c721139b903220049631243bece27c07505ce2734a0032d266da9728"
+    },
+    {
+      "path": "parameter-evidence/verifier-executed.py",
+      "source": ".cache/prepost-verify-001/verifier-executed.py",
+      "bytes": 6818,
+      "sha256": "d72ba08cbdee83b98e3bf650d2d4c8b8e00b6c9dd07ce5d494d63f36b1751426"
+    },
+    {
+      "path": "native-gate/active-child.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/active-child.json",
+      "bytes": 72,
+      "sha256": "7297ac4ba737cf595a3e699c53ca9c12626b9e3197523daad38f2d34f09c7732"
+    },
+    {
+      "path": "native-gate/base-gate.yaml",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/base-gate.yaml",
+      "bytes": 4230,
+      "sha256": "732c6bc58d19729947ae4bd2c5d7e1f4708a841e1c275932405df5a88d66d1af"
+    },
+    {
+      "path": "native-gate/base-gate3-0.log",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/base-gate3-0.log",
+      "bytes": 6168,
+      "sha256": "f038e6f382e8cfec6b7f4c222e531cfb85a345c72ecab5f562a5a334e9001dcd"
+    },
+    {
+      "path": "native-gate/base-probe-1.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/base-probe-1.json",
+      "bytes": 39229,
+      "sha256": "61dc666e0e61894fc336ba4a057f29de22e09574fb5ad6990f0ba1230881cf04"
+    },
+    {
+      "path": "native-gate/base-probe-1.log",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/base-probe-1.log",
+      "bytes": 81,
+      "sha256": "3aa0bdb7f34d62fb22265223c4fa183c06ca0bf17c790589220799a410a873ad"
+    },
+    {
+      "path": "native-gate/base-probe-2.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/base-probe-2.json",
+      "bytes": 39229,
+      "sha256": "61dc666e0e61894fc336ba4a057f29de22e09574fb5ad6990f0ba1230881cf04"
+    },
+    {
+      "path": "native-gate/base-probe-2.log",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/base-probe-2.log",
+      "bytes": 81,
+      "sha256": "3aa0bdb7f34d62fb22265223c4fa183c06ca0bf17c790589220799a410a873ad"
+    },
+    {
+      "path": "native-gate/preflight.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/preflight.json",
+      "bytes": 777,
+      "sha256": "8ecf1600486e76e29ea2dbe4f00e4fc85c55f2eb6949d5211862e5cd76f5001d"
+    },
+    {
+      "path": "native-gate/registration.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/registration.json",
+      "bytes": 382,
+      "sha256": "e8c94bce8517a742db226a718a3cf9b2561f825deb2471f32d03101a7edd4380"
+    },
+    {
+      "path": "native-gate/shutdown-request.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/shutdown-request.json",
+      "bytes": 219,
+      "sha256": "4aaa667edead25c910e13e68cec6ac4c1e80d297faede606d486164f226040c0"
+    },
+    {
+      "path": "native-gate/trained-gate.yaml",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/trained-gate.yaml",
+      "bytes": 4251,
+      "sha256": "1e9635ea0d2065cdbbdc2985da1ac2f5a6825defeff3a0900fe3a329c65315b9"
+    },
+    {
+      "path": "native-gate/trained-gate3-0.log",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/trained-gate3-0.log",
+      "bytes": 6092,
+      "sha256": "e877935fa9dbf6ec7d402c57a030658631de08be83ac2ea65d6fa0ca3cd7a452"
+    },
+    {
+      "path": "native-gate/trained-gate4-0.log",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/trained-gate4-0.log",
+      "bytes": 24084,
+      "sha256": "69380ca045eb4acfdf77cf3fc9e2b1d5ed25ea115d62bd8ca193244ad188d2fa"
+    },
+    {
+      "path": "native-gate/trained-probe-1.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/trained-probe-1.json",
+      "bytes": 39717,
+      "sha256": "e9797b3b6befdcde46248f2137aab5723730b1b529c3b15f6a0949e5e0d4174b"
+    },
+    {
+      "path": "native-gate/trained-probe-1.log",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/trained-probe-1.log",
+      "bytes": 81,
+      "sha256": "3aa0bdb7f34d62fb22265223c4fa183c06ca0bf17c790589220799a410a873ad"
+    },
+    {
+      "path": "native-gate/trained-probe-2.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/trained-probe-2.json",
+      "bytes": 39717,
+      "sha256": "e9797b3b6befdcde46248f2137aab5723730b1b529c3b15f6a0949e5e0d4174b"
+    },
+    {
+      "path": "native-gate/trained-probe-2.log",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/trained-probe-2.log",
+      "bytes": 81,
+      "sha256": "3aa0bdb7f34d62fb22265223c4fa183c06ca0bf17c790589220799a410a873ad"
+    },
+    {
+      "path": "native-gate/watchdog.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/watchdog.json",
+      "bytes": 120,
+      "sha256": "73fc88dd13d4d8a96831e04dc4482e908a2bb2d3e27ed72d7290da350910cb2a"
+    },
+    {
+      "path": "native-gate/watchdog.log",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/watchdog.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-gate/worker-exited.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/worker-exited.json",
+      "bytes": 267,
+      "sha256": "3eef079663e68229cdcc24c29ea1d23319693a53faf172b4521e31a5e5995945"
+    },
+    {
+      "path": "native-gate/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001/action_contract.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001/action_contract.json",
+      "bytes": 3246,
+      "sha256": "ef0c8ce81dec7203bfecf37233282c36fc9ae0e5abd9a93b2c0125a4fe420b13"
+    },
+    {
+      "path": "native-gate/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001/candidate-manifest.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001/candidate-manifest.json",
+      "bytes": 2199,
+      "sha256": "0d5f4088fc90f751b12a61e245d444f0fc434530d874fc04d54211c2768eaaa4"
+    },
+    {
+      "path": "native-gate/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001/config.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001/config.json",
+      "bytes": 4763,
+      "sha256": "cca7e39c1136a18f3bd93514f446af56f93e3bd5d05b71a9a1cddcfac684348c"
+    },
+    {
+      "path": "native-gate/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001/manifest.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001/manifest.json",
+      "bytes": 2403,
+      "sha256": "6c35ef6e294ba50dae1e1961b042eaf1f42e988d48f876009da122be3d61cc77"
+    },
+    {
+      "path": "native-gate/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001/normalization.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001/normalization.json",
+      "bytes": 9095,
+      "sha256": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988"
+    },
+    {
+      "path": "native-gate/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-trained-aloha-interface-001/action_contract.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-trained-aloha-interface-001/action_contract.json",
+      "bytes": 3246,
+      "sha256": "ef0c8ce81dec7203bfecf37233282c36fc9ae0e5abd9a93b2c0125a4fe420b13"
+    },
+    {
+      "path": "native-gate/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-trained-aloha-interface-001/candidate-manifest.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-trained-aloha-interface-001/candidate-manifest.json",
+      "bytes": 2205,
+      "sha256": "62783f36839c1c827d38aa1610930c3bd61cdcde5c34dda5658f38e5e36f0d61"
+    },
+    {
+      "path": "native-gate/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-trained-aloha-interface-001/config.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-trained-aloha-interface-001/config.json",
+      "bytes": 4769,
+      "sha256": "29b21ecd5023fb28f301bf4743430a29f3fd63ac15c6602bf719e0fa7b16147b"
+    },
+    {
+      "path": "native-gate/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-trained-aloha-interface-001/manifest.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-trained-aloha-interface-001/manifest.json",
+      "bytes": 2409,
+      "sha256": "80253bd83fc0ca19cef965114a29efc1a0339e071e9734b287635049b6256c99"
+    },
+    {
+      "path": "native-gate/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-trained-aloha-interface-001/normalization.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-trained-aloha-interface-001/normalization.json",
+      "bytes": 9095,
+      "sha256": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/artifact_backup/prepost-base-001.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/artifact_backup/prepost-base-001.json",
+      "bytes": 187,
+      "sha256": "59a38a6d23a7c67f1401b5eb028801fd4f778dda9669d11d7f5ed599d5b0b0d7"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/artifact_backup/prepost-trained-001.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/artifact_backup/prepost-trained-001.json",
+      "bytes": 186,
+      "sha256": "6bb5a4ec900b8cd153072da1dba82b7d1a73543056e8022db1137828867c0001"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate3-smolvla-sim-481.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate3-smolvla-sim-481.json",
+      "bytes": 5598,
+      "sha256": "469a441e2d0ee72f7c63857be43b08ecab0c81795cadce39790991d9a950d19c"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate3-smolvla-sim-482.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate3-smolvla-sim-482.json",
+      "bytes": 5519,
+      "sha256": "5222f7de5ef3ad6e0fcff6b9015ac239c878aad9a7ef89f2d529bbcf53a32c78"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482.json",
+      "bytes": 22951,
+      "sha256": "4db5f64c0b375d77e3f5965e1afd292d417c427466c5cd2a01f97c796abc8503"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482-episodes/episode-00-seed-1000.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482-episodes/episode-00-seed-1000.json",
+      "bytes": 5031,
+      "sha256": "9210b95bdc865462e8b2a0a0691988a6806211e49b31c62a5d74edd34f6875e2"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482-episodes/episode-01-seed-1001.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482-episodes/episode-01-seed-1001.json",
+      "bytes": 5090,
+      "sha256": "3d8758c3dc28fba7989559fb4e51a36efeb9d0423574f4b55399977a57ea84b7"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482-episodes/episode-02-seed-1002.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482-episodes/episode-02-seed-1002.json",
+      "bytes": 5146,
+      "sha256": "9a9214040077d0aa9255fbe0afd23847897266ffd7e7dbd26fabbc5c0c640403"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482-episodes/episode-03-seed-1003.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482-episodes/episode-03-seed-1003.json",
+      "bytes": 5209,
+      "sha256": "a660072252728f7cdf68b16d7df67672516346cb90da8e1f2446045bd5d0836b"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482-episodes/episode-04-seed-1004.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/gates/gate4-smolvla-sim-482-episodes/episode-04-seed-1004.json",
+      "bytes": 5263,
+      "sha256": "580947f6066735606fb96b1183c99c7b38ad22cdc44449009b34a629bae85038"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/prepost-base-001.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/prepost-base-001.json",
+      "bytes": 218,
+      "sha256": "333945544dc812eb0e89e786952c6223509e86d1a8e658ccb582af4bc87fff88"
+    },
+    {
+      "path": "native-gate/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/prepost-trained-001.json",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/selection/prepost-trained-001.json",
+      "bytes": 228,
+      "sha256": "a48dcf4679f056a9bbb649f24650fab2cbe2b98aaed52b20db7a129de5e018b9"
+    },
+    {
+      "path": "native-gate/results/trackio/rosetta-reality-vla.db",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/trackio/rosetta-reality-vla.db",
+      "bytes": 114688,
+      "sha256": "ef3927700e7283099a122985e140a6713ebd3ad49839f1195e101bdbc82e225e"
+    },
+    {
+      "path": "native-gate/results/trackio/rosetta-reality-vla.lock",
+      "source": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/results/trackio/rosetta-reality-vla.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "basin-history/basin-mcp.sh",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/basin-mcp.sh",
+      "bytes": 269,
+      "sha256": "8f7e035d0b6384ff0257faa2bace8dc75fff6b4a852c04e99c0ee02f028443d9"
+    },
+    {
+      "path": "basin-history/mcp-smoke.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/mcp-smoke.json",
+      "bytes": 15649,
+      "sha256": "a14da987b89d30f9cce31ef43d26aefefc9330f7bd25bb15fc552e217fc5798e"
+    },
+    {
+      "path": "basin-history/started.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/started.json",
+      "bytes": 854,
+      "sha256": "84c7b5f9ca6e956c4c4701ab8fe29ff38511f0883425e5df7edf9fc08e5ea8a4"
+    },
+    {
+      "path": "basin-history/verification.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/verification.json",
+      "bytes": 18454,
+      "sha256": "b32a6a2e548bd2e139a045f251f09f237efb5fbb2d83ae731cbb7209ec2913fb"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-base-gate3/events.jsonl",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-base-gate3/events.jsonl",
+      "bytes": 282,
+      "sha256": "3b13fc6c15d8e50f5a2f51448337f3c219d4f00f82aa1fbc5db8a5b7a8eb24f1"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-base-gate3/manifest.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-base-gate3/manifest.json",
+      "bytes": 364,
+      "sha256": "2f5fc39daaac695e515fcd1de3842cc7c4cdf7e274a989dd5896f377e04e1d96"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-base-gate3/run.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-base-gate3/run.json",
+      "bytes": 7592,
+      "sha256": "6a5e673b4413873d6e3860e342debd74907e7006d099562f5f00e5c5f4cff3c0"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-base-gate3/artifacts/native.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-base-gate3/artifacts/native.json",
+      "bytes": 7610,
+      "sha256": "a38f5733b90167376f3468a0eed057f11eec96b3631a2bc26a607826cde55802"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-base-gate4-not-measured/events.jsonl",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-base-gate4-not-measured/events.jsonl",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-base-gate4-not-measured/manifest.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-base-gate4-not-measured/manifest.json",
+      "bytes": 364,
+      "sha256": "c020d45af7ce6e4c886f248495184fcc0d4ba3d6f2608c9b7a9029bf71984816"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-base-gate4-not-measured/run.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-base-gate4-not-measured/run.json",
+      "bytes": 1162,
+      "sha256": "9ea75aeac4fe5246a80c839b4dfb98f3eeb961749b18756cfd84a0232dabb95c"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-base-gate4-not-measured/artifacts/native.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-base-gate4-not-measured/artifacts/native.json",
+      "bytes": 898,
+      "sha256": "d6b64821da796770af808b1bf1468f50baadc8ac8c01227293061231ef5468f5"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-trained-gate3/events.jsonl",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-trained-gate3/events.jsonl",
+      "bytes": 282,
+      "sha256": "1c61d7004fe0a93a3f434419c417fcfe43a66ff349ef1ad48aa253fb64edc1b8"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-trained-gate3/manifest.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-trained-gate3/manifest.json",
+      "bytes": 364,
+      "sha256": "a14c5b622681f4f126eeb83730d9b9adb81cb8840bdf66fd0aafb2e2df3502a9"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-trained-gate3/run.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-trained-gate3/run.json",
+      "bytes": 7509,
+      "sha256": "d263f8e24bbaacea0f184621bdd9a8dd2fbf1f5b7e21a0b76ec89e7201bb7b80"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-trained-gate3/artifacts/native.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-trained-gate3/artifacts/native.json",
+      "bytes": 7524,
+      "sha256": "0bda03052e732fef0e869a4694262d94d376e8899c79775ab004fc75f2ec1090"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-trained-gate4/events.jsonl",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-trained-gate4/events.jsonl",
+      "bytes": 1579,
+      "sha256": "3f29a5a237d9bc3757c3e8e05357c0a24f959a7d8593cc011978feb706513540"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-trained-gate4/manifest.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-trained-gate4/manifest.json",
+      "bytes": 364,
+      "sha256": "e051ef9228429bdc88c6e2506df9289f14707f8b6388c60b7fef4462efc7af7b"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-trained-gate4/run.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-trained-gate4/run.json",
+      "bytes": 26834,
+      "sha256": "c020a43de434322510259eef9ceecfd79642d46b194f0b107478867e69b7e2fc"
+    },
+    {
+      "path": "basin-history/history/prepost-gate4-20260924-001-trained-gate4/artifacts/native.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/history/prepost-gate4-20260924-001-trained-gate4/artifacts/native.json",
+      "bytes": 28111,
+      "sha256": "104ee1b677656241c6af0394d1f4ecde1853d8ffb073ef8e1557a5e38bc832f3"
+    },
+    {
+      "path": "basin-history/inputs/base-gate3.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/inputs/base-gate3.json",
+      "bytes": 7610,
+      "sha256": "a38f5733b90167376f3468a0eed057f11eec96b3631a2bc26a607826cde55802"
+    },
+    {
+      "path": "basin-history/inputs/base-gate4-not-measured.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/inputs/base-gate4-not-measured.json",
+      "bytes": 898,
+      "sha256": "d6b64821da796770af808b1bf1468f50baadc8ac8c01227293061231ef5468f5"
+    },
+    {
+      "path": "basin-history/inputs/trained-gate3.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/inputs/trained-gate3.json",
+      "bytes": 7524,
+      "sha256": "0bda03052e732fef0e869a4694262d94d376e8899c79775ab004fc75f2ec1090"
+    },
+    {
+      "path": "basin-history/inputs/trained-gate4.json",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-history-20260924-001/inputs/trained-gate4.json",
+      "bytes": 28111,
+      "sha256": "104ee1b677656241c6af0394d1f4ecde1853d8ffb073ef8e1557a5e38bc832f3"
+    },
+    {
+      "path": "basin-deployment/deploy_prepost_basin_history.py",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-deploy-20260924-001/deploy_prepost_basin_history.py",
+      "bytes": 12326,
+      "sha256": "5aa83717a42eb11f9f0c54eae8962f765619dfcea9ca30f1532651c7cabe32b9"
+    },
+    {
+      "path": "basin-deployment/deploy.log",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-deploy-20260924-001/deploy.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "basin-deployment/deploy.sh",
+      "source": "runs/prepost-basin-received-20260924-001/prepost-basin-deploy-20260924-001/deploy.sh",
+      "bytes": 580,
+      "sha256": "f2852d15628375352610a2e8a29cfe387e29a509820f5017045cd1cf158c5aa5"
+    }
+  ],
+  "gate_bindings": [
+    {
+      "report": "gate3-smolvla-sim-481.json",
+      "sha256": "469a441e2d0ee72f7c63857be43b08ecab0c81795cadce39790991d9a950d19c",
+      "plan_sha256": "732c6bc58d19729947ae4bd2c5d7e1f4708a841e1c275932405df5a88d66d1af",
+      "artifact_manifest_sha256": "6c35ef6e294ba50dae1e1961b042eaf1f42e988d48f876009da122be3d61cc77"
+    },
+    {
+      "report": "gate3-smolvla-sim-482.json",
+      "sha256": "5222f7de5ef3ad6e0fcff6b9015ac239c878aad9a7ef89f2d529bbcf53a32c78",
+      "plan_sha256": "1e9635ea0d2065cdbbdc2985da1ac2f5a6825defeff3a0900fe3a329c65315b9",
+      "artifact_manifest_sha256": "80253bd83fc0ca19cef965114a29efc1a0339e071e9734b287635049b6256c99"
+    },
+    {
+      "report": "gate4-smolvla-sim-482.json",
+      "sha256": "4db5f64c0b375d77e3f5965e1afd292d417c427466c5cd2a01f97c796abc8503",
+      "plan_sha256": "1e9635ea0d2065cdbbdc2985da1ac2f5a6825defeff3a0900fe3a329c65315b9",
+      "artifact_manifest_sha256": "80253bd83fc0ca19cef965114a29efc1a0339e071e9734b287635049b6256c99"
+    }
+  ],
+  "gate3": {
+    "base": {
+      "action_smoothness_l2": 0.21894095838069916,
+      "executed_limit_violation_rate": 0.0,
+      "invalid_action_rate": 0.0,
+      "joint_limit_violations": 9,
+      "maximum_reward": 0.0,
+      "mean_policy_inference_seconds": 0.24395742285996674,
+      "mean_simulation_step_seconds": 0.008623538818210364,
+      "noise_mode": "seeded_standard_normal",
+      "p95_policy_inference_seconds": 0.239633334800601,
+      "p95_simulation_step_seconds": 0.011463180184364319,
+      "policy_inference_calls": 20,
+      "policy_noise_seed": 20260809,
+      "policy_output_limit_violation_rate": 0.0,
+      "raw_limit_violation_rate": 0.0,
+      "reset_contact_events": 8,
+      "rollout_length": 20,
+      "seed": 20260809,
+      "success": false,
+      "terminated": false,
+      "truncated": true,
+      "unexpected_collision_pairs": {
+        "vx300s_left/10_left_gripper_finger <-> vx300s_right/10_left_gripper_finger": 1
+      },
+      "unexpected_collisions": 1,
+      "unprojected_dimension_diagnostics": {
+        "left_elbow": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 1.0348342657089233,
+          "minimum_predicted": 0.43679866194725037,
+          "strict_violation_count": 0
+        },
+        "left_forearm_roll": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.0764019787311554,
+          "minimum_predicted": -0.0820341482758522,
+          "strict_violation_count": 0
+        },
+        "left_gripper": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.2847967743873596,
+          "minimum_predicted": 0.2764015793800354,
+          "strict_violation_count": 0
+        },
+        "left_shoulder": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": -0.15576867759227753,
+          "minimum_predicted": -0.5565208792686462,
+          "strict_violation_count": 0
+        },
+        "left_waist": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.05385461077094078,
+          "minimum_predicted": -0.13442793488502502,
+          "strict_violation_count": 0
+        },
+        "left_wrist_angle": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.8063000440597534,
+          "minimum_predicted": 0.08018136024475098,
+          "strict_violation_count": 0
+        },
+        "left_wrist_rotate": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.02580261044204235,
+          "minimum_predicted": -0.104836605489254,
+          "strict_violation_count": 0
+        },
+        "right_elbow": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.6381001472473145,
+          "minimum_predicted": 0.6305336952209473,
+          "strict_violation_count": 0
+        },
+        "right_forearm_roll": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.1975386142730713,
+          "minimum_predicted": 0.19069327414035797,
+          "strict_violation_count": 0
+        },
+        "right_gripper": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.16814547777175903,
+          "minimum_predicted": 0.16087684035301208,
+          "strict_violation_count": 0
+        },
+        "right_shoulder": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": -0.19306042790412903,
+          "minimum_predicted": -0.2048412561416626,
+          "strict_violation_count": 0
+        },
+        "right_waist": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": -0.09641098976135254,
+          "minimum_predicted": -0.10068254172801971,
+          "strict_violation_count": 0
+        },
+        "right_wrist_angle": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.6191568374633789,
+          "minimum_predicted": 0.6078947186470032,
+          "strict_violation_count": 0
+        },
+        "right_wrist_rotate": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": -0.13867485523223877,
+          "minimum_predicted": -0.14732691645622253,
+          "strict_violation_count": 0
+        }
+      },
+      "unprojected_limit_violation_rate": 0.0
+    },
+    "trained": {
+      "action_smoothness_l2": 0.16074705123901367,
+      "executed_limit_violation_rate": 0.0,
+      "invalid_action_rate": 0.0,
+      "joint_limit_violations": 0,
+      "maximum_reward": 0.0,
+      "mean_policy_inference_seconds": 0.2915730578824878,
+      "mean_simulation_step_seconds": 0.009971027728170156,
+      "noise_mode": "seeded_standard_normal",
+      "p95_policy_inference_seconds": 0.3443794958293438,
+      "p95_simulation_step_seconds": 0.01486772671341896,
+      "policy_inference_calls": 20,
+      "policy_noise_seed": 20260809,
+      "policy_output_limit_violation_rate": 0.0,
+      "raw_limit_violation_rate": 0.0,
+      "reset_contact_events": 8,
+      "rollout_length": 20,
+      "seed": 20260809,
+      "success": false,
+      "terminated": false,
+      "truncated": true,
+      "unexpected_collision_pairs": {},
+      "unexpected_collisions": 0,
+      "unprojected_dimension_diagnostics": {
+        "left_elbow": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 1.1790276765823364,
+          "minimum_predicted": 0.9924823045730591,
+          "strict_violation_count": 0
+        },
+        "left_forearm_roll": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.022284328937530518,
+          "minimum_predicted": -0.05651858448982239,
+          "strict_violation_count": 0
+        },
+        "left_gripper": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.2636769413948059,
+          "minimum_predicted": 0.14375212788581848,
+          "strict_violation_count": 0
+        },
+        "left_shoulder": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": -0.7003813982009888,
+          "minimum_predicted": -0.9952693581581116,
+          "strict_violation_count": 0
+        },
+        "left_waist": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.026375655084848404,
+          "minimum_predicted": -0.04358057305216789,
+          "strict_violation_count": 0
+        },
+        "left_wrist_angle": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.07701155543327332,
+          "minimum_predicted": -0.3633408844470978,
+          "strict_violation_count": 0
+        },
+        "left_wrist_rotate": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.001095290295779705,
+          "minimum_predicted": -0.06179289519786835,
+          "strict_violation_count": 0
+        },
+        "right_elbow": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 1.1909327507019043,
+          "minimum_predicted": 1.0280174016952515,
+          "strict_violation_count": 0
+        },
+        "right_forearm_roll": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.0633038580417633,
+          "minimum_predicted": -0.012966692447662354,
+          "strict_violation_count": 0
+        },
+        "right_gripper": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.027729123830795288,
+          "minimum_predicted": 0.0003851950168609619,
+          "strict_violation_count": 0
+        },
+        "right_shoulder": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": -0.7768367528915405,
+          "minimum_predicted": -0.9736431837081909,
+          "strict_violation_count": 0
+        },
+        "right_waist": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.007702276110649109,
+          "minimum_predicted": -0.04961414262652397,
+          "strict_violation_count": 0
+        },
+        "right_wrist_angle": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.04035109281539917,
+          "minimum_predicted": -0.3713430166244507,
+          "strict_violation_count": 0
+        },
+        "right_wrist_rotate": {
+          "maximum_overshoot": 0.0,
+          "maximum_predicted": 0.16006973385810852,
+          "minimum_predicted": -0.06701173633337021,
+          "strict_violation_count": 0
+        }
+      },
+      "unprojected_limit_violation_rate": 0.0
+    }
+  },
+  "gate4_episode_recalculation": [
+    {
+      "seed": 1000,
+      "steps": 500,
+      "success": false,
+      "maximum_reward": 0.0,
+      "joint_limit_count": 0,
+      "unexpected_contact_count": 0,
+      "sha256": "9210b95bdc865462e8b2a0a0691988a6806211e49b31c62a5d74edd34f6875e2"
+    },
+    {
+      "seed": 1001,
+      "steps": 500,
+      "success": false,
+      "maximum_reward": 0.0,
+      "joint_limit_count": 1,
+      "unexpected_contact_count": 2,
+      "sha256": "3d8758c3dc28fba7989559fb4e51a36efeb9d0423574f4b55399977a57ea84b7"
+    },
+    {
+      "seed": 1002,
+      "steps": 500,
+      "success": false,
+      "maximum_reward": 0.0,
+      "joint_limit_count": 0,
+      "unexpected_contact_count": 16,
+      "sha256": "9a9214040077d0aa9255fbe0afd23847897266ffd7e7dbd26fabbc5c0c640403"
+    },
+    {
+      "seed": 1003,
+      "steps": 500,
+      "success": false,
+      "maximum_reward": 0.0,
+      "joint_limit_count": 18,
+      "unexpected_contact_count": 14,
+      "sha256": "a660072252728f7cdf68b16d7df67672516346cb90da8e1f2446045bd5d0836b"
+    },
+    {
+      "seed": 1004,
+      "steps": 500,
+      "success": false,
+      "maximum_reward": 0.0,
+      "joint_limit_count": 0,
+      "unexpected_contact_count": 17,
+      "sha256": "580947f6066735606fb96b1183c99c7b38ad22cdc44449009b34a629bae85038"
+    }
+  ],
+  "gate4_aggregate": {
+    "task_success_rate": 0.0,
+    "mean_rollout_length": 500.0,
+    "joint_limit_violations": 19.0,
+    "unexpected_collisions": 49.0,
+    "invalid_action_rate": 0.0,
+    "raw_limit_violation_rate": 0.0,
+    "unprojected_limit_violation_rate": 0.0,
+    "policy_output_limit_violation_rate": 0.0,
+    "executed_limit_violation_rate": 0.0,
+    "mean_action_smoothness_l2": 0.1315712809562683,
+    "mean_policy_inference_seconds": 0.22423843714147812,
+    "mean_simulation_step_seconds": 0.00874060223698616
+  },
+  "gate4_criteria": {
+    "completed_nonempty_rollouts": true,
+    "executed_actions_within_contract": true,
+    "finite_actions": true,
+    "joint_limits_respected": false,
+    "maximum_unexpected_collisions": false,
+    "minimum_task_success_rate": false,
+    "policy_output_projection_registered": true,
+    "projected_policy_actions_within_contract": true
+  },
+  "contact_pair_histogram": {
+    "table <-> vx300s_right/10_right_gripper_finger": 25,
+    "table <-> vx300s_right/10_left_gripper_finger": 3,
+    "table <-> vx300s_left/10_left_gripper_finger": 13,
+    "table <-> vx300s_left/10_right_gripper_finger": 8
+  },
+  "independent_reload_saved_evidence": [
+    {
+      "arm": "base",
+      "probe_sha256": "61dc666e0e61894fc336ba4a057f29de22e09574fb5ad6990f0ba1230881cf04",
+      "byte_equal": true,
+      "shape": [
+        50,
+        14
+      ],
+      "scope": "one reset observation, zero noise, raw and projected action arrays; runtime execution not repeated"
+    },
+    {
+      "arm": "trained",
+      "probe_sha256": "e9797b3b6befdcde46248f2137aab5723730b1b529c3b15f6a0949e5e0d4174b",
+      "byte_equal": true,
+      "shape": [
+        50,
+        14
+      ],
+      "scope": "one reset observation, zero noise, raw and projected action arrays; runtime execution not repeated"
+    }
+  ],
+  "basin_import_checks": [
+    {
+      "run": "prepost-gate4-20260924-001-base-gate3",
+      "status": "failed",
+      "event_count": 1,
+      "verified_files": 3,
+      "source_sha256": "469a441e2d0ee72f7c63857be43b08ecab0c81795cadce39790991d9a950d19c"
+    },
+    {
+      "run": "prepost-gate4-20260924-001-base-gate4-not-measured",
+      "status": "not_measured",
+      "event_count": 0,
+      "verified_files": 3,
+      "source_sha256": "3eef079663e68229cdcc24c29ea1d23319693a53faf172b4521e31a5e5995945"
+    },
+    {
+      "run": "prepost-gate4-20260924-001-trained-gate3",
+      "status": "passed",
+      "event_count": 1,
+      "verified_files": 3,
+      "source_sha256": "5222f7de5ef3ad6e0fcff6b9015ac239c878aad9a7ef89f2d529bbcf53a32c78"
+    },
+    {
+      "run": "prepost-gate4-20260924-001-trained-gate4",
+      "status": "failed",
+      "event_count": 5,
+      "verified_files": 3,
+      "source_sha256": "4db5f64c0b375d77e3f5965e1afd292d417c427466c5cd2a01f97c796abc8503"
+    }
+  ],
+  "parameter_record_checks": [
+    {
+      "pair": "base-to-2500",
+      "rows": 500,
+      "numel": 450046176.0,
+      "numeric_changed": 122,
+      "numeric_equal": 378,
+      "byte_equal": 179,
+      "dtype_changed": 199,
+      "unchanged_all_one_norms": 33,
+      "rows_sha256": "0e8beb54c58a3a2a9108188e2c6e768e584fdf423d1a11695bb3aca620afcf59"
+    },
+    {
+      "pair": "base-to-5000",
+      "rows": 500,
+      "numel": 450046176.0,
+      "numeric_changed": 122,
+      "numeric_equal": 378,
+      "byte_equal": 179,
+      "dtype_changed": 199,
+      "unchanged_all_one_norms": 33,
+      "rows_sha256": "0617966cb3fc84d7efff3aa60fa96d7db8c8ba69284c6861469fc32955938741"
+    },
+    {
+      "pair": "2500-to-5000",
+      "rows": 500,
+      "numel": 450046176.0,
+      "numeric_changed": 122,
+      "numeric_equal": 378,
+      "byte_equal": 378,
+      "dtype_changed": 0,
+      "unchanged_all_one_norms": 33,
+      "rows_sha256": "704b75d089ff4e8da870b1f8dad7d9531c23cfe3efc721f7b1ec0dd3797d8463"
+    }
+  ],
+  "reviewed_current_source_sha256": {
+    "scripts/run_prepost_gate_comparison.py": "ce32b229f56200621e2b6e1d942f8b6388635dfb1dd0910d3086c8aff5784384",
+    "scripts/smolvla_sim_gate.py": "5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d"
+  },
+  "verifier_sha256": "cf295b6c8409f65232d7051e89daaa0d268b93b4573c3e4ba5f403e7dc0b30c7",
+  "limits": [
+    "No independent reconstruction of physical contacts or joint states: current package lacks per-step arrays.",
+    "Parameter statistics reconciled from saved JSONL only; historical raw-weight numerical verification was not rerun.",
+    "Artifact manifests bound; linked model and processor payloads are excluded from this desktop package.",
+    "No fresh platform power, remote runtime, or actual gradient observation.",
+    "Basin records are derived imports, not independent experimental replications."
+  ]
+}

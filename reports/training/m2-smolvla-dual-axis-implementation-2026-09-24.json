@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "status": "implemented_locally_synthetic_verified",
+  "scope": "diagnostic_infrastructure_and_nonexecuting_preparation",
+  "full_regression_passed": 136,
+  "final_runtime_passed": 13,
+  "test_counts_overlap": true,
+  "default_readonly_basin_tools": 12,
+  "historical_events": 16,
+  "model_execution_authorized": false,
+  "real_model_execution_performed": false,
+  "cuda_transparency": "not_measured",
+  "routine_overhead_15_percent": "not_measured",
+  "codex_session_hot_reload": "not_verified",
+  "gate_status": "unchanged",
+  "m2_complete": false,
+  "files": {
+    "src/rosetta_reality/diagnostics/dual_axis.py": "baa4d7e554ade54a7fab4eaa4e836ed3e655354373082d168bb233888bbbafd4",
+    "src/rosetta_reality/diagnostics/dual_axis_torch.py": "daedef8ea35155d5e74d674b802e515f863cceb675bcfb9a438fafaf5d9544cd",
+    "src/rosetta_reality/diagnostics/dual_axis_bank.py": "7d0d340b5f710f552f4eeade1519c4176f8a9cec45c9b1c58636d3d2d25d8559",
+    "src/rosetta_reality/vla/training/dual_axis.py": "a8a720de313d2a86ea4697bb4f898b785bc2143c34a892b591b09fe9f15711e2",
+    "src/rosetta_reality/eval/dual_axis.py": "3ca65262511202addb00545f2640592a36e7ab1e79c4b90e115da0869b050a96",
+    "scripts/prepare_dual_axis.py": "ad6483ee6b9fac273ccf8abfd8437a91ac1839c3dd4445aa2c41a45e2df988f5",
+    "scripts/run_dual_axis_tests.sh": "e7e24c0c973c8698feceb3ceed3ec3319caf23ee8ca7d622f1b430396c4fd8a8",
+    "configs/diagnostics/dual_axis_split_20260924.json": "0a000044decde3723790da81a7c26d8b23bdcb20e5a1a30608e1ca9547a3731f",
+    ".cache/dual-axis-prepared-002/prepared/plan.json": "71945da3e1a94e2e7d167d42e7314e1b5193e2916d47a07209f302f42c108372",
+    ".cache/dual-axis-prepared-002/prepared/history/manifest.json": "0983e20c87c14afc799ec29346263719f950356e5004d5ab01cf0a1d3c560f88",
+    ".cache/dual-axis-final-regression-006/container.log": "72180ae3d5506067cc7da7caff802aeefb4c2236ad8f614f115e657967b8e4ac",
+    ".cache/dual-axis-bank-final-008/container.log": "8addd46c0939f4882d256af27ee7eb97837b2dca0a8f73239e22ea6ea4c2a69c",
+    ".cache/dual-axis-api-demo-002/verification.json": "6c158b81c101cf55fa550627422ecec44d20a633213622b81674e61c99bb2da4",
+    ".cache/dual-axis-api-demo-002/mcp-protocol.json": "540a7efdc4b28c54d754eea0a46ffc81959bbaefa4d497ae9f09c0abfb153725"
+  }
+}

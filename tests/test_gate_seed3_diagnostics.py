@@ -552,6 +552,10 @@ def registered_fixture(tmp_path, monkeypatch):
     weight_sha = paths["weights"]["sha256"]
     monkeypatch.setattr(protocol, "WEIGHT_SHA", weight_sha)
     monkeypatch.setattr(protocol, "CONFIG_SHA", paths["config"]["sha256"])
+    native_config = tmp_path / "native-config"
+    native_config.write_bytes((tmp_path / "config").read_bytes() + b"\n")
+    native_config_sha = sha(native_config)
+    monkeypatch.setattr(protocol, "ARTIFACT_CONFIG_SHA", native_config_sha)
     authority = tmp_path / "authority.json"
     files = {"model.safetensors": weight_sha}
     write_json(
@@ -575,7 +579,7 @@ def registered_fixture(tmp_path, monkeypatch):
             "reload": {"exact_tensor_equality": True},
             "files": {
                 "pretrained_model/model.safetensors": weight_sha,
-                "config.json": paths["config"]["sha256"],
+                "config.json": native_config_sha,
             },
         },
     )

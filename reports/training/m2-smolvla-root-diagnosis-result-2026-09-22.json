@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "status": "completed_local_analysis_and_preparation",
+  "base_commit": "2687d7a",
+  "branch": "codex/closed-loop-reproducibility-20260918",
+  "model_forwards": 0,
+  "optimizer_steps": 0,
+  "real_rollouts": 0,
+  "autodl_used": false,
+  "downloads": false,
+  "commit_push": false,
+  "m2_complete": false,
+  "gate4": "unchanged_0_of_5",
+  "evidence_inventory": "runs/root-evidence-20260922-002/evidence-inventory.json",
+  "inventory_files": 174,
+  "files_matching_registered_hash": 64,
+  "current_hash_only": 110,
+  "missing_files": 0,
+  "hash_mismatches": 0,
+  "neighborhood_metrics": 17280,
+  "neighbor_records": 270,
+  "event_records": 8640,
+  "independent_checks": {
+    "events": 17280,
+    "numeric_neighbor": 138510
+  },
+  "validation": {
+    "ruff": "passed",
+    "pytest_passed": 83,
+    "log": "runs/root-diagnosis-20260922-001/qa/final-005.log"
+  },
+  "hypotheses": [
+    {
+      "support": "exact_final_LF_hash_relation_and_success_semantics_counterexamples",
+      "next": "actual_runtime_contract_preflight",
+      "id": "implementation_error",
+      "counterevidence": "native_ingress_schedule_and_5000_update_evidence",
+      "status": "diagnostic_blockers_confirmed_and_repaired_not_training_cause"
+    },
+    {
+      "support": "frame250_model_loses_train_constants_all_four_noises",
+      "next": "full_trajectory_fresh_base_fit_probe",
+      "id": "optimization_or_mapping",
+      "counterevidence": "frame125_model_beats_both_simple_neighbors_all_four_noises",
+      "status": "supported_local_failure_not_unique_cause"
+    },
+    {
+      "support": "13_22_33_neighbors_have_different_closure_phases",
+      "next": "fit_probe_then_register_one_axis",
+      "id": "scene_coverage_supervision",
+      "counterevidence": "2D_proxy_is_not_full_visual_distance",
+      "status": "proxy_neighbor_disagreement_confirmed_labels_not_proven_wrong"
+    },
+    {
+      "support": "state_neighbors_do_not_fully_align_phase",
+      "next": "train_only_history_probe_if_fit_results_support",
+      "id": "observation_information",
+      "counterevidence": "no_history_information_gain_experiment",
+      "status": "unidentified"
+    },
+    {
+      "support": "retained_grasp_establishment_and_retention_failures",
+      "next": "seed1002_AA_and_incremental_trace",
+      "id": "closed_loop_shift",
+      "counterevidence": "new_matched_rollout_not_measured",
+      "status": "plausible_not_isolated"
+    }
+  ],
+  "packages": {
+    "readout": "runs/root-readout-20260922-001",
+    "reproducibility": "runs/root-evidence-20260922-002/reproducibility",
+    "trajectory": "runs/trajectory-probe-prepared-20260922-002",
+    "neighborhood": "runs/root-neighborhoods-20260922-002",
+    "independent": "runs/root-neighborhoods-independent-20260922-002"
+  },
+  "limits": [
+    "No unique learning-side cause identified",
+    "Full model trainer composition not measured",
+    "No source-state matched rollout or new Gate",
+    "Container enforced 3GiB not the analysis-plan 1536MiB target; within 16GB host budget",
+    "Four noise conditions are not independent training repetitions"
+  ]
+}

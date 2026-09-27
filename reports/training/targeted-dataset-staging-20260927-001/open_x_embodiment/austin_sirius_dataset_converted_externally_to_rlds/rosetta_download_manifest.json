@@ -1,0 +1,1148 @@
+{
+  "complete_selected_files": true,
+  "dataset": "sirius",
+  "files": [
+    {
+      "bytes": 178205997,
+      "git_blob_sha1": "caf6f12c81dbc521d21a2905d003c8c8a9d71614",
+      "md5_base64": "Q1Izx2NnSUx48OIJ3/hbsg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00000-of-00064",
+      "sha256": "ab3f22cc92597bf35f569064473ba5f5f5dee5d1d783d113508aec9eb563784d",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 128092870,
+      "git_blob_sha1": "700f4a23d9cc51350d4a42eaf8fa3093bfb8c069",
+      "md5_base64": "yQtZa19F+67cvc0uazEOuA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00001-of-00064",
+      "sha256": "e98792e6653168539a8b4bc4a6dcaa3001cb985f1c0d359e0888468e9a97c597",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 145706345,
+      "git_blob_sha1": "64e1f34e3953d648d874149c59b73837e16673c3",
+      "md5_base64": "f94VHx1ELyL7GOa40y+XSA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00002-of-00064",
+      "sha256": "d00583a018aec98df33aac6e3301773d12b54261a091b0387c481dd65787fa3f",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 79848385,
+      "git_blob_sha1": "c1be8dd656400d28cf55d30cd74707b0c22b2174",
+      "md5_base64": "RK7KF8kpHgRPI/Uf7JSR0g==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00003-of-00064",
+      "sha256": "8ceae3145aa92ae0cc62e1ae7978cb2917c8ce914a2280a272fa62d585a4f84f",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 183448746,
+      "git_blob_sha1": "6667e1888f99f5dce1b94e1a40198291d9a132f3",
+      "md5_base64": "yUhXyO6dL7dL2zOYaNmmOQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00004-of-00064",
+      "sha256": "6036f49671bbc202ca58f0e32435970e1a1ee9b3ddc46a9e284e2110ef9bee4d",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 86644752,
+      "git_blob_sha1": "11760ed4e71c433db25a2c5ff85955738cabdcb6",
+      "md5_base64": "jyBSBqRYHLsqdEA6wk49EA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00005-of-00064",
+      "sha256": "5834b27f358586b8bac9d2dda0e5fbd7a6e3a288fb39005868c197cb67d3445e",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 33067643,
+      "git_blob_sha1": "70516069233c0a1ea7fe8312aaf176b2413fd53d",
+      "md5_base64": "6j8TAWqJHya9633l0AsOsQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00006-of-00064",
+      "sha256": "afc32ff6acb1be80a8fb5a5f3c852db9cb66d6c5659797fc3123bb16bf1246a1",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 126228343,
+      "git_blob_sha1": "8a763cea1927ee078d0603b054576e396b1d028a",
+      "md5_base64": "syOenW34tQyxbzUpYeuLLA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00007-of-00064",
+      "sha256": "16f958c9c493030ff544f83fe2156874ddb409a367f8d997a85d8da05f04ea10",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 61369496,
+      "git_blob_sha1": "ce858f521df582dd47877798af6e581aec3af924",
+      "md5_base64": "i1SQhmjSE00tTOm+Xip/YQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00008-of-00064",
+      "sha256": "59b48013eb30d4004c75499ad2e9c563d81eedfefc610337f0dd62c15d5f5a12",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 139190968,
+      "git_blob_sha1": "023d036a1d11e40708ecf41529626d6842a5d2e8",
+      "md5_base64": "tQLw39y6XRC18P8JZm0sQg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00009-of-00064",
+      "sha256": "364fae05e11ea793ff5ab7d3957bf11f603b2cecc549afa596f360bcc587bced",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 105126914,
+      "git_blob_sha1": "b944e46d7b4834945afc41dbca9206dc8c953d30",
+      "md5_base64": "4cGHjogn38HT97oyDXdsnA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00010-of-00064",
+      "sha256": "ead7bfa1e3a842258a8558de3372f310718ae337b78cb26acb3bb6daa47c3741",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 163604133,
+      "git_blob_sha1": "4c1ccad3a4ab50fbb8f7e88de427da233f4d8039",
+      "md5_base64": "LbVKvSfC2ATEy4Zqpf2zQQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00011-of-00064",
+      "sha256": "6a866087ca3151222c0387d9665312aa53702b03daa19621e203988ab817d01b",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 163452982,
+      "git_blob_sha1": "c8d901e187d4068ab699ebc236a4d476357fd106",
+      "md5_base64": "1edo8MVpp+/Guj+lx1ykRg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00012-of-00064",
+      "sha256": "a98e2de5f987863b7874cdb766872ae84bcf3c57a0f196f8e5e9ae44ee403312",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 82559771,
+      "git_blob_sha1": "9909708e2c6aea54475bdc04cb728d4ff9b6fa7e",
+      "md5_base64": "RlSTC7+W811+PfqdR9ei8g==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00013-of-00064",
+      "sha256": "e30f8b38b5ffc80688c9bdd829407ddf54536d4e52b5f8ba6420c78d020911de",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 126114351,
+      "git_blob_sha1": "ea599cc85b0206856e456ad762d7d4701113e39f",
+      "md5_base64": "vb9ZaDOXvHwvex0W0FwKJQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00014-of-00064",
+      "sha256": "a5f3b914db8aae31e41b6ec51de229430d8b86ed75bfc3a3d9aa11b8725caf22",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 126524875,
+      "git_blob_sha1": "f9d3aff78e78937c8d4a86252284ec543f9d6651",
+      "md5_base64": "inZUp4Gj1YKryR3H66F8+w==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00015-of-00064",
+      "sha256": "ac8899c30bbc3bbf02452d2a023adc66fc1519b131835b3b73dadd00c33f79d6",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 139414239,
+      "git_blob_sha1": "753d4b3c317a6c62e9e501748db538f3ec760491",
+      "md5_base64": "OKZNQAbdtkm++avfXgGOAA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00016-of-00064",
+      "sha256": "3432293e46ed8b83544cb771fda42c14c64962d5845121fffd56d269e3473d62",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 40951621,
+      "git_blob_sha1": "cf403216df134d87297770bd5a926cffefb4b3f3",
+      "md5_base64": "Cx0aY26cyl9PBGRKo43sCA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00017-of-00064",
+      "sha256": "cb8ec0e161479bb18105a2dad3a99d72649b2ca03251b98b7c3d9c31c5dc30a3",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 188456895,
+      "git_blob_sha1": "e8ec1ae5258b005e74c162ea611477b56e50056e",
+      "md5_base64": "VjW5da9RZRZKW5VH9oiwOw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00018-of-00064",
+      "sha256": "d0f13e4b8331a10ba1d650ea96be96c8d96b54638acc184803c394ef4d0a1c4a",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 70540644,
+      "git_blob_sha1": "cc5b421dac75a4627f36318436e2b876987181ae",
+      "md5_base64": "N+Od1FOq1p3uPY09tE1pGw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00019-of-00064",
+      "sha256": "08192ef58924834ac41228b77f16958c4da9d5b94448967f11cb70caea1503dc",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 100093264,
+      "git_blob_sha1": "647fb3fdec16530afa2726d86ceb211941712aa4",
+      "md5_base64": "utqd9L9R/JHPj018f3l29Q==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00020-of-00064",
+      "sha256": "c18703f5cacfa259aac9bae207691d7b40fc3efd30f57c13b46f710346d00a39",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 103823718,
+      "git_blob_sha1": "646b53ea602e445124b19f3074f0e70da6bee2d2",
+      "md5_base64": "UFL54UVKU+oeToipxNUV7A==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00021-of-00064",
+      "sha256": "4d254dd86efcf7cf55aa703eeebd745747eb8b2c86487daf39a2bfc062b04826",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 35074454,
+      "git_blob_sha1": "bbf1a3f116c0061550769cd85d2a17d1251352be",
+      "md5_base64": "avD8adC3HiXRpGjtRebDXw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00022-of-00064",
+      "sha256": "e3007255c2599678cf26d7526eb78e70cb105cfd799d3ac67506d8fa55574761",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 89276521,
+      "git_blob_sha1": "47d6599a3c8be377b54e0934abfeb73d3f021d49",
+      "md5_base64": "ACykOQGpABZri1zrmABnog==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00023-of-00064",
+      "sha256": "9b7870f4679052f6cc596f7ebf0239e5e3d5925543641f6d7165f73134ed8cf4",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 153049843,
+      "git_blob_sha1": "8d29930519804dd10909f81b2832491ecdb5686c",
+      "md5_base64": "vUoJNmqpiO9QuJL9mVbyug==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00024-of-00064",
+      "sha256": "175ddfe10e6b29d653f5ab4adf50ab2939efbf12cc96078b63a4a4e76badc6ff",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 157576332,
+      "git_blob_sha1": "2ea0ee54c11f4f269cda7ecb2bc857737396f969",
+      "md5_base64": "++1HZVy+ESVXKp7uW3e73w==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00025-of-00064",
+      "sha256": "c8b19ae045abc7b1c28a3819a22f7badffd009e2f82d0e183e8265594611bffb",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 26723619,
+      "git_blob_sha1": "10c9b5dfdd8a68dfb804456e7f65826afc024d33",
+      "md5_base64": "G/7Bnq0jjdDhfW/bS5iOYg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00026-of-00064",
+      "sha256": "9f6bfe4767bde9165b67731d24308725fbd0e0962dca863e5148ed5a942ddf5b",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 108085281,
+      "git_blob_sha1": "3d81793a03105554b8f8af3c75dc5181d90863a3",
+      "md5_base64": "J533Pkv8/a0620HgJRjGZw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00027-of-00064",
+      "sha256": "1698bfb61ac477faa367d46b21b757f1284ceb74463ca69cbc56a6ebf91318c8",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 127850133,
+      "git_blob_sha1": "c3d99d9e140fc2941b60dbf998780b026a2a23eb",
+      "md5_base64": "WXMMT4xLmve/IlGX5I7tEw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00028-of-00064",
+      "sha256": "7386184339eb2c6e9ed61164b630da26f904735e7fef9d7224efed5fb717222d",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 158780489,
+      "git_blob_sha1": "ca1311921ce9e6ab4978c50700065cea57f01fd2",
+      "md5_base64": "r0N0FQagcMR3zVUOduDWkg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00029-of-00064",
+      "sha256": "69bd3a9fd77992c158f49b935918de23942e6bbebc30e32d1710dc439df77fc4",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 67857349,
+      "git_blob_sha1": "95b225d89fbed8cde856c8a28ac92a16b534db62",
+      "md5_base64": "WK5KdglOtMdGpkO//6EfAg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00030-of-00064",
+      "sha256": "b3c112ecb206404ac52f65b97189e3f82b959d928a4123839201f04d2eb26a44",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 88569422,
+      "git_blob_sha1": "7f657fe493c4a43aa4ebe73395f4a1e056fdf005",
+      "md5_base64": "rclaA7clw//sSgjwZXbycw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00031-of-00064",
+      "sha256": "cd872f5c60ea522a6b6c8f50ebcd03e7cd5ca0ad295ad80248d14356dd2b649d",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 37058369,
+      "git_blob_sha1": "2e4094bee2eeb2d3fd131495dc0241e31fa23893",
+      "md5_base64": "bjjXHLbImVzxMN+Tih/K8w==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00032-of-00064",
+      "sha256": "a582021e9da6b1f72384efdf82b017340bbc0e57112e16fc02f7f1e8b40fd668",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 145671702,
+      "git_blob_sha1": "b3b56ec6a911b679db2b738b641b11f7a8a79ac2",
+      "md5_base64": "I4mir6cRt5joS3u5Q+hlMw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00033-of-00064",
+      "sha256": "41be713f69e4ba93ab27303b96c38b526f2107fbed4e2d612cd4e0da5d639502",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 146968635,
+      "git_blob_sha1": "ea8571da97ed9567f5d93903e2892eab6281b547",
+      "md5_base64": "OTFDlAJTCk8qOSSZ9N2MMw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00034-of-00064",
+      "sha256": "0a6d03ae92405c70613f22c1918eefbfb22a3de6c269bf96ef8835438b185024",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 88643543,
+      "git_blob_sha1": "cdc7014b84c4cc99b978ffedbcf938ba250943b8",
+      "md5_base64": "q+ysf2NzJrLDWd2Gor90NQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00035-of-00064",
+      "sha256": "382e8b89c0b56bde86581bbe4c93f2790fc64a13c64c9746a52906545f195b9d",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 51339588,
+      "git_blob_sha1": "32cb33794d251e0bf30fd577649ea8e5bdd0bbd2",
+      "md5_base64": "j3XyNmuDmvsAwatiK+8MUw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00036-of-00064",
+      "sha256": "e38376f9193b41f3e483ad0bce9f73febe868682f73f07b169dee21f92f77bec",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 129089265,
+      "git_blob_sha1": "f52ccc3a3d6fe61542e885330b53ab63a4c6c844",
+      "md5_base64": "y4IORlEMUnXQ32z3ig4/6Q==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00037-of-00064",
+      "sha256": "49b4be1c30dd72d91bf56ebcd57df34cfd5ba891950393a7f4a592809b0cfb87",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 72107164,
+      "git_blob_sha1": "c95d3a2f603a011acd194047abad8fa2aa2c35ef",
+      "md5_base64": "BSZtqLJNapmbUcKSvbCGIA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00038-of-00064",
+      "sha256": "abe2909b988106efe8e692c37430dd9d895c3832744e42c49b9b6d98cea7e123",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 49148402,
+      "git_blob_sha1": "2f7e511a9728e21902f9794127baec63939871f5",
+      "md5_base64": "FhjAxGnTohQoCbNV6N6IHA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00039-of-00064",
+      "sha256": "b017d9ebfeddeb9bca5c861489ed1834081f4ac811fa90c36585d61b72939853",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 69783294,
+      "git_blob_sha1": "c9c3514b0f40231fa0a5bba97948fd863395a291",
+      "md5_base64": "3LbWuwFJU54MKtOald+yJw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00040-of-00064",
+      "sha256": "3f3ef2c2a4b1829dc45f35da94173cdbfb33e07e0d9715826b34d700614714b5",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 142053375,
+      "git_blob_sha1": "b061ba2c4eaaff57b6a4e371e72328f41e2f22e6",
+      "md5_base64": "XolHrEG4AGv2InOfJG7qOw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00041-of-00064",
+      "sha256": "f05b1dfa29f2bb4cdf858e3936bc1c0fe8effdd677bd9416831714812c993b30",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 34344894,
+      "git_blob_sha1": "372f8eb1768eb0488b1b25ea3714aa195b48820c",
+      "md5_base64": "Ow/Tuv8Mk5O2WaTLbrUDjg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00042-of-00064",
+      "sha256": "06f87477a19e6c83e342e5e0bf829e23505265a42519d66f3490f117db4cdba3",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 112918151,
+      "git_blob_sha1": "4c3e3cd81072a02437fcc53a595aedfacf3f23f0",
+      "md5_base64": "FEUufH1MLjtL0t3BnCoYAQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00043-of-00064",
+      "sha256": "c40040b40e28bb948710ca9d02c93492cbc77a38838a762939ae233ddf509828",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 238347464,
+      "git_blob_sha1": "bc4e8f5388537b164f2d8eda45e083f508021d3f",
+      "md5_base64": "5M+PGPUHHxzLYAZm9Yoxsw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00044-of-00064",
+      "sha256": "dddaec69e705c857d1b78a9ca7ccb5cb4323940112b7ca80ba695d2690d60512",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 100189538,
+      "git_blob_sha1": "1ccae9c6c23c6d499e1775ba05056cf0b5d1d6f7",
+      "md5_base64": "+/jCh0mAPKchcsZe/rhqFQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00045-of-00064",
+      "sha256": "cd260a0ad6345b790386851d6571fe8c0e1c59d7a10cae6a5b2d0de61191628f",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 39725737,
+      "git_blob_sha1": "5cb7c5a59ddb4569314eb98d1afe81c91db29c0f",
+      "md5_base64": "O1bjE2DLZwwqnGqweIYNEg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00046-of-00064",
+      "sha256": "901ceb0d35d1be130a00e38855fc53725a1eb29c45d2ed55334660696f496b79",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 180013743,
+      "git_blob_sha1": "637174d6541e69bf3543ad977aecd58d2e36b67a",
+      "md5_base64": "z4Uti79RoJp0dQ+qSgoAvQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00047-of-00064",
+      "sha256": "7b7d019ac89c59fa8a2beda60cd9f0e2efe0ccf70c3abbe028fa459a4e7a6a0b",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 104752844,
+      "git_blob_sha1": "6b0aed7734e3c92b1784bd3424d49aa261ac9d12",
+      "md5_base64": "ijf+/8UBxSc9YwEWs5OI2w==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00048-of-00064",
+      "sha256": "34aab46c584df01158f37cce3804b3337ff802c89cfb0464577fb4e144c425c7",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 74305582,
+      "git_blob_sha1": "92f0a0905f598e1aa701734ec1ea8532a3f2293f",
+      "md5_base64": "WW/ErisUHOm8jddfVpYOEw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00049-of-00064",
+      "sha256": "139b5d6220f400805213631d64f2567a63fe166ebcfe78c5459ccee4230dc9c3",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 72917517,
+      "git_blob_sha1": "3a5026b56de56ef1a66504cc3b66db143740e1e1",
+      "md5_base64": "+mbxVnIvnyrXMddWbbBTtg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00050-of-00064",
+      "sha256": "879ea757eea34d713efd7cfa58d038bc2661a18106553197e512877620f0b720",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 83959632,
+      "git_blob_sha1": "101cffc1f9f2c80ada8ea114b24aa19602847c1d",
+      "md5_base64": "A+42zx7eoeugR7yd9WwtTQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00051-of-00064",
+      "sha256": "6235a66eba66ff02285b57ec96ba6fe620e8b810d6833b2f8b0e4705cc43a807",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 88818829,
+      "git_blob_sha1": "a8bde5380f9be195512d55f599c3fea7459bb6fb",
+      "md5_base64": "qa2t9ilY4xDmibLW0GnCrw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00052-of-00064",
+      "sha256": "51256552e1ced95c7cda32831ecd26b1e90ec20bd016937d95c4afa09a6f4ce1",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 167607235,
+      "git_blob_sha1": "f9333759ae44cdc6a3ad03c0f00ba5a328471319",
+      "md5_base64": "JYTOGgWNr3shHe8lAdxc2g==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00053-of-00064",
+      "sha256": "e792ae89320dbb770df16a9b300465e5c86c8422fb52c90e08e2251812e35bdc",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 139770685,
+      "git_blob_sha1": "2b62fab50aa8b6a8e94f5e2f9261c55cb658b9c4",
+      "md5_base64": "wnP6k+dzdE/dqY51jJcFvg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00054-of-00064",
+      "sha256": "5e970f7cc219b92eb7b074e84385528823922b5f6eda6c3631cf0301161d8eff",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 62574973,
+      "git_blob_sha1": "cd08a90ad9729a7b6349225801a47fd619215a56",
+      "md5_base64": "Qx47UUMl8GoasZ6zYaN1PQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00055-of-00064",
+      "sha256": "0cbfde4f707dc0e1a187acc6d2da68d12cf9f3be902f685f63bbbbb471cbdac3",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 112634506,
+      "git_blob_sha1": "a30eefc6d00d51249033a612dc2e7e7bd78eeb43",
+      "md5_base64": "/CjYI1CYCs9Ibf0bvSveZQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00056-of-00064",
+      "sha256": "4bb4b8ab488ca8e5b17aaf0e83d0f1422a0bff6e062db245dcb3dccd1c927ae8",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 98295054,
+      "git_blob_sha1": "ab5634ad640a3baed4e56e715c04e8c89ed5a398",
+      "md5_base64": "uoWXYp7JgBO43kW5GqB9XQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00057-of-00064",
+      "sha256": "ff6da5a0d5850df37773c83340445cd27914b0480086de2e55b39779193aa7b6",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 83679611,
+      "git_blob_sha1": "b33f33a59282452370098dcea0959be3ba652bba",
+      "md5_base64": "XZwDKW6Nl2fEDo7VtrntpA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00058-of-00064",
+      "sha256": "60c4a1834c360632dcf4399542e271f90f6a0ac62322ff8a72882fa1f5d7d02e",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 114551981,
+      "git_blob_sha1": "03a8a34a655c038b0d0a9fe73b6500d9ce672f94",
+      "md5_base64": "tydofhNSY5aIBduUx0jyhg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00059-of-00064",
+      "sha256": "8f3287108ba4abea152f2ee9e1a2072b3f1595b3499469a86fe86ad8bb9819ff",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 163031242,
+      "git_blob_sha1": "fd8965060c8d343face1aa874a94be0a2824b9db",
+      "md5_base64": "AinILuH3nYJ5XRXa5pqs+g==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00060-of-00064",
+      "sha256": "37d354803ec538ac4bf2aa9a867edf66dbb6a5611a5f53ea342cf0b3a3317cfd",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 135556737,
+      "git_blob_sha1": "c49cb0869facbd189ef95681f47823e08d7dd8dc",
+      "md5_base64": "1Dv7CLO4NOIcTzaufYMIaQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00061-of-00064",
+      "sha256": "27adba430e5ea922639ec0e4dc0b399e1c478457966e78a9b3acd6f0b7ad5b94",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 124007360,
+      "git_blob_sha1": "a94d4b305b2b5897491df3fbb032c630c106664f",
+      "md5_base64": "monuTtWvtU1ZD3/sHhdISw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00062-of-00064",
+      "sha256": "5095be9d2df01b08766af11eada6678967da9ebf60a2f0fc94ae8caac9e5da7a",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 182501959,
+      "git_blob_sha1": "8efd69facfd70e522ad56c60d02b9a68577b4625",
+      "md5_base64": "xPen22EmRtPtLoZfX2W/gA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00063-of-00064",
+      "sha256": "9577ce689d244ebabd8d2d7318952de55de0b28922afa56763bf10145aace634",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 1743,
+      "git_blob_sha1": "8afe3c4d8596354d6d6cf36aa4985fccc8220213",
+      "md5_base64": "pze1V40eImEUqnAkptL71Q==",
+      "path": "0.1.0/dataset_info.json",
+      "sha256": "1949884ea278ab42777bc3e210b46a14fc60f5d42adb7b4722894e855c749134",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 13360,
+      "git_blob_sha1": "dd795d536216c7e04a1b7f0ed95f2d1bfbeb2b2d",
+      "md5_base64": "DlwunJmQZGHMe97jJR5W0g==",
+      "path": "0.1.0/features.json",
+      "sha256": "2daa245958f596605aa91a12d88ad9d2af987b1f415a23122fe3793a90819119",
+      "status": "verified_existing"
+    },
+    {
+      "bytes": 6,
+      "git_blob_sha1": "01196353b62db727e6543e0ad042eeeff35365bd",
+      "md5_base64": "hRFItP2P1650vZEAxcDImA==",
+      "path": "0.1.0_$folder$",
+      "sha256": "034a0062488256f14c8b14d025ec3988b148938f7f9db94ca0ac73f4b3614d8a",
+      "status": "verified_existing"
+    }
+  ],
+  "full_dataset": true,
+  "source_files": [
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965551971983",
+      "md5_base64": "Q1Izx2NnSUx48OIJ3/hbsg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00000-of-00064",
+      "size": 178205997,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00000-of-00064?generation=1696965551971983"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965550446806",
+      "md5_base64": "yQtZa19F+67cvc0uazEOuA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00001-of-00064",
+      "size": 128092870,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00001-of-00064?generation=1696965550446806"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965598033521",
+      "md5_base64": "f94VHx1ELyL7GOa40y+XSA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00002-of-00064",
+      "size": 145706345,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00002-of-00064?generation=1696965598033521"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965246758140",
+      "md5_base64": "RK7KF8kpHgRPI/Uf7JSR0g==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00003-of-00064",
+      "size": 79848385,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00003-of-00064?generation=1696965246758140"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965906514662",
+      "md5_base64": "yUhXyO6dL7dL2zOYaNmmOQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00004-of-00064",
+      "size": 183448746,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00004-of-00064?generation=1696965906514662"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965281598616",
+      "md5_base64": "jyBSBqRYHLsqdEA6wk49EA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00005-of-00064",
+      "size": 86644752,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00005-of-00064?generation=1696965281598616"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965200589315",
+      "md5_base64": "6j8TAWqJHya9633l0AsOsQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00006-of-00064",
+      "size": 33067643,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00006-of-00064?generation=1696965200589315"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965223145248",
+      "md5_base64": "syOenW34tQyxbzUpYeuLLA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00007-of-00064",
+      "size": 126228343,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00007-of-00064?generation=1696965223145248"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965332192937",
+      "md5_base64": "i1SQhmjSE00tTOm+Xip/YQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00008-of-00064",
+      "size": 61369496,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00008-of-00064?generation=1696965332192937"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965374555456",
+      "md5_base64": "tQLw39y6XRC18P8JZm0sQg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00009-of-00064",
+      "size": 139190968,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00009-of-00064?generation=1696965374555456"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965455621717",
+      "md5_base64": "4cGHjogn38HT97oyDXdsnA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00010-of-00064",
+      "size": 105126914,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00010-of-00064?generation=1696965455621717"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965530607099",
+      "md5_base64": "LbVKvSfC2ATEy4Zqpf2zQQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00011-of-00064",
+      "size": 163604133,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00011-of-00064?generation=1696965530607099"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965498598627",
+      "md5_base64": "1edo8MVpp+/Guj+lx1ykRg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00012-of-00064",
+      "size": 163452982,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00012-of-00064?generation=1696965498598627"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965429987498",
+      "md5_base64": "RlSTC7+W811+PfqdR9ei8g==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00013-of-00064",
+      "size": 82559771,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00013-of-00064?generation=1696965429987498"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965631094742",
+      "md5_base64": "vb9ZaDOXvHwvex0W0FwKJQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00014-of-00064",
+      "size": 126114351,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00014-of-00064?generation=1696965631094742"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965470749004",
+      "md5_base64": "inZUp4Gj1YKryR3H66F8+w==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00015-of-00064",
+      "size": 126524875,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00015-of-00064?generation=1696965470749004"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965612256577",
+      "md5_base64": "OKZNQAbdtkm++avfXgGOAA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00016-of-00064",
+      "size": 139414239,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00016-of-00064?generation=1696965612256577"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965181037232",
+      "md5_base64": "Cx0aY26cyl9PBGRKo43sCA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00017-of-00064",
+      "size": 40951621,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00017-of-00064?generation=1696965181037232"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965664794161",
+      "md5_base64": "VjW5da9RZRZKW5VH9oiwOw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00018-of-00064",
+      "size": 188456895,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00018-of-00064?generation=1696965664794161"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965404107442",
+      "md5_base64": "N+Od1FOq1p3uPY09tE1pGw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00019-of-00064",
+      "size": 70540644,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00019-of-00064?generation=1696965404107442"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965421071356",
+      "md5_base64": "utqd9L9R/JHPj018f3l29Q==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00020-of-00064",
+      "size": 100093264,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00020-of-00064?generation=1696965421071356"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965436133093",
+      "md5_base64": "UFL54UVKU+oeToipxNUV7A==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00021-of-00064",
+      "size": 103823718,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00021-of-00064?generation=1696965436133093"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965238187411",
+      "md5_base64": "avD8adC3HiXRpGjtRebDXw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00022-of-00064",
+      "size": 35074454,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00022-of-00064?generation=1696965238187411"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965343971960",
+      "md5_base64": "ACykOQGpABZri1zrmABnog==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00023-of-00064",
+      "size": 89276521,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00023-of-00064?generation=1696965343971960"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965526553452",
+      "md5_base64": "vUoJNmqpiO9QuJL9mVbyug==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00024-of-00064",
+      "size": 153049843,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00024-of-00064?generation=1696965526553452"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965803351159",
+      "md5_base64": "++1HZVy+ESVXKp7uW3e73w==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00025-of-00064",
+      "size": 157576332,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00025-of-00064?generation=1696965803351159"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965203733197",
+      "md5_base64": "G/7Bnq0jjdDhfW/bS5iOYg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00026-of-00064",
+      "size": 26723619,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00026-of-00064?generation=1696965203733197"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965299839289",
+      "md5_base64": "J533Pkv8/a0620HgJRjGZw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00027-of-00064",
+      "size": 108085281,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00027-of-00064?generation=1696965299839289"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965298732924",
+      "md5_base64": "WXMMT4xLmve/IlGX5I7tEw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00028-of-00064",
+      "size": 127850133,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00028-of-00064?generation=1696965298732924"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965656385957",
+      "md5_base64": "r0N0FQagcMR3zVUOduDWkg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00029-of-00064",
+      "size": 158780489,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00029-of-00064?generation=1696965656385957"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965308261364",
+      "md5_base64": "WK5KdglOtMdGpkO//6EfAg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00030-of-00064",
+      "size": 67857349,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00030-of-00064?generation=1696965308261364"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965354470552",
+      "md5_base64": "rclaA7clw//sSgjwZXbycw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00031-of-00064",
+      "size": 88569422,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00031-of-00064?generation=1696965354470552"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965265606981",
+      "md5_base64": "bjjXHLbImVzxMN+Tih/K8w==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00032-of-00064",
+      "size": 37058369,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00032-of-00064?generation=1696965265606981"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965409430532",
+      "md5_base64": "I4mir6cRt5joS3u5Q+hlMw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00033-of-00064",
+      "size": 145671702,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00033-of-00064?generation=1696965409430532"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965446629641",
+      "md5_base64": "OTFDlAJTCk8qOSSZ9N2MMw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00034-of-00064",
+      "size": 146968635,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00034-of-00064?generation=1696965446629641"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965403701696",
+      "md5_base64": "q+ysf2NzJrLDWd2Gor90NQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00035-of-00064",
+      "size": 88643543,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00035-of-00064?generation=1696965403701696"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965385804640",
+      "md5_base64": "j3XyNmuDmvsAwatiK+8MUw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00036-of-00064",
+      "size": 51339588,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00036-of-00064?generation=1696965385804640"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965503374856",
+      "md5_base64": "y4IORlEMUnXQ32z3ig4/6Q==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00037-of-00064",
+      "size": 129089265,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00037-of-00064?generation=1696965503374856"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965369559765",
+      "md5_base64": "BSZtqLJNapmbUcKSvbCGIA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00038-of-00064",
+      "size": 72107164,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00038-of-00064?generation=1696965369559765"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965369184009",
+      "md5_base64": "FhjAxGnTohQoCbNV6N6IHA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00039-of-00064",
+      "size": 49148402,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00039-of-00064?generation=1696965369184009"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965291854569",
+      "md5_base64": "3LbWuwFJU54MKtOald+yJw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00040-of-00064",
+      "size": 69783294,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00040-of-00064?generation=1696965291854569"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965570846294",
+      "md5_base64": "XolHrEG4AGv2InOfJG7qOw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00041-of-00064",
+      "size": 142053375,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00041-of-00064?generation=1696965570846294"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965315261214",
+      "md5_base64": "Ow/Tuv8Mk5O2WaTLbrUDjg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00042-of-00064",
+      "size": 34344894,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00042-of-00064?generation=1696965315261214"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965475979118",
+      "md5_base64": "FEUufH1MLjtL0t3BnCoYAQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00043-of-00064",
+      "size": 112918151,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00043-of-00064?generation=1696965475979118"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696966097730064",
+      "md5_base64": "5M+PGPUHHxzLYAZm9Yoxsw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00044-of-00064",
+      "size": 238347464,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00044-of-00064?generation=1696966097730064"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965425356850",
+      "md5_base64": "+/jCh0mAPKchcsZe/rhqFQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00045-of-00064",
+      "size": 100189538,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00045-of-00064?generation=1696965425356850"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965296899699",
+      "md5_base64": "O1bjE2DLZwwqnGqweIYNEg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00046-of-00064",
+      "size": 39725737,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00046-of-00064?generation=1696965296899699"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965800288894",
+      "md5_base64": "z4Uti79RoJp0dQ+qSgoAvQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00047-of-00064",
+      "size": 180013743,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00047-of-00064?generation=1696965800288894"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965394309375",
+      "md5_base64": "ijf+/8UBxSc9YwEWs5OI2w==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00048-of-00064",
+      "size": 104752844,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00048-of-00064?generation=1696965394309375"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965479265595",
+      "md5_base64": "WW/ErisUHOm8jddfVpYOEw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00049-of-00064",
+      "size": 74305582,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00049-of-00064?generation=1696965479265595"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965414248816",
+      "md5_base64": "+mbxVnIvnyrXMddWbbBTtg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00050-of-00064",
+      "size": 72917517,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00050-of-00064?generation=1696965414248816"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965415490648",
+      "md5_base64": "A+42zx7eoeugR7yd9WwtTQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00051-of-00064",
+      "size": 83959632,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00051-of-00064?generation=1696965415490648"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965555392301",
+      "md5_base64": "qa2t9ilY4xDmibLW0GnCrw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00052-of-00064",
+      "size": 88818829,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00052-of-00064?generation=1696965555392301"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965491139449",
+      "md5_base64": "JYTOGgWNr3shHe8lAdxc2g==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00053-of-00064",
+      "size": 167607235,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00053-of-00064?generation=1696965491139449"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965722725708",
+      "md5_base64": "wnP6k+dzdE/dqY51jJcFvg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00054-of-00064",
+      "size": 139770685,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00054-of-00064?generation=1696965722725708"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965411750228",
+      "md5_base64": "Qx47UUMl8GoasZ6zYaN1PQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00055-of-00064",
+      "size": 62574973,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00055-of-00064?generation=1696965411750228"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965418041148",
+      "md5_base64": "/CjYI1CYCs9Ibf0bvSveZQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00056-of-00064",
+      "size": 112634506,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00056-of-00064?generation=1696965418041148"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965559203024",
+      "md5_base64": "uoWXYp7JgBO43kW5GqB9XQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00057-of-00064",
+      "size": 98295054,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00057-of-00064?generation=1696965559203024"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965541848843",
+      "md5_base64": "XZwDKW6Nl2fEDo7VtrntpA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00058-of-00064",
+      "size": 83679611,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00058-of-00064?generation=1696965541848843"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965427067964",
+      "md5_base64": "tydofhNSY5aIBduUx0jyhg==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00059-of-00064",
+      "size": 114551981,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00059-of-00064?generation=1696965427067964"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965560170450",
+      "md5_base64": "AinILuH3nYJ5XRXa5pqs+g==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00060-of-00064",
+      "size": 163031242,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00060-of-00064?generation=1696965560170450"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965848456388",
+      "md5_base64": "1Dv7CLO4NOIcTzaufYMIaQ==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00061-of-00064",
+      "size": 135556737,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00061-of-00064?generation=1696965848456388"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965590827090",
+      "md5_base64": "monuTtWvtU1ZD3/sHhdISw==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00062-of-00064",
+      "size": 124007360,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00062-of-00064?generation=1696965590827090"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965632890501",
+      "md5_base64": "xPen22EmRtPtLoZfX2W/gA==",
+      "path": "0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00063-of-00064",
+      "size": 182501959,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/austin_sirius_dataset_converted_externally_to_rlds-train.tfrecord-00063-of-00064?generation=1696965632890501"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965281575150",
+      "md5_base64": "pze1V40eImEUqnAkptL71Q==",
+      "path": "0.1.0/dataset_info.json",
+      "size": 1743,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/dataset_info.json?generation=1696965281575150"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696965287695362",
+      "md5_base64": "DlwunJmQZGHMe97jJR5W0g==",
+      "path": "0.1.0/features.json",
+      "size": 13360,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0/features.json?generation=1696965287695362"
+    },
+    {
+      "dataset": "sirius",
+      "destination": "open_x_embodiment/austin_sirius_dataset_converted_externally_to_rlds",
+      "generation": "1696958261117688",
+      "md5_base64": "hRFItP2P1650vZEAxcDImA==",
+      "path": "0.1.0_$folder$",
+      "size": 6,
+      "url": "https://storage.googleapis.com/gdm-robotics-open-x-embodiment/austin_sirius_dataset_converted_externally_to_rlds/0.1.0_%24folder%24?generation=1696958261117688"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "schema": "rosetta.aloha_qualification_inventory.plan.v1",
+  "id": "aloha-qualification-20260927-001",
+  "stage": "Q_readonly_inventory",
+  "remote_execution_started": false,
+  "training_ready": false,
+  "train_episodes": [
+    49,
+    4,
+    23,
+    43,
+    21,
+    37,
+    18,
+    34,
+    0,
+    47,
+    38,
+    29,
+    3,
+    26,
+    14,
+    17,
+    44,
+    30,
+    15,
+    42,
+    10,
+    35,
+    25,
+    32,
+    19,
+    36,
+    41,
+    28,
+    8,
+    27,
+    16,
+    11,
+    2,
+    20,
+    9,
+    39,
+    46,
+    48,
+    12,
+    40
+  ],
+  "dev_episodes": [
+    22,
+    13,
+    7,
+    33,
+    45
+  ],
+  "hidden_episodes": [
+    31,
+    6,
+    1,
+    24,
+    5
+  ],
+  "expected_dimension": 14,
+  "expected_fps": 50,
+  "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+  "wall_seconds": 180,
+  "sources": [
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "root": "datasets_external/targeted-20260927-001/lerobot/aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "manifest_sha256": "97cce7b398ef79139109e5cac02cdfb2aeef8edf2c3360109c1c92fca93a34d5",
+      "already_in_D": true
+    }
+  ],
+  "deferred_sources": [
+    {
+      "reason": "full source receipt not locally sealed in this plan",
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1"
+    }
+  ],
+  "limits": [
+    "no model or optimizer",
+    "shared protected row groups skipped",
+    "no video decode or outcome inference",
+    "original human trajectories do not count as new N"
+  ]
+}
