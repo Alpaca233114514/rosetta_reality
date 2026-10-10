@@ -8,11 +8,20 @@
 
 ## 环境与授权
 
-- PowerShell 可用于编辑、Git 和不加载模型/数据的静态检查；其他命令行使用 Bash，不使用 cmd.exe 或 Windows Python。
-- 本地 ML 依赖、数据准备、模型、ML 测试、训练、评估和仿真必须从 `wsl.exe bash` 启动并在 Linux Docker 容器中执行。WSL 主机只作只读检查、源码检出、容器编排及受控 Hub 控制面操作。
+- Windows 端 PowerShell 可用于编辑、Git 和不加载模型/数据的静态检查；其他命令行使用 Bash，不使用 cmd.exe 或 Windows Python。原生 Linux 端直接使用 Bash。
+- 本地 ML 依赖、数据准备、模型、ML 测试、训练、评估和仿真均在 Linux Docker 容器中执行：Windows 通过 `wsl.exe bash` 启动，原生 Linux 通过本机 Bash 启动。WSL / Linux 主机承担编辑、Git、不加载模型/数据的静态检查、容器编排及受控 Hub 控制面操作，不直接运行 ML 工作。
 - AutoDL 平台容器是唯一已登记远端例外，不嵌套 Docker；使用 `configs/runtime/autodl_rtx4090.yaml` 与 `scripts/run_autodl.sh` 记录环境身份。
 - 本地按 16 GB 系统内存预算设计。不得擅自安装/升级系统 PyTorch、CUDA、驱动或仿真器，不靠扩大 swap、内存、反复 OOM 或无控 offload 强行运行。
 - 模型/数据下载、外部 GPU 计算、正式训练、真机操作和对外发布须有明确授权。已登录 Hub CLI 不代表获得下载或发布授权，不读取或输出 token。
+
+### 原生 Linux 端说明
+
+- Debian 等原生 Linux 与 WSL 是独立环境。先从当前 checkout 核对分支、已有修改及本文件；不假定 Windows 的 Docker 镜像、缓存、凭证或盘符在 Linux 可用。
+- 在仓库根目录使用 `bash scripts/run_m2_container.sh <命令> ...` 编排本地容器，无需 `wsl.exe`。先只读检查 Docker daemon 和已有镜像身份；沿用已登记的 revision/digest，不因缺镜像或缓存自动构建、拉取或下载。
+- 容器中的 Python 与依赖是 ML 运行环境；不以宿主机 Python、venv 或 Conda 代替。按对应阶段的门禁在容器内执行 `python scripts/check_env.py` 和检查，不把文档说明视为启动训练的授权。
+- 挂载使用实际 Linux 路径，通过 `ROSETTA_DATA_ROOT`、`ROSETTA_MODEL_ROOT`、`ROSETTA_CHECKPOINT_ROOT`、`ROSETTA_ARTIFACT_ROOT`、`ROSETTA_RUN_ROOT` 等配置。Windows junction、盘符及 `/mnt/...` 路径须重新核对；迁移时保留原件，确认挂载目标、读写权限和缓存 manifest 后再复用。
+- Intel XPU 入口现有 `/dev/dxg` 与 `/usr/lib/wsl` 配置面向 WSL；不能直接当作原生 Linux GPU 配置。原生 GPU 后端须单独登记并验证设备、驱动与容器支持，不因换系统扩大资源预算或擅自安装驱动。
+- Linux 本地运行仍遵守 16 GB 内存预算、模型工作门禁与授权边界；AutoDL 仍按下文远端运行及关机合同执行。
 
 ## 架构与证据入口
 
@@ -54,12 +63,15 @@ M2 必须有可追溯、可导出、独立 reload 的 checkpoint，且通过注�
 
 ## AutoDL 运行合同
 
+- **关机是每次远端任务的强制收尾，已获用户持续授权，无需再次询问。** GPU、无 GPU、仅 SSH 检查均适用；成功、失败、阻塞或本轮停止后，保存工作与必要证据，关闭平台实例，并刷新已认证控制台确认对应实例为“已关机”。进程退出、SSH 断开、关机请求或历史收据均不能代替当前平台状态；未确认时必须报告“关机收尾未完成”，不得声称已关机。关机不包含释放实例或删除数据。
+- **开机后、启动任何实验 worker 前，必须设置并核验平台定时关机和独立关机看门狗。** 预先登记工作截止时间、回传宽限及关机硬截止时间；看门狗与 worker 分离，SSH 断开或 worker 异常后仍可执行。取得当前实例的定时关机确认和看门狗启动收据后才能启动计算；仅存在脚本、工作超时终止器或 `shutdown_authorized=false` 不算关机保护。任一保护无法生效时停止启动实验，保存失败证据并关闭实例，不让实例空转等待用户处理。
+- 本轮正常或异常结束后立即主动关机，不等待定时器到点；若看门狗拒绝关机或关机入口失败，使用已授权的平台关机入口完成收尾并核验状态，不削弱安全检查。证据回传失败须保留远端文件与失败收据，不能无限延长计费时间；后续恢复使用新的有界窗口。只有用户更新的明确指令允许保留开机，且仍须登记有界期限。
 - 本地负责编辑、分析和决策，AutoDL 仅作获批 CUDA worker。开机前固定唯一 run name、代码/config/plan checksum、缓存身份、optimizer/scheduler、batch/steps、benchmark/smoke 命令、输出、验收/停止条件和预计时长。
 - 传输使用已授权推送的功能分支 commit；未获 commit/push 授权时使用 `scripts/stage_autodl_from_wsl.sh` 创建 versioned content-addressed workspace。不手工覆盖远端代码，不用 `--delete`，同一 run 不跨 workspace identity。
 - durable cache 保留 revision 与 manifest，不因缺缓存擅自下载。先 doctor 核验身份，再 benchmark、no-optimizer CUDA forward、两步 optimizer smoke，最后按单独登记计划正式训练；记录 `nested_docker_used=false`。
 - 长进程必须 tmux 或等价守护，日志落 durable storage，SSH 断开不影响生命周期。启动检查进程/GPU、首批 step、finite loss/gradient、显存、Trackio 和 checkpoint。
 - 稳定训练后控制 shell 使用 Bash `sleep 300`，每五分钟只采样一次最小状态，不高频轮询训练或连续 tail。等待可异步让出交互；不得把 sleep 注入训练进程。完整审计仅在健康检查、失败、注册 quarter/checkpoint 或完成边界进行；确认退出后不再启动 sleep。
-- 完成顺序：训练退出并保存 → validation-only selection → export → 远端 independent reload → 回传 selected artifact/manifest/metrics → 本地 checksum/reload → 在授权范围内关闭计费 GPU → 本地 Gate 3/4 → 分析。失败保留远端状态，不直接开下一炉。
+- 完成顺序：训练退出并保存 → validation-only selection → export → 远端 independent reload → 回传 selected artifact/manifest/metrics → 本地 checksum/reload → 关闭平台实例并确认“已关机” → 本地 Gate 3/4 → 分析。失败保留远端文件与失败证据，仍须关闭实例，不直接开下一炉；本地分析不得占用空闲计费实例。
 - 黑匣子保留 resolved config/plan、代码/cache/环境/GPU 身份、Action Contract、optimizer/scheduler、log/metrics/Trackio、checkpoint/selection/export manifest、人工介入和退出状态。完整恢复 checkpoint 默认保留；释放或迁移前须备份到用户批准的可靠位置，远端本地盘不能是唯一副本。
 
 ## 记录与发布
