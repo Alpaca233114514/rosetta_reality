@@ -35,6 +35,7 @@ from typing import Any
 from rosetta_reality.experiment import file_sha256
 from rosetta_reality.vla.accelerator_memory import empty_accelerator_cache
 from rosetta_reality.vla.training.context import TrainingContext
+from rosetta_reality.vla.training.paired_mixture_runtime import PairedMixtureFeature
 from rosetta_reality.vla.training.dual_axis import DualAxisDiagnosticsFeature
 from rosetta_reality.vla.training.masked_camera import (
     install_masked_camera_encoder_skip,
@@ -765,6 +766,8 @@ class GradientClipDiagnosticsFeature(TrainingFeature):
 
         setattr(clip_grad_norm_, self._CLIP_MARKER, True)
         update_policy._rosetta_v2_original = self._original_update  # type: ignore[attr-defined]
+        self._installed_clip = clip_grad_norm_
+        self._installed_update = update_policy
         lerobot_train.update_policy = update_policy
         accelerate.Accelerator.clip_grad_norm_ = clip_grad_norm_
         setattr(accelerate.Accelerator, self._CLIP_MARKER, True)
@@ -775,12 +778,13 @@ class GradientClipDiagnosticsFeature(TrainingFeature):
         lerobot_train = _lerobot_train_module()
         if getattr(accelerate.Accelerator, self._CLIP_MARKER, False) is not True:
             raise RuntimeError("No clip-diagnostics wrapper is installed.")
+        if accelerate.Accelerator.clip_grad_norm_ is not getattr(self, "_installed_clip", None):
+            raise RuntimeError("Clip-diagnostics clip_grad_norm_ hook changed before restore.")
+        if lerobot_train.update_policy is not getattr(self, "_installed_update", None):
+            raise RuntimeError("Clip-diagnostics update_policy hook changed before restore.")
         if self._original_clip is not None:
             accelerate.Accelerator.clip_grad_norm_ = self._original_clip
-        current_update = lerobot_train.update_policy
-        lerobot_train.update_policy = (
-            getattr(current_update, "_rosetta_v2_original", None) or current_update
-        )
+        lerobot_train.update_policy = self._original_update
         setattr(accelerate.Accelerator, self._CLIP_MARKER, False)
 
 
@@ -840,7 +844,13 @@ class CheckpointMetricSnapshotFeature(TrainingFeature):
         def update_policy(*args: Any, **kwargs: Any) -> Any:
             result = original_update(*args, **kwargs)
             tracker = args[0] if args else kwargs.get("train_metrics")
-            update_ordinal = len(captured) + 1
+            # Prefer tracker.step when available so resumed runs align with save_checkpoint(step).
+            # 优先使用 tracker.step，避免续训或跳步时与 save_checkpoint(step) 错位。
+            raw_step = getattr(tracker, "step", None)
+            if type(raw_step) is int and raw_step > 0:
+                update_ordinal = raw_step
+            else:
+                update_ordinal = len(captured) + 1
             captured[update_ordinal] = {
                 "loss": _meter_value(tracker.loss),
                 "grad_norm": _meter_value(tracker.grad_norm),
@@ -859,7 +869,9 @@ class CheckpointMetricSnapshotFeature(TrainingFeature):
             result = original_save(*args, **kwargs)
             import json
 
-            checkpoint_dir = kwargs.get("checkpoint_dir") if "checkpoint_dir" in kwargs else args[0]
+            checkpoint_dir = Path(
+                kwargs.get("checkpoint_dir") if "checkpoint_dir" in kwargs else args[0]
+            )
             payload = {
                 "schema_version": 1,
                 "stage": "smolvla_v2_checkpoint_metric_snapshot",
@@ -879,6 +891,10 @@ class CheckpointMetricSnapshotFeature(TrainingFeature):
 
         update_policy._rosetta_v2_original = original_update  # type: ignore[attr-defined]
         save_checkpoint._rosetta_v2_original = original_save  # type: ignore[attr-defined]
+        self._original_update = original_update
+        self._original_save = original_save
+        self._installed_update = update_policy
+        self._installed_save = save_checkpoint
         lerobot_train.update_policy = update_policy
         lerobot_train.save_checkpoint = save_checkpoint
         setattr(lerobot_train, _marker(self.name), True)
@@ -887,14 +903,12 @@ class CheckpointMetricSnapshotFeature(TrainingFeature):
         lerobot_train = _lerobot_train_module()
         if getattr(lerobot_train, _marker(self.name), False) is not True:
             raise RuntimeError("No checkpoint metric snapshot is installed.")
-        current_update = lerobot_train.update_policy
-        current_save = lerobot_train.save_checkpoint
-        lerobot_train.update_policy = (
-            getattr(current_update, "_rosetta_v2_original", None) or current_update
-        )
-        lerobot_train.save_checkpoint = (
-            getattr(current_save, "_rosetta_v2_original", None) or current_save
-        )
+        if lerobot_train.update_policy is not getattr(self, "_installed_update", None):
+            raise RuntimeError("Checkpoint metric snapshot update_policy hook changed before restore.")
+        if lerobot_train.save_checkpoint is not getattr(self, "_installed_save", None):
+            raise RuntimeError("Checkpoint metric snapshot save_checkpoint hook changed before restore.")
+        lerobot_train.update_policy = self._original_update
+        lerobot_train.save_checkpoint = self._original_save
         setattr(lerobot_train, _marker(self.name), False)
 
 
@@ -933,6 +947,10 @@ class CheckpointMemoryTrimFeature(TrainingFeature):
 
         resume_after_prepare._rosetta_v2_original = original_resume  # type: ignore[attr-defined]
         save_checkpoint._rosetta_v2_original = original_save  # type: ignore[attr-defined]
+        self._original_resume = original_resume
+        self._original_save = original_save
+        self._installed_resume = resume_after_prepare
+        self._installed_save = save_checkpoint
         lerobot_train.resume_after_prepare = resume_after_prepare
         lerobot_train.save_checkpoint = save_checkpoint
         setattr(lerobot_train, _marker(self.name), True)
@@ -941,14 +959,12 @@ class CheckpointMemoryTrimFeature(TrainingFeature):
         lerobot_train = _lerobot_train_module()
         if getattr(lerobot_train, _marker(self.name), False) is not True:
             raise RuntimeError("No checkpoint memory trim is installed.")
-        current_resume = lerobot_train.resume_after_prepare
-        current_save = lerobot_train.save_checkpoint
-        lerobot_train.resume_after_prepare = (
-            getattr(current_resume, "_rosetta_v2_original", None) or current_resume
-        )
-        lerobot_train.save_checkpoint = (
-            getattr(current_save, "_rosetta_v2_original", None) or current_save
-        )
+        if lerobot_train.resume_after_prepare is not getattr(self, "_installed_resume", None):
+            raise RuntimeError("Checkpoint memory trim resume hook changed before restore.")
+        if lerobot_train.save_checkpoint is not getattr(self, "_installed_save", None):
+            raise RuntimeError("Checkpoint memory trim save_checkpoint hook changed before restore.")
+        lerobot_train.resume_after_prepare = self._original_resume
+        lerobot_train.save_checkpoint = self._original_save
         setattr(lerobot_train, _marker(self.name), False)
 
 
@@ -1126,6 +1142,7 @@ class ExplicitSampleScheduleFeature(TrainingFeature):
 
 
 FEATURE_FACTORIES: dict[str, Callable[[Mapping[str, Any]], TrainingFeature]] = {
+    PairedMixtureFeature.name: PairedMixtureFeature,
     TrainOnlyStatisticsFeature.name: TrainOnlyStatisticsFeature,
     MaskedCameraSkipFeature.name: MaskedCameraSkipFeature,
     CanonicalImageScalingFeature.name: CanonicalImageScalingFeature,

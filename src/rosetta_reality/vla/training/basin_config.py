@@ -93,19 +93,24 @@ def write_training_config_bundle(
         or launch["run_name"] != (plan["run_name"] if phase == "train" else section["run_name"])
     ):
         raise ValueError("Launch identity differs from the training configuration sources.")
+    def _opt_float(value: Any) -> float | None:
+        return None if value is None else float(value)
+
+    betas_raw = optimizer.get("betas")
+    betas_normalized = None if betas_raw is None else [float(v) for v in betas_raw]
     settings = {
         "seed": runtime["seed"],
         "batch_size": section["batch_size"],
         "gradient_accumulation_steps": 1,
         "max_steps": section.get("steps", 1),
-        "optimizer": {"type": optimizer.get("type"), "learning_rate": optimizer.get("lr"),
-                      "betas": optimizer.get("betas"), "eps": optimizer.get("eps"),
-                      "weight_decay": optimizer.get("weight_decay"),
-                      "gradient_clip_norm": optimizer.get("grad_clip_norm")},
+        "optimizer": {"type": optimizer.get("type"), "learning_rate": _opt_float(optimizer.get("lr")),
+                      "betas": betas_normalized, "eps": _opt_float(optimizer.get("eps")),
+                      "weight_decay": _opt_float(optimizer.get("weight_decay")),
+                      "gradient_clip_norm": _opt_float(optimizer.get("grad_clip_norm"))},
         "scheduler": {"type": scheduler.get("type"), "warmup_steps": scheduler.get("num_warmup_steps"),
                       "decay_steps": scheduler.get("num_decay_steps"),
-                      "peak_learning_rate": scheduler.get("peak_lr"),
-                      "decay_learning_rate": scheduler.get("decay_lr")},
+                      "peak_learning_rate": _opt_float(scheduler.get("peak_lr")),
+                      "decay_learning_rate": _opt_float(scheduler.get("decay_lr"))},
         "precision": plan["resources"]["mixed_precision"],
         "dataset": {"identifier": runtime["dataset"]["identifier"],
                     "revision": runtime["dataset"]["revision"],

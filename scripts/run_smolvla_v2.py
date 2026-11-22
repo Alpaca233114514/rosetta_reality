@@ -176,7 +176,7 @@ def _validate_prerequisites(
 
 def _validate_normalization(
     plan: dict[str, Any], experiment: dict[str, Any], base_path: Path, contract_sha256: str
-) -> tuple[Path, Path]:
+) -> tuple[Path, Path, Path]:
     normalization = plan["normalization"]
     report_path = (
         REPOSITORY_ROOT

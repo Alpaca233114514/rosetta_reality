@@ -138,9 +138,13 @@ def build_training_arguments(
         raise ValueError("Version-2 phases require a positive log frequency.")
     if num_workers < 0 or (num_workers == 0 and persistent_workers):
         raise ValueError("Persistent workers require a positive worker count.")
+    # Keep camera layout identical across preflight/smoke/train; compile stays train-only.
+    # 保持 preflight/smoke/train 的相机槽位一致，避免多视角改造时 smoke 与 train 分叉。
+    overlay = plan["training"].get("policy", {})
+    if "empty_cameras" in overlay:
+        policy["empty_cameras"] = overlay["empty_cameras"]
     if mode == MODE_TRAIN:
-        overlay = plan["training"].get("policy", {})
-        for key in ("empty_cameras", "compile_model", "compile_mode"):
+        for key in ("compile_model", "compile_mode"):
             if key in overlay:
                 policy[key] = overlay[key]
     tracking = plan.get("tracking", {})
