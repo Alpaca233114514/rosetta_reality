@@ -35,6 +35,7 @@ from typing import Any
 from rosetta_reality.experiment import file_sha256
 from rosetta_reality.vla.accelerator_memory import empty_accelerator_cache
 from rosetta_reality.vla.training.context import TrainingContext
+from rosetta_reality.vla.training.clamped_bounded_sine import ClampedBoundedSineFeature
 from rosetta_reality.vla.training.paired_mixture_runtime import PairedMixtureFeature
 from rosetta_reality.vla.training.dual_axis import DualAxisDiagnosticsFeature
 from rosetta_reality.vla.training.masked_camera import (
@@ -1147,6 +1148,7 @@ FEATURE_FACTORIES: dict[str, Callable[[Mapping[str, Any]], TrainingFeature]] = {
     MaskedCameraSkipFeature.name: MaskedCameraSkipFeature,
     CanonicalImageScalingFeature.name: CanonicalImageScalingFeature,
     ActionBoundaryProjectionFeature.name: ActionBoundaryProjectionFeature,
+    ClampedBoundedSineFeature.name: ClampedBoundedSineFeature,
     FixedFrameSamplerFeature.name: FixedFrameSamplerFeature,
     ExplicitSampleScheduleFeature.name: ExplicitSampleScheduleFeature,
     HorizonWeightProfileFeature.name: HorizonWeightProfileFeature,

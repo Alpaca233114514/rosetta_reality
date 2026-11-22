@@ -109,6 +109,7 @@ def test_registry_covers_the_declared_feature_set() -> None:
         "train_only_statistics",
         "masked_camera_skip",
         "action_boundary_projection",
+        "clamped_bounded_sine",
         "fixed_frame_sampler",
         "horizon_weight_profile",
         "state_robustness_jitter",

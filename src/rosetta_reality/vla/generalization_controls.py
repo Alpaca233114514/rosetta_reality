@@ -23,9 +23,12 @@ ARM_INDICES: tuple[int, ...] = (0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12)
 GRIPPER_INDICES: tuple[int, int] = (6, 13)
 SUPPORTED_MULTIVIEW_CAMERAS: tuple[str, ...] = (
     "observation.images.top",
+    "observation.images.angle",
+    "observation.images.front_close",
+    "observation.images.left_pillar",
+    "observation.images.right_pillar",
     "observation.images.left_wrist",
     "observation.images.right_wrist",
-    "observation.images.angle",
 )
 
 
@@ -349,6 +352,8 @@ def validate_multiview_camera_contract(
         raise ValueError(f"Unsupported camera keys: {unknown}")
     if "observation.images.top" not in keys:
         raise ValueError("observation.images.top is required in the multi-view contract")
+    if len(keys) < 2:
+        raise ValueError("Multi-view contract requires at least 2 distinct cameras")
     if require_wrist_pair and not (
         "observation.images.left_wrist" in keys and "observation.images.right_wrist" in keys
     ):
