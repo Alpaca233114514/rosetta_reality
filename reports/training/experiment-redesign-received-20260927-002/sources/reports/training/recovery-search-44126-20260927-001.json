@@ -1,0 +1,562 @@
+{
+  "files_visited": 152868,
+  "scan_truncated": false,
+  "array_and_data_filenames": {
+    "file-000.parquet": 4,
+    "file-001.parquet": 2,
+    "file-002.parquet": 2,
+    "file-003.parquet": 2,
+    "tasks.parquet": 2,
+    "arrays.npz": 189,
+    "internal_grippers.npy": 29,
+    "noise.npy": 29,
+    "normalized_predictions.npy": 29,
+    "normalized_targets.npy": 29,
+    "standard_predictions.npy": 29,
+    "standard_targets.npy": 29,
+    "valid_mask.npy": 29,
+    "smoke-first.npz": 3,
+    "smoke-reload.npz": 3,
+    "prefix-row-000.npz": 1,
+    "prefix-row-001.npz": 1,
+    "prefix-row-002.npz": 1,
+    "prefix-row-003.npz": 1,
+    "prefix-row-004.npz": 1,
+    "prefix-row-005.npz": 1,
+    "prefix-row-006.npz": 1,
+    "prefix-row-007.npz": 1,
+    "prefix-row-008.npz": 1,
+    "prefix-row-009.npz": 1,
+    "prefix-row-010.npz": 1,
+    "prefix-row-011.npz": 1,
+    "prefix-row-012.npz": 1,
+    "prefix-row-013.npz": 1,
+    "prefix-row-014.npz": 1,
+    "prefix-row-015.npz": 1,
+    "prefix-row-016.npz": 1,
+    "prefix-row-017.npz": 1,
+    "prefix-row-018.npz": 1,
+    "prefix-row-019.npz": 1,
+    "prefix-row-020.npz": 1,
+    "prefix-row-021.npz": 1,
+    "prefix-row-022.npz": 1,
+    "prefix-row-023.npz": 1,
+    "prefix-row-024.npz": 1,
+    "prefix-row-025.npz": 1,
+    "prefix-row-026.npz": 1,
+    "prefix-row-027.npz": 1,
+    "prefix-row-028.npz": 1,
+    "prefix-row-029.npz": 1,
+    "prefix-row-030.npz": 1,
+    "prefix-row-031.npz": 1,
+    "prefix-row-032.npz": 1,
+    "prefix-row-033.npz": 1,
+    "prefix-row-034.npz": 1,
+    "prefix-row-035.npz": 1,
+    "prefix-row-036.npz": 1,
+    "prefix-row-037.npz": 1,
+    "prefix-row-038.npz": 1,
+    "prefix-row-039.npz": 1,
+    "prefix-row-040.npz": 1,
+    "prefix-row-041.npz": 1,
+    "prefix-row-042.npz": 1,
+    "prefix-row-043.npz": 1,
+    "prefix-row-044.npz": 1,
+    "arrays.partial.npz": 1,
+    "calibration.npz": 9,
+    "native-keys.npz": 6,
+    "mean640.npz": 6,
+    "attention.npz": 33,
+    "calibration-dev.npz": 4,
+    "calibration-train.npz": 4,
+    "sentinel-40-3-11.npz": 2,
+    "sentinel-0-5-5.npz": 2,
+    "sentinel-0-5-7.npz": 2,
+    "sentinel-40-3-13.npz": 2,
+    "sentinel-0-5-9.npz": 2,
+    "sentinel-0-0-1.npz": 2,
+    "sentinel-0-6-1.npz": 2,
+    "sentinel-0-0-11.npz": 2,
+    "sentinel-0-6-11.npz": 2,
+    "sentinel-0-0-13.npz": 2,
+    "sentinel-0-6-15.npz": 2,
+    "sentinel-0-0-15.npz": 2,
+    "sentinel-0-6-13.npz": 2,
+    "sentinel-0-0-3.npz": 2,
+    "sentinel-0-6-3.npz": 2,
+    "sentinel-0-0-5.npz": 2,
+    "sentinel-0-6-5.npz": 2,
+    "sentinel-0-0-7.npz": 2,
+    "sentinel-0-6-7.npz": 2,
+    "sentinel-0-0-9.npz": 2,
+    "sentinel-0-7-9.npz": 2,
+    "sentinel-0-1-1.npz": 2,
+    "sentinel-0-7-7.npz": 2,
+    "sentinel-0-1-11.npz": 2,
+    "sentinel-0-8-1.npz": 2,
+    "sentinel-0-1-13.npz": 2,
+    "sentinel-0-8-11.npz": 2,
+    "sentinel-0-1-15.npz": 2,
+    "sentinel-0-8-13.npz": 2,
+    "sentinel-0-1-3.npz": 2,
+    "sentinel-0-8-15.npz": 2,
+    "sentinel-0-1-5.npz": 2,
+    "sentinel-0-8-3.npz": 2,
+    "sentinel-0-1-7.npz": 2,
+    "sentinel-0-8-5.npz": 2,
+    "sentinel-0-1-9.npz": 2,
+    "sentinel-0-8-7.npz": 2,
+    "sentinel-0-2-1.npz": 2,
+    "sentinel-0-8-9.npz": 2,
+    "sentinel-0-2-11.npz": 2,
+    "sentinel-0-9-1.npz": 2,
+    "sentinel-0-2-13.npz": 2,
+    "sentinel-0-9-11.npz": 2,
+    "sentinel-0-2-15.npz": 2,
+    "sentinel-0-9-13.npz": 2,
+    "sentinel-0-2-3.npz": 2,
+    "sentinel-0-9-15.npz": 2,
+    "sentinel-0-2-5.npz": 2,
+    "sentinel-0-9-3.npz": 2,
+    "sentinel-0-2-7.npz": 2,
+    "sentinel-0-9-5.npz": 2,
+    "sentinel-0-2-9.npz": 2,
+    "sentinel-0-9-7.npz": 2,
+    "sentinel-0-3-1.npz": 2,
+    "sentinel-0-9-9.npz": 2,
+    "sentinel-0-3-11.npz": 2,
+    "sentinel-40-0-1.npz": 2,
+    "sentinel-0-3-13.npz": 2,
+    "sentinel-40-0-11.npz": 2,
+    "sentinel-0-3-15.npz": 2,
+    "sentinel-40-0-13.npz": 2,
+    "sentinel-0-3-3.npz": 2,
+    "sentinel-40-0-15.npz": 2,
+    "sentinel-0-3-5.npz": 2,
+    "sentinel-40-0-3.npz": 2,
+    "sentinel-0-3-7.npz": 2,
+    "sentinel-40-0-5.npz": 2,
+    "sentinel-0-3-9.npz": 2,
+    "sentinel-40-0-7.npz": 2,
+    "sentinel-0-4-1.npz": 2,
+    "sentinel-40-0-9.npz": 2,
+    "sentinel-0-4-11.npz": 2,
+    "sentinel-40-1-1.npz": 2,
+    "sentinel-0-4-13.npz": 2,
+    "sentinel-40-1-11.npz": 2,
+    "sentinel-0-4-15.npz": 2,
+    "sentinel-40-1-13.npz": 2,
+    "sentinel-0-4-3.npz": 2,
+    "sentinel-40-1-15.npz": 2,
+    "sentinel-0-4-5.npz": 2,
+    "sentinel-40-1-3.npz": 2,
+    "sentinel-0-4-7.npz": 2,
+    "sentinel-40-1-5.npz": 2,
+    "sentinel-0-4-9.npz": 2,
+    "sentinel-40-1-7.npz": 2,
+    "sentinel-0-5-1.npz": 2,
+    "sentinel-40-1-9.npz": 2,
+    "sentinel-0-5-11.npz": 2,
+    "sentinel-40-2-1.npz": 2,
+    "sentinel-0-5-13.npz": 2,
+    "sentinel-40-2-11.npz": 2,
+    "sentinel-0-5-15.npz": 2,
+    "sentinel-40-2-13.npz": 2,
+    "sentinel-0-5-3.npz": 2,
+    "sentinel-0-6-9.npz": 2,
+    "sentinel-40-2-15.npz": 2,
+    "sentinel-0-7-1.npz": 2,
+    "sentinel-40-2-3.npz": 2,
+    "sentinel-0-7-11.npz": 2,
+    "sentinel-40-2-5.npz": 2,
+    "sentinel-0-7-13.npz": 2,
+    "sentinel-40-2-7.npz": 2,
+    "sentinel-0-7-15.npz": 2,
+    "sentinel-40-2-9.npz": 2,
+    "sentinel-0-7-3.npz": 2,
+    "sentinel-40-3-1.npz": 2,
+    "sentinel-0-7-5.npz": 2,
+    "sentinel-40-3-15.npz": 2,
+    "sentinel-40-3-3.npz": 2,
+    "sentinel-40-3-5.npz": 2,
+    "sentinel-40-3-7.npz": 2,
+    "sentinel-40-3-9.npz": 2,
+    "sentinel-40-4-1.npz": 2,
+    "sentinel-40-4-11.npz": 2,
+    "sentinel-40-4-13.npz": 2,
+    "sentinel-40-4-15.npz": 2,
+    "sentinel-40-4-3.npz": 2,
+    "sentinel-40-4-5.npz": 2,
+    "sentinel-40-4-7.npz": 2,
+    "sentinel-40-4-9.npz": 2,
+    "sentinel-40-5-1.npz": 2,
+    "sentinel-40-5-11.npz": 2,
+    "sentinel-40-5-13.npz": 2,
+    "sentinel-40-5-15.npz": 2,
+    "sentinel-40-5-3.npz": 2,
+    "sentinel-40-5-5.npz": 2,
+    "sentinel-40-5-7.npz": 2,
+    "sentinel-40-5-9.npz": 2,
+    "sentinel-40-6-1.npz": 2,
+    "sentinel-40-6-11.npz": 2,
+    "sentinel-40-6-13.npz": 2,
+    "sentinel-40-6-15.npz": 2,
+    "sentinel-40-6-3.npz": 2,
+    "sentinel-40-6-5.npz": 2,
+    "sentinel-40-6-7.npz": 2,
+    "sentinel-40-6-9.npz": 2,
+    "sentinel-40-7-1.npz": 2,
+    "sentinel-40-7-11.npz": 2,
+    "sentinel-40-7-13.npz": 2,
+    "sentinel-40-7-15.npz": 2,
+    "sentinel-40-7-3.npz": 2,
+    "sentinel-40-7-5.npz": 2,
+    "sentinel-40-7-7.npz": 2,
+    "sentinel-40-7-9.npz": 2,
+    "sentinel-40-8-1.npz": 2,
+    "sentinel-40-8-11.npz": 2,
+    "sentinel-40-8-13.npz": 2,
+    "sentinel-40-8-15.npz": 2,
+    "sentinel-40-8-3.npz": 2,
+    "sentinel-40-8-5.npz": 2,
+    "sentinel-40-8-7.npz": 2,
+    "sentinel-40-8-9.npz": 2,
+    "sentinel-40-9-1.npz": 2,
+    "sentinel-40-9-11.npz": 2,
+    "sentinel-40-9-13.npz": 2,
+    "sentinel-40-9-15.npz": 2,
+    "sentinel-40-9-3.npz": 2,
+    "sentinel-40-9-5.npz": 2,
+    "sentinel-40-9-7.npz": 2,
+    "sentinel-40-9-9.npz": 2,
+    "control-smoke-first.npz": 2,
+    "control-smoke-reload.npz": 2,
+    "treatment-first.npz": 1,
+    "treatment-reload.npz": 1,
+    "treatment-smoke-first.npz": 1,
+    "control-first.npz": 1,
+    "treatment-smoke-reload.npz": 1,
+    "control-reload.npz": 1,
+    "images.npz": 1,
+    "scene-phase-arrays.npz": 8
+  },
+  "raw_data_directories": [
+    "data/lerobot--aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/data/chunk-000",
+    "data/lerobot--aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/meta",
+    "data/lerobot--aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/meta/episodes/chunk-000",
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/dataset_views/train-only-3e3c6b9d347e5e71/data/chunk-000",
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/dataset_views/train-only-3e3c6b9d347e5e71/meta",
+    "runs/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/dataset_views/train-only-3e3c6b9d347e5e71/meta/episodes/chunk-000"
+  ],
+  "recovery_manifest_candidates": [],
+  "dataset_manifests": [
+    {
+      "path": "data/lerobot--aloha_sim_insertion_human/cc571a3c661df81b566dbfde3d5c1e85fcdf7884/manifest.json",
+      "repo_id": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "episodes": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49
+      ],
+      "sha256": "f3c03f7f60db66496d10e12f081c2bd9949a2f9f771148c7f159263dcea98140"
+    }
+  ],
+  "archives_not_content_scanned": [
+    {
+      "path": "control/hestia-cuda-checkpoint-curve-20260911-001/dispatch.tar",
+      "bytes": 3368960
+    },
+    {
+      "path": "control/hestia-cuda-checkpoint-curve-20260911-001/historical-inputs.tar",
+      "bytes": 2785280
+    },
+    {
+      "path": "control/hestia-cuda-checkpoint-curve-20260911-002/dispatch.tar",
+      "bytes": 3379200
+    },
+    {
+      "path": "control/hestia-cuda-checkpoint-curve-20260911-002/historical-inputs.tar",
+      "bytes": 2785280
+    },
+    {
+      "path": "control/hestia-main-cpu-20260911-001/cpu-evidence.zip",
+      "bytes": 106548
+    },
+    {
+      "path": "control/hestia-main-result-20260911-001/main-evidence.zip",
+      "bytes": 1744847
+    },
+    {
+      "path": "incoming/20260815T084353Z-5bd66d5e4bdc-2e4334eb80fa/moveit-runtime-plan029-v1.tar",
+      "bytes": 2385920
+    },
+    {
+      "path": "incoming/20260815T084353Z-5bd66d5e4bdc-2e4334eb80fa/workspace.tar",
+      "bytes": 3522560
+    },
+    {
+      "path": "incoming/20260815T091907Z-5bd66d5e4bdc-0a78aca477e1/20260815T091907Z-5bd66d5e4bdc-0a78aca477e1.tar",
+      "bytes": 3543040
+    },
+    {
+      "path": "incoming/20260815T091907Z-5bd66d5e4bdc-0a78aca477e1/moveit-runtime-plan030-v1.tar",
+      "bytes": 2385920
+    },
+    {
+      "path": "incoming/20260815T092123Z-5bd66d5e4bdc-357ee507c1ec/20260815T092123Z-5bd66d5e4bdc-357ee507c1ec.tar",
+      "bytes": 3543040
+    },
+    {
+      "path": "incoming/20260815T092123Z-5bd66d5e4bdc-357ee507c1ec/moveit-runtime-plan030-v1.tar",
+      "bytes": 2385920
+    },
+    {
+      "path": "incoming/20260815T122037Z-5bd66d5e4bdc-d7d84178398b/20260815T122037Z-5bd66d5e4bdc-d7d84178398b.tar",
+      "bytes": 3614720
+    },
+    {
+      "path": "incoming/20260815T123607Z-5bd66d5e4bdc-7ee5ddb43dc0/20260815T123607Z-5bd66d5e4bdc-7ee5ddb43dc0.tar",
+      "bytes": 3635200
+    },
+    {
+      "path": "tasks/athena-geometry-path-planner-20260814T185512Z-5bd66d5e4bdc-44f34dad063c-safe-extract-v1/attempts/athena-official-interbotix-runtime-008/interbotix_ros_manipulators-b66d5b905725351dd71d3251a06cd3f4c777940f.tar.gz",
+      "bytes": 5122081
+    },
+    {
+      "path": "tasks/athena-geometry-path-planner-20260814T185512Z-5bd66d5e4bdc-44f34dad063c-safe-extract-v1/exports/athena-exact-007-evidence-v1.tar",
+      "bytes": 3461120
+    },
+    {
+      "path": "tasks/athena-geometry-path-planner-20260814T185512Z-5bd66d5e4bdc-44f34dad063c-safe-extract-v1/incoming/moveit-runtime-bundle-v2/moveit-runtime-bundle-v2.tar",
+      "bytes": 1899008
+    },
+    {
+      "path": "tasks/athena-plan026-20260815T054533Z-5bd66d5e4bdc-7394c4ea5d4c/reports/athena-plan026-evidence.tar",
+      "bytes": 133120
+    },
+    {
+      "path": "tasks/athena-plan028-20260815T073758Z-5bd66d5e4bdc-574d6a7eae5f/reports/athena-plan028-evidence-001.tar",
+      "bytes": 3123200
+    },
+    {
+      "path": "tools/rclone-v1.75.1-20260923-001/rclone-v1.75.1-linux-amd64.zip",
+      "bytes": 1654784
+    },
+    {
+      "path": "transfers/prometheus-handoff-addendum-20260813.tar.gz",
+      "bytes": 6581
+    },
+    {
+      "path": "transfers/prometheus-sim-workspace-999b9d26122887ff.tar.gz",
+      "bytes": 452112
+    },
+    {
+      "path": "transfers/rosetta-prometheus-00f40f3aedf38d82.tar.gz",
+      "bytes": 445889
+    },
+    {
+      "path": "transfers/rosetta-prometheus-390ece738ed5884a.tar.gz",
+      "bytes": 443381
+    },
+    {
+      "path": "transfers/rosetta-prometheus-4727bbe9be6a8da3.tar.gz",
+      "bytes": 448345
+    },
+    {
+      "path": "transfers/rosetta-prometheus-5af5a530ed68c7d7.tar.gz",
+      "bytes": 443370
+    },
+    {
+      "path": "transfers/rosetta-prometheus-682d130da13f0ae4.tar.gz",
+      "bytes": 445437
+    },
+    {
+      "path": "transfers/rosetta-prometheus-7902685735657931.tar.gz",
+      "bytes": 443220
+    },
+    {
+      "path": "transfers/rosetta-prometheus-c0b503ba3ddc105b.tar.gz",
+      "bytes": 448813
+    },
+    {
+      "path": "transfers/rosetta-prometheus-cc430a7cf234b0b3.tar.gz",
+      "bytes": 450696
+    },
+    {
+      "path": "workspace-archives/20260814T141210Z-5bd66d5e4bdc-af0e415d6479.tar",
+      "bytes": 2949120
+    },
+    {
+      "path": "workspace-archives/20260814T185512Z-5bd66d5e4bdc-44f34dad063c.tar",
+      "bytes": 3225600
+    },
+    {
+      "path": "workspace-archives/20260814T205524Z-5bd66d5e4bdc-187049c146f4.tar",
+      "bytes": 3266560
+    },
+    {
+      "path": "workspace-archives/20260814T210653Z-5bd66d5e4bdc-dd0c767a8a35.tar",
+      "bytes": 3276800
+    },
+    {
+      "path": "workspace-archives/20260814T211913Z-5bd66d5e4bdc-1f249835e16e.tar",
+      "bytes": 3276800
+    },
+    {
+      "path": "workspace-archives/20260814T212715Z-5bd66d5e4bdc-fad4a172a290.tar",
+      "bytes": 3276800
+    },
+    {
+      "path": "workspace-archives/20260814T214353Z-5bd66d5e4bdc-a6cc98108573.tar",
+      "bytes": 3297280
+    },
+    {
+      "path": "workspace-archives/20260814T215149Z-5bd66d5e4bdc-2e1184099e74.tar",
+      "bytes": 3297280
+    },
+    {
+      "path": "workspace-archives/20260814T220335Z-5bd66d5e4bdc-00353be012e7.tar",
+      "bytes": 3307520
+    },
+    {
+      "path": "workspace-archives/20260814T221054Z-5bd66d5e4bdc-58328184c552.tar",
+      "bytes": 3307520
+    },
+    {
+      "path": "workspace-archives/20260815T070001Z-5bd66d5e4bdc-f2c4662a2dab.tar",
+      "bytes": 3399680
+    },
+    {
+      "path": "workspace-archives/20260815T073758Z-5bd66d5e4bdc-574d6a7eae5f.tar",
+      "bytes": 3450880
+    },
+    {
+      "path": "workspace_archives/20260812T191600Z-transfer-5bd66d5e4bdc.tar",
+      "bytes": 2160640
+    },
+    {
+      "path": "workspace_archives/20260813T155125Z-5bd66d5e4bdc-100ca69f2b19.tar",
+      "bytes": 2621440
+    },
+    {
+      "path": "workspace_archives/20260813T163325Z-5bd66d5e4bdc-8f59055f6984.tar",
+      "bytes": 2631680
+    },
+    {
+      "path": "workspace_archives/20260813T165010Z-5bd66d5e4bdc-f04314644b92.tar",
+      "bytes": 2641920
+    },
+    {
+      "path": "workspace_archives/20260814T015642-5bd66d5e4bdc-a546034a6ed0.tar",
+      "bytes": 2662400
+    },
+    {
+      "path": "workspace_archives/20260814T021619-5bd66d5e4bdc-8df626cd4b30.tar",
+      "bytes": 2672640
+    },
+    {
+      "path": "workspace_archives/20260814T022542-5bd66d5e4bdc-e42a69ac409d.tar",
+      "bytes": 2682880
+    },
+    {
+      "path": "workspace_archives/20260814T022701-5bd66d5e4bdc-6dc0a225947a.tar",
+      "bytes": 2682880
+    },
+    {
+      "path": "workspaces/20260814T065530Z-5bd66d5e4bdc-e1856a314e03/workspace.tar",
+      "bytes": 2931200
+    },
+    {
+      "path": "workspaces/20260815T054533Z-5bd66d5e4bdc-7394c4ea5d4c/workspace.tar",
+      "bytes": 3358720
+    },
+    {
+      "path": "workspaces/20260913T133558Z-be8bec5404eb-c5d344db9332/runs/iris-k-scene-20260913-001.tar",
+      "bytes": 747520
+    },
+    {
+      "path": "workspaces/20260913T151530Z-471d427bcd83-2f0bc98c8480/runs/iris-002-gate34-20260913-001.tar",
+      "bytes": 327680
+    },
+    {
+      "path": "workspaces/20260913T152502Z-8f5631b0d857-0e55784fa493/runs/iris-002-gate34-20260913-002.tar",
+      "bytes": 337920
+    },
+    {
+      "path": "workspaces/20260913T153301Z-5683e03803e1-96bdb28d24e2/runs/iris-002-gate34-20260913-003.tar",
+      "bytes": 563200
+    },
+    {
+      "path": "workspaces/20260914T025746Z-95cf9cf9483b-f40f5df56020/.transport/source.gz",
+      "bytes": 6022928
+    },
+    {
+      "path": "workspaces/20260914T141523Z-95cf9cf9483b-09a6afcda1cf/runs/canonical-fullframes-posttrain-20260914-002.tar",
+      "bytes": 163840
+    },
+    {
+      "path": "workspaces/20260915T003336Z-95cf9cf9483b-7324c1c20ccb/runs/canonical-fullframes-posttrain-20260915-003.tar",
+      "bytes": 1116160
+    },
+    {
+      "path": "workspaces/20260915T010102Z-95cf9cf9483b-9a435cc04df2/runs/canonical-fullframes-posttrain-20260915-004.tar",
+      "bytes": 1208320
+    },
+    {
+      "path": "workspaces/20260916T100517Z-95cf9cf9483b-6bb3da3027df/runs/canonical-fullframes-posttrain-20260916-005.tar",
+      "bytes": 25692160
+    }
+  ],
+  "root_candidate_directories": [
+    "\\root\\autodl-tmp\\rosetta\\tasks\\athena-plan030-20260815T092123Z-5bd66d5e4bdc-357ee507c1ec\\dependencies"
+  ],
+  "seconds": 12.056560575962067
+}

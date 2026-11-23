@@ -1,0 +1,102 @@
+{
+  "schema": "rosetta.paired_schedule_independent_exposures.v1",
+  "source_file_sha256": {
+    "original": "4b6adc2bf0b837b47311441892740bd400ff3e7e5f8087db9dac39a2dfe8083d",
+    "cohort": "11450aa9816762e5e4bb87c14cab16cf1a7d0ce133adcc22ce43455a2dfefd6c",
+    "A": "20dba33b3020d55c1056f9b79aeb85fd3affe1b6925c5a7501a2a7ba6b623a2a",
+    "B": "fe0bd670b0c64817c10e653ed9379cdb8c4f21e325ae098328f7d5a2d6b3a317",
+    "C": "66d3b3510f389e73ae26d13859ff579f87cbf94c23c642c829a8f65f49c30443"
+  },
+  "arms": {
+    "A": {
+      "planned_updates": 5000,
+      "planned_input_exposures": 20000,
+      "unique_input_frames": 16227,
+      "repeated_input_exposures": 3773,
+      "unique_frame_valid_target_slots": 771559,
+      "unique_frame_padding_slots": 39791,
+      "valid_target_slot_exposures": 951354,
+      "padding_slot_exposures": 48646,
+      "groups": {
+        "D:common_D": {
+          "input_exposures": 15000,
+          "valid_target_slot_exposures": 713303,
+          "padding_slot_exposures": 36697
+        },
+        "D:auxiliary": {
+          "input_exposures": 5000,
+          "valid_target_slot_exposures": 238051,
+          "padding_slot_exposures": 11949
+        }
+      },
+      "common_D_entries_sha256": "9e7c153cfaabcdd62e8f924e12d42ed7552e0865b6ebbae9c9a5cbc935cd285a",
+      "frame_exposure_min": 1.0,
+      "frame_exposure_max": 2.0,
+      "auxiliary_shared_prefix_input_exposures": 0,
+      "auxiliary_post_deviation_input_exposures": 0,
+      "training_executed_claimed": false
+    },
+    "B": {
+      "planned_updates": 5000,
+      "planned_input_exposures": 20000,
+      "unique_input_frames": 15203,
+      "repeated_input_exposures": 4797,
+      "unique_frame_valid_target_slots": 723453,
+      "unique_frame_padding_slots": 36697,
+      "valid_target_slot_exposures": 963303,
+      "padding_slot_exposures": 36697,
+      "groups": {
+        "R:auxiliary": {
+          "input_exposures": 5000,
+          "valid_target_slot_exposures": 250000,
+          "padding_slot_exposures": 0
+        },
+        "D:common_D": {
+          "input_exposures": 15000,
+          "valid_target_slot_exposures": 713303,
+          "padding_slot_exposures": 36697
+        }
+      },
+      "common_D_entries_sha256": "9e7c153cfaabcdd62e8f924e12d42ed7552e0865b6ebbae9c9a5cbc935cd285a",
+      "frame_exposure_min": 1.0,
+      "frame_exposure_max": 25.0,
+      "auxiliary_shared_prefix_input_exposures": 3790,
+      "auxiliary_post_deviation_input_exposures": 1210,
+      "training_executed_claimed": false
+    },
+    "C": {
+      "planned_updates": 5000,
+      "planned_input_exposures": 20000,
+      "unique_input_frames": 15203,
+      "repeated_input_exposures": 4797,
+      "unique_frame_valid_target_slots": 723453,
+      "unique_frame_padding_slots": 36697,
+      "valid_target_slot_exposures": 963303,
+      "padding_slot_exposures": 36697,
+      "groups": {
+        "D:common_D": {
+          "input_exposures": 15000,
+          "valid_target_slot_exposures": 713303,
+          "padding_slot_exposures": 36697
+        },
+        "S:auxiliary": {
+          "input_exposures": 5000,
+          "valid_target_slot_exposures": 250000,
+          "padding_slot_exposures": 0
+        }
+      },
+      "common_D_entries_sha256": "9e7c153cfaabcdd62e8f924e12d42ed7552e0865b6ebbae9c9a5cbc935cd285a",
+      "frame_exposure_min": 1.0,
+      "frame_exposure_max": 25.0,
+      "auxiliary_shared_prefix_input_exposures": 3790,
+      "auxiliary_post_deviation_input_exposures": 1210,
+      "training_executed_claimed": false
+    }
+  },
+  "common_D_schedule_exact": true,
+  "planned_not_executed": true,
+  "fixed_input_budget_not_equal_valid_target_budget": true,
+  "hidden_data_loaded": false,
+  "unit": "native temporal action slots, not padded feature dimensions",
+  "source_sha256": "1cc91e0bbec95c4a5bdae42b59e9b1625a27a6539837ec73cf9e5bf58d60a3e4"
+}

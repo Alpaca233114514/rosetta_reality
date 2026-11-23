@@ -1,0 +1,391 @@
+{
+  "schema": "rosetta.paired_bank_local_independent_verification.v1",
+  "passed": true,
+  "source": ".work/paired-bank-v3-20260927-001-independent-received/extracted",
+  "archive_sha256": "17f59911da217e5be889d100bbd5aa80a5207f2032d7a8744ea8d1b47f74f338",
+  "archive_bytes": 145959123,
+  "job_files_verified": 4618,
+  "job_bytes_verified": 301719918,
+  "original_collection_files_verified": 4578,
+  "original_collection_bytes_verified": 300825210,
+  "bank_manifest_sha256": "3fe172d5504b66a378d854b02c1607a332f5f0c0df1e18c5a5b5e56c26bac69c",
+  "bank_summary_sha256": "29cbac79de9e3866c5e470be7243bf9546e2fe8643663285177fb9ecdc15b15d",
+  "bank_audit_sha256": "dc1a8a0179f920a33588baa0b546390b647e3579ee27b4f4d762498c75c544b6",
+  "numerics_sha256": "a9663aafe21d1bdc84e0ec7b90d2e6082219b3b7feaca91c1a4858f8a6293427",
+  "registered_states": 10,
+  "registered_logical_attempts": 20,
+  "actual_branch_states": 8,
+  "teacher_feasible_states": 1,
+  "actual_branch_parent_ids": [
+    "bank-003b-scene-2440",
+    "bank-003b-scene-2441",
+    "bank-003b-scene-2443",
+    "bank-003b-scene-2444",
+    "bank-003b-scene-2445",
+    "bank-003b-scene-2446",
+    "bank-003b-scene-2447",
+    "bank-003b-scene-2449"
+  ],
+  "teacher_feasible_parent_ids": [
+    "bank-003b-scene-2445"
+  ],
+  "branch_registry": [
+    {
+      "parent_id": "bank-003b-scene-2440",
+      "seed": 2440,
+      "trigger": "grasp",
+      "registered_joint_delta": 0.04,
+      "branch_state": "bank-003b-scene-2440/branch-integration.npz",
+      "teacher_feasible": false,
+      "source_status": "correction_timeout",
+      "deviation_verified": true,
+      "actual_joint_change_rad": 0.003666490316390991,
+      "source_task_success": false,
+      "source_geometry_recovery": true,
+      "source_verified_chain": false
+    },
+    {
+      "parent_id": "bank-003b-scene-2441",
+      "seed": 2441,
+      "trigger": "grasp",
+      "registered_joint_delta": -0.04,
+      "branch_state": "bank-003b-scene-2441/branch-integration.npz",
+      "teacher_feasible": false,
+      "source_status": "correction_timeout",
+      "deviation_verified": true,
+      "actual_joint_change_rad": 0.0029879510402679443,
+      "source_task_success": false,
+      "source_geometry_recovery": true,
+      "source_verified_chain": false
+    },
+    {
+      "parent_id": "bank-003b-scene-2442",
+      "seed": 2442,
+      "trigger": "align",
+      "registered_joint_delta": 0.04,
+      "branch_state": null,
+      "teacher_feasible": false,
+      "source_status": "task_failed",
+      "deviation_verified": null,
+      "actual_joint_change_rad": null,
+      "source_task_success": false,
+      "source_geometry_recovery": false,
+      "source_verified_chain": false
+    },
+    {
+      "parent_id": "bank-003b-scene-2443",
+      "seed": 2443,
+      "trigger": "align",
+      "registered_joint_delta": -0.04,
+      "branch_state": "bank-003b-scene-2443/branch-integration.npz",
+      "teacher_feasible": false,
+      "source_status": "success",
+      "deviation_verified": false,
+      "actual_joint_change_rad": 0.0008867606520652771,
+      "source_task_success": true,
+      "source_geometry_recovery": false,
+      "source_verified_chain": false
+    },
+    {
+      "parent_id": "bank-003b-scene-2444",
+      "seed": 2444,
+      "trigger": "grasp",
+      "registered_joint_delta": 0.04,
+      "branch_state": "bank-003b-scene-2444/branch-integration.npz",
+      "teacher_feasible": false,
+      "source_status": "correction_timeout",
+      "deviation_verified": true,
+      "actual_joint_change_rad": 0.003601573407649994,
+      "source_task_success": false,
+      "source_geometry_recovery": true,
+      "source_verified_chain": false
+    },
+    {
+      "parent_id": "bank-003b-scene-2445",
+      "seed": 2445,
+      "trigger": "grasp",
+      "registered_joint_delta": -0.04,
+      "branch_state": "bank-003b-scene-2445/branch-integration.npz",
+      "teacher_feasible": true,
+      "source_status": "success",
+      "deviation_verified": true,
+      "actual_joint_change_rad": 0.002917259931564331,
+      "source_task_success": true,
+      "source_geometry_recovery": true,
+      "source_verified_chain": true
+    },
+    {
+      "parent_id": "bank-003b-scene-2446",
+      "seed": 2446,
+      "trigger": "align",
+      "registered_joint_delta": 0.04,
+      "branch_state": "bank-003b-scene-2446/branch-integration.npz",
+      "teacher_feasible": false,
+      "source_status": "success",
+      "deviation_verified": false,
+      "actual_joint_change_rad": 0.0009460747241973877,
+      "source_task_success": true,
+      "source_geometry_recovery": false,
+      "source_verified_chain": false
+    },
+    {
+      "parent_id": "bank-003b-scene-2447",
+      "seed": 2447,
+      "trigger": "align",
+      "registered_joint_delta": -0.04,
+      "branch_state": "bank-003b-scene-2447/branch-integration.npz",
+      "teacher_feasible": false,
+      "source_status": "success",
+      "deviation_verified": true,
+      "actual_joint_change_rad": 0.004090890288352966,
+      "source_task_success": true,
+      "source_geometry_recovery": false,
+      "source_verified_chain": false
+    },
+    {
+      "parent_id": "bank-003b-scene-2448",
+      "seed": 2448,
+      "trigger": "grasp",
+      "registered_joint_delta": 0.04,
+      "branch_state": null,
+      "teacher_feasible": false,
+      "source_status": "safety_stop",
+      "deviation_verified": null,
+      "actual_joint_change_rad": null,
+      "source_task_success": false,
+      "source_geometry_recovery": false,
+      "source_verified_chain": false
+    },
+    {
+      "parent_id": "bank-003b-scene-2449",
+      "seed": 2449,
+      "trigger": "grasp",
+      "registered_joint_delta": -0.04,
+      "branch_state": "bank-003b-scene-2449/branch-integration.npz",
+      "teacher_feasible": false,
+      "source_status": "correction_timeout",
+      "deviation_verified": true,
+      "actual_joint_change_rad": 0.0036953985691070557,
+      "source_task_success": false,
+      "source_geometry_recovery": true,
+      "source_verified_chain": false
+    }
+  ],
+  "logical_frames": 6567,
+  "shared_prefix_physical_steps": 2299,
+  "restore_steps": 52,
+  "physical_steps": 4320,
+  "source_task_success_S": 6,
+  "source_task_success_R": 4,
+  "R_geometry_recovery_events": 5,
+  "R_verified_recovery_chains": 1,
+  "unmeasured_source_attempts": 0,
+  "bank_training_N": 0,
+  "N_strict": 0,
+  "N_exploratory": 0,
+  "legacy_object_scene_nonoverlap": "not_established",
+  "teacher_qualified": false,
+  "policy_results_not_yet_measured": true,
+  "all_original_attempts": [
+    {
+      "attempt_id": "bank-003b-scene-2440-S",
+      "status": "success",
+      "rows": 339,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2440-R",
+      "status": "correction_timeout",
+      "rows": 332,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 193,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2441-S",
+      "status": "success",
+      "rows": 354,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2441-R",
+      "status": "correction_timeout",
+      "rows": 327,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 188,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2442-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2442-R",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2443-S",
+      "status": "success",
+      "rows": 315,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2443-R",
+      "status": "success",
+      "rows": 322,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2444-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2444-R",
+      "status": "correction_timeout",
+      "rows": 358,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 219,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2445-S",
+      "status": "success",
+      "rows": 292,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2445-R",
+      "status": "success",
+      "rows": 293,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 190,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": true
+    },
+    {
+      "attempt_id": "bank-003b-scene-2446-S",
+      "status": "success",
+      "rows": 300,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2446-R",
+      "status": "success",
+      "rows": 300,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2447-S",
+      "status": "success",
+      "rows": 313,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2447-R",
+      "status": "success",
+      "rows": 314,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2448-S",
+      "status": "safety_stop",
+      "rows": 39,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2448-R",
+      "status": "safety_stop",
+      "rows": 39,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2449-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "bank-003b-scene-2449-R",
+      "status": "correction_timeout",
+      "rows": 330,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 191,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": false
+    }
+  ]
+}

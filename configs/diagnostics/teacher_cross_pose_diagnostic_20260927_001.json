@@ -1,0 +1,84 @@
+{
+  "schema": "rosetta.teacher_cross_pose_execution.v1",
+  "status": "prepared",
+  "id": "teacher-cross-pose-diagnostic-20260927-001",
+  "total_cap_seconds": 780,
+  "platform_target_unix": 1790510400,
+  "shutdown_authorized": false,
+  "runtime_container_image_id": "autodl-platform-container-observed",
+  "prior_job_relative": "runs/q0-coupled-translation-20260927-001",
+  "prior_manifest_sha256": "b9ef3a845877d68dc5c054a4edfc6052930140d2e72c11c04a984b208f5fad87",
+  "source_sha256": {
+    "configs/runtime/autodl_rtx4090.yaml": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992",
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+    "reports/training/teacher-independent-diagnostic-plan-2026-09-27.md": "95e199a8e3e16d00f6a7f12783ae619e5358a5814979a4c95072d5ce8478ef1e",
+    "scripts/autodl_bounded_guard.py": "53bc4c8af8cfb8107cc8929314668fb2b149b46cb46e08ca50f4d6924531baaa",
+    "scripts/check_env.py": "cbbf49aace6ea88b310e0065a0cccc73b286a0840534139917b8b3e6e9e6ec21",
+    "scripts/diagnose_teacher_cross_pose.py": "74fd1ea892761e548a13a2b030f116fec7c389606d7a95fe7ac3dbceabe4209b",
+    "scripts/q0_bounded_guard.py": "7e9e6a52d04cc21efd841db164512c5903c047f69d38360b9e78a37c83e33980",
+    "scripts/run_autodl.sh": "bc1b1f913bc06efd7821ac330748c0c537e6491c58a8a4bc0c43214534f2c90a",
+    "scripts/run_q0_independent_batch.py": "87fbeca042b5d3eb80ba331c2d7696036c5068cb3a40218ef300c30580dad02a",
+    "scripts/run_q0_screen_job.py": "1c39a2b02d164f6b01f51d7ff254df9a86276423dfd403e4020875420771e8e8",
+    "scripts/run_teacher_diagnostic_job.py": "ed4dbec61acf0b1f567a2733597d6efd8155a7535cd91c047d592ccf43ffc7e4",
+    "scripts/work_only_guard.py": "abea3d11c992b264cd5513ee75f42577ed98dbba6ef02b68b5a326981f6082fd",
+    "src/rosetta_reality/__init__.py": "b0e1bd910c6309ef845c1e18f3e9f6c4791a6a9ca235247b6b178d91f7858ae3",
+    "src/rosetta_reality/experiment.py": "dec191397dfc86e2c36a2d42067f1ece73dea32721af0f1ce887f261cabc6b4e",
+    "src/rosetta_reality/sim/__init__.py": "dd8555389df4e5e74ff97f2f13c3a2d1163cfa48b3214da68c6aa54186943e14",
+    "src/rosetta_reality/sim/action_contract.py": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743",
+    "src/rosetta_reality/sim/coupled_translation_teacher.py": "540e6fa5f95edf1ec17d94ab64b7febc0492c9e816d1f230a63df53f0ed47074",
+    "src/rosetta_reality/sim/env.py": "23833bc38fa6ecca1ae5f36299f2fc6d5d11a22f11b27322cb7751c55fe04113",
+    "src/rosetta_reality/sim/geometric_teacher.py": "d28f99e81b7d81004883f15bdc91df0cdb146edd984bc1f01c3847f6d979c187",
+    "src/rosetta_reality/sim/geometry_teacher.py": "e0cf824bb2120a2eaa1955bcb8109f44fae5e26812546f09c341ed0933372d99",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "src/rosetta_reality/sim/mink_aloha_ik.py": "cdff063ce164dc5eb8137c6c8cbd66f5c102eb06f0842a0f92b64727f9e70583",
+    "src/rosetta_reality/sim/moveit_aloha_planner.py": "32107b371e2ca4674b07f6def009cca70e811ec40f3fed62f7f326f9c87b8957",
+    "src/rosetta_reality/sim/mujoco_position_feedforward.py": "2be1e16624e272955a4366c57fa019fc303a557d756c12edcb2530cb7b664fc4",
+    "src/rosetta_reality/sim/recovery_oracle.py": "0b781f11832cb2bd00d7b704ddf2a2f90b6f435a3785cb0b70af750a9413bd1d",
+    "src/rosetta_reality/sim/scripted_teacher_observer.py": "6f657d71c98bcaea883c8aa30f6f9f73fbd705f6987ba11f977cb92ac563b7a3",
+    "src/rosetta_reality/sim/scripted_teacher.py": "5d87d2c2a74341ecb522519de22e3941564be823ca19b147c906fbbb2668da20",
+    "src/rosetta_reality/sim/teacher_gate.py": "087be6d4f0e2a72c0d80838b7ae88737650994566af3d4b026ab18fdbc09cd72",
+    "tests/test_q0_bounded_guard_stdlib.py": "cf64029018a4d4ff3ab3d2397ba5cf60ca53ec08fca6def407778e013734161e",
+    "tests/test_teacher_cross_pose_diagnostic.py": "39a3c7c87cec9dd8f3e250886bd49ca38dc8372eac572fbf9204177d37482260",
+    "tests/test_teacher_diagnostic_job_stdlib.py": "c95a63d9a05c84e9cc06493a00096ba04e1f96809e43b38c99a11953ed389fbe"
+  },
+  "commands": [
+    {
+      "seconds": 90,
+      "stage": "tests",
+      "args": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_teacher_diagnostic_job_stdlib.py",
+        "tests/test_teacher_cross_pose_diagnostic.py",
+        "tests/test_q0_bounded_guard_stdlib.py"
+      ]
+    },
+    {
+      "seconds": 600,
+      "stage": "diagnostic",
+      "args": [
+        "python",
+        "scripts/diagnose_teacher_cross_pose.py",
+        "--output",
+        "{job}/cross-pose",
+        "--max-seconds",
+        "600"
+      ]
+    }
+  ],
+  "registered_seeds": [
+    1900,
+    1901,
+    1902,
+    1903,
+    1904
+  ],
+  "max_steps_per_seed": 500,
+  "g1_success_required": false,
+  "formal_gate_result": null,
+  "provider_qualified": false,
+  "optimizer_updates": 0,
+  "model_calls": 0
+}

@@ -1,0 +1,8 @@
+{
+  "pid": 1437,
+  "observed_unix": 1790498420.7175481,
+  "work_deadline_unix": 1790498720.6564949,
+  "shutdown_deadline_unix": 1790498840.6564949,
+  "clock": "monotonic_after_registration",
+  "retrieval_grace_seconds": 240.0
+}

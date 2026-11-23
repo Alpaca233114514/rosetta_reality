@@ -1,0 +1,3578 @@
+{
+  "schema": "rosetta.saved_failure_modes.v1",
+  "date": "2026-10-03",
+  "branch": "codex/paired-003-evidence-audit-20260930",
+  "head": "66a5bbcdbdcdba554aac6d99171d8cbb501eb208",
+  "manifest_sha256": "efcc8cb4ae0d5dd509b57be8a87933afbb1dfc51d12b8fa84673aa6c85b7bfc3",
+  "verified_measurement_files": 151,
+  "verified_runner_sources": 14,
+  "source_sha256": {
+    "src/rosetta_reality/sim/geometry_teacher.py": "e0cf824bb2120a2eaa1955bcb8109f44fae5e26812546f09c341ed0933372d99",
+    "scripts/diagnose_smolvla_base_five_scene.py": "f129f4db99622fca800cf159685e55c70df10ad1b36b37f728f97eada7ae7848",
+    "scripts/restore_paired_branch_v2.py": "ec2bdc4f7a98b6186d2287798edecc94e3f4d5947ea221eda447b4adc5bcc9ba",
+    "src/rosetta_reality/vla/action_space.py": "4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb",
+    "src/rosetta_reality/vla/processor.py": "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384",
+    "scripts/run_paired_measurement_queue.py": "9ccd08a7a99d023ab25e82c4af6ed0b9fef03de6c133477fd71364c18c3dd537",
+    "scripts/evaluate_paired_policy_v2.py": "0123b514af70d267341374dca3cfa08911b3bcf16fea8fe81166af80b614b483",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "scripts/check_q0_state_restore.py": "9579f677a06b828e6bf1abf6e36fa0a819301866992c358cc945b84334640336",
+    "src/rosetta_reality/sim/scripted_teacher_observer.py": "6f657d71c98bcaea883c8aa30f6f9f73fbd705f6987ba11f977cb92ac563b7a3",
+    "scripts/smolvla_sim_gate.py": "5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae",
+    "src/rosetta_reality/sim/action_contract.py": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743",
+    "scripts/smolvla_autodl_vfunfreeze_sim_gate.py": "f91ae1f5a61c2eb365bbb673caf86571954426b1e03fb27ffeb38bd1280cf777",
+    "src/rosetta_reality/eval/reproducibility_capture.py": "df702f0c6efaeed357222b0ebbf3868abf6ef64d31d9ae509b5a8f3a1868d831"
+  },
+  "episodes": [
+    {
+      "arm": "A",
+      "seed": 1000,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/seed-1000.jsonl",
+      "trace_sha256": "a23420e779a45c9e6f0bd7a1ff950b10e7ae20a56eacd14587eeab9e1211f9a3",
+      "steps": 500,
+      "outcome": "task_failed",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 0,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": true,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 500,
+          "minimum": 0.1260891854763031,
+          "maximum": 0.4664243757724762,
+          "mean": 0.1742960426211357,
+          "sum": 87.14802131056786,
+          "p95_nearest_rank": 0.2378300130367279
+        },
+        "observed": {
+          "count": 500,
+          "minimum": 0.1063850149512291,
+          "maximum": 0.2786164879798889,
+          "mean": 0.16994483080506326,
+          "sum": 84.97241540253162,
+          "p95_nearest_rank": 0.2637680768966675
+        },
+        "absolute_command_observation_gap": {
+          "count": 500,
+          "minimum": 2.294778823852539E-06,
+          "maximum": 0.22547803819179535,
+          "mean": 0.015083763867616654,
+          "sum": 7.541881933808327,
+          "p95_nearest_rank": 0.04589557647705078
+        },
+        "adjacent_command_change": {
+          "count": 499,
+          "minimum": 2.4139881134033203E-06,
+          "maximum": 0.3072653114795685,
+          "mean": 0.021572028049725092,
+          "sum": 10.76444199681282,
+          "p95_nearest_rank": 0.0656021237373352
+        },
+        "command_le_0_2": 453,
+        "command_ge_0_8": 0,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 500,
+          "minimum": 1.1026859283447266E-06,
+          "maximum": 0.25503915548324585,
+          "mean": 0.015902118146419526,
+          "sum": 7.951059073209763,
+          "p95_nearest_rank": 0.06569796800613403
+        },
+        "observed": {
+          "count": 500,
+          "minimum": 0.08632960170507431,
+          "maximum": 0.11891062557697296,
+          "mean": 0.09809104476869106,
+          "sum": 49.04552238434553,
+          "p95_nearest_rank": 0.10189126431941986
+        },
+        "absolute_command_observation_gap": {
+          "count": 500,
+          "minimum": 0.0005613341927528381,
+          "maximum": 0.14122768491506577,
+          "mean": 0.08537053878605366,
+          "sum": 42.68526939302683,
+          "p95_nearest_rank": 0.09879810363054276
+        },
+        "adjacent_command_change": {
+          "count": 499,
+          "minimum": 9.98377799987793E-06,
+          "maximum": 0.20465359091758728,
+          "mean": 0.014086469022448889,
+          "sum": 7.029148042201996,
+          "p95_nearest_rank": 0.061104416847229004
+        },
+        "command_le_0_2": 498,
+        "command_ge_0_8": 0,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 401,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.1409796178340912,
+          "maximum": 0.204334557056427,
+          "mean": 0.16707564651966095,
+          "sum": 16.707564651966095,
+          "p95_nearest_rank": 0.18664321303367615
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.15514399111270905,
+          "maximum": 0.1730562150478363,
+          "mean": 0.16367979153990744,
+          "sum": 16.367979153990746,
+          "p95_nearest_rank": 0.17076443135738373
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 4.1678547859191895E-05,
+          "maximum": 0.031722694635391235,
+          "mean": 0.010026506036520005,
+          "sum": 1.0026506036520004,
+          "p95_nearest_rank": 0.023516029119491577
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0003940463066101074,
+          "maximum": 0.05925092101097107,
+          "mean": 0.014960623750782977,
+          "sum": 1.4811017513275146,
+          "p95_nearest_rank": 0.03320133686065674
+        },
+        "command_le_0_2": 99,
+        "command_ge_0_8": 0,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 1.1026859283447266E-06,
+          "maximum": 0.03319475054740906,
+          "mean": 0.008887230455875396,
+          "sum": 0.8887230455875397,
+          "p95_nearest_rank": 0.019951313734054565
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.0965571179986,
+          "maximum": 0.10242044180631638,
+          "mean": 0.09923869378864765,
+          "sum": 9.923869378864765,
+          "p95_nearest_rank": 0.10161693394184113
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.06653103232383728,
+          "maximum": 0.09946668893098831,
+          "mean": 0.09035146333277226,
+          "sum": 9.035146333277225,
+          "p95_nearest_rank": 0.09839305281639099
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 2.9295682907104492E-05,
+          "maximum": 0.027808666229248047,
+          "mean": 0.0066780758024466156,
+          "sum": 0.661129504442215,
+          "p95_nearest_rank": 0.017961949110031128
+        },
+        "command_le_0_2": 100,
+        "command_ge_0_8": 0,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "A",
+      "seed": 1001,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/seed-1001.jsonl",
+      "trace_sha256": "5a2f23fb48f901549c134a8e5e3f86a20492aff8ca24c4850bad633b622dd96b",
+      "steps": 434,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 0,
+      "unexpected_contact_counts": 1,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 434,
+          "minimum": 0.08738645911216736,
+          "maximum": 0.9999997615814209,
+          "mean": 0.5136909931211427,
+          "sum": 222.94189101457596,
+          "p95_nearest_rank": 0.9923837184906006
+        },
+        "observed": {
+          "count": 434,
+          "minimum": 0.1083252876996994,
+          "maximum": 0.9723147749900818,
+          "mean": 0.505568588058108,
+          "sum": 219.41676721721888,
+          "p95_nearest_rank": 0.9537882804870605
+        },
+        "absolute_command_observation_gap": {
+          "count": 434,
+          "minimum": 0.0007152557373046875,
+          "maximum": 0.6208218932151794,
+          "mean": 0.11947535230748114,
+          "sum": 51.85230290144682,
+          "p95_nearest_rank": 0.39907222986221313
+        },
+        "adjacent_command_change": {
+          "count": 433,
+          "minimum": 0.00021967291831970215,
+          "maximum": 0.6965859234333038,
+          "mean": 0.07912598161444102,
+          "sum": 34.26155003905296,
+          "p95_nearest_rank": 0.31699907779693604
+        },
+        "command_le_0_2": 140,
+        "command_ge_0_8": 154,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 434,
+          "minimum": 6.0498714447021484E-06,
+          "maximum": 0.9551893472671509,
+          "mean": 0.5109577031316845,
+          "sum": 221.75564315915108,
+          "p95_nearest_rank": 0.8933401107788086
+        },
+        "observed": {
+          "count": 434,
+          "minimum": 0.0869818702340126,
+          "maximum": 0.8279378414154053,
+          "mean": 0.5033384781450995,
+          "sum": 218.44889951497316,
+          "p95_nearest_rank": 0.808794379234314
+        },
+        "absolute_command_observation_gap": {
+          "count": 434,
+          "minimum": 0.0008993148803710938,
+          "maximum": 0.4792653024196625,
+          "mean": 0.1220037894417888,
+          "sum": 52.94964461773634,
+          "p95_nearest_rank": 0.34650057554244995
+        },
+        "adjacent_command_change": {
+          "count": 433,
+          "minimum": 0.00018554925918579102,
+          "maximum": 0.4937223494052887,
+          "mean": 0.09341103671329401,
+          "sum": 40.44697889685631,
+          "p95_nearest_rank": 0.2682616710662842
+        },
+        "command_le_0_2": 116,
+        "command_ge_0_8": 91,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 335,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.08738645911216736,
+          "maximum": 0.996394693851471,
+          "mean": 0.3475398138165474,
+          "sum": 34.75398138165474,
+          "p95_nearest_rank": 0.9668556451797485
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.1471007764339447,
+          "maximum": 0.882964551448822,
+          "mean": 0.3005573405325413,
+          "sum": 30.055734053254128,
+          "p95_nearest_rank": 0.8486776351928711
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0007152557373046875,
+          "maximum": 0.4191165268421173,
+          "mean": 0.07000642254948616,
+          "sum": 7.000642254948616,
+          "p95_nearest_rank": 0.31170618534088135
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.00021967291831970215,
+          "maximum": 0.3915451169013977,
+          "mean": 0.06857000216089114,
+          "sum": 6.788430213928223,
+          "p95_nearest_rank": 0.3367083668708801
+        },
+        "command_le_0_2": 56,
+        "command_ge_0_8": 18,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 1.1861324310302734E-05,
+          "maximum": 0.9386048913002014,
+          "mean": 0.36996333867311476,
+          "sum": 36.99633386731148,
+          "p95_nearest_rank": 0.8953133225440979
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.0869818702340126,
+          "maximum": 0.8267025351524353,
+          "mean": 0.3641840123385191,
+          "sum": 36.41840123385191,
+          "p95_nearest_rank": 0.7746769785881042
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0009592622518539429,
+          "maximum": 0.4312797486782074,
+          "mean": 0.12521051935851574,
+          "sum": 12.521051935851574,
+          "p95_nearest_rank": 0.34650057554244995
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.001215219497680664,
+          "maximum": 0.4937223494052887,
+          "mean": 0.10357661319501472,
+          "sum": 10.254084706306458,
+          "p95_nearest_rank": 0.314910352230072
+        },
+        "command_le_0_2": 43,
+        "command_ge_0_8": 15,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "A",
+      "seed": 1002,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/seed-1002.jsonl",
+      "trace_sha256": "0427ae350fb3293c255e55b5f753e6f257ed315df3623675a21a028f2c4c9cc2",
+      "steps": 74,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 0,
+      "unexpected_contact_counts": 1,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 74,
+          "minimum": 0.14095604419708252,
+          "maximum": 0.9999995231628418,
+          "mean": 0.6810842442351419,
+          "sum": 50.4002340734005,
+          "p95_nearest_rank": 0.9999735355377197
+        },
+        "observed": {
+          "count": 74,
+          "minimum": 0.10885510593652725,
+          "maximum": 0.9672696590423584,
+          "mean": 0.5983047056439761,
+          "sum": 44.27454821765423,
+          "p95_nearest_rank": 0.9646349549293518
+        },
+        "absolute_command_observation_gap": {
+          "count": 74,
+          "minimum": 0.0018063485622406006,
+          "maximum": 0.5253773033618927,
+          "mean": 0.09645993222255965,
+          "sum": 7.138034984469414,
+          "p95_nearest_rank": 0.4261583089828491
+        },
+        "adjacent_command_change": {
+          "count": 73,
+          "minimum": 7.128715515136719E-05,
+          "maximum": 0.27243876457214355,
+          "mean": 0.03787944578144648,
+          "sum": 2.7651995420455933,
+          "p95_nearest_rank": 0.11370870471000671
+        },
+        "command_le_0_2": 11,
+        "command_ge_0_8": 44,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 74,
+          "minimum": 8.845329284667969E-05,
+          "maximum": 0.9059256315231323,
+          "mean": 0.5032045764697565,
+          "sum": 37.23713865876198,
+          "p95_nearest_rank": 0.8727715015411377
+        },
+        "observed": {
+          "count": 74,
+          "minimum": 0.0923481360077858,
+          "maximum": 0.8255735635757446,
+          "mean": 0.45921713687680865,
+          "sum": 33.98206812888384,
+          "p95_nearest_rank": 0.8182090520858765
+        },
+        "absolute_command_observation_gap": {
+          "count": 74,
+          "minimum": 0.004589013755321503,
+          "maximum": 0.5224093794822693,
+          "mean": 0.10900688141181662,
+          "sum": 8.06650922447443,
+          "p95_nearest_rank": 0.3516680598258972
+        },
+        "adjacent_command_change": {
+          "count": 73,
+          "minimum": 0.0019121170043945312,
+          "maximum": 0.4499615430831909,
+          "mean": 0.06560077610081189,
+          "sum": 4.788856655359268,
+          "p95_nearest_rank": 0.2188180685043335
+        },
+        "command_le_0_2": 27,
+        "command_ge_0_8": 31,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 74,
+      "tail_start_step": 1,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 74,
+          "minimum": 0.14095604419708252,
+          "maximum": 0.9999995231628418,
+          "mean": 0.6810842442351419,
+          "sum": 50.4002340734005,
+          "p95_nearest_rank": 0.9999735355377197
+        },
+        "observed": {
+          "count": 74,
+          "minimum": 0.10885510593652725,
+          "maximum": 0.9672696590423584,
+          "mean": 0.5983047056439761,
+          "sum": 44.27454821765423,
+          "p95_nearest_rank": 0.9646349549293518
+        },
+        "absolute_command_observation_gap": {
+          "count": 74,
+          "minimum": 0.0018063485622406006,
+          "maximum": 0.5253773033618927,
+          "mean": 0.09645993222255965,
+          "sum": 7.138034984469414,
+          "p95_nearest_rank": 0.4261583089828491
+        },
+        "adjacent_command_change": {
+          "count": 73,
+          "minimum": 7.128715515136719E-05,
+          "maximum": 0.27243876457214355,
+          "mean": 0.03787944578144648,
+          "sum": 2.7651995420455933,
+          "p95_nearest_rank": 0.11370870471000671
+        },
+        "command_le_0_2": 11,
+        "command_ge_0_8": 44,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 74,
+          "minimum": 8.845329284667969E-05,
+          "maximum": 0.9059256315231323,
+          "mean": 0.5032045764697565,
+          "sum": 37.23713865876198,
+          "p95_nearest_rank": 0.8727715015411377
+        },
+        "observed": {
+          "count": 74,
+          "minimum": 0.0923481360077858,
+          "maximum": 0.8255735635757446,
+          "mean": 0.45921713687680865,
+          "sum": 33.98206812888384,
+          "p95_nearest_rank": 0.8182090520858765
+        },
+        "absolute_command_observation_gap": {
+          "count": 74,
+          "minimum": 0.004589013755321503,
+          "maximum": 0.5224093794822693,
+          "mean": 0.10900688141181662,
+          "sum": 8.06650922447443,
+          "p95_nearest_rank": 0.3516680598258972
+        },
+        "adjacent_command_change": {
+          "count": 73,
+          "minimum": 0.0019121170043945312,
+          "maximum": 0.4499615430831909,
+          "mean": 0.06560077610081189,
+          "sum": 4.788856655359268,
+          "p95_nearest_rank": 0.2188180685043335
+        },
+        "command_le_0_2": 27,
+        "command_ge_0_8": 31,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "A",
+      "seed": 1003,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/seed-1003.jsonl",
+      "trace_sha256": "3231c760abb6be1d9e2651902cb38519ac4dbb585adf2594ec071b3bc88fe4df",
+      "steps": 61,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 0,
+      "unexpected_contact_counts": 1,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 61,
+          "minimum": 0.15170669555664062,
+          "maximum": 0.9998155832290649,
+          "mean": 0.3463362621479347,
+          "sum": 21.126511991024017,
+          "p95_nearest_rank": 0.9936466813087463
+        },
+        "observed": {
+          "count": 61,
+          "minimum": 0.11093617230653763,
+          "maximum": 0.8630316257476807,
+          "mean": 0.26286820077993833,
+          "sum": 16.034960247576237,
+          "p95_nearest_rank": 0.6918779015541077
+        },
+        "absolute_command_observation_gap": {
+          "count": 61,
+          "minimum": 0.0019738376140594482,
+          "maximum": 0.47772106528282166,
+          "mean": 0.09089879850383664,
+          "sum": 5.5448267087340355,
+          "p95_nearest_rank": 0.3924524188041687
+        },
+        "adjacent_command_change": {
+          "count": 60,
+          "minimum": 0.000379025936126709,
+          "maximum": 0.18967923521995544,
+          "mean": 0.038360942900180814,
+          "sum": 2.301656574010849,
+          "p95_nearest_rank": 0.10838794708251953
+        },
+        "command_le_0_2": 23,
+        "command_ge_0_8": 9,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 61,
+          "minimum": 0.00040474534034729004,
+          "maximum": 0.9025720357894897,
+          "mean": 0.1992714463687334,
+          "sum": 12.155558228492737,
+          "p95_nearest_rank": 0.8123166561126709
+        },
+        "observed": {
+          "count": 61,
+          "minimum": 0.0916060358285904,
+          "maximum": 0.6485471129417419,
+          "mean": 0.17707579827210942,
+          "sum": 10.801623694598675,
+          "p95_nearest_rank": 0.5553469657897949
+        },
+        "absolute_command_observation_gap": {
+          "count": 61,
+          "minimum": 0.0013753622770309448,
+          "maximum": 0.3810924291610718,
+          "mean": 0.11483500983382834,
+          "sum": 7.004935599863529,
+          "p95_nearest_rank": 0.30766165256500244
+        },
+        "adjacent_command_change": {
+          "count": 60,
+          "minimum": 0.0002893209457397461,
+          "maximum": 0.2456897497177124,
+          "mean": 0.047036406397819516,
+          "sum": 2.822184383869171,
+          "p95_nearest_rank": 0.15003317594528198
+        },
+        "command_le_0_2": 41,
+        "command_ge_0_8": 4,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 61,
+      "tail_start_step": 1,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 61,
+          "minimum": 0.15170669555664062,
+          "maximum": 0.9998155832290649,
+          "mean": 0.3463362621479347,
+          "sum": 21.126511991024017,
+          "p95_nearest_rank": 0.9936466813087463
+        },
+        "observed": {
+          "count": 61,
+          "minimum": 0.11093617230653763,
+          "maximum": 0.8630316257476807,
+          "mean": 0.26286820077993833,
+          "sum": 16.034960247576237,
+          "p95_nearest_rank": 0.6918779015541077
+        },
+        "absolute_command_observation_gap": {
+          "count": 61,
+          "minimum": 0.0019738376140594482,
+          "maximum": 0.47772106528282166,
+          "mean": 0.09089879850383664,
+          "sum": 5.5448267087340355,
+          "p95_nearest_rank": 0.3924524188041687
+        },
+        "adjacent_command_change": {
+          "count": 60,
+          "minimum": 0.000379025936126709,
+          "maximum": 0.18967923521995544,
+          "mean": 0.038360942900180814,
+          "sum": 2.301656574010849,
+          "p95_nearest_rank": 0.10838794708251953
+        },
+        "command_le_0_2": 23,
+        "command_ge_0_8": 9,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 61,
+          "minimum": 0.00040474534034729004,
+          "maximum": 0.9025720357894897,
+          "mean": 0.1992714463687334,
+          "sum": 12.155558228492737,
+          "p95_nearest_rank": 0.8123166561126709
+        },
+        "observed": {
+          "count": 61,
+          "minimum": 0.0916060358285904,
+          "maximum": 0.6485471129417419,
+          "mean": 0.17707579827210942,
+          "sum": 10.801623694598675,
+          "p95_nearest_rank": 0.5553469657897949
+        },
+        "absolute_command_observation_gap": {
+          "count": 61,
+          "minimum": 0.0013753622770309448,
+          "maximum": 0.3810924291610718,
+          "mean": 0.11483500983382834,
+          "sum": 7.004935599863529,
+          "p95_nearest_rank": 0.30766165256500244
+        },
+        "adjacent_command_change": {
+          "count": 60,
+          "minimum": 0.0002893209457397461,
+          "maximum": 0.2456897497177124,
+          "mean": 0.047036406397819516,
+          "sum": 2.822184383869171,
+          "p95_nearest_rank": 0.15003317594528198
+        },
+        "command_le_0_2": 41,
+        "command_ge_0_8": 4,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "A",
+      "seed": 1004,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/seed-1004.jsonl",
+      "trace_sha256": "e8c08753b3b3fca347167a5905818aed63b693d8db3978b482669956c0c31649",
+      "steps": 500,
+      "outcome": "task_failed",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 0,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": true,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 500,
+          "minimum": 0.12519976496696472,
+          "maximum": 0.9806772470474243,
+          "mean": 0.26629302471876143,
+          "sum": 133.14651235938072,
+          "p95_nearest_rank": 0.7724238634109497
+        },
+        "observed": {
+          "count": 500,
+          "minimum": 0.10884249955415726,
+          "maximum": 0.8196215629577637,
+          "mean": 0.2609545873105526,
+          "sum": 130.4772936552763,
+          "p95_nearest_rank": 0.7211968302726746
+        },
+        "absolute_command_observation_gap": {
+          "count": 500,
+          "minimum": 5.868077278137207E-05,
+          "maximum": 0.5161172747612,
+          "mean": 0.04969005641341209,
+          "sum": 24.845028206706047,
+          "p95_nearest_rank": 0.23465806245803833
+        },
+        "adjacent_command_change": {
+          "count": 499,
+          "minimum": 1.2636184692382812E-05,
+          "maximum": 0.436168909072876,
+          "mean": 0.048648934624715895,
+          "sum": 24.27581837773323,
+          "p95_nearest_rank": 0.1681494116783142
+        },
+        "command_le_0_2": 209,
+        "command_ge_0_8": 22,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 500,
+          "minimum": 6.854534149169922E-07,
+          "maximum": 0.9057666063308716,
+          "mean": 0.13003116500377654,
+          "sum": 65.01558250188828,
+          "p95_nearest_rank": 0.6912757158279419
+        },
+        "observed": {
+          "count": 500,
+          "minimum": 0.07467085868120193,
+          "maximum": 0.7092158794403076,
+          "mean": 0.17359387703239917,
+          "sum": 86.79693851619959,
+          "p95_nearest_rank": 0.6445708274841309
+        },
+        "absolute_command_observation_gap": {
+          "count": 500,
+          "minimum": 0.000537775456905365,
+          "maximum": 0.3859882354736328,
+          "mean": 0.0696964603215456,
+          "sum": 34.8482301607728,
+          "p95_nearest_rank": 0.18245017528533936
+        },
+        "adjacent_command_change": {
+          "count": 499,
+          "minimum": 0.00015166401863098145,
+          "maximum": 0.31571662425994873,
+          "mean": 0.036958926426384875,
+          "sum": 18.442504286766052,
+          "p95_nearest_rank": 0.14342665672302246
+        },
+        "command_le_0_2": 421,
+        "command_ge_0_8": 3,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 401,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.15091481804847717,
+          "maximum": 0.2922530174255371,
+          "mean": 0.21299069821834565,
+          "sum": 21.299069821834564,
+          "p95_nearest_rank": 0.2701067626476288
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.17592091858386993,
+          "maximum": 0.22727884352207184,
+          "mean": 0.20788165658712388,
+          "sum": 20.788165658712387,
+          "p95_nearest_rank": 0.22083663940429688
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0005711019039154053,
+          "maximum": 0.07281425595283508,
+          "mean": 0.024123442471027375,
+          "sum": 2.4123442471027374,
+          "p95_nearest_rank": 0.0612831711769104
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.00016477704048156738,
+          "maximum": 0.1357235610485077,
+          "mean": 0.035508708821402654,
+          "sum": 3.515362173318863,
+          "p95_nearest_rank": 0.08154112100601196
+        },
+        "command_le_0_2": 39,
+        "command_ge_0_8": 0,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.007959097623825073,
+          "maximum": 0.10544806718826294,
+          "mean": 0.05064853250980377,
+          "sum": 5.064853250980377,
+          "p95_nearest_rank": 0.09698036313056946
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.07631418853998184,
+          "maximum": 0.09855291992425919,
+          "mean": 0.08905540846288204,
+          "sum": 8.905540846288204,
+          "p95_nearest_rank": 0.09368189424276352
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0014770552515983582,
+          "maximum": 0.08341293036937714,
+          "mean": 0.0401692994683981,
+          "sum": 4.016929946839809,
+          "p95_nearest_rank": 0.07419854402542114
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.00022602081298828125,
+          "maximum": 0.09017300605773926,
+          "mean": 0.02553545254649538,
+          "sum": 2.5280098021030426,
+          "p95_nearest_rank": 0.07101553678512573
+        },
+        "command_le_0_2": 100,
+        "command_ge_0_8": 0,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "B",
+      "seed": 1000,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/seed-1000.jsonl",
+      "trace_sha256": "a42a74adf4224179dc2d4d18cdbaa90e044cf3fd73382a9ff916956887709c78",
+      "steps": 125,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 1,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 125,
+          "minimum": 0.43516117334365845,
+          "maximum": 0.9780094623565674,
+          "mean": 0.86315598654747,
+          "sum": 107.89449831843376,
+          "p95_nearest_rank": 0.9490340948104858
+        },
+        "observed": {
+          "count": 125,
+          "minimum": 0.12658007442951202,
+          "maximum": 0.9399129152297974,
+          "mean": 0.8180207123756409,
+          "sum": 102.25258904695511,
+          "p95_nearest_rank": 0.9186214804649353
+        },
+        "absolute_command_observation_gap": {
+          "count": 125,
+          "minimum": 0.000156402587890625,
+          "maximum": 0.3883858025074005,
+          "mean": 0.0663016722202301,
+          "sum": 8.287709027528763,
+          "p95_nearest_rank": 0.2824747562408447
+        },
+        "adjacent_command_change": {
+          "count": 124,
+          "minimum": 0.000354766845703125,
+          "maximum": 0.19000285863876343,
+          "mean": 0.046931264861937494,
+          "sum": 5.819476842880249,
+          "p95_nearest_rank": 0.12665939331054688
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 112,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 125,
+          "minimum": 0.36349835991859436,
+          "maximum": 0.9616129994392395,
+          "mean": 0.8578956561088562,
+          "sum": 107.23695701360703,
+          "p95_nearest_rank": 0.9407356977462769
+        },
+        "observed": {
+          "count": 125,
+          "minimum": 0.12095270305871964,
+          "maximum": 0.9302772879600525,
+          "mean": 0.8133347619175911,
+          "sum": 101.66684523969889,
+          "p95_nearest_rank": 0.9050979018211365
+        },
+        "absolute_command_observation_gap": {
+          "count": 125,
+          "minimum": 0.0005431175231933594,
+          "maximum": 0.38778796792030334,
+          "mean": 0.06840165537595749,
+          "sum": 8.550206921994686,
+          "p95_nearest_rank": 0.2974737882614136
+        },
+        "adjacent_command_change": {
+          "count": 124,
+          "minimum": 0.0003858804702758789,
+          "maximum": 0.24499934911727905,
+          "mean": 0.05445869627498811,
+          "sum": 6.752878338098526,
+          "p95_nearest_rank": 0.1500067114830017
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 109,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 26,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7377098202705383,
+          "maximum": 0.9780094623565674,
+          "mean": 0.8837704348564148,
+          "sum": 88.37704348564148,
+          "p95_nearest_rank": 0.9292328357696533
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8347851634025574,
+          "maximum": 0.9399129152297974,
+          "mean": 0.8818805146217347,
+          "sum": 88.18805146217346,
+          "p95_nearest_rank": 0.9192994832992554
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.000156402587890625,
+          "maximum": 0.12968772649765015,
+          "mean": 0.027543143033981324,
+          "sum": 2.7543143033981323,
+          "p95_nearest_rank": 0.059493303298950195
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.000354766845703125,
+          "maximum": 0.19000285863876343,
+          "mean": 0.03808183501465152,
+          "sum": 3.7701016664505005,
+          "p95_nearest_rank": 0.11693137884140015
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 98,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.6832864880561829,
+          "maximum": 0.9616129994392395,
+          "mean": 0.8852464693784714,
+          "sum": 88.52464693784714,
+          "p95_nearest_rank": 0.9407356977462769
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.826117753982544,
+          "maximum": 0.9302772879600525,
+          "mean": 0.8818140453100205,
+          "sum": 88.18140453100204,
+          "p95_nearest_rank": 0.9064295887947083
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0005431175231933594,
+          "maximum": 0.18103879690170288,
+          "mean": 0.03292530059814453,
+          "sum": 3.292530059814453,
+          "p95_nearest_rank": 0.07658207416534424
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0011345148086547852,
+          "maximum": 0.24499934911727905,
+          "mean": 0.04893415202998152,
+          "sum": 4.84448105096817,
+          "p95_nearest_rank": 0.12430304288864136
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 97,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "B",
+      "seed": 1001,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/seed-1001.jsonl",
+      "trace_sha256": "b2709abe7aca6948d5f054cf4c38a65572bccfaaf2cf2565fcd27c9f90e32d46",
+      "steps": 500,
+      "outcome": "task_failed",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 0,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": true,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 500,
+          "minimum": 0.4402925670146942,
+          "maximum": 0.9899147748947144,
+          "mean": 0.882267906486988,
+          "sum": 441.13395324349403,
+          "p95_nearest_rank": 0.9358073472976685
+        },
+        "observed": {
+          "count": 500,
+          "minimum": 0.13542024791240692,
+          "maximum": 0.9398780465126038,
+          "mean": 0.8810116121768952,
+          "sum": 440.50580608844757,
+          "p95_nearest_rank": 0.9158437252044678
+        },
+        "absolute_command_observation_gap": {
+          "count": 500,
+          "minimum": 9.709596633911133E-05,
+          "maximum": 0.49684205651283264,
+          "mean": 0.03528565555810928,
+          "sum": 17.64282777905464,
+          "p95_nearest_rank": 0.08948850631713867
+        },
+        "adjacent_command_change": {
+          "count": 499,
+          "minimum": 0.00016754865646362305,
+          "maximum": 0.3252047896385193,
+          "mean": 0.034800804449704466,
+          "sum": 17.365601420402527,
+          "p95_nearest_rank": 0.09364354610443115
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 490,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 500,
+          "minimum": 0.36356809735298157,
+          "maximum": 0.9804872274398804,
+          "mean": 0.8761385996341705,
+          "sum": 438.06929981708527,
+          "p95_nearest_rank": 0.9441725015640259
+        },
+        "observed": {
+          "count": 500,
+          "minimum": 0.123253233730793,
+          "maximum": 0.9553542733192444,
+          "mean": 0.8700483963638544,
+          "sum": 435.0241981819272,
+          "p95_nearest_rank": 0.9151096343994141
+        },
+        "absolute_command_observation_gap": {
+          "count": 500,
+          "minimum": 0.00020635128021240234,
+          "maximum": 0.4536703824996948,
+          "mean": 0.04247348307073116,
+          "sum": 21.23674153536558,
+          "p95_nearest_rank": 0.11671286821365356
+        },
+        "adjacent_command_change": {
+          "count": 499,
+          "minimum": 0.00014257431030273438,
+          "maximum": 0.2789851129055023,
+          "mean": 0.05018909129207741,
+          "sum": 25.044356554746628,
+          "p95_nearest_rank": 0.1335512399673462
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 472,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 401,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.8025115728378296,
+          "maximum": 0.9415634870529175,
+          "mean": 0.8798458397388458,
+          "sum": 87.98458397388458,
+          "p95_nearest_rank": 0.9248838424682617
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8720678687095642,
+          "maximum": 0.9168528318405151,
+          "mean": 0.8900640332698821,
+          "sum": 89.00640332698822,
+          "p95_nearest_rank": 0.9050243496894836
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.00033867359161376953,
+          "maximum": 0.0832553505897522,
+          "mean": 0.02348774790763855,
+          "sum": 2.348774790763855,
+          "p95_nearest_rank": 0.06643742322921753
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.00018513202667236328,
+          "maximum": 0.11669743061065674,
+          "mean": 0.029742925456075958,
+          "sum": 2.9445496201515198,
+          "p95_nearest_rank": 0.0853734016418457
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 100,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.762768030166626,
+          "maximum": 0.9638766050338745,
+          "mean": 0.8794897365570068,
+          "sum": 87.94897365570068,
+          "p95_nearest_rank": 0.9421138763427734
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.830615758895874,
+          "maximum": 0.9542617797851562,
+          "mean": 0.883705073595047,
+          "sum": 88.3705073595047,
+          "p95_nearest_rank": 0.923798143863678
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.00020635128021240234,
+          "maximum": 0.1515265703201294,
+          "mean": 0.035921618938446045,
+          "sum": 3.5921618938446045,
+          "p95_nearest_rank": 0.08380776643753052
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0005972385406494141,
+          "maximum": 0.14022433757781982,
+          "mean": 0.052000098758273654,
+          "sum": 5.148009777069092,
+          "p95_nearest_rank": 0.12443315982818604
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 95,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "B",
+      "seed": 1002,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/seed-1002.jsonl",
+      "trace_sha256": "7b3638fac938d1cc0b8f075501ef4610eefd9163fffd0adc5b0e1b33854f0e8e",
+      "steps": 128,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 1,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 128,
+          "minimum": 0.5489426851272583,
+          "maximum": 0.9969311356544495,
+          "mean": 0.9031602293252945,
+          "sum": 115.6045093536377,
+          "p95_nearest_rank": 0.9655463099479675
+        },
+        "observed": {
+          "count": 128,
+          "minimum": 0.1360931694507599,
+          "maximum": 0.9896073341369629,
+          "mean": 0.859136541490443,
+          "sum": 109.96947731077671,
+          "p95_nearest_rank": 0.935609757900238
+        },
+        "absolute_command_observation_gap": {
+          "count": 128,
+          "minimum": 2.5510787963867188E-05,
+          "maximum": 0.49702098965644836,
+          "mean": 0.06011679011862725,
+          "sum": 7.694949135184288,
+          "p95_nearest_rank": 0.3504182696342468
+        },
+        "adjacent_command_change": {
+          "count": 127,
+          "minimum": 0.00046455860137939453,
+          "maximum": 0.27365314960479736,
+          "mean": 0.03396018846767155,
+          "sum": 4.312943935394287,
+          "p95_nearest_rank": 0.07149863243103027
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 123,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 128,
+          "minimum": 0.3516571521759033,
+          "maximum": 0.9763498306274414,
+          "mean": 0.8757253838703036,
+          "sum": 112.09284913539886,
+          "p95_nearest_rank": 0.9486355185508728
+        },
+        "observed": {
+          "count": 128,
+          "minimum": 0.11931078881025314,
+          "maximum": 0.9606820344924927,
+          "mean": 0.8349147467524745,
+          "sum": 106.86908758431673,
+          "p95_nearest_rank": 0.9343604445457458
+        },
+        "absolute_command_observation_gap": {
+          "count": 128,
+          "minimum": 2.199411392211914E-05,
+          "maximum": 0.5510401725769043,
+          "mean": 0.06255137914558873,
+          "sum": 8.006576530635357,
+          "p95_nearest_rank": 0.29587721824645996
+        },
+        "adjacent_command_change": {
+          "count": 127,
+          "minimum": 3.7550926208496094E-05,
+          "maximum": 0.3784782886505127,
+          "mean": 0.04823307446607455,
+          "sum": 6.125600457191467,
+          "p95_nearest_rank": 0.14162766933441162
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 115,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 29,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.8588945269584656,
+          "maximum": 0.9655463099479675,
+          "mean": 0.9075151348114013,
+          "sum": 90.75151348114014,
+          "p95_nearest_rank": 0.9587728977203369
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8851942420005798,
+          "maximum": 0.9896073341369629,
+          "mean": 0.9085962957143784,
+          "sum": 90.85962957143784,
+          "p95_nearest_rank": 0.9372342228889465
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 2.5510787963867188E-05,
+          "maximum": 0.06364959478378296,
+          "mean": 0.018636125922203064,
+          "sum": 1.8636125922203064,
+          "p95_nearest_rank": 0.04299771785736084
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.00046455860137939453,
+          "maximum": 0.08810365200042725,
+          "mean": 0.02867315152678827,
+          "sum": 2.8386420011520386,
+          "p95_nearest_rank": 0.06863504648208618
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 100,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7510759234428406,
+          "maximum": 0.9763498306274414,
+          "mean": 0.8921389347314834,
+          "sum": 89.21389347314835,
+          "p95_nearest_rank": 0.9499292373657227
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8510963916778564,
+          "maximum": 0.9606820344924927,
+          "mean": 0.8941125243902206,
+          "sum": 89.41125243902206,
+          "p95_nearest_rank": 0.9360747933387756
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 2.199411392211914E-05,
+          "maximum": 0.10561835765838623,
+          "mean": 0.025854560136795043,
+          "sum": 2.5854560136795044,
+          "p95_nearest_rank": 0.0637328028678894
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 3.7550926208496094E-05,
+          "maximum": 0.16248613595962524,
+          "mean": 0.04259101308957495,
+          "sum": 4.21651029586792,
+          "p95_nearest_rank": 0.12781989574432373
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 97,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "B",
+      "seed": 1003,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/seed-1003.jsonl",
+      "trace_sha256": "4f6cb595836b1a9d8a330133ff6a7f09339a82477ef0bc64fd8a563e7e032b49",
+      "steps": 115,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 1,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 115,
+          "minimum": 0.5526013374328613,
+          "maximum": 0.9921481609344482,
+          "mean": 0.8803780897803929,
+          "sum": 101.24348032474518,
+          "p95_nearest_rank": 0.9534898996353149
+        },
+        "observed": {
+          "count": 115,
+          "minimum": 0.1425170600414276,
+          "maximum": 0.9306187629699707,
+          "mean": 0.8305481782426005,
+          "sum": 95.51304049789906,
+          "p95_nearest_rank": 0.9209210872650146
+        },
+        "absolute_command_observation_gap": {
+          "count": 115,
+          "minimum": 0.00036215782165527344,
+          "maximum": 0.49328842759132385,
+          "mean": 0.06727084530436474,
+          "sum": 7.7361472100019455,
+          "p95_nearest_rank": 0.31343334913253784
+        },
+        "adjacent_command_change": {
+          "count": 114,
+          "minimum": 0.0003592967987060547,
+          "maximum": 0.21166330575942993,
+          "mean": 0.03829304900085717,
+          "sum": 4.365407586097717,
+          "p95_nearest_rank": 0.11826270818710327
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 107,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 115,
+          "minimum": 0.4193287789821625,
+          "maximum": 0.9745124578475952,
+          "mean": 0.8669566312561865,
+          "sum": 99.70001259446144,
+          "p95_nearest_rank": 0.9501807689666748
+        },
+        "observed": {
+          "count": 115,
+          "minimum": 0.12516061961650848,
+          "maximum": 0.9379860162734985,
+          "mean": 0.8196455902379493,
+          "sum": 94.25924287736416,
+          "p95_nearest_rank": 0.9256336092948914
+        },
+        "absolute_command_observation_gap": {
+          "count": 115,
+          "minimum": 0.0003387331962585449,
+          "maximum": 0.40729767084121704,
+          "mean": 0.06825869018616884,
+          "sum": 7.849749371409416,
+          "p95_nearest_rank": 0.3027285933494568
+        },
+        "adjacent_command_change": {
+          "count": 114,
+          "minimum": 0.0006397366523742676,
+          "maximum": 0.15673810243606567,
+          "mean": 0.044431677774379126,
+          "sum": 5.065211266279221,
+          "p95_nearest_rank": 0.1104574203491211
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 102,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 16,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7944107055664062,
+          "maximum": 0.9921481609344482,
+          "mean": 0.8973325234651566,
+          "sum": 89.73325234651566,
+          "p95_nearest_rank": 0.9508485794067383
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.7532748579978943,
+          "maximum": 0.9306187629699707,
+          "mean": 0.8857698613405227,
+          "sum": 88.57698613405228,
+          "p95_nearest_rank": 0.9209210872650146
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.00036215782165527344,
+          "maximum": 0.23887330293655396,
+          "mean": 0.03161973595619202,
+          "sum": 3.1619735956192017,
+          "p95_nearest_rank": 0.09810757637023926
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0003592967987060547,
+          "maximum": 0.1399182677268982,
+          "mean": 0.031116462717152606,
+          "sum": 3.080529808998108,
+          "p95_nearest_rank": 0.09653127193450928
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 99,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7377997040748596,
+          "maximum": 0.9745124578475952,
+          "mean": 0.8952649503946304,
+          "sum": 89.52649503946304,
+          "p95_nearest_rank": 0.9501807689666748
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.6909896731376648,
+          "maximum": 0.9379860162734985,
+          "mean": 0.882022911310196,
+          "sum": 88.20229113101959,
+          "p95_nearest_rank": 0.9256336092948914
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0003387331962585449,
+          "maximum": 0.2307257056236267,
+          "mean": 0.03733183562755585,
+          "sum": 3.7331835627555847,
+          "p95_nearest_rank": 0.09869426488876343
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0006397366523742676,
+          "maximum": 0.15673810243606567,
+          "mean": 0.041949308279788856,
+          "sum": 4.152981519699097,
+          "p95_nearest_rank": 0.10822606086730957
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 97,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "B",
+      "seed": 1004,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/seed-1004.jsonl",
+      "trace_sha256": "61c6f52d7a97ec697072b85a4dc9aba56dd81758249ae70acfff8f6a6a93a32f",
+      "steps": 125,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 0,
+      "unexpected_contact_counts": 1,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 125,
+          "minimum": 0.48444676399230957,
+          "maximum": 0.9889271259307861,
+          "mean": 0.8909694113731385,
+          "sum": 111.3711764216423,
+          "p95_nearest_rank": 0.9653794765472412
+        },
+        "observed": {
+          "count": 125,
+          "minimum": 0.1334030032157898,
+          "maximum": 0.9440138339996338,
+          "mean": 0.8410118380784989,
+          "sum": 105.12647975981236,
+          "p95_nearest_rank": 0.9305689930915833
+        },
+        "absolute_command_observation_gap": {
+          "count": 125,
+          "minimum": 0.0004917383193969727,
+          "maximum": 0.5122734010219574,
+          "mean": 0.06889191091060638,
+          "sum": 8.611488863825798,
+          "p95_nearest_rank": 0.32807835936546326
+        },
+        "adjacent_command_change": {
+          "count": 124,
+          "minimum": 0.0007623434066772461,
+          "maximum": 0.23659288883209229,
+          "mean": 0.04349876844113873,
+          "sum": 5.393847286701202,
+          "p95_nearest_rank": 0.12987858057022095
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 117,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 125,
+          "minimum": 0.33821749687194824,
+          "maximum": 0.981665849685669,
+          "mean": 0.8660287160873413,
+          "sum": 108.25358951091766,
+          "p95_nearest_rank": 0.9468610286712646
+        },
+        "observed": {
+          "count": 125,
+          "minimum": 0.11831056326627731,
+          "maximum": 0.9221875667572021,
+          "mean": 0.8201558730006218,
+          "sum": 102.51948412507772,
+          "p95_nearest_rank": 0.9140002131462097
+        },
+        "absolute_command_observation_gap": {
+          "count": 125,
+          "minimum": 0.0002143383026123047,
+          "maximum": 0.42356036603450775,
+          "mean": 0.07014229708909989,
+          "sum": 8.767787136137486,
+          "p95_nearest_rank": 0.2952703684568405
+        },
+        "adjacent_command_change": {
+          "count": 124,
+          "minimum": 0.0014389753341674805,
+          "maximum": 0.20474958419799805,
+          "mean": 0.05189374569923647,
+          "sum": 6.434824466705322,
+          "p95_nearest_rank": 0.14837288856506348
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 111,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 26,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7999345064163208,
+          "maximum": 0.9606689214706421,
+          "mean": 0.9026944577693939,
+          "sum": 90.26944577693939,
+          "p95_nearest_rank": 0.9473003149032593
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.7673940658569336,
+          "maximum": 0.9440138339996338,
+          "mean": 0.8967351114749909,
+          "sum": 89.67351114749908,
+          "p95_nearest_rank": 0.9320587515830994
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0004917383193969727,
+          "maximum": 0.1583554744720459,
+          "mean": 0.0283035409450531,
+          "sum": 2.83035409450531,
+          "p95_nearest_rank": 0.0916101336479187
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0014185905456542969,
+          "maximum": 0.12630343437194824,
+          "mean": 0.033537873716065376,
+          "sum": 3.3202494978904724,
+          "p95_nearest_rank": 0.07223373651504517
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 99,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.692241370677948,
+          "maximum": 0.981665849685669,
+          "mean": 0.887419022321701,
+          "sum": 88.7419022321701,
+          "p95_nearest_rank": 0.9468610286712646
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8309521079063416,
+          "maximum": 0.9221875667572021,
+          "mean": 0.8815640729665756,
+          "sum": 88.15640729665756,
+          "p95_nearest_rank": 0.9142652750015259
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0002143383026123047,
+          "maximum": 0.1836736798286438,
+          "mean": 0.03575593411922455,
+          "sum": 3.575593411922455,
+          "p95_nearest_rank": 0.08917266130447388
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0014389753341674805,
+          "maximum": 0.20474958419799805,
+          "mean": 0.04556655642962215,
+          "sum": 4.511089086532593,
+          "p95_nearest_rank": 0.13701796531677246
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 95,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "C",
+      "seed": 1000,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/seed-1000.jsonl",
+      "trace_sha256": "1313dffea674b0d79d368b78becaa6336309a7a4266316ce679cefbc92dc9009",
+      "steps": 500,
+      "outcome": "task_failed",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 0,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": true,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 500,
+          "minimum": 0.44479817152023315,
+          "maximum": 0.9874328970909119,
+          "mean": 0.8844169805049896,
+          "sum": 442.2084902524948,
+          "p95_nearest_rank": 0.941863477230072
+        },
+        "observed": {
+          "count": 500,
+          "minimum": 0.1273253709077835,
+          "maximum": 0.9358291029930115,
+          "mean": 0.8811026865243912,
+          "sum": 440.5513432621956,
+          "p95_nearest_rank": 0.9196396470069885
+        },
+        "absolute_command_observation_gap": {
+          "count": 500,
+          "minimum": 1.6629695892333984E-05,
+          "maximum": 0.3962325006723404,
+          "mean": 0.03676456296443939,
+          "sum": 18.382281482219696,
+          "p95_nearest_rank": 0.09617036581039429
+        },
+        "adjacent_command_change": {
+          "count": 499,
+          "minimum": 6.258487701416016E-06,
+          "maximum": 0.19393354654312134,
+          "mean": 0.039032156816226446,
+          "sum": 19.477046251296997,
+          "p95_nearest_rank": 0.10313242673873901
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 484,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 500,
+          "minimum": 0.3723617196083069,
+          "maximum": 0.9891197085380554,
+          "mean": 0.8801356009244918,
+          "sum": 440.06780046224594,
+          "p95_nearest_rank": 0.9468809366226196
+        },
+        "observed": {
+          "count": 500,
+          "minimum": 0.12174808233976364,
+          "maximum": 0.956328272819519,
+          "mean": 0.8676501112431287,
+          "sum": 433.8250556215644,
+          "p95_nearest_rank": 0.9213688969612122
+        },
+        "absolute_command_observation_gap": {
+          "count": 500,
+          "minimum": 5.239248275756836E-05,
+          "maximum": 0.4002469480037689,
+          "mean": 0.04252896125614643,
+          "sum": 21.264480628073215,
+          "p95_nearest_rank": 0.11510825157165527
+        },
+        "adjacent_command_change": {
+          "count": 499,
+          "minimum": 0.00011664628982543945,
+          "maximum": 0.24298608303070068,
+          "mean": 0.04967364483701442,
+          "sum": 24.787148773670197,
+          "p95_nearest_rank": 0.12929826974868774
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 475,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 401,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.8189331889152527,
+          "maximum": 0.9482582807540894,
+          "mean": 0.8943698906898498,
+          "sum": 89.43698906898499,
+          "p95_nearest_rank": 0.9411680102348328
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8730042576789856,
+          "maximum": 0.9314172267913818,
+          "mean": 0.9065072029829025,
+          "sum": 90.65072029829025,
+          "p95_nearest_rank": 0.9222819209098816
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 2.0325183868408203E-05,
+          "maximum": 0.0950777530670166,
+          "mean": 0.025195046067237853,
+          "sum": 2.5195046067237854,
+          "p95_nearest_rank": 0.0704231858253479
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0008027553558349609,
+          "maximum": 0.12787991762161255,
+          "mean": 0.037218438856529465,
+          "sum": 3.6846254467964172,
+          "p95_nearest_rank": 0.09823322296142578
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 100,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7824119925498962,
+          "maximum": 0.960389256477356,
+          "mean": 0.8937689691781998,
+          "sum": 89.37689691781998,
+          "p95_nearest_rank": 0.9472945928573608
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8383377194404602,
+          "maximum": 0.956328272819519,
+          "mean": 0.9006487333774567,
+          "sum": 90.06487333774567,
+          "p95_nearest_rank": 0.9382851123809814
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 5.239248275756836E-05,
+          "maximum": 0.10624444484710693,
+          "mean": 0.03203736841678619,
+          "sum": 3.2037368416786194,
+          "p95_nearest_rank": 0.0804295539855957
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0002028346061706543,
+          "maximum": 0.14717859029769897,
+          "mean": 0.04213968671933569,
+          "sum": 4.171828985214233,
+          "p95_nearest_rank": 0.10787332057952881
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 99,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "C",
+      "seed": 1001,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/seed-1001.jsonl",
+      "trace_sha256": "1ce57d3394bbe54ed3f2037d0e0db169413272332033018811f5da0fd49d1c9e",
+      "steps": 499,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 1,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 499,
+          "minimum": 0.4347989559173584,
+          "maximum": 0.9897675514221191,
+          "mean": 0.882628932625115,
+          "sum": 440.4318373799324,
+          "p95_nearest_rank": 0.9346811175346375
+        },
+        "observed": {
+          "count": 499,
+          "minimum": 0.13600823283195496,
+          "maximum": 0.9366117119789124,
+          "mean": 0.8814240566833702,
+          "sum": 439.83060428500175,
+          "p95_nearest_rank": 0.9141560196876526
+        },
+        "absolute_command_observation_gap": {
+          "count": 499,
+          "minimum": 0.0002518892288208008,
+          "maximum": 0.4961848556995392,
+          "mean": 0.034211684025839004,
+          "sum": 17.07163032889366,
+          "p95_nearest_rank": 0.0938764214515686
+        },
+        "adjacent_command_change": {
+          "count": 498,
+          "minimum": 4.7206878662109375E-05,
+          "maximum": 0.319954514503479,
+          "mean": 0.033331857029213964,
+          "sum": 16.599264800548553,
+          "p95_nearest_rank": 0.0893927812576294
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 487,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 499,
+          "minimum": 0.3400220274925232,
+          "maximum": 0.976726770401001,
+          "mean": 0.8759441631948781,
+          "sum": 437.09613743424416,
+          "p95_nearest_rank": 0.9413002133369446
+        },
+        "observed": {
+          "count": 499,
+          "minimum": 0.12301664799451828,
+          "maximum": 0.9791905283927917,
+          "mean": 0.8675762965737698,
+          "sum": 432.92057199031115,
+          "p95_nearest_rank": 0.913170576095581
+        },
+        "absolute_command_observation_gap": {
+          "count": 499,
+          "minimum": 1.4781951904296875E-05,
+          "maximum": 0.4612511098384857,
+          "mean": 0.040225914744790904,
+          "sum": 20.07273145765066,
+          "p95_nearest_rank": 0.11797940731048584
+        },
+        "adjacent_command_change": {
+          "count": 498,
+          "minimum": 0.0001062154769897461,
+          "maximum": 0.289484441280365,
+          "mean": 0.04772249827662625,
+          "sum": 23.765804141759872,
+          "p95_nearest_rank": 0.12111502885818481
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 470,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 400,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.8182071447372437,
+          "maximum": 0.9400261640548706,
+          "mean": 0.8822772240638733,
+          "sum": 88.22772240638733,
+          "p95_nearest_rank": 0.9262701272964478
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8686348795890808,
+          "maximum": 0.9136188626289368,
+          "mean": 0.8925673377513885,
+          "sum": 89.25673377513885,
+          "p95_nearest_rank": 0.9082101583480835
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0004976391792297363,
+          "maximum": 0.08469682931900024,
+          "mean": 0.02195022106170654,
+          "sum": 2.1950221061706543,
+          "p95_nearest_rank": 0.055335819721221924
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 4.7206878662109375E-05,
+          "maximum": 0.10995244979858398,
+          "mean": 0.026594230622956246,
+          "sum": 2.6328288316726685,
+          "p95_nearest_rank": 0.07760202884674072
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 100,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7812455892562866,
+          "maximum": 0.9605121612548828,
+          "mean": 0.8846529638767242,
+          "sum": 88.46529638767242,
+          "p95_nearest_rank": 0.9365033507347107
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8271239995956421,
+          "maximum": 0.9791905283927917,
+          "mean": 0.8859315705299378,
+          "sum": 88.59315705299377,
+          "p95_nearest_rank": 0.9199639558792114
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 1.4781951904296875E-05,
+          "maximum": 0.11891376972198486,
+          "mean": 0.03233673334121704,
+          "sum": 3.233673334121704,
+          "p95_nearest_rank": 0.08023726940155029
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.001644730567932129,
+          "maximum": 0.14337509870529175,
+          "mean": 0.04683502876397335,
+          "sum": 4.636667847633362,
+          "p95_nearest_rank": 0.10315972566604614
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 95,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "C",
+      "seed": 1002,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/seed-1002.jsonl",
+      "trace_sha256": "9ccd20d376946f31501b64d6d1e7a39b5cdae138e9b933ed89373a7117a57e43",
+      "steps": 128,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 1,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 128,
+          "minimum": 0.5622172355651855,
+          "maximum": 0.9967111349105835,
+          "mean": 0.9007919016294181,
+          "sum": 115.30136340856552,
+          "p95_nearest_rank": 0.9636517763137817
+        },
+        "observed": {
+          "count": 128,
+          "minimum": 0.13712815940380096,
+          "maximum": 0.9935321807861328,
+          "mean": 0.8574984138831496,
+          "sum": 109.75979697704315,
+          "p95_nearest_rank": 0.9396986961364746
+        },
+        "absolute_command_observation_gap": {
+          "count": 128,
+          "minimum": 3.0517578125E-05,
+          "maximum": 0.5013889223337173,
+          "mean": 0.05994377611204982,
+          "sum": 7.672803342342377,
+          "p95_nearest_rank": 0.3448960781097412
+        },
+        "adjacent_command_change": {
+          "count": 127,
+          "minimum": 6.461143493652344E-05,
+          "maximum": 0.27197396755218506,
+          "mean": 0.03340042388345313,
+          "sum": 4.241853833198547,
+          "p95_nearest_rank": 0.07476937770843506
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 123,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 128,
+          "minimum": 0.35446804761886597,
+          "maximum": 0.9711481332778931,
+          "mean": 0.869276518933475,
+          "sum": 111.2673944234848,
+          "p95_nearest_rank": 0.9463256597518921
+        },
+        "observed": {
+          "count": 128,
+          "minimum": 0.11965801566839218,
+          "maximum": 0.9504855275154114,
+          "mean": 0.8287750353920273,
+          "sum": 106.0832045301795,
+          "p95_nearest_rank": 0.9327216148376465
+        },
+        "absolute_command_observation_gap": {
+          "count": 128,
+          "minimum": 0.000798642635345459,
+          "maximum": 0.5502912253141403,
+          "mean": 0.06252170988591388,
+          "sum": 8.002778865396976,
+          "p95_nearest_rank": 0.2874271273612976
+        },
+        "adjacent_command_change": {
+          "count": 127,
+          "minimum": 0.0003873109817504883,
+          "maximum": 0.3751526474952698,
+          "mean": 0.0490846479032922,
+          "sum": 6.233750283718109,
+          "p95_nearest_rank": 0.1404120922088623
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 114,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 29,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.8504003882408142,
+          "maximum": 0.9636517763137817,
+          "mean": 0.9052289640903473,
+          "sum": 90.52289640903473,
+          "p95_nearest_rank": 0.9543933868408203
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8826920986175537,
+          "maximum": 0.9935321807861328,
+          "mean": 0.9069010764360428,
+          "sum": 90.69010764360428,
+          "p95_nearest_rank": 0.9404640197753906
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 3.0517578125E-05,
+          "maximum": 0.07513737678527832,
+          "mean": 0.018774264454841615,
+          "sum": 1.8774264454841614,
+          "p95_nearest_rank": 0.04909640550613403
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 6.461143493652344E-05,
+          "maximum": 0.0962296724319458,
+          "mean": 0.02803585324624572,
+          "sum": 2.7755494713783264,
+          "p95_nearest_rank": 0.06501233577728271
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 100,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7443952560424805,
+          "maximum": 0.9711481332778931,
+          "mean": 0.8865379899740219,
+          "sum": 88.65379899740219,
+          "p95_nearest_rank": 0.9482854604721069
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8437766432762146,
+          "maximum": 0.9504855275154114,
+          "mean": 0.8883150762319565,
+          "sum": 88.83150762319565,
+          "p95_nearest_rank": 0.9345386028289795
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.000798642635345459,
+          "maximum": 0.1046486496925354,
+          "mean": 0.02640880346298218,
+          "sum": 2.6408803462982178,
+          "p95_nearest_rank": 0.06501656770706177
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0003873109817504883,
+          "maximum": 0.16603797674179077,
+          "mean": 0.04373459864144373,
+          "sum": 4.32972526550293,
+          "p95_nearest_rank": 0.1374523639678955
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 96,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "C",
+      "seed": 1003,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/seed-1003.jsonl",
+      "trace_sha256": "e080a50c388cb9b4c9060d61857675cabc38106b3fc0adc830da8b6f0f959a5e",
+      "steps": 115,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 1,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 1,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 115,
+          "minimum": 0.5046571493148804,
+          "maximum": 0.9931349754333496,
+          "mean": 0.876120664762414,
+          "sum": 100.75387644767761,
+          "p95_nearest_rank": 0.9511300325393677
+        },
+        "observed": {
+          "count": 115,
+          "minimum": 0.1429959386587143,
+          "maximum": 0.9269812107086182,
+          "mean": 0.8264173288708148,
+          "sum": 95.0379928201437,
+          "p95_nearest_rank": 0.9146971702575684
+        },
+        "absolute_command_observation_gap": {
+          "count": 115,
+          "minimum": 0.0004566311836242676,
+          "maximum": 0.49826665222644806,
+          "mean": 0.06649248509303383,
+          "sum": 7.646635785698891,
+          "p95_nearest_rank": 0.3199183940887451
+        },
+        "adjacent_command_change": {
+          "count": 114,
+          "minimum": 5.340576171875E-05,
+          "maximum": 0.20989751815795898,
+          "mean": 0.03956574253868638,
+          "sum": 4.510494649410248,
+          "p95_nearest_rank": 0.1198001503944397
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 104,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 115,
+          "minimum": 0.36965155601501465,
+          "maximum": 0.9654848575592041,
+          "mean": 0.8601885590864264,
+          "sum": 98.92168429493904,
+          "p95_nearest_rank": 0.9464306831359863
+        },
+        "observed": {
+          "count": 115,
+          "minimum": 0.12497758865356445,
+          "maximum": 0.9284762144088745,
+          "mean": 0.8133665686068328,
+          "sum": 93.53715538978577,
+          "p95_nearest_rank": 0.9224833846092224
+        },
+        "absolute_command_observation_gap": {
+          "count": 115,
+          "minimum": 0.0002550482749938965,
+          "maximum": 0.37473052740097046,
+          "mean": 0.06757697774016339,
+          "sum": 7.77135244011879,
+          "p95_nearest_rank": 0.3034915626049042
+        },
+        "adjacent_command_change": {
+          "count": 114,
+          "minimum": 0.0010023117065429688,
+          "maximum": 0.16088300943374634,
+          "mean": 0.047419759003739605,
+          "sum": 5.405852526426315,
+          "p95_nearest_rank": 0.11662489175796509
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 99,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 16,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7944107055664062,
+          "maximum": 0.9931349754333496,
+          "mean": 0.8935350412130356,
+          "sum": 89.35350412130356,
+          "p95_nearest_rank": 0.9505848288536072
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.7449612617492676,
+          "maximum": 0.9269812107086182,
+          "mean": 0.8814481997489929,
+          "sum": 88.14481997489929,
+          "p95_nearest_rank": 0.9146971702575684
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0004566311836242676,
+          "maximum": 0.24817371368408203,
+          "mean": 0.031394363045692444,
+          "sum": 3.1394363045692444,
+          "p95_nearest_rank": 0.09377336502075195
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 5.340576171875E-05,
+          "maximum": 0.15240979194641113,
+          "mean": 0.03177878832576251,
+          "sum": 3.1461000442504883,
+          "p95_nearest_rank": 0.10222727060317993
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 99,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7293996810913086,
+          "maximum": 0.9654848575592041,
+          "mean": 0.8898983556032181,
+          "sum": 88.98983556032181,
+          "p95_nearest_rank": 0.9464306831359863
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.675372302532196,
+          "maximum": 0.9284762144088745,
+          "mean": 0.8760677856206894,
+          "sum": 87.60677856206894,
+          "p95_nearest_rank": 0.9224833846092224
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.0002550482749938965,
+          "maximum": 0.23788076639175415,
+          "mean": 0.03769880533218384,
+          "sum": 3.769880533218384,
+          "p95_nearest_rank": 0.10877722501754761
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0010023117065429688,
+          "maximum": 0.15361982583999634,
+          "mean": 0.04360217819310198,
+          "sum": 4.316615641117096,
+          "p95_nearest_rank": 0.10453307628631592
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 97,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    },
+    {
+      "arm": "C",
+      "seed": 1004,
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/seed-1004.jsonl",
+      "trace_sha256": "69ce53cbf670ddd6a69dba52e3d5277bc098b359e34c2061e3b52700d076d655",
+      "steps": 383,
+      "outcome": "physical_safety_stop",
+      "maximum_reward": 0.0,
+      "joint_limit_counts": 1,
+      "unexpected_contact_counts": 0,
+      "raw_clipped_fields": 0,
+      "full_horizon_safe_failure": false,
+      "recorded_geometry_rows": 0,
+      "left_full": {
+        "dimension": 6,
+        "commands": {
+          "count": 383,
+          "minimum": 0.4981693923473358,
+          "maximum": 0.9885836839675903,
+          "mean": 0.8953907663299272,
+          "sum": 342.9346635043621,
+          "p95_nearest_rank": 0.9501751661300659
+        },
+        "observed": {
+          "count": 383,
+          "minimum": 0.13286134600639343,
+          "maximum": 0.9457330107688904,
+          "mean": 0.8794811294455441,
+          "sum": 336.8412725776434,
+          "p95_nearest_rank": 0.9290422201156616
+        },
+        "absolute_command_observation_gap": {
+          "count": 383,
+          "minimum": 4.0471553802490234E-05,
+          "maximum": 0.5124745070934296,
+          "mean": 0.0389238947287552,
+          "sum": 14.907851681113243,
+          "p95_nearest_rank": 0.10779565572738647
+        },
+        "adjacent_command_change": {
+          "count": 382,
+          "minimum": 8.90493392944336E-05,
+          "maximum": 0.24764111638069153,
+          "mean": 0.03817834467163885,
+          "sum": 14.58412766456604,
+          "p95_nearest_rank": 0.10157513618469238
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 373,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_full": {
+        "dimension": 13,
+        "commands": {
+          "count": 383,
+          "minimum": 0.3223661184310913,
+          "maximum": 0.9825429916381836,
+          "mean": 0.8807994817473559,
+          "sum": 337.3462015092373,
+          "p95_nearest_rank": 0.9491967558860779
+        },
+        "observed": {
+          "count": 383,
+          "minimum": 0.11712750047445297,
+          "maximum": 0.952682614326477,
+          "mean": 0.86120819051412,
+          "sum": 329.842736966908,
+          "p95_nearest_rank": 0.9075626134872437
+        },
+        "absolute_command_observation_gap": {
+          "count": 383,
+          "minimum": 0.00013750791549682617,
+          "maximum": 0.44438712298870087,
+          "mean": 0.04422312358262956,
+          "sum": 16.93745633214712,
+          "p95_nearest_rank": 0.14817434549331665
+        },
+        "adjacent_command_change": {
+          "count": 382,
+          "minimum": 1.919269561767578E-05,
+          "maximum": 0.23746997117996216,
+          "mean": 0.04905327187158674,
+          "sum": 18.738349854946136,
+          "p95_nearest_rank": 0.1298237442970276
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 358,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "tail_steps": 100,
+      "tail_start_step": 284,
+      "left_tail": {
+        "dimension": 6,
+        "commands": {
+          "count": 100,
+          "minimum": 0.8213522434234619,
+          "maximum": 0.9567573070526123,
+          "mean": 0.9025358456373215,
+          "sum": 90.25358456373215,
+          "p95_nearest_rank": 0.9501560926437378
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8580170273780823,
+          "maximum": 0.9399041533470154,
+          "mean": 0.9031671303510665,
+          "sum": 90.31671303510666,
+          "p95_nearest_rank": 0.9299206137657166
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 4.0471553802490234E-05,
+          "maximum": 0.07329726219177246,
+          "mean": 0.022941915988922118,
+          "sum": 2.294191598892212,
+          "p95_nearest_rank": 0.05160093307495117
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 0.0006375908851623535,
+          "maximum": 0.12338775396347046,
+          "mean": 0.029933719924001984,
+          "sum": 2.9634382724761963,
+          "p95_nearest_rank": 0.08142101764678955
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 100,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      },
+      "right_tail": {
+        "dimension": 13,
+        "commands": {
+          "count": 100,
+          "minimum": 0.7652456760406494,
+          "maximum": 0.9675755500793457,
+          "mean": 0.8884109228849411,
+          "sum": 88.84109228849411,
+          "p95_nearest_rank": 0.9491967558860779
+        },
+        "observed": {
+          "count": 100,
+          "minimum": 0.8444693088531494,
+          "maximum": 0.9457370042800903,
+          "mean": 0.8828132820129394,
+          "sum": 88.28132820129395,
+          "p95_nearest_rank": 0.905703067779541
+        },
+        "absolute_command_observation_gap": {
+          "count": 100,
+          "minimum": 0.00013750791549682617,
+          "maximum": 0.11456143856048584,
+          "mean": 0.03181322991847992,
+          "sum": 3.181322991847992,
+          "p95_nearest_rank": 0.07466739416122437
+        },
+        "adjacent_command_change": {
+          "count": 99,
+          "minimum": 7.838010787963867E-05,
+          "maximum": 0.15322238206863403,
+          "mean": 0.04458564881122473,
+          "sum": 4.413979232311249,
+          "p95_nearest_rank": 0.11852419376373291
+        },
+        "command_le_0_2": 0,
+        "command_ge_0_8": 99,
+        "thresholds_are_descriptive_only": true,
+        "physical_grasp_inferred": false
+      }
+    }
+  ],
+  "bank": [
+    {
+      "arm": "A",
+      "pair_id": "bank-003b-scene-2440",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/recovery-bank/bank-003b-scene-2440.jsonl",
+      "trace_sha256": "dad03874d66b4f1842f197edb67d84e4890ebe925a94405a5c7a6277846c9c1b",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "A",
+      "pair_id": "bank-003b-scene-2441",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/recovery-bank/bank-003b-scene-2441.jsonl",
+      "trace_sha256": "a73f7b1cd8d32b1d377ac1992bf05907ea13c4523e285da0cfe3038dbd7383cf",
+      "steps": 2,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 2,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "A",
+      "pair_id": "bank-003b-scene-2443",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/recovery-bank/bank-003b-scene-2443.jsonl",
+      "trace_sha256": "86b73e0d6206abe9a3c4c011510c4a6c4df5a4770842c20e800360bb99de38ef",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "A",
+      "pair_id": "bank-003b-scene-2444",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/recovery-bank/bank-003b-scene-2444.jsonl",
+      "trace_sha256": "353737e02e23462411369e41cfdd88e579e2a7558880b63eb563b57b7f86e806",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "A",
+      "pair_id": "bank-003b-scene-2445",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/recovery-bank/bank-003b-scene-2445.jsonl",
+      "trace_sha256": "bf3cc1b6d966748baa069af1449c785606657a18befb184f69ff824d995e865f",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "A",
+      "pair_id": "bank-003b-scene-2446",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/recovery-bank/bank-003b-scene-2446.jsonl",
+      "trace_sha256": "564c539776b0c5b790052e2284664fa1eea1cd059bae03b4b2ef542d9e172de9",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "A",
+      "pair_id": "bank-003b-scene-2447",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/recovery-bank/bank-003b-scene-2447.jsonl",
+      "trace_sha256": "abf47a0a7d55db9fddfe2e8b7c0dcb720850e946e8af0f78eb9d2bfb6c29c6a2",
+      "steps": 1,
+      "socket_contact_steps": 1,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "A",
+      "pair_id": "bank-003b-scene-2449",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/recovery-bank/bank-003b-scene-2449.jsonl",
+      "trace_sha256": "3cfbe869fd6621940043c9b76de1306cb560973b8440ff2ed84bb9f60ea0ed8a",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "B",
+      "pair_id": "bank-003b-scene-2440",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/recovery-bank/bank-003b-scene-2440.jsonl",
+      "trace_sha256": "ce81d11e947571e3a2fccdbea9402865c0df0e00c50152876e7cc783ae6ba177",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 1,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "B",
+      "pair_id": "bank-003b-scene-2441",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/recovery-bank/bank-003b-scene-2441.jsonl",
+      "trace_sha256": "70acad12d5e55a863c823ed688b5e1a2435b66fe709a14734d225fdddd6d0fd7",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 1,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "B",
+      "pair_id": "bank-003b-scene-2443",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/recovery-bank/bank-003b-scene-2443.jsonl",
+      "trace_sha256": "8e68ebca339d31f48018e5f60aa37d5f7e6a76490274bd940baf0aabba2b3678",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "B",
+      "pair_id": "bank-003b-scene-2444",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/recovery-bank/bank-003b-scene-2444.jsonl",
+      "trace_sha256": "52d94a2806a88bf0173084e68bc0e07b728155eb3e959414a04208e413a3b006",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "B",
+      "pair_id": "bank-003b-scene-2445",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/recovery-bank/bank-003b-scene-2445.jsonl",
+      "trace_sha256": "af4be5f79b5f77c366ada2d662272ea70486c1af7bbe629f303a5a43281f7898",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "B",
+      "pair_id": "bank-003b-scene-2446",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/recovery-bank/bank-003b-scene-2446.jsonl",
+      "trace_sha256": "7c7dba1c7efdd4b89c634f236f8d1b3a59d3d17474947ac8a2f327359756fec0",
+      "steps": 65,
+      "socket_contact_steps": 3,
+      "peg_contact_steps": 13,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 65,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "B",
+      "pair_id": "bank-003b-scene-2447",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/recovery-bank/bank-003b-scene-2447.jsonl",
+      "trace_sha256": "708db708a238553b401c49102bc36831ab7b2c36e53a5b22ba84dc35c1af4301",
+      "steps": 35,
+      "socket_contact_steps": 6,
+      "peg_contact_steps": 3,
+      "both_contact_steps": 3,
+      "safe_both_contact_steps": 3,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [
+        1,
+        2,
+        3
+      ],
+      "contact_loss_windows": [
+        {
+          "previous_step": 3,
+          "step": 4,
+          "previous_line": 3,
+          "line": 4,
+          "previous_geometry": {
+            "socket_grasp_contact": true,
+            "peg_grasp_contact": true,
+            "peg_socket_contact": false
+          },
+          "geometry": {
+            "socket_grasp_contact": false,
+            "peg_grasp_contact": false,
+            "peg_socket_contact": false
+          },
+          "safe": true,
+          "previous_reward": 0.0,
+          "reward": 0.0,
+          "previous_command": [
+            -0.07979479432106018,
+            -0.3479189872741699,
+            0.9165034890174866,
+            -3.058897018432617,
+            -0.5244560241699219,
+            2.995405912399292,
+            0.1491905152797699,
+            0.05405037850141525,
+            0.05104173719882965,
+            0.5589022040367126,
+            3.0614683628082275,
+            -0.40839141607284546,
+            0.23957356810569763,
+            0.15704593062400818
+          ],
+          "command": [
+            -0.1198166161775589,
+            -0.3663444221019745,
+            0.8940806984901428,
+            -3.0159685611724854,
+            -0.4433625042438507,
+            2.931824207305908,
+            0.1529681384563446,
+            0.06528236716985703,
+            0.03744494915008545,
+            0.5949903130531311,
+            2.974057912826538,
+            -0.3730848431587219,
+            0.2082885205745697,
+            0.15362927317619324
+          ],
+          "previous_state_after": [
+            -0.06621000170707703,
+            -0.29380467534065247,
+            0.9759302735328674,
+            -3.053256034851074,
+            -0.6296144127845764,
+            2.991621255874634,
+            0.6552398204803467,
+            0.05018682777881622,
+            0.09225285053253174,
+            0.5301204323768616,
+            3.059753894805908,
+            -0.46806642413139343,
+            0.22374047338962555,
+            0.37217339873313904
+          ],
+          "state_after": [
+            -0.07112156599760056,
+            -0.3449475169181824,
+            0.9624999761581421,
+            -3.0458128452301025,
+            -0.5962305665016174,
+            2.9341018199920654,
+            0.6784212589263916,
+            0.05183381214737892,
+            0.07610064744949341,
+            0.5807372331619263,
+            3.0456836223602295,
+            -0.4416748583316803,
+            0.23035921156406403,
+            0.36822816729545593
+          ],
+          "command_delta": [
+            -0.04002182185649872,
+            -0.018425434827804565,
+            -0.02242279052734375,
+            0.042928457260131836,
+            0.08109351992607117,
+            -0.06358170509338379,
+            0.003777623176574707,
+            0.011231988668441772,
+            -0.013596788048744202,
+            0.03608810901641846,
+            -0.08741044998168945,
+            0.035306572914123535,
+            -0.03128504753112793,
+            -0.0034166574478149414
+          ],
+          "observed_delta": [
+            -0.004911564290523529,
+            -0.05114284157752991,
+            -0.013430297374725342,
+            0.00744318962097168,
+            0.033383846282958984,
+            -0.05751943588256836,
+            0.023181438446044922,
+            0.0016469843685626984,
+            -0.01615220308303833,
+            0.0506168007850647,
+            -0.014070272445678711,
+            0.026391565799713135,
+            0.0066187381744384766,
+            -0.0039452314376831055
+          ],
+          "state_before_was_not_recorded": true,
+          "causal_attribution_proven": false
+        }
+      ],
+      "longest_safe_both_contact_streak": 3,
+      "reward": {
+        "count": 35,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "B",
+      "pair_id": "bank-003b-scene-2449",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/recovery-bank/bank-003b-scene-2449.jsonl",
+      "trace_sha256": "6ecdb59f771ad0bf2af0c95120938c35cf5f56bc2c607460187fd451dc7c3880",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "C",
+      "pair_id": "bank-003b-scene-2440",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/recovery-bank/bank-003b-scene-2440.jsonl",
+      "trace_sha256": "4ca4844d5dd21b02eff8506bb3b7b6ac91ad859948c233d63467c2177af4c162",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 1,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "C",
+      "pair_id": "bank-003b-scene-2441",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/recovery-bank/bank-003b-scene-2441.jsonl",
+      "trace_sha256": "a6f3c1c0eeb465c8896b62ba2cc67351bf4e5e17b6d327c79baf834a6197417f",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 1,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "C",
+      "pair_id": "bank-003b-scene-2443",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/recovery-bank/bank-003b-scene-2443.jsonl",
+      "trace_sha256": "50df19b4d59e2dfc3ed50d773422c7f89b047f37a8f77dc44a13c638f43b0845",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "C",
+      "pair_id": "bank-003b-scene-2444",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/recovery-bank/bank-003b-scene-2444.jsonl",
+      "trace_sha256": "6c0824b75965f6119a1ec2a8df1fc6da718a06aff3bd33deb6e12307104c3897",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "C",
+      "pair_id": "bank-003b-scene-2445",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/recovery-bank/bank-003b-scene-2445.jsonl",
+      "trace_sha256": "fe5591d6ebd0d3156480594ea947efb09b7be3450e28eec4023d4f290347bf8b",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "C",
+      "pair_id": "bank-003b-scene-2446",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/recovery-bank/bank-003b-scene-2446.jsonl",
+      "trace_sha256": "61ddbd394c3ed5a7ad480d543bfa4c0b7b3424f7ff06bbe3c2e9ab158f9c7bc8",
+      "steps": 3,
+      "socket_contact_steps": 1,
+      "peg_contact_steps": 1,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 3,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "C",
+      "pair_id": "bank-003b-scene-2447",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/recovery-bank/bank-003b-scene-2447.jsonl",
+      "trace_sha256": "bbfa0b443c59fd22758bc7a6205a9e3f4e2f9fc465e574318fd0481b8be7e05f",
+      "steps": 76,
+      "socket_contact_steps": 22,
+      "peg_contact_steps": 7,
+      "both_contact_steps": 2,
+      "safe_both_contact_steps": 2,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [
+        1,
+        3
+      ],
+      "contact_loss_windows": [
+        {
+          "previous_step": 1,
+          "step": 2,
+          "previous_line": 1,
+          "line": 2,
+          "previous_geometry": {
+            "socket_grasp_contact": true,
+            "peg_grasp_contact": true,
+            "peg_socket_contact": false
+          },
+          "geometry": {
+            "socket_grasp_contact": true,
+            "peg_grasp_contact": false,
+            "peg_socket_contact": false
+          },
+          "safe": true,
+          "previous_reward": 2.0,
+          "reward": 0.0,
+          "previous_command": [
+            -0.08927395939826965,
+            -0.432919979095459,
+            0.837581992149353,
+            -3.058454751968384,
+            -0.636044979095459,
+            3.028383731842041,
+            0.21274647116661072,
+            0.0645793005824089,
+            0.0424509197473526,
+            0.4730590581893921,
+            3.0369813442230225,
+            -0.46822577714920044,
+            0.1527247428894043,
+            0.23027512431144714
+          ],
+          "command": [
+            -0.042876947671175,
+            -0.38520723581314087,
+            0.8989726305007935,
+            -3.0435643196105957,
+            -0.5903638601303101,
+            2.9895126819610596,
+            0.12041440606117249,
+            0.08181732147932053,
+            0.12102514505386353,
+            0.48329484462738037,
+            3.1003732681274414,
+            -0.48266488313674927,
+            0.1368328332901001,
+            0.15681657195091248
+          ],
+          "previous_state_after": [
+            -0.06625815480947495,
+            -0.47369417548179626,
+            0.7150102853775024,
+            -3.070242404937744,
+            -0.8078568577766418,
+            3.0276670455932617,
+            0.6524624824523926,
+            0.04438820108771324,
+            0.04817115515470505,
+            0.4191146492958069,
+            3.0710742473602295,
+            -0.5780894160270691,
+            0.1475948542356491,
+            0.3595041036605835
+          ],
+          "state_after": [
+            -0.06550626456737518,
+            -0.36758771538734436,
+            0.9062044620513916,
+            -3.0526089668273926,
+            -0.6725055575370789,
+            2.990018606185913,
+            0.6530774235725403,
+            0.048133641481399536,
+            0.09773051738739014,
+            0.4468291103839874,
+            3.058357000350952,
+            -0.5249728560447693,
+            0.14956726133823395,
+            0.366910457611084
+          ],
+          "command_delta": [
+            0.04639701172709465,
+            0.047712743282318115,
+            0.06139063835144043,
+            0.014890432357788086,
+            0.045681118965148926,
+            -0.038871049880981445,
+            -0.09233206510543823,
+            0.01723802089691162,
+            0.07857422530651093,
+            0.010235786437988281,
+            0.06339192390441895,
+            -0.014439105987548828,
+            -0.0158919095993042,
+            -0.07345855236053467
+          ],
+          "observed_delta": [
+            0.000751890242099762,
+            0.1061064600944519,
+            0.19119417667388916,
+            0.017633438110351562,
+            0.135351300239563,
+            -0.03764843940734863,
+            0.0006149411201477051,
+            0.0037454403936862946,
+            0.04955936223268509,
+            0.027714461088180542,
+            -0.012717247009277344,
+            0.053116559982299805,
+            0.001972407102584839,
+            0.007406353950500488
+          ],
+          "state_before_was_not_recorded": true,
+          "causal_attribution_proven": false
+        },
+        {
+          "previous_step": 3,
+          "step": 4,
+          "previous_line": 3,
+          "line": 4,
+          "previous_geometry": {
+            "socket_grasp_contact": true,
+            "peg_grasp_contact": true,
+            "peg_socket_contact": false
+          },
+          "geometry": {
+            "socket_grasp_contact": true,
+            "peg_grasp_contact": false,
+            "peg_socket_contact": false
+          },
+          "safe": true,
+          "previous_reward": 0.0,
+          "reward": 0.0,
+          "previous_command": [
+            -0.07947073876857758,
+            -0.34708353877067566,
+            0.9148716926574707,
+            -3.0622262954711914,
+            -0.5196366310119629,
+            2.995405912399292,
+            0.15035277605056763,
+            0.05665954202413559,
+            0.05771014094352722,
+            0.5578851699829102,
+            3.0497376918792725,
+            -0.40309709310531616,
+            0.24509170651435852,
+            0.15246444940567017
+          ],
+          "command": [
+            -0.11746086925268173,
+            -0.36693549156188965,
+            0.8907181620597839,
+            -3.024291515350342,
+            -0.4446769058704376,
+            2.9386160373687744,
+            0.16448155045509338,
+            0.06899011880159378,
+            0.04668979346752167,
+            0.5929039716720581,
+            2.975524425506592,
+            -0.3730848431587219,
+            0.21750259399414062,
+            0.16359907388687134
+          ],
+          "previous_state_after": [
+            -0.06578794121742249,
+            -0.3117982745170593,
+            0.9698087573051453,
+            -3.0574584007263184,
+            -0.6398738622665405,
+            2.989496946334839,
+            0.6623863577842712,
+            0.050412844866514206,
+            0.11519713699817657,
+            0.5340092778205872,
+            3.0477216243743896,
+            -0.4619635045528412,
+            0.22867095470428467,
+            0.3653561770915985
+          ],
+          "state_after": [
+            -0.07055258750915527,
+            -0.33136752247810364,
+            0.955726683139801,
+            -3.0475411415100098,
+            -0.5985618829727173,
+            2.9418087005615234,
+            0.6622413992881775,
+            0.05241359770298004,
+            0.0802234336733818,
+            0.5900221467018127,
+            3.040520429611206,
+            -0.44207027554512024,
+            0.23739346861839294,
+            0.37537437677383423
+          ],
+          "command_delta": [
+            -0.037990130484104156,
+            -0.01985195279121399,
+            -0.024153530597686768,
+            0.03793478012084961,
+            0.07495972514152527,
+            -0.05678987503051758,
+            0.014128774404525757,
+            0.012330576777458191,
+            -0.011020347476005554,
+            0.03501880168914795,
+            -0.07421326637268066,
+            0.03001224994659424,
+            -0.027589112520217896,
+            0.011134624481201172
+          ],
+          "observed_delta": [
+            -0.004764646291732788,
+            -0.01956924796104431,
+            -0.014082074165344238,
+            0.009917259216308594,
+            0.04131197929382324,
+            -0.04768824577331543,
+            -0.00014495849609375,
+            0.0020007528364658356,
+            -0.03497370332479477,
+            0.056012868881225586,
+            -0.007201194763183594,
+            0.019893229007720947,
+            0.008722513914108276,
+            0.010018199682235718
+          ],
+          "state_before_was_not_recorded": true,
+          "causal_attribution_proven": false
+        }
+      ],
+      "longest_safe_both_contact_streak": 1,
+      "reward": {
+        "count": 76,
+        "minimum": 0.0,
+        "maximum": 2.0,
+        "mean": 0.02631578947368421,
+        "sum": 2.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    },
+    {
+      "arm": "C",
+      "pair_id": "bank-003b-scene-2449",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/recovery-bank/bank-003b-scene-2449.jsonl",
+      "trace_sha256": "c3a2f7a1faa36dbd6438504fb47b9b5b729fb7d2de7e7707d379715811e098ee",
+      "steps": 1,
+      "socket_contact_steps": 0,
+      "peg_contact_steps": 0,
+      "both_contact_steps": 0,
+      "safe_both_contact_steps": 0,
+      "unsafe_both_contact_steps": 0,
+      "both_contact_step_indices": [],
+      "contact_loss_windows": [],
+      "longest_safe_both_contact_streak": 0,
+      "reward": {
+        "count": 1,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "mean": 0.0,
+        "sum": 0.0,
+        "p95_nearest_rank": 0.0
+      },
+      "contact_is_not_force_closure": true
+    }
+  ],
+  "scene_count": 15,
+  "scene_steps": 4187.0,
+  "full_horizon_safe_failure_count": 4,
+  "full_horizon_safe_failure_steps": 2000.0,
+  "scene_physical_stop_count": 11,
+  "bank_measured_states": 24,
+  "bank_steps": 200.0,
+  "bank_one_step_stops": 19,
+  "source_2447_context": {
+    "source_files_verified": {
+      "bank-003b-scene-2447/R/summary.json": "866fed816c31ddc62c566b70e9528056766bd0a31f8072462b71b726bc5393b2",
+      "bank-003b-scene-2447/R/trace.jsonl": "81e30abd8efe36b2a205068b45c40e114f284cfbabefc5a810ab8572bc8c9c12"
+    },
+    "deviation_verified": true,
+    "teacher_terminal_success": true,
+    "teacher_verified_recovery_chain": false,
+    "correction_start": 290,
+    "terminal_success_step": 313,
+    "same_runtime_teacher_student_parity_proven": false
+  },
+  "scope": "saved file integrity, endpoint contacts and descriptive arithmetic only",
+  "model_or_simulator_executed": false,
+  "independent_agent_verification": false,
+  "causal_attribution_proven": false,
+  "formal_gate_result": null,
+  "m2_complete": false,
+  "limitations": [
+    "No ordinary-scene grasp/object/EEF geometry",
+    "No full physical joint limits or actuator signals",
+    "No current restore/processor/noise parity",
+    "Commands and observed apertures do not certify grasp",
+    "Control-step snapshots do not exclude transient within-step contacts"
+  ]
+}

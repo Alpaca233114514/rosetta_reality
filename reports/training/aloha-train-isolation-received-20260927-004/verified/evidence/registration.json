@@ -1,0 +1,18 @@
+{
+  "run": "aloha-train-isolation-20260927-004",
+  "started_unix": 1790498420.6564949,
+  "work_deadline_unix": 1790498720.6564949,
+  "shutdown_deadline_unix": 1790498840.6564949,
+  "shutdown_authorized": true,
+  "platform_deadline_unix": 1790499000.0,
+  "plan_sha256": "dac391f87949acb11cf61cfd6aeb7fedac613ee80d7dc6c9febd864349534644",
+  "guard_sha256": "53bc4c8af8cfb8107cc8929314668fb2b149b46cb46e08ca50f4d6924531baaa",
+  "worker_sha256": "4f5613cf8bff2300dd6850cf7c205c0eaa8b22203271985ae9f83a8bd3d5ebcd",
+  "isolation_code_sha256": "9814b425a8a6d8bb759db1b8dcd32077a3036d48094056943c64677a6e38f053",
+  "source_workspace": "workspaces/20260927T084016Z-66a5bbcdbdcd-a188785d7f32",
+  "model_forward_limit": 0,
+  "optimizer_updates": 0,
+  "simulation_rollouts": 0,
+  "automatic_retry_resume_training": false,
+  "max_export_bytes": 33554432
+}

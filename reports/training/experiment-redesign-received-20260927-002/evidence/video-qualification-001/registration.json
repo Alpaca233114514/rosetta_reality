@@ -1,0 +1,14 @@
+{
+  "stage": "Q_video_timestamp_and_bounded_decode",
+  "source_sha256": "716c712feebe36e15b2f6c14dfc8c2bc5e73c01dedd5f08eb0e5ef4cbaa691ba",
+  "wall_seconds": 60,
+  "pixel_samples": 12,
+  "train_episodes": [
+    49,
+    4
+  ],
+  "model_forward_limit": 0,
+  "optimizer_updates": 0,
+  "existing_guard_job": "runs/aloha-train-isolation-20260927-004",
+  "started_unix": 1790498647.9261985
+}

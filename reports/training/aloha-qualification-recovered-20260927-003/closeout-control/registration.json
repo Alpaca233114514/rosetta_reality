@@ -1,0 +1,13 @@
+{
+  "run": "qualification-closeout-20260927-003",
+  "started_unix": 1790497113.4157984,
+  "work_deadline_unix": 1790497233.4157984,
+  "shutdown_deadline_unix": 1790497293.4157984,
+  "shutdown_authorized": true,
+  "guard_sha256": "53bc4c8af8cfb8107cc8929314668fb2b149b46cb46e08ca50f4d6924531baaa",
+  "purpose": "recovery and cost closeout only; experiments blocked; no worker launched",
+  "model_loaded": false,
+  "optimizer_updates": 0,
+  "simulation_rollouts": 0,
+  "platform_deadline_unix": 1790497320
+}

@@ -1,0 +1,185 @@
+{
+  "id": "paired-ABC-measurement-20260928-003",
+  "execution_authorized": true,
+  "shutdown_authorized": false,
+  "maximum_seconds": 7800,
+  "gpu_required": true,
+  "minimum_free_bytes": 2147483648,
+  "maximum_rss_bytes": 8589934592,
+  "maximum_output_bytes": 805306368,
+  "source_sha256": {
+    "configs/diagnostics/paired-ABC-measurement-input-20260928-001.json": "f4fbdc26099600dde83c9bc6f3ca7ca2c0185ca7d7b934765aa59c7ea8999c7b",
+    "scripts/run_round_experiment_job.py": "14202a5c8ffa2b1d371e358e3eef8f1dbea86e661180676d21cd30cd337f455c",
+    "scripts/evaluate_paired_policy_v2.py": "0123b514af70d267341374dca3cfa08911b3bcf16fea8fe81166af80b614b483",
+    "scripts/run_paired_measurement_queue.py": "9ccd08a7a99d023ab25e82c4af6ed0b9fef03de6c133477fd71364c18c3dd537",
+    "configs/runtime/autodl_rtx4090.yaml": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992"
+  },
+  "environment": {
+    "MKL_NUM_THREADS": "2",
+    "ROSETTA_DATA_ROOT": "/root/autodl-tmp/rosetta/data",
+    "ROSETTA_ARTIFACT_ROOT": "/root/autodl-tmp/rosetta/artifacts",
+    "ROSETTA_AUTODL_ROOT": "/root/autodl-tmp/rosetta",
+    "PYTHONPATH": "/root/autodl-tmp/rosetta/runs/q0-coupled-translation-20260927-001/dependencies:src:scripts",
+    "ROSETTA_AUTODL_PLATFORM_ROOT": "/root/autodl-tmp",
+    "OPENBLAS_NUM_THREADS": "2",
+    "MUJOCO_GL": "egl",
+    "OMP_NUM_THREADS": "2",
+    "TRANSFORMERS_OFFLINE": "1",
+    "HF_HOME": "/root/autodl-tmp/rosetta/models/hf_home",
+    "ROSETTA_TORCH_DEVICE": "cuda",
+    "ROSETTA_MODELS_ROOT": "/root/autodl-tmp/rosetta/models",
+    "ROSETTA_CHECKPOINT_ROOT": "/root/autodl-tmp/rosetta/runs/paired-ABC-measurement-20260928-003/checkpoints",
+    "ROSETTA_RUN_ROOT": "/root/autodl-tmp/rosetta/runs/paired-ABC-measurement-20260928-003/results",
+    "TRACKIO_DIR": "/root/autodl-tmp/rosetta/runs/paired-ABC-measurement-20260928-003/results/trackio",
+    "ROSETTA_DOCKER_MEMORY_LIMIT": "autodl_platform_container",
+    "ROSETTA_DOCKER_MEMORY_SWAP_LIMIT": "autodl_platform_container",
+    "HF_HUB_DISABLE_TELEMETRY": "1",
+    "TOKENIZERS_PARALLELISM": "false"
+  },
+  "commands": [
+    {
+      "name": "init",
+      "maximum_seconds": 10,
+      "allowed_exit_codes": [
+        0
+      ],
+      "argv": [
+        "{python}",
+        "-c",
+        "import pathlib,sys; p=pathlib.Path(sys.argv[1]); (p/\"results\"/\"trackio\").mkdir(parents=True,exist_ok=False); (p/\"checkpoints\").mkdir(exist_ok=False)",
+        "{job}"
+      ]
+    },
+    {
+      "argv": [
+        "{python}",
+        "scripts/autodl_doctor_cuda.py",
+        "--profile",
+        "configs/runtime/autodl_rtx4090.yaml",
+        "--config",
+        "configs/vla/smolvla_450m_aloha_insertion_action_repair_bounded_gripper_003.yaml"
+      ],
+      "maximum_seconds": 60,
+      "name": "doctor",
+      "allowed_exit_codes": [
+        0
+      ]
+    },
+    {
+      "argv": [
+        "{python}",
+        "scripts/run_paired_measurement_queue.py",
+        "prepare",
+        "--job",
+        "{job}"
+      ],
+      "maximum_seconds": 300,
+      "name": "prepare",
+      "allowed_exit_codes": [
+        0
+      ]
+    },
+    {
+      "argv": [
+        "{python}",
+        "scripts/run_paired_measurement_queue.py",
+        "reload",
+        "--job",
+        "{job}",
+        "--arm",
+        "A"
+      ],
+      "maximum_seconds": 420,
+      "name": "reload-a",
+      "allowed_exit_codes": [
+        0,
+        2
+      ]
+    },
+    {
+      "argv": [
+        "{python}",
+        "scripts/run_paired_measurement_queue.py",
+        "measure",
+        "--job",
+        "{job}",
+        "--arm",
+        "A"
+      ],
+      "maximum_seconds": 1800,
+      "name": "measure-a",
+      "allowed_exit_codes": [
+        0,
+        2
+      ]
+    },
+    {
+      "argv": [
+        "{python}",
+        "scripts/run_paired_measurement_queue.py",
+        "reload",
+        "--job",
+        "{job}",
+        "--arm",
+        "B"
+      ],
+      "maximum_seconds": 420,
+      "name": "reload-b",
+      "allowed_exit_codes": [
+        0,
+        2
+      ]
+    },
+    {
+      "argv": [
+        "{python}",
+        "scripts/run_paired_measurement_queue.py",
+        "measure",
+        "--job",
+        "{job}",
+        "--arm",
+        "B"
+      ],
+      "maximum_seconds": 1800,
+      "name": "measure-b",
+      "allowed_exit_codes": [
+        0,
+        2
+      ]
+    },
+    {
+      "argv": [
+        "{python}",
+        "scripts/run_paired_measurement_queue.py",
+        "reload",
+        "--job",
+        "{job}",
+        "--arm",
+        "C"
+      ],
+      "maximum_seconds": 420,
+      "name": "reload-c",
+      "allowed_exit_codes": [
+        0,
+        2
+      ]
+    },
+    {
+      "argv": [
+        "{python}",
+        "scripts/run_paired_measurement_queue.py",
+        "measure",
+        "--job",
+        "{job}",
+        "--arm",
+        "C"
+      ],
+      "maximum_seconds": 1800,
+      "name": "measure-c",
+      "allowed_exit_codes": [
+        0,
+        2
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+handoff-ready.json
+evidence/
+evidence/runtime.json
+evidence/regression.log
+evidence/synthetic-isolation.log
+evidence/real-isolation.log
+evidence/isolation-manifest.json
+evidence/isolation-verification.json
+evidence/result.json
+evidence/registration.json
+evidence/guard-armed.json
+evidence/worker-pid.json
+evidence/worker-exited.json

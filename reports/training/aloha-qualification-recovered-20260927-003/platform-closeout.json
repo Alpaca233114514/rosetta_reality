@@ -1,0 +1,23 @@
+{
+  "run": "qualification-closeout-20260927-003",
+  "observed_utc": "2026-09-27T08:20:05Z",
+  "observation_time_precision": "nearby_tool_clock_seconds",
+  "instance": "44db45aec7-cd880eb6",
+  "ssh_port": 20497,
+  "platform_status_text": "已关机",
+  "verification": "fresh_authenticated_platform_instance_row_after_reload",
+  "platform_timer": "2026-09-27 16:22:00 Asia/Shanghai",
+  "guard_pid": 1543,
+  "guard_armed_verified": true,
+  "guard_shutdown_deadline_unix": 1790497293.4157984,
+  "closeout_now_written_after_local_sha_verification": true,
+  "current_guard_shutdown_request_retrieved": false,
+  "previous_guard_shutdown_request_retrieved_and_sha_verified": true,
+  "sealed_files_verified": 14,
+  "sealed_bytes_verified": 35773,
+  "new_experiments_started": false,
+  "release_requested": false,
+  "model_loaded": false,
+  "optimizer_updates": 0,
+  "rollouts": 0
+}

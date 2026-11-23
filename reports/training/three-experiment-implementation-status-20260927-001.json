@@ -1,0 +1,38 @@
+{
+  "schema": "rosetta.three_experiment_implementation_status.v1",
+  "id": "three-experiment-implementation-20260927-001",
+  "status": "implementation_prepared_remote_unavailable",
+  "new_main_updates": 0,
+  "new_smoke_updates": 0,
+  "new_base_rollouts": 0,
+  "new_collection_attempts": 0,
+  "new_model_forwards": 0,
+  "native_runtime_tests_executed": false,
+  "current_platform_power_verified": false,
+  "shutdown_requested": false,
+  "ssh_readonly_connection_failures": 2,
+  "ssh_failure": "connection_closed_before_remote_command",
+  "historical_evidence_mutated": false,
+  "commit_or_push_performed": false,
+  "source_sha256": {
+    "scripts/prepare_paired_training_bundle.py": "099a27ae0d401070a67f9a7c5c99f8382dbc474db7416bb1a093964766e3f6db",
+    "scripts/evaluate_paired_policy_v2.py": "a453f47c112b7f5028d9377fbd60be51ff507bdeba0636397f61fb3b51cc4117",
+    "scripts/run_round_experiment_job.py": "3704e26c11446a7af4a1291976284bb0a529e401b40ca36fe05bc84c2d4b62c6",
+    "src/rosetta_reality/vla/training/paired_mixture.py": "7df7f96cafc638fee80271e1c03f07606447f39b6e7b5506c4aa684266147744",
+    "src/rosetta_reality/vla/training/paired_mixture_runtime.py": "398af72a8830afdf9a2dd5692b5a5adff3b67f9a84a3f0031dc4b60d7db18c14",
+    "src/rosetta_reality/vla/training/features.py": "ce319ae7267fc37cd8f7e7b83598452c9006763e90e3876c19c2269b6e373af8",
+    "tests/test_paired_mixture_stdlib.py": "545fa1f986365fb67194c8036df44f02f70b6c980ebab0002b458da9d08dcf77"
+  },
+  "remaining": [
+    "restore_current_authorized_remote_connection",
+    "runtime_source_tests",
+    "resource_and_storage_benchmark",
+    "original_D_inventory_and_protected_scene_fingerprints",
+    "real_Q1_Q2_bank_collection_and_independent_audit",
+    "sealed_three_arm_initialization_and_smoke_reload",
+    "main_training_fixed_final_export_reload",
+    "independent_policy_and_recovery_event_measurement",
+    "all_registered_job_closeout_and_verified_retrieval",
+    "whole_round_conditional_shutdown"
+  ]
+}

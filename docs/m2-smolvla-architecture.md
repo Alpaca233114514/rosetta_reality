@@ -1,5 +1,77 @@
 # M2 SmolVLA architecture and navigation
 
+Three-experiment round implementation (2026-09-27): the latest user authorization
+covers the original Exp1/2/3 implementation and real-data collection. New independent
+base measurement, paired collection/audit/export and the explicit `paired_mixture`
+native-v2 DataLoader feature are described in
+`reports/training/three-experiment-round-implementation-2026-09-27.md`.
+`scripts/run_round_experiment_job.py` provides a separately registered work-only
+guard for the longer phases and never powers off the platform. Actual runtime,
+data admission, initialization parity, training and evaluation remain unverified
+until their execution evidence is recovered. Historical plans and Gate statuses
+remain intact; whole-round closeout, rather than stage completion, controls shutdown.
+
+Independent scientific measurement amendment (2026-09-27): the user explicitly
+removed task-success prerequisites between independent diagnostic stages.
+`scripts/diagnose_teacher_cross_pose.py` measures all five teacher tuning scenes
+even though seed10 calibration failed; each scene reports its own outcome and
+unmeasured scenes are never imputed as failures. Physical safety stops end that
+episode; identity/nonfinite/infrastructure/resource faults still stop the job.
+The original formal Gate runner, acceptance criteria and old reports remain
+unchanged. This separate measurement path never declares a provider qualified.
+`scripts/run_teacher_diagnostic_job.py` uses `scripts/work_only_guard.py`, which
+can terminate owned work at its deadline but never requests platform shutdown.
+See `reports/training/teacher-independent-diagnostic-plan-2026-09-27.md`.
+The independent diagnostic completed all five scenes in run
+`teacher-cross-pose-diagnostic-20260927-002`: seed1900 succeeded in 289 steps,
+1901/1903/1904 failed at 500 steps, and 1902 stopped at step40 on unexpected
+contact. All five traces were independently recounted after hash-verified
+retrieval; success was 1/5 despite the earlier seed10 failure. This is not a
+formal G2 pass. Worker and work-only guard exited without requesting shutdown.
+See `reports/training/teacher-independent-diagnostic-result-2026-09-27.md`.
+
+Independent Q0 engineering batch (2026-09-27): after the shared-translation
+candidate failed G1 at seed10 (500 actions, maximum reward3, zero recorded
+safety violations), `scripts/run_q0_independent_batch.py` groups saved-evidence
+arithmetic/integrity, complete integration-state restore checking, and synthetic
+refusal-boundary checks under one guard and closeout. Independent logical
+negatives do not skip the remaining independent checks; integrity, safety and
+resource failures stop the batch. See
+`reports/training/q0-independent-batch-plan-2026-09-27.md`. These are engineering
+checks, not G3/G4 provider qualification, recovery collection or a G1 retry.
+The batch completed with saved-file audit, six-step reset-neighborhood restore
+parity and 32 synthetic boundary cases passing; see
+`reports/training/q0-independent-batch-result-2026-09-27.md`. This does not
+repair the provider's failed G1. The user subsequently required global latest
+experiment completion before shutdown: the completed batch's shutdown guard
+was identity-checked and cancelled before any shutdown request. Future stage
+completion/failure must not implicitly request power-off; work/resource safety
+deadlines remain mandatory and existing historical registrations stay intact.
+
+Q0 bounded provider screening (2026-09-27): the current revision-002 data
+design now has one experimental shared-translation INSERT candidate in
+`sim/coupled_translation_teacher.py`, with lifecycle owned by
+`scripts/run_q0_screen_job.py` and the separate `scripts/q0_bounded_guard.py`.
+See `reports/training/q0-coupled-translation-execution-plan-2026-09-27.md`.
+The guarded sequence is dependency/environment verification, synthetic tests,
+bounded cost measurement, then the unchanged teacher G0/G1/G2. G2 also requires
+zero refusals, joint-limit violations and unexpected collisions. Existing
+`run_teacher_gate.py` G3/G4 are unconditional refusal placeholders and its G5
+identity audit does not prove complete qualification. Therefore even a passing
+screen cannot admit a provider, create labels or start training. Existing Gates
+and M2 status are unchanged; actual execution is reported separately.
+
+Explicit train-isolation authorization (2026-09-27): the user approved a separate
+preprocessing process that may internally decode mixed Parquet pages but exports
+only the original train whitelist. `scripts/isolate_aloha_train.py` implements
+that distinct boundary and a separate-process derived-file verifier; it never
+claims hidden rows were not decoded internally. The legacy whole-row-group
+exclusion path remains unchanged. `scripts/run_train_isolation_job.py` owns the
+bounded test/export/audit/closeout sequence registered in
+`reports/training/aloha-train-isolation-plan-2026-09-27.md`. Source/derived
+samples remain remote. Real execution is unverified until its completion report;
+success/recovery labels, cohort admission, model Gates and M2 are unchanged.
+
 Training configuration capture (2026-09-25): new v2 `train` and `smoke`
 launches seal a create-only `training_config.v1` bundle in the durable launch
 directory before calling the trainer. It records declared effective
@@ -2627,3 +2699,120 @@ paths.
 Trash和无关worker保护；旧失败包保留。本轮仅26项标准库合成检查通过，没有真实
 Parquet/视频资格结果或新远端关机验证。详见
 `reports/training/experiment-local-preparation-2026-09-27.md`。M2和Gate状态不变。
+
+### 三项实验的远端续行与探索边界（2026-09-27）
+
+上节是早期本地准备快照。用户随后明确授权补齐实现和数据、执行本轮实验，
+采用003-B对称采样及有限来源谱系探索。当前授权边界见
+`reports/training/paired-exploratory-authorization-2026-09-27.md`；旧严格设计、
+原始失败和历史证据保留，不追认成新探索实验的通过证据。
+
+独立base五场景测量已实际回传，见
+`reports/training/base-five-scene-independent-result-2026-09-27.md`与同目录
+`base-five-scene-independent-verification-20260927-005.json`。五场景均安全终止，
+总33步、0/5任务成功、0 optimizer；不是五条完整500步轨迹，不是正式Gate4通过。
+
+新增数据入口为`src/rosetta_reality/diagnostics/d_train_native_view.py`与
+`scripts/prepare_d_train_native_view.py`：从已审计train-only数值导出和白名单视频帧
+构造自含原生D视图，明确原episode到连续native episode的映射，并要求原生读取
+逐帧像素、state和50动作chunk验证。混合源视频的GOP预滚只属于隔离构建器，
+正式训练不再打开混合源。新的S/R来源使用完整状态注册与独立审核入口
+`scripts/prepare_exploratory_scene_registry_v2.py`、
+`scripts/audit_exploratory_scene_registry_v2.py`；注册核验见
+`reports/training/fresh-scene-registry-independent-verification-20260927-001.json`。
+这些核验不证明与缺失完整状态的旧D/dev/hidden场景绝不重合。
+
+原D自含full40视图已在`d-native-full40-20260927-007`实际构建并通过原生读取：
+20,000帧图像、state与50动作chunk逐项精确，build约439秒、read约194秒，
+产物757,114,462字节。独立核验见
+`reports/training/d-train-native-view-independent-verification-20260927-007.json`。
+其中18,040个完整chunk起点、951,000个有效target slots与49,000个padding slots
+保留；这证明训练数据入口可用，不是模型训练或任务成功证据。
+
+共享前缀分叉工程已实际完成207步，独立回传核验见
+`reports/training/paired-shared-fork-independent-verification-20260927-001.json`。
+175步共同历史后的两段16步无扰动续行在物理状态、动作和事件上精确一致；
+它没有产生训练配对。正式共享前缀实现使用独立入口
+`scripts/collect_paired_recovery_v3.py`、`scripts/audit_paired_collection_v3.py`与
+`scripts/export_paired_cohort_v3.py`，旧v2及旧Q1结果保留；实现说明见
+`reports/training/paired-shared-prefix-v3-implementation-2026-09-27.md`。
+原始共同历史只采一次，分支首观测来自当时保存的真实观测，物理步数与逻辑轨迹
+长度分列。单次工程续行的像素一致不外推为渲染器永久逐位确定。
+
+新训练比较由`scripts/prepare_paired_training_bundle.py`生成独立A/B/C计划，
+`scripts/run_paired_training_v2.py`接入原生训练循环，
+`src/rosetta_reality/vla/training/paired_mixture_runtime.py`提供固定3D+1aux采样、
+初始化身份和实际更新计数。它们保留D-only统计、原生loss和固定最终checkpoint；
+代码存在或工程测试通过均不代表三臂已训练完成。策略恢复评价入口为
+`scripts/evaluate_paired_policy_v2.py`，恢复事件与其后的终局成功分别记录。
+
+`scripts/run_round_experiment_job.py`提供有界worker/guard握手、存活检查及
+所属子进程清理，不执行电源操作。所有本轮实验与证据核验完成前，不因单项失败
+或单项退出而关机。科学负结果不阻断无依赖的独立测量；身份、物理安全、数值和
+真实标签约束仍保留。M2仍未完成，历史正式Gate状态不因此改变。
+
+## 2026-09-30 paired ABC 003 实际证据审计
+
+实际回传与下一步决策见
+`reports/training/paired-ABC-evidence-audit-and-next-plan-2026-09-30.md`。
+三臂固定 5000-update 端点、测量 optimizer_updates=0；五场景均 0/5、
+已创建恢复 bank 均 0/8，2442/2448 未测。非原始 Gate 4 等价协议，正式状态不变。
+文件复算确认 151 文件完整、首槽裁剪链一致，但没有完整 rollout 噪声、
+实际初态/ctrl/qpos 与越限关节明细，不能由三臂首次差异定位首次错误。
+源 bank 2445 存在同安全实现下的 teacher 恢复成功链，三臂接续均首步安全停止。
+
+新增纯标准库入口 `scripts/audit_paired_measurement_files.py` 与
+`scripts/audit_paired_measurement_context.py` 只读复算旧证据；
+`scripts/paired_measurement_evidence.py` 提供 create-only、字节受限的可选 sidecar，
+仅接受调用方已观察到的数据，不调用模型、仿真或 RNG；尚未接入实时 runner。
+`configs/diagnostics/paired-measurement-evidence-draft-20260930-001.json`
+为不可运行、未授权执行的诊断草案。后续先补足采集与 observer parity，
+再登记单轴比较；本改动不改变旧训练/测量入口、安全限值、loss 或控制器。
+
+## 2026-10-03 paired ABC 保存轨迹失败分型
+
+接续分析见`reports/training/paired-failure-localization-2026-10-03.md`及
+`paired-failure-modes-2026-10-03-002.json`。151测量文件与14评价源码重新核验；
+15场景共4187步，其中4条安全跑满500步、reward始终0，其末段夹爪命令
+分别偏闭合或偏开放，未定位统一偏置原因。24个已创建bank接续共200步，
+全部安全停止、19条首步停止；B/C2447的安全双接触分别最长3/1步，
+C第1→2步在双爪继续闭合时失去右侧接触。接触布尔量不是力闭合抓持，
+reward亦不能代替接触事件。源2447有terminal success但没有验证恢复链，
+不能与2445正控制等同。新的PowerShell入口仅复算保存JSON，不接入runtime。
+后续仍先验证2445初态/processor/noise和observer parity，再另登记保持窗口；
+没有新的模型/仿真计算、训练、正式Gate或M2通过证据，历史结果保留。
+
+## 2026-10-04 paired ABC 首步物理命令分量定位
+
+本轮结果见 `reports/training/paired-physical-command-localization-2026-10-04.md`
+和同前缀 `-002.json`。在 AutoDL 无 GPU 容器的既有环境中，保存命令的
+CPU 物理回放完成 90 个控制步、0 策略 forward/optimizer，170 个新收据文件
+已回传并 SHA 核验。正式无渲染模式只用于物理诊断，不代替 CUDA/pixel parity。
+teacher 的 293 项积分状态逐位复现；三臂历史逻辑状态和后续完整物理控制
+也精确复现。A 首步为两侧反指越限，B/C 为右夹爪双指碰桌；14 维逻辑开度
+不直接观测反侧手指，因此合法逻辑开度不能代替全关节安全。
+
+夹爪目标互逆不足以解除三臂首步停止。72 个单臂关节目标互逆条件中，
+只将 index8 `right_shoulder` 换回 teacher 可使 B/C 首步安全，反向只换该维
+会使 teacher 复现双指碰桌；此结论只针对 2445 保存初态和一次 20 ms 控制。
+A 无单维整体修复，多项臂目标能够诱发手指越限，不能指定唯一坏维度。
+新增入口 `scripts/replay_saved_paired_commands.py`、
+`scripts/replay_paired_gripper_targets.py`、`scripts/replay_paired_arm_targets.py`
+是独立物理诊断，不恢复完整 Python owners/像素，不加载策略。
+
+`scripts/paired_boundary_pilot.py` 的 13 项标准库合成检查通过，新计划
+`configs/diagnostics/paired-boundary-pilot-20261004-002.json` 绑定该收据，
+真实 CUDA 的 processor/noise/observer parity 仍待测。继续排查命令生成原因，
+不能把 teacher 目标替换作为在线补丁或将首步安全当任务成功。历史训练、
+正式 Gate 与 M2 状态不变；所有失败身份保留。
+
+## 2026-10-14 取回的轨迹覆盖实验分析
+
+`dataset-variable-20261011-003` 的主结果已取回；本地保存数组复算见
+`reports/training/dataset-variable-analysis-2026-10-14.md`。三臂固定 2,500
+更新、10,000 次输入，嵌套 8/20/40 条轨迹各覆盖 250 个输入帧、分别重复
+5/2/1 次，保持 train40 normalization。8→40 的 dev 四项平均 MAE 降低
+15.2%–21.2%，但 frame 0 与 episode 45 四项全部退步，chunk 夹爪收益对
+episode 7 敏感。1,872 项逐样本 MAE 与保存结果一致；这只验证已保存证据。
+原实验按当时要求未保存 checkpoint，没有独立模型 reload 或 Gate 3/4，
+task success 未测；M2 和历史 Gate 状态不变。后续建议不构成新实验授权。

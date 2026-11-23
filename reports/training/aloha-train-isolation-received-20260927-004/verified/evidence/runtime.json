@@ -1,0 +1,12 @@
+{
+  "python": "3.12.3",
+  "pyarrow": "25.0.1",
+  "numpy": "2.2.6",
+  "nested_docker_used": false,
+  "model_loaded": false,
+  "runtime_profile_sha256": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992",
+  "runtime_profile_reference": "configs/runtime/autodl_rtx4090.yaml",
+  "cuda_doctor_run": false,
+  "cgroup_memory_limit": "64424509440",
+  "data_disk_available_bytes": 11887710208
+}

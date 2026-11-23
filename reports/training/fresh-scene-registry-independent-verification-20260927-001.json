@@ -1,0 +1,12 @@
+{
+  "schema": "rosetta.fresh_registry_independent_verification.v1",
+  "passed": true,
+  "registry_sha256": "fd3581e64b95960f136ba398613142c707d63005306dd987c130f037e5c65084",
+  "manifest_sha256": "a22b6b71dd5b2f73172b2267aa722f70e2039a9ae98d743302d0cfcf63e1fde2",
+  "full_integration_byte_hashes_recomputed": 46,
+  "full_python_receipt_byte_hashes_recomputed": 46,
+  "verification_backend": "PowerShell .NET ZIP/GZIP/SHA256, no numpy or simulator import",
+  "state_restore_dynamics_tested": false,
+  "legacy_object_scene_nonoverlap": "not_established",
+  "source_relative": ".work/paired-fresh-registry-20260927-001-root-received/extracted/registry"
+}

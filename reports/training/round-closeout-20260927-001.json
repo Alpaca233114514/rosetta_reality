@@ -1,0 +1,36 @@
+{
+  "schema": "rosetta.round_closeout.v1",
+  "id": "round-closeout-20260927-001",
+  "checked_at": "2026-09-27T19:59:40.0082602+08:00",
+  "registered_diagnostics": [
+    {
+      "id": "q0-coupled-translation-20260927-001",
+      "measurement_status": "finished_negative",
+      "manifest_sha256": "b9ef3a845877d68dc5c054a4edfc6052930140d2e72c11c04a984b208f5fad87",
+      "files": 127,
+      "bytes": 4663991
+    },
+    {
+      "id": "q0-independent-checks-20260927-001",
+      "measurement_status": "completed",
+      "manifest_sha256": "fbfe939b00969a96022abc38abb8434b5cf96898c588bc9b6fffefc9bb40840a",
+      "files": 19,
+      "bytes": 195798020
+    },
+    {
+      "id": "teacher-cross-pose-diagnostic-20260927-002",
+      "measurement_status": "completed",
+      "manifest_sha256": "bc90dd853da59fd559a82c95d292a299ff75f213e394a75e1dfb0b3f23a41e11",
+      "files": 20,
+      "bytes": 7214979
+    }
+  ],
+  "local_sha_verified": true,
+  "total_files": 166,
+  "total_bytes": 207676990,
+  "remote_worker_observation": "2026-09-27T19:59:10+08:00 no project compute workers or GPU compute processes observed",
+  "original_exp1_exp2_exp3_complete": false,
+  "shutdown_requested": false,
+  "shutdown_scope": "awaiting distinction between registered diagnostics and original three model experiments",
+  "platform_stopped_verified": false
+}

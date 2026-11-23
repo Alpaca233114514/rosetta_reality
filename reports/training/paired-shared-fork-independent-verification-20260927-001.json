@@ -1,0 +1,29 @@
+{
+  "schema": "rosetta.shared_prefix_fork_independent_verification.v1",
+  "passed": true,
+  "measurement_manifest_sha256": "002f7f74c7da4ee0d7f1714f90fced3b767dc8a0bbda59cbe12c216548c8be7c",
+  "result_sha256": "a6e29ca065790e59a843d91f7706f75cb0131fbd7440fad87ee384f4193d8171",
+  "verified_measurement_files": 421,
+  "verified_measurement_bytes": 7706168,
+  "actual_prefix_rows_verified": 175,
+  "history_decisions": 176,
+  "branch_pairs": 16,
+  "physical_action_event_field_comparisons": 144,
+  "decompressed_native_image_pairs_exact": 16,
+  "physical_steps": 207,
+  "logical_branch_frames": [
+    16,
+    16
+  ],
+  "engineering_replay_decision_calls": 352,
+  "cached_fork_observation": "captured_once_hash_recorded_not_policy_consumption_proof",
+  "restore_dynamics": "remote_real_engineering_rows_independently_compared_not_local_simulator_rerun",
+  "postfork_render_inference": "this_run_exact_not_a_general_determinism_guarantee",
+  "N": 0,
+  "optimizer_updates": 0,
+  "teacher_qualified": false,
+  "shutdown_requested": false,
+  "legacy_object_scene_nonoverlap": "not_established",
+  "source_relative": ".work/paired-shared-fork-20260927-001-root-received/extracted",
+  "verification_backend": "PowerShell .NET JSON ZIP SHA256; no model or simulator loaded locally"
+}

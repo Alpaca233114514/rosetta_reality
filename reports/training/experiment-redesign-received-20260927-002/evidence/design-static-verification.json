@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "scope": "stdlib_json_and_preserved_control_equality_no_ML_tests",
+  "checks": {
+    "experiment_1_unchanged": true,
+    "experiment_2_unchanged": true,
+    "experiment_3_unchanged": true,
+    "exp2_exp3_proposed_controls_unchanged": true,
+    "exp2_exp3_evaluation_unchanged": true
+  },
+  "collection_started": false,
+  "model_forwards": 0,
+  "optimizer_updates": 0,
+  "simulation_steps": 0,
+  "source_historical_bytes_verified": true,
+  "no_gpu_device": true,
+  "created_unix": 1790500518.161419,
+  "platform_deadline_local": "2026-09-27 17:20:00 Asia/Shanghai",
+  "independent_nocard_shutdown_guard_deployed": false
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "package_id": "experiment-redesign-20260927-002",
+  "kind": "non_executable_documentation_package",
+  "files": [
+    {
+      "path": "configs/diagnostics/three-experiment-design-20260927-002.json",
+      "size": 16067,
+      "sha256": "70b415362a423c5ac678178ef5a54df1485bb325ab17661845d5e370897ec58c"
+    },
+    {
+      "path": "docs/m2-smolvla-architecture.md",
+      "size": 185230,
+      "sha256": "b1b271159d65baeb507a11057845f76771bd2c8b1611096569b0cde0ebfead70"
+    },
+    {
+      "path": "evidence/design-static-verification.json",
+      "size": 643,
+      "sha256": "a75395d53f822b0d3d98193caa09699fbe85f05e60b88aa00b830fb78f5fbf16"
+    },
+    {
+      "path": "evidence/search-20497.json",
+      "size": 18858,
+      "sha256": "689a29ccf4f474c9a8bf3820a6feb3c39864a8cfa505b3675db107008e9a52ad"
+    },
+    {
+      "path": "evidence/video-qualification-001/audit_video.py",
+      "size": 3606,
+      "sha256": "716c712feebe36e15b2f6c14dfc8c2bc5e73c01dedd5f08eb0e5ef4cbaa691ba"
+    },
+    {
+      "path": "evidence/video-qualification-001/registration.json",
+      "size": 385,
+      "sha256": "c5a91e24c5707835f16ec2a1ae9b0f5264fda62f010b406e6d8872a8690a960a"
+    },
+    {
+      "path": "evidence/video-qualification-001/result.json",
+      "size": 3091,
+      "sha256": "f2234fa26b7e58d905aa315916e8452ab516ba832f3390a7d1f355bbd3c2932c"
+    },
+    {
+      "path": "reports/training/experiment-handoff-2026-09-27-revision-002.md",
+      "size": 1263,
+      "sha256": "3ce794b88a2440be0a3467cb15a9b3b503798263d0ff55e315904624a700ae19"
+    },
+    {
+      "path": "reports/training/three-experiment-design-2026-09-27-revision-002.md",
+      "size": 12218,
+      "sha256": "159eca23e6ca6f0a3fe70f44643d491b0af26d40e29194012afc08e89c420fe4"
+    },
+    {
+      "path": "sources/configs/diagnostics/three-experiment-design-20260927-001.json",
+      "size": 11708,
+      "sha256": "acbe7c4416e128a3aea11e858be2b5213298b4b6ecdd7cdf23be3587584ebd42"
+    },
+    {
+      "path": "sources/docs/m2-smolvla-architecture.md",
+      "size": 184579,
+      "sha256": "c86c1d74bc90fdac50bb66f7626dba8db47fdd1ecc08bdf12f99fc28f411ed40"
+    },
+    {
+      "path": "sources/reports/training/m2-smolvla-t2-geometric-teacher-003-closure-2026-09-03.json",
+      "size": 3266,
+      "sha256": "b29c0c14134e4cbea32fda27b905ac88a7a043422d8effa11eab9ccfdeb1cc0b"
+    },
+    {
+      "path": "sources/reports/training/recovery-search-44126-2026-09-27.md",
+      "size": 2352,
+      "sha256": "5ba536781b52352f6a7d33ecd9daed1408a82e2992de1f38c90907f3aa3def44"
+    },
+    {
+      "path": "sources/reports/training/recovery-search-44126-20260927-001.json",
+      "size": 17584,
+      "sha256": "875ea97e0dd642370c5a44d42831cf8483fdf13d5d6846d4d8b382e6bf18f734"
+    },
+    {
+      "path": "sources/reports/training/recovery-search-44126-archives-20260927-001.json",
+      "size": 8415,
+      "sha256": "30c1766b92401912baa43a0c65d24cafbc2e94fcbd53425aa074f1ba3eeebbb5"
+    },
+    {
+      "path": "sources/reports/training/recovery-search-44126-identity-20260927-001.json",
+      "size": 1000,
+      "sha256": "1d1f4053ddc224d5e9f5d9e80259a436d1b45e2d10d438cfd98f40c25bae084a"
+    },
+    {
+      "path": "sources/reports/training/three-experiment-design-2026-09-27.md",
+      "size": 20921,
+      "sha256": "26677baba20dd4bf56bed14458067257a59a3e8778e7dd46ef26f4067a35b77d"
+    }
+  ]
+}

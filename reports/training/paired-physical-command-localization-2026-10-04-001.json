@@ -1,0 +1,2187 @@
+{
+  "schema": "rosetta.paired_physical_localization_report.v1",
+  "date": "2026-10-04",
+  "pair": "bank-003b-scene-2445",
+  "status": "physical_command_boundary_localized_model_generation_unmeasured",
+  "scope": "Physical-only CPU AutoDL replay of saved commands; full Python owners and pixels not restored; no new policy inference",
+  "registered_runtime_profile": "configs/runtime/autodl_rtx4090.yaml",
+  "nested_docker_used": false,
+  "gpu_admitted": false,
+  "new_control_steps": 90.0,
+  "new_model_forward_calls": 0,
+  "optimizer_updates": 0,
+  "exact_control_runs": 12,
+  "teacher_integration_values_per_control": 293,
+  "receipts": [
+    {
+      "receiver": ".work/paired-boundary-cpu-20261004-002-received",
+      "regular_files": 18,
+      "manifest_sha256": "88a5b2470b2e48a3f3a73dc1cca059797fc6207559b50ff454d9a59e8cac77dc",
+      "worker_error_type": null,
+      "outcomes": [
+        {
+          "name": "source-contract",
+          "returncode": 0
+        },
+        {
+          "name": "synthetic-tests",
+          "returncode": 0
+        }
+      ],
+      "guard_status": "worker_exited",
+      "shutdown_requested": false
+    },
+    {
+      "receiver": ".work/paired-saved-command-physics-20261004-001-received",
+      "regular_files": 14,
+      "manifest_sha256": "6b1e660f973c2e0ae843ca299ba4408b1557ca38771e5c3100a2a79e4e07f94f",
+      "worker_error_type": "RuntimeError",
+      "outcomes": [
+        {
+          "name": "physical-replay",
+          "returncode": 1
+        }
+      ],
+      "guard_status": "worker_exited",
+      "shutdown_requested": false
+    },
+    {
+      "receiver": ".work/paired-saved-command-physics-20261004-002-received",
+      "regular_files": 20,
+      "manifest_sha256": "e79ff856dc2d18e33fb967b684c6e45d40e362c54814eeca6129b398e28c5238",
+      "worker_error_type": null,
+      "outcomes": [
+        {
+          "name": "physical-replay",
+          "returncode": 0
+        }
+      ],
+      "guard_status": "worker_exited",
+      "shutdown_requested": false
+    },
+    {
+      "receiver": ".work/paired-gripper-targets-20261004-001-received",
+      "regular_files": 26,
+      "manifest_sha256": "76a511f76f2c22725a1dd78cc04a6e14c43e0d91cc0e42f3cace742ebd2ba88b",
+      "worker_error_type": null,
+      "outcomes": [
+        {
+          "name": "physical-replay",
+          "returncode": 0
+        }
+      ],
+      "guard_status": "worker_exited",
+      "shutdown_requested": false
+    },
+    {
+      "receiver": ".work/paired-arm-targets-20261004-001-received",
+      "regular_files": 92,
+      "manifest_sha256": "a707c616d8b7d4059c8f4cec9dba923ce76343d4d889ffb97276e7539182c196",
+      "worker_error_type": null,
+      "outcomes": [
+        {
+          "name": "physical-replay",
+          "returncode": 0
+        }
+      ],
+      "guard_status": "worker_exited",
+      "shutdown_requested": false
+    }
+  ],
+  "artifact_payload_checks": 39,
+  "artifact_payload_all_sha_match": true,
+  "artifact_inventory_sha256": "2ab62dea0c9ae018d7b0189a148fd273067b0715c4ed56b855ce30362fba9c06",
+  "failed_attempts": [
+    {
+      "name": "boundary-cpu-001",
+      "stage": "before_launch",
+      "reason": "Source drift in old supervisor",
+      "expected_sha256": "acff18892854a745946f86f216c4aa550bb25e67074d6afba7d28094638797c5",
+      "actual_sha256": "14202a5c8ffa2b1d371e358e3eef8f1dbea86e661180676d21cd30cd337f455c",
+      "executed_tests": 0
+    },
+    {
+      "name": "saved-command-physics-001",
+      "stage": "dm_control_import",
+      "reason": "Cannot initialize a headless EGL display",
+      "control_steps": 0
+    }
+  ],
+  "controls": [
+    {
+      "case": "teacher",
+      "command": [
+        -0.31047770380973816,
+        -0.2068314254283905,
+        1.0113087892532349,
+        -2.5928993225097656,
+        -0.3004545271396637,
+        2.3393564224243164,
+        0.09000000357627869,
+        0.1281251758337021,
+        -0.18546351790428162,
+        1.0550750494003296,
+        2.7858126163482666,
+        -0.19141915440559387,
+        0.4657530188560486,
+        0.09000000357627869
+      ],
+      "before_logical_state": [
+        -0.32129186391830444,
+        -0.22874131798744202,
+        1.0116314888000488,
+        -2.6036453247070312,
+        -0.31907665729522705,
+        2.3400650024414062,
+        0.9019744992256165,
+        0.13195019960403442,
+        -0.20359554886817932,
+        1.0562392473220825,
+        2.793635845184326,
+        -0.2076287567615509,
+        0.46520957350730896,
+        0.9005641341209412
+      ],
+      "after_logical_state": [
+        -0.3218664228916168,
+        -0.22552825510501862,
+        1.0127849578857422,
+        -2.6023929119110107,
+        -0.31470420956611633,
+        2.33970308303833,
+        0.8371798992156982,
+        0.1316169649362564,
+        -0.20089581608772278,
+        1.057055950164795,
+        2.7927701473236084,
+        -0.20453648269176483,
+        0.4660537838935852,
+        0.8364499807357788
+      ],
+      "safe_after": true,
+      "violation_count": 0,
+      "violation_details": [],
+      "unexpected_contacts": [],
+      "compiled_model_sha256": "cea99c5e148cbfb5bf9c7139ecdf2a7ad92e872797808b3a6e61236eb6a56f78",
+      "full_saved_physical_readout_exact": true,
+      "historical_integration_exact": true
+    },
+    {
+      "case": "A",
+      "command": [
+        -0.03657142445445061,
+        -0.17792366445064545,
+        0.7206088900566101,
+        -0.7309719920158386,
+        0.48899567127227783,
+        0.5673991441726685,
+        0.6054487228393555,
+        -0.16778239607810974,
+        -0.3675611615180969,
+        0.7896748185157776,
+        0.1134498193860054,
+        0.4658907651901245,
+        -0.05414295941591263,
+        0.4011270999908447
+      ],
+      "before_logical_state": [
+        -0.32129186391830444,
+        -0.22874131798744202,
+        1.0116314888000488,
+        -2.6036453247070312,
+        -0.31907665729522705,
+        2.3400650024414062,
+        0.9019744992256165,
+        0.13195019960403442,
+        -0.20359554886817932,
+        1.0562392473220825,
+        2.793635845184326,
+        -0.2076287567615509,
+        0.46520957350730896,
+        0.9005641341209412
+      ],
+      "after_logical_state": [
+        0.07318166643381119,
+        -0.16899046301841736,
+        0.9152441024780273,
+        -1.7799890041351318,
+        0.321768581867218,
+        0.6547309756278992,
+        0.8869701623916626,
+        -0.2872387170791626,
+        -0.4010729193687439,
+        0.9898524880409241,
+        1.9024035930633545,
+        0.09332113713026047,
+        0.10487944632768631,
+        0.7305428981781006
+      ],
+      "safe_after": false,
+      "violation_count": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.05701782071127658,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -1.7820711276581025E-05,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.0597151157288074,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0027151157288074004,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": [],
+      "compiled_model_sha256": "cea99c5e148cbfb5bf9c7139ecdf2a7ad92e872797808b3a6e61236eb6a56f78",
+      "full_saved_physical_readout_exact": true,
+      "historical_integration_exact": null
+    },
+    {
+      "case": "B",
+      "command": [
+        -0.24639832973480225,
+        -0.2743191719055176,
+        0.9999465346336365,
+        -2.8905951976776123,
+        -0.3651162087917328,
+        2.7610113620758057,
+        0.5735605955123901,
+        0.07696353644132614,
+        -0.08987496793270111,
+        0.7676987648010254,
+        2.9182958602905273,
+        -0.3129616379737854,
+        0.18831080198287964,
+        0.5891065001487732
+      ],
+      "before_logical_state": [
+        -0.32129186391830444,
+        -0.22874131798744202,
+        1.0116314888000488,
+        -2.6036453247070312,
+        -0.31907665729522705,
+        2.3400650024414062,
+        0.9019744992256165,
+        0.13195019960403442,
+        -0.20359554886817932,
+        1.0562392473220825,
+        2.793635845184326,
+        -0.2076287567615509,
+        0.46520957350730896,
+        0.9005641341209412
+      ],
+      "after_logical_state": [
+        -0.2904658913612366,
+        -0.2419261634349823,
+        1.0089811086654663,
+        -2.7734615802764893,
+        -0.3323059380054474,
+        2.7455852031707764,
+        0.8736657500267029,
+        0.1275058537721634,
+        -0.06924378126859665,
+        0.9276929497718811,
+        2.9327800273895264,
+        -0.306263267993927,
+        0.19062401354312897,
+        0.8687520623207092
+      ],
+      "safe_after": false,
+      "violation_count": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ],
+      "compiled_model_sha256": "cea99c5e148cbfb5bf9c7139ecdf2a7ad92e872797808b3a6e61236eb6a56f78",
+      "full_saved_physical_readout_exact": true,
+      "historical_integration_exact": null
+    },
+    {
+      "case": "C",
+      "command": [
+        -0.24909880757331848,
+        -0.2770865857601166,
+        0.9937654137611389,
+        -2.888930559158325,
+        -0.3620493710041046,
+        2.763275146484375,
+        0.5901073813438416,
+        0.07723817974328995,
+        -0.0885678082704544,
+        0.7656124234199524,
+        2.910964250564575,
+        -0.3159029483795166,
+        0.194911926984787,
+        0.6010986566543579
+      ],
+      "before_logical_state": [
+        -0.32129186391830444,
+        -0.22874131798744202,
+        1.0116314888000488,
+        -2.6036453247070312,
+        -0.31907665729522705,
+        2.3400650024414062,
+        0.9019744992256165,
+        0.13195019960403442,
+        -0.20359554886817932,
+        1.0562392473220825,
+        2.793635845184326,
+        -0.2076287567615509,
+        0.46520957350730896,
+        0.9005641341209412
+      ],
+      "after_logical_state": [
+        -0.29542577266693115,
+        -0.2464979887008667,
+        1.007314682006836,
+        -2.773181915283203,
+        -0.3330881893634796,
+        2.747272253036499,
+        0.8768553733825684,
+        0.12753137946128845,
+        -0.06656705588102341,
+        0.9263150095939636,
+        2.929124355316162,
+        -0.3063122034072876,
+        0.196817085146904,
+        0.8705841898918152
+      ],
+      "safe_after": false,
+      "violation_count": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ],
+      "compiled_model_sha256": "cea99c5e148cbfb5bf9c7139ecdf2a7ad92e872797808b3a6e61236eb6a56f78",
+      "full_saved_physical_readout_exact": true,
+      "historical_integration_exact": null
+    }
+  ],
+  "gripper_interventions": [
+    {
+      "case": "A_teacher_grippers",
+      "safe_after": false,
+      "violations": 1,
+      "unexpected_contacts": [],
+      "violation_details": [
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.05884620181967186,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0018462018196718569,
+          "violation": true
+        }
+      ]
+    },
+    {
+      "case": "B_teacher_grippers",
+      "safe_after": false,
+      "violations": 0,
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ],
+      "violation_details": []
+    },
+    {
+      "case": "C_teacher_grippers",
+      "safe_after": false,
+      "violations": 0,
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ],
+      "violation_details": []
+    },
+    {
+      "case": "teacher_A_grippers",
+      "safe_after": true,
+      "violations": 0,
+      "unexpected_contacts": [],
+      "violation_details": []
+    },
+    {
+      "case": "teacher_B_grippers",
+      "safe_after": true,
+      "violations": 0,
+      "unexpected_contacts": [],
+      "violation_details": []
+    },
+    {
+      "case": "teacher_C_grippers",
+      "safe_after": true,
+      "violations": 0,
+      "unexpected_contacts": [],
+      "violation_details": []
+    }
+  ],
+  "single_joint_interventions": [
+    {
+      "case": "A_from_teacher_joint_0",
+      "base": "A",
+      "donor": "teacher",
+      "index": 0,
+      "joint": "left_waist",
+      "target": -0.31047770380973816,
+      "initial_joint_state": -0.32129186391830444,
+      "after_joint_state": -0.3214767277240753,
+      "safe_after": false,
+      "violations": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/left_finger",
+          "qpos_address": 6,
+          "qpos": 0.06358368191835047,
+          "lower": 0.021,
+          "upper": 0.057,
+          "margin": -0.006583681918350466,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.0597151157288074,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0027151157288074004,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_1",
+      "base": "A",
+      "donor": "teacher",
+      "index": 1,
+      "joint": "left_shoulder",
+      "target": -0.2068314254283905,
+      "initial_joint_state": -0.22874131798744202,
+      "after_joint_state": -0.21914799511432648,
+      "safe_after": false,
+      "violations": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.057202965879936334,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.00020296587993633153,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.0597151157288074,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0027151157288074004,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_10",
+      "base": "A",
+      "donor": "teacher",
+      "index": 10,
+      "joint": "right_forearm_roll",
+      "target": 2.7858126163482666,
+      "initial_joint_state": 2.793635845184326,
+      "after_joint_state": 2.9933714866638184,
+      "safe_after": false,
+      "violations": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.05701782071127658,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -1.7820711276581025E-05,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.058376864146645085,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0013768641466450834,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_11",
+      "base": "A",
+      "donor": "teacher",
+      "index": 11,
+      "joint": "right_wrist_angle",
+      "target": -0.19141915440559387,
+      "initial_joint_state": -0.2076287567615509,
+      "after_joint_state": -0.19149060547351837,
+      "safe_after": false,
+      "violations": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.05701782071127658,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -1.7820711276581025E-05,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.06052455385716233,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.003524553857162327,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_12",
+      "base": "A",
+      "donor": "teacher",
+      "index": 12,
+      "joint": "right_wrist_rotate",
+      "target": 0.4657530188560486,
+      "initial_joint_state": 0.46520957350730896,
+      "after_joint_state": 0.5813371539115906,
+      "safe_after": false,
+      "violations": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.05701782071127658,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -1.7820711276581025E-05,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.05861650506221689,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0016165050622168886,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_2",
+      "base": "A",
+      "donor": "teacher",
+      "index": 2,
+      "joint": "left_elbow",
+      "target": 1.0113087892532349,
+      "initial_joint_state": 1.0116314888000488,
+      "after_joint_state": 1.001370906829834,
+      "safe_after": false,
+      "violations": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.057789149525077424,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0007891495250774219,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.0597151157288074,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0027151157288074004,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_3",
+      "base": "A",
+      "donor": "teacher",
+      "index": 3,
+      "joint": "left_forearm_roll",
+      "target": -2.5928993225097656,
+      "initial_joint_state": -2.6036453247070312,
+      "after_joint_state": -2.543151378631592,
+      "safe_after": false,
+      "violations": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.05887275547130825,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0018727554713082462,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.0597151157288074,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0027151157288074004,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_4",
+      "base": "A",
+      "donor": "teacher",
+      "index": 4,
+      "joint": "left_wrist_angle",
+      "target": -0.3004545271396637,
+      "initial_joint_state": -0.31907665729522705,
+      "after_joint_state": -0.2756882309913635,
+      "safe_after": false,
+      "violations": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.07569052201027265,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.018690522010272652,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.0597151157288074,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0027151157288074004,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_5",
+      "base": "A",
+      "donor": "teacher",
+      "index": 5,
+      "joint": "left_wrist_rotate",
+      "target": 2.3393564224243164,
+      "initial_joint_state": 2.3400650024414062,
+      "after_joint_state": 2.2788748741149902,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.0597151157288074,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0027151157288074004,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_7",
+      "base": "A",
+      "donor": "teacher",
+      "index": 7,
+      "joint": "right_waist",
+      "target": 0.1281251758337021,
+      "initial_joint_state": 0.13195019960403442,
+      "after_joint_state": 0.13110968470573425,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.05701782071127658,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -1.7820711276581025E-05,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_8",
+      "base": "A",
+      "donor": "teacher",
+      "index": 8,
+      "joint": "right_shoulder",
+      "target": -0.18546351790428162,
+      "initial_joint_state": -0.20359554886817932,
+      "after_joint_state": -0.2170000523328781,
+      "safe_after": false,
+      "violations": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.05701782071127658,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -1.7820711276581025E-05,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.07865357543827246,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.02165357543827246,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "A_from_teacher_joint_9",
+      "base": "A",
+      "donor": "teacher",
+      "index": 9,
+      "joint": "right_elbow",
+      "target": 1.0550750494003296,
+      "initial_joint_state": 1.0562392473220825,
+      "after_joint_state": 1.0564866065979004,
+      "safe_after": false,
+      "violations": 2,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.05701782071127658,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -1.7820711276581025E-05,
+          "violation": true
+        },
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.05862028500405442,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0016202850040544156,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "B_from_teacher_joint_0",
+      "base": "B",
+      "donor": "teacher",
+      "index": 0,
+      "joint": "left_waist",
+      "target": -0.31047770380973816,
+      "initial_joint_state": -0.32129186391830444,
+      "after_joint_state": -0.3215755820274353,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "B_from_teacher_joint_1",
+      "base": "B",
+      "donor": "teacher",
+      "index": 1,
+      "joint": "left_shoulder",
+      "target": -0.2068314254283905,
+      "initial_joint_state": -0.22874131798744202,
+      "after_joint_state": -0.22558921575546265,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "B_from_teacher_joint_10",
+      "base": "B",
+      "donor": "teacher",
+      "index": 10,
+      "joint": "right_forearm_roll",
+      "target": 2.7858126163482666,
+      "initial_joint_state": 2.793635845184326,
+      "after_joint_state": 2.878399133682251,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "B_from_teacher_joint_11",
+      "base": "B",
+      "donor": "teacher",
+      "index": 11,
+      "joint": "right_wrist_angle",
+      "target": -0.19141915440559387,
+      "initial_joint_state": -0.2076287567615509,
+      "after_joint_state": -0.2721381187438965,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "B_from_teacher_joint_12",
+      "base": "B",
+      "donor": "teacher",
+      "index": 12,
+      "joint": "right_wrist_rotate",
+      "target": 0.4657530188560486,
+      "initial_joint_state": 0.46520957350730896,
+      "after_joint_state": 0.44155967235565186,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "B_from_teacher_joint_2",
+      "base": "B",
+      "donor": "teacher",
+      "index": 2,
+      "joint": "left_elbow",
+      "target": 1.0113087892532349,
+      "initial_joint_state": 1.0116314888000488,
+      "after_joint_state": 1.0124484300613403,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "B_from_teacher_joint_3",
+      "base": "B",
+      "donor": "teacher",
+      "index": 3,
+      "joint": "left_forearm_roll",
+      "target": -2.5928993225097656,
+      "initial_joint_state": -2.6036453247070312,
+      "after_joint_state": -2.6586830615997314,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "B_from_teacher_joint_4",
+      "base": "B",
+      "donor": "teacher",
+      "index": 4,
+      "joint": "left_wrist_angle",
+      "target": -0.3004545271396637,
+      "initial_joint_state": -0.31907665729522705,
+      "after_joint_state": -0.314827561378479,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "B_from_teacher_joint_5",
+      "base": "B",
+      "donor": "teacher",
+      "index": 5,
+      "joint": "left_wrist_rotate",
+      "target": 2.3393564224243164,
+      "initial_joint_state": 2.3400650024414062,
+      "after_joint_state": 2.3590970039367676,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "B_from_teacher_joint_7",
+      "base": "B",
+      "donor": "teacher",
+      "index": 7,
+      "joint": "right_waist",
+      "target": 0.1281251758337021,
+      "initial_joint_state": 0.13195019960403442,
+      "after_joint_state": 0.13172373175621033,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "B_from_teacher_joint_8",
+      "base": "B",
+      "donor": "teacher",
+      "index": 8,
+      "joint": "right_shoulder",
+      "target": -0.18546351790428162,
+      "initial_joint_state": -0.20359554886817932,
+      "after_joint_state": -0.1999697983264923,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "B_from_teacher_joint_9",
+      "base": "B",
+      "donor": "teacher",
+      "index": 9,
+      "joint": "right_elbow",
+      "target": 1.0550750494003296,
+      "initial_joint_state": 1.0562392473220825,
+      "after_joint_state": 1.0427830219268799,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_0",
+      "base": "C",
+      "donor": "teacher",
+      "index": 0,
+      "joint": "left_waist",
+      "target": -0.31047770380973816,
+      "initial_joint_state": -0.32129186391830444,
+      "after_joint_state": -0.32156816124916077,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_1",
+      "base": "C",
+      "donor": "teacher",
+      "index": 1,
+      "joint": "left_shoulder",
+      "target": -0.2068314254283905,
+      "initial_joint_state": -0.22874131798744202,
+      "after_joint_state": -0.2255709171295166,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_10",
+      "base": "C",
+      "donor": "teacher",
+      "index": 10,
+      "joint": "right_forearm_roll",
+      "target": 2.7858126163482666,
+      "initial_joint_state": 2.793635845184326,
+      "after_joint_state": 2.880617618560791,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_11",
+      "base": "C",
+      "donor": "teacher",
+      "index": 11,
+      "joint": "right_wrist_angle",
+      "target": -0.19141915440559387,
+      "initial_joint_state": -0.2076287567615509,
+      "after_joint_state": -0.27072980999946594,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_12",
+      "base": "C",
+      "donor": "teacher",
+      "index": 12,
+      "joint": "right_wrist_rotate",
+      "target": 0.4657530188560486,
+      "initial_joint_state": 0.46520957350730896,
+      "after_joint_state": 0.4083859920501709,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_2",
+      "base": "C",
+      "donor": "teacher",
+      "index": 2,
+      "joint": "left_elbow",
+      "target": 1.0113087892532349,
+      "initial_joint_state": 1.0116314888000488,
+      "after_joint_state": 1.0126681327819824,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_3",
+      "base": "C",
+      "donor": "teacher",
+      "index": 3,
+      "joint": "left_forearm_roll",
+      "target": -2.5928993225097656,
+      "initial_joint_state": -2.6036453247070312,
+      "after_joint_state": -2.6590497493743896,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_4",
+      "base": "C",
+      "donor": "teacher",
+      "index": 4,
+      "joint": "left_wrist_angle",
+      "target": -0.3004545271396637,
+      "initial_joint_state": -0.31907665729522705,
+      "after_joint_state": -0.31642287969589233,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_5",
+      "base": "C",
+      "donor": "teacher",
+      "index": 5,
+      "joint": "left_wrist_rotate",
+      "target": 2.3393564224243164,
+      "initial_joint_state": 2.3400650024414062,
+      "after_joint_state": 2.3586180210113525,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_7",
+      "base": "C",
+      "donor": "teacher",
+      "index": 7,
+      "joint": "right_waist",
+      "target": 0.1281251758337021,
+      "initial_joint_state": 0.13195019960403442,
+      "after_joint_state": 0.13172662258148193,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "C_from_teacher_joint_8",
+      "base": "C",
+      "donor": "teacher",
+      "index": 8,
+      "joint": "right_shoulder",
+      "target": -0.18546351790428162,
+      "initial_joint_state": -0.20359554886817932,
+      "after_joint_state": -0.19996985793113708,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "C_from_teacher_joint_9",
+      "base": "C",
+      "donor": "teacher",
+      "index": 9,
+      "joint": "right_elbow",
+      "target": 1.0550750494003296,
+      "initial_joint_state": 1.0562392473220825,
+      "after_joint_state": 1.0427156686782837,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "teacher_from_A_joint_0",
+      "base": "teacher",
+      "donor": "A",
+      "index": 0,
+      "joint": "left_waist",
+      "target": -0.03657142445445061,
+      "initial_joint_state": -0.32129186391830444,
+      "after_joint_state": 0.03328913450241089,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.074099174460698,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.017099174460697995,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_1",
+      "base": "teacher",
+      "donor": "A",
+      "index": 1,
+      "joint": "left_shoulder",
+      "target": -0.17792366445064545,
+      "initial_joint_state": -0.22874131798744202,
+      "after_joint_state": -0.20264916121959686,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_10",
+      "base": "teacher",
+      "donor": "A",
+      "index": 10,
+      "joint": "right_forearm_roll",
+      "target": 0.1134498193860054,
+      "initial_joint_state": 2.793635845184326,
+      "after_joint_state": 1.7560391426086426,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.06598495316962337,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.008984953169623368,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_11",
+      "base": "teacher",
+      "donor": "A",
+      "index": 11,
+      "joint": "right_wrist_angle",
+      "target": 0.4658907651901245,
+      "initial_joint_state": -0.2076287567615509,
+      "after_joint_state": -0.02767196297645569,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_12",
+      "base": "teacher",
+      "donor": "A",
+      "index": 12,
+      "joint": "right_wrist_rotate",
+      "target": -0.05414295941591263,
+      "initial_joint_state": 0.46520957350730896,
+      "after_joint_state": -0.011705764569342136,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_2",
+      "base": "teacher",
+      "donor": "A",
+      "index": 2,
+      "joint": "left_elbow",
+      "target": 0.7206088900566101,
+      "initial_joint_state": 1.0116314888000488,
+      "after_joint_state": 0.9250920414924622,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_3",
+      "base": "teacher",
+      "donor": "A",
+      "index": 3,
+      "joint": "left_forearm_roll",
+      "target": -0.7309719920158386,
+      "initial_joint_state": -2.6036453247070312,
+      "after_joint_state": -1.8981088399887085,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.05839617147770702,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0013961714777070214,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_4",
+      "base": "teacher",
+      "donor": "A",
+      "index": 4,
+      "joint": "left_wrist_angle",
+      "target": 0.48899567127227783,
+      "initial_joint_state": -0.31907665729522705,
+      "after_joint_state": -0.07954613119363785,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_left/left_finger",
+          "qpos_address": 6,
+          "qpos": 0.058929836358817746,
+          "lower": 0.021,
+          "upper": 0.057,
+          "margin": -0.0019298363588177436,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_5",
+      "base": "teacher",
+      "donor": "A",
+      "index": 5,
+      "joint": "left_wrist_rotate",
+      "target": 0.5673991441726685,
+      "initial_joint_state": 2.3400650024414062,
+      "after_joint_state": 0.7804360389709473,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_left/left_finger",
+          "qpos_address": 6,
+          "qpos": 0.061210231055504,
+          "lower": 0.021,
+          "upper": 0.057,
+          "margin": -0.004210231055503999,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_7",
+      "base": "teacher",
+      "donor": "A",
+      "index": 7,
+      "joint": "right_waist",
+      "target": -0.16778239607810974,
+      "initial_joint_state": 0.13195019960403442,
+      "after_joint_state": -0.24244670569896698,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.08181541520923755,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.024815415209237544,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_8",
+      "base": "teacher",
+      "donor": "A",
+      "index": 8,
+      "joint": "right_shoulder",
+      "target": -0.3675611615180969,
+      "initial_joint_state": -0.20359554886817932,
+      "after_joint_state": -0.43098458647727966,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_9",
+      "base": "teacher",
+      "donor": "A",
+      "index": 9,
+      "joint": "right_elbow",
+      "target": 0.7896748185157776,
+      "initial_joint_state": 1.0562392473220825,
+      "after_joint_state": 0.9692914485931396,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_0",
+      "base": "teacher",
+      "donor": "B",
+      "index": 0,
+      "joint": "left_waist",
+      "target": -0.24639832973480225,
+      "initial_joint_state": -0.32129186391830444,
+      "after_joint_state": -0.2973596155643463,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_1",
+      "base": "teacher",
+      "donor": "B",
+      "index": 1,
+      "joint": "left_shoulder",
+      "target": -0.2743191719055176,
+      "initial_joint_state": -0.22874131798744202,
+      "after_joint_state": -0.24108001589775085,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_10",
+      "base": "teacher",
+      "donor": "B",
+      "index": 10,
+      "joint": "right_forearm_roll",
+      "target": 2.9182958602905273,
+      "initial_joint_state": 2.793635845184326,
+      "after_joint_state": 2.8455448150634766,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_11",
+      "base": "teacher",
+      "donor": "B",
+      "index": 11,
+      "joint": "right_wrist_angle",
+      "target": -0.3129616379737854,
+      "initial_joint_state": -0.2076287567615509,
+      "after_joint_state": -0.23723281919956207,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_12",
+      "base": "teacher",
+      "donor": "B",
+      "index": 12,
+      "joint": "right_wrist_rotate",
+      "target": 0.18831080198287964,
+      "initial_joint_state": 0.46520957350730896,
+      "after_joint_state": 0.21108326315879822,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_2",
+      "base": "teacher",
+      "donor": "B",
+      "index": 2,
+      "joint": "left_elbow",
+      "target": 0.9999465346336365,
+      "initial_joint_state": 1.0116314888000488,
+      "after_joint_state": 1.0093315839767456,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_3",
+      "base": "teacher",
+      "donor": "B",
+      "index": 3,
+      "joint": "left_forearm_roll",
+      "target": -2.8905951976776123,
+      "initial_joint_state": -2.6036453247070312,
+      "after_joint_state": -2.71006178855896,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_4",
+      "base": "teacher",
+      "donor": "B",
+      "index": 4,
+      "joint": "left_wrist_angle",
+      "target": -0.3651162087917328,
+      "initial_joint_state": -0.31907665729522705,
+      "after_joint_state": -0.3320443332195282,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_5",
+      "base": "teacher",
+      "donor": "B",
+      "index": 5,
+      "joint": "left_wrist_rotate",
+      "target": 2.7610113620758057,
+      "initial_joint_state": 2.3400650024414062,
+      "after_joint_state": 2.7260425090789795,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_7",
+      "base": "teacher",
+      "donor": "B",
+      "index": 7,
+      "joint": "right_waist",
+      "target": 0.07696353644132614,
+      "initial_joint_state": 0.13195019960403442,
+      "after_joint_state": 0.127372607588768,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_8",
+      "base": "teacher",
+      "donor": "B",
+      "index": 8,
+      "joint": "right_shoulder",
+      "target": -0.08987496793270111,
+      "initial_joint_state": -0.20359554886817932,
+      "after_joint_state": -0.09969884157180786,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "teacher_from_B_joint_9",
+      "base": "teacher",
+      "donor": "B",
+      "index": 9,
+      "joint": "right_elbow",
+      "target": 0.7676987648010254,
+      "initial_joint_state": 1.0562392473220825,
+      "after_joint_state": 0.9692914485931396,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_0",
+      "base": "teacher",
+      "donor": "C",
+      "index": 0,
+      "joint": "left_waist",
+      "target": -0.24909880757331848,
+      "initial_joint_state": -0.32129186391830444,
+      "after_joint_state": -0.30264607071876526,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_1",
+      "base": "teacher",
+      "donor": "C",
+      "index": 1,
+      "joint": "left_shoulder",
+      "target": -0.2770865857601166,
+      "initial_joint_state": -0.22874131798744202,
+      "after_joint_state": -0.24601292610168457,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_10",
+      "base": "teacher",
+      "donor": "C",
+      "index": 10,
+      "joint": "right_forearm_roll",
+      "target": 2.910964250564575,
+      "initial_joint_state": 2.793635845184326,
+      "after_joint_state": 2.8426246643066406,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_11",
+      "base": "teacher",
+      "donor": "C",
+      "index": 11,
+      "joint": "right_wrist_angle",
+      "target": -0.3159029483795166,
+      "initial_joint_state": -0.2076287567615509,
+      "after_joint_state": -0.2380240261554718,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_12",
+      "base": "teacher",
+      "donor": "C",
+      "index": 12,
+      "joint": "right_wrist_rotate",
+      "target": 0.194911926984787,
+      "initial_joint_state": 0.46520957350730896,
+      "after_joint_state": 0.2171494960784912,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_2",
+      "base": "teacher",
+      "donor": "C",
+      "index": 2,
+      "joint": "left_elbow",
+      "target": 0.9937654137611389,
+      "initial_joint_state": 1.0116314888000488,
+      "after_joint_state": 1.0074529647827148,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_3",
+      "base": "teacher",
+      "donor": "C",
+      "index": 3,
+      "joint": "left_forearm_roll",
+      "target": -2.888930559158325,
+      "initial_joint_state": -2.6036453247070312,
+      "after_joint_state": -2.7094626426696777,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_4",
+      "base": "teacher",
+      "donor": "C",
+      "index": 4,
+      "joint": "left_wrist_angle",
+      "target": -0.3620493710041046,
+      "initial_joint_state": -0.31907665729522705,
+      "after_joint_state": -0.33122193813323975,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_5",
+      "base": "teacher",
+      "donor": "C",
+      "index": 5,
+      "joint": "left_wrist_rotate",
+      "target": 2.763275146484375,
+      "initial_joint_state": 2.3400650024414062,
+      "after_joint_state": 2.7281126976013184,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_7",
+      "base": "teacher",
+      "donor": "C",
+      "index": 7,
+      "joint": "right_waist",
+      "target": 0.07723817974328995,
+      "initial_joint_state": 0.13195019960403442,
+      "after_joint_state": 0.1273953914642334,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_C_joint_8",
+      "base": "teacher",
+      "donor": "C",
+      "index": 8,
+      "joint": "right_shoulder",
+      "target": -0.0885678082704544,
+      "initial_joint_state": -0.20359554886817932,
+      "after_joint_state": -0.09797737747430801,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "teacher_from_C_joint_9",
+      "base": "teacher",
+      "donor": "C",
+      "index": 9,
+      "joint": "right_elbow",
+      "target": 0.7656124234199524,
+      "initial_joint_state": 1.0562392473220825,
+      "after_joint_state": 0.9692914485931396,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    }
+  ],
+  "safe_single_joint_restorations": [
+    {
+      "case": "B_from_teacher_joint_8",
+      "base": "B",
+      "donor": "teacher",
+      "index": 8,
+      "joint": "right_shoulder",
+      "target": -0.18546351790428162,
+      "initial_joint_state": -0.20359554886817932,
+      "after_joint_state": -0.1999697983264923,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "C_from_teacher_joint_8",
+      "base": "C",
+      "donor": "teacher",
+      "index": 8,
+      "joint": "right_shoulder",
+      "target": -0.18546351790428162,
+      "initial_joint_state": -0.20359554886817932,
+      "after_joint_state": -0.19996985793113708,
+      "safe_after": true,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": []
+    }
+  ],
+  "teacher_damaging_single_joint_swaps": [
+    {
+      "case": "teacher_from_A_joint_0",
+      "base": "teacher",
+      "donor": "A",
+      "index": 0,
+      "joint": "left_waist",
+      "target": -0.03657142445445061,
+      "initial_joint_state": -0.32129186391830444,
+      "after_joint_state": 0.03328913450241089,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.074099174460698,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.017099174460697995,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_10",
+      "base": "teacher",
+      "donor": "A",
+      "index": 10,
+      "joint": "right_forearm_roll",
+      "target": 0.1134498193860054,
+      "initial_joint_state": 2.793635845184326,
+      "after_joint_state": 1.7560391426086426,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.06598495316962337,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.008984953169623368,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_3",
+      "base": "teacher",
+      "donor": "A",
+      "index": 3,
+      "joint": "left_forearm_roll",
+      "target": -0.7309719920158386,
+      "initial_joint_state": -2.6036453247070312,
+      "after_joint_state": -1.8981088399887085,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_left/right_finger",
+          "qpos_address": 7,
+          "qpos": -0.05839617147770702,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.0013961714777070214,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_4",
+      "base": "teacher",
+      "donor": "A",
+      "index": 4,
+      "joint": "left_wrist_angle",
+      "target": 0.48899567127227783,
+      "initial_joint_state": -0.31907665729522705,
+      "after_joint_state": -0.07954613119363785,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_left/left_finger",
+          "qpos_address": 6,
+          "qpos": 0.058929836358817746,
+          "lower": 0.021,
+          "upper": 0.057,
+          "margin": -0.0019298363588177436,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_5",
+      "base": "teacher",
+      "donor": "A",
+      "index": 5,
+      "joint": "left_wrist_rotate",
+      "target": 0.5673991441726685,
+      "initial_joint_state": 2.3400650024414062,
+      "after_joint_state": 0.7804360389709473,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_left/left_finger",
+          "qpos_address": 6,
+          "qpos": 0.061210231055504,
+          "lower": 0.021,
+          "upper": 0.057,
+          "margin": -0.004210231055503999,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_A_joint_7",
+      "base": "teacher",
+      "donor": "A",
+      "index": 7,
+      "joint": "right_waist",
+      "target": -0.16778239607810974,
+      "initial_joint_state": 0.13195019960403442,
+      "after_joint_state": -0.24244670569896698,
+      "safe_after": false,
+      "violations": 1,
+      "violation_details": [
+        {
+          "name": "vx300s_right/right_finger",
+          "qpos_address": 15,
+          "qpos": -0.08181541520923755,
+          "lower": -0.057,
+          "upper": -0.021,
+          "margin": -0.024815415209237544,
+          "violation": true
+        }
+      ],
+      "unexpected_contacts": []
+    },
+    {
+      "case": "teacher_from_B_joint_8",
+      "base": "teacher",
+      "donor": "B",
+      "index": 8,
+      "joint": "right_shoulder",
+      "target": -0.08987496793270111,
+      "initial_joint_state": -0.20359554886817932,
+      "after_joint_state": -0.09969884157180786,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    },
+    {
+      "case": "teacher_from_C_joint_8",
+      "base": "teacher",
+      "donor": "C",
+      "index": 8,
+      "joint": "right_shoulder",
+      "target": -0.0885678082704544,
+      "initial_joint_state": -0.20359554886817932,
+      "after_joint_state": -0.09797737747430801,
+      "safe_after": false,
+      "violations": 0,
+      "violation_details": [],
+      "unexpected_contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ]
+    }
+  ],
+  "interpretation": {
+    "bc_first_collision": "right_shoulder saved target has reciprocal one-step causal evidence at this initial state",
+    "a_first_violation": "two counter-finger joint limits; no single teacher arm target removes both",
+    "gripper_only_repair_sufficient": false,
+    "model_input_processor_noise_cause_proven": false,
+    "unique_learning_root_cause_proven": false,
+    "rollout_repair_proven": false
+  },
+  "formal_gate_result": null,
+  "m2_complete": false,
+  "no_safety_threshold_changed": true,
+  "gpu_power_changed": false,
+  "weights_changed": false,
+  "limitations": [
+    "No images or full Python-owner restore in physical replay",
+    "Only this saved scene and first command interval tested",
+    "Teacher targets use privileged information; interventions are diagnostic, not deployable policy fixes",
+    "Original A/B/C generated inputs, processor transitions and Gaussian tensors still need registered CUDA capture",
+    "A multi-joint interactions and later task failures remain unresolved"
+  ]
+}

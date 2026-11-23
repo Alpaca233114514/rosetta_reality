@@ -11,7 +11,7 @@ import unittest
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from rosetta_reality.diagnostics.cohort_qualification import file_sha, match, qualify, safe_path
+from rosetta_reality.diagnostics.cohort_qualification import file_sha, match, qualify, receipt_revision, safe_path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -114,6 +114,19 @@ class GuardTests(unittest.TestCase):
 
 
 class CohortTests(unittest.TestCase):
+    def test_existing_per_file_source_receipt_revision(self):
+        receipt = {"dataset": "example", "source_files": [{"dataset": "example", "revision": "a" * 40}]}
+        self.assertEqual(receipt_revision(receipt), "a" * 40)
+
+    def test_mixed_source_receipt_revisions_rejected(self):
+        receipt = {"dataset": "example", "source_files": [{"dataset": "example", "revision": "a" * 40}, {"dataset": "example", "revision": "b" * 40}]}
+        with self.assertRaises(ValueError):
+            receipt_revision(receipt)
+
+    def test_missing_receipt_revision_rejected(self):
+        with self.assertRaises(ValueError):
+            receipt_revision({"dataset": "example"})
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.root = Path(self.temp.name)

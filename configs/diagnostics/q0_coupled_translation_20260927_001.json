@@ -1,0 +1,146 @@
+{
+  "schema": "rosetta.q0_screen_execution.v1",
+  "id": "q0-coupled-translation-20260927-001",
+  "total_cap_seconds": 2700,
+  "platform_target_unix": 1790510400,
+  "shutdown_authorized": true,
+  "platform_timer_owner": "user",
+  "platform_timer_independently_verified": false,
+  "candidate_id": "mink-coupled-translation-teacher-20260927-001",
+  "module": "rosetta_reality.sim.coupled_translation_teacher",
+  "factory": "build_teacher",
+  "observer_module": "rosetta_reality.sim.scripted_teacher_observer",
+  "runtime_container_image_id": "autodl-platform-container-observed",
+  "source_sha256": {
+    "configs/runtime/autodl_rtx4090.yaml": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992",
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+    "reports/training/m2-smolvla-t2-state-conditioned-teacher-gate-design-2026-08-28.md": "8aaea3672abd85659cd1b46e73b0fa5acb39acbe7701752eea22af4c045b146f",
+    "reports/training/m2-smolvla-t2-teacher-gate-protocol-preregistration-2026-08-29.json": "f4507c3c9af267325e636e76cacffc7d3f623af0624bb1963d09a36e51101f90",
+    "reports/training/q0-coupled-translation-candidate-design-2026-09-27.md": "8cb6a1a54650940ef21707f4ce12be1fbfbe683b6b28038530af37c427f52008",
+    "reports/training/q0-coupled-translation-execution-plan-2026-09-27.md": "c51172a3858f5742b0bc16b6c874dc5c7a3eb8fe853030c66b82ce89cfe5f457",
+    "scripts/autodl_bounded_guard.py": "53bc4c8af8cfb8107cc8929314668fb2b149b46cb46e08ca50f4d6924531baaa",
+    "scripts/benchmark_q0_candidate.py": "b267fc2ed410680dbb091657584e4a4971883440091a2c1682907d1923e93c92",
+    "scripts/check_env.py": "cbbf49aace6ea88b310e0065a0cccc73b286a0840534139917b8b3e6e9e6ec21",
+    "scripts/prepare_q0_dependencies.py": "fcf1961931b1c1864975aa62262b07d20e32b4cd39acfe5c7ac3ced23423a992",
+    "scripts/q0_bounded_guard.py": "7e9e6a52d04cc21efd841db164512c5903c047f69d38360b9e78a37c83e33980",
+    "scripts/run_autodl.sh": "bc1b1f913bc06efd7821ac330748c0c537e6491c58a8a4bc0c43214534f2c90a",
+    "scripts/run_q0_screen_job.py": "1c39a2b02d164f6b01f51d7ff254df9a86276423dfd403e4020875420771e8e8",
+    "scripts/run_teacher_gate.py": "f5b59d9e87a96b7e363574e4d97f01b4b497bfac899031114b8fa77d633de643",
+    "src/rosetta_reality/__init__.py": "b0e1bd910c6309ef845c1e18f3e9f6c4791a6a9ca235247b6b178d91f7858ae3",
+    "src/rosetta_reality/experiment.py": "dec191397dfc86e2c36a2d42067f1ece73dea32721af0f1ce887f261cabc6b4e",
+    "src/rosetta_reality/sim/__init__.py": "dd8555389df4e5e74ff97f2f13c3a2d1163cfa48b3214da68c6aa54186943e14",
+    "src/rosetta_reality/sim/action_contract.py": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743",
+    "src/rosetta_reality/sim/coupled_translation_teacher.py": "540e6fa5f95edf1ec17d94ab64b7febc0492c9e816d1f230a63df53f0ed47074",
+    "src/rosetta_reality/sim/env.py": "23833bc38fa6ecca1ae5f36299f2fc6d5d11a22f11b27322cb7751c55fe04113",
+    "src/rosetta_reality/sim/geometric_teacher.py": "d28f99e81b7d81004883f15bdc91df0cdb146edd984bc1f01c3847f6d979c187",
+    "src/rosetta_reality/sim/geometry_teacher.py": "e0cf824bb2120a2eaa1955bcb8109f44fae5e26812546f09c341ed0933372d99",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "src/rosetta_reality/sim/mink_aloha_ik.py": "cdff063ce164dc5eb8137c6c8cbd66f5c102eb06f0842a0f92b64727f9e70583",
+    "src/rosetta_reality/sim/moveit_aloha_planner.py": "32107b371e2ca4674b07f6def009cca70e811ec40f3fed62f7f326f9c87b8957",
+    "src/rosetta_reality/sim/mujoco_position_feedforward.py": "2be1e16624e272955a4366c57fa019fc303a557d756c12edcb2530cb7b664fc4",
+    "src/rosetta_reality/sim/recovery_oracle.py": "0b781f11832cb2bd00d7b704ddf2a2f90b6f435a3785cb0b70af750a9413bd1d",
+    "src/rosetta_reality/sim/scripted_teacher_observer.py": "6f657d71c98bcaea883c8aa30f6f9f73fbd705f6987ba11f977cb92ac563b7a3",
+    "src/rosetta_reality/sim/scripted_teacher.py": "5d87d2c2a74341ecb522519de22e3941564be823ca19b147c906fbbb2668da20",
+    "src/rosetta_reality/sim/teacher_gate.py": "087be6d4f0e2a72c0d80838b7ae88737650994566af3d4b026ab18fdbc09cd72",
+    "tests/test_coupled_translation_teacher.py": "f6af74d0a6a713ede944483b3a5295214dd276097fabbdf701ecf3e9eefa9c5d",
+    "tests/test_geometric_teacher.py": "c174367ac8cb7b5d00b396541200f29ea69545737fb284c40605721ee3b052aa",
+    "tests/test_q0_bounded_guard_stdlib.py": "cf64029018a4d4ff3ab3d2397ba5cf60ca53ec08fca6def407778e013734161e",
+    "tests/test_q0_screen_supervisor_stdlib.py": "6f6be1893c00557003c755d4648f20f7813a3426f8f5f1ccb380ae9e75a386f5",
+    "tests/test_teacher_gate.py": "5f583fb44816a844f68f0da1aea54451778a262e3e38bfb99ee4920a405a9c19"
+  },
+  "commands": [
+    {
+      "seconds": 180,
+      "stage": "check_env",
+      "args": [
+        "python",
+        "scripts/prepare_q0_dependencies.py",
+        "--job",
+        "{job}"
+      ]
+    },
+    {
+      "seconds": 120,
+      "stage": "synthetic",
+      "args": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_q0_screen_supervisor_stdlib.py",
+        "tests/test_q0_bounded_guard_stdlib.py",
+        "tests/test_teacher_gate.py",
+        "tests/test_geometric_teacher.py",
+        "tests/test_coupled_translation_teacher.py"
+      ]
+    },
+    {
+      "seconds": 180,
+      "stage": "benchmark",
+      "args": [
+        "python",
+        "scripts/benchmark_q0_candidate.py",
+        "--output",
+        "{job}/benchmark.json"
+      ]
+    },
+    {
+      "seconds": 30,
+      "stage": "register",
+      "args": [
+        "python",
+        "scripts/run_teacher_gate.py",
+        "register",
+        "--candidate-id",
+        "mink-coupled-translation-teacher-20260927-001",
+        "--module",
+        "rosetta_reality.sim.coupled_translation_teacher",
+        "--factory",
+        "build_teacher",
+        "--observer-module",
+        "rosetta_reality.sim.scripted_teacher_observer",
+        "--simulator-execution"
+      ]
+    },
+    {
+      "seconds": 60,
+      "stage": "g0",
+      "args": [
+        "python",
+        "scripts/run_teacher_gate.py",
+        "g0",
+        "--candidate-id",
+        "mink-coupled-translation-teacher-20260927-001"
+      ]
+    },
+    {
+      "seconds": 420,
+      "stage": "g1",
+      "args": [
+        "python",
+        "scripts/run_teacher_gate.py",
+        "g1",
+        "--candidate-id",
+        "mink-coupled-translation-teacher-20260927-001"
+      ]
+    },
+    {
+      "seconds": 1800,
+      "stage": "g2",
+      "args": [
+        "python",
+        "scripts/run_teacher_gate.py",
+        "g2",
+        "--candidate-id",
+        "mink-coupled-translation-teacher-20260927-001"
+      ]
+    }
+  ],
+  "model_forward_limit": 0,
+  "optimizer_update_limit": 0,
+  "collection_episodes": 0,
+  "benchmark_environment_steps_maximum": 3,
+  "gate_environment_steps_maximum": 3000,
+  "automatic_retry": false,
+  "full_q0_qualification_claim_allowed": false
+}

@@ -1,0 +1,42 @@
+{
+  "id": "paired-ABC-measurement-input-20260928-001",
+  "arms": [
+    "A",
+    "B",
+    "C"
+  ],
+  "source_sha256": {
+    "src/rosetta_reality/sim/action_contract.py": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743",
+    "src/rosetta_reality/eval/reproducibility_capture.py": "df702f0c6efaeed357222b0ebbf3868abf6ef64d31d9ae509b5a8f3a1868d831",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "src/rosetta_reality/sim/geometry_teacher.py": "e0cf824bb2120a2eaa1955bcb8109f44fae5e26812546f09c341ed0933372d99",
+    "scripts/smolvla_sim_gate.py": "5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae",
+    "scripts/smolvla_autodl_vfunfreeze_sim_gate.py": "f91ae1f5a61c2eb365bbb673caf86571954426b1e03fb27ffeb38bd1280cf777",
+    "src/rosetta_reality/sim/scripted_teacher_observer.py": "6f657d71c98bcaea883c8aa30f6f9f73fbd705f6987ba11f977cb92ac563b7a3",
+    "scripts/restore_paired_branch_v2.py": "ec2bdc4f7a98b6186d2287798edecc94e3f4d5947ea221eda447b4adc5bcc9ba",
+    "scripts/run_paired_measurement_queue.py": "9ccd08a7a99d023ab25e82c4af6ed0b9fef03de6c133477fd71364c18c3dd537",
+    "scripts/diagnose_smolvla_base_five_scene.py": "f129f4db99622fca800cf159685e55c70df10ad1b36b37f728f97eada7ae7848",
+    "scripts/check_q0_state_restore.py": "9579f677a06b828e6bf1abf6e36fa0a819301866992c358cc945b84334640336",
+    "src/rosetta_reality/vla/processor.py": "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384",
+    "scripts/evaluate_paired_policy_v2.py": "0123b514af70d267341374dca3cfa08911b3bcf16fea8fe81166af80b614b483",
+    "src/rosetta_reality/vla/action_space.py": "4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb"
+  },
+  "source_artifact": "workspaces/20260916T100517Z-95cf9cf9483b-6bb3da3027df/runs/canonical-fullframes-posttrain-20260916-005-artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/canonical-fullframes-20260914-001-step5000-zero-copy-004",
+  "source_artifact_manifest_sha256": "9b66a7670d27ef28bebbaf25ef5612f69c992bc74b9b07c5a771f9c40338efd9",
+  "normalization_sha256": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988",
+  "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+  "training_run": "runs/paired-native-ABC-formal-20260927-001",
+  "bank_root": "runs/paired-ABC-measurement-bank-20260928-001",
+  "bank_manifest_sha256": "3fe172d5504b66a378d854b02c1607a332f5f0c0df1e18c5a5b5e56c26bac69c",
+  "bank_audit_sha256": "dc1a8a0179f920a33588baa0b546390b647e3579ee27b4f4d762498c75c544b6",
+  "checkpoint_pretrained": {
+    "C": "runs/paired-native-ABC-formal-20260927-001/checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/train/paired-mixture-c-train-20260927-008/checkpoints/005000/pretrained_model",
+    "B": "runs/paired-native-ABC-formal-20260927-001/checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/train/paired-mixture-b-train-20260927-008/checkpoints/005000/pretrained_model",
+    "A": "runs/paired-native-ABC-formal-20260927-001/checkpoints/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/train/paired-mixture-a-train-20260927-008/checkpoints/005000/pretrained_model"
+  },
+  "model_sha256": {
+    "C": "00f298fcff32c2815c186399fb37fc25d4f9ba0a33fb24b38a84a5e3c8af18a1",
+    "B": "e40bc6051d213c3d996a6ca298673d934095090270a9f0f47756525a321e4890",
+    "A": "44b11f60688af283ccaf77691e89cec35f9c6ecf0b12c547f93e73dd4e8518be"
+  }
+}

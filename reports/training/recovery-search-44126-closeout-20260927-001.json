@@ -1,0 +1,17 @@
+{
+  "inspection": "recovery-search-44126-20260927-001",
+  "instance": "179442a4e1-7081e39b",
+  "ssh_port": 44126,
+  "mode_during_inspection": "no_gpu",
+  "platform_status": "已关机",
+  "observed_utc": "2026-09-27T08:54:13Z",
+  "observation_precision": "nearby_tool_clock",
+  "verification": "fresh_authenticated_platform_row",
+  "timer": "2026-09-27 16:55:00 Asia/Shanghai",
+  "shutdown_method": "platform_ui",
+  "release_requested": false,
+  "model_loaded": false,
+  "new_recovery_dataset_found": false,
+  "original_D_sha_matched_files": 4,
+  "archive_headers_checked": 60
+}

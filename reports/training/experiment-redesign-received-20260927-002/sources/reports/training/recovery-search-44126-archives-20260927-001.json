@@ -1,0 +1,249 @@
+{
+  "archive_headers_checked": [
+    {
+      "path": "control/hestia-cuda-checkpoint-curve-20260911-001/dispatch.tar",
+      "member_count": 4
+    },
+    {
+      "path": "control/hestia-cuda-checkpoint-curve-20260911-001/historical-inputs.tar",
+      "member_count": 9
+    },
+    {
+      "path": "control/hestia-cuda-checkpoint-curve-20260911-002/dispatch.tar",
+      "member_count": 4
+    },
+    {
+      "path": "control/hestia-cuda-checkpoint-curve-20260911-002/historical-inputs.tar",
+      "member_count": 9
+    },
+    {
+      "path": "control/hestia-main-cpu-20260911-001/cpu-evidence.zip",
+      "member_count": 23
+    },
+    {
+      "path": "control/hestia-main-result-20260911-001/main-evidence.zip",
+      "member_count": 76
+    },
+    {
+      "path": "incoming/20260815T084353Z-5bd66d5e4bdc-2e4334eb80fa/moveit-runtime-plan029-v1.tar",
+      "member_count": 5
+    },
+    {
+      "path": "incoming/20260815T084353Z-5bd66d5e4bdc-2e4334eb80fa/workspace.tar",
+      "member_count": 412
+    },
+    {
+      "path": "incoming/20260815T091907Z-5bd66d5e4bdc-0a78aca477e1/20260815T091907Z-5bd66d5e4bdc-0a78aca477e1.tar",
+      "member_count": 414
+    },
+    {
+      "path": "incoming/20260815T091907Z-5bd66d5e4bdc-0a78aca477e1/moveit-runtime-plan030-v1.tar",
+      "member_count": 4
+    },
+    {
+      "path": "incoming/20260815T092123Z-5bd66d5e4bdc-357ee507c1ec/20260815T092123Z-5bd66d5e4bdc-357ee507c1ec.tar",
+      "member_count": 413
+    },
+    {
+      "path": "incoming/20260815T092123Z-5bd66d5e4bdc-357ee507c1ec/moveit-runtime-plan030-v1.tar",
+      "member_count": 4
+    },
+    {
+      "path": "incoming/20260815T122037Z-5bd66d5e4bdc-d7d84178398b/20260815T122037Z-5bd66d5e4bdc-d7d84178398b.tar",
+      "member_count": 419
+    },
+    {
+      "path": "incoming/20260815T123607Z-5bd66d5e4bdc-7ee5ddb43dc0/20260815T123607Z-5bd66d5e4bdc-7ee5ddb43dc0.tar",
+      "member_count": 422
+    },
+    {
+      "path": "tasks/athena-geometry-path-planner-20260814T185512Z-5bd66d5e4bdc-44f34dad063c-safe-extract-v1/attempts/athena-official-interbotix-runtime-008/interbotix_ros_manipulators-b66d5b905725351dd71d3251a06cd3f4c777940f.tar.gz",
+      "member_count": 504
+    },
+    {
+      "path": "tasks/athena-geometry-path-planner-20260814T185512Z-5bd66d5e4bdc-44f34dad063c-safe-extract-v1/exports/athena-exact-007-evidence-v1.tar",
+      "member_count": 78
+    },
+    {
+      "path": "tasks/athena-geometry-path-planner-20260814T185512Z-5bd66d5e4bdc-44f34dad063c-safe-extract-v1/incoming/moveit-runtime-bundle-v2/moveit-runtime-bundle-v2.tar",
+      "member_count": 5
+    },
+    {
+      "path": "tasks/athena-plan026-20260815T054533Z-5bd66d5e4bdc-7394c4ea5d4c/reports/athena-plan026-evidence.tar",
+      "member_count": 25
+    },
+    {
+      "path": "tasks/athena-plan028-20260815T073758Z-5bd66d5e4bdc-574d6a7eae5f/reports/athena-plan028-evidence-001.tar",
+      "member_count": 59
+    },
+    {
+      "path": "transfers/prometheus-handoff-addendum-20260813.tar.gz",
+      "member_count": 9
+    },
+    {
+      "path": "transfers/prometheus-sim-workspace-999b9d26122887ff.tar.gz",
+      "member_count": 292
+    },
+    {
+      "path": "transfers/rosetta-prometheus-00f40f3aedf38d82.tar.gz",
+      "member_count": 285
+    },
+    {
+      "path": "transfers/rosetta-prometheus-390ece738ed5884a.tar.gz",
+      "member_count": 282
+    },
+    {
+      "path": "transfers/rosetta-prometheus-4727bbe9be6a8da3.tar.gz",
+      "member_count": 287
+    },
+    {
+      "path": "transfers/rosetta-prometheus-5af5a530ed68c7d7.tar.gz",
+      "member_count": 282
+    },
+    {
+      "path": "transfers/rosetta-prometheus-682d130da13f0ae4.tar.gz",
+      "member_count": 284
+    },
+    {
+      "path": "transfers/rosetta-prometheus-7902685735657931.tar.gz",
+      "member_count": 282
+    },
+    {
+      "path": "transfers/rosetta-prometheus-c0b503ba3ddc105b.tar.gz",
+      "member_count": 288
+    },
+    {
+      "path": "transfers/rosetta-prometheus-cc430a7cf234b0b3.tar.gz",
+      "member_count": 290
+    },
+    {
+      "path": "workspace-archives/20260814T141210Z-5bd66d5e4bdc-af0e415d6479.tar",
+      "member_count": 345
+    },
+    {
+      "path": "workspace-archives/20260814T185512Z-5bd66d5e4bdc-44f34dad063c.tar",
+      "member_count": 381
+    },
+    {
+      "path": "workspace-archives/20260814T205524Z-5bd66d5e4bdc-187049c146f4.tar",
+      "member_count": 383
+    },
+    {
+      "path": "workspace-archives/20260814T210653Z-5bd66d5e4bdc-dd0c767a8a35.tar",
+      "member_count": 384
+    },
+    {
+      "path": "workspace-archives/20260814T211913Z-5bd66d5e4bdc-1f249835e16e.tar",
+      "member_count": 384
+    },
+    {
+      "path": "workspace-archives/20260814T212715Z-5bd66d5e4bdc-fad4a172a290.tar",
+      "member_count": 384
+    },
+    {
+      "path": "workspace-archives/20260814T214353Z-5bd66d5e4bdc-a6cc98108573.tar",
+      "member_count": 387
+    },
+    {
+      "path": "workspace-archives/20260814T215149Z-5bd66d5e4bdc-2e1184099e74.tar",
+      "member_count": 387
+    },
+    {
+      "path": "workspace-archives/20260814T220335Z-5bd66d5e4bdc-00353be012e7.tar",
+      "member_count": 390
+    },
+    {
+      "path": "workspace-archives/20260814T221054Z-5bd66d5e4bdc-58328184c552.tar",
+      "member_count": 390
+    },
+    {
+      "path": "workspace-archives/20260815T070001Z-5bd66d5e4bdc-f2c4662a2dab.tar",
+      "member_count": 400
+    },
+    {
+      "path": "workspace-archives/20260815T073758Z-5bd66d5e4bdc-574d6a7eae5f.tar",
+      "member_count": 405
+    },
+    {
+      "path": "workspace_archives/20260812T191600Z-transfer-5bd66d5e4bdc.tar",
+      "member_count": 274
+    },
+    {
+      "path": "workspace_archives/20260813T155125Z-5bd66d5e4bdc-100ca69f2b19.tar",
+      "member_count": 306
+    },
+    {
+      "path": "workspace_archives/20260813T163325Z-5bd66d5e4bdc-8f59055f6984.tar",
+      "member_count": 307
+    },
+    {
+      "path": "workspace_archives/20260813T165010Z-5bd66d5e4bdc-f04314644b92.tar",
+      "member_count": 308
+    },
+    {
+      "path": "workspace_archives/20260814T015642-5bd66d5e4bdc-a546034a6ed0.tar",
+      "member_count": 310
+    },
+    {
+      "path": "workspace_archives/20260814T021619-5bd66d5e4bdc-8df626cd4b30.tar",
+      "member_count": 313
+    },
+    {
+      "path": "workspace_archives/20260814T022542-5bd66d5e4bdc-e42a69ac409d.tar",
+      "member_count": 314
+    },
+    {
+      "path": "workspace_archives/20260814T022701-5bd66d5e4bdc-6dc0a225947a.tar",
+      "member_count": 314
+    },
+    {
+      "path": "workspaces/20260814T065530Z-5bd66d5e4bdc-e1856a314e03/workspace.tar",
+      "member_count": 343
+    },
+    {
+      "path": "workspaces/20260815T054533Z-5bd66d5e4bdc-7394c4ea5d4c/workspace.tar",
+      "member_count": 396
+    },
+    {
+      "path": "workspaces/20260913T133558Z-be8bec5404eb-c5d344db9332/runs/iris-k-scene-20260913-001.tar",
+      "member_count": 50
+    },
+    {
+      "path": "workspaces/20260913T151530Z-471d427bcd83-2f0bc98c8480/runs/iris-002-gate34-20260913-001.tar",
+      "member_count": 22
+    },
+    {
+      "path": "workspaces/20260913T152502Z-8f5631b0d857-0e55784fa493/runs/iris-002-gate34-20260913-002.tar",
+      "member_count": 22
+    },
+    {
+      "path": "workspaces/20260913T153301Z-5683e03803e1-96bdb28d24e2/runs/iris-002-gate34-20260913-003.tar",
+      "member_count": 47
+    },
+    {
+      "path": "workspaces/20260914T025746Z-95cf9cf9483b-f40f5df56020/.transport/source.gz",
+      "member_count": 1334
+    },
+    {
+      "path": "workspaces/20260914T141523Z-95cf9cf9483b-09a6afcda1cf/runs/canonical-fullframes-posttrain-20260914-002.tar",
+      "member_count": 6
+    },
+    {
+      "path": "workspaces/20260915T003336Z-95cf9cf9483b-7324c1c20ccb/runs/canonical-fullframes-posttrain-20260915-003.tar",
+      "member_count": 40
+    },
+    {
+      "path": "workspaces/20260915T010102Z-95cf9cf9483b-9a435cc04df2/runs/canonical-fullframes-posttrain-20260915-004.tar",
+      "member_count": 48
+    },
+    {
+      "path": "workspaces/20260916T100517Z-95cf9cf9483b-6bb3da3027df/runs/canonical-fullframes-posttrain-20260916-005.tar",
+      "member_count": 72
+    }
+  ],
+  "candidate_members": [],
+  "skipped": [],
+  "total_requested": 60,
+  "raw_members_extracted": false,
+  "elapsed_seconds": 4.101046806201339
+}

@@ -1,0 +1,76 @@
+{
+  "schema": "rosetta.paired_boundary_pilot.v1",
+  "id": "paired-boundary-20261004-001",
+  "status": "prepared_pending_synthetic_and_runtime_admission",
+  "execution_authorized": true,
+  "authorization_basis": "User requested continued failure diagnosis and instructed no routine confirmation",
+  "shutdown_authorized": false,
+  "hidden_test_loaded": false,
+  "pair_id": "bank-003b-scene-2445",
+  "seed": 2445,
+  "cases": [
+    "teacher",
+    "a1",
+    "a2",
+    "a3",
+    "b",
+    "c"
+  ],
+  "maximum_forward_calls": 5,
+  "maximum_physics_steps": 6,
+  "optimizer_updates": 0,
+  "selected_checkpoint_step": 5000,
+  "prediction_horizon": 50,
+  "execution_horizon": 1,
+  "physical_limit_tolerance": 1E-05,
+  "bank_root": "runs/paired-ABC-measurement-bank-20260928-001",
+  "bank_manifest_sha256": "3fe172d5504b66a378d854b02c1607a332f5f0c0df1e18c5a5b5e56c26bac69c",
+  "model_sha256": {
+    "C": "00f298fcff32c2815c186399fb37fc25d4f9ba0a33fb24b38a84a5e3c8af18a1",
+    "B": "e40bc6051d213c3d996a6ca298673d934095090270a9f0f47756525a321e4890",
+    "A": "44b11f60688af283ccaf77691e89cec35f9c6ecf0b12c547f93e73dd4e8518be"
+  },
+  "artifacts": {
+    "A": "runs/paired-ABC-measurement-20260928-003/artifacts/A",
+    "B": "runs/paired-ABC-measurement-20260928-003/artifacts/B",
+    "C": "runs/paired-ABC-measurement-20260928-003/artifacts/C"
+  },
+  "evaluation_plans": {
+    "A": "runs/paired-ABC-measurement-20260928-003/evaluation-plan-A.json",
+    "B": "runs/paired-ABC-measurement-20260928-003/evaluation-plan-B.json",
+    "C": "runs/paired-ABC-measurement-20260928-003/evaluation-plan-C.json"
+  },
+  "resources": {
+    "maximum_seconds": 900,
+    "rss_bytes": 8589934592,
+    "evidence_bytes": 268435456,
+    "cuda_allocated_bytes": 8589934592,
+    "cuda_reserved_bytes": 10737418240
+  },
+  "runtime_admission_receipt": null,
+  "runtime_admission_sha256": null,
+  "source_sha256": {
+    "src/rosetta_reality/sim/action_contract.py": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743",
+    "src/rosetta_reality/eval/reproducibility_capture.py": "df702f0c6efaeed357222b0ebbf3868abf6ef64d31d9ae509b5a8f3a1868d831",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "src/rosetta_reality/sim/geometry_teacher.py": "e0cf824bb2120a2eaa1955bcb8109f44fae5e26812546f09c341ed0933372d99",
+    "scripts/smolvla_sim_gate.py": "5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae",
+    "scripts/smolvla_autodl_vfunfreeze_sim_gate.py": "f91ae1f5a61c2eb365bbb673caf86571954426b1e03fb27ffeb38bd1280cf777",
+    "src/rosetta_reality/sim/scripted_teacher_observer.py": "6f657d71c98bcaea883c8aa30f6f9f73fbd705f6987ba11f977cb92ac563b7a3",
+    "scripts/restore_paired_branch_v2.py": "ec2bdc4f7a98b6186d2287798edecc94e3f4d5947ea221eda447b4adc5bcc9ba",
+    "scripts/run_paired_measurement_queue.py": "9ccd08a7a99d023ab25e82c4af6ed0b9fef03de6c133477fd71364c18c3dd537",
+    "scripts/diagnose_smolvla_base_five_scene.py": "f129f4db99622fca800cf159685e55c70df10ad1b36b37f728f97eada7ae7848",
+    "scripts/check_q0_state_restore.py": "9579f677a06b828e6bf1abf6e36fa0a819301866992c358cc945b84334640336",
+    "src/rosetta_reality/vla/processor.py": "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384",
+    "scripts/evaluate_paired_policy_v2.py": "0123b514af70d267341374dca3cfa08911b3bcf16fea8fe81166af80b614b483",
+    "src/rosetta_reality/vla/action_space.py": "4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb",
+    "scripts/paired_boundary_pilot.py": "42d2b4f3aca7b4618f9f795317c90304cbd80c1710e3e65097f9a4c6e9396b12",
+    "tests/test_paired_boundary_pilot_stdlib.py": "0ef7190cefeeddee5e8d05624cdeb33e99246dae43d69e4ddd191b05c9dd7949",
+    "scripts/run_round_experiment_job.py": "acff18892854a745946f86f216c4aa550bb25e67074d6afba7d28094638797c5",
+    "src/rosetta_reality/eval/gate_diagnostic_capture.py": "ae0488d9705dc17282358453de2d32bf3c43ebd548c265acd12bacf6d75b4ef2",
+    "src/rosetta_reality/eval/gate_diagnostic_io.py": "d78b67d432abde4f7c0fe6a51d8337c39dabad811636842feff9d96b7d3f365f",
+    "src/rosetta_reality/eval/rollout_trace.py": "54e50f5290f8c4c9fd6a2d89e736b70939c5ecab82e261c78d7693838adab539",
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+    "configs/runtime/autodl_rtx4090.yaml": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992"
+  }
+}

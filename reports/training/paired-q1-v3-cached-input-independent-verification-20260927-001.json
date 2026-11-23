@@ -1,0 +1,103 @@
+{
+  "schema": "rosetta.paired_cached_input_local_verification.v1",
+  "passed": true,
+  "method": "PowerShell full JSON shared-field comparison and .NET decoded NPY member bytes SHA256 comparison; no model/simulator",
+  "source_manifest_sha256": "02a35b635956db038cbfbb6547a3d5176cd5204b03c91cbaf3e5e9aac18f470c",
+  "shared_logical_prefix_rows_compared": 1318,
+  "shared_fields_compared": 15816,
+  "cached_native_branch_first_inputs_verified": 6,
+  "checks": [
+    {
+      "pair_id": "q1-003b-scene-2410",
+      "role": "S",
+      "logical_step": 187,
+      "actual_first_input_path": "q1-003b-scene-2410/S/frame-0187.npz",
+      "decoded_original_native_members": {
+        "top.npy": {
+          "decoded_bytes": 921728,
+          "decoded_member_sha256": "50bbb7917d47c854c71f93eb660111cabf5b2086886fd904837a3770965e08c0"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "pair_id": "q1-003b-scene-2410",
+      "role": "R",
+      "logical_step": 187,
+      "actual_first_input_path": "q1-003b-scene-2410/R/frame-0187.npz",
+      "decoded_original_native_members": {
+        "top.npy": {
+          "decoded_bytes": 921728,
+          "decoded_member_sha256": "50bbb7917d47c854c71f93eb660111cabf5b2086886fd904837a3770965e08c0"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "pair_id": "q1-003b-scene-2411",
+      "role": "S",
+      "logical_step": 175,
+      "actual_first_input_path": "q1-003b-scene-2411/S/frame-0175.npz",
+      "decoded_original_native_members": {
+        "top.npy": {
+          "decoded_bytes": 921728,
+          "decoded_member_sha256": "ae25a4cb333669166ff2cf1ee15f03865d9519bf5683fd6a4b7e2c4749ac0e94"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "pair_id": "q1-003b-scene-2411",
+      "role": "R",
+      "logical_step": 175,
+      "actual_first_input_path": "q1-003b-scene-2411/R/frame-0175.npz",
+      "decoded_original_native_members": {
+        "top.npy": {
+          "decoded_bytes": 921728,
+          "decoded_member_sha256": "ae25a4cb333669166ff2cf1ee15f03865d9519bf5683fd6a4b7e2c4749ac0e94"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "pair_id": "q1-003b-scene-2412",
+      "role": "S",
+      "logical_step": 256,
+      "actual_first_input_path": "q1-003b-scene-2412/S/frame-0256.npz",
+      "decoded_original_native_members": {
+        "top.npy": {
+          "decoded_bytes": 921728,
+          "decoded_member_sha256": "b0c6deb3aa765c4567dd107c1ca7094424f2eac1267a5f707e910141c360ba12"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "pair_id": "q1-003b-scene-2412",
+      "role": "R",
+      "logical_step": 256,
+      "actual_first_input_path": "q1-003b-scene-2412/R/frame-0256.npz",
+      "decoded_original_native_members": {
+        "top.npy": {
+          "decoded_bytes": 921728,
+          "decoded_member_sha256": "b0c6deb3aa765c4567dd107c1ca7094424f2eac1267a5f707e910141c360ba12"
+        }
+      },
+      "pixel_state_exact": true
+    }
+  ],
+  "matched_pair": "q1-003b-scene-2411",
+  "raw_S_legal_starts": 247,
+  "raw_R_legal_starts": 203,
+  "S_symmetric_excluded_count": 50,
+  "R_unshared_count": 6,
+  "common_start_count": 197,
+  "common_valid_target_slots_per_role": 9850,
+  "S_R_effective_target_slots_exact": true,
+  "pilot_training_N": 0,
+  "legacy_object_scene_nonoverlap": "not_established",
+  "physical_safety_stops": 1,
+  "logical_safety_stop_attempts": 2,
+  "physical_safety_stop_explanation": "2413 common prefix ends at one real safety event; both logical branches reference the same failed common history, no second R deviation/branch was executed",
+  "teacher_qualified": false
+}

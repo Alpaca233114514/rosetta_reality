@@ -1,0 +1,43 @@
+{
+  "id": "paired-saved-command-physics-20261004-001",
+  "execution_authorized": true,
+  "shutdown_authorized": false,
+  "gpu_required": false,
+  "maximum_seconds": 180,
+  "minimum_free_bytes": 268435456,
+  "maximum_rss_bytes": 2147483648,
+  "maximum_output_bytes": 8388608,
+  "source_sha256": {
+    "scripts/replay_saved_paired_commands.py": "1c710bfc0bbb4bf46ba53f260f126f6fe4295993504e126d3f42e72056936066",
+    "scripts/run_round_experiment_job.py": "acff18892854a745946f86f216c4aa550bb25e67074d6afba7d28094638797c5",
+    "configs/diagnostics/paired-saved-command-physics-20261004-001.json": "52b60635a736d99bf8b52b1581716f76c29474e82483488321581e3222ff701c"
+  },
+  "environment": {
+    "PYTHONPATH": "src:scripts",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "HF_HUB_OFFLINE": "1",
+    "HF_DATASETS_OFFLINE": "1",
+    "MUJOCO_GL": "egl",
+    "ROSETTA_AUTODL_ROOT": "/root/autodl-tmp/rosetta",
+    "OMP_NUM_THREADS": "1"
+  },
+  "commands": [
+    {
+      "name": "physical-replay",
+      "maximum_seconds": 120,
+      "allowed_exit_codes": [
+        0
+      ],
+      "argv": [
+        "{python}",
+        "scripts/replay_saved_paired_commands.py",
+        "--plan",
+        "configs/diagnostics/paired-saved-command-physics-20261004-001.json",
+        "--output",
+        "{job}/physics-readout",
+        "--guard-job",
+        "{job}"
+      ]
+    }
+  ]
+}

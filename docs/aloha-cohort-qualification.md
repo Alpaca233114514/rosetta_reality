@@ -2,6 +2,26 @@
 
 此入口为 `three-experiment-design-20260927-001` 的 Q 阶段准备：先查真实数据与证据，再封存 S/R 配对。它不训练模型、不修改原 Action Contract、不转换机器人、不接入现有 oracle recovery manifest。
 
+## 2026-09-27 明确授权的隔离预处理
+
+用户已明确选择“允许隔离预处理，仅导出 train”。新入口
+`scripts/isolate_aloha_train.py`和登记
+`configs/diagnostics/aloha_train_isolation_20260927_004.json`采用独立的v1隔离导出合同：
+Parquet底层可能在隔离进程中解码混合dev/hidden页，但只有原train40白名单进入导出文件。
+不再对该路径声称`hidden_loaded=false`或hidden从未解码；报告分别记录内部可能解码、
+导出protected行数为0，以及独立验证器所见protected行数为0。旧inventory入口和历史证据不改写。
+
+独立导出进程使用scanner级谓词并在每个批次写出前复核episode白名单，只投影
+episode/frame/timestamp/state/action/next.done；不解码视频，不推断成功标签。
+另一个进程仅打开派生train文件，独立核对SHA、全40episode覆盖、从0开始连续frame、
+50Hz时间、有限14维state/action、逐episode长度和50步chunk有效监督slots。
+派生样本留在远端新run目录；回传仅包含日志、身份清单与审计统计。
+
+新任务入口`scripts/run_train_isolation_job.py`先跑旧回归与真实合成混合Parquet测试，
+再运行真实隔离导出及独立审核。测试/隔离失败即停止；无模型、optimizer或自动重试。
+资源及生命周期详见`reports/training/aloha-train-isolation-plan-2026-09-27.md`。
+这一例外只解决数据读取边界，不豁免视频、语义、成功/恢复标签或场景/parent资格。
+
 ## 两个独立步骤
 
 ### 1. 源文件及行结构核验

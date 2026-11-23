@@ -1,0 +1,44 @@
+{
+  "schema": "rosetta.saved_command_physics.v1",
+  "id": "paired-saved-command-physics-20261004-001",
+  "execution_authorized": true,
+  "shutdown_authorized": false,
+  "hidden_test_loaded": false,
+  "cases": [
+    "teacher",
+    "A",
+    "B",
+    "C"
+  ],
+  "maximum_control_steps": 4,
+  "model_forward_calls": 0,
+  "optimizer_updates": 0,
+  "pair_id": "bank-003b-scene-2445",
+  "bank_root": "runs/paired-ABC-measurement-bank-20260928-001",
+  "substeps_per_control": 10,
+  "packages": {
+    "mujoco": "3.8.1",
+    "gym-aloha": "0.1.4",
+    "numpy": "2.2.6"
+  },
+  "installed_task_sha256": "842a8c8d03f425830412e0606a6124ea56f289b2d4a9cb2befc3df8f031caafe",
+  "source_sha256": {
+    "scripts/replay_saved_paired_commands.py": "1c710bfc0bbb4bf46ba53f260f126f6fe4295993504e126d3f42e72056936066",
+    "scripts/run_round_experiment_job.py": "acff18892854a745946f86f216c4aa550bb25e67074d6afba7d28094638797c5"
+  },
+  "input_sha256": {
+    "runs/paired-ABC-measurement-bank-20260928-001/bank-003b-scene-2445/branch-python.json.gz": "9978748b175b35bfd9a176bdc1c7ee0192eba9251ad1992d3f4e96da53e69975",
+    "runs/paired-ABC-measurement-bank-20260928-001/bank-003b-scene-2445/branch-integration.npz": "84fe9f84e6d9cb8e7d68814364e3586a1708e590a5f337cb2397ad72f1fa99d3",
+    "runs/paired-ABC-measurement-bank-20260928-001/bank-003b-scene-2445/branch-observation.npz": "9e5fde405b7ecca9f35c001944c57e466ea780acd614ca7122ed0b6db660ea5e",
+    "runs/paired-ABC-measurement-bank-20260928-001/bank-003b-scene-2445/R/trace.jsonl": "033708d05d4199c0390bf6b6dc1f672cb0259c12e8905fc7bfe5565501655a4f",
+    "runs/paired-ABC-measurement-20260928-003/measurement-A/recovery-bank/bank-003b-scene-2445.jsonl": "bf3cc1b6d966748baa069af1449c785606657a18befb184f69ff824d995e865f",
+    "runs/paired-ABC-measurement-20260928-003/measurement-B/recovery-bank/bank-003b-scene-2445.jsonl": "af4be5f79b5f77c366ada2d662272ea70486c1af7bbe629f303a5a43281f7898",
+    "runs/paired-ABC-measurement-20260928-003/measurement-C/recovery-bank/bank-003b-scene-2445.jsonl": "fe5591d6ebd0d3156480594ea947efb09b7be3450e28eec4023d4f290347bf8b"
+  },
+  "measurement_traces": {
+    "A": "runs/paired-ABC-measurement-20260928-003/measurement-A/recovery-bank/bank-003b-scene-2445.jsonl",
+    "B": "runs/paired-ABC-measurement-20260928-003/measurement-B/recovery-bank/bank-003b-scene-2445.jsonl",
+    "C": "runs/paired-ABC-measurement-20260928-003/measurement-C/recovery-bank/bank-003b-scene-2445.jsonl"
+  },
+  "scientific_boundary": "Physical-only replay of saved commands, no policy inference, no pixel observation or complete Python-owner restoration. Require exact historical teacher integration and student logical state before interpretation."
+}

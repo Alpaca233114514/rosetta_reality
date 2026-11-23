@@ -1,0 +1,203 @@
+{
+  "schema": "rosetta.aloha_qualification_inventory.v1",
+  "files": [
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "data/chunk-000/file-000.parquet",
+      "sha256": "b56ca5d5cc69070b753b10578a8a0da6a4ec883e34bf9666b0c51c7c42b5c2b9",
+      "columns": [
+        "observation.state",
+        "action",
+        "episode_index",
+        "frame_index",
+        "timestamp",
+        "next.done",
+        "index",
+        "task_index"
+      ],
+      "row_groups": [
+        {
+          "row_group": 0,
+          "rows": 7500,
+          "raw_rows_read": false,
+          "admitted_by_episode_statistics": false,
+          "reason": "protected_or_unknown_episode_membership"
+        }
+      ],
+      "total_rows_from_metadata": 7500
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "data/chunk-000/file-001.parquet",
+      "sha256": "08a89503fe1dab024a0816d39a808edcce266696b8891210675b1b6ba8caa28e",
+      "columns": [
+        "observation.state",
+        "action",
+        "episode_index",
+        "frame_index",
+        "timestamp",
+        "next.done",
+        "index",
+        "task_index"
+      ],
+      "row_groups": [
+        {
+          "row_group": 0,
+          "rows": 7500,
+          "raw_rows_read": false,
+          "admitted_by_episode_statistics": false,
+          "reason": "protected_or_unknown_episode_membership"
+        }
+      ],
+      "total_rows_from_metadata": 7500
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "data/chunk-000/file-002.parquet",
+      "sha256": "1d65593f389d9446ddc84e6cfe8c18f38d1112652f7568b5a308234b58dfa750",
+      "columns": [
+        "observation.state",
+        "action",
+        "episode_index",
+        "frame_index",
+        "timestamp",
+        "next.done",
+        "index",
+        "task_index"
+      ],
+      "row_groups": [
+        {
+          "row_group": 0,
+          "rows": 7500,
+          "raw_rows_read": false,
+          "admitted_by_episode_statistics": false,
+          "reason": "protected_or_unknown_episode_membership"
+        }
+      ],
+      "total_rows_from_metadata": 7500
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "data/chunk-000/file-003.parquet",
+      "sha256": "54984c0d8b6e0b120ad31943c88bfda70c4a7c24b8fe00f7d1d7415e0c4993cd",
+      "columns": [
+        "observation.state",
+        "action",
+        "episode_index",
+        "frame_index",
+        "timestamp",
+        "next.done",
+        "index",
+        "task_index"
+      ],
+      "row_groups": [
+        {
+          "row_group": 0,
+          "rows": 2500,
+          "raw_rows_read": false,
+          "admitted_by_episode_statistics": false,
+          "reason": "protected_or_unknown_episode_membership"
+        }
+      ],
+      "total_rows_from_metadata": 2500
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "data/chunk-000/file-000.parquet",
+      "sha256": "ca1ac794a57aedc45665c7406938790af55371f128dac91a5e2f117b082cc56e",
+      "columns": [
+        "observation.state",
+        "action",
+        "episode_index",
+        "frame_index",
+        "timestamp",
+        "next.done",
+        "index",
+        "task_index"
+      ],
+      "row_groups": [
+        {
+          "row_group": 0,
+          "rows": 7200,
+          "raw_rows_read": false,
+          "admitted_by_episode_statistics": false,
+          "reason": "protected_or_unknown_episode_membership"
+        }
+      ],
+      "total_rows_from_metadata": 7200
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "data/chunk-000/file-001.parquet",
+      "sha256": "0515a20b6eb63ab586be69db89e049b3650a987872baa654f59ef72545fa2d6c",
+      "columns": [
+        "observation.state",
+        "action",
+        "episode_index",
+        "frame_index",
+        "timestamp",
+        "next.done",
+        "index",
+        "task_index"
+      ],
+      "row_groups": [
+        {
+          "row_group": 0,
+          "rows": 7200,
+          "raw_rows_read": false,
+          "admitted_by_episode_statistics": false,
+          "reason": "protected_or_unknown_episode_membership"
+        }
+      ],
+      "total_rows_from_metadata": 7200
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "data/chunk-000/file-002.parquet",
+      "sha256": "351c78b99a4829ce3718aaf6ee91988f59c901071ed785ab0920cb597deb899f",
+      "columns": [
+        "observation.state",
+        "action",
+        "episode_index",
+        "frame_index",
+        "timestamp",
+        "next.done",
+        "index",
+        "task_index"
+      ],
+      "row_groups": [
+        {
+          "row_group": 0,
+          "rows": 5600,
+          "raw_rows_read": false,
+          "admitted_by_episode_statistics": false,
+          "reason": "protected_or_unknown_episode_membership"
+        }
+      ],
+      "total_rows_from_metadata": 5600
+    }
+  ],
+  "episode_observations": {},
+  "hidden_loaded": false,
+  "row_group_exclusion_before_read": true,
+  "rows_mode": true,
+  "video_alignment_verified": false,
+  "semantic_contract_verified": false,
+  "success_recovery_labels_verified": false,
+  "training_ready": false,
+  "elapsed_seconds": 0.010793626308441162,
+  "limits": [
+    "Shared protected/unknown row groups are skipped completely.",
+    "Finite rows and matching dimensions do not prove physical compatibility.",
+    "No video decoder or annotation generator is run.",
+    "Observed rows do not establish complete episodes or valid target slots."
+  ],
+  "plan_sha256": "d44bbd55d376145097ea8346ea0fba7df20e566c456ef6c11510c2f81bad6459"
+}

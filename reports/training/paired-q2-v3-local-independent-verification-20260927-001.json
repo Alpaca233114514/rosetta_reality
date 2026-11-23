@@ -1,0 +1,698 @@
+{
+  "schema": "rosetta.paired_formal_cohort_local_verification.v1",
+  "passed": true,
+  "source": ".work/paired-q2-v3-20260927-001-independent-received/extracted",
+  "archive_sha256": "d3e97fdd1fdd5b3424b6674bc693c4dc346c730a97bf998d6868e6fc7e9a86e1",
+  "archive_bytes": 219753119,
+  "job_files_verified": 7116,
+  "job_bytes_verified": 484251383,
+  "original_collection_members_verified": 7076,
+  "original_collection_bytes_verified": 482620838,
+  "original_manifest_sha256": "5d44dc89a572f0247b52d24acc3beab997864dbda82d8e3c9195d04b812a5a30",
+  "original_summary_sha256": "a919cdbd510243f5ece2387776113e070fa5d58b41d9308e287cfa0fe51bc5d0",
+  "original_audit_sha256": "07e92b50a6342737c015c18cd042a74228da02fc84de0a45365f40fa22be5fd4",
+  "numerics_sha256": "629b3c1857b70ee98131469219ad6f7c10578e61b1342d788059381921f5ba7f",
+  "cohort_sha256": "11450aa9816762e5e4bb87c14cab16cf1a7d0ce133adcc22ce43455a2dfefd6c",
+  "registered_pairs": 20,
+  "registered_logical_attempts": 40,
+  "logical_frames": 10813,
+  "shared_prefix_physical_steps": 4155,
+  "engineering_restore_steps": 56,
+  "physical_steps": 6714,
+  "task_success_total": 6,
+  "task_success_S": 3,
+  "task_success_R": 3,
+  "R_geometry_recovery_events": 6,
+  "R_verified_recovery_chains": 1,
+  "logical_safety_stops": 16,
+  "unmeasured_attempts": 0,
+  "matched_pairs": {
+    "R": "q2-003b-scene-2436-R",
+    "S": "q2-003b-scene-2436-S",
+    "matched": true,
+    "pair_id": "q2-003b-scene-2436",
+    "reasons": [],
+    "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+  },
+  "N_strict": 0,
+  "N_exploratory": 1,
+  "actual_training_cohort_N": 1,
+  "selection_bias": "success_and_matching_conditioned_subset_all_failures_retained",
+  "fresh_lineage_verified": true,
+  "new_scene_disjoint_verified": true,
+  "legacy_object_scene_nonoverlap": "not_established",
+  "teacher_qualified": false,
+  "model_calls": 0,
+  "optimizer_steps": 0,
+  "attempts": [
+    {
+      "attempt_id": "q2-003b-scene-2420-S",
+      "status": "safety_stop",
+      "rows": 39,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2420-R",
+      "status": "safety_stop",
+      "rows": 39,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2421-S",
+      "status": "safety_stop",
+      "rows": 37,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2421-R",
+      "status": "safety_stop",
+      "rows": 37,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2422-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2422-R",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2423-S",
+      "status": "safety_stop",
+      "rows": 38,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2423-R",
+      "status": "safety_stop",
+      "rows": 38,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2424-S",
+      "status": "safety_stop",
+      "rows": 39,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2424-R",
+      "status": "safety_stop",
+      "rows": 39,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2425-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2425-R",
+      "status": "correction_timeout",
+      "rows": 339,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 201,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2426-S",
+      "status": "success",
+      "rows": 313,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2426-R",
+      "status": "success",
+      "rows": 314,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2427-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2427-R",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2428-S",
+      "status": "safety_stop",
+      "rows": 40,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2428-R",
+      "status": "safety_stop",
+      "rows": 40,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2429-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2429-R",
+      "status": "correction_timeout",
+      "rows": 372,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 233,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2430-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2430-R",
+      "status": "correction_timeout",
+      "rows": 428,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps_and_peg_socket_contact",
+        "step": 312,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2431-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2431-R",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2432-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2432-R",
+      "status": "correction_timeout",
+      "rows": 341,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 202,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2433-S",
+      "status": "safety_stop",
+      "rows": 44,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2433-R",
+      "status": "safety_stop",
+      "rows": 44,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2434-S",
+      "status": "safety_stop",
+      "rows": 40,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2434-R",
+      "status": "safety_stop",
+      "rows": 40,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2435-S",
+      "status": "success",
+      "rows": 320,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2435-R",
+      "status": "success",
+      "rows": 320,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2436-S",
+      "status": "success",
+      "rows": 303,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2436-R",
+      "status": "success",
+      "rows": 302,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 216,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": true
+    },
+    {
+      "attempt_id": "q2-003b-scene-2437-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2437-R",
+      "status": "correction_timeout",
+      "rows": 329,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 191,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2438-S",
+      "status": "safety_stop",
+      "rows": 39,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2438-R",
+      "status": "safety_stop",
+      "rows": 39,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2439-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q2-003b-scene-2439-R",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    }
+  ],
+  "exclusions": [
+    {
+      "R": "q2-003b-scene-2420-R",
+      "S": "q2-003b-scene-2420-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2420",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2421-R",
+      "S": "q2-003b-scene-2421-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2421",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2422-R",
+      "S": "q2-003b-scene-2422-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2422",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2423-R",
+      "S": "q2-003b-scene-2423-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2423",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2424-R",
+      "S": "q2-003b-scene-2424-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2424",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2425-R",
+      "S": "q2-003b-scene-2425-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2425",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2426-R",
+      "S": "q2-003b-scene-2426-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2426",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2427-R",
+      "S": "q2-003b-scene-2427-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2427",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2428-R",
+      "S": "q2-003b-scene-2428-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2428",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2429-R",
+      "S": "q2-003b-scene-2429-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2429",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2430-R",
+      "S": "q2-003b-scene-2430-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2430",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2431-R",
+      "S": "q2-003b-scene-2431-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2431",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2432-R",
+      "S": "q2-003b-scene-2432-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2432",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2433-R",
+      "S": "q2-003b-scene-2433-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2433",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2434-R",
+      "S": "q2-003b-scene-2434-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2434",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2435-R",
+      "S": "q2-003b-scene-2435-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2435",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2436-R",
+      "S": "q2-003b-scene-2436-S",
+      "matched": true,
+      "pair_id": "q2-003b-scene-2436",
+      "reasons": [],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2437-R",
+      "S": "q2-003b-scene-2437-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2437",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2438-R",
+      "S": "q2-003b-scene-2438-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2438",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q2-003b-scene-2439-R",
+      "S": "q2-003b-scene-2439-S",
+      "matched": false,
+      "pair_id": "q2-003b-scene-2439",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    }
+  ]
+}

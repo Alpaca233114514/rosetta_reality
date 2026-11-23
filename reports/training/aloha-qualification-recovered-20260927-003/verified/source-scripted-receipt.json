@@ -1,0 +1,67 @@
+{
+  "repo": "lerobot/aloha_sim_insertion_scripted",
+  "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+  "mirror": "https://hf-mirror.com",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 2419,
+      "sha256": "a2bdf429c1bc3858213bb4b7a748fa36a71536a5a1ff98861281853c3c2be1f2",
+      "status": "downloaded"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4138,
+      "sha256": "f02f2ae38c9b2bbfa181e2df133fb4500dac87a90d75346d7cbce7d5affccd9e",
+      "status": "downloaded"
+    },
+    {
+      "path": "data/chunk-000/file-000.parquet",
+      "bytes": 1223433,
+      "sha256": "ca1ac794a57aedc45665c7406938790af55371f128dac91a5e2f117b082cc56e",
+      "status": "downloaded"
+    },
+    {
+      "path": "data/chunk-000/file-001.parquet",
+      "bytes": 1223295,
+      "sha256": "0515a20b6eb63ab586be69db89e049b3650a987872baa654f59ef72545fa2d6c",
+      "status": "downloaded"
+    },
+    {
+      "path": "data/chunk-000/file-002.parquet",
+      "bytes": 954168,
+      "sha256": "351c78b99a4829ce3718aaf6ee91988f59c901071ed785ab0920cb597deb899f",
+      "status": "downloaded"
+    },
+    {
+      "path": "meta/episodes/chunk-000/file-000.parquet",
+      "bytes": 88016,
+      "sha256": "445f3091fd9adf965dde8adcadb6b44ed2218396d2db7e3f6066cd55a94e55ac",
+      "status": "downloaded"
+    },
+    {
+      "path": "meta/info.json",
+      "bytes": 2676,
+      "sha256": "3fbcb7c176bed7cb429bc739d9d7451d1611551e7cb714e19b61a6453feedd85",
+      "status": "downloaded"
+    },
+    {
+      "path": "meta/stats.json",
+      "bytes": 6924,
+      "sha256": "88063e0728b0f664bd194d0af009337146a866d0be6e6aafac6c351a2560298c",
+      "status": "downloaded"
+    },
+    {
+      "path": "meta/tasks.parquet",
+      "bytes": 2185,
+      "sha256": "f84fe7ff7679883b900554f83ca6a8caa7ff1f734ff38baab6a65952ec9dcaa8",
+      "status": "downloaded"
+    },
+    {
+      "path": "videos/observation.images.top/chunk-000/file-000.mp4",
+      "bytes": 67487459,
+      "sha256": "c212a89aa259a37d2f1db854a86c6f988ca69d70f1e8d0a3ac87c16dc89c48c2",
+      "status": "downloaded"
+    }
+  ]
+}

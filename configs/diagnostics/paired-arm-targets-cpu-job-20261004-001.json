@@ -1,0 +1,46 @@
+{
+  "id": "paired-arm-targets-20261004-001",
+  "execution_authorized": true,
+  "shutdown_authorized": false,
+  "gpu_required": false,
+  "maximum_seconds": 180,
+  "minimum_free_bytes": 268435456,
+  "maximum_rss_bytes": 2147483648,
+  "maximum_output_bytes": 8388608,
+  "source_sha256": {
+    "scripts/replay_paired_arm_targets.py": "8a9b86a0534a563ade792c201cfaeca2886178bd397ca13563360b79574ce09b",
+    "scripts/run_round_experiment_job.py": "acff18892854a745946f86f216c4aa550bb25e67074d6afba7d28094638797c5",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "src/rosetta_reality/sim/action_contract.py": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743",
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+    "configs/diagnostics/paired-arm-targets-20261004-001.json": "9067fa0928c747594c21cec4814be1f4f3f39143de9e696508071bf87343b1da"
+  },
+  "environment": {
+    "PYTHONPATH": "src:scripts",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "HF_HUB_OFFLINE": "1",
+    "HF_DATASETS_OFFLINE": "1",
+    "MUJOCO_GL": "disable",
+    "ROSETTA_AUTODL_ROOT": "/root/autodl-tmp/rosetta",
+    "OMP_NUM_THREADS": "1"
+  },
+  "commands": [
+    {
+      "name": "physical-replay",
+      "maximum_seconds": 120,
+      "allowed_exit_codes": [
+        0
+      ],
+      "argv": [
+        "{python}",
+        "scripts/replay_paired_arm_targets.py",
+        "--plan",
+        "configs/diagnostics/paired-arm-targets-20261004-001.json",
+        "--output",
+        "{job}/physics-readout",
+        "--guard-job",
+        "{job}"
+      ]
+    }
+  ]
+}

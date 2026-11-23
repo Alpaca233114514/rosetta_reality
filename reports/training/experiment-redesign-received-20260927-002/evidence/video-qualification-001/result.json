@@ -1,0 +1,106 @@
+{
+  "status": "passed",
+  "sources": [
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "metadata_sha256": "d511aab315641f2b94c571f70af5b60ad7d691e87fe572be4ce6403ab3dade25",
+      "video_sha256": "25c0aca82aa50c815d7e5b25b4eebd70f7e61ea9d563dff7c39bda139cb935a3",
+      "train_packet_timestamps_verified": 20000,
+      "pixel_decode_samples": [
+        {
+          "episode": 49,
+          "frame": 0,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        },
+        {
+          "episode": 49,
+          "frame": 250,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        },
+        {
+          "episode": 49,
+          "frame": 499,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        },
+        {
+          "episode": 4,
+          "frame": 0,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        },
+        {
+          "episode": 4,
+          "frame": 250,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        },
+        {
+          "episode": 4,
+          "frame": 499,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        }
+      ],
+      "raw_payload_exported": false,
+      "explicit_success_or_recovery_columns": false
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "metadata_sha256": "445f3091fd9adf965dde8adcadb6b44ed2218396d2db7e3f6066cd55a94e55ac",
+      "video_sha256": "c212a89aa259a37d2f1db854a86c6f988ca69d70f1e8d0a3ac87c16dc89c48c2",
+      "train_packet_timestamps_verified": 16000,
+      "pixel_decode_samples": [
+        {
+          "episode": 49,
+          "frame": 0,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        },
+        {
+          "episode": 49,
+          "frame": 200,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        },
+        {
+          "episode": 49,
+          "frame": 399,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        },
+        {
+          "episode": 4,
+          "frame": 0,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        },
+        {
+          "episode": 4,
+          "frame": 200,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        },
+        {
+          "episode": 4,
+          "frame": 399,
+          "timestamp_matched": true,
+          "dimensions_matched": true
+        }
+      ],
+      "raw_payload_exported": false,
+      "explicit_success_or_recovery_columns": false
+    }
+  ],
+  "elapsed_seconds": 0.7377077490091324,
+  "scope": "all train packet timestamps; two train episodes per source sampled at start/middle/end",
+  "full_video_decode_verified": false,
+  "success_recovery_labels_verified": false,
+  "training_ready": false,
+  "protected_frames_may_be_decoded_during_keyframe_seek": true,
+  "protected_frames_exported": 0
+}

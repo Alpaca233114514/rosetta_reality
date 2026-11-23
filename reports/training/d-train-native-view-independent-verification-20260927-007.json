@@ -1,0 +1,14 @@
+{
+  "frames_independently_recounted": 20000,
+  "full50_inputs": 18040,
+  "model_loaded": false,
+  "native_proof_sha256": "39bdb7633bed288796af945050c2e10ff0aad8c6306d0d7866a076346180ec0b",
+  "padding_slots": 49000,
+  "pixel_identity_entries": 20000,
+  "received_manifest_members_sha_verified": 8,
+  "scientific_training_success_claimed": false,
+  "shutdown_requested": false,
+  "status": "passed",
+  "valid_slots": 951000,
+  "view_manifest_sha256": "019e63cf967c144cc283b40c0cb99f5599c6b2581e5cd54df9f7f37aded656fc"
+}

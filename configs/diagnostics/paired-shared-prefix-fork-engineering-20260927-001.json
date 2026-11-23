@@ -1,0 +1,22 @@
+{
+  "schema": "rosetta.shared_prefix_fork_engineering_plan.v1",
+  "id": "paired-shared-prefix-fork-engineering-20260927-001",
+  "protocol": "shared_real_prefix_causal_fork_v3",
+  "authorization": "parent_reviewed_003B_exact_shared_prefix_implementation_fix",
+  "seed": 2411,
+  "trigger": "grasp",
+  "contract": "configs/sim/aloha_insertion_smolvla.yaml",
+  "max_steps": 500,
+  "branch_steps": 16,
+  "work_cap_seconds": 600,
+  "evidence_byte_cap": 67108864,
+  "physical_step_cap": 532,
+  "teacher_reconstruction": "same_saved_geometry_history_exact_action_and_phase_replay_no_C_object_copy",
+  "acceptance": "exact_complete_physics_actions_discrete_events_and_cached_fork_observation; separate_native_postfork_images_preserved_and_difference_quantified",
+  "no_perturbation": true,
+  "N": 0,
+  "teacher_qualified": false,
+  "legacy_object_scene_nonoverlap": "not_established",
+  "shutdown_requested": false,
+  "resource_supervisor": "external_work_only_guard_required"
+}

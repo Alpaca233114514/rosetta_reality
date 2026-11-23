@@ -1,0 +1,556 @@
+{
+  "schema": "rosetta.file_boundary_investigation.v1",
+  "date": "2026-10-03",
+  "branch": "codex/paired-003-evidence-audit-20260930",
+  "head": "66a5bbcdbdcdba554aac6d99171d8cbb501eb208",
+  "measurement_manifest_sha256": "efcc8cb4ae0d5dd509b57be8a87933afbb1dfc51d12b8fa84673aa6c85b7bfc3",
+  "measurement_files_verified": 151,
+  "runner_sources_verified": 14,
+  "runner_source_sha256": {
+    "scripts/evaluate_paired_policy_v2.py": "0123b514af70d267341374dca3cfa08911b3bcf16fea8fe81166af80b614b483",
+    "scripts/smolvla_autodl_vfunfreeze_sim_gate.py": "f91ae1f5a61c2eb365bbb673caf86571954426b1e03fb27ffeb38bd1280cf777",
+    "scripts/restore_paired_branch_v2.py": "ec2bdc4f7a98b6186d2287798edecc94e3f4d5947ea221eda447b4adc5bcc9ba",
+    "scripts/run_paired_measurement_queue.py": "9ccd08a7a99d023ab25e82c4af6ed0b9fef03de6c133477fd71364c18c3dd537",
+    "scripts/smolvla_sim_gate.py": "5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae",
+    "src/rosetta_reality/vla/processor.py": "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384",
+    "src/rosetta_reality/sim/action_contract.py": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743",
+    "scripts/diagnose_smolvla_base_five_scene.py": "f129f4db99622fca800cf159685e55c70df10ad1b36b37f728f97eada7ae7848",
+    "scripts/check_q0_state_restore.py": "9579f677a06b828e6bf1abf6e36fa0a819301866992c358cc945b84334640336",
+    "src/rosetta_reality/vla/action_space.py": "4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb",
+    "src/rosetta_reality/sim/geometry_teacher.py": "e0cf824bb2120a2eaa1955bcb8109f44fae5e26812546f09c341ed0933372d99",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "src/rosetta_reality/eval/reproducibility_capture.py": "df702f0c6efaeed357222b0ebbf3868abf6ef64d31d9ae509b5a8f3a1868d831",
+    "src/rosetta_reality/sim/scripted_teacher_observer.py": "6f657d71c98bcaea883c8aa30f6f9f73fbd705f6987ba11f977cb92ac563b7a3"
+  },
+  "selected_bank_files_verified": 8,
+  "selected_bank_source_sha256": {
+    "bank-003b-scene-2445/R/trace.jsonl": "033708d05d4199c0390bf6b6dc1f672cb0259c12e8905fc7bfe5565501655a4f",
+    "bank-003b-scene-2445/R/commands.jsonl": "ef8230baf23f04aa51be062bcf2b35ca6639a19deb627e174210e6578fd15205",
+    "bank-003b-scene-2445/branch-restore.json.gz": "fb7c022aab1a7137cdbad5097ba2b0e14789418693b1d6698dc2eb9f5c09590c",
+    "bank-003b-scene-2445/R/summary.json": "081ece6af253b2d8e0a526e0c4844486d58d0d18cafa651ad78ebb11b98f8421",
+    "bank-003b-scene-2445/branch-observation.npz": "9e5fde405b7ecca9f35c001944c57e466ea780acd614ca7122ed0b6db660ea5e",
+    "bank-003b-scene-2445/branch-integration.npz": "84fe9f84e6d9cb8e7d68814364e3586a1708e590a5f337cb2397ad72f1fa99d3",
+    "bank-003b-scene-2445/R/labels.json": "50eb0bd0050ec0a5be6478362c42253bafd8b31950834a394c906af73d5a795a",
+    "bank-003b-scene-2445/branch-python.json.gz": "9978748b175b35bfd9a176bdc1c7ee0192eba9251ad1992d3f4e96da53e69975"
+  },
+  "saved_processor_config_files_verified": 15,
+  "saved_processor_config_sha256": {
+    "B/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+    "B/pretrained_model/policy_postprocessor.json": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+    "A/pretrained_model/policy_postprocessor.json": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+    "B/pretrained_model/config.json": "7ca831bf78a04d3f7b91b4f678b44d2df1467965fdeee80cd089ffe12aad4221",
+    "A/pretrained_model/config.json": "7ca831bf78a04d3f7b91b4f678b44d2df1467965fdeee80cd089ffe12aad4221",
+    "C/pretrained_model/policy_postprocessor.json": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+    "A/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+    "C/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+    "A/pretrained_model/policy_preprocessor.json": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+    "C/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+    "C/pretrained_model/policy_preprocessor.json": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+    "C/pretrained_model/config.json": "7ca831bf78a04d3f7b91b4f678b44d2df1467965fdeee80cd089ffe12aad4221",
+    "B/pretrained_model/policy_preprocessor.json": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+    "A/pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+    "B/pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d"
+  },
+  "source_branch_hold_command_parity": {
+    "passed": true,
+    "engineering_steps": 2,
+    "exact_replays": [
+      "0b839c67134ad5e32fd9d8e3dc385aed93d6b44d585e416bc2f6eab8c075907a",
+      "0b839c67134ad5e32fd9d8e3dc385aed93d6b44d585e416bc2f6eab8c075907a"
+    ],
+    "policy_inference_included": false
+  },
+  "teacher_trace": ".work/paired-bank-v3-20260927-001-independent-received/extracted/collection/bank-003b-scene-2445/R/trace.jsonl",
+  "teacher_rows": 293,
+  "deviation_step": 177,
+  "source_correction_step": 178,
+  "source_correction_line": 179,
+  "source_correction_grasps": {
+    "socket": false,
+    "peg": false
+  },
+  "teacher_terminal_step": 292,
+  "teacher_safe": true,
+  "arms": [
+    {
+      "arm": "A",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-A/recovery-bank/bank-003b-scene-2445.jsonl",
+      "line": 1,
+      "recorded_steps": 1,
+      "violations": 2,
+      "contacts": [],
+      "raw_clips": 0,
+      "dimensions": [
+        {
+          "index": 0,
+          "source_state": -0.32129186391830444,
+          "teacher_command": -0.31047770380973816,
+          "student_command": -0.03657142445445061,
+          "student_after": 0.07318166643381119,
+          "student_minus_source": 0.28472043946385384,
+          "student_minus_teacher": 0.27390627935528755,
+          "teacher_minus_source": 0.010814160108566284
+        },
+        {
+          "index": 1,
+          "source_state": -0.22874131798744202,
+          "teacher_command": -0.2068314254283905,
+          "student_command": -0.17792366445064545,
+          "student_after": -0.16899046301841736,
+          "student_minus_source": 0.05081765353679657,
+          "student_minus_teacher": 0.028907760977745056,
+          "teacher_minus_source": 0.021909892559051514
+        },
+        {
+          "index": 2,
+          "source_state": 1.0116314888000488,
+          "teacher_command": 1.0113087892532349,
+          "student_command": 0.7206088900566101,
+          "student_after": 0.9152441024780273,
+          "student_minus_source": -0.2910225987434387,
+          "student_minus_teacher": -0.29069989919662476,
+          "teacher_minus_source": -0.00032269954681396484
+        },
+        {
+          "index": 3,
+          "source_state": -2.6036453247070312,
+          "teacher_command": -2.5928993225097656,
+          "student_command": -0.7309719920158386,
+          "student_after": -1.7799890041351318,
+          "student_minus_source": 1.8726733326911926,
+          "student_minus_teacher": 1.861927330493927,
+          "teacher_minus_source": 0.010746002197265625
+        },
+        {
+          "index": 4,
+          "source_state": -0.31907665729522705,
+          "teacher_command": -0.3004545271396637,
+          "student_command": 0.48899567127227783,
+          "student_after": 0.321768581867218,
+          "student_minus_source": 0.8080723285675049,
+          "student_minus_teacher": 0.7894501984119415,
+          "teacher_minus_source": 0.018622130155563354
+        },
+        {
+          "index": 5,
+          "source_state": 2.3400650024414062,
+          "teacher_command": 2.3393564224243164,
+          "student_command": 0.5673991441726685,
+          "student_after": 0.6547309756278992,
+          "student_minus_source": -1.7726658582687378,
+          "student_minus_teacher": -1.771957278251648,
+          "teacher_minus_source": -0.0007085800170898438
+        },
+        {
+          "index": 6,
+          "source_state": 0.9019744992256165,
+          "teacher_command": 0.09000000357627869,
+          "student_command": 0.6054487228393555,
+          "student_after": 0.8869701623916626,
+          "student_minus_source": -0.296525776386261,
+          "student_minus_teacher": 0.5154487192630768,
+          "teacher_minus_source": -0.8119744956493378
+        },
+        {
+          "index": 7,
+          "source_state": 0.13195019960403442,
+          "teacher_command": 0.1281251758337021,
+          "student_command": -0.16778239607810974,
+          "student_after": -0.2872387170791626,
+          "student_minus_source": -0.29973259568214417,
+          "student_minus_teacher": -0.29590757191181183,
+          "teacher_minus_source": -0.0038250237703323364
+        },
+        {
+          "index": 8,
+          "source_state": -0.20359554886817932,
+          "teacher_command": -0.18546351790428162,
+          "student_command": -0.3675611615180969,
+          "student_after": -0.4010729193687439,
+          "student_minus_source": -0.1639656126499176,
+          "student_minus_teacher": -0.1820976436138153,
+          "teacher_minus_source": 0.018132030963897705
+        },
+        {
+          "index": 9,
+          "source_state": 1.0562392473220825,
+          "teacher_command": 1.0550750494003296,
+          "student_command": 0.7896748185157776,
+          "student_after": 0.9898524880409241,
+          "student_minus_source": -0.26656442880630493,
+          "student_minus_teacher": -0.265400230884552,
+          "teacher_minus_source": -0.0011641979217529297
+        },
+        {
+          "index": 10,
+          "source_state": 2.793635845184326,
+          "teacher_command": 2.7858126163482666,
+          "student_command": 0.1134498193860054,
+          "student_after": 1.9024035930633545,
+          "student_minus_source": -2.6801860257983208,
+          "student_minus_teacher": -2.672362796962261,
+          "teacher_minus_source": -0.00782322883605957
+        },
+        {
+          "index": 11,
+          "source_state": -0.2076287567615509,
+          "teacher_command": -0.19141915440559387,
+          "student_command": 0.4658907651901245,
+          "student_after": 0.09332113713026047,
+          "student_minus_source": 0.6735195219516754,
+          "student_minus_teacher": 0.6573099195957184,
+          "teacher_minus_source": 0.01620960235595703
+        },
+        {
+          "index": 12,
+          "source_state": 0.46520957350730896,
+          "teacher_command": 0.4657530188560486,
+          "student_command": -0.05414295941591263,
+          "student_after": 0.10487944632768631,
+          "student_minus_source": -0.5193525329232216,
+          "student_minus_teacher": -0.5198959782719612,
+          "teacher_minus_source": 0.000543445348739624
+        },
+        {
+          "index": 13,
+          "source_state": 0.9005641341209412,
+          "teacher_command": 0.09000000357627869,
+          "student_command": 0.4011270999908447,
+          "student_after": 0.7305428981781006,
+          "student_minus_source": -0.49943703413009644,
+          "student_minus_teacher": 0.31112709641456604,
+          "teacher_minus_source": -0.8105641305446625
+        }
+      ],
+      "actual_initial_state_recorded": false,
+      "same_runtime_teacher_student_parity_proven": false
+    },
+    {
+      "arm": "B",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-B/recovery-bank/bank-003b-scene-2445.jsonl",
+      "line": 1,
+      "recorded_steps": 1,
+      "violations": 0,
+      "contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ],
+      "raw_clips": 0,
+      "dimensions": [
+        {
+          "index": 0,
+          "source_state": -0.32129186391830444,
+          "teacher_command": -0.31047770380973816,
+          "student_command": -0.24639832973480225,
+          "student_after": -0.2904658913612366,
+          "student_minus_source": 0.0748935341835022,
+          "student_minus_teacher": 0.06407937407493591,
+          "teacher_minus_source": 0.010814160108566284
+        },
+        {
+          "index": 1,
+          "source_state": -0.22874131798744202,
+          "teacher_command": -0.2068314254283905,
+          "student_command": -0.2743191719055176,
+          "student_after": -0.2419261634349823,
+          "student_minus_source": -0.04557785391807556,
+          "student_minus_teacher": -0.06748774647712708,
+          "teacher_minus_source": 0.021909892559051514
+        },
+        {
+          "index": 2,
+          "source_state": 1.0116314888000488,
+          "teacher_command": 1.0113087892532349,
+          "student_command": 0.9999465346336365,
+          "student_after": 1.0089811086654663,
+          "student_minus_source": -0.011684954166412354,
+          "student_minus_teacher": -0.011362254619598389,
+          "teacher_minus_source": -0.00032269954681396484
+        },
+        {
+          "index": 3,
+          "source_state": -2.6036453247070312,
+          "teacher_command": -2.5928993225097656,
+          "student_command": -2.8905951976776123,
+          "student_after": -2.7734615802764893,
+          "student_minus_source": -0.28694987297058105,
+          "student_minus_teacher": -0.2976958751678467,
+          "teacher_minus_source": 0.010746002197265625
+        },
+        {
+          "index": 4,
+          "source_state": -0.31907665729522705,
+          "teacher_command": -0.3004545271396637,
+          "student_command": -0.3651162087917328,
+          "student_after": -0.3323059380054474,
+          "student_minus_source": -0.04603955149650574,
+          "student_minus_teacher": -0.06466168165206909,
+          "teacher_minus_source": 0.018622130155563354
+        },
+        {
+          "index": 5,
+          "source_state": 2.3400650024414062,
+          "teacher_command": 2.3393564224243164,
+          "student_command": 2.7610113620758057,
+          "student_after": 2.7455852031707764,
+          "student_minus_source": 0.4209463596343994,
+          "student_minus_teacher": 0.42165493965148926,
+          "teacher_minus_source": -0.0007085800170898438
+        },
+        {
+          "index": 6,
+          "source_state": 0.9019744992256165,
+          "teacher_command": 0.09000000357627869,
+          "student_command": 0.5735605955123901,
+          "student_after": 0.8736657500267029,
+          "student_minus_source": -0.3284139037132263,
+          "student_minus_teacher": 0.48356059193611145,
+          "teacher_minus_source": -0.8119744956493378
+        },
+        {
+          "index": 7,
+          "source_state": 0.13195019960403442,
+          "teacher_command": 0.1281251758337021,
+          "student_command": 0.07696353644132614,
+          "student_after": 0.1275058537721634,
+          "student_minus_source": -0.05498666316270828,
+          "student_minus_teacher": -0.051161639392375946,
+          "teacher_minus_source": -0.0038250237703323364
+        },
+        {
+          "index": 8,
+          "source_state": -0.20359554886817932,
+          "teacher_command": -0.18546351790428162,
+          "student_command": -0.08987496793270111,
+          "student_after": -0.06924378126859665,
+          "student_minus_source": 0.11372058093547821,
+          "student_minus_teacher": 0.0955885499715805,
+          "teacher_minus_source": 0.018132030963897705
+        },
+        {
+          "index": 9,
+          "source_state": 1.0562392473220825,
+          "teacher_command": 1.0550750494003296,
+          "student_command": 0.7676987648010254,
+          "student_after": 0.9276929497718811,
+          "student_minus_source": -0.28854048252105713,
+          "student_minus_teacher": -0.2873762845993042,
+          "teacher_minus_source": -0.0011641979217529297
+        },
+        {
+          "index": 10,
+          "source_state": 2.793635845184326,
+          "teacher_command": 2.7858126163482666,
+          "student_command": 2.9182958602905273,
+          "student_after": 2.9327800273895264,
+          "student_minus_source": 0.12466001510620117,
+          "student_minus_teacher": 0.13248324394226074,
+          "teacher_minus_source": -0.00782322883605957
+        },
+        {
+          "index": 11,
+          "source_state": -0.2076287567615509,
+          "teacher_command": -0.19141915440559387,
+          "student_command": -0.3129616379737854,
+          "student_after": -0.306263267993927,
+          "student_minus_source": -0.1053328812122345,
+          "student_minus_teacher": -0.12154248356819153,
+          "teacher_minus_source": 0.01620960235595703
+        },
+        {
+          "index": 12,
+          "source_state": 0.46520957350730896,
+          "teacher_command": 0.4657530188560486,
+          "student_command": 0.18831080198287964,
+          "student_after": 0.19062401354312897,
+          "student_minus_source": -0.2768987715244293,
+          "student_minus_teacher": -0.27744221687316895,
+          "teacher_minus_source": 0.000543445348739624
+        },
+        {
+          "index": 13,
+          "source_state": 0.9005641341209412,
+          "teacher_command": 0.09000000357627869,
+          "student_command": 0.5891065001487732,
+          "student_after": 0.8687520623207092,
+          "student_minus_source": -0.31145763397216797,
+          "student_minus_teacher": 0.4991064965724945,
+          "teacher_minus_source": -0.8105641305446625
+        }
+      ],
+      "actual_initial_state_recorded": false,
+      "same_runtime_teacher_student_parity_proven": false
+    },
+    {
+      "arm": "C",
+      "trace": ".work/paired-ABC-measurement-20260928-003-received-20260930-001/files/measurement-C/recovery-bank/bank-003b-scene-2445.jsonl",
+      "line": 1,
+      "recorded_steps": 1,
+      "violations": 0,
+      "contacts": [
+        [
+          "table",
+          "vx300s_right/10_left_gripper_finger"
+        ],
+        [
+          "table",
+          "vx300s_right/10_right_gripper_finger"
+        ]
+      ],
+      "raw_clips": 0,
+      "dimensions": [
+        {
+          "index": 0,
+          "source_state": -0.32129186391830444,
+          "teacher_command": -0.31047770380973816,
+          "student_command": -0.24909880757331848,
+          "student_after": -0.29542577266693115,
+          "student_minus_source": 0.07219305634498596,
+          "student_minus_teacher": 0.06137889623641968,
+          "teacher_minus_source": 0.010814160108566284
+        },
+        {
+          "index": 1,
+          "source_state": -0.22874131798744202,
+          "teacher_command": -0.2068314254283905,
+          "student_command": -0.2770865857601166,
+          "student_after": -0.2464979887008667,
+          "student_minus_source": -0.04834526777267456,
+          "student_minus_teacher": -0.07025516033172607,
+          "teacher_minus_source": 0.021909892559051514
+        },
+        {
+          "index": 2,
+          "source_state": 1.0116314888000488,
+          "teacher_command": 1.0113087892532349,
+          "student_command": 0.9937654137611389,
+          "student_after": 1.007314682006836,
+          "student_minus_source": -0.017866075038909912,
+          "student_minus_teacher": -0.017543375492095947,
+          "teacher_minus_source": -0.00032269954681396484
+        },
+        {
+          "index": 3,
+          "source_state": -2.6036453247070312,
+          "teacher_command": -2.5928993225097656,
+          "student_command": -2.888930559158325,
+          "student_after": -2.773181915283203,
+          "student_minus_source": -0.28528523445129395,
+          "student_minus_teacher": -0.29603123664855957,
+          "teacher_minus_source": 0.010746002197265625
+        },
+        {
+          "index": 4,
+          "source_state": -0.31907665729522705,
+          "teacher_command": -0.3004545271396637,
+          "student_command": -0.3620493710041046,
+          "student_after": -0.3330881893634796,
+          "student_minus_source": -0.042972713708877563,
+          "student_minus_teacher": -0.06159484386444092,
+          "teacher_minus_source": 0.018622130155563354
+        },
+        {
+          "index": 5,
+          "source_state": 2.3400650024414062,
+          "teacher_command": 2.3393564224243164,
+          "student_command": 2.763275146484375,
+          "student_after": 2.747272253036499,
+          "student_minus_source": 0.42321014404296875,
+          "student_minus_teacher": 0.4239187240600586,
+          "teacher_minus_source": -0.0007085800170898438
+        },
+        {
+          "index": 6,
+          "source_state": 0.9019744992256165,
+          "teacher_command": 0.09000000357627869,
+          "student_command": 0.5901073813438416,
+          "student_after": 0.8768553733825684,
+          "student_minus_source": -0.3118671178817749,
+          "student_minus_teacher": 0.5001073777675629,
+          "teacher_minus_source": -0.8119744956493378
+        },
+        {
+          "index": 7,
+          "source_state": 0.13195019960403442,
+          "teacher_command": 0.1281251758337021,
+          "student_command": 0.07723817974328995,
+          "student_after": 0.12753137946128845,
+          "student_minus_source": -0.054712019860744476,
+          "student_minus_teacher": -0.05088699609041214,
+          "teacher_minus_source": -0.0038250237703323364
+        },
+        {
+          "index": 8,
+          "source_state": -0.20359554886817932,
+          "teacher_command": -0.18546351790428162,
+          "student_command": -0.0885678082704544,
+          "student_after": -0.06656705588102341,
+          "student_minus_source": 0.11502774059772491,
+          "student_minus_teacher": 0.09689570963382721,
+          "teacher_minus_source": 0.018132030963897705
+        },
+        {
+          "index": 9,
+          "source_state": 1.0562392473220825,
+          "teacher_command": 1.0550750494003296,
+          "student_command": 0.7656124234199524,
+          "student_after": 0.9263150095939636,
+          "student_minus_source": -0.2906268239021301,
+          "student_minus_teacher": -0.2894626259803772,
+          "teacher_minus_source": -0.0011641979217529297
+        },
+        {
+          "index": 10,
+          "source_state": 2.793635845184326,
+          "teacher_command": 2.7858126163482666,
+          "student_command": 2.910964250564575,
+          "student_after": 2.929124355316162,
+          "student_minus_source": 0.11732840538024902,
+          "student_minus_teacher": 0.1251516342163086,
+          "teacher_minus_source": -0.00782322883605957
+        },
+        {
+          "index": 11,
+          "source_state": -0.2076287567615509,
+          "teacher_command": -0.19141915440559387,
+          "student_command": -0.3159029483795166,
+          "student_after": -0.3063122034072876,
+          "student_minus_source": -0.1082741916179657,
+          "student_minus_teacher": -0.12448379397392273,
+          "teacher_minus_source": 0.01620960235595703
+        },
+        {
+          "index": 12,
+          "source_state": 0.46520957350730896,
+          "teacher_command": 0.4657530188560486,
+          "student_command": 0.194911926984787,
+          "student_after": 0.196817085146904,
+          "student_minus_source": -0.270297646522522,
+          "student_minus_teacher": -0.2708410918712616,
+          "teacher_minus_source": 0.000543445348739624
+        },
+        {
+          "index": 13,
+          "source_state": 0.9005641341209412,
+          "teacher_command": 0.09000000357627869,
+          "student_command": 0.6010986566543579,
+          "student_after": 0.8705841898918152,
+          "student_minus_source": -0.29946547746658325,
+          "student_minus_teacher": 0.5110986530780792,
+          "teacher_minus_source": -0.8105641305446625
+        }
+      ],
+      "actual_initial_state_recorded": false,
+      "same_runtime_teacher_student_parity_proven": false
+    }
+  ],
+  "scope": "hashes and recorded JSON arithmetic only; no ML imports or physics execution",
+  "causal_attribution_proven": false,
+  "old_python_unit_tests_rerun": false
+}

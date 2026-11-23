@@ -1,0 +1,156 @@
+{
+  "files": [
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": ".gitattributes",
+      "bytes": 2419,
+      "sha256": "a2bdf429c1bc3858213bb4b7a748fa36a71536a5a1ff98861281853c3c2be1f2"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "README.md",
+      "bytes": 4138,
+      "sha256": "f004390502a361d7c0b0f1159d4450b4f609733954598085ec793eab558eefc0"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "data/chunk-000/file-000.parquet",
+      "bytes": 855778,
+      "sha256": "b56ca5d5cc69070b753b10578a8a0da6a4ec883e34bf9666b0c51c7c42b5c2b9"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "data/chunk-000/file-001.parquet",
+      "bytes": 847617,
+      "sha256": "08a89503fe1dab024a0816d39a808edcce266696b8891210675b1b6ba8caa28e"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "data/chunk-000/file-002.parquet",
+      "bytes": 855579,
+      "sha256": "1d65593f389d9446ddc84e6cfe8c18f38d1112652f7568b5a308234b58dfa750"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "data/chunk-000/file-003.parquet",
+      "bytes": 293268,
+      "sha256": "54984c0d8b6e0b120ad31943c88bfda70c4a7c24b8fe00f7d1d7415e0c4993cd"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "meta/episodes/chunk-000/file-000.parquet",
+      "bytes": 88256,
+      "sha256": "d511aab315641f2b94c571f70af5b60ad7d691e87fe572be4ce6403ab3dade25"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "meta/info.json",
+      "bytes": 2676,
+      "sha256": "e4b2acb5cca409211b4b3b92c5abdadd833e459dcfa3d1bbdfa682fc09d99265"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "meta/stats.json",
+      "bytes": 6987,
+      "sha256": "a319b4bc3698c16f35bc1977c04dee00d05f53c83d6a4284600a8b2e28714982"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "meta/tasks.parquet",
+      "bytes": 2185,
+      "sha256": "f84fe7ff7679883b900554f83ca6a8caa7ff1f734ff38baab6a65952ec9dcaa8"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "path": "videos/observation.images.top/chunk-000/file-000.mp4",
+      "bytes": 88389634,
+      "sha256": "25c0aca82aa50c815d7e5b25b4eebd70f7e61ea9d563dff7c39bda139cb935a3"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": ".gitattributes",
+      "bytes": 2419,
+      "sha256": "a2bdf429c1bc3858213bb4b7a748fa36a71536a5a1ff98861281853c3c2be1f2"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "README.md",
+      "bytes": 4138,
+      "sha256": "f02f2ae38c9b2bbfa181e2df133fb4500dac87a90d75346d7cbce7d5affccd9e"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "data/chunk-000/file-000.parquet",
+      "bytes": 1223433,
+      "sha256": "ca1ac794a57aedc45665c7406938790af55371f128dac91a5e2f117b082cc56e"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "data/chunk-000/file-001.parquet",
+      "bytes": 1223295,
+      "sha256": "0515a20b6eb63ab586be69db89e049b3650a987872baa654f59ef72545fa2d6c"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "data/chunk-000/file-002.parquet",
+      "bytes": 954168,
+      "sha256": "351c78b99a4829ce3718aaf6ee91988f59c901071ed785ab0920cb597deb899f"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "meta/episodes/chunk-000/file-000.parquet",
+      "bytes": 88016,
+      "sha256": "445f3091fd9adf965dde8adcadb6b44ed2218396d2db7e3f6066cd55a94e55ac"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "meta/info.json",
+      "bytes": 2676,
+      "sha256": "3fbcb7c176bed7cb429bc739d9d7451d1611551e7cb714e19b61a6453feedd85"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "meta/stats.json",
+      "bytes": 6924,
+      "sha256": "88063e0728b0f664bd194d0af009337146a866d0be6e6aafac6c351a2560298c"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "meta/tasks.parquet",
+      "bytes": 2185,
+      "sha256": "f84fe7ff7679883b900554f83ca6a8caa7ff1f734ff38baab6a65952ec9dcaa8"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "path": "videos/observation.images.top/chunk-000/file-000.mp4",
+      "bytes": 67487459,
+      "sha256": "c212a89aa259a37d2f1db854a86c6f988ca69d70f1e8d0a3ac87c16dc89c48c2"
+    }
+  ],
+  "file_count": 21,
+  "bytes": 162343250,
+  "all_matched": true,
+  "data_rows_loaded": false,
+  "video_decoded": false
+}

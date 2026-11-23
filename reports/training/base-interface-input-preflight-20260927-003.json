@@ -1,0 +1,93 @@
+{
+  "identity": "base-interface-input-preflight-20260927-003",
+  "status": "all_small_payload_sha_matched",
+  "artifact_manifest_sha256": "6c35ef6e294ba50dae1e1961b042eaf1f42e988d48f876009da122be3d61cc77",
+  "files": [
+    {
+      "artifact_member": "action_contract.json",
+      "sha256": "ef0c8ce81dec7203bfecf37233282c36fc9ae0e5abd9a93b2c0125a4fe420b13",
+      "bytes": 3246,
+      "origin": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001"
+    },
+    {
+      "artifact_member": "config.json",
+      "sha256": "cca7e39c1136a18f3bd93514f446af56f93e3bd5d05b71a9a1cddcfac684348c",
+      "bytes": 4763,
+      "origin": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001"
+    },
+    {
+      "artifact_member": "normalization.json",
+      "sha256": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988",
+      "bytes": 9095,
+      "origin": "runs/prepost-gate-received-20260924-001/prepost-gate4-20260924-001/artifacts/m2-smolvla450m-aloha-insertion-action-repair-bounded-gripper-003/prepost-base-aloha-interface-001"
+    },
+    {
+      "artifact_member": "pretrained_model/config.json",
+      "sha256": "7ca831bf78a04d3f7b91b4f678b44d2df1467965fdeee80cd089ffe12aad4221",
+      "bytes": 2973,
+      "origin": "offload-20260920/canonical-checkpoints-received-20260914-002/step-005000/verified"
+    },
+    {
+      "artifact_member": "pretrained_model/policy_postprocessor.json",
+      "sha256": "d0f0fef9507ca69e94f7f0ce9f1563878b85b27f5dac7c0952f7fb96a6133495",
+      "bytes": 2241,
+      "origin": "offload-20260920/canonical-checkpoints-received-20260914-002/step-005000/verified"
+    },
+    {
+      "artifact_member": "pretrained_model/policy_postprocessor_step_0_unnormalizer_processor.safetensors",
+      "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "bytes": 1384,
+      "origin": "offload-20260920/canonical-checkpoints-received-20260914-002/step-005000/verified"
+    },
+    {
+      "artifact_member": "pretrained_model/policy_preprocessor.json",
+      "sha256": "aa99381820bd8b7938956fe26a909aee76c88491a3cb0fb27f70d4748397c1da",
+      "bytes": 4952,
+      "origin": "offload-20260920/canonical-checkpoints-received-20260914-002/step-005000/verified"
+    },
+    {
+      "artifact_member": "pretrained_model/policy_preprocessor_step_7_normalizer_processor.safetensors",
+      "sha256": "2021037779c22e8ab7c3344d9d8f7e5ce65a8c13326eab3201eb04eff2aff25d",
+      "bytes": 1384,
+      "origin": "offload-20260920/canonical-checkpoints-received-20260914-002/step-005000/verified"
+    },
+    {
+      "artifact_member": "pretrained_model/rosetta_image_preprocessing.json",
+      "sha256": "e9fd72cff3ee51114744a108293abb2339400c8ca8257b2700e6726234489bc6",
+      "bytes": 276,
+      "origin": "offload-20260920/canonical-checkpoints-received-20260914-002/step-005000/verified"
+    },
+    {
+      "artifact_member": "pretrained_model/tokenizer/chat_template.jinja",
+      "sha256": "830005085ddd94cec605b6e21b885b28ffad6e3f82ee6a212c523533e8f04f01",
+      "bytes": 403,
+      "origin": "offload-20260920/canonical-checkpoints-received-20260914-002/step-005000/verified"
+    },
+    {
+      "artifact_member": "pretrained_model/tokenizer/tokenizer.json",
+      "sha256": "b90474ce689a6f06dc920d3ebdb1f9cb8d3608da9e93b8b4eae63e9101bbc5d5",
+      "bytes": 3548738,
+      "origin": "offload-20260920/canonical-checkpoints-received-20260914-002/step-005000/verified"
+    },
+    {
+      "artifact_member": "pretrained_model/tokenizer/tokenizer_config.json",
+      "sha256": "fd87e003eef34b916fce3386cfe07c513a56c5bdc7b83e2c7da93cad2efee9c3",
+      "bytes": 838,
+      "origin": "offload-20260920/canonical-checkpoints-received-20260914-002/step-005000/verified"
+    },
+    {
+      "artifact_member": "pretrained_model/train_config.json",
+      "sha256": "22877738c454172b2ebcacb34807740fa226bad2b3ff2206f4ef21006bddba48",
+      "bytes": 10033,
+      "origin": "offload-20260920/canonical-checkpoints-received-20260914-002/step-005000/verified"
+    }
+  ],
+  "payload_count": 13,
+  "payload_bytes": 3590326,
+  "model_payload_transferred": false,
+  "remote_base_cached_model_sha256": "7cd549ac2351fb069c0ddb3c34ad2d09cfc92b56a15dccdfc2e41467aaca01eb",
+  "remote_sha_observed": true,
+  "canonical_remote_pretrained_symlink_dangling": true,
+  "ml_execution_performed": false,
+  "shutdown_requested": false
+}

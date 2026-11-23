@@ -1,0 +1,33 @@
+{
+  "evidence_kind": "transcribed_remote_stdout_observation_not_verified_artifact_copy",
+  "run": "aloha-qualification-20260927-002",
+  "remote_result_reported_status": "q_inventory_completed_with_qualification_blockers",
+  "remote_reported_elapsed_seconds": 0.9589251577854156,
+  "remote_reported_phases": [
+    {"name": "regression", "exit_code": 0},
+    {"name": "inventory", "exit_code": 0}
+  ],
+  "remote_reported_source_files_verified": 21,
+  "remote_reported_source_bytes_verified": 162343250,
+  "remote_reported_data_parquet_files": 7,
+  "remote_reported_row_groups": 7,
+  "remote_reported_row_groups_read": 0,
+  "remote_reported_row_groups_skipped": 7,
+  "remote_reported_raw_frames_observed": 0,
+  "remote_reported_hidden_loaded": false,
+  "remote_reported_qualified_cohort_available": false,
+  "remote_reported_training_ready": false,
+  "remote_reported_optimizer_updates": 0,
+  "remote_reported_simulation_rollouts": 0,
+  "remote_reported_model_loaded": false,
+  "remote_reported_handoff": {
+    "file_count": 14,
+    "bytes": 35773,
+    "manifest_sha256": "570c094a1badbc295abab227312cfd04d1590fa25eb38ab110f26b8a2464ab97",
+    "finished_unix": 1790496207.5267625
+  },
+  "local_archive_bytes": 0,
+  "local_artifact_member_sha_verification": "not_completed",
+  "recovery_attempt": "no_gpu_start_rejected_by_automatic_approval_review",
+  "recovery_user_approval": "pending"
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "rosetta.paired_evidence_proposal.v1",
+  "status": "draft_not_runnable",
+  "execution_authorized": false,
+  "collector_integration_verified": false,
+  "historical_measurement": "paired-ABC-measurement-20260928-003",
+  "selected_checkpoint_step": 5000,
+  "optimizer_updates": 0,
+  "prediction_chunk_length": 50,
+  "execution_horizon": 1,
+  "safety_contract_changed": false,
+  "physical_limit_tolerance": 0.00001,
+  "stop_on_unexpected_contact_or_physical_limit": true,
+  "pilot_proposal": {
+    "bank_positive_control": "bank-003b-scene-2445",
+    "collision_example": {"arm": "A", "scene_seed": 1003},
+    "limit_and_raw_clip_example": {"arm": "C", "scene_seed": 1003},
+    "no_safety_stop_failure_example": {"arm": "A", "scene_seed": 1000},
+    "selection_is_diagnostic_not_unbiased_evaluation": true
+  },
+  "required_capture": {
+    "initial": ["full_physics_integration_state", "qpos", "qvel", "ctrl", "object_poses", "python_and_rng_restore_receipt", "actual_policy_observation", "observation_payload_or_retrievable_hashed_reference", "source_and_compiled_model_identities", "effective_processor_configuration_and_statistics_identity"],
+    "each_inference": ["actual_full_noise_tensor_shape_dtype_values", "rng_identity_and_call_index", "normalized_prediction_chunk", "physical_raw_chunk", "projected_chunk", "input_state_before_and_after_normalization", "effective_processor_identity"],
+    "each_physics_step": ["executed_chunk_slot", "logical_command", "actuator_ctrl", "qpos_before_and_after", "qvel_before_and_after", "all_limited_joint_names_addresses_ranges_values", "all_contacts_and_classification", "grasp_and_peg_socket_geometry", "reward_and_terminal_flags"],
+    "file_audit": ["exact_file_inventory_and_sha256", "required_field_coverage_with_denominators", "first_collision_and_first_limit_separately", "safety_stop_lifecycle", "independent_process_reload_scope", "immutable_old_protocol"]
+  },
+  "unresolved_before_run": ["implement_and_review_live_boundary_hooks", "register_observer_parity_criteria", "freeze_noise_indexing_and_reset_semantics", "freeze_effective_processor_manifest", "register_disk_byte_cap_and_stop_behavior", "register_resource_and_runtime_budget", "obtain_execution_authorization"],
+  "training_followup": {
+    "decision": "defer_until_interface_and_recoverability_evidence",
+    "verified_historical_exposures": {"A": {"D": 20000}, "B": {"D": 15000, "R": 5000}, "C": {"D": 15000, "S": 5000}},
+    "one_axis_per_experiment": true,
+    "possible_axes_not_combined": ["paired_recoverable_state_coverage", "execution_horizon", "intervention_sampling_weight"],
+    "predictive_safety_controller_requires_separate_design": true
+  }
+}

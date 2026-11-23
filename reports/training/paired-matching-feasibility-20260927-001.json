@@ -1,0 +1,256 @@
+{
+  "schema": "rosetta.paired_matching_feasibility.saved_trace.v1",
+  "id": "paired-matching-feasibility-20260927-001",
+  "current_registration_mutated": false,
+  "new_simulation_calls": 0,
+  "new_teacher_calls": 0,
+  "R_trajectories_measured": false,
+  "maximum_chunk_length": 50,
+  "matching_relative_tolerance": 0.05,
+  "formula": "V_S=max(0,L_S-49); K=max(0,min(d,L_R-50)-max(0,d-49)+1); V_R=max(0,L_R-49)-K; L_R<=min(500,d+151)",
+  "results": [
+    {
+      "seed": 1900,
+      "ordinary_rows": 289,
+      "actual_task_success": true,
+      "actual_success_index": 288,
+      "geometric_potential_full_chunk_starts": 240,
+      "actual_success_qualified_input_starts": 240,
+      "phase_first_indices": {
+        "orient": 93,
+        "open": 0,
+        "align": 264,
+        "approach": 21,
+        "grasp": 169,
+        "descend": 152,
+        "insert": 278,
+        "socket_approach": 254,
+        "transport": 178
+      },
+      "windows": [
+        {
+          "trigger": "approach",
+          "deviation_index_zero_based": 21,
+          "maximum_R_rows_with_150_correction": 172,
+          "maximum_R_legal_full_chunk_starts": 101,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": false
+        },
+        {
+          "trigger": "grasp",
+          "deviation_index_zero_based": 169,
+          "maximum_R_rows_with_150_correction": 320,
+          "maximum_R_legal_full_chunk_starts": 221,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": true
+        },
+        {
+          "trigger": "align",
+          "deviation_index_zero_based": 264,
+          "maximum_R_rows_with_150_correction": 415,
+          "maximum_R_legal_full_chunk_starts": 316,
+          "compatible_R_rows_min": 327,
+          "compatible_R_rows_max": 351,
+          "compatible_R_rows_count": 25,
+          "grasp_is_design_proposal_not_current_registered_trigger": false
+        }
+      ],
+      "trace_path": ".work/teacher-cross-pose-diagnostic-20260927-002-received/extracted/cross-pose/seed-1900.jsonl",
+      "trace_sha256": "ac9ac531ef3cc7b23deaf241189371ab0ad44f433d7c320bc182b9d82588dc57"
+    },
+    {
+      "seed": 1901,
+      "ordinary_rows": 500,
+      "actual_task_success": false,
+      "actual_success_index": null,
+      "geometric_potential_full_chunk_starts": 451,
+      "actual_success_qualified_input_starts": 0,
+      "phase_first_indices": {
+        "orient": 98,
+        "open": 0,
+        "align": 274,
+        "approach": 21,
+        "grasp": 209,
+        "descend": 193,
+        "insert": 298,
+        "socket_approach": 266,
+        "transport": 218
+      },
+      "windows": [
+        {
+          "trigger": "approach",
+          "deviation_index_zero_based": 21,
+          "maximum_R_rows_with_150_correction": 172,
+          "maximum_R_legal_full_chunk_starts": 101,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": false
+        },
+        {
+          "trigger": "grasp",
+          "deviation_index_zero_based": 209,
+          "maximum_R_rows_with_150_correction": 360,
+          "maximum_R_legal_full_chunk_starts": 261,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": true
+        },
+        {
+          "trigger": "align",
+          "deviation_index_zero_based": 274,
+          "maximum_R_rows_with_150_correction": 425,
+          "maximum_R_legal_full_chunk_starts": 326,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": false
+        }
+      ],
+      "trace_path": ".work/teacher-cross-pose-diagnostic-20260927-002-received/extracted/cross-pose/seed-1901.jsonl",
+      "trace_sha256": "4ee2935c2a81905615124ea5f9ef1410d5e7cff639b2e8939df19b87dc44bc7c"
+    },
+    {
+      "seed": 1902,
+      "ordinary_rows": 40,
+      "actual_task_success": false,
+      "actual_success_index": null,
+      "geometric_potential_full_chunk_starts": 0,
+      "actual_success_qualified_input_starts": 0,
+      "phase_first_indices": {
+        "approach": 21,
+        "open": 0
+      },
+      "windows": [
+        {
+          "trigger": "approach",
+          "deviation_index_zero_based": 21,
+          "maximum_R_rows_with_150_correction": 172,
+          "maximum_R_legal_full_chunk_starts": 101,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": false
+        }
+      ],
+      "trace_path": ".work/teacher-cross-pose-diagnostic-20260927-002-received/extracted/cross-pose/seed-1902.jsonl",
+      "trace_sha256": "25b5023989d02434223de8420c04ea6ea2f20dab1f6d04a8cf94ab41d4fdadb4"
+    },
+    {
+      "seed": 1903,
+      "ordinary_rows": 500,
+      "actual_task_success": false,
+      "actual_success_index": null,
+      "geometric_potential_full_chunk_starts": 451,
+      "actual_success_qualified_input_starts": 0,
+      "phase_first_indices": {
+        "orient": 94,
+        "open": 0,
+        "align": 283,
+        "approach": 21,
+        "grasp": 206,
+        "descend": 184,
+        "insert": 297,
+        "socket_approach": 270,
+        "transport": 214
+      },
+      "windows": [
+        {
+          "trigger": "approach",
+          "deviation_index_zero_based": 21,
+          "maximum_R_rows_with_150_correction": 172,
+          "maximum_R_legal_full_chunk_starts": 101,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": false
+        },
+        {
+          "trigger": "grasp",
+          "deviation_index_zero_based": 206,
+          "maximum_R_rows_with_150_correction": 357,
+          "maximum_R_legal_full_chunk_starts": 258,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": true
+        },
+        {
+          "trigger": "align",
+          "deviation_index_zero_based": 283,
+          "maximum_R_rows_with_150_correction": 434,
+          "maximum_R_legal_full_chunk_starts": 335,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": false
+        }
+      ],
+      "trace_path": ".work/teacher-cross-pose-diagnostic-20260927-002-received/extracted/cross-pose/seed-1903.jsonl",
+      "trace_sha256": "51c1298b76a64dc5209d18e034179fea1f4250733b3a1196f6bbeab3418bf162"
+    },
+    {
+      "seed": 1904,
+      "ordinary_rows": 500,
+      "actual_task_success": false,
+      "actual_success_index": null,
+      "geometric_potential_full_chunk_starts": 451,
+      "actual_success_qualified_input_starts": 0,
+      "phase_first_indices": {
+        "orient": 102,
+        "open": 0,
+        "align": 330,
+        "approach": 21,
+        "grasp": 222,
+        "descend": 201,
+        "insert": 399,
+        "transport": 231
+      },
+      "windows": [
+        {
+          "trigger": "approach",
+          "deviation_index_zero_based": 21,
+          "maximum_R_rows_with_150_correction": 172,
+          "maximum_R_legal_full_chunk_starts": 101,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": false
+        },
+        {
+          "trigger": "grasp",
+          "deviation_index_zero_based": 222,
+          "maximum_R_rows_with_150_correction": 373,
+          "maximum_R_legal_full_chunk_starts": 274,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": true
+        },
+        {
+          "trigger": "align",
+          "deviation_index_zero_based": 330,
+          "maximum_R_rows_with_150_correction": 481,
+          "maximum_R_legal_full_chunk_starts": 382,
+          "compatible_R_rows_min": null,
+          "compatible_R_rows_max": null,
+          "compatible_R_rows_count": 0,
+          "grasp_is_design_proposal_not_current_registered_trigger": false
+        }
+      ],
+      "trace_path": ".work/teacher-cross-pose-diagnostic-20260927-002-received/extracted/cross-pose/seed-1904.jsonl",
+      "trace_sha256": "6f231a9534429df141fb1cda9913e9498b6ec644bbdf950451234200d8de0f12"
+    }
+  ],
+  "limitations": [
+    "Saved ordinary traces are teacher tuning scenes, not train candidates or new Q1/Q2 results",
+    "Only seed1900 has task-success-qualified S supervision",
+    "Compatible length interval is arithmetic feasibility, not predicted or observed R success",
+    "Grasp trigger is a proposed new registration, not execution authority"
+  ]
+}

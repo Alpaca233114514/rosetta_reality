@@ -30,6 +30,22 @@ def file_sha(path: Path) -> str:
     return h.hexdigest()
 
 
+def receipt_revision(receipt: dict) -> str:
+    """Accept the two existing receipt schemas, requiring one explicit pinned revision."""
+    if receipt.get("revision") is not None:
+        return receipt["revision"]
+    sources = receipt.get("source_files")
+    if not isinstance(sources, list) or not sources:
+        raise ValueError("Receipt contains no pinned source revision")
+    dataset = receipt.get("dataset", receipt.get("repo"))
+    if any(item.get("dataset") != dataset for item in sources):
+        raise ValueError("Receipt source dataset binding mismatch")
+    revisions = {item.get("revision") for item in sources}
+    if len(revisions) != 1 or None in revisions:
+        raise ValueError("Receipt source revisions are missing or mixed")
+    return revisions.pop()
+
+
 def evidence(root: Path, reference: dict | None) -> dict | None:
     if not reference:
         return None

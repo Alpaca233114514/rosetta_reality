@@ -1,0 +1,233 @@
+{
+  "schema": "rosetta.paired_CPU_input_independent_transfer.v1",
+  "passed": true,
+  "files": 54,
+  "bytes": 15996199,
+  "archive_sha256": "a488283396893f480fd566a74e7fbdd7f63331820603347a89ec09f4530c910d",
+  "result_sha256": "ce33f43fc64bf8d39dddbb904cc2342ebfce72272d570aa914cbdde1d0b85ea7",
+  "result_source_sha256": "370b287eabbf13df89cdc7dd4c1e982da2602cd1c3f29df28984d27a5243a0c9",
+  "D_normalization_sha256": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988",
+  "Q2_manifest_sha256": "5d44dc89a572f0247b52d24acc3beab997864dbda82d8e3c9195d04b812a5a30",
+  "Q2_audit_sha256": "07e92b50a6342737c015c18cd042a74228da02fc84de0a45365f40fa22be5fd4",
+  "worker_independent_calculation_result": {
+    "D_native_read_sha256": "39bdb7633bed288796af945050c2e10ff0aad8c6306d0d7866a076346180ec0b",
+    "D_normalization_sha256": "263880ec3adfddb8517a50fa5483e7c8f32f0c208243c229cbc72f8e9cf8d988",
+    "D_stats_unchanged": true,
+    "D_view_manifest_sha256": "019e63cf967c144cc283b40c0cb99f5599c6b2581e5cd54df9f7f37aded656fc",
+    "Q2_audit_sha256": "07e92b50a6342737c015c18cd042a74228da02fc84de0a45365f40fa22be5fd4",
+    "Q2_manifest_sha256": "5d44dc89a572f0247b52d24acc3beab997864dbda82d8e3c9195d04b812a5a30",
+    "actual_saved_CPU_processor_used": true,
+    "arms": [
+      {
+        "D_stats_object_identity_preserved": true,
+        "actual_auxiliary_valid_slots": 50,
+        "actual_inputs": [
+          {
+            "episode": 43,
+            "frame": 0,
+            "slot": 0,
+            "source": "D",
+            "update": 1
+          },
+          {
+            "episode": 17,
+            "frame": 487,
+            "slot": 1,
+            "source": "D",
+            "update": 1
+          },
+          {
+            "episode": 3,
+            "frame": 290,
+            "slot": 2,
+            "source": "D",
+            "update": 1
+          },
+          {
+            "episode": 16,
+            "frame": 131,
+            "slot": 3,
+            "source": "R",
+            "update": 1
+          }
+        ],
+        "actual_original_camera_exact": true,
+        "arm": "B",
+        "continuous_actual_targets_exact": true,
+        "independent_normalization_bitwise_exact": {
+          "action": true,
+          "observation.images.camera1": true,
+          "observation.state": true
+        },
+        "normalization_modes": {
+          "ACTION": "MEAN_STD",
+          "STATE": "MEAN_STD",
+          "VISUAL": "IDENTITY"
+        },
+        "normalizer_epsilon": 1E-08,
+        "processed_shapes": {
+          "action": [
+            4,
+            50,
+            14
+          ],
+          "action_is_pad": [
+            4,
+            50
+          ],
+          "episode_index": [
+            4
+          ],
+          "index": [
+            4
+          ],
+          "next.done": [
+            4
+          ],
+          "observation.images.camera1": [
+            4,
+            3,
+            480,
+            640
+          ],
+          "observation.language.attention_mask": [
+            4,
+            48
+          ],
+          "observation.language.tokens": [
+            4,
+            48
+          ],
+          "observation.state": [
+            4,
+            14
+          ],
+          "task_index": [
+            4
+          ],
+          "timestamp": [
+            4
+          ]
+        },
+        "source": "R",
+        "targets_dtype": "torch.float32",
+        "targets_shape": [
+          4,
+          50,
+          14
+        ]
+      },
+      {
+        "D_stats_object_identity_preserved": true,
+        "actual_auxiliary_valid_slots": 50,
+        "actual_inputs": [
+          {
+            "episode": 43,
+            "frame": 0,
+            "slot": 0,
+            "source": "D",
+            "update": 1
+          },
+          {
+            "episode": 17,
+            "frame": 487,
+            "slot": 1,
+            "source": "D",
+            "update": 1
+          },
+          {
+            "episode": 3,
+            "frame": 290,
+            "slot": 2,
+            "source": "D",
+            "update": 1
+          },
+          {
+            "episode": 16,
+            "frame": 131,
+            "slot": 3,
+            "source": "S",
+            "update": 1
+          }
+        ],
+        "actual_original_camera_exact": true,
+        "arm": "C",
+        "continuous_actual_targets_exact": true,
+        "independent_normalization_bitwise_exact": {
+          "action": true,
+          "observation.images.camera1": true,
+          "observation.state": true
+        },
+        "normalization_modes": {
+          "ACTION": "MEAN_STD",
+          "STATE": "MEAN_STD",
+          "VISUAL": "IDENTITY"
+        },
+        "normalizer_epsilon": 1E-08,
+        "processed_shapes": {
+          "action": [
+            4,
+            50,
+            14
+          ],
+          "action_is_pad": [
+            4,
+            50
+          ],
+          "episode_index": [
+            4
+          ],
+          "index": [
+            4
+          ],
+          "next.done": [
+            4
+          ],
+          "observation.images.camera1": [
+            4,
+            3,
+            480,
+            640
+          ],
+          "observation.language.attention_mask": [
+            4,
+            48
+          ],
+          "observation.language.tokens": [
+            4,
+            48
+          ],
+          "observation.state": [
+            4,
+            14
+          ],
+          "task_index": [
+            4
+          ],
+          "timestamp": [
+            4
+          ]
+        },
+        "source": "S",
+        "targets_dtype": "torch.float32",
+        "targets_shape": [
+          4,
+          50,
+          14
+        ]
+      }
+    ],
+    "elapsed_seconds": 8.952374927699566,
+    "engineering_check_not_task_success": true,
+    "model_forward_calls": 0,
+    "optimizer_updates": 0,
+    "passed": true,
+    "physics_steps": 0,
+    "policy_weights_loaded": false,
+    "schema": "rosetta.real_paired_CPU_input_check.v1",
+    "shutdown_requested": false,
+    "source_sha256": "370b287eabbf13df89cdc7dd4c1e982da2602cd1c3f29df28984d27a5243a0c9"
+  },
+  "verification_scope": "Independent bytes/SHA/source bindings; numerical arithmetic was independently performed by remote helper, not repeated locally",
+  "engineering_check_not_task_success": true
+}

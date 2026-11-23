@@ -1,0 +1,56 @@
+{
+  "actual_success_count": 0,
+  "completion_sha256": "d108325d7ad7311acc7bf42377e2748ab6ebcc15f10bf89361b2be4de9b697b6",
+  "formal_gate_result": null,
+  "independent_episodes": [
+    {
+      "joint_limit_violations": 0,
+      "maximum_reward": 0.0,
+      "raw_clipped_fields": 0,
+      "rollout_length": 2,
+      "seed": 1000,
+      "success": false,
+      "unexpected_collisions": 1
+    },
+    {
+      "joint_limit_violations": 2,
+      "maximum_reward": 0.0,
+      "raw_clipped_fields": 0,
+      "rollout_length": 2,
+      "seed": 1001,
+      "success": false,
+      "unexpected_collisions": 2
+    },
+    {
+      "joint_limit_violations": 0,
+      "maximum_reward": 0.0,
+      "raw_clipped_fields": 0,
+      "rollout_length": 25,
+      "seed": 1002,
+      "success": false,
+      "unexpected_collisions": 2
+    },
+    {
+      "joint_limit_violations": 2,
+      "maximum_reward": 0.0,
+      "raw_clipped_fields": 0,
+      "rollout_length": 2,
+      "seed": 1003,
+      "success": false,
+      "unexpected_collisions": 1
+    },
+    {
+      "joint_limit_violations": 1,
+      "maximum_reward": 0.0,
+      "raw_clipped_fields": 0,
+      "rollout_length": 2,
+      "seed": 1004,
+      "success": false,
+      "unexpected_collisions": 1
+    }
+  ],
+  "plan_sha256": "39abec6dce8679c30bc5638abe17030af1c9d0d4018cd7e7892f4994867293e6",
+  "registered_seed_count": 5,
+  "shutdown_requested": false,
+  "status": "passed"
+}

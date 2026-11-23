@@ -1,0 +1,131 @@
+{
+  "schema": "rosetta.train_isolation.v1",
+  "plan_sha256": "dac391f87949acb11cf61cfd6aeb7fedac613ee80d7dc6c9febd864349534644",
+  "authorization": "isolated_decode_train_export_only",
+  "exports": [
+    {
+      "path": "train-00.parquet",
+      "sha256": "c55ae3ec2c93541dfee7ac611e9c20a3577b666df1cd15501a6e0db4d40c6187",
+      "bytes": 2279790,
+      "rows": 20000,
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "source_manifest_sha256": "97cce7b398ef79139109e5cac02cdfb2aeef8edf2c3360109c1c92fca93a34d5",
+      "source_files": [
+        {
+          "bytes": 855778,
+          "git_blob_sha1": "d2e9cb470162a500335f0cd55f5dc8aa0c9e166f",
+          "md5_base64": "FFBEtBt2JYrT9SExImluHw==",
+          "path": "data/chunk-000/file-000.parquet",
+          "sha256": "b56ca5d5cc69070b753b10578a8a0da6a4ec883e34bf9666b0c51c7c42b5c2b9",
+          "status": "downloaded"
+        },
+        {
+          "bytes": 847617,
+          "git_blob_sha1": "b0d237f9f2c48b5f3af64b9ebb43badd1eb537ac",
+          "md5_base64": "i+Cji8EAAhmYtDLE9S1OLg==",
+          "path": "data/chunk-000/file-001.parquet",
+          "sha256": "08a89503fe1dab024a0816d39a808edcce266696b8891210675b1b6ba8caa28e",
+          "status": "downloaded"
+        },
+        {
+          "bytes": 855579,
+          "git_blob_sha1": "17cf5bf5feaf90cc087e9a7397d870f775d6c130",
+          "md5_base64": "iW9JY3M5bxKWkEzSzxfS0Q==",
+          "path": "data/chunk-000/file-002.parquet",
+          "sha256": "1d65593f389d9446ddc84e6cfe8c18f38d1112652f7568b5a308234b58dfa750",
+          "status": "downloaded"
+        },
+        {
+          "bytes": 293268,
+          "git_blob_sha1": "249c0a8e356dd4f38da69546df4ca9daf571d867",
+          "md5_base64": "N6E+hAeVrFFlD5qYR51ZeQ==",
+          "path": "data/chunk-000/file-003.parquet",
+          "sha256": "54984c0d8b6e0b120ad31943c88bfda70c4a7c24b8fe00f7d1d7415e0c4993cd",
+          "status": "downloaded"
+        }
+      ],
+      "already_in_D": true,
+      "expected_episode_frames": 500
+    },
+    {
+      "path": "train-01.parquet",
+      "sha256": "c0433238599f34da719c2938c72d0d5a6726cd8079ae942388487f3c0d9a06ca",
+      "bytes": 2470065,
+      "rows": 16000,
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "source_manifest_sha256": "ca228cd85c1c1c179ee2551eb73c39c552e7ef69a996e79479c9dbbc60498458",
+      "source_files": [
+        {
+          "path": "data/chunk-000/file-000.parquet",
+          "bytes": 1223433,
+          "sha256": "ca1ac794a57aedc45665c7406938790af55371f128dac91a5e2f117b082cc56e",
+          "status": "downloaded"
+        },
+        {
+          "path": "data/chunk-000/file-001.parquet",
+          "bytes": 1223295,
+          "sha256": "0515a20b6eb63ab586be69db89e049b3650a987872baa654f59ef72545fa2d6c",
+          "status": "downloaded"
+        },
+        {
+          "path": "data/chunk-000/file-002.parquet",
+          "bytes": 954168,
+          "sha256": "351c78b99a4829ce3718aaf6ee91988f59c901071ed785ab0920cb597deb899f",
+          "status": "downloaded"
+        }
+      ],
+      "already_in_D": false,
+      "expected_episode_frames": 400
+    }
+  ],
+  "train_episodes": [
+    0,
+    2,
+    3,
+    4,
+    8,
+    9,
+    10,
+    11,
+    12,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    23,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    32,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    46,
+    47,
+    48,
+    49
+  ],
+  "protected_rows_may_be_decoded_inside_worker": true,
+  "protected_rows_exported": 0,
+  "hidden_not_decoded_claim": false,
+  "video_decoded": false,
+  "training_ready": false,
+  "elapsed_seconds": 0.2844683676958084
+}

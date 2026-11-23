@@ -1,0 +1,22 @@
+{
+  "run": "aloha-qualification-20260927-002",
+  "started_unix": 1790496206.3975968,
+  "work_deadline_unix": 1790496446.3975968,
+  "shutdown_deadline_unix": 1790496566.3975968,
+  "shutdown_authorized": true,
+  "platform_deadline_unix": 1790496600.0,
+  "source_workspace": "workspaces/20260927T080322Z-66a5bbcdbdcd-6592b19037ad",
+  "work_seconds": 240,
+  "shutdown_seconds": 360,
+  "retrieval_grace_seconds": 180,
+  "maximum_process_group_rss_bytes": 1073741824,
+  "maximum_evidence_bytes": 8388608,
+  "minimum_free_disk_bytes": 1073741824,
+  "model_forward_limit": 0,
+  "optimizer_updates": 0,
+  "simulation_rollouts": 0,
+  "automatic_retry_resume_training": false,
+  "plan_sha256": "d44bbd55d376145097ea8346ea0fba7df20e566c456ef6c11510c2f81bad6459",
+  "guard_sha256": "53bc4c8af8cfb8107cc8929314668fb2b149b46cb46e08ca50f4d6924531baaa",
+  "worker_sha256": "b8886ddc3fdc0f9c9fef2e3512f5bf410518660fb5b748ef7e04571d4629aba4"
+}

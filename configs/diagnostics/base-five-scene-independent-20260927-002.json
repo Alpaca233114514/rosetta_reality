@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "plan_id": "base-five-scene-independent-20260927-002",
+  "stage": "independent_base_five_scene_measurement",
+  "status": "preregistered",
+  "seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004
+  ],
+  "policy_noise_seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004
+  ],
+  "maximum_steps": 500,
+  "noise": "seeded_standard_normal",
+  "instruction": "Insert the peg into the socket.",
+  "hidden_test_loaded": false,
+  "formal_gate_result": null,
+  "shutdown_requested": false,
+  "model_revision": "c83c3163b8ca9b7e67c509fffd9121e66cb96205",
+  "model_sha256": "7cd549ac2351fb069c0ddb3c34ad2d09cfc92b56a15dccdfc2e41467aaca01eb",
+  "artifact_manifest_sha256": "6c35ef6e294ba50dae1e1961b042eaf1f42e988d48f876009da122be3d61cc77",
+  "action_contract_sha256": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+  "action_contract": {
+    "path": "configs/sim/aloha_insertion_smolvla.yaml"
+  },
+  "historical_base_gate3_status": "failed",
+  "historical_base_gate4_status": "not_measured",
+  "original_gate4_protocol_equivalent": false,
+  "resources": {
+    "evidence_bytes": 268435456,
+    "runtime": "autodl_container_instance",
+    "cuda_reserved_bytes": 10737418240,
+    "rss_bytes": 12884901888,
+    "cuda_allocated_bytes": 8589934592,
+    "nested_docker_used": false,
+    "maximum_seconds": 1800
+  },
+  "source_sha256": {
+    "scripts/diagnose_smolvla_base_five_scene.py": "ba939706562e85e97b596bfddf7ccfecc693ccb5e7b9af0b5aca05274139c19a",
+    "scripts/smolvla_sim_gate.py": "5b76127a2e2d0e0049181a1d0ab12297474cbc8eb433c4fcdb6466c35c53c5ae",
+    "scripts/smolvla_autodl_vfunfreeze_sim_gate.py": "f91ae1f5a61c2eb365bbb673caf86571954426b1e03fb27ffeb38bd1280cf777",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "src/rosetta_reality/vla/processor.py": "6751d4dd901da27e0a299bd9426fa484540e85dc12f1f1a62694e063d07e2384",
+    "tests/test_base_five_scene_diagnostic.py": "2408027ea74b6cb0dcc6e1380ca93ee6394588058fc9ac463ffc35444f619001",
+    "src/rosetta_reality/vla/action_space.py": "4321d7d76e39db8644500be4c02f6de89caadfd58832047fde493450df1cfbeb",
+    "src/rosetta_reality/sim/action_contract.py": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743"
+  }
+}

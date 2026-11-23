@@ -1,0 +1,34 @@
+{
+  "status": "train_isolation_and_row_audit_passed",
+  "phases": [
+    {
+      "phase": "regression",
+      "exit_code": 0,
+      "seconds": 0.2155606523156166
+    },
+    {
+      "phase": "synthetic-isolation",
+      "exit_code": 0,
+      "seconds": 0.8663545474410057
+    },
+    {
+      "phase": "real-isolation",
+      "exit_code": 0,
+      "seconds": 1.417426660656929
+    }
+  ],
+  "elapsed_seconds": 2.5329628586769104,
+  "frames": 36000,
+  "protected_rows_exported": 0,
+  "protected_rows_may_be_decoded_inside_worker": true,
+  "training_ready": false,
+  "model_loaded": false,
+  "optimizer_updates": 0,
+  "simulation_rollouts": 0,
+  "remaining_blockers": [
+    "video_alignment",
+    "verified_success_and_recovery_labels",
+    "matched_cohort_and_scene_parent_provenance",
+    "base_gate3_failed"
+  ]
+}

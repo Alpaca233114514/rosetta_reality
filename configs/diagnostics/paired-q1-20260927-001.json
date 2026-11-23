@@ -1,0 +1,75 @@
+{
+  "schema": "rosetta.paired_collection_plan.v2",
+  "id": "paired-q1-20260927-001",
+  "phase": "Q1",
+  "provider_id": "mink-coupled-translation-teacher-20260927-001",
+  "provider_qualified": false,
+  "provider_status": "experimental_source_not_qualified",
+  "authorization": "user_latest_authorizes_real_collection_independent_task_failure_does_not_skip_other_attempts",
+  "contract": "configs/sim/aloha_insertion_smolvla.yaml",
+  "max_steps": 500,
+  "correction_max_steps": 150,
+  "chunk_length": 50,
+  "fps": 50,
+  "work_cap_seconds": 1800,
+  "evidence_byte_cap": 268435456,
+  "recovery_sustain_steps": 5,
+  "deviation_min_joint_change_rad": 0.002,
+  "maximum_joint_delta_rad": 0.04,
+  "perturbation_total_steps": 1,
+  "forbidden_seeds": [
+    10,
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1900,
+    1901,
+    1902,
+    1903,
+    1904
+  ],
+  "forbidden_scene_fingerprints": [],
+  "protected_scene_inventory_complete": false,
+  "pairs": [
+    {
+      "pair_id": "q1-scene-2100",
+      "seed": 2100,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q1-scene-2101",
+      "seed": 2101,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q1-scene-2102",
+      "seed": 2102,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q1-scene-2103",
+      "seed": 2103,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    }
+  ],
+  "automatic_retries": false,
+  "shutdown_requested": false,
+  "scene_fingerprint_rule": "exact_reset_object_robot_eef_geometry_SHA256_with_separate_full_integration_SHA256",
+  "original_D_dev_hidden_isolation": "fingerprints_must_be_bound_before_final_training_admission",
+  "bank_criterion": "independent_registered_parent_after_one_real_deviation_and_source_actual_successful_recovery",
+  "resource_supervisor": "external_work_only_guard_required"
+}

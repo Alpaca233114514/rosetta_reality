@@ -1,0 +1,596 @@
+{
+  "schema": "rosetta.train_isolation.verification.v1",
+  "status": "passed",
+  "sources": [
+    {
+      "dataset": "lerobot/aloha_sim_insertion_human",
+      "revision": "cc571a3c661df81b566dbfde3d5c1e85fcdf7884",
+      "already_in_D": true,
+      "episodes": {
+        "0": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "2": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "3": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "4": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "8": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "9": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "10": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "11": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "12": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "14": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "15": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "16": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "17": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "18": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "19": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "20": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "21": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "23": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "25": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "26": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "27": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "28": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "29": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "30": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "32": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "34": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "35": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "36": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "37": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "38": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "39": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "40": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "41": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "42": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "43": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "44": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "46": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "47": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "48": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        },
+        "49": {
+          "frames": 500,
+          "done_frames": [
+            499
+          ],
+          "valid_target_slots": 23775
+        }
+      },
+      "frames": 20000,
+      "valid_target_slots": 951000,
+      "payload_sha256": "c55ae3ec2c93541dfee7ac611e9c20a3577b666df1cd15501a6e0db4d40c6187"
+    },
+    {
+      "dataset": "lerobot/aloha_sim_insertion_scripted",
+      "revision": "8ab660912970111cbb26738b11458e6fc4a4aed1",
+      "already_in_D": false,
+      "episodes": {
+        "0": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "2": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "3": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "4": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "8": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "9": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "10": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "11": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "12": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "14": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "15": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "16": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "17": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "18": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "19": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "20": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "21": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "23": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "25": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "26": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "27": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "28": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "29": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "30": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "32": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "34": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "35": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "36": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "37": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "38": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "39": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "40": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "41": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "42": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "43": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "44": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "46": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "47": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "48": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        },
+        "49": {
+          "frames": 400,
+          "done_frames": [
+            399
+          ],
+          "valid_target_slots": 18775
+        }
+      },
+      "frames": 16000,
+      "valid_target_slots": 751000,
+      "payload_sha256": "c0433238599f34da719c2938c72d0d5a6726cd8079ae942388487f3c0d9a06ca"
+    }
+  ],
+  "manifest_sha256": "f94a629e0e3e9301d66cdef8a00aad1e88d8d61d8069bd505bd42d037ca878cc",
+  "plan_sha256": "dac391f87949acb11cf61cfd6aeb7fedac613ee80d7dc6c9febd864349534644",
+  "protected_rows_observed_by_verifier": 0,
+  "protected_rows_may_be_decoded_inside_worker": true,
+  "finite_state_action": true,
+  "frame_time_alignment_verified": true,
+  "video_alignment_verified": false,
+  "success_recovery_labels_verified": false,
+  "done_is_not_success": true,
+  "training_ready": false
+}

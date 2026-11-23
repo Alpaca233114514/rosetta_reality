@@ -1,0 +1,128 @@
+{
+  "schema": "rosetta.q0_independent_batch.v1",
+  "status": "prepared",
+  "id": "q0-independent-checks-20260927-001",
+  "total_cap_seconds": 600,
+  "platform_target_unix": 1790510400,
+  "shutdown_authorized": true,
+  "platform_timer_owner": "user",
+  "platform_timer_verified": false,
+  "runtime_container_image_id": "autodl-platform-container-observed",
+  "prior_job_relative": "runs/q0-coupled-translation-20260927-001",
+  "prior_manifest_sha256": "b9ef3a845877d68dc5c054a4edfc6052930140d2e72c11c04a984b208f5fad87",
+  "source_sha256": {
+    "configs/runtime/autodl_rtx4090.yaml": "be2bfc3ea2a518c85e56410ba3ea1da6f744236d51b6f4a5f6a7b73927e9f992",
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62",
+    "reports/training/q0-independent-batch-plan-2026-09-27.md": "14f7b84fc9c0ee073498bd68682eca60d2bab30273f38fb603bf29d4b0d81982",
+    "reports/training/q0-refusal-boundaries-plan-2026-09-27.md": "92328130c16dce6cba0bd0b0d25ef57d7a4f111237f4358206c5db054039a7e1",
+    "reports/training/q0-state-restore-check-plan-2026-09-27.md": "a46764c52053067f2829ee6e7a2a8c6562c2be6526836b29c9db54dfe9202c45",
+    "scripts/audit_q0_screen_evidence.py": "44655be0a9a40957b33619250a1497f6946e000f1b5a4171e27afdb32a4b9da0",
+    "scripts/autodl_bounded_guard.py": "53bc4c8af8cfb8107cc8929314668fb2b149b46cb46e08ca50f4d6924531baaa",
+    "scripts/check_env.py": "cbbf49aace6ea88b310e0065a0cccc73b286a0840534139917b8b3e6e9e6ec21",
+    "scripts/check_q0_refusal_boundaries.py": "50036c10c97339de7548b58fe4ed53bc5b2c2e79d7f541feb63e764fbbdb85bf",
+    "scripts/check_q0_state_restore.py": "9579f677a06b828e6bf1abf6e36fa0a819301866992c358cc945b84334640336",
+    "scripts/q0_bounded_guard.py": "7e9e6a52d04cc21efd841db164512c5903c047f69d38360b9e78a37c83e33980",
+    "scripts/run_autodl.sh": "bc1b1f913bc06efd7821ac330748c0c537e6491c58a8a4bc0c43214534f2c90a",
+    "scripts/run_q0_independent_batch.py": "87fbeca042b5d3eb80ba331c2d7696036c5068cb3a40218ef300c30580dad02a",
+    "scripts/run_q0_screen_job.py": "1c39a2b02d164f6b01f51d7ff254df9a86276423dfd403e4020875420771e8e8",
+    "src/rosetta_reality/__init__.py": "b0e1bd910c6309ef845c1e18f3e9f6c4791a6a9ca235247b6b178d91f7858ae3",
+    "src/rosetta_reality/eval/__init__.py": "3ce5bf7d563fd6d80601575d5797b3835850bbd07c2bd2d885642777dd6e056a",
+    "src/rosetta_reality/eval/diagnostics.py": "79e3244b201983ae1b7196b8304dafe4444d0ec6f0353c6f7a6ba09b755b66f4",
+    "src/rosetta_reality/eval/dual_axis.py": "3ca65262511202addb00545f2640592a36e7ab1e79c4b90e115da0869b050a96",
+    "src/rosetta_reality/eval/gate_diagnostic_capture.py": "ae0488d9705dc17282358453de2d32bf3c43ebd548c265acd12bacf6d75b4ef2",
+    "src/rosetta_reality/eval/gate_diagnostic_io.py": "d78b67d432abde4f7c0fe6a51d8337c39dabad811636842feff9d96b7d3f365f",
+    "src/rosetta_reality/eval/gate_diagnostic_protocol.py": "fdbe4ee3f806d170a1fd0d891d15a891a210f02bdeafc0fd4dab6b88d5291be1",
+    "src/rosetta_reality/eval/gate_diagnostic_replay.py": "6df62ccaab40fb8aab129528458410cb1817b93fb5b64252b491c3b4f322aeef",
+    "src/rosetta_reality/eval/gate_diagnostic_report.py": "f5d33eb01c20bd463178ce01430d5d3c8dc56ef3186aad2d11af67a7c928bdf8",
+    "src/rosetta_reality/eval/gate_diagnostic_runtime.py": "c426f6ae70c7ea7b898148f320c4f2343ee1776ee9a1e90ea6a9ad992726ae51",
+    "src/rosetta_reality/eval/gate_diagnostic_training.py": "d3fb6386dc8d81fb2ce926fe212dcef7e074a6497eaf19d0fa89e47fc469502d",
+    "src/rosetta_reality/eval/gate_diagnostic_verify.py": "8e870e276ae4eb0d65a19bac2c9fe03cc25734689bd7c457a2a4aba8c1ed54a1",
+    "src/rosetta_reality/eval/metrics.py": "ec9aaa57f5502883e10dc16353af1a9a839db12f604a6a1cb916f333bfae5ed7",
+    "src/rosetta_reality/eval/reproducibility_capture.py": "df702f0c6efaeed357222b0ebbf3868abf6ef64d31d9ae509b5a8f3a1868d831",
+    "src/rosetta_reality/eval/reproducibility.py": "f588774bc758ac1352c1bd314c9fb2a54f33f9e435eb25817d2d653048338a8d",
+    "src/rosetta_reality/eval/rollout_trace_verify.py": "4b4dfc7501b64c10a9b37bb7a34b478654a00fc30635dc77720ef1fc15868faf",
+    "src/rosetta_reality/eval/rollout_trace.py": "54e50f5290f8c4c9fd6a2d89e736b70939c5ecab82e261c78d7693838adab539",
+    "src/rosetta_reality/experiment.py": "dec191397dfc86e2c36a2d42067f1ece73dea32721af0f1ce887f261cabc6b4e",
+    "src/rosetta_reality/sim/__init__.py": "dd8555389df4e5e74ff97f2f13c3a2d1163cfa48b3214da68c6aa54186943e14",
+    "src/rosetta_reality/sim/action_contract.py": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743",
+    "src/rosetta_reality/sim/coupled_translation_teacher.py": "540e6fa5f95edf1ec17d94ab64b7febc0492c9e816d1f230a63df53f0ed47074",
+    "src/rosetta_reality/sim/env.py": "23833bc38fa6ecca1ae5f36299f2fc6d5d11a22f11b27322cb7751c55fe04113",
+    "src/rosetta_reality/sim/geometric_teacher.py": "d28f99e81b7d81004883f15bdc91df0cdb146edd984bc1f01c3847f6d979c187",
+    "src/rosetta_reality/sim/geometry_teacher.py": "e0cf824bb2120a2eaa1955bcb8109f44fae5e26812546f09c341ed0933372d99",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "src/rosetta_reality/sim/mink_aloha_ik.py": "cdff063ce164dc5eb8137c6c8cbd66f5c102eb06f0842a0f92b64727f9e70583",
+    "src/rosetta_reality/sim/moveit_aloha_planner.py": "32107b371e2ca4674b07f6def009cca70e811ec40f3fed62f7f326f9c87b8957",
+    "src/rosetta_reality/sim/mujoco_position_feedforward.py": "2be1e16624e272955a4366c57fa019fc303a557d756c12edcb2530cb7b664fc4",
+    "src/rosetta_reality/sim/recovery_oracle.py": "0b781f11832cb2bd00d7b704ddf2a2f90b6f435a3785cb0b70af750a9413bd1d",
+    "src/rosetta_reality/sim/scripted_teacher_observer.py": "6f657d71c98bcaea883c8aa30f6f9f73fbd705f6987ba11f977cb92ac563b7a3",
+    "src/rosetta_reality/sim/scripted_teacher.py": "5d87d2c2a74341ecb522519de22e3941564be823ca19b147c906fbbb2668da20",
+    "src/rosetta_reality/sim/teacher_gate.py": "087be6d4f0e2a72c0d80838b7ae88737650994566af3d4b026ab18fdbc09cd72",
+    "tests/test_q0_bounded_guard_stdlib.py": "cf64029018a4d4ff3ab3d2397ba5cf60ca53ec08fca6def407778e013734161e",
+    "tests/test_q0_independent_batch_stdlib.py": "5b3c07fc7c676a4773bb71a5937132e9a6609684853943f104c367e4d22a91fe",
+    "tests/test_q0_refusal_boundaries.py": "3d71e2947a29ede6d1426bf289c512e1c923d673c6d3bd818ab67bddbe478c81",
+    "tests/test_q0_screen_supervisor_stdlib.py": "6f6be1893c00557003c755d4648f20f7813a3426f8f5f1ccb380ae9e75a386f5",
+    "tests/test_q0_state_restore_stdlib.py": "72676ec7adbf221913efa3125fbfb404d1c63d84df6b9b61a08087dfe821fad4"
+  },
+  "commands": [
+    {
+      "stage": "check_env",
+      "args": [
+        "python",
+        "scripts/check_env.py"
+      ],
+      "seconds": 60
+    },
+    {
+      "stage": "synthetic",
+      "args": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_q0_independent_batch_stdlib.py",
+        "tests/test_q0_state_restore_stdlib.py",
+        "tests/test_q0_bounded_guard_stdlib.py",
+        "tests/test_q0_screen_supervisor_stdlib.py",
+        "tests/test_q0_refusal_boundaries.py"
+      ],
+      "seconds": 120
+    },
+    {
+      "stage": "evidence_audit",
+      "args": [
+        "python",
+        "scripts/audit_q0_screen_evidence.py",
+        "--input",
+        "{prior_job}",
+        "--output",
+        "{job}/evidence-audit.json"
+      ],
+      "seconds": 60
+    },
+    {
+      "stage": "state_restore",
+      "args": [
+        "python",
+        "scripts/check_q0_state_restore.py",
+        "--output",
+        "{job}/state-restore.json"
+      ],
+      "seconds": 120
+    },
+    {
+      "stage": "refusal_boundaries",
+      "args": [
+        "python",
+        "scripts/check_q0_refusal_boundaries.py",
+        "--output",
+        "{job}/refusal-boundaries.json"
+      ],
+      "seconds": 120
+    }
+  ],
+  "provider_qualified": false,
+  "model_calls": 0,
+  "optimizer_updates": 0,
+  "environment_step_limit": 6,
+  "automatic_retry": false
+}

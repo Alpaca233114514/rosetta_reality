@@ -8,7 +8,7 @@ import math
 from pathlib import Path
 import time
 
-from rosetta_reality.diagnostics.cohort_qualification import file_sha, match, safe_path
+from rosetta_reality.diagnostics.cohort_qualification import file_sha, match, receipt_revision, safe_path
 
 
 def allowed_group(stats, allowed: set[int]) -> bool:
@@ -37,7 +37,7 @@ def inventory(plan: dict, data_root: Path, *, read_rows: bool = False) -> dict:
         if file_sha(receipt_path) != source["manifest_sha256"]:
             raise ValueError("Source receipt identity changed")
         receipt = json.loads(receipt_path.read_text())
-        if receipt.get("dataset", receipt.get("repo")) != source["dataset"] or receipt.get("revision") != source["revision"]:
+        if receipt.get("dataset", receipt.get("repo")) != source["dataset"] or receipt_revision(receipt) != source["revision"]:
             raise ValueError("Receipt dataset or revision binding mismatch")
         for item in receipt["files"]:
             relative = item["path"]

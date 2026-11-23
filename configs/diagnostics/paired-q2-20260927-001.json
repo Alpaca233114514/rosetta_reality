@@ -1,0 +1,207 @@
+{
+  "schema": "rosetta.paired_collection_plan.v2",
+  "id": "paired-q2-20260927-001",
+  "phase": "Q2",
+  "provider_id": "mink-coupled-translation-teacher-20260927-001",
+  "provider_qualified": false,
+  "provider_status": "experimental_source_not_qualified",
+  "authorization": "user_latest_authorizes_real_collection_independent_task_failure_does_not_skip_other_attempts",
+  "contract": "configs/sim/aloha_insertion_smolvla.yaml",
+  "max_steps": 500,
+  "correction_max_steps": 150,
+  "chunk_length": 50,
+  "fps": 50,
+  "work_cap_seconds": 7200,
+  "evidence_byte_cap": 1073741824,
+  "recovery_sustain_steps": 5,
+  "deviation_min_joint_change_rad": 0.002,
+  "maximum_joint_delta_rad": 0.04,
+  "perturbation_total_steps": 1,
+  "forbidden_seeds": [
+    10,
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1900,
+    1901,
+    1902,
+    1903,
+    1904,
+    2100,
+    2101,
+    2102,
+    2103
+  ],
+  "forbidden_scene_fingerprints": [],
+  "protected_scene_inventory_complete": false,
+  "pairs": [
+    {
+      "pair_id": "q2-scene-2200",
+      "seed": 2200,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2201",
+      "seed": 2201,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2202",
+      "seed": 2202,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2203",
+      "seed": 2203,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2204",
+      "seed": 2204,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2205",
+      "seed": 2205,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2206",
+      "seed": 2206,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2207",
+      "seed": 2207,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2208",
+      "seed": 2208,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2209",
+      "seed": 2209,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2210",
+      "seed": 2210,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2211",
+      "seed": 2211,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2212",
+      "seed": 2212,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2213",
+      "seed": 2213,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2214",
+      "seed": 2214,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2215",
+      "seed": 2215,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2216",
+      "seed": 2216,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2217",
+      "seed": 2217,
+      "trigger": "approach",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2218",
+      "seed": 2218,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": 0.04,
+      "perturbation_steps": 1
+    },
+    {
+      "pair_id": "q2-scene-2219",
+      "seed": 2219,
+      "trigger": "align",
+      "joint_name": "left_waist",
+      "joint_delta_rad": -0.04,
+      "perturbation_steps": 1
+    }
+  ],
+  "automatic_retries": false,
+  "shutdown_requested": false,
+  "scene_fingerprint_rule": "exact_reset_object_robot_eef_geometry_SHA256_with_separate_full_integration_SHA256",
+  "original_D_dev_hidden_isolation": "fingerprints_must_be_bound_before_final_training_admission",
+  "bank_criterion": "independent_registered_parent_after_one_real_deviation_and_source_actual_successful_recovery",
+  "resource_supervisor": "external_work_only_guard_required"
+}

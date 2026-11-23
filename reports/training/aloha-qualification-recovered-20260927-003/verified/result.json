@@ -1,0 +1,34 @@
+{
+  "run": "aloha-qualification-20260927-002",
+  "status": "q_inventory_completed_with_qualification_blockers",
+  "phases": [
+    {
+      "name": "regression",
+      "exit_code": 0
+    },
+    {
+      "name": "inventory",
+      "exit_code": 0
+    }
+  ],
+  "elapsed_seconds": 0.9589251577854156,
+  "source_files_verified": 21,
+  "source_bytes_verified": 162343250,
+  "data_parquet_files": 7,
+  "row_groups": 7,
+  "row_groups_read": 0,
+  "row_groups_skipped": 7,
+  "raw_frames_observed": 0,
+  "hidden_loaded": false,
+  "qualified_cohort_available": false,
+  "training_ready": false,
+  "optimizer_updates": 0,
+  "simulation_rollouts": 0,
+  "model_loaded": false,
+  "blockers": [
+    "shared_protected_row_groups_require_isolated_reader",
+    "success_recovery_labels_and_video_alignment_unverified",
+    "protected_scene_parent_inventory_and_matched_N_unsealed"
+  ],
+  "ordinary_success_not_inferred_from_next_done": true
+}

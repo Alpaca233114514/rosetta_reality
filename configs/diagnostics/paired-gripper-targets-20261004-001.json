@@ -1,0 +1,67 @@
+{
+  "schema": "rosetta.saved_command_grippers.v1",
+  "id": "paired-gripper-targets-20261004-001",
+  "execution_authorized": true,
+  "shutdown_authorized": false,
+  "hidden_test_loaded": false,
+  "cases": [
+    "teacher",
+    "A",
+    "B",
+    "C",
+    "A_teacher_grippers",
+    "B_teacher_grippers",
+    "C_teacher_grippers",
+    "teacher_A_grippers",
+    "teacher_B_grippers",
+    "teacher_C_grippers"
+  ],
+  "maximum_control_steps": 10,
+  "model_forward_calls": 0,
+  "optimizer_updates": 0,
+  "pair_id": "bank-003b-scene-2445",
+  "bank_root": "runs/paired-ABC-measurement-bank-20260928-001",
+  "substeps_per_control": 10,
+  "packages": {
+    "mujoco": "3.8.1",
+    "gym-aloha": "0.1.4",
+    "numpy": "2.2.6"
+  },
+  "installed_task_sha256": "842a8c8d03f425830412e0606a6124ea56f289b2d4a9cb2befc3df8f031caafe",
+  "source_sha256": {
+    "scripts/replay_paired_gripper_targets.py": "3c06fa88f8bc3605c498b07657cd566227e7ab80d33898025486df23b70e5537",
+    "scripts/run_round_experiment_job.py": "acff18892854a745946f86f216c4aa550bb25e67074d6afba7d28094638797c5",
+    "src/rosetta_reality/sim/gym_aloha.py": "e9c1005d0ae085e82e0c96e9d18527dce7d4749268a71756116cdffbb98d6e7d",
+    "src/rosetta_reality/sim/action_contract.py": "e6a42a4fc76a17d3babe0e32a4424fb7224438fce1832b897669bc3127c99743",
+    "configs/sim/aloha_insertion_smolvla.yaml": "fc71a0438f0e3af7258e5b52d82fa22fc53c12b47901606cbee715524392ac62"
+  },
+  "input_sha256": {
+    "runs/paired-ABC-measurement-bank-20260928-001/bank-003b-scene-2445/branch-python.json.gz": "9978748b175b35bfd9a176bdc1c7ee0192eba9251ad1992d3f4e96da53e69975",
+    "runs/paired-ABC-measurement-bank-20260928-001/bank-003b-scene-2445/branch-integration.npz": "84fe9f84e6d9cb8e7d68814364e3586a1708e590a5f337cb2397ad72f1fa99d3",
+    "runs/paired-ABC-measurement-bank-20260928-001/bank-003b-scene-2445/branch-observation.npz": "9e5fde405b7ecca9f35c001944c57e466ea780acd614ca7122ed0b6db660ea5e",
+    "runs/paired-ABC-measurement-bank-20260928-001/bank-003b-scene-2445/R/trace.jsonl": "033708d05d4199c0390bf6b6dc1f672cb0259c12e8905fc7bfe5565501655a4f",
+    "runs/paired-ABC-measurement-20260928-003/measurement-A/recovery-bank/bank-003b-scene-2445.jsonl": "bf3cc1b6d966748baa069af1449c785606657a18befb184f69ff824d995e865f",
+    "runs/paired-ABC-measurement-20260928-003/measurement-B/recovery-bank/bank-003b-scene-2445.jsonl": "af4be5f79b5f77c366ada2d662272ea70486c1af7bbe629f303a5a43281f7898",
+    "runs/paired-ABC-measurement-20260928-003/measurement-C/recovery-bank/bank-003b-scene-2445.jsonl": "fe5591d6ebd0d3156480594ea947efb09b7be3450e28eec4023d4f290347bf8b",
+    "runs/paired-saved-command-physics-20261004-002/physics-readout/teacher.json": "8f96d174fc9d38c0b0ddad50eba6d6e102003bea5dfd98522eaa743d334332f3",
+    "runs/paired-saved-command-physics-20261004-002/physics-readout/A.json": "3bc105288efb37ba0d57e4e16e448b02835a5fbda7e3c494cb64a7fa1b97aadd",
+    "runs/paired-saved-command-physics-20261004-002/physics-readout/B.json": "62e0c4b0d49880f77932a5031a7c9bf1057841dd45689cbedb8f619be02e76b1",
+    "runs/paired-saved-command-physics-20261004-002/physics-readout/C.json": "5c52cdd350fd5d5edc791b8fe897d0be09d889083981cb405e41e2ad6e418dad"
+  },
+  "measurement_traces": {
+    "A": "runs/paired-ABC-measurement-20260928-003/measurement-A/recovery-bank/bank-003b-scene-2445.jsonl",
+    "B": "runs/paired-ABC-measurement-20260928-003/measurement-B/recovery-bank/bank-003b-scene-2445.jsonl",
+    "C": "runs/paired-ABC-measurement-20260928-003/measurement-C/recovery-bank/bank-003b-scene-2445.jsonl"
+  },
+  "scientific_boundary": "Single command axis: replace only gripper targets at indices 6 and 13, reciprocal across each arm. Four exact saved physical controls must pass before six interventions. No inference or full observation/owner restoration; diagnose only the saved command at scene 2445.",
+  "intervention_indices": [
+    6,
+    13
+  ],
+  "baseline_readouts": {
+    "teacher": "runs/paired-saved-command-physics-20261004-002/physics-readout/teacher.json",
+    "A": "runs/paired-saved-command-physics-20261004-002/physics-readout/A.json",
+    "B": "runs/paired-saved-command-physics-20261004-002/physics-readout/B.json",
+    "C": "runs/paired-saved-command-physics-20261004-002/physics-readout/C.json"
+  }
+}

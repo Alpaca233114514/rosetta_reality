@@ -1,0 +1,164 @@
+{
+  "schema": "rosetta.paired_collection_local_independent_verification.v1",
+  "passed": true,
+  "scope": "all_original_manifest_member_size_sha_and_saved_audit_bindings_with_local_counter_and_scientific_classification_recomputation",
+  "source": ".work/paired-q1-v3-20260927-001-root-received/extracted",
+  "manifest_sha256": "02a35b635956db038cbfbb6547a3d5176cd5204b03c91cbaf3e5e9aac18f470c",
+  "summary_sha256": "7bf1de1e1d39b335fb129d9ff53a426420604912c98da754ddf8a3115dff8d16",
+  "audit_sha256": "11be25d1dd1d1066edc619b079f062b20127408e35da25d24f544f459e317526",
+  "numerics_sha256": "934b81e067d50043aa2174f4f9026538c06a9f684969b542e493e24d66b5faae",
+  "files_verified": 1584,
+  "bytes_verified": 96320349,
+  "registered_pairs": 4,
+  "registered_logical_attempts": 8,
+  "logical_trajectory_frames": 2074.0,
+  "shared_prefix_physical_steps": 659.0,
+  "engineering_restore_steps": 14,
+  "actual_physical_steps": 1429,
+  "task_success_logical_attempts": 4,
+  "task_success_S": 2,
+  "task_success_R": 2,
+  "R_geometry_recovery_events": 2,
+  "R_verified_recovery_chains": 1,
+  "logical_safety_stops": 2,
+  "unmeasured_attempts": 0,
+  "candidate_matched_N": 1,
+  "N_strict": 0,
+  "N_exploratory": 0,
+  "pilot_training_admitted_N": 0,
+  "cached_branch_input_remote_independently_verified": true,
+  "legacy_object_scene_nonoverlap": "not_established",
+  "teacher_qualified": false,
+  "model_calls": 0,
+  "optimizer_steps": 0,
+  "attempts": [
+    {
+      "attempt_id": "q1-003b-scene-2410-S",
+      "status": "task_failed",
+      "rows": 500,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q1-003b-scene-2410-R",
+      "status": "correction_timeout",
+      "rows": 338,
+      "task_success": false,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 199,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q1-003b-scene-2411-S",
+      "status": "success",
+      "rows": 296,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q1-003b-scene-2411-R",
+      "status": "success",
+      "rows": 302,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": {
+        "criterion": "both_grasps",
+        "step": 188,
+        "sustain_steps": 5
+      },
+      "verified_recovery_chain": true
+    },
+    {
+      "attempt_id": "q1-003b-scene-2412-S",
+      "status": "success",
+      "rows": 278,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q1-003b-scene-2412-R",
+      "status": "success",
+      "rows": 278,
+      "task_success": true,
+      "safety_stop": false,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q1-003b-scene-2413-S",
+      "status": "safety_stop",
+      "rows": 41,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    },
+    {
+      "attempt_id": "q1-003b-scene-2413-R",
+      "status": "safety_stop",
+      "rows": 41,
+      "task_success": false,
+      "safety_stop": true,
+      "recovery": null,
+      "verified_recovery_chain": false
+    }
+  ],
+  "pair_exclusions": [
+    {
+      "R": "q1-003b-scene-2410-R",
+      "S": "q1-003b-scene-2410-S",
+      "matched": false,
+      "pair_id": "q1-003b-scene-2410",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q1-003b-scene-2411-R",
+      "S": "q1-003b-scene-2411-S",
+      "matched": true,
+      "pair_id": "q1-003b-scene-2411",
+      "reasons": [],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q1-003b-scene-2412-R",
+      "S": "q1-003b-scene-2412-S",
+      "matched": false,
+      "pair_id": "q1-003b-scene-2412",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    },
+    {
+      "R": "q1-003b-scene-2413-R",
+      "S": "q1-003b-scene-2413-S",
+      "matched": false,
+      "pair_id": "q1-003b-scene-2413",
+      "reasons": [
+        "R_missing_recovery_chain",
+        "fewer_than_50_common_legal_chunks",
+        "no_safe_task_success:R",
+        "no_safe_task_success:S",
+        "pre_deviation_prefix_not_exact"
+      ],
+      "sampling_rule": "symmetric_common_legal_chunk_grid_v1"
+    }
+  ]
+}

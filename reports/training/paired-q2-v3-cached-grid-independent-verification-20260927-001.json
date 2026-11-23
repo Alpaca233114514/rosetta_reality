@@ -1,0 +1,241 @@
+{
+  "schema": "rosetta.paired_formal_cached_grid_local_verification.v1",
+  "passed": true,
+  "source_manifest_sha256": "5d44dc89a572f0247b52d24acc3beab997864dbda82d8e3c9195d04b812a5a30",
+  "shared_logical_prefix_rows_compared": 8310,
+  "shared_fields_compared": 99720,
+  "cached_actual_first_branch_inputs_verified": 16,
+  "cache_checks": [
+    {
+      "parent": "q2-003b-scene-2425",
+      "role": "S",
+      "fork_step": 188,
+      "input": "q2-003b-scene-2425/S/frame-0188.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "77e38826cf11ef47edc8c33f53c08ce745ce87f8271675b0fe8955526c7b6c2a"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2425",
+      "role": "R",
+      "fork_step": 188,
+      "input": "q2-003b-scene-2425/R/frame-0188.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "77e38826cf11ef47edc8c33f53c08ce745ce87f8271675b0fe8955526c7b6c2a"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2426",
+      "role": "S",
+      "fork_step": 289,
+      "input": "q2-003b-scene-2426/S/frame-0289.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "d7076ec8276db79111dc4d9380eca4728c365a1d7c6d89393b0d2097a1cb9b60"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2426",
+      "role": "R",
+      "fork_step": 289,
+      "input": "q2-003b-scene-2426/R/frame-0289.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "d7076ec8276db79111dc4d9380eca4728c365a1d7c6d89393b0d2097a1cb9b60"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2429",
+      "role": "S",
+      "fork_step": 221,
+      "input": "q2-003b-scene-2429/S/frame-0221.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "42940ec2be54169f4779c5b0440ee0880a1295ec62ab3566197e5c21ce0731c0"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2429",
+      "role": "R",
+      "fork_step": 221,
+      "input": "q2-003b-scene-2429/R/frame-0221.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "42940ec2be54169f4779c5b0440ee0880a1295ec62ab3566197e5c21ce0731c0"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2430",
+      "role": "S",
+      "fork_step": 277,
+      "input": "q2-003b-scene-2430/S/frame-0277.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "c542699596d7b3f1fca752c1b4cf3dab2090ee66cba910e37682ec35dbef608c"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2430",
+      "role": "R",
+      "fork_step": 277,
+      "input": "q2-003b-scene-2430/R/frame-0277.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "c542699596d7b3f1fca752c1b4cf3dab2090ee66cba910e37682ec35dbef608c"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2432",
+      "role": "S",
+      "fork_step": 190,
+      "input": "q2-003b-scene-2432/S/frame-0190.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "71fa89caee9291b32d7ca03c3cdf8349ef08da450d94fdb4c3ba766fb3aaecc8"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2432",
+      "role": "R",
+      "fork_step": 190,
+      "input": "q2-003b-scene-2432/R/frame-0190.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "71fa89caee9291b32d7ca03c3cdf8349ef08da450d94fdb4c3ba766fb3aaecc8"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2435",
+      "role": "S",
+      "fork_step": 293,
+      "input": "q2-003b-scene-2435/S/frame-0293.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "0fef9de1fb2e740d7b4dda6877b60e3ea9772f76261a720cb4d6ccae465a6595"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2435",
+      "role": "R",
+      "fork_step": 293,
+      "input": "q2-003b-scene-2435/R/frame-0293.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "0fef9de1fb2e740d7b4dda6877b60e3ea9772f76261a720cb4d6ccae465a6595"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2436",
+      "role": "S",
+      "fork_step": 203,
+      "input": "q2-003b-scene-2436/S/frame-0203.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "5c3282c9ab5218573834ca1fa7dfed01ab073a37a134ee48efb571d5d7b70229"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2436",
+      "role": "R",
+      "fork_step": 203,
+      "input": "q2-003b-scene-2436/R/frame-0203.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "5c3282c9ab5218573834ca1fa7dfed01ab073a37a134ee48efb571d5d7b70229"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2437",
+      "role": "S",
+      "fork_step": 178,
+      "input": "q2-003b-scene-2437/S/frame-0178.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "fca0d3b31f3ca0bdef0138af8081c6c17db6862b27575e249498dd3044a68937"
+        }
+      },
+      "pixel_state_exact": true
+    },
+    {
+      "parent": "q2-003b-scene-2437",
+      "role": "R",
+      "fork_step": 178,
+      "input": "q2-003b-scene-2437/R/frame-0178.npz",
+      "decoded_member_identity": {
+        "top.npy": {
+          "bytes": 921728,
+          "sha256": "fca0d3b31f3ca0bdef0138af8081c6c17db6862b27575e249498dd3044a68937"
+        }
+      },
+      "pixel_state_exact": true
+    }
+  ],
+  "actual_physical_safety_events": 8,
+  "logical_safety_failed_attempts": 16,
+  "actual_formal_parent": "q2-003b-scene-2436",
+  "registered_deviation_step": 203,
+  "actual_joint_movement_rad": 0.003611527383327484,
+  "actual_command_delta_rad": 0.03999999910593033,
+  "correction_start": 204,
+  "recovery_window_start": 212,
+  "recovery_window_end": 216,
+  "terminal_success_step": 301,
+  "raw_S_legal_starts": 254,
+  "raw_R_legal_starts": 203,
+  "S_symmetric_excluded": 50,
+  "S_unshared": 1,
+  "R_unshared": 0,
+  "common_input_frames_per_role": 203,
+  "common_valid_slots_per_role": 10150,
+  "cohort_grid_matches_original_sampler": true,
+  "raw_trajectories_or_labels_changed": false,
+  "N_strict": 0,
+  "N_exploratory": 1,
+  "legacy_object_scene_nonoverlap": "not_established",
+  "teacher_qualified": false
+}

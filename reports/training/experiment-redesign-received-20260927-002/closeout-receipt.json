@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-09-27T09:17:33.330Z",
+  "platform_20497": "stopped",
+  "platform_44126": "stopped",
+  "platform_deadline_20497_local": "2026-09-27 17:20:00 Asia/Shanghai",
+  "release_requested": false,
+  "collection_started": false,
+  "model_forwards": 0,
+  "optimizer_updates": 0,
+  "simulation_steps": 0,
+  "received_files_verified": 17,
+  "received_bytes_verified": 491186,
+  "manifest_sha256": "16fce5ac6ee3f31dddc1d00198f84e698738777419f4eb4e5125ea4ad88df39a",
+  "verification": "fresh platform DOM read after explicit shutdown; screenshot recorded",
+  "approval_review": "initial no-card startup rejected; user subsequently explicitly authorized same scoped operation",
+  "independent_nocard_shutdown_guard_deployed": false,
+  "scope": "remote search and design document revision only; local received copy"
+}
