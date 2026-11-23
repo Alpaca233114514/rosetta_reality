@@ -80,3 +80,15 @@ M2 必须有可追溯、可导出、独立 reload 的 checkpoint，且通过注�
 - 公开 Trackio 仅同步经审查的指标、非敏感超参数、不可变 revision、资源与 run 状态；不上传凭证、主机路径、原始样本、对话、完整日志、checkpoint 或未审查媒体。
 - 权重、数据、Feature Cache 和大型生成物不进 Git。保留配置、版本、seed/split、协议、环境、人工介入及负结果；不以 proxy metric 代替真实任务验收。
 - 对外发布须明确目标仓库与版本授权、许可证检查、Model Card/输入输出合同与独立公开 reload 验证。ER/VLA artifact 不混用；优先发布实际修改的 policy/head/adapter，完整权重须另获授权。未验证真机时标注 experimental / research only。
+
+## Robotics 插件配合约定
+
+如当前会话加载了 `robotics` 插件（含 MuJoCo/规划/sim2real skills、asset/Studio rules 与 Studio sidecar），可按以下分级配合使用；任何情况下本文件的离线容器边界、版本锁定（`pyproject.toml` 中 `mujoco==3.8.1`）、下载/对外发布授权、Action Contract 与 Gate 1–4 合同优先级高于插件默认流程。
+
+- **直接配合**：`mujoco-python`、`mujoco-rendering`、`mujoco-spec-editing` 用于 `src/rosetta_reality/sim/` 的 `MjModel`/`MjData` 调试、headless 渲染（`MUJOCO_GL`）与建模参考；`iteration` 用于分阶段验证、rollout 视频独立复盘及“释放稳定后实测”纪律；`motion-planning` 仅作 ALOHA 避障与规划排查参考，不得绕过 Action Contract、既有容器或冻结评测协议。仓库内已提供零新增依赖的原生适配入口：`src/rosetta_reality/eval/paired_scorecard.py`（配对 CRN 精确 McNemar 与安全一票否决）与 `src/rosetta_reality/sim/mujoco_diagnostics.py`（`mujoco==3.8.1` / `GymAlohaEnvironment` 编译模型 preflight 审计、`mjSTATE_INTEGRATION` 确定性分叉回放与离屏渲染封装）。
+- **受限使用（需防依赖与环境冲突）**：
+  - `mujoco-studio`、`mujoco-studio-sidecar`、`mujoco-gui` 及 Studio workflow 规则依赖 `mujoco>=4.0.1` 且默认宿主机安装 venv，与本项目锁定的 `mujoco==3.8.1` 和容器隔离冲突；未经明确授权不得升级项目/宿主机 MuJoCo 或在宿主机建 venv，仅在用户明确要求独立 3D 预览时隔离使用。
+  - `sim2real-gauntlet`、`sim2real-iteration` 原版代码依赖 `mujoco-playground`/`reaf-sim` `DeviceLayer`，与当前 `gym-aloha` 不直接兼容；优先使用上述两个仓库内适配模块，不得替代既有 Gate 1–4 或未经授权新增依赖。
+  - `mujoco-audit`、`mujoco-showcase-shot`、`blender-creation` 及资产规范规则仅用于新增或审计自定义 MJCF 资产；禁止通过 `uv run` 擅自联网拉包，禁止改动冻结的 ALOHA 评测资产。
+  - `rgb-object-localization`、`visual-servoing` 不得在未经授权时调用外部 API（如 `GEMINI_API_KEY`）或下载权重（如 Kornia），仅作离线算法参考。
+- **默认不触发 / 禁用**：异构真机与未接入后端（`so101-*`、`i2rt-yam-*`、`fr3-duo-control`、`mujoco-playground*`、`mujoco-accelerated`、`mujoco-parity`）在未登记对应任务前不启用；`share-example` 会打包会话日志与工作区文件用于外部 GitHub Discussions，默认禁用，须先履行“记录与发布”授权与脱敏审查。
